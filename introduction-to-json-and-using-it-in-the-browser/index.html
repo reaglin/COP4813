@@ -1,0 +1,343 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to JSON and Using It in the Browser — COP4813</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: #f4f6f9;
+      color: #2c3e50;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── Page Shell ── */
+    .page-wrapper {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+
+    /* ── Header / Hero ── */
+    .module-header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
+      color: #ffffff;
+      border-radius: 10px;
+      padding: 2.5rem 2.25rem;
+      margin-bottom: 2.25rem;
+      box-shadow: 0 4px 18px rgba(37, 99, 168, 0.22);
+    }
+
+    .course-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background-color: rgba(255, 255, 255, 0.18);
+      color: #d6e8ff;
+      border-radius: 4px;
+      padding: 0.2rem 0.65rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .module-header h1 {
+      font-size: clamp(1.45rem, 3.5vw, 2rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .module-header p {
+      font-size: 0.97rem;
+      color: #cfe0f7;
+      max-width: 700px;
+      line-height: 1.65;
+    }
+
+    /* ── Section Label ── */
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #6b7f95;
+      margin-bottom: 1rem;
+      padding-left: 0.1rem;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.35rem;
+    }
+
+    /* ── Artifact Card ── */
+    .artifact-card {
+      background: #ffffff;
+      border: 1px solid #dce4ef;
+      border-radius: 9px;
+      padding: 1.5rem 1.5rem 1.4rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.055);
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .artifact-card:hover {
+      box-shadow: 0 6px 20px rgba(37, 99, 168, 0.13);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card Top Row ── */
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .card-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 7px;
+      background-color: #e8f0fb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .card-icon svg {
+      width: 18px;
+      height: 18px;
+      fill: #2563a8;
+    }
+
+    /* ── Card Name & Links ── */
+    .card-name-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .artifact-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      line-height: 1.3;
+      word-break: break-word;
+    }
+
+    .artifact-name a {
+      color: #1a5fb4;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.18s ease, color 0.18s ease;
+    }
+
+    .artifact-name a:hover,
+    .artifact-name a:focus {
+      color: #1042a0;
+      border-bottom-color: #1042a0;
+      outline: none;
+    }
+
+    .artifact-name a:focus-visible {
+      outline: 3px solid #4a90d9;
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    /* ── Source Link ── */
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.28rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #5a7a99;
+      text-decoration: none;
+      background-color: #f0f5fb;
+      border: 1px solid #c8d9ee;
+      border-radius: 4px;
+      padding: 0.15rem 0.48rem;
+      width: fit-content;
+      transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background-color: #dbeafe;
+      color: #1a5fb4;
+      border-color: #93c5fd;
+      outline: none;
+    }
+
+    .source-link:focus-visible {
+      outline: 3px solid #4a90d9;
+      outline-offset: 2px;
+    }
+
+    .source-link svg {
+      width: 11px;
+      height: 11px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* ── Badges ── */
+    .badge-row {
+      display: flex;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border-radius: 4px;
+      padding: 0.18rem 0.52rem;
+    }
+
+    .badge-type {
+      background-color: #eef2ff;
+      color: #3730a3;
+      border: 1px solid #c7d2fe;
+    }
+
+    .badge-filetype {
+      background-color: #f0fdf4;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    /* ── Description ── */
+    .artifact-description {
+      font-size: 0.875rem;
+      color: #4a5c6e;
+      line-height: 1.6;
+      border-top: 1px solid #edf2f7;
+      padding-top: 0.65rem;
+      margin-top: auto;
+    }
+
+    /* ── Footer ── */
+    .page-footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.78rem;
+      color: #8fa5bb;
+    }
+
+    /* ── Responsive tweaks ── */
+    @media (max-width: 520px) {
+      .module-header {
+        padding: 1.75rem 1.25rem;
+      }
+
+      .artifact-card {
+        padding: 1.2rem 1.15rem 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <!-- ── Module Header ── -->
+    <header class="module-header" role="banner">
+      <span class="course-label">COP4813</span>
+      <h1>Introduction to JSON and Using It in the Browser</h1>
+      <p>
+        This module introduces JSON (JavaScript Object Notation) as a lightweight data-interchange
+        format and explores how to work with it directly in the browser. Topics range from
+        understanding JSON syntax and supported data types to parsing and stringifying data
+        programmatically, and fetching remote JSON resources via the browser's built-in APIs.
+      </p>
+    </header>
+
+    <!-- ── Artifacts Section ── -->
+    <main>
+      <p class="section-label" aria-label="Artifacts section">Module Artifacts</p>
+
+      <div class="card-grid" role="list">
+
+        <!-- ── Card: Module Topics ── -->
+        <article class="artifact-card" role="listitem" aria-label="Artifact: Module Topics">
+
+          <div class="card-top">
+            <!-- JSON / document icon -->
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1
+                         1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6zm2-5h8v1.5H8V15zm0-3h8v1.5H8V12z"/>
+              </svg>
+            </div>
+
+            <div class="card-name-row">
+              <span class="artifact-name">
+                <!-- viewHref is non-empty → link -->
+                <a href="content/module_topics.html">Module Topics</a>
+              </span>
+              <!-- sourceHref is non-empty → secondary source link -->
+              <a class="source-link" href="source/hierarchy.json" aria-label="Source file for Module Topics">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0
+                           2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zm1 10.5H10v-1.5h4V14zm0-3H10v-1.5h4V11z"/>
+                </svg>
+                source file
+              </a>
+            </div>
+          </div>
+
+          <div class="badge-row">
+            <span class="badge badge-type">Module Topics</span>
+            <span class="badge badge-filetype">.json</span>
+          </div>
+
+          <p class="artifact-description">
+            Outlines the module's core topics — including JSON definitions, syntax, data types,
+            parsing with <code>JSON.parse()</code>, stringifying with <code>JSON.stringify()</code>,
+            and fetching JSON in the browser — serving as a navigational overview for learners and
+            instructors to see what the module covers and in what order.
+          </p>
+
+        </article>
+        <!-- end card -->
+
+      </div><!-- /.card-grid -->
+    </main>
+
+    <!-- ── Footer ── -->
+    <footer class="page-footer" role="contentinfo">
+      COP4813 &mdash; Introduction to JSON and Using It in the Browser
+    </footer>
+
+  </div><!-- /.page-wrapper -->
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics</h2><p><a href="topics.html">View Topics</a></p></section></body>
+</html>

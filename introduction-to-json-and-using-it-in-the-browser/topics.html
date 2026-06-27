@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introduction to JSON and Using It in the Browser — Module Topics</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.2rem;margin-top:28px;color:#1a3c6e}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<h1>Introduction to JSON and Using It in the Browser — Module Topics</h1>
+<h2>What is JSON?</h2>
+<div class="summary">An introduction to the JSON (JavaScript Object Notation) data format, its purpose, and why it is widely used for data interchange on the web.</div>
+<ul>
+<li><strong>Definition of JSON</strong> <span class="el-body">— JSON stands for JavaScript Object Notation, a lightweight text-based format for representing structured data.</span></li>
+<li><strong>Purpose of JSON</strong> <span class="el-body">— JSON is designed primarily to serve as a data interchange format, allowing different systems and applications to exchange information in a common structure.</span></li>
+<li><strong>JSON Structure and Syntax</strong> <span class="el-body">— JSON data is organized as key-value pairs (objects) or ordered lists (arrays), following a strict but simple set of syntax rules.</span></li>
+<li><strong>Why JSON is Widely Used on the Web</strong> <span class="el-body">— JSON has become the dominant data format for web APIs and browser-server communication due to its simplicity, readability, and native compatibility with JavaScript.</span></li>
+<li><strong>JSON vs. JavaScript Objects</strong> <span class="el-body">— While JSON looks very similar to a JavaScript object literal, the two are distinct: JSON is a text string, whereas a JavaScript object is a live, in-memory data structure.</span></li>
+</ul>
+<h2>JSON Syntax and Structure</h2>
+<div class="summary">An exploration of the rules and structure of valid JSON, including data types, objects, arrays, and formatting conventions.</div>
+<ul>
+<li><strong>What Is JSON?</strong> <span class="el-body">— JSON (JavaScript Object Notation) is a lightweight, text-based data format used to represent structured data.</span></li>
+<li><strong>JSON Data Types</strong> <span class="el-body">— JSON supports a limited but versatile set of data types that can be used as values within a JSON structure.</span></li>
+<li><strong>JSON Objects</strong> <span class="el-body">— A JSON object is an unordered collection of key-value pairs enclosed in curly braces {}.</span></li>
+<li><strong>JSON Arrays</strong> <span class="el-body">— A JSON array is an ordered list of values enclosed in square brackets [].</span></li>
+<li><strong>JSON Formatting Conventions</strong> <span class="el-body">— Valid JSON must follow strict formatting rules that differ from relaxed JavaScript object syntax.</span></li>
+<li><strong>Nested Structures in JSON</strong> <span class="el-body">— JSON&#39;s true power lies in its ability to represent complex, hierarchical data through nesting of objects and arrays.</span></li>
+</ul>
+<h2>Parsing JSON in JavaScript</h2>
+<div class="summary">How to convert a JSON string into a usable JavaScript object using JSON.parse(), including handling common errors.</div>
+<ul>
+<li><strong>What Is JSON Parsing?</strong> <span class="el-body">— Parsing JSON means converting a JSON-formatted string into a native JavaScript object that your code can work with directly.</span></li>
+<li><strong>Using JSON.parse()</strong> <span class="el-body">— The built-in JSON.parse() method is the standard way to convert a valid JSON string into a JavaScript object or array.</span></li>
+<li><strong>Valid JSON Requirements Before Parsing</strong> <span class="el-body">— JSON.parse() will only succeed if the input string is strictly valid JSON, which follows slightly different rules than JavaScript object literals.</span></li>
+<li><strong>Handling Errors with try...catch</strong> <span class="el-body">— If JSON.parse() receives an invalid JSON string, it throws a SyntaxError, so wrapping it in a try...catch block is essential for robust code.</span></li>
+<li><strong>Parsing JSON Arrays</strong> <span class="el-body">— JSON strings can represent arrays at the top level, and JSON.parse() handles these just as naturally as it handles objects.</span></li>
+<li><strong>Using the Reviver Function</strong> <span class="el-body">— JSON.parse() accepts an optional second argument called a reviver function, which lets you transform parsed values as they are being built.</span></li>
+</ul>
+<h2>Stringifying JavaScript Objects to JSON</h2>
+<div class="summary">How to convert JavaScript objects into JSON strings using JSON.stringify(), and when this operation is needed in web development.</div>
+<ul>
+<li><strong>What Is JSON.stringify()?</strong> <span class="el-body">— JSON.stringify() is a built-in JavaScript method that converts a JavaScript object or value into a JSON-formatted string.</span></li>
+<li><strong>Basic Syntax and Parameters</strong> <span class="el-body">— JSON.stringify() accepts up to three arguments: the value to convert, an optional replacer, and an optional space parameter for formatting.</span></li>
+<li><strong>When Stringification Is Needed in Web Development</strong> <span class="el-body">— Stringifying JavaScript objects is required whenever you need to send data from the browser to a server or store structured data as text.</span></li>
+<li><strong>How JSON.stringify() Handles Different Data Types</strong> <span class="el-body">— Not all JavaScript values are represented the same way — or at all — when converted to a JSON string.</span></li>
+<li><strong>Using the Replacer to Control Output</strong> <span class="el-body">— The replacer parameter gives you fine-grained control over which properties are included when stringifying an object.</span></li>
+<li><strong>Pretty-Printing JSON with the Space Argument</strong> <span class="el-body">— The optional third argument to JSON.stringify() formats the output with indentation, making it human-readable.</span></li>
+</ul>
+<h2>Fetching JSON Data with the Fetch API</h2>
+<div class="summary">How to use the modern Fetch API to retrieve JSON data from a server or external source and process the response in the browser.</div>
+<ul>
+<li><strong>Introduction to the Fetch API</strong> <span class="el-body">— The Fetch API is a modern, promise-based interface built into browsers that allows JavaScript to make HTTP requests to servers or external URLs.</span></li>
+<li><strong>Making a Basic Fetch Request</strong> <span class="el-body">— Calling fetch() with a URL initiates an HTTP GET request and returns a Promise that you must handle to access the response data.</span></li>
+<li><strong>Parsing the JSON Response</strong> <span class="el-body">— The Response object returned by fetch() provides a .json() method that reads the response body and parses it as JSON, returning another Promise.</span></li>
+<li><strong>Using async/await with Fetch</strong> <span class="el-body">— The async/await syntax provides a cleaner, more synchronous-looking way to write fetch requests and handle JSON responses.</span></li>
+<li><strong>Handling Errors in Fetch Requests</strong> <span class="el-body">— The Fetch API only rejects its Promise for network-level failures; HTTP error statuses like 404 or 500 must be checked manually.</span></li>
+<li><strong>Displaying Fetched JSON Data in the Browser</strong> <span class="el-body">— Once the JSON response is parsed into a JavaScript object, you can use DOM manipulation methods to render the data dynamically on the web page.</span></li>
+</ul>
+<h2>Fetching JSON Data with XMLHttpRequest</h2>
+<div class="summary">How to use the older XMLHttpRequest method to retrieve JSON data, providing context for legacy codebases and browser compatibility.</div>
+<ul>
+<li><strong>What is XMLHttpRequest?</strong> <span class="el-body">— XMLHttpRequest (XHR) is a built-in browser object that allows JavaScript to make HTTP requests to servers without reloading the page.</span></li>
+<li><strong>Creating and Opening an XHR Request</strong> <span class="el-body">— To use XMLHttpRequest, you first create a new instance of the object and then call its open() method to configure the request type and target URL.</span></li>
+<li><strong>Sending the Request and Handling the Response</strong> <span class="el-body">— After configuring the request with open(), you call the send() method to dispatch it, and use the onload event handler to process the server&#39;s response.</span></li>
+<li><strong>Parsing JSON from the XHR Response</strong> <span class="el-body">— Because XHR returns the response as a plain string, you must explicitly use JSON.parse() to convert the JSON text into a JavaScript object or array.</span></li>
+<li><strong>Error Handling with XMLHttpRequest</strong> <span class="el-body">— XMLHttpRequest provides the onerror event handler to catch network-level failures, and status code checks to detect server-side errors.</span></li>
+<li><strong>XHR vs. the Fetch API: Context and Legacy Use</strong> <span class="el-body">— While the Fetch API is the modern standard for making HTTP requests in the browser, understanding XMLHttpRequest is essential for working with legacy code and older browser environments.</span></li>
+</ul>
+<h2>Displaying JSON Data in a Web Page</h2>
+<div class="summary">Techniques for dynamically rendering fetched JSON data in the browser by manipulating the DOM to present information to users.</div>
+<ul>
+<li><strong>Selecting DOM Elements as Render Targets</strong> <span class="el-body">— Before injecting JSON data into a page, you must identify and select the HTML elements that will serve as containers for the rendered content.</span></li>
+<li><strong>Parsing Fetched JSON into a JavaScript Object</strong> <span class="el-body">— Raw JSON received from a server is a string and must be converted into a JavaScript object before its properties can be accessed for rendering.</span></li>
+<li><strong>Building HTML Strings from JSON Data</strong> <span class="el-body">— One straightforward technique for rendering JSON data is constructing an HTML string dynamically and assigning it to an element&#39;s innerHTML property.</span></li>
+<li><strong>Creating and Appending DOM Nodes Programmatically</strong> <span class="el-body">— A safer alternative to innerHTML is to create individual DOM nodes with JavaScript and append them to the document, avoiding direct HTML string injection.</span></li>
+<li><strong>Iterating Over JSON Arrays to Generate Repeated Elements</strong> <span class="el-body">— JSON responses often contain arrays of objects; looping over these arrays allows you to generate a corresponding set of HTML elements for each record.</span></li>
+<li><strong>Updating the DOM Dynamically After Data Changes</strong> <span class="el-body">— When JSON data is refreshed or filtered, the existing rendered content must be cleared and replaced to keep the UI in sync with the current data.</span></li>
+</ul>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

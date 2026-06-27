@@ -1,0 +1,1069 @@
+{
+  "ModuleFolderName": "Building_a_Browser",
+  "CourseName": "COP4813",
+  "GeneratedDate": "2026-06-26T21:59:39.4105951-04:00",
+  "ModifiedDate": "2026-06-26T22:01:57.8992153-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "efd48740-a504-4af7-8ff7-134896ff3e96",
+      "Title": "Game Design Fundamentals",
+      "Summary": "Students learn the core principles of designing a simple browser game, including defining objectives, rules, and the overall game structure before writing any code.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-06-26T21:59:39.4105951-04:00",
+      "ModifiedDate": "2026-06-26T21:59:39.4105951-04:00",
+      "Elements": [
+        {
+          "Id": "4d84ae61-fbda-4118-bb42-0e9e37530e7a",
+          "TopicId": "efd48740-a504-4af7-8ff7-134896ff3e96",
+          "Title": "Defining the Game Objective",
+          "BodyText": "Every game needs a clear, singular goal that tells the player what they are trying to achieve.",
+          "Notes": "Examples include: reaching a target score, surviving for a set amount of time, or moving a character to a finish line. A well-defined objective shapes every other design decision.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T22:00:00.3149899-04:00",
+          "ModifiedDate": "2026-06-26T22:00:00.3149899-04:00",
+          "Items": [
+            {
+              "Id": "40eff911-4a40-498b-876b-669ab6fc353e",
+              "Text": "The objective should be simple enough to explain in one sentence.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "285d2db6-8956-406f-88fa-0a9152c346d5",
+              "Text": "A clear objective helps players understand success and failure conditions immediately.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d43c1a2f-ad08-4bdf-859b-0dded9404960",
+              "Text": "Defining the objective first prevents scope creep as you move into coding.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "4f1fb272-0b4e-481e-9706-1f03adbb0182",
+          "TopicId": "efd48740-a504-4af7-8ff7-134896ff3e96",
+          "Title": "Establishing the Rules",
+          "BodyText": "Rules define the boundaries of player behavior and determine how the game world responds to actions.",
+          "Notes": "For a browser game, rules might include: the player loses a life when hitting an obstacle, the score increases by 10 for each collectible gathered, or the game ends when a timer reaches zero.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T22:00:00.3149899-04:00",
+          "ModifiedDate": "2026-06-26T22:00:00.3149899-04:00",
+          "Items": [
+            {
+              "Id": "48b8eb4d-098e-4d7e-88fe-717e306eb68e",
+              "Text": "Rules should be consistent and predictable so players can form strategies.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "38097ade-4da8-456f-8a5a-5a4c9b0b0c4f",
+              "Text": "Each rule should directly support or protect the core objective.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "16956611-9e17-4803-a8e2-5e653b2bc5c9",
+              "Text": "Keeping the ruleset small and focused makes the game easier to build and easier to play.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "a50cdd0c-0ce5-431d-99bb-9522eecdab40",
+          "TopicId": "efd48740-a504-4af7-8ff7-134896ff3e96",
+          "Title": "Identifying Game Entities",
+          "BodyText": "Game entities are the objects and characters that exist within the game world and interact with each other.",
+          "Notes": "Typical entities in a simple browser game include the player character, enemies or obstacles, collectibles, and boundary walls. Listing entities early helps you plan what needs to be drawn on the Canvas and what logic each entity requires.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T22:00:00.3149899-04:00",
+          "ModifiedDate": "2026-06-26T22:00:00.3149899-04:00",
+          "Items": [
+            {
+              "Id": "fa9142ee-00e2-4001-925f-ec8ca7761ddb",
+              "Text": "Each entity should have a defined role that ties back to the game objective or rules.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ed9a519b-f4d6-46e0-9bb8-047563562f0c",
+              "Text": "Entities will later be represented as objects in code, so clear definitions speed up implementation.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "38dfef8c-625e-47c9-8cc7-59b90b530fc4",
+              "Text": "Consider how entities interact: which ones cause the player to lose, which ones increase the score.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "a6c741f0-52de-444a-91e8-2e4bff30f37c",
+          "TopicId": "efd48740-a504-4af7-8ff7-134896ff3e96",
+          "Title": "Sketching the Game Structure",
+          "BodyText": "Before writing any code, outlining the overall structure of the game \u2014 its states and flow \u2014 provides a roadmap for development.",
+          "Notes": "A simple structure might include three states: a Start screen, a Playing state, and a Game Over screen. Drawing this as a simple flowchart on paper can reveal missing transitions or logic before they become bugs in code.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T22:00:00.3149899-04:00",
+          "ModifiedDate": "2026-06-26T22:00:00.3149899-04:00",
+          "Items": [
+            {
+              "Id": "d09687c2-77e8-4eb9-ad7c-5cceb1835639",
+              "Text": "Common game states include: start, playing, paused, and game over.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d9c571eb-ec38-46fd-beaa-91c2926ed672",
+              "Text": "Transitions between states (e.g., pressing a key to begin, a collision triggering game over) should be mapped out explicitly.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d327eba5-7435-4e75-ac00-cdef9fd64837",
+              "Text": "A clear structure makes it easier to organize your event handling and game-loop logic later.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "c3b92ee3-7324-42ec-8175-44fe15f273c8",
+          "TopicId": "efd48740-a504-4af7-8ff7-134896ff3e96",
+          "Title": "Scoping the Project Appropriately",
+          "BodyText": "Choosing a game concept that matches the available time and technical skills is a critical design decision.",
+          "Notes": "Students should resist adding complex features before the core loop works. A fully functional simple game is always more valuable than an unfinished ambitious one.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T22:00:00.3149899-04:00",
+          "ModifiedDate": "2026-06-26T22:00:00.3149899-04:00",
+          "Items": [
+            {
+              "Id": "9b44ab56-a52e-457e-b7e6-836197382d13",
+              "Text": "Start with the minimum feature set needed to make the game playable and fun.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "68ce7f1c-4916-4f7b-afa0-97ee61e0fcd1",
+              "Text": "Identify which features are \u0027must-have\u0027 versus \u0027nice-to-have\u0027 before any coding begins.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4adf3e05-a873-48e4-b218-5f6f322ac593",
+              "Text": "A scoped design ensures that Canvas drawing, animation, and event handling skills can be applied without being overwhelmed.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "1a380732-b5cb-48e2-ac7c-1ab7e1945102",
+          "TopicId": "efd48740-a504-4af7-8ff7-134896ff3e96",
+          "Title": "Planning the Player Interaction Model",
+          "BodyText": "The interaction model describes how the player controls the game, which directly shapes the event handling code you will write.",
+          "Notes": "For a browser game, input options include keyboard keys, mouse clicks, or mouse movement. Deciding on input methods early allows you to plan which event listeners will be needed.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T22:00:00.3149899-04:00",
+          "ModifiedDate": "2026-06-26T22:00:00.3149899-04:00",
+          "Items": [
+            {
+              "Id": "51ecca9e-a9c0-4127-a940-c7dae7e25fda",
+              "Text": "Choose input methods that feel natural for the game\u0027s objective (e.g., arrow keys for movement, mouse click for shooting).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "63710fbd-d6ba-4b0b-985d-26cc0b3e8ad4",
+              "Text": "Document which specific keys or mouse events trigger which in-game actions.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "71750a26-9a08-4266-a7bc-704676774a69",
+              "Text": "Keeping the controls simple reduces both development complexity and the learning curve for players.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "954b44de-c807-4624-81ac-0bdef22e73b3",
+      "Title": "Canvas Drawing for Games",
+      "Summary": "Students apply HTML5 Canvas drawing techniques to render game elements such as characters, obstacles, and backgrounds onto the browser screen.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-06-26T21:59:39.4105951-04:00",
+      "ModifiedDate": "2026-06-26T21:59:39.4105951-04:00",
+      "Elements": [
+        {
+          "Id": "426a825d-d653-45b5-8ab3-750d14849efe",
+          "TopicId": "954b44de-c807-4624-81ac-0bdef22e73b3",
+          "Title": "Setting Up the Canvas Element",
+          "BodyText": "The HTML5 Canvas element provides a drawable surface within the browser that games use as their visual output.",
+          "Notes": "The canvas must be added to the HTML document and then accessed in JavaScript using getElementById or querySelector before any drawing can occur.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T22:00:22.4614891-04:00",
+          "ModifiedDate": "2026-06-26T22:00:22.4614891-04:00",
+          "Items": [
+            {
+              "Id": "d05b126c-d1ca-4519-92bd-da70c454688e",
+              "Text": "Add a \u003Ccanvas\u003E tag to your HTML with defined width and height attributes to establish the drawing area.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fdab55a7-01b0-4264-a264-728da468d1ca",
+              "Text": "Retrieve the canvas in JavaScript and call getContext(\u00272d\u0027) to obtain the 2D rendering context used for all drawing operations.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b311bf16-6230-481a-95be-c0f6590bdfb4",
+              "Text": "Store the context in a variable (commonly named ctx) so it can be referenced throughout your game code.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "f38a6072-4515-49fb-95d1-4b1892456494",
+          "TopicId": "954b44de-c807-4624-81ac-0bdef22e73b3",
+          "Title": "Drawing Background Layers",
+          "BodyText": "A game background provides the visual environment and is typically drawn first so all other elements appear on top of it.",
+          "Notes": "Simple backgrounds can be a solid color fill; more complex backgrounds may use images or multiple layered rectangles to simulate depth.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T22:00:22.4614891-04:00",
+          "ModifiedDate": "2026-06-26T22:00:22.4614891-04:00",
+          "Items": [
+            {
+              "Id": "9bf2b1bf-49dc-43b9-a76b-be05e8a6df44",
+              "Text": "Use ctx.fillStyle to set a color or gradient, then ctx.fillRect(0, 0, canvas.width, canvas.height) to paint the entire canvas as a background.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c9093bba-1ee5-4938-a220-8369dff2be2d",
+              "Text": "Draw background elements before characters or obstacles so they render behind all other game objects.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7843be06-83c1-450f-97aa-2fdf00627dfb",
+              "Text": "Repeating or tiling background images can be created with ctx.createPattern() for more visually rich environments.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "fe065b42-b3ae-4291-b7b0-51c19c7418f9",
+          "TopicId": "954b44de-c807-4624-81ac-0bdef22e73b3",
+          "Title": "Rendering Character Sprites",
+          "BodyText": "Characters are the player-controlled or animated figures drawn onto the canvas to represent the main actors in the game.",
+          "Notes": "Characters can start as simple geometric shapes during prototyping and later be replaced with image sprites for a polished look.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T22:00:22.4614891-04:00",
+          "ModifiedDate": "2026-06-26T22:00:22.4614891-04:00",
+          "Items": [
+            {
+              "Id": "9c56f369-753d-45f6-a4bc-43828e4c92d6",
+              "Text": "Draw a basic character using ctx.fillRect() for rectangular shapes or ctx.arc() combined with ctx.fill() for circular shapes.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b4314132-2f8e-4dc0-bbc8-5990b8248569",
+              "Text": "Position characters using x and y coordinate variables so their location on the canvas can be updated dynamically.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "76ce3687-5f72-442b-83e5-c1ec917fb694",
+              "Text": "Load image sprites with the Image object and draw them using ctx.drawImage(image, x, y, width, height) for more detailed visuals.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "24d10806-514a-4327-b92c-3f4c298b0b76",
+          "TopicId": "954b44de-c807-4624-81ac-0bdef22e73b3",
+          "Title": "Drawing Obstacles and Game Objects",
+          "BodyText": "Obstacles and collectibles are additional drawn elements that create challenge and interactivity within the game world.",
+          "Notes": "Obstacles are often stored in arrays so multiple instances can be drawn in a loop, allowing scalable and dynamic level design.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T22:00:22.4614891-04:00",
+          "ModifiedDate": "2026-06-26T22:00:22.4614891-04:00",
+          "Items": [
+            {
+              "Id": "9a4b3b7c-7cd4-4eef-a99b-b6d922557970",
+              "Text": "Use the same rectangle and shape drawing methods to render obstacles, varying color or size to distinguish them from the player character.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e6429951-dcc3-4e01-93df-7021f2c9b000",
+              "Text": "Iterate over an array of obstacle objects and call the drawing commands for each one to efficiently render multiple obstacles.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c3f55c45-e5a3-4b78-9f88-77017c335a63",
+              "Text": "Give each game object properties such as x, y, width, and height to track its position and size for both drawing and collision purposes.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "70ef4c5f-7f57-48d5-813c-89c330623e9b",
+          "TopicId": "954b44de-c807-4624-81ac-0bdef22e73b3",
+          "Title": "Clearing and Redrawing the Canvas",
+          "BodyText": "Because games update visually many times per second, the canvas must be cleared before each frame is redrawn to prevent visual artifacts.",
+          "Notes": "Failing to clear the canvas each frame causes previous drawings to persist, creating a smearing or trailing effect as objects move.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T22:00:22.4614891-04:00",
+          "ModifiedDate": "2026-06-26T22:00:22.4614891-04:00",
+          "Items": [
+            {
+              "Id": "7480f471-a798-452d-88c6-d05da869d070",
+              "Text": "Call ctx.clearRect(0, 0, canvas.width, canvas.height) at the start of every frame update to erase all previously drawn content.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a136fa6d-f4dc-4a0c-b74d-06073b515e9a",
+              "Text": "After clearing, redraw the background first, then all game objects in the correct layering order for that frame.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3729ceb2-e702-41df-b7db-8abe443bc22a",
+              "Text": "This clear-then-draw cycle is the foundation of smooth canvas-based animation in browser games.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "622dfa98-1fe0-4762-a11a-a0207290f8ba",
+          "TopicId": "954b44de-c807-4624-81ac-0bdef22e73b3",
+          "Title": "Using Coordinates and the Canvas Grid",
+          "BodyText": "The canvas uses a pixel-based coordinate system where (0, 0) is the top-left corner, with x increasing to the right and y increasing downward.",
+          "Notes": "Understanding this coordinate system is essential for accurately positioning every drawn element and calculating movement direction.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T22:00:22.4614891-04:00",
+          "ModifiedDate": "2026-06-26T22:00:22.4614891-04:00",
+          "Items": [
+            {
+              "Id": "023cb093-99f4-46e6-8643-189cd22451cf",
+              "Text": "The horizontal x-axis runs left to right and the vertical y-axis runs top to bottom on the canvas grid.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c2e91b68-36a4-41b2-8069-98827ae593a1",
+              "Text": "Position game elements by specifying their top-left corner coordinates, keeping track of width and height to determine their full footprint.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d931eb0c-fd17-44df-860e-d915d516ba7a",
+              "Text": "Use canvas.width and canvas.height as boundary references to detect when objects reach the edges of the play area.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "04b71ce7-9ec9-44ad-9155-4c31b67ffd8f",
+      "Title": "Animation and the Game Loop",
+      "Summary": "Students implement a continuous game loop using requestAnimationFrame to drive smooth animation and update game state on every frame.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-06-26T21:59:39.4105951-04:00",
+      "ModifiedDate": "2026-06-26T21:59:39.4105951-04:00",
+      "Elements": [
+        {
+          "Id": "d7f87cfc-999c-4309-a081-c78cb78ce967",
+          "TopicId": "04b71ce7-9ec9-44ad-9155-4c31b67ffd8f",
+          "Title": "What Is a Game Loop?",
+          "BodyText": "A game loop is a continuous cycle that updates game state and redraws the screen many times per second to create the illusion of motion and interactivity.",
+          "Notes": "Think of it like a flipbook: each \u0027page\u0027 is one frame, and running through them quickly produces smooth animation.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T22:00:47.3659618-04:00",
+          "ModifiedDate": "2026-06-26T22:00:47.3659618-04:00",
+          "Items": [
+            {
+              "Id": "ee926a7a-b32f-4c42-9a4d-885ee7115c85",
+              "Text": "Every iteration of the loop performs two core tasks: updating game logic (positions, scores, collisions) and rendering the current state to the canvas.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8fe18851-e945-48d7-bc64-fa917894d911",
+              "Text": "Without a loop, the canvas would display a single static image and never respond to ongoing changes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c788bfc2-fd61-47e5-8a4b-8905e677641e",
+              "Text": "A well-structured game loop keeps update logic and drawing logic clearly separated for easier debugging.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "a9c25c2f-0177-4012-aa17-3bfe3d83f0ab",
+          "TopicId": "04b71ce7-9ec9-44ad-9155-4c31b67ffd8f",
+          "Title": "Introducing requestAnimationFrame",
+          "BodyText": "requestAnimationFrame is a browser API that schedules a callback function to run just before the browser paints the next frame, typically 60 times per second.",
+          "Notes": "It replaces older approaches like setInterval for animation because it is optimized by the browser and automatically pauses when the tab is hidden.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T22:00:47.3659618-04:00",
+          "ModifiedDate": "2026-06-26T22:00:47.3659618-04:00",
+          "Items": [
+            {
+              "Id": "a8515003-22db-4462-80db-af34f1f5be0d",
+              "Text": "Call window.requestAnimationFrame(callback) and pass your game loop function as the callback.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "34815605-424e-4fc3-bd91-2b94ce318055",
+              "Text": "The browser passes a high-resolution timestamp argument to the callback, which can be used to calculate elapsed time between frames.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "96ed86b3-c4cc-4df0-b4a3-12e972d5fc3f",
+              "Text": "Because each call schedules only one future frame, you must call requestAnimationFrame again at the end of every loop iteration to keep the animation running.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "954f709b-5cb5-4343-8b17-bc688ea44d07",
+          "TopicId": "04b71ce7-9ec9-44ad-9155-4c31b67ffd8f",
+          "Title": "Writing the Core Loop Function",
+          "BodyText": "The loop function is called on every frame and serves as the heartbeat of the entire game, coordinating all updates and drawing in the correct order.",
+          "Notes": "A minimal loop function: function gameLoop(timestamp) { update(); draw(); requestAnimationFrame(gameLoop); }",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T22:00:47.3659618-04:00",
+          "ModifiedDate": "2026-06-26T22:00:47.3659618-04:00",
+          "Items": [
+            {
+              "Id": "2b7de159-3b04-4faf-9303-dd83d62b3965",
+              "Text": "Define a named function (e.g., gameLoop) so it can reference itself when scheduling the next frame.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "799e654b-06e6-4e30-a74b-d83c450e122e",
+              "Text": "Always clear the canvas at the start of the draw step to erase the previous frame before rendering new positions.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "99d601a4-b51e-43a8-8fe2-daab101e0067",
+              "Text": "Keeping the loop function short and delegating work to helper functions (update, draw) improves readability and maintainability.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "446162b8-944a-4fce-90de-05a524849b3f",
+          "TopicId": "04b71ce7-9ec9-44ad-9155-4c31b67ffd8f",
+          "Title": "Updating Game State Each Frame",
+          "BodyText": "The update step advances all game objects \u2014 such as player position, enemy movement, and score \u2014 based on logic and elapsed time before anything is drawn.",
+          "Notes": "Separating state updates from rendering ensures the game logic remains correct even if the drawing code changes.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T22:00:47.3659618-04:00",
+          "ModifiedDate": "2026-06-26T22:00:47.3659618-04:00",
+          "Items": [
+            {
+              "Id": "3ae841dd-7389-4dc2-b990-60b9e5f47497",
+              "Text": "Move objects by adding a velocity value to their x or y coordinates on every frame.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "01455361-7d44-4ab9-af33-8ca75d17bac8",
+              "Text": "Check game conditions such as boundary collisions or win/loss states inside the update function so they are evaluated continuously.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "af32b462-f9a0-4d56-b7bf-f5e068bc434d",
+              "Text": "Using the timestamp or a calculated delta time allows movement speed to stay consistent regardless of frame rate fluctuations.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "4d103ae8-b89e-4e6e-b3fd-7dbe2f442887",
+          "TopicId": "04b71ce7-9ec9-44ad-9155-4c31b67ffd8f",
+          "Title": "Delta Time and Frame-Rate Independence",
+          "BodyText": "Delta time is the number of milliseconds elapsed since the last frame, and multiplying movement values by it ensures objects move at a consistent speed on any device.",
+          "Notes": "Example: sprite.x \u002B= speed * (deltaTime / 1000) moves the sprite at \u0027speed\u0027 pixels per second regardless of whether the game runs at 30 or 60 fps.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T22:00:47.3659618-04:00",
+          "ModifiedDate": "2026-06-26T22:00:47.3659618-04:00",
+          "Items": [
+            {
+              "Id": "b406cd2b-a877-4219-8eb0-66a91728ba5b",
+              "Text": "Store the timestamp from the previous frame and subtract it from the current timestamp to calculate delta time.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c3857b3a-6441-4836-87ea-5f43914487fc",
+              "Text": "Without delta time, a game running at 30 fps would move objects half as fast as one running at 60 fps.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "dfdeafcf-21c8-4404-8de3-f7837806a7a7",
+              "Text": "Clamp delta time to a maximum value (e.g., 100 ms) to prevent large jumps if the tab loses focus and then regains it.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "7ca936f6-8d1d-4e65-a796-b1c906e45c88",
+          "TopicId": "04b71ce7-9ec9-44ad-9155-4c31b67ffd8f",
+          "Title": "Starting and Stopping the Loop",
+          "BodyText": "The loop must be explicitly started once when the game begins, and it can be stopped by cancelling the scheduled animation frame when the game ends or pauses.",
+          "Notes": "Storing the return value of requestAnimationFrame allows you to cancel it later with cancelAnimationFrame.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T22:00:47.3659618-04:00",
+          "ModifiedDate": "2026-06-26T22:00:47.3659618-04:00",
+          "Items": [
+            {
+              "Id": "245cf810-5dc6-4ec4-b6f0-320b6ac61e68",
+              "Text": "Kick off the loop with a single initial call: requestAnimationFrame(gameLoop) after all game assets and variables are initialized.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "66b8ccd2-6e8c-4828-92d3-aaec6412e608",
+              "Text": "Save the frame ID returned by requestAnimationFrame into a variable (e.g., let frameId) so you can call cancelAnimationFrame(frameId) to pause or stop the game.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f22539c4-6700-43f1-b749-555dacdb7bc0",
+              "Text": "Restarting the loop after a pause requires calling requestAnimationFrame again with the loop function, not simply resuming a stopped one.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "788a40e4-8950-471d-98bd-534726acdd86",
+      "Title": "Event Handling and Player Input",
+      "Summary": "Students wire up keyboard, mouse, or touch event listeners to capture player input and translate it into meaningful in-game actions.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-06-26T21:59:39.4105951-04:00",
+      "ModifiedDate": "2026-06-26T21:59:39.4105951-04:00",
+      "Elements": [
+        {
+          "Id": "81c967ad-0861-4d06-87c7-2b2902dea2e8",
+          "TopicId": "788a40e4-8950-471d-98bd-534726acdd86",
+          "Title": "Attaching Event Listeners to the Document or Canvas",
+          "BodyText": "Event listeners are registered using addEventListener() on the document or the canvas element to begin capturing player input.",
+          "Notes": "Attaching listeners to the document is common for keyboard events since the canvas element does not receive keyboard focus by default. For mouse and touch events, attaching directly to the canvas is often more precise.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T22:01:10.5610502-04:00",
+          "ModifiedDate": "2026-06-26T22:01:10.5610502-04:00",
+          "Items": [
+            {
+              "Id": "d2205aa6-2518-4d99-8a1c-a8dafe7aa170",
+              "Text": "Use document.addEventListener(\u0027keydown\u0027, handler) to capture keyboard input globally.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "49e2ccda-bcc1-400b-8c8e-db58aa58707c",
+              "Text": "Use canvas.addEventListener(\u0027mousedown\u0027, handler) or canvas.addEventListener(\u0027touchstart\u0027, handler) for pointer-based input.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3d80e0a6-c0fe-4593-8e7e-5bf763d481e5",
+              "Text": "Always store a reference to the handler function if you may need to remove the listener later with removeEventListener().",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "16c25220-acc4-4d5b-8bbd-46f291cdedf8",
+          "TopicId": "788a40e4-8950-471d-98bd-534726acdd86",
+          "Title": "Reading Keyboard Input",
+          "BodyText": "Keyboard events expose properties like event.key and event.code that identify which key was pressed, released, or held down.",
+          "Notes": "event.key returns a human-readable string such as \u0027ArrowLeft\u0027 or \u0027w\u0027, while event.code returns the physical key position such as \u0027KeyW\u0027. Using a state object to track held keys prevents movement from stalling between repeated keydown firings.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T22:01:10.5610502-04:00",
+          "ModifiedDate": "2026-06-26T22:01:10.5610502-04:00",
+          "Items": [
+            {
+              "Id": "0be47669-ec39-4a57-a6c9-a19ed2aec9c4",
+              "Text": "Listen for \u0027keydown\u0027 to detect when a key is first pressed and \u0027keyup\u0027 to detect when it is released.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "99f3da55-85e7-4e2a-9dcd-1500b9d6efc5",
+              "Text": "Maintain a keys object (e.g., keys[\u0027ArrowLeft\u0027] = true/false) updated by both events to track simultaneously held keys.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a2709e66-f07b-45cb-ac1f-4f75d1352c38",
+              "Text": "Read the keys state inside the game loop rather than moving the player directly inside the event handler for smooth, frame-rate-synced movement.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "e1311de4-fc54-4894-a093-4f9a5dee1e01",
+          "TopicId": "788a40e4-8950-471d-98bd-534726acdd86",
+          "Title": "Reading Mouse Input",
+          "BodyText": "Mouse events provide cursor coordinates and button state, allowing players to aim, click, or drag within the game canvas.",
+          "Notes": "canvas.getBoundingClientRect() is used to convert client-space coordinates from the event into canvas-space coordinates, accounting for the canvas position on the page.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T22:01:10.5610502-04:00",
+          "ModifiedDate": "2026-06-26T22:01:10.5610502-04:00",
+          "Items": [
+            {
+              "Id": "ce9ee690-6f6b-4f4a-8ba7-5e0bc583d5b3",
+              "Text": "Use event.clientX and event.clientY from mousemove, mousedown, or mouseup events to get cursor position.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "af39a1bd-a82c-4cd9-89c0-6787fad8ddea",
+              "Text": "Subtract the canvas bounding rect\u0027s left and top values to translate page coordinates into canvas-local coordinates.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "28c555ed-5b16-463f-9882-7d67340cf647",
+              "Text": "Track mousedown and mouseup to distinguish click-and-hold actions from single clicks.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "5a0bb749-053b-4982-820b-689195d63e9e",
+          "TopicId": "788a40e4-8950-471d-98bd-534726acdd86",
+          "Title": "Handling Touch Input for Mobile Play",
+          "BodyText": "Touch events mirror mouse events but support multiple simultaneous contact points, making them essential for mobile-compatible games.",
+          "Notes": "Calling event.preventDefault() inside touch handlers stops the browser\u0027s default scrolling and zooming behaviors, which would otherwise interfere with gameplay.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T22:01:10.5610502-04:00",
+          "ModifiedDate": "2026-06-26T22:01:10.5610502-04:00",
+          "Items": [
+            {
+              "Id": "a6d1b375-ee61-4413-a6fe-09c73f42aa21",
+              "Text": "Listen for \u0027touchstart\u0027, \u0027touchmove\u0027, and \u0027touchend\u0027 events on the canvas element.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "975244e3-8066-4a0f-9533-41ab9a41cda5",
+              "Text": "Access individual touch points through event.touches or event.changedTouches, each providing clientX and clientY coordinates.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2d3789e6-d55b-435e-b739-142915db7812",
+              "Text": "Apply the same bounding-rect offset used for mouse input to convert touch coordinates into canvas space.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "1655e914-5b56-4f69-bde9-ae1dc917d404",
+          "TopicId": "788a40e4-8950-471d-98bd-534726acdd86",
+          "Title": "Translating Raw Input into Game Actions",
+          "BodyText": "Raw event data must be mapped to meaningful in-game behaviors such as moving a character, firing a projectile, or pausing the game.",
+          "Notes": "Separating input reading from action execution keeps code organized \u2014 the event handler updates an input state object, and the game loop interprets that state to drive game logic.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T22:01:10.5610502-04:00",
+          "ModifiedDate": "2026-06-26T22:01:10.5610502-04:00",
+          "Items": [
+            {
+              "Id": "f4277b75-564b-414d-a412-47ee95be2dfd",
+              "Text": "Define a clear mapping between input values (e.g., \u0027ArrowUp\u0027 key or upward swipe) and game actions (e.g., player jumps).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0135c8bb-8c46-40e6-b425-d3514ec42d24",
+              "Text": "Apply movement by updating game-object properties like position or velocity based on the current input state each frame.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "36394896-4ce7-45b7-b8a2-4b6bba99581f",
+              "Text": "Use conditional logic in the game loop to trigger one-time actions (such as firing) only on the frame a key transitions from unpressed to pressed.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "5afdc048-d913-4e07-90c1-a36b9bc5ca90",
+          "TopicId": "788a40e4-8950-471d-98bd-534726acdd86",
+          "Title": "Preventing Default Browser Behavior",
+          "BodyText": "Many keys and gestures trigger built-in browser behaviors that can disrupt gameplay and must be suppressed with event.preventDefault().",
+          "Notes": "Be selective when calling preventDefault() \u2014 suppressing all keyboard defaults, for example, can break accessibility features. Target only the specific keys or gestures your game uses.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T22:01:10.5610502-04:00",
+          "ModifiedDate": "2026-06-26T22:01:10.5610502-04:00",
+          "Items": [
+            {
+              "Id": "6c044625-630c-43dd-9d23-7818e577dd36",
+              "Text": "Arrow keys scroll the page by default; call event.preventDefault() inside the keydown handler when those keys are detected.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b57cfb09-4975-4535-a5cc-ee59f7ad8a2c",
+              "Text": "The spacebar triggers page scrolling and form submission, so suppress its default action during gameplay.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "93eafbe5-5d71-49ca-b537-d1d3cd9a4fc5",
+              "Text": "Touch events may trigger pinch-zoom or pull-to-refresh; prevent these by calling preventDefault() in touchstart and touchmove handlers.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "df8ab225-993e-44b4-92b1-4387186fef8a",
+      "Title": "Game Logic and State Management",
+      "Summary": "Students manage core game mechanics such as scoring, collision detection, win and loss conditions, and tracking the overall state of the game.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-06-26T21:59:39.4105951-04:00",
+      "ModifiedDate": "2026-06-26T21:59:39.4105951-04:00",
+      "Elements": [
+        {
+          "Id": "e55f2dfd-7310-46be-85d9-10db29f611fd",
+          "TopicId": "df8ab225-993e-44b4-92b1-4387186fef8a",
+          "Title": "Tracking Game State",
+          "BodyText": "Game state refers to all the variables that describe the current condition of the game at any moment, such as whether the game is running, paused, or over.",
+          "Notes": "Common state variables include isGameOver, isRunning, and level. Centralizing state in one object (e.g., gameState = {}) makes it easier to read and update throughout the codebase.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T22:01:32.6867499-04:00",
+          "ModifiedDate": "2026-06-26T22:01:32.6867499-04:00",
+          "Items": [
+            {
+              "Id": "ebb6e8c7-08dd-49cd-a2ba-ab232045ba0a",
+              "Text": "Define a dedicated state object or set of variables at the top of your script to hold all critical game information.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "aaac631e-e52c-4bc5-a8cf-fa8dd89ce955",
+              "Text": "Update state variables inside the game loop or event handlers whenever a meaningful change occurs.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "52add29c-a061-459d-a9f1-7b5c85c6c553",
+              "Text": "Check state flags at the start of each loop iteration to decide whether to continue, pause, or end the game.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "f389baec-3563-4849-b07d-8c2ca5577e02",
+          "TopicId": "df8ab225-993e-44b4-92b1-4387186fef8a",
+          "Title": "Implementing a Scoring System",
+          "BodyText": "A scoring system rewards players for successful actions and provides feedback on their performance throughout the game.",
+          "Notes": "Scores can be incremented by fixed amounts or dynamically based on difficulty, speed, or combo multipliers. Display the score on the Canvas using fillText() so it updates every frame.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T22:01:32.6867499-04:00",
+          "ModifiedDate": "2026-06-26T22:01:32.6867499-04:00",
+          "Items": [
+            {
+              "Id": "fbba315a-41df-4273-8553-cb708f718154",
+              "Text": "Initialize a score variable (e.g., let score = 0) before the game loop starts.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c5810edd-938d-4265-8cdc-3c8c604facfa",
+              "Text": "Increment the score whenever the player completes a positive action, such as hitting a target or collecting an item.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e0b91d73-d606-4b95-9397-87811c2427d5",
+              "Text": "Redraw the score on the Canvas each frame so the display always reflects the current value.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "24e093f6-2beb-4b05-964b-f7addadada54",
+          "TopicId": "df8ab225-993e-44b4-92b1-4387186fef8a",
+          "Title": "Collision Detection",
+          "BodyText": "Collision detection determines when two game objects occupy the same space, triggering gameplay consequences such as losing a life or earning a point.",
+          "Notes": "Axis-Aligned Bounding Box (AABB) detection is the most common beginner approach: compare the x, y, width, and height of two rectangles to see if they overlap. For circular objects, compare the distance between centers against the sum of their radii.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T22:01:32.6867499-04:00",
+          "ModifiedDate": "2026-06-26T22:01:32.6867499-04:00",
+          "Items": [
+            {
+              "Id": "bc6c9a20-c246-4909-8146-009d8e33b45e",
+              "Text": "For rectangular objects, check if one object\u0027s edges overlap with another\u0027s on both the X and Y axes simultaneously.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4fe4b71f-be91-4776-9e26-0016193d235a",
+              "Text": "For circular objects, calculate the distance between centers and compare it to the combined radii to detect overlap.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "cf49761c-c6a4-4699-b53f-cbbde61cafd2",
+              "Text": "Call your collision detection function inside the game loop every frame so no collision is missed.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "e6d3685c-09ec-432a-aebc-480035160bb7",
+          "TopicId": "df8ab225-993e-44b4-92b1-4387186fef8a",
+          "Title": "Win Conditions",
+          "BodyText": "A win condition is a specific goal the player must achieve to successfully complete the game or a level.",
+          "Notes": "Examples include reaching a target score, surviving a set number of waves, or collecting all items on screen. When the win condition is met, set a state flag and display a congratulatory message on the Canvas.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T22:01:32.6867499-04:00",
+          "ModifiedDate": "2026-06-26T22:01:32.6867499-04:00",
+          "Items": [
+            {
+              "Id": "19b063fa-c1e0-4ed8-b759-af45dde7a9b0",
+              "Text": "Define the win condition clearly before building the game so it can be checked inside the loop.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "185acb84-e1db-42c5-907e-734f03dee0fc",
+              "Text": "Evaluate the win condition each frame by comparing current state variables against the target threshold.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6f03e790-5363-4624-ab80-8ae3d69ca2a2",
+              "Text": "When the condition is met, stop the game loop and render a win screen or message using Canvas text and shapes.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "da4360c9-6d5c-48f0-84a7-9300ea9fccc7",
+          "TopicId": "df8ab225-993e-44b4-92b1-4387186fef8a",
+          "Title": "Loss Conditions and Lives",
+          "BodyText": "Loss conditions end the game when the player fails to meet survival requirements, such as running out of lives or time.",
+          "Notes": "Tracking lives separately from the game-over flag allows for multiple chances before ending the game. Decrement lives on each failure event and trigger the game-over state only when lives reach zero.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T22:01:32.6867499-04:00",
+          "ModifiedDate": "2026-06-26T22:01:32.6867499-04:00",
+          "Items": [
+            {
+              "Id": "88a2ecc1-f6f2-48ba-8b5b-e06d83d611e2",
+              "Text": "Initialize a lives variable and decrement it each time the player makes a critical mistake or is hit.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "cf723645-d88a-4de3-a122-e362d77d0727",
+              "Text": "Check after each life loss whether lives have reached zero, and if so, set the isGameOver flag to true.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1408e038-f238-4c2f-b041-143246c22eb2",
+              "Text": "Render remaining lives visually on the Canvas each frame so the player is always aware of their status.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "342c8aa6-4b75-4709-b622-6a6b69c5c653",
+          "TopicId": "df8ab225-993e-44b4-92b1-4387186fef8a",
+          "Title": "Resetting and Restarting the Game",
+          "BodyText": "Providing a reset mechanism lets players try again without reloading the page, improving the overall user experience.",
+          "Notes": "A reset function should restore all state variables, reposition game objects, and restart the animation loop. Binding the reset to a keypress or on-screen button makes it accessible immediately after a game-over screen appears.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T22:01:32.6867499-04:00",
+          "ModifiedDate": "2026-06-26T22:01:32.6867499-04:00",
+          "Items": [
+            {
+              "Id": "4553fbf0-d1fb-4fab-bfc4-e8a0b7128a39",
+              "Text": "Write a dedicated resetGame() function that sets all state variables back to their initial values.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "48cec0d8-fa63-419f-a6d4-c915afd07fa1",
+              "Text": "Reposition all game objects (player, enemies, items) to their starting coordinates inside the reset function.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "73271277-1043-4e13-9319-533aeeeafbab",
+              "Text": "Restart the game loop by calling requestAnimationFrame() again after the reset function completes.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "a40ffa7d-5eee-4c57-a51d-14b723f13580",
+      "Title": "Integrating and Assembling the Complete Game",
+      "Summary": "Students bring together all previous skills \u2014 drawing, animation, input, and logic \u2014 into a single cohesive, fully functional browser-embedded game project.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-06-26T21:59:39.4105951-04:00",
+      "ModifiedDate": "2026-06-26T21:59:39.4105951-04:00",
+      "Elements": [
+        {
+          "Id": "005d58b9-ac18-48df-9e5b-bc9117cbef43",
+          "TopicId": "a40ffa7d-5eee-4c57-a51d-14b723f13580",
+          "Title": "Establishing the Project Structure",
+          "BodyText": "A well-organized file and code structure is the foundation of a complete, maintainable browser game.",
+          "Notes": "A typical structure includes an HTML file that embeds the canvas, a linked CSS file for basic styling, and one or more JavaScript files containing game logic.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T22:01:57.8991538-04:00",
+          "ModifiedDate": "2026-06-26T22:01:57.8991538-04:00",
+          "Items": [
+            {
+              "Id": "31c8f8d7-70d5-45c8-92eb-7177e0b947be",
+              "Text": "Create a single HTML file with a \u003Ccanvas\u003E element as the rendering target for the entire game.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "26a0b698-9c0b-455e-a106-f552a16b82f8",
+              "Text": "Separate concerns by organizing drawing, input handling, and game logic into clearly labeled sections or files.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "057c5171-bac7-4a4a-b493-b15485302bab",
+              "Text": "Reference all scripts at the bottom of the \u003Cbody\u003E tag to ensure the DOM is ready before game code runs.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "bf9672f0-f71c-4bfd-9c7d-d836d9ad6283",
+          "TopicId": "a40ffa7d-5eee-4c57-a51d-14b723f13580",
+          "Title": "Combining Drawing and Animation Systems",
+          "BodyText": "The visual layer of the game requires merging Canvas drawing routines with the animation loop established in earlier lessons.",
+          "Notes": "All draw calls should be consolidated into a single render function that is invoked once per frame, keeping visual output consistent and synchronized.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T22:01:57.8991538-04:00",
+          "ModifiedDate": "2026-06-26T22:01:57.8991538-04:00",
+          "Items": [
+            {
+              "Id": "6588fa3c-c09e-47df-a78a-a10e6c8c9261",
+              "Text": "Create a dedicated render() function that clears the canvas and redraws all game objects each frame.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4d9fb30f-2f40-4a35-923a-9f702c8ce570",
+              "Text": "Use requestAnimationFrame() to drive the render loop, ensuring smooth, browser-optimized animation.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8c7acbe0-38df-4413-b6f6-28474e2aeb10",
+              "Text": "Layer draw calls in the correct order \u2014 backgrounds first, then sprites, then UI elements \u2014 to produce proper visual depth.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "dfdad003-c677-40a4-b453-c87b38c9d456",
+          "TopicId": "a40ffa7d-5eee-4c57-a51d-14b723f13580",
+          "Title": "Wiring Up Event Handling and Player Input",
+          "BodyText": "Player interaction is connected to the game by attaching the event listeners built in previous lessons to the unified game loop.",
+          "Notes": "Storing input state in a shared object (e.g., a keys object) rather than acting directly inside event callbacks keeps input handling decoupled from game logic.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T22:01:57.8991538-04:00",
+          "ModifiedDate": "2026-06-26T22:01:57.8991538-04:00",
+          "Items": [
+            {
+              "Id": "995ac6a2-8c14-4c6a-be55-731406dab39d",
+              "Text": "Register keyboard and/or mouse event listeners once during game initialization, before the loop starts.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b67f31d9-a344-4534-ab83-3e6ea3f83361",
+              "Text": "Store the current input state in a shared variable so the update function can read it every frame.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "12a89f67-a3b1-4392-b712-e03cb9f3be70",
+              "Text": "Ensure event listeners do not get registered multiple times if the game is restarted, to avoid duplicated input responses.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ede90d3d-9f54-424d-887d-ce4619b18b65",
+          "TopicId": "a40ffa7d-5eee-4c57-a51d-14b723f13580",
+          "Title": "Implementing the Unified Game Loop",
+          "BodyText": "The game loop is the central engine that calls update and render in sequence every frame, tying all subsystems together.",
+          "Notes": "Separating update() and render() into distinct functions makes the loop easier to debug and extend as the game grows.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T22:01:57.8991538-04:00",
+          "ModifiedDate": "2026-06-26T22:01:57.8991538-04:00",
+          "Items": [
+            {
+              "Id": "9b3691d8-790b-4cbc-9fe6-cb3ca8f00287",
+              "Text": "Structure the main loop as: read input \u2192 update game state \u2192 render frame \u2192 schedule next frame.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "501fa9da-5726-4e40-9067-db26805ad239",
+              "Text": "Pass a timestamp or delta-time value into the update function to keep movement and physics frame-rate independent.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "88156936-af01-45cd-8bf6-be338840f95a",
+              "Text": "Start the loop with a single initial requestAnimationFrame() call after all assets and listeners are initialized.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "42e18a0b-07b6-4231-98d8-a32c2563bba7",
+          "TopicId": "a40ffa7d-5eee-4c57-a51d-14b723f13580",
+          "Title": "Integrating Game Logic and Win/Lose Conditions",
+          "BodyText": "All collision detection, scoring, and state-transition logic developed earlier must be consolidated into the update phase of the game loop.",
+          "Notes": "Using a gameState variable (e.g., \u0027playing\u0027, \u0027won\u0027, \u0027lost\u0027) lets the loop branch cleanly between active gameplay, a victory screen, and a game-over screen.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T22:01:57.8991538-04:00",
+          "ModifiedDate": "2026-06-26T22:01:57.8991538-04:00",
+          "Items": [
+            {
+              "Id": "7ed1d7e8-784e-4029-9925-1a1c3b3e2177",
+              "Text": "Call all collision checks and score updates inside the update() function so they execute once per frame.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "bdba8b0b-4a31-4067-8233-c73ec00edc3b",
+              "Text": "Evaluate win and lose conditions each frame and transition the game to the appropriate state when triggered.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6931db49-cace-4c93-b2f3-87cf56e737b1",
+              "Text": "Render different canvas content (e.g., \u0027Game Over\u0027 text, final score) based on the current game state.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "1cb45c54-c9b6-4f82-bc6c-56f6b2c923f7",
+          "TopicId": "a40ffa7d-5eee-4c57-a51d-14b723f13580",
+          "Title": "Testing and Debugging the Complete Project",
+          "BodyText": "Once all components are assembled, systematic testing ensures the integrated game behaves correctly as a whole.",
+          "Notes": "Browser developer tools are invaluable here \u2014 the console surfaces JavaScript errors, and the Performance panel can reveal frame-rate bottlenecks.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T22:01:57.8991538-04:00",
+          "ModifiedDate": "2026-06-26T22:01:57.8991538-04:00",
+          "Items": [
+            {
+              "Id": "8b6f2367-912e-4620-befa-4b76fd3f80e1",
+              "Text": "Play through the game from start to finish to verify that win, lose, and restart paths all work as intended.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f65beed1-729c-4b0c-a4ed-a702ad84f3ff",
+              "Text": "Use console.log() strategically to inspect game-state variables and confirm logic is executing in the expected order.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a448e013-1362-4db2-9397-fcde4a0b3b1d",
+              "Text": "Check for common integration bugs such as event listeners firing before the canvas is ready or draw functions referencing undefined objects.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "0db255c0-eae4-49ca-9f8f-8ebededac0de",
+          "TopicId": "a40ffa7d-5eee-4c57-a51d-14b723f13580",
+          "Title": "Embedding and Presenting the Finished Game",
+          "BodyText": "The final step is ensuring the completed game runs reliably in a browser and is ready to be shared or submitted as a finished project.",
+          "Notes": "Adding a brief on-screen instruction panel drawn on the canvas itself helps new players understand controls without needing external documentation.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T22:01:57.8991538-04:00",
+          "ModifiedDate": "2026-06-26T22:01:57.8991538-04:00",
+          "Items": [
+            {
+              "Id": "f8f94c8c-4bc6-4cde-9c29-716e4393170c",
+              "Text": "Confirm the game launches correctly by opening the HTML file directly in multiple browsers to check for compatibility issues.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5b2d1cb3-753c-45e9-8baf-5ebca4b31258",
+              "Text": "Set the canvas dimensions in both HTML attributes and CSS to prevent blurry or distorted rendering on different screen sizes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7a0185b7-09c2-4404-8bf7-fa83b52106b2",
+              "Text": "Include a visible restart mechanism so players can replay the game without refreshing the page manually.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 37
+}

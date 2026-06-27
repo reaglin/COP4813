@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic Objects and Controls with JavaScript and the DOM — Module Topics</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.2rem;margin-top:28px;color:#1a3c6e}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<h1>Dynamic Objects and Controls with JavaScript and the DOM — Module Topics</h1>
+<h2>Introduction to the DOM and Dynamic Manipulation</h2>
+<div class="summary">Introduces the Document Object Model as a programmable interface and establishes the foundation for dynamically interacting with HTML elements using JavaScript at runtime.</div>
+<ul>
+<li><strong>What is the Document Object Model (DOM)?</strong> <span class="el-body">— The DOM is a programming interface provided by the browser that represents an HTML document as a structured tree of objects.</span></li>
+<li><strong>The DOM as a Programmable Interface</strong> <span class="el-body">— Beyond representing page structure, the DOM exposes a rich API that allows scripts to query, read, and alter every aspect of the document at runtime.</span></li>
+<li><strong>The DOM Tree Structure</strong> <span class="el-body">— HTML documents are represented in the DOM as a hierarchical tree where nodes have parent, child, and sibling relationships.</span></li>
+<li><strong>Accessing Elements with JavaScript</strong> <span class="el-body">— Before any dynamic manipulation can occur, JavaScript must first locate the target element within the DOM tree.</span></li>
+<li><strong>Reading and Modifying Element Content</strong> <span class="el-body">— Once an element is selected, JavaScript can both read its current content and overwrite it dynamically using built-in properties.</span></li>
+<li><strong>Dynamic vs. Static Web Pages</strong> <span class="el-body">— Understanding the distinction between static and dynamic content is the conceptual foundation for everything covered in DOM manipulation.</span></li>
+<li><strong>The Role of JavaScript at Runtime</strong> <span class="el-body">— JavaScript executes in the browser after the HTML has been parsed, giving it direct access to the fully constructed DOM to create, modify, or remove elements on demand.</span></li>
+</ul>
+<h2>Creating and Inserting HTML Elements Dynamically</h2>
+<div class="summary">Covers JavaScript methods for programmatically creating new HTML elements and inserting them into the DOM at specified locations within a webpage.</div>
+<ul>
+<li><strong>The createElement() Method</strong> <span class="el-body">— The document.createElement() method is the primary way to programmatically generate new HTML elements in JavaScript without writing static HTML.</span></li>
+<li><strong>Setting Content and Attributes Before Insertion</strong> <span class="el-body">— Before inserting a new element into the DOM, it is best practice to configure its content, attributes, and styles so it renders correctly the moment it appears.</span></li>
+<li><strong>Inserting Elements with appendChild()</strong> <span class="el-body">— The appendChild() method attaches a newly created element as the last child of a specified parent node, making it visible in the DOM.</span></li>
+<li><strong>Inserting Elements with insertBefore()</strong> <span class="el-body">— The insertBefore() method gives precise control over placement by inserting a new node before a specified reference child node within a parent.</span></li>
+<li><strong>Modern Insertion Methods: insertAdjacentElement() and append()</strong> <span class="el-body">— Modern JavaScript provides additional flexible insertion methods that simplify placing elements at various positions relative to a target element.</span></li>
+<li><strong>Building and Inserting Nested Element Structures</strong> <span class="el-body">— Dynamic UI components often require creating multiple related elements and assembling them into a nested structure before inserting the entire tree into the DOM.</span></li>
+</ul>
+<h2>Modifying Existing Elements and Their Properties</h2>
+<div class="summary">Explores techniques for reading and updating element attributes, styles, classes, and content to change the appearance and behavior of existing DOM nodes at runtime.</div>
+<ul>
+<li><strong>Reading and Writing Element Attributes</strong> <span class="el-body">— Attributes such as `id`, `src`, `href`, and `alt` can be read or updated at runtime using JavaScript&#39;s built-in attribute methods.</span></li>
+<li><strong>Modifying Inline Styles</strong> <span class="el-body">— The `style` property on a DOM element provides direct access to that element&#39;s inline CSS declarations, allowing precise visual changes at runtime.</span></li>
+<li><strong>Reading Computed Styles</strong> <span class="el-body">— `window.getComputedStyle(element)` retrieves the final, resolved styles applied to an element after all stylesheets and inline rules are combined.</span></li>
+<li><strong>Manipulating CSS Classes</strong> <span class="el-body">— The `classList` API provides methods to add, remove, toggle, and check CSS classes on an element, making it easy to apply pre-defined style rules dynamically.</span></li>
+<li><strong>Updating Text and HTML Content</strong> <span class="el-body">— An element&#39;s visible text and inner markup can be read or replaced at runtime through the `textContent`, `innerText`, and `innerHTML` properties.</span></li>
+<li><strong>Modifying Element Properties Directly</strong> <span class="el-body">— Many HTML attributes are reflected as JavaScript properties on the element object, allowing direct property assignment as a concise alternative to `setAttribute`.</span></li>
+<li><strong>Changing Element Dimensions and Position via Style</strong> <span class="el-body">— Width, height, margin, padding, and positioning can all be set through the `style` property to programmatically control layout and placement of elements.</span></li>
+</ul>
+<h2>Removing Elements from the DOM</h2>
+<div class="summary">Explains how to programmatically remove HTML elements and their child nodes from the document, including best practices for clean and safe removal.</div>
+<ul>
+<li><strong>The removeChild() Method</strong> <span class="el-body">— The removeChild() method removes a specified child node from a parent element in the DOM.</span></li>
+<li><strong>The remove() Method</strong> <span class="el-body">— The modern remove() method allows an element to remove itself directly from the DOM without needing an explicit reference to its parent.</span></li>
+<li><strong>Removing All Child Nodes</strong> <span class="el-body">— To clear all children from a parent element, you can loop through its child nodes and remove them one by one, or use efficient shorthand techniques.</span></li>
+<li><strong>Selecting the Target Element Before Removal</strong> <span class="el-body">— Before removing an element, you must obtain a valid reference to it using DOM selection methods such as getElementById or querySelector.</span></li>
+<li><strong>Cleaning Up Event Listeners Before Removal</strong> <span class="el-body">— Removing an element from the DOM without detaching its event listeners can lead to memory leaks, especially in long-running interactive applications.</span></li>
+<li><strong>Safe and Defensive Removal Patterns</strong> <span class="el-body">— Defensive coding practices ensure that DOM removal operations do not cause unexpected errors or break the UI in edge cases.</span></li>
+</ul>
+<h2>Adding and Managing Event Listeners</h2>
+<div class="summary">Details how to attach, configure, and remove event listeners on DOM elements to enable user interaction and respond to browser events dynamically.</div>
+<ul>
+<li><strong>The addEventListener Method</strong> <span class="el-body">— The primary way to attach event listeners to DOM elements in modern JavaScript is through the addEventListener method, which registers a callback function to be invoked when a specified event occurs.</span></li>
+<li><strong>Event Types and Common Browser Events</strong> <span class="el-body">— Browser environments expose a wide variety of event types that cover user input, document lifecycle, and media interactions, all of which can be targeted with addEventListener.</span></li>
+<li><strong>The Event Object and Its Properties</strong> <span class="el-body">— When an event fires, the browser automatically passes an Event object as the first argument to the callback, providing contextual information about the event.</span></li>
+<li><strong>Event Propagation: Bubbling and Capturing</strong> <span class="el-body">— DOM events travel through the element hierarchy in two phases — capturing (top-down) and bubbling (bottom-up) — and understanding this determines where and when listeners fire.</span></li>
+<li><strong>Listener Options: once, passive, and capture</strong> <span class="el-body">— The third parameter of addEventListener accepts an options object that fine-tunes listener behavior beyond simply attaching a callback.</span></li>
+<li><strong>Removing Event Listeners with removeEventListener</strong> <span class="el-body">— To prevent memory leaks and unintended behavior in dynamic UIs, event listeners should be explicitly removed when they are no longer needed using removeEventListener.</span></li>
+<li><strong>Event Delegation for Dynamic Elements</strong> <span class="el-body">— Event delegation is a pattern that attaches a single listener to a stable ancestor element to manage events from child elements that may be added or removed dynamically at runtime.</span></li>
+</ul>
+<h2>Building Interactive UI Controls with JavaScript</h2>
+<div class="summary">Brings together DOM creation, modification, and event handling concepts to construct fully functional interactive user interface controls entirely through JavaScript code.</div>
+<ul>
+<li><strong>Planning the UI Control Structure</strong> <span class="el-body">— Before writing any code, it is essential to plan the structure of the interactive control by identifying the HTML elements needed, their relationships, and the behaviors they must support.</span></li>
+<li><strong>Constructing Control Elements with JavaScript</strong> <span class="el-body">— Interactive controls are built by using JavaScript DOM creation methods to programmatically generate all necessary HTML elements without relying on static markup.</span></li>
+<li><strong>Attaching Event Listeners to Control Components</strong> <span class="el-body">— Event listeners are the mechanism that transforms a static collection of elements into a responsive, interactive control by reacting to user actions in real time.</span></li>
+<li><strong>Managing Control State Dynamically</strong> <span class="el-body">— An interactive control must track and update its own state over time, reflecting changes in the UI whenever the user interacts with it.</span></li>
+<li><strong>Modifying and Updating Control Elements at Runtime</strong> <span class="el-body">— As users interact with a control, the DOM must be updated dynamically to reflect new content, options, or configurations without reloading the page.</span></li>
+<li><strong>Ensuring Accessibility in JavaScript-Built Controls</strong> <span class="el-body">— Controls constructed entirely through JavaScript must explicitly include accessibility features since they lack the built-in semantics of native HTML elements.</span></li>
+<li><strong>Encapsulating Controls for Reusability</strong> <span class="el-body">— Well-designed JavaScript UI controls are encapsulated as reusable functions or classes, making them easy to instantiate multiple times with different configurations.</span></li>
+</ul>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

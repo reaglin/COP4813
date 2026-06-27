@@ -1,0 +1,1079 @@
+{
+  "ModuleFolderName": "Implementing_Drag_and",
+  "CourseName": "COP4813",
+  "GeneratedDate": "2026-06-26T21:48:40.9701507-04:00",
+  "ModifiedDate": "2026-06-26T21:51:02.0698206-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "6d67a7a9-00bf-4024-8e67-655387c711fe",
+      "Title": "Introduction to HTML5 Drag and Drop",
+      "Summary": "Overview of the native HTML5 drag-and-drop API and its role in building interactive web interfaces. Covers browser support, use cases, and the foundational concepts behind draggable elements.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-06-26T21:48:40.9701507-04:00",
+      "ModifiedDate": "2026-06-26T21:48:40.9701507-04:00",
+      "Elements": [
+        {
+          "Id": "5dd2ad21-28d0-4f74-ae2b-8fc4bc0c391e",
+          "TopicId": "6d67a7a9-00bf-4024-8e67-655387c711fe",
+          "Title": "What is the HTML5 Drag and Drop API?",
+          "BodyText": "The HTML5 Drag and Drop API is a set of native browser interfaces that allow users to click and drag elements across a web page and drop them onto designated targets.",
+          "Notes": "Prior to HTML5, developers relied on complex JavaScript mouse-event workarounds or third-party libraries like jQuery UI to achieve drag-and-drop behavior. The native API standardizes this interaction at the browser level.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:49:04.5642218-04:00",
+          "ModifiedDate": "2026-06-26T21:49:04.5642218-04:00",
+          "Items": [
+            {
+              "Id": "23cd14aa-9bdb-4183-b373-0a86c74afecf",
+              "Text": "The API is built directly into modern browsers, requiring no external libraries for basic functionality.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1a527665-4da6-470b-8917-fc0e123886d8",
+              "Text": "It exposes a series of events and properties that describe the drag source, the data being transferred, and the drop target.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4ca3e6e3-6c27-419b-a9b6-f43431bbe379",
+              "Text": "The API operates on a drag-and-drop data model: a draggable element, a data store, and one or more drop zones.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "1888ae30-b251-41c2-9341-66263ebb7919",
+          "TopicId": "6d67a7a9-00bf-4024-8e67-655387c711fe",
+          "Title": "Browser Support and Compatibility",
+          "BodyText": "The HTML5 Drag and Drop API enjoys broad support across all major modern browsers, making it a reliable choice for interactive web interfaces.",
+          "Notes": "While desktop browser support is excellent, touch-based devices such as smartphones and tablets do not natively support the HTML5 Drag and Drop API. Polyfills or alternative touch event handling are required for mobile compatibility.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:49:04.5642218-04:00",
+          "ModifiedDate": "2026-06-26T21:49:04.5642218-04:00",
+          "Items": [
+            {
+              "Id": "79c0c5dc-fd1e-499d-9c82-333206a09662",
+              "Text": "Chrome, Firefox, Safari, and Edge all support the core drag-and-drop API with consistent behavior.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d4ad0a10-311d-4cad-8854-f61211688c9a",
+              "Text": "Internet Explorer 11 offered partial support, but developers targeting legacy browsers should test carefully.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "11d42d41-091d-46e1-b194-fadd9edf393d",
+              "Text": "Mobile browsers require additional solutions, such as the touch-action CSS property or touch-event polyfills, to replicate drag-and-drop behavior.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "1b8b728d-b18f-4a36-b99b-2d7cebe5cf25",
+          "TopicId": "6d67a7a9-00bf-4024-8e67-655387c711fe",
+          "Title": "Common Use Cases for Drag and Drop",
+          "BodyText": "Drag and drop interactions are widely used to make web applications more intuitive and visually engaging for end users.",
+          "Notes": "Well-known applications like Trello (card boards), Figma (design canvas), and file upload interfaces in Gmail all use drag-and-drop paradigms to improve usability.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:49:04.5642218-04:00",
+          "ModifiedDate": "2026-06-26T21:49:04.5642218-04:00",
+          "Items": [
+            {
+              "Id": "a5e4fb86-7259-4b14-82ce-6f7e249c94a1",
+              "Text": "Reordering items in a list, such as task cards in a project management board.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b4853b92-b687-4b3d-9583-b3fd4ffd5fdd",
+              "Text": "Uploading files by dragging them from the desktop directly into a browser window.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b5ec78b0-8f9a-4f99-9ace-2ef46f516ae2",
+              "Text": "Moving UI components between containers, such as widgets on a dashboard or columns in a kanban board.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "8078de14-9457-42bc-80d5-7e8841dc9526",
+              "Text": "Enabling visual design tools where users drag shapes, images, or text blocks onto a canvas.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "793affde-4d23-4429-9472-43d7fb0bcf82",
+          "TopicId": "6d67a7a9-00bf-4024-8e67-655387c711fe",
+          "Title": "Making an Element Draggable",
+          "BodyText": "Any HTML element can be made draggable by adding the draggable attribute and setting its value to true.",
+          "Notes": "By default, only anchor tags with an href attribute and image elements are draggable in HTML. All other elements require the explicit draggable=\u0027true\u0027 attribute.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:49:04.5642218-04:00",
+          "ModifiedDate": "2026-06-26T21:49:04.5642218-04:00",
+          "Items": [
+            {
+              "Id": "d9cb4395-0b4a-4814-b4fb-8b97910a8ca5",
+              "Text": "Setting draggable=\u0027true\u0027 on an element signals to the browser that the element participates in drag operations.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2b2924bc-d551-4492-a94b-6381dd70a0c9",
+              "Text": "The draggable attribute alone does not define behavior \u2014 JavaScript event listeners are required to control what happens during and after the drag.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7d905577-da2e-4d10-b618-22e3ed1c4e2b",
+              "Text": "Text selections within form inputs and content-editable elements are also draggable by default.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "8367b150-f487-45f1-9838-182008607138",
+          "TopicId": "6d67a7a9-00bf-4024-8e67-655387c711fe",
+          "Title": "The DataTransfer Object",
+          "BodyText": "The DataTransfer object is the core mechanism of the API, acting as a data store that carries information between the drag source and the drop target.",
+          "Notes": "The DataTransfer object is accessible through drag-related events such as dragstart and drop. It supports multiple data formats \u2014 for example, you can store both plain text and HTML representations of the same data.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:49:04.5642218-04:00",
+          "ModifiedDate": "2026-06-26T21:49:04.5642218-04:00",
+          "Items": [
+            {
+              "Id": "91d966a0-8e45-4740-9ee7-7b888ef1b9dd",
+              "Text": "The setData() method stores data in a specified format (e.g., \u0027text/plain\u0027) when a drag begins.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "764a4792-5c3a-47a6-b6c1-1f0221b0db83",
+              "Text": "The getData() method retrieves the stored data when the element is dropped onto a valid target.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "16856e6e-4dc4-410c-b0a8-3bfa14e62adc",
+              "Text": "The effectAllowed and dropEffect properties control the visual cursor feedback shown to the user during the drag operation.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "298e4d40-7d7a-4717-86a3-839f7d4a38c7",
+          "TopicId": "6d67a7a9-00bf-4024-8e67-655387c711fe",
+          "Title": "Overview of Core Drag and Drop Events",
+          "BodyText": "The HTML5 Drag and Drop API fires a sequence of events on both the dragged element and the potential drop targets throughout the interaction lifecycle.",
+          "Notes": "Understanding which events fire on the drag source versus the drop target is essential before writing any implementation code. This distinction is a foundational concept covered in depth in subsequent topics.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:49:04.5642218-04:00",
+          "ModifiedDate": "2026-06-26T21:49:04.5642218-04:00",
+          "Items": [
+            {
+              "Id": "76c0ff9a-7f90-4b0c-a318-ac077ba5387d",
+              "Text": "The dragstart event fires on the source element when the user begins dragging it.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "bee1f48f-844b-43ca-8adb-9eb29952ee40",
+              "Text": "The dragover event fires continuously on a target element as the dragged item is moved over it, and must be explicitly handled to allow dropping.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "dd9d1dcf-db8a-4e3c-8666-200ed8d78089",
+              "Text": "The drop event fires on the target element when the user releases the dragged item over it.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "54b0a2c8-3d1f-4ad2-89a4-a3ee541965ff",
+              "Text": "Additional events such as dragenter, dragleave, and dragend provide finer control over visual feedback and cleanup.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "fa40dd09-fd35-4f1d-b1c4-bc802e2e79eb",
+      "Title": "Making Elements Draggable",
+      "Summary": "Explains how to enable drag functionality on HTML elements using the draggable attribute. Covers the setup required to prepare elements as drag sources within the DOM.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-06-26T21:48:40.9701507-04:00",
+      "ModifiedDate": "2026-06-26T21:48:40.9701507-04:00",
+      "Elements": [
+        {
+          "Id": "c1c77249-a79f-4245-98a7-1bfbed1708e9",
+          "TopicId": "fa40dd09-fd35-4f1d-b1c4-bc802e2e79eb",
+          "Title": "The draggable Attribute",
+          "BodyText": "The draggable attribute is an HTML5 global attribute that controls whether a user can drag an element with a mouse or touch input.",
+          "Notes": "By default, images and anchor tags with href are draggable, but most other elements are not.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:49:25.9288189-04:00",
+          "ModifiedDate": "2026-06-26T21:49:25.9288189-04:00",
+          "Items": [
+            {
+              "Id": "98ff27fa-2085-4099-909d-51dbb3317a6f",
+              "Text": "Set draggable=\u0027true\u0027 on any HTML element to enable it as a drag source.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "604c941d-c660-4aa1-806e-bb0d26b8a3df",
+              "Text": "Setting draggable=\u0027false\u0027 explicitly disables dragging on elements that are draggable by default.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "fd7f8cec-30a1-4080-a838-5cc0d73017c5",
+              "Text": "The attribute accepts only the string values \u0027true\u0027, \u0027false\u0027, or \u0027auto\u0027.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "1175c503-af0e-472c-8967-7b14d10113aa",
+          "TopicId": "fa40dd09-fd35-4f1d-b1c4-bc802e2e79eb",
+          "Title": "Identifying Drag Source Elements",
+          "BodyText": "A drag source is the DOM element the user picks up and moves during a drag-and-drop interaction.",
+          "Notes": "Common drag sources include list items, cards, images, and any UI component intended to be repositioned by the user.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:49:25.9288189-04:00",
+          "ModifiedDate": "2026-06-26T21:49:25.9288189-04:00",
+          "Items": [
+            {
+              "Id": "ffeaf550-0c66-4f0b-823e-eaf603b13b14",
+              "Text": "Any visible element in the DOM can be designated as a drag source by adding draggable=\u0027true\u0027.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fde578c2-4d35-450e-b654-3081fec3d607",
+              "Text": "Choosing the right element as the drag source ensures that the correct data and visual feedback are associated with the drag operation.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2e0bea03-2572-49f3-b957-63f690a1b1dc",
+              "Text": "Wrapping content in a container element (such as a \u003Cdiv\u003E or \u003Cli\u003E) before marking it draggable gives you finer control over what is moved.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "d386fb60-1efc-4136-9ea1-d07c0f817e1e",
+          "TopicId": "fa40dd09-fd35-4f1d-b1c4-bc802e2e79eb",
+          "Title": "Setting Up the dragstart Event Listener",
+          "BodyText": "The dragstart event fires on the source element the moment the user begins dragging it, and it is the primary place to configure the drag operation.",
+          "Notes": "Without a dragstart handler, the browser initiates a default drag with no custom data or behavior attached.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:49:25.9288189-04:00",
+          "ModifiedDate": "2026-06-26T21:49:25.9288189-04:00",
+          "Items": [
+            {
+              "Id": "a29bd33c-0eac-4fc7-b20a-c6bd51ac09a3",
+              "Text": "Attach a dragstart event listener to the draggable element using addEventListener(\u0027dragstart\u0027, handler).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "325ffb84-3f31-44d5-9d2c-d576e938eae4",
+              "Text": "Inside the handler, use the event.dataTransfer object to store data that will be passed to the drop target.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "36f93aca-e52b-4f96-8f39-b13b2ad790d7",
+              "Text": "You can also set the drag effect (e.g., \u0027move\u0027 or \u0027copy\u0027) in the dragstart handler via event.dataTransfer.effectAllowed.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "0bef13bd-4ab4-43d0-a849-5c8245a3b88d",
+          "TopicId": "fa40dd09-fd35-4f1d-b1c4-bc802e2e79eb",
+          "Title": "Storing Data with dataTransfer",
+          "BodyText": "The dataTransfer object is available on drag events and acts as a data store that carries information from the drag source to the drop target.",
+          "Notes": "A common pattern is to store the dragged element\u0027s id so the drop handler can locate and reposition it in the DOM.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:49:25.9288189-04:00",
+          "ModifiedDate": "2026-06-26T21:49:25.9288189-04:00",
+          "Items": [
+            {
+              "Id": "8d67be6a-e821-4cb5-925e-a5e033f3000b",
+              "Text": "Call event.dataTransfer.setData(format, data) in the dragstart handler to attach a string payload to the drag operation.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5777f4d9-66cb-471a-b0c5-1fbe1a4c6f94",
+              "Text": "The format argument is a MIME type string such as \u0027text/plain\u0027 or a custom key like \u0027text/id\u0027.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "06c371e0-eaad-433c-a703-3baa9e2e298a",
+              "Text": "Only string values can be stored in dataTransfer; serialize objects with JSON.stringify if needed.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "3d946075-4584-48f0-b4c5-5d5a11cdf357",
+          "TopicId": "fa40dd09-fd35-4f1d-b1c4-bc802e2e79eb",
+          "Title": "Visual Feedback During Drag",
+          "BodyText": "Browsers automatically render a ghost image of the dragged element, but developers can customize or enhance this feedback to improve usability.",
+          "Notes": "Applying a CSS class (e.g., \u0027dragging\u0027) during the dragstart event and removing it on dragend is a lightweight way to signal to users which element is active.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:49:25.9288189-04:00",
+          "ModifiedDate": "2026-06-26T21:49:25.9288189-04:00",
+          "Items": [
+            {
+              "Id": "7329c6dd-735c-4631-bb87-cfc08f3c565e",
+              "Text": "Use event.dataTransfer.setDragImage(element, xOffset, yOffset) to replace the default ghost image with a custom one.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7e69a4e6-a323-4886-982c-bef286f7ef99",
+              "Text": "Toggling a CSS class on the source element inside the dragstart handler lets you style it visually while it is being dragged.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f57bb8fa-8bad-4b74-a2fd-54443766cce0",
+              "Text": "Remove any applied classes in the dragend event listener to restore the element\u0027s original appearance after the operation completes.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "c177a5db-f946-46e8-9579-c5aec76917ed",
+          "TopicId": "fa40dd09-fd35-4f1d-b1c4-bc802e2e79eb",
+          "Title": "Accessibility Considerations for Draggable Elements",
+          "BodyText": "Making elements draggable with HTML5 alone does not automatically make the interaction accessible to keyboard or assistive-technology users.",
+          "Notes": "Providing a keyboard-based alternative (such as selecting an item and using arrow keys to reorder) ensures the feature is usable by all audiences.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:49:25.9288189-04:00",
+          "ModifiedDate": "2026-06-26T21:49:25.9288189-04:00",
+          "Items": [
+            {
+              "Id": "1cca8838-fbe0-47da-b234-1b0bc862fd30",
+              "Text": "Add role and aria attributes (e.g., aria-grabbed) to communicate the drag state to screen readers where supported.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "34410cae-a6db-43d4-b78d-fc0f06610eae",
+              "Text": "Ensure that draggable elements are focusable via the keyboard by setting tabindex=\u00270\u0027 on them.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "98352cd4-d429-4467-8b0b-8beaf8c22555",
+              "Text": "Always supplement drag-and-drop with a non-drag alternative so users who cannot operate a pointer device can still complete the task.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "626f4684-b4eb-4238-a737-ae05555bbeb9",
+      "Title": "Handling the dragstart Event",
+      "Summary": "Explores the dragstart event and how to use JavaScript to initialize drag operations. Covers how to store drag data using the DataTransfer object when a drag begins.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-06-26T21:48:40.9701507-04:00",
+      "ModifiedDate": "2026-06-26T21:48:40.9701507-04:00",
+      "Elements": [
+        {
+          "Id": "8267e50e-1d75-413f-af0a-9ce8f8b62744",
+          "TopicId": "626f4684-b4eb-4238-a737-ae05555bbeb9",
+          "Title": "What is the dragstart Event?",
+          "BodyText": "The dragstart event fires on an element the moment a user begins dragging it, signaling the start of a drag operation.",
+          "Notes": "This event is the entry point for all drag-and-drop interactions \u2014 without handling it, no drag data is prepared and subsequent drop events have nothing to work with.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:49:47.4668942-04:00",
+          "ModifiedDate": "2026-06-26T21:49:47.4668942-04:00",
+          "Items": [
+            {
+              "Id": "962cfd90-6130-4cf5-b47a-473ef1a007e9",
+              "Text": "The dragstart event is triggered on the source element, not the drop target.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5e374180-bd5e-40f1-81a8-f2ffcfc72e64",
+              "Text": "It fires once at the very beginning of the drag gesture, before any dragover or drop events occur.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a038cad8-a355-4bee-87b5-d5687d898733",
+              "Text": "An element must have the draggable=\u0027true\u0027 HTML attribute set for dragstart to fire on it.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "34919579-adca-4629-8b34-a32c9f5cbc68",
+          "TopicId": "626f4684-b4eb-4238-a737-ae05555bbeb9",
+          "Title": "Attaching a dragstart Event Listener",
+          "BodyText": "You register a dragstart handler using JavaScript\u0027s addEventListener method on any draggable element.",
+          "Notes": "Example: element.addEventListener(\u0027dragstart\u0027, (event) =\u003E { /* initialize drag */ }); This keeps behavior separate from HTML markup.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:49:47.4668942-04:00",
+          "ModifiedDate": "2026-06-26T21:49:47.4668942-04:00",
+          "Items": [
+            {
+              "Id": "3de75305-b2c2-4bec-a792-5b9c1674427c",
+              "Text": "Use addEventListener(\u0027dragstart\u0027, handler) to attach the callback without overwriting other listeners.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "66dcb194-93a1-413c-80fe-0cd3e97b1565",
+              "Text": "The event object passed to the handler provides access to the DataTransfer object needed for storing drag data.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "85261059-a3aa-4001-895c-de26844e1b2a",
+              "Text": "You can attach dragstart listeners to multiple elements at once by iterating over a NodeList or array of draggable items.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "2a1f3eb7-b78c-4523-98a8-36906c43c427",
+          "TopicId": "626f4684-b4eb-4238-a737-ae05555bbeb9",
+          "Title": "Introduction to the DataTransfer Object",
+          "BodyText": "The DataTransfer object is the mechanism through which data is packaged and carried during a drag-and-drop operation.",
+          "Notes": "Think of DataTransfer as a temporary clipboard that exists only for the duration of a single drag session.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:49:47.4668942-04:00",
+          "ModifiedDate": "2026-06-26T21:49:47.4668942-04:00",
+          "Items": [
+            {
+              "Id": "f081b199-6904-401a-834e-de71e1913ad3",
+              "Text": "The DataTransfer object is accessed via event.dataTransfer inside any drag event handler.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8cc458df-5702-4fbe-ac41-c07def30d444",
+              "Text": "It stores data as key-value pairs where the key is a MIME type string and the value is the data payload.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "380c270f-1194-4d68-ac68-5724c87f996c",
+              "Text": "Data placed on the DataTransfer object during dragstart is what becomes available when the drop event fires.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "c306f9c2-a002-4c62-995b-fa8354a2b0cd",
+          "TopicId": "626f4684-b4eb-4238-a737-ae05555bbeb9",
+          "Title": "Storing Drag Data with setData()",
+          "BodyText": "Inside the dragstart handler, you call event.dataTransfer.setData() to store the information that should travel with the dragged element.",
+          "Notes": "Example: event.dataTransfer.setData(\u0027text/plain\u0027, event.target.id); This stores the dragged element\u0027s ID so the drop handler can identify which element was dropped.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:49:47.4668942-04:00",
+          "ModifiedDate": "2026-06-26T21:49:47.4668942-04:00",
+          "Items": [
+            {
+              "Id": "c490f872-b1ac-4d22-8645-6de465ebca8c",
+              "Text": "setData() accepts two arguments: a format string (commonly \u0027text/plain\u0027 or \u0027text/html\u0027) and the data value to store.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "81837277-4968-45f6-a74f-6d73d6c6a2a0",
+              "Text": "You can call setData() multiple times with different format strings to store the same data in multiple formats.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "191c7433-cdc3-4461-a6c3-5291acf460bb",
+              "Text": "Storing the element\u0027s ID or a unique identifier is a common pattern, allowing the drop handler to look up and manipulate the correct DOM element.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "3fd95fbe-5d8e-4f93-8a8c-5f6cce6fb6de",
+          "TopicId": "626f4684-b4eb-4238-a737-ae05555bbeb9",
+          "Title": "Setting the Drag Effect",
+          "BodyText": "The dragstart handler is also the right place to set event.dataTransfer.effectAllowed, which communicates what type of operation is permitted.",
+          "Notes": "Common values include \u0027move\u0027, \u0027copy\u0027, \u0027link\u0027, and \u0027copyMove\u0027. The browser may update the cursor icon to reflect the allowed effect.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:49:47.4668942-04:00",
+          "ModifiedDate": "2026-06-26T21:49:47.4668942-04:00",
+          "Items": [
+            {
+              "Id": "5b6cd415-b1c2-408c-b62a-612d6caca09b",
+              "Text": "Setting effectAllowed on the DataTransfer object tells the browser and drop targets what operations are valid for this drag.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d1813f8f-0128-4101-82de-45d9b97a0210",
+              "Text": "If effectAllowed is not set, the default value is \u0027all\u0027, meaning any operation is permitted.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e8a6517d-fd16-427a-8d45-e8f74000e627",
+              "Text": "The drop target can then use event.dataTransfer.dropEffect to specify which of the allowed operations will actually be performed.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "c0fcf90a-fbfc-47f8-ac26-f36ccefec464",
+          "TopicId": "626f4684-b4eb-4238-a737-ae05555bbeb9",
+          "Title": "Customizing the Drag Image",
+          "BodyText": "During dragstart you can optionally replace the browser\u0027s default ghost image \u2014 the semi-transparent copy of the dragged element \u2014 with a custom visual.",
+          "Notes": "This is useful when the default ghost image is too large, unstyled, or when you want to show a badge or count indicator during a drag.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:49:47.4668942-04:00",
+          "ModifiedDate": "2026-06-26T21:49:47.4668942-04:00",
+          "Items": [
+            {
+              "Id": "2e08cc10-4f61-41c7-84c1-b216b04c20ba",
+              "Text": "Call event.dataTransfer.setDragImage(imageElement, xOffset, yOffset) inside the dragstart handler to specify a custom drag image.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3219761a-ae21-4df5-9d45-b9ff2a9d8aae",
+              "Text": "The first argument can be any visible HTML element or an Image object; the x and y offsets control where the cursor appears relative to the image.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "73bbcac4-a679-477f-8335-355105f09fab",
+              "Text": "If setDragImage() is not called, the browser automatically generates a ghost image from the dragged element\u0027s current appearance.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "d0e4e3dc-a62d-44d1-a325-9fabb7d2a254",
+      "Title": "Handling the dragover Event",
+      "Summary": "Covers the dragover event and how to designate valid drop targets by preventing default browser behavior. Explains how to provide visual feedback to users during an active drag operation.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-06-26T21:48:40.9701507-04:00",
+      "ModifiedDate": "2026-06-26T21:48:40.9701507-04:00",
+      "Elements": [
+        {
+          "Id": "5837a0e4-2153-4ffd-83ca-da1dc9b0c53f",
+          "TopicId": "d0e4e3dc-a62d-44d1-a325-9fabb7d2a254",
+          "Title": "The Role of the dragover Event",
+          "BodyText": "The dragover event fires continuously as a draggable element is moved over a potential drop target, making it the key event for controlling drop zone behavior.",
+          "Notes": "Unlike dragstart or drop, dragover fires repeatedly while the dragged item hovers over an element, not just once.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:50:10.4403035-04:00",
+          "ModifiedDate": "2026-06-26T21:50:10.4403035-04:00",
+          "Items": [
+            {
+              "Id": "3725ecd5-e60f-44a2-98d1-1b18d5f1fc31",
+              "Text": "The dragover event is triggered on the element currently beneath the dragged item, not on the dragged item itself.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "24b70efa-e551-4e31-9df0-22d8b1ec1883",
+              "Text": "Because it fires continuously during movement, any handler attached to it should be kept efficient to avoid performance issues.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8d8adefa-c9ee-4220-a1a8-bdaedb8b6386",
+              "Text": "Listening for this event on a target element is the first step in designating it as a valid drop zone.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "2ef9d786-f781-4897-baa1-67d5effb99ca",
+          "TopicId": "d0e4e3dc-a62d-44d1-a325-9fabb7d2a254",
+          "Title": "Preventing Default Browser Behavior",
+          "BodyText": "By default, most HTML elements do not allow other elements to be dropped onto them; calling event.preventDefault() inside the dragover handler overrides this restriction.",
+          "Notes": "Without preventDefault(), the drop event will never fire on that element, effectively blocking all drop interactions.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:50:10.4403035-04:00",
+          "ModifiedDate": "2026-06-26T21:50:10.4403035-04:00",
+          "Items": [
+            {
+              "Id": "09be6df2-fe58-4b2c-9f45-536acf36cb23",
+              "Text": "Browsers treat nearly all elements as invalid drop targets by default, so the default action of dragover must be cancelled to permit dropping.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8f9e6eae-1023-4ca7-b489-7876dafbdc53",
+              "Text": "Calling event.preventDefault() signals to the browser that a drop is acceptable at the current location.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "deefe29c-75ee-428e-bc10-7b0f7c85629d",
+              "Text": "This single call is the minimum required code to make any element function as a valid drop target.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "8498a7bf-f5a8-474f-8115-c0d88221c094",
+          "TopicId": "d0e4e3dc-a62d-44d1-a325-9fabb7d2a254",
+          "Title": "Designating Valid Drop Targets",
+          "BodyText": "Not every element on the page should accept a drop; attaching a dragover listener with preventDefault() selectively marks only the intended elements as valid drop zones.",
+          "Notes": "You can add dragover listeners to multiple elements or use event delegation on a parent to manage several drop targets at once.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:50:10.4403035-04:00",
+          "ModifiedDate": "2026-06-26T21:50:10.4403035-04:00",
+          "Items": [
+            {
+              "Id": "6bf2da04-536d-42d2-9db3-115c33b542ac",
+              "Text": "Only elements that have a dragover handler calling preventDefault() will fire the subsequent drop event, giving you precise control over valid targets.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b569243e-d352-4d93-8f32-10bd8a99b9cc",
+              "Text": "You can conditionally call preventDefault() based on the data being dragged, allowing context-sensitive drop rules.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4c1ade96-0609-49a0-82c5-4e8cc75dad3f",
+              "Text": "Elements without a dragover listener remain invalid drop targets, protecting areas of the UI where drops should not occur.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ac4365bd-ccbf-4df8-a319-7d1313de96dd",
+          "TopicId": "d0e4e3dc-a62d-44d1-a325-9fabb7d2a254",
+          "Title": "Providing Visual Feedback During a Drag",
+          "BodyText": "Good user experience requires clear visual cues when a draggable element hovers over a valid drop target, so users know where they can release the item.",
+          "Notes": "Common patterns include adding a CSS class like \u0027drag-over\u0027 that highlights the target with a border or background color change.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:50:10.4403035-04:00",
+          "ModifiedDate": "2026-06-26T21:50:10.4403035-04:00",
+          "Items": [
+            {
+              "Id": "358e4ce6-722b-4f0f-b51f-b4393739e540",
+              "Text": "Inside the dragover handler, you can add a CSS class to the target element to visually highlight it as an active drop zone.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "946bc96f-467d-46fb-88cf-7ae5a0cb4ab5",
+              "Text": "Changing styles such as border color, background color, or opacity gives immediate feedback that the location accepts a drop.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a0959298-50a3-4462-9284-e74086f3a913",
+              "Text": "The added class should be removed when the dragged item leaves the target, typically handled in the dragleave event handler.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "6210cc0d-b9c4-4879-8f45-e7015c339208",
+          "TopicId": "d0e4e3dc-a62d-44d1-a325-9fabb7d2a254",
+          "Title": "Coordinating dragover with dragleave",
+          "BodyText": "Because dragover continuously applies visual changes, the dragleave event is needed as a counterpart to clean up styles when the dragged item exits the drop zone.",
+          "Notes": "Without a dragleave handler, highlight styles added during dragover will persist even after the user moves the dragged element away.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:50:10.4403035-04:00",
+          "ModifiedDate": "2026-06-26T21:50:10.4403035-04:00",
+          "Items": [
+            {
+              "Id": "ef15cadd-aeac-4cf5-920e-51d6560ecdcc",
+              "Text": "The dragleave event fires when the dragged element moves out of a potential drop target, providing the opportunity to reset visual feedback.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "02e14391-6183-4c80-90d6-b7af2ad7de48",
+              "Text": "Pairing dragover and dragleave handlers ensures the UI accurately reflects whether the dragged item is currently over a valid target.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2ae48e42-5072-4c8c-8a20-f3713b215b26",
+              "Text": "This coordination creates a responsive, polished interaction that clearly tracks the drag operation\u0027s current position.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "7455d882-22a4-454f-970b-f95e96171c39",
+          "TopicId": "d0e4e3dc-a62d-44d1-a325-9fabb7d2a254",
+          "Title": "Using dataTransfer.dropEffect in dragover",
+          "BodyText": "The dataTransfer.dropEffect property can be set inside the dragover handler to communicate the type of operation (move, copy, link, or none) that will occur upon drop.",
+          "Notes": "The dropEffect must be compatible with the effectAllowed value set during dragstart; a mismatch can result in a \u0027none\u0027 cursor indicating an invalid drop.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:50:10.4403035-04:00",
+          "ModifiedDate": "2026-06-26T21:50:10.4403035-04:00",
+          "Items": [
+            {
+              "Id": "e7effd18-5ded-4b2a-8eed-72c8b12a0dd1",
+              "Text": "Setting dataTransfer.dropEffect to \u0027move\u0027, \u0027copy\u0027, or \u0027link\u0027 changes the cursor icon to give users an additional visual cue about the drag outcome.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9967af9b-a1ef-44b3-a975-117308ab3e0c",
+              "Text": "A dropEffect of \u0027none\u0027 signals an invalid drop target and typically renders a \u0027no drop\u0027 cursor, even if preventDefault() is called.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "aac841f8-c3a2-4976-925e-2636a467cc0e",
+              "Text": "Choosing the correct dropEffect improves accessibility and clarity by aligning the cursor feedback with the actual action that will happen on drop.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "fc934e93-be90-4207-a534-8c9ecf70d22a",
+      "Title": "Handling the drop Event",
+      "Summary": "Examines the drop event and how to retrieve transferred data to complete a drag-and-drop interaction. Covers updating the DOM appropriately when an element is successfully dropped onto a target.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-06-26T21:48:40.9701507-04:00",
+      "ModifiedDate": "2026-06-26T21:48:40.9701507-04:00",
+      "Elements": [
+        {
+          "Id": "f62bcf05-bd93-4ab5-a561-69adf7fa9911",
+          "TopicId": "fc934e93-be90-4207-a534-8c9ecf70d22a",
+          "Title": "Listening for the drop Event",
+          "BodyText": "The drop event fires on a valid drop target when the user releases a dragged element over it. You must attach a drop event listener to the target element to capture and handle the interaction.",
+          "Notes": "The drop event will only fire if dragover has been properly handled on the same target, including calling preventDefault() to signal that drops are accepted.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:50:34.7063739-04:00",
+          "ModifiedDate": "2026-06-26T21:50:34.7063739-04:00",
+          "Items": [
+            {
+              "Id": "d82bb400-43bf-4535-b517-3d0a4c8bc7f1",
+              "Text": "Add a drop event listener to the intended target element using addEventListener(\u0027drop\u0027, handler).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3687d0ea-bd39-4e30-911b-3ac4af0a9871",
+              "Text": "The drop event is triggered only after the dragover event has allowed the drop by calling event.preventDefault().",
+              "SortOrder": 1
+            },
+            {
+              "Id": "93684286-dfb8-415b-9e00-270e26bd18cd",
+              "Text": "Without a corresponding dragover handler, the browser\u0027s default behavior will reject the drop and the drop event will never fire.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "48c104ce-ffa8-43d0-957c-19a6c77d355a",
+          "TopicId": "fc934e93-be90-4207-a534-8c9ecf70d22a",
+          "Title": "Preventing Default Browser Behavior on Drop",
+          "BodyText": "Browsers have default actions for drop events, such as opening a file or navigating to a URL when an element is dropped. Calling event.preventDefault() inside the drop handler suppresses these defaults.",
+          "Notes": "For example, dropping an image onto a browser window by default navigates to that image file. Preventing default keeps your application in control of what happens.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:50:34.7063739-04:00",
+          "ModifiedDate": "2026-06-26T21:50:34.7063739-04:00",
+          "Items": [
+            {
+              "Id": "93fb73c8-ae6e-4d0e-84b1-3dfb161acae2",
+              "Text": "Always call event.preventDefault() at the start of your drop handler to stop unwanted browser default behavior.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fcd6b32e-4376-4dda-a85e-9f37b376c0f3",
+              "Text": "Calling event.stopPropagation() may also be useful to prevent the drop event from bubbling up to parent elements that might have their own handlers.",
+              "SortOrder": 1
+            }
+          ]
+        },
+        {
+          "Id": "9a378cc9-6728-441d-9d7b-845505449af2",
+          "TopicId": "fc934e93-be90-4207-a534-8c9ecf70d22a",
+          "Title": "Retrieving Transferred Data with dataTransfer.getData()",
+          "BodyText": "The dataTransfer object available on the drop event provides access to any data stored during the dragstart event. The getData() method retrieves this information by the same type key used when it was set.",
+          "Notes": "For example, if you stored an element\u0027s ID during dragstart with dataTransfer.setData(\u0027text/plain\u0027, element.id), you retrieve it in the drop handler with event.dataTransfer.getData(\u0027text/plain\u0027).",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:50:34.7063739-04:00",
+          "ModifiedDate": "2026-06-26T21:50:34.7063739-04:00",
+          "Items": [
+            {
+              "Id": "577dc43e-1f09-401b-a0c7-d09d3d560cea",
+              "Text": "Use event.dataTransfer.getData(\u0027text/plain\u0027) or the relevant MIME type to retrieve the data that was set during dragstart.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4eaa5a3a-669a-4fd6-9a54-e08f7a13951d",
+              "Text": "The type string passed to getData() must exactly match the type used in setData() during the dragstart handler.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6a5f55cb-80e3-40e2-ac7b-828a4dc9351e",
+              "Text": "The retrieved data is returned as a string, so any non-string values (such as IDs or JSON) must be parsed appropriately before use.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "b43edaa7-5a66-45ed-875c-f5779ab5a8cb",
+          "TopicId": "fc934e93-be90-4207-a534-8c9ecf70d22a",
+          "Title": "Identifying the Dragged Element from Retrieved Data",
+          "BodyText": "A common pattern is to store the dragged element\u0027s ID in the dataTransfer object and then use that ID in the drop handler to locate the element in the DOM. This allows you to reference and manipulate the original element after the drop.",
+          "Notes": "Using document.getElementById() or querySelector() with the retrieved ID is a straightforward way to get a reference to the dragged element so it can be moved or cloned.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:50:34.7063739-04:00",
+          "ModifiedDate": "2026-06-26T21:50:34.7063739-04:00",
+          "Items": [
+            {
+              "Id": "1914e2ac-7ac5-419b-b928-aeb217d18ec4",
+              "Text": "During dragstart, store the dragged element\u0027s unique ID: event.dataTransfer.setData(\u0027text/plain\u0027, event.target.id).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7943508c-b48c-4f57-a49f-5524e3a81ac7",
+              "Text": "In the drop handler, retrieve the ID and use document.getElementById(id) to get a JavaScript reference to the original dragged element.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5fe84b32-ccf2-466e-baf2-b80de6eecff6",
+              "Text": "This pattern decouples the drag source from the drop target, allowing flexible movement between different parts of the DOM.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "92e4f1b4-a8ed-41b7-a35d-83d6d26d060f",
+          "TopicId": "fc934e93-be90-4207-a534-8c9ecf70d22a",
+          "Title": "Updating the DOM After a Successful Drop",
+          "BodyText": "Once the dragged element is identified, the DOM must be updated to reflect the drop \u2014 typically by appending or inserting the dragged element into the drop target. This is what visually completes the drag-and-drop interaction for the user.",
+          "Notes": "Using appendChild() moves the element from its original location to the drop target. If a copy is desired instead of a move, cloneNode(true) can be used before appending.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:50:34.7063739-04:00",
+          "ModifiedDate": "2026-06-26T21:50:34.7063739-04:00",
+          "Items": [
+            {
+              "Id": "db453dc8-b8aa-4643-ae79-36be962084bd",
+              "Text": "Call dropTarget.appendChild(draggedElement) to move the dragged element into the drop target container.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "cde47174-3898-40fe-bcef-697058b5a403",
+              "Text": "appendChild() automatically removes the element from its previous parent, so no separate removal step is needed when moving an element.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0c554a48-0cb9-41d5-80ff-b32527a116e8",
+              "Text": "Ensure the drop target element is correctly referenced \u2014 typically via event.currentTarget or event.target within the drop handler.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "899c0ae1-e325-4fac-b13a-7533f60a6294",
+              "Text": "If conditional placement is needed (e.g., inserting before a specific child), use insertBefore() instead of appendChild().",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "e06086db-0c1f-497f-9e3e-fb049ee03de4",
+          "TopicId": "fc934e93-be90-4207-a534-8c9ecf70d22a",
+          "Title": "Cleaning Up Visual Feedback After the Drop",
+          "BodyText": "Any visual styles applied during dragover to indicate a valid drop target (such as highlighted borders or background colors) should be removed when the drop event fires. This restores the target\u0027s normal appearance.",
+          "Notes": "It is good practice to also remove these styles in the dragleave event handler so the UI responds correctly when the user drags away without dropping.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:50:34.7063739-04:00",
+          "ModifiedDate": "2026-06-26T21:50:34.7063739-04:00",
+          "Items": [
+            {
+              "Id": "fa684e0d-7ec9-4588-a674-8498e7eb4761",
+              "Text": "Remove any CSS classes or inline styles added during dragover at the beginning or end of the drop handler.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2f5f3474-0110-4e87-b5e1-51fe604a5333",
+              "Text": "Consistent cleanup in both the drop and dragleave handlers ensures the UI never gets stuck in a \u0027highlighted\u0027 state.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "564cde5a-1d91-4547-8152-e332d458b1b9",
+              "Text": "Using classList.remove() is a clean and reliable approach to resetting visual state on the drop target.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "d56036c0-c6b6-4583-ae44-3b33749d97ca",
+      "Title": "Building an Interactive UI Component",
+      "Summary": "Brings together all drag-and-drop events and techniques to construct a fully functional interactive UI component. Students apply their knowledge to a practical project such as a sortable list or Kanban-style board.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-06-26T21:48:40.9701507-04:00",
+      "ModifiedDate": "2026-06-26T21:48:40.9701507-04:00",
+      "Elements": [
+        {
+          "Id": "5f32676f-6f80-4598-acae-207300aa58d4",
+          "TopicId": "d56036c0-c6b6-4583-ae44-3b33749d97ca",
+          "Title": "Planning the Interactive UI Component",
+          "BodyText": "Before writing any code, a clear plan defines the structure and behavior of the drag-and-drop component, such as a sortable list or Kanban-style board.",
+          "Notes": "For a Kanban board, planning includes identifying columns (e.g., To Do, In Progress, Done) and the cards that move between them. For a sortable list, it means defining the ordered items and the rules for reordering.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:51:02.06977-04:00",
+          "ModifiedDate": "2026-06-26T21:51:02.06977-04:00",
+          "Items": [
+            {
+              "Id": "28b73c95-69e2-4e6a-9c86-084632448a46",
+              "Text": "Identify the draggable elements and their valid drop targets within the component.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e07cabf6-4482-45f3-922d-1e08018c1d72",
+              "Text": "Sketch the HTML structure, mapping out containers and draggable items before coding.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d34c0745-a4b7-4d88-b265-d5c2f3674a28",
+              "Text": "Define the expected user interaction flow: what happens when an item is picked up, dragged over a target, and released.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "219e01bf-a801-45c2-b77b-b665fb20db2d",
+          "TopicId": "d56036c0-c6b6-4583-ae44-3b33749d97ca",
+          "Title": "Setting Up the HTML Structure",
+          "BodyText": "A well-structured HTML foundation is essential for a functional drag-and-drop component, using the draggable attribute to enable native drag behavior on items.",
+          "Notes": "For a sortable list, each \u003Cli\u003E element receives draggable=\u0027true\u0027. For a Kanban board, each card div gets draggable=\u0027true\u0027 while column divs serve as drop targets.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:51:02.06977-04:00",
+          "ModifiedDate": "2026-06-26T21:51:02.06977-04:00",
+          "Items": [
+            {
+              "Id": "38d806e6-2b79-40a2-b8e5-1a8e917dc6cc",
+              "Text": "Add draggable=\u0027true\u0027 to every element that users should be able to drag.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "177a0ef3-5189-49b9-8f3e-08ddb2518908",
+              "Text": "Structure drop-target containers semantically so JavaScript can identify them during drag events.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "70be68f6-4f71-4c3f-a9cb-f38a66910979",
+              "Text": "Assign data attributes or IDs to draggable items to track their identity across drag-and-drop operations.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "36cb5f50-a2f5-45d7-845a-1e00541d4baf",
+          "TopicId": "d56036c0-c6b6-4583-ae44-3b33749d97ca",
+          "Title": "Implementing the dragstart Event",
+          "BodyText": "The dragstart event fires when the user begins dragging an element, and it is the correct moment to capture and store information about the dragged item.",
+          "Notes": "Using event.dataTransfer.setData() stores the dragged element\u0027s ID so the drop handler can retrieve and reposition it. Applying a visual style class during dragstart gives users clear feedback that a drag is in progress.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:51:02.06977-04:00",
+          "ModifiedDate": "2026-06-26T21:51:02.06977-04:00",
+          "Items": [
+            {
+              "Id": "b726873b-a524-4223-884b-ffbbebafe574",
+              "Text": "Use event.dataTransfer.setData() to record the dragged element\u0027s identifier at the start of the drag.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "97ad9ee5-f2e7-4f1a-8464-ebb7895b160f",
+              "Text": "Apply a CSS class (e.g., \u0027dragging\u0027) to the element inside the dragstart handler to provide visual feedback.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "77deb00b-b50a-4f42-b12c-e4fa621588be",
+              "Text": "Remove the visual feedback class inside a corresponding dragend handler to restore the element\u0027s default appearance.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "f64485e8-fc12-4409-ba4b-8e2d87ea1438",
+          "TopicId": "d56036c0-c6b6-4583-ae44-3b33749d97ca",
+          "Title": "Handling the dragover Event on Drop Targets",
+          "BodyText": "The dragover event must be explicitly managed on drop targets to allow items to be dropped, since the browser\u0027s default behavior prevents dropping.",
+          "Notes": "Calling event.preventDefault() inside the dragover handler is mandatory to signal that the target accepts a drop. Adding a highlight style to the target during dragover, and removing it on dragleave, improves usability.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:51:02.06977-04:00",
+          "ModifiedDate": "2026-06-26T21:51:02.06977-04:00",
+          "Items": [
+            {
+              "Id": "72343f61-47dc-4bbe-b08d-9323ea60bb3f",
+              "Text": "Attach a dragover event listener to each drop-target container and call event.preventDefault() inside it.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e4f17c03-2690-44f2-b69c-55189b6205e5",
+              "Text": "Apply a visual highlight class to the drop target during dragover to indicate it is a valid landing zone.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "725ada04-9fc4-4dbc-b086-1fbe8809694a",
+              "Text": "Remove the highlight class in a dragleave event listener to keep the UI clean when the drag moves away.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "dfc07e8f-8b46-47af-9d9f-4daae51753c5",
+          "TopicId": "d56036c0-c6b6-4583-ae44-3b33749d97ca",
+          "Title": "Implementing the drop Event to Reorder or Move Items",
+          "BodyText": "The drop event is where the core logic executes \u2014 retrieving the dragged element\u0027s data and inserting it into the correct position within the UI component.",
+          "Notes": "For a sortable list, the drop handler appends or inserts the dragged item relative to the element currently under the cursor. For a Kanban board, it moves the card element into the target column.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:51:02.06977-04:00",
+          "ModifiedDate": "2026-06-26T21:51:02.06977-04:00",
+          "Items": [
+            {
+              "Id": "597be875-5a75-4a72-bc89-1f18c179295f",
+              "Text": "Use event.dataTransfer.getData() inside the drop handler to retrieve the identifier saved during dragstart.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "20adc992-7cfd-4c29-951c-d8f00161168d",
+              "Text": "Use document.getElementById() or querySelector() with the retrieved identifier to locate the actual dragged DOM element.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "281a7c22-a7b6-4ba7-a200-c04b7f1c0838",
+              "Text": "Append or insert the dragged element into the drop target container to complete the move or reorder action.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "c75f9a59-b43b-4ac3-b02a-2b3d0f1b48de",
+          "TopicId": "d56036c0-c6b6-4583-ae44-3b33749d97ca",
+          "Title": "Managing State and Updating the Data Model",
+          "BodyText": "A robust interactive component keeps an underlying data model synchronized with the DOM so that the UI accurately reflects the current order or placement of items.",
+          "Notes": "For example, a JavaScript array representing list order should be updated whenever a drop completes. This makes it straightforward to save the new state to a server or localStorage.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:51:02.06977-04:00",
+          "ModifiedDate": "2026-06-26T21:51:02.06977-04:00",
+          "Items": [
+            {
+              "Id": "ee196325-0602-4ff6-92f5-200596e4b969",
+              "Text": "Maintain a JavaScript array or object that mirrors the order or column assignment of all draggable items.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fb8a04eb-e035-4635-8b4d-507a92ced1fd",
+              "Text": "Update the data model inside the drop event handler immediately after repositioning the DOM element.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "641061b8-f774-4f1d-9cfd-69510dd392d5",
+              "Text": "Use the updated data model to re-render or validate the component state, ensuring the UI and data stay in sync.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "6b7d7ed8-50d6-4ac1-a7c7-f2e018746198",
+          "TopicId": "d56036c0-c6b6-4583-ae44-3b33749d97ca",
+          "Title": "Accessibility and Usability Enhancements",
+          "BodyText": "A fully functional drag-and-drop component should also consider users who cannot use a mouse, requiring keyboard alternatives and appropriate ARIA attributes.",
+          "Notes": "ARIA roles such as role=\u0027listitem\u0027 and live regions can announce reorder results to screen reader users. Keyboard-driven reordering can be implemented using keydown events as a complement to drag-and-drop.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:51:02.06977-04:00",
+          "ModifiedDate": "2026-06-26T21:51:02.06977-04:00",
+          "Items": [
+            {
+              "Id": "2e33c5b2-febd-43ee-b2f9-b87f93a37f20",
+              "Text": "Add ARIA attributes such as aria-grabbed and aria-dropeffect to communicate drag state to assistive technologies.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "51073834-0e09-4eaa-9e39-be5332d69db9",
+              "Text": "Provide keyboard interaction (e.g., arrow keys to move items) as a fallback for users who cannot perform drag gestures.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b641bf47-af7f-4295-939c-c069fe375168",
+              "Text": "Ensure focus management is handled correctly so keyboard users can navigate to and interact with each draggable item.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 37
+}

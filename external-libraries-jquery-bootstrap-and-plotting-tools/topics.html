@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>External Libraries: jQuery, Bootstrap, and Plotting Tools — Module Topics</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.2rem;margin-top:28px;color:#1a3c6e}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<h1>External Libraries: jQuery, Bootstrap, and Plotting Tools — Module Topics</h1>
+<h2>Introduction to External Libraries and CDN Integration</h2>
+<div class="summary">Explains what third-party libraries are and how to load them into a web project using Content Delivery Networks (CDNs). Covers the benefits of CDNs over local file hosting and the basic script/link tag syntax required.</div>
+<ul>
+<li><strong>What Are Third-Party External Libraries?</strong> <span class="el-body">— External libraries are pre-written collections of code created by other developers that you can include in your own web project to add functionality without building it from scratch.</span></li>
+<li><strong>What Is a Content Delivery Network (CDN)?</strong> <span class="el-body">— A Content Delivery Network (CDN) is a geographically distributed network of servers that hosts and delivers files — such as library assets — to users from the server closest to them.</span></li>
+<li><strong>Benefits of Using a CDN Over Local File Hosting</strong> <span class="el-body">— Loading libraries from a CDN offers several performance and maintenance advantages compared to downloading and hosting the library files yourself on your own server.</span></li>
+<li><strong>Loading a JavaScript Library via a Script Tag</strong> <span class="el-body">— JavaScript libraries are loaded into a web page using the HTML &lt;script&gt; tag with a src attribute pointing to the CDN URL of the library file.</span></li>
+<li><strong>Loading a CSS Library via a Link Tag</strong> <span class="el-body">— CSS-based libraries such as Bootstrap are loaded using the HTML &lt;link&gt; tag placed inside the &lt;head&gt; section of the page, referencing the CDN-hosted stylesheet.</span></li>
+<li><strong>Versioning and Integrity When Using CDN Links</strong> <span class="el-body">— CDN URLs typically include a specific version number of the library, and modern best practices recommend using Subresource Integrity (SRI) hashes to verify that the file has not been tampered with.</span></li>
+</ul>
+<h2>jQuery Fundamentals and DOM Manipulation</h2>
+<div class="summary">Introduces jQuery as a JavaScript library that simplifies HTML document traversal, event handling, and DOM manipulation. Demonstrates core jQuery syntax and practical examples for selecting and modifying page elements.</div>
+<ul>
+<li><strong>What is jQuery and Why Use It?</strong> <span class="el-body">— jQuery is a fast, lightweight JavaScript library designed to simplify common tasks like HTML document traversal, event handling, and DOM manipulation.</span></li>
+<li><strong>Including jQuery via CDN</strong> <span class="el-body">— The easiest way to add jQuery to a project is by referencing it through a Content Delivery Network (CDN) link placed in the HTML document.</span></li>
+<li><strong>Core jQuery Syntax: The $ Function</strong> <span class="el-body">— jQuery&#39;s primary interface is the $ function, which selects one or more HTML elements from the DOM and wraps them in a jQuery object for further manipulation.</span></li>
+<li><strong>Selecting and Traversing DOM Elements</strong> <span class="el-body">— jQuery provides powerful selectors and traversal methods to locate specific elements within the page structure.</span></li>
+<li><strong>Modifying Content and Attributes</strong> <span class="el-body">— jQuery makes it straightforward to read and update the text content, HTML, and attributes of selected page elements.</span></li>
+<li><strong>Handling Events with jQuery</strong> <span class="el-body">— jQuery simplifies attaching event listeners to elements, enabling interactive responses to user actions such as clicks, key presses, and mouse movements.</span></li>
+<li><strong>Manipulating CSS and Visibility</strong> <span class="el-body">— jQuery provides methods to dynamically change the styling and visibility of elements without directly editing the stylesheet.</span></li>
+</ul>
+<h2>jQuery Events and Dynamic Interactivity</h2>
+<div class="summary">Explores how jQuery handles user events such as clicks, form submissions, and keyboard input to create dynamic, interactive web pages. Covers event binding methods and common interaction patterns.</div>
+<ul>
+<li><strong>Binding Events with .on()</strong> <span class="el-body">— jQuery&#39;s .on() method is the primary way to attach event listeners to DOM elements, replacing older methods like .click() and .submit().</span></li>
+<li><strong>Handling Click Events</strong> <span class="el-body">— Click events are the most common user interactions handled by jQuery, enabling buttons, links, and other elements to trigger dynamic behavior.</span></li>
+<li><strong>Form Submission Events</strong> <span class="el-body">— jQuery makes it straightforward to intercept form submissions, validate input, and control whether data is sent to a server.</span></li>
+<li><strong>Keyboard Input Events</strong> <span class="el-body">— jQuery provides keyboard events — keydown, keypress, and keyup — that let developers respond to user typing in real time.</span></li>
+<li><strong>Event Delegation for Dynamic Elements</strong> <span class="el-body">— Event delegation attaches a listener to a parent element so that dynamically added child elements automatically respond to events without re-binding.</span></li>
+<li><strong>The Event Object and Stopping Propagation</strong> <span class="el-body">— Every jQuery event handler receives an event object containing details about the interaction and methods to control how the event travels through the DOM.</span></li>
+<li><strong>Common Interaction Patterns with jQuery</strong> <span class="el-body">— jQuery enables several recurring UI patterns — such as toggling visibility, tab switching, and live filtering — through concise combinations of event binding and DOM manipulation.</span></li>
+</ul>
+<h2>Bootstrap Layout and the Responsive Grid System</h2>
+<div class="summary">Introduces Bootstrap&#39;s grid system and how it enables responsive, mobile-first page layouts using rows and columns. Explains breakpoint classes and how to structure content that adapts across screen sizes.</div>
+<ul>
+<li><strong>What Is the Bootstrap Grid System?</strong> <span class="el-body">— Bootstrap&#39;s grid system is a flexible, 12-column layout framework that makes it straightforward to build structured, responsive web pages.</span></li>
+<li><strong>Mobile-First Design Philosophy</strong> <span class="el-body">— Bootstrap is built with a mobile-first approach, meaning styles are defined for small screens by default and then scaled up for larger devices.</span></li>
+<li><strong>Containers: The Foundation of Layout</strong> <span class="el-body">— Every Bootstrap grid layout must begin with a container element, which centers content and controls its maximum width.</span></li>
+<li><strong>Rows and Columns Structure</strong> <span class="el-body">— Inside a container, rows and columns are the two building blocks that define how content is positioned and sized.</span></li>
+<li><strong>Breakpoint Classes and Screen Size Tiers</strong> <span class="el-body">— Bootstrap defines five responsive breakpoints — xs, sm, md, lg, and xl — that correspond to specific minimum viewport widths.</span></li>
+<li><strong>Offsetting and Ordering Columns</strong> <span class="el-body">— Bootstrap provides utility classes for offsetting columns and reordering them visually without changing the HTML source order.</span></li>
+<li><strong>Nesting Grids for Complex Layouts</strong> <span class="el-body">— Bootstrap columns can contain their own nested rows and columns, enabling multi-level, complex responsive layouts within a single page.</span></li>
+</ul>
+<h2>Bootstrap UI Components and Styling</h2>
+<div class="summary">Covers ready-made Bootstrap components such as navigation bars, buttons, modals, and cards that accelerate UI development. Demonstrates how to apply Bootstrap utility classes to achieve consistent, professional styling.</div>
+<ul>
+<li><strong>Navigation Bars with Bootstrap</strong> <span class="el-body">— Bootstrap&#39;s navbar component provides a ready-made, responsive navigation bar that collapses gracefully on smaller screens.</span></li>
+<li><strong>Bootstrap Button Styles</strong> <span class="el-body">— Bootstrap offers a comprehensive set of button classes that provide consistent, styled call-to-action elements across an application.</span></li>
+<li><strong>Modal Dialogs</strong> <span class="el-body">— Bootstrap modals are overlay dialog boxes that display additional content or confirmation prompts without navigating away from the current page.</span></li>
+<li><strong>Card Components</strong> <span class="el-body">— Bootstrap cards are flexible content containers with optional headers, footers, images, and body sections for displaying grouped information.</span></li>
+<li><strong>Bootstrap Utility Classes</strong> <span class="el-body">— Utility classes are single-purpose CSS helpers in Bootstrap that apply spacing, color, typography, and layout adjustments directly in HTML without writing custom styles.</span></li>
+<li><strong>Responsive Grid and Component Integration</strong> <span class="el-body">— Bootstrap&#39;s 12-column grid system works in tandem with its UI components to create professional, responsive page layouts rapidly.</span></li>
+</ul>
+<h2>Data Visualization with Chart.js</h2>
+<div class="summary">Introduces Chart.js as a plotting library and explains how to integrate it via CDN to render interactive charts on an HTML canvas element. Covers creating common chart types such as bar, line, and pie charts using JavaScript data configuration.</div>
+<ul>
+<li><strong>What is Chart.js?</strong> <span class="el-body">— Chart.js is a free, open-source JavaScript library that enables developers to create interactive, animated charts directly in the browser using the HTML5 canvas element.</span></li>
+<li><strong>Integrating Chart.js via CDN</strong> <span class="el-body">— The simplest way to add Chart.js to an HTML page is by linking to it through a Content Delivery Network, eliminating the need for a local installation or package manager.</span></li>
+<li><strong>Setting Up the Canvas Element</strong> <span class="el-body">— Every Chart.js chart requires a dedicated HTML canvas element to serve as its drawing surface, identified by a unique id attribute.</span></li>
+<li><strong>JavaScript Data Configuration</strong> <span class="el-body">— Chart.js charts are defined and configured entirely through a JavaScript object that specifies the chart type, the data to display, and visual options.</span></li>
+<li><strong>Creating a Bar Chart</strong> <span class="el-body">— A bar chart is one of the most common chart types and is ideal for comparing discrete categories of data side by side.</span></li>
+<li><strong>Creating Line and Pie Charts</strong> <span class="el-body">— Chart.js makes it straightforward to switch between chart types by changing a single property, allowing the same data configuration pattern to produce line or pie charts.</span></li>
+<li><strong>Customizing and Enhancing Charts</strong> <span class="el-body">— Chart.js provides an extensive options API that lets you tailor the appearance, interactivity, and responsiveness of any chart to suit your project&#39;s needs.</span></li>
+</ul>
+<h2>Combining Libraries in a Complete Web Project</h2>
+<div class="summary">Demonstrates how jQuery, Bootstrap, and Chart.js can be used together within a single cohesive web page to deliver layout, interactivity, and data visualization. Highlights best practices for managing multiple external dependencies without conflicts.</div>
+<ul>
+<li><strong>Planning the Project Structure</strong> <span class="el-body">— Before writing any code, a well-organized project structure ensures that HTML, CSS, and JavaScript concerns are separated and that all external libraries are accounted for.</span></li>
+<li><strong>Loading External Libraries in the Correct Order</strong> <span class="el-body">— The sequence in which CDN links appear in an HTML document determines whether each library is available when scripts that depend on it execute.</span></li>
+<li><strong>Building the Responsive Layout with Bootstrap</strong> <span class="el-body">— Bootstrap&#39;s grid system and utility classes provide the scaffolding for the page, dividing it into regions for navigation, controls, and the chart display area.</span></li>
+<li><strong>Adding Interactivity with jQuery</strong> <span class="el-body">— jQuery event handlers respond to user actions—such as button clicks or dropdown selections—and update the page or trigger chart changes dynamically.</span></li>
+<li><strong>Rendering and Updating Charts with Chart.js</strong> <span class="el-body">— Chart.js uses a &lt;canvas&gt; element and a JavaScript configuration object to render charts, and its API allows datasets to be updated in place when driven by user interaction.</span></li>
+<li><strong>Avoiding Library Conflicts</strong> <span class="el-body">— Multiple libraries operating on the same page can collide through shared global variables, CSS class names, or conflicting plugin behavior, so proactive conflict management is essential.</span></li>
+<li><strong>Best Practices for Managing Dependencies</strong> <span class="el-body">— Consistently following dependency management best practices keeps the project maintainable, performant, and easier to update as library versions change.</span></li>
+</ul>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

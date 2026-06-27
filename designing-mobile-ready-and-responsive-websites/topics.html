@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Designing Mobile-Ready and Responsive Websites — Module Topics</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.2rem;margin-top:28px;color:#1a3c6e}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<h1>Designing Mobile-Ready and Responsive Websites — Module Topics</h1>
+<h2>Introduction to Responsive Web Design</h2>
+<div class="summary">Explore the foundational concepts of responsive web design and understand why building websites that adapt to multiple screen sizes is essential in today&#39;s multi-device landscape.</div>
+<ul>
+<li><strong>What Is Responsive Web Design?</strong> <span class="el-body">— Responsive web design (RWD) is an approach to web development that ensures a website&#39;s layout and content adapt fluidly to fit any screen size or device.</span></li>
+<li><strong>The Multi-Device Landscape</strong> <span class="el-body">— Users today access the web from an enormous variety of devices, screen sizes, and resolutions, making fixed-width layouts increasingly inadequate.</span></li>
+<li><strong>Core Pillars of Responsive Design</strong> <span class="el-body">— Responsive web design rests on three foundational techniques: fluid grids, flexible images, and CSS media queries.</span></li>
+<li><strong>The Mobile-First Design Philosophy</strong> <span class="el-body">— Mobile-first is a design strategy that begins the design and development process with the smallest screen sizes and progressively enhances the experience for larger screens.</span></li>
+<li><strong>Viewport Configuration</strong> <span class="el-body">— The viewport meta tag is a critical HTML element that instructs browsers on how to scale and display a web page on different screen sizes.</span></li>
+<li><strong>Why Responsive Design Matters</strong> <span class="el-body">— Beyond user experience, responsive web design has significant implications for search engine optimization, accessibility, and long-term site maintainability.</span></li>
+</ul>
+<h2>Fluid Grids and Flexible Layouts</h2>
+<div class="summary">Learn how to construct fluid grid systems using relative units that allow page layouts to scale proportionally across different screen sizes and resolutions.</div>
+<ul>
+<li><strong>Understanding Fluid Grids</strong> <span class="el-body">— A fluid grid system uses relative units instead of fixed pixel values to define column widths, allowing the layout to scale proportionally as the viewport changes size.</span></li>
+<li><strong>Relative Units: Percentages, em, and rem</strong> <span class="el-body">— Relative units are the foundation of flexible layouts, enabling elements to size themselves in relation to their parent or root element rather than a fixed value.</span></li>
+<li><strong>Converting Fixed Layouts to Fluid Grids</strong> <span class="el-body">— Designers can convert existing fixed-pixel grid designs into fluid grids by applying a simple formula: divide the target element width by its parent container width to get a percentage.</span></li>
+<li><strong>CSS Flexbox for Flexible Layouts</strong> <span class="el-body">— CSS Flexbox is a modern layout model that makes it straightforward to create flexible, single-axis layouts that automatically distribute space among child elements.</span></li>
+<li><strong>CSS Grid for Two-Dimensional Layouts</strong> <span class="el-body">— CSS Grid is a powerful layout system that handles both rows and columns simultaneously, making it ideal for constructing complex, fully fluid page structures.</span></li>
+<li><strong>Gutters, Spacing, and the Box Model in Fluid Layouts</strong> <span class="el-body">— Managing spacing between grid columns and rows is critical in fluid layouts to prevent elements from touching or overflowing as the layout scales.</span></li>
+<li><strong>Testing and Validating Fluid Grid Behavior</strong> <span class="el-body">— After building a fluid grid layout, it is essential to verify that it scales correctly across a continuous range of screen sizes, not just at defined breakpoints.</span></li>
+</ul>
+<h2>Flexible Images and Media</h2>
+<div class="summary">Discover techniques for making images and other media elements resize and adapt fluidly within responsive layouts without breaking the design.</div>
+<ul>
+<li><strong>The max-width Technique for Images</strong> <span class="el-body">— Setting max-width: 100% on images is the foundational CSS rule that allows images to scale down fluidly within their containing elements.</span></li>
+<li><strong>Responsive Images with the srcset Attribute</strong> <span class="el-body">— The HTML srcset attribute allows browsers to select the most appropriate image source based on the user&#39;s screen resolution and viewport size.</span></li>
+<li><strong>Using the picture Element for Art Direction</strong> <span class="el-body">— The HTML picture element gives designers precise control over which image is displayed at different breakpoints, enabling art direction beyond simple scaling.</span></li>
+<li><strong>Fluid Video and Embedded Media</strong> <span class="el-body">— Video and iframes require additional CSS techniques to remain responsive because they often have fixed width and height attributes set in their HTML.</span></li>
+<li><strong>CSS background-size for Responsive Background Images</strong> <span class="el-body">— CSS background images are controlled differently from inline images and require the background-size property to behave responsively.</span></li>
+<li><strong>Performance Considerations for Responsive Media</strong> <span class="el-body">— Serving correctly sized images and media is as much a performance concern as a layout concern, directly affecting page load times on mobile networks.</span></li>
+</ul>
+<h2>CSS Media Queries</h2>
+<div class="summary">Understand how to write and apply CSS media queries to target specific screen sizes, orientations, and device capabilities to deliver tailored styles.</div>
+<ul>
+<li><strong>What Are CSS Media Queries?</strong> <span class="el-body">— CSS media queries are conditional rules that apply specific styles only when certain device or viewport conditions are met.</span></li>
+<li><strong>Basic Media Query Syntax</strong> <span class="el-body">— Writing a media query requires understanding its core syntax: the @media keyword, a media type, and one or more feature expressions.</span></li>
+<li><strong>Targeting Screen Sizes with Width Breakpoints</strong> <span class="el-body">— Width-based breakpoints are the most commonly used media query feature, allowing styles to change at specific pixel thresholds.</span></li>
+<li><strong>Orientation and Aspect Ratio Queries</strong> <span class="el-body">— Beyond width, media queries can detect a device&#39;s orientation and aspect ratio to deliver context-appropriate layouts.</span></li>
+<li><strong>Device Capability Queries</strong> <span class="el-body">— Modern media queries can probe device capabilities such as color depth, display resolution, and pointer precision to refine the user experience.</span></li>
+<li><strong>Applying Media Queries: Inline vs. External</strong> <span class="el-body">— Media queries can be placed directly within a stylesheet or used to conditionally load entire external CSS files, each approach suiting different project needs.</span></li>
+<li><strong>Best Practices for Writing Media Queries</strong> <span class="el-body">— Following established best practices ensures media queries remain readable, maintainable, and performant as a project scales.</span></li>
+</ul>
+<h2>Mobile-First Design Philosophy</h2>
+<div class="summary">Examine the mobile-first approach to web design, which prioritizes designing for the smallest screens first and progressively enhancing the experience for larger displays.</div>
+<ul>
+<li><strong>What Is Mobile-First Design?</strong> <span class="el-body">— Mobile-first design is a philosophy where the design and development process begins with the smallest screen sizes and progressively builds up to larger displays.</span></li>
+<li><strong>Why Mobile-First Matters</strong> <span class="el-body">— Prioritizing mobile design reflects the reality that a majority of web traffic now originates from smartphones and other small-screen devices.</span></li>
+<li><strong>Progressive Enhancement Strategy</strong> <span class="el-body">— Progressive enhancement is the core technique behind mobile-first design, where a baseline experience is built for small screens and then enhanced with additional features for larger ones.</span></li>
+<li><strong>Content Prioritization in Mobile-First Thinking</strong> <span class="el-body">— Designing for mobile first requires ruthless prioritization of content, since small screens demand that only the most important elements be immediately visible.</span></li>
+<li><strong>Mobile-First CSS and Media Queries</strong> <span class="el-body">— In practice, mobile-first design is implemented in CSS by writing base styles for small screens and using min-width media queries to progressively apply styles for larger breakpoints.</span></li>
+<li><strong>Performance Benefits of Mobile-First</strong> <span class="el-body">— The mobile-first approach naturally encourages performance optimization, since mobile devices often have slower connections and less processing power than desktops.</span></li>
+<li><strong>Shifting the Design Mindset</strong> <span class="el-body">— Adopting a mobile-first philosophy requires a fundamental shift in how designers and developers think about layout, interaction, and user context from the very beginning of a project.</span></li>
+</ul>
+<h2>Viewport Configuration and Screen Sizes</h2>
+<div class="summary">Learn how to configure the viewport meta tag and manage breakpoints to ensure websites render correctly across a wide range of devices and screen dimensions.</div>
+<ul>
+<li><strong>The Viewport Meta Tag</strong> <span class="el-body">— The viewport meta tag is an HTML element placed in the &lt;head&gt; section that instructs the browser how to control the page&#39;s dimensions and scaling on different devices.</span></li>
+<li><strong>Understanding Device Screen Sizes</strong> <span class="el-body">— Modern devices span a wide range of screen dimensions, from small smartwatches to large desktop monitors, requiring designers to plan layouts that adapt gracefully across all sizes.</span></li>
+<li><strong>CSS Breakpoints Defined</strong> <span class="el-body">— Breakpoints are specific screen-width thresholds in CSS at which a website&#39;s layout changes to better suit the current viewing environment.</span></li>
+<li><strong>Writing Media Queries for Breakpoints</strong> <span class="el-body">— CSS media queries are the primary tool for applying breakpoint-specific styles, allowing different layout rules to activate based on screen dimensions.</span></li>
+<li><strong>Mobile-First vs. Desktop-First Breakpoint Strategy</strong> <span class="el-body">— The order in which breakpoints are written in CSS reflects whether a project follows a mobile-first or desktop-first design philosophy, each with distinct implications for performance and maintainability.</span></li>
+<li><strong>Testing Across Screen Sizes</strong> <span class="el-body">— Verifying that viewport configuration and breakpoints work correctly requires systematic testing on a variety of real and simulated screen sizes.</span></li>
+</ul>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

@@ -1,0 +1,1233 @@
+{
+  "ModuleFolderName": "Designing_Mobile_Ready",
+  "CourseName": "COP4813",
+  "GeneratedDate": "2026-06-26T21:53:48.9518325-04:00",
+  "ModifiedDate": "2026-06-26T21:56:32.4501469-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "173f354c-eaa4-4953-9254-d9d03a9eb92b",
+      "Title": "Introduction to Responsive Web Design",
+      "Summary": "Explore the foundational concepts of responsive web design and understand why building websites that adapt to multiple screen sizes is essential in today\u0027s multi-device landscape.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-06-26T21:53:48.9518325-04:00",
+      "ModifiedDate": "2026-06-26T21:53:48.9518325-04:00",
+      "Elements": [
+        {
+          "Id": "1f9777d5-095d-45cf-88f8-fde55b9f2778",
+          "TopicId": "173f354c-eaa4-4953-9254-d9d03a9eb92b",
+          "Title": "What Is Responsive Web Design?",
+          "BodyText": "Responsive web design (RWD) is an approach to web development that ensures a website\u0027s layout and content adapt fluidly to fit any screen size or device.",
+          "Notes": "The term was popularized by Ethan Marcotte in 2010. Rather than building separate sites for desktop and mobile, RWD uses a single codebase that responds to the user\u0027s environment.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:54:13.3725579-04:00",
+          "ModifiedDate": "2026-06-26T21:54:13.3725579-04:00",
+          "Items": [
+            {
+              "Id": "1645c525-a75b-462c-8d90-49a504544ea7",
+              "Text": "Responsive design allows one website to serve users on desktops, tablets, and smartphones without redirecting them to a separate URL.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "40cb2eb9-d278-496b-9933-97d871324ca8",
+              "Text": "The layout reflows and resizes automatically based on the dimensions of the user\u0027s screen or browser window.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "90268a63-9b0f-49cb-857f-5460c35e2e68",
+              "Text": "This approach reduces development and maintenance overhead compared to maintaining multiple device-specific sites.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "3c05fb30-ac81-46d1-9e45-abcaf2d0cd90",
+          "TopicId": "173f354c-eaa4-4953-9254-d9d03a9eb92b",
+          "Title": "The Multi-Device Landscape",
+          "BodyText": "Users today access the web from an enormous variety of devices, screen sizes, and resolutions, making fixed-width layouts increasingly inadequate.",
+          "Notes": "Mobile internet usage has surpassed desktop globally in many markets, meaning a site that is not optimized for smaller screens can alienate the majority of its audience.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:54:13.3725579-04:00",
+          "ModifiedDate": "2026-06-26T21:54:13.3725579-04:00",
+          "Items": [
+            {
+              "Id": "5b611e28-2720-4e5e-bc80-d3018c5cf051",
+              "Text": "Devices range from small smartwatches and phones to large desktop monitors and televisions, each with different screen dimensions and input methods.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9c666641-910f-48eb-9334-e4cda491af84",
+              "Text": "A fixed-width layout that looks fine on a desktop may require excessive zooming and horizontal scrolling on a phone, degrading the user experience.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c80415f6-1159-44fa-bb18-beb46cf9051c",
+              "Text": "Designing responsively ensures content remains accessible and readable regardless of how or where someone chooses to browse.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "37cfbae2-238a-479c-86a3-cc062d6161c8",
+          "TopicId": "173f354c-eaa4-4953-9254-d9d03a9eb92b",
+          "Title": "Core Pillars of Responsive Design",
+          "BodyText": "Responsive web design rests on three foundational techniques: fluid grids, flexible images, and CSS media queries.",
+          "Notes": "These three pillars work together \u2014 fluid grids establish proportional layouts, flexible images scale within those layouts, and media queries apply targeted style rules at specific breakpoints.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:54:13.3725579-04:00",
+          "ModifiedDate": "2026-06-26T21:54:13.3725579-04:00",
+          "Items": [
+            {
+              "Id": "6e0862c8-1dd6-4474-af5d-37b57e8fbd5b",
+              "Text": "Fluid grids use relative units like percentages instead of fixed pixels so columns and containers resize proportionally with the viewport.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "83b019d5-80e0-4670-b00a-a7ab55257822",
+              "Text": "Flexible images are constrained with CSS rules such as max-width: 100% so they scale down within their parent containers rather than overflowing.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e7f66daa-8661-4e67-b59d-b21543b97b32",
+              "Text": "CSS media queries allow designers to apply different style rules depending on device characteristics such as screen width, making targeted layout adjustments possible.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "377bc74e-b63e-463e-abcf-b20b717627ea",
+          "TopicId": "173f354c-eaa4-4953-9254-d9d03a9eb92b",
+          "Title": "The Mobile-First Design Philosophy",
+          "BodyText": "Mobile-first is a design strategy that begins the design and development process with the smallest screen sizes and progressively enhances the experience for larger screens.",
+          "Notes": "Starting with mobile constraints forces designers to prioritize essential content and functionality, resulting in leaner, more focused experiences that scale up gracefully.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:54:13.3725579-04:00",
+          "ModifiedDate": "2026-06-26T21:54:13.3725579-04:00",
+          "Items": [
+            {
+              "Id": "872f7ac4-3fab-4c9e-b346-0442eb0e6f42",
+              "Text": "Designing for mobile first encourages content prioritization, since limited screen space requires decisions about what truly matters to the user.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d389bee6-7158-4493-8473-fcc803b8db99",
+              "Text": "Progressive enhancement then layers additional layout complexity, imagery, and features as more screen real estate becomes available on larger devices.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "de6d8be2-89c1-4242-8f8c-d0001920dbed",
+              "Text": "This approach aligns with performance best practices, as the baseline mobile experience is typically lighter and faster to load.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "16ef5d6c-384c-4f2a-a053-d6a9c4c88fd5",
+          "TopicId": "173f354c-eaa4-4953-9254-d9d03a9eb92b",
+          "Title": "Viewport Configuration",
+          "BodyText": "The viewport meta tag is a critical HTML element that instructs browsers on how to scale and display a web page on different screen sizes.",
+          "Notes": "Without the viewport meta tag, mobile browsers typically render pages at a desktop-width scale and then shrink them down, making text tiny and layouts broken.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:54:13.3725579-04:00",
+          "ModifiedDate": "2026-06-26T21:54:13.3725579-04:00",
+          "Items": [
+            {
+              "Id": "859c3a9d-f98f-496c-8df4-69dfdc111a59",
+              "Text": "The standard viewport meta tag \u2014 \u003Cmeta name=\u0027viewport\u0027 content=\u0027width=device-width, initial-scale=1\u0027\u003E \u2014 tells the browser to match the page width to the device\u0027s screen width.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "89e0be7e-cd9d-477a-a879-ac5265f7b150",
+              "Text": "Setting initial-scale=1 prevents the browser from applying default zoom, ensuring the page renders at a natural, readable size.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0f01aaef-1d43-4bd0-a738-d32af92f72b6",
+              "Text": "Proper viewport configuration is the essential first step before any CSS media queries or fluid grid techniques can function as intended.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "7983142e-6046-41fa-b1bd-efce6da1e493",
+          "TopicId": "173f354c-eaa4-4953-9254-d9d03a9eb92b",
+          "Title": "Why Responsive Design Matters",
+          "BodyText": "Beyond user experience, responsive web design has significant implications for search engine optimization, accessibility, and long-term site maintainability.",
+          "Notes": "Google uses mobile-first indexing, meaning it primarily evaluates the mobile version of a site when determining search rankings, making responsiveness a direct SEO factor.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:54:13.3725579-04:00",
+          "ModifiedDate": "2026-06-26T21:54:13.3725579-04:00",
+          "Items": [
+            {
+              "Id": "1c9823fd-d537-456c-b48e-35761609f9b4",
+              "Text": "A single responsive site is easier to maintain than separate desktop and mobile versions, as content updates and bug fixes only need to be applied once.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a1827f68-48f2-43b0-8845-fbf79456d24d",
+              "Text": "Responsive design contributes to accessibility by ensuring content is legible and navigable across a wide range of devices and assistive technologies.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "539d7dff-b324-46db-927d-51af8662c5b7",
+              "Text": "Meeting users on their preferred device builds trust and reduces bounce rates, directly impacting engagement and conversion metrics.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "da97b137-f928-46ee-a744-52cfe167ce34",
+      "Title": "Fluid Grids and Flexible Layouts",
+      "Summary": "Learn how to construct fluid grid systems using relative units that allow page layouts to scale proportionally across different screen sizes and resolutions.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-06-26T21:53:48.9518325-04:00",
+      "ModifiedDate": "2026-06-26T21:53:48.9518325-04:00",
+      "Elements": [
+        {
+          "Id": "569bb3d7-4a63-462c-af64-2d2c014d7d0f",
+          "TopicId": "da97b137-f928-46ee-a744-52cfe167ce34",
+          "Title": "Understanding Fluid Grids",
+          "BodyText": "A fluid grid system uses relative units instead of fixed pixel values to define column widths, allowing the layout to scale proportionally as the viewport changes size.",
+          "Notes": "Traditional fixed-width layouts define elements in pixels, which causes overflow or dead space on smaller or larger screens. Fluid grids solve this by treating the page as a proportional system.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:54:42.0522219-04:00",
+          "ModifiedDate": "2026-06-26T21:54:42.0522219-04:00",
+          "Items": [
+            {
+              "Id": "66918640-6055-4a9e-8029-504184710d38",
+              "Text": "Fluid grids divide the page into columns whose widths are expressed as percentages of their parent container.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3566b5f8-4622-4eb3-941d-feed0a5253a3",
+              "Text": "Because percentages are relative, all columns resize together when the browser window is resized.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "26530337-142e-411c-bc1b-a5346f14355d",
+              "Text": "This proportional scaling ensures visual consistency across a wide range of device widths.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "b5e107d9-5672-4d1b-8c5b-eed4ab45c6d2",
+          "TopicId": "da97b137-f928-46ee-a744-52cfe167ce34",
+          "Title": "Relative Units: Percentages, em, and rem",
+          "BodyText": "Relative units are the foundation of flexible layouts, enabling elements to size themselves in relation to their parent or root element rather than a fixed value.",
+          "Notes": "For example, setting a container to width: 90% means it always occupies 90% of its parent, regardless of the screen size. Using rem for typography ensures consistent scaling from the root font size.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:54:42.0522219-04:00",
+          "ModifiedDate": "2026-06-26T21:54:42.0522219-04:00",
+          "Items": [
+            {
+              "Id": "f84ec8cd-1080-42df-bcb3-341e90adae49",
+              "Text": "Percentages (%) define width, padding, and margin relative to the parent container\u0027s dimensions.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "523c6461-03d1-4d9f-a15c-285aec803417",
+              "Text": "The em unit sizes an element relative to its own or its parent element\u0027s font size.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ce270fc1-44e5-4093-a031-8045f8a51a80",
+              "Text": "The rem unit sizes an element relative to the root (html) element\u0027s font size, providing more predictable scaling.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "16076b2b-591e-4f13-8edf-f0103a8824c1",
+              "Text": "Avoiding fixed pixel widths for layout containers is essential for achieving true fluidity.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "56205912-dd0c-41ab-955a-cd2f9c388fcf",
+          "TopicId": "da97b137-f928-46ee-a744-52cfe167ce34",
+          "Title": "Converting Fixed Layouts to Fluid Grids",
+          "BodyText": "Designers can convert existing fixed-pixel grid designs into fluid grids by applying a simple formula: divide the target element width by its parent container width to get a percentage.",
+          "Notes": "For example, if a column is 300px inside a 960px container, the fluid width is 300 \u00F7 960 = 31.25%. This technique, popularized by Ethan Marcotte, is the core of responsive layout conversion.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:54:42.0522219-04:00",
+          "ModifiedDate": "2026-06-26T21:54:42.0522219-04:00",
+          "Items": [
+            {
+              "Id": "106b9334-dc49-4690-ab31-a2f89216b56f",
+              "Text": "The conversion formula is: target \u00F7 context = result, where result is expressed as a percentage.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a8a5d644-8eee-4210-b7bd-d86630d3ba1e",
+              "Text": "Apply the formula to all columns, gutters, and nested containers to maintain proportional relationships.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "cd4edecb-166a-4678-a310-c5414d2b86ce",
+              "Text": "Gutters (spacing between columns) should also be converted to percentages to remain flexible.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "fc9ac2d9-88c7-4907-9be5-329759c26b3c",
+          "TopicId": "da97b137-f928-46ee-a744-52cfe167ce34",
+          "Title": "CSS Flexbox for Flexible Layouts",
+          "BodyText": "CSS Flexbox is a modern layout model that makes it straightforward to create flexible, single-axis layouts that automatically distribute space among child elements.",
+          "Notes": "Flexbox is especially useful for navigation bars, card rows, and any UI component where items need to align and distribute evenly within a container.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:54:42.0522219-04:00",
+          "ModifiedDate": "2026-06-26T21:54:42.0522219-04:00",
+          "Items": [
+            {
+              "Id": "9a2625c7-cfef-40b5-9b3e-dd505e7605bf",
+              "Text": "Setting display: flex on a container enables flex behavior for all its direct children.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b689ac52-9913-4d4a-949b-265254f9c9de",
+              "Text": "The flex-wrap: wrap property allows items to wrap onto new lines when there is insufficient horizontal space.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "302037df-284e-4b01-b0a3-28afe2a31cdd",
+              "Text": "The flex property shorthand (flex-grow, flex-shrink, flex-basis) controls how each item expands or contracts relative to others.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "58a43a16-4809-4fd7-a1fb-c6154a18aac1",
+              "Text": "Flexbox eliminates the need for float-based layout hacks that were common in older responsive designs.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "13e334fd-206f-42dc-bdc3-a17e04e3a32c",
+          "TopicId": "da97b137-f928-46ee-a744-52cfe167ce34",
+          "Title": "CSS Grid for Two-Dimensional Layouts",
+          "BodyText": "CSS Grid is a powerful layout system that handles both rows and columns simultaneously, making it ideal for constructing complex, fully fluid page structures.",
+          "Notes": "Grid is complementary to Flexbox: Grid manages the overall page structure (macro layout), while Flexbox is often better suited for component-level (micro layout) alignment.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:54:42.0522219-04:00",
+          "ModifiedDate": "2026-06-26T21:54:42.0522219-04:00",
+          "Items": [
+            {
+              "Id": "cf3623b8-5bad-4495-b75f-be3e0dd4bf2e",
+              "Text": "Defining grid-template-columns with the fr (fractional) unit distributes available space proportionally among columns.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "38890840-8313-4948-959c-3c70665c8d47",
+              "Text": "The minmax() function allows columns to have a minimum fixed size while still growing fluidly up to a maximum.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "700e6a60-4647-4718-a818-8dceb4c46032",
+              "Text": "The repeat() function combined with auto-fill or auto-fit creates columns that automatically adjust in number based on available space.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "4671d7c0-4099-4207-9aef-4e9635064efb",
+              "Text": "CSS Grid reduces the need for media query breakpoints by inherently adapting column counts to the container width.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "66416071-ce34-4eb4-80fa-7791613ea567",
+          "TopicId": "da97b137-f928-46ee-a744-52cfe167ce34",
+          "Title": "Gutters, Spacing, and the Box Model in Fluid Layouts",
+          "BodyText": "Managing spacing between grid columns and rows is critical in fluid layouts to prevent elements from touching or overflowing as the layout scales.",
+          "Notes": "Using box-sizing: border-box globally ensures padding and border are included in an element\u0027s total width calculation, preventing unexpected overflow in fluid grids.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:54:42.0522219-04:00",
+          "ModifiedDate": "2026-06-26T21:54:42.0522219-04:00",
+          "Items": [
+            {
+              "Id": "d5825c57-c4ec-4d2f-b5b2-c0516ac08159",
+              "Text": "CSS Grid provides the gap property (formerly grid-gap) to set consistent gutter spacing between rows and columns.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "bbbdd9e1-4a59-496c-b8b7-792a18721c73",
+              "Text": "When using percentage-based widths, ensure that padding and margins are also expressed in relative units or accounted for with box-sizing.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d5d12adf-31b7-4d07-9e79-7e184abd95ac",
+              "Text": "Consistent vertical rhythm (spacing between rows) should also scale with the layout to maintain visual balance.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "8fd59ee3-b428-4287-a094-fb9057adbfab",
+          "TopicId": "da97b137-f928-46ee-a744-52cfe167ce34",
+          "Title": "Testing and Validating Fluid Grid Behavior",
+          "BodyText": "After building a fluid grid layout, it is essential to verify that it scales correctly across a continuous range of screen sizes, not just at defined breakpoints.",
+          "Notes": "Browser developer tools allow designers to drag the viewport to arbitrary widths and observe layout behavior in real time, revealing unintended overflow or collapsing columns.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:54:42.0522219-04:00",
+          "ModifiedDate": "2026-06-26T21:54:42.0522219-04:00",
+          "Items": [
+            {
+              "Id": "d0b8095b-b9e5-4956-9a1e-5e3c3a3ed1d9",
+              "Text": "Use browser DevTools responsive mode to resize the viewport freely and identify layout failures between breakpoints.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8508283d-ac53-475c-ba6d-1cbc48944b8f",
+              "Text": "Check that no element exceeds its container width, which can be caught by applying a temporary outline: 1px solid red to all elements.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9ee04bd4-2367-4aa2-b768-5e0a1c0f6e6c",
+              "Text": "Validate that percentage-based columns maintain their proportional relationships at both very small and very large viewport sizes.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "77cd7425-5c6c-44c7-91c4-7f74fec0ee30",
+              "Text": "Test on real devices in addition to emulators to account for differences in rendering and pixel density.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "6a67c6b3-2537-4095-81eb-690175a08456",
+      "Title": "Flexible Images and Media",
+      "Summary": "Discover techniques for making images and other media elements resize and adapt fluidly within responsive layouts without breaking the design.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-06-26T21:53:48.9518325-04:00",
+      "ModifiedDate": "2026-06-26T21:53:48.9518325-04:00",
+      "Elements": [
+        {
+          "Id": "a7f5884f-f9a6-4a11-b65d-9d95ed3075d4",
+          "TopicId": "6a67c6b3-2537-4095-81eb-690175a08456",
+          "Title": "The max-width Technique for Images",
+          "BodyText": "Setting max-width: 100% on images is the foundational CSS rule that allows images to scale down fluidly within their containing elements.",
+          "Notes": "This single rule prevents images from overflowing their containers on smaller screens while still allowing them to display at their natural size on larger screens.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:55:07.5403807-04:00",
+          "ModifiedDate": "2026-06-26T21:55:07.5403807-04:00",
+          "Items": [
+            {
+              "Id": "ae8c8faa-5507-49cb-a29b-394eca311f0d",
+              "Text": "Applying max-width: 100% ensures an image never exceeds the width of its parent container.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5016e82c-2085-4895-b7fe-838443fe586b",
+              "Text": "Pairing it with height: auto maintains the image\u0027s original aspect ratio during resizing.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b0a32cc5-a88c-423e-9c49-3bebf062d779",
+              "Text": "This technique works across all modern browsers and requires no JavaScript.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "401ba1cf-363b-4e54-9482-b90a6c83f797",
+              "Text": "It is considered the minimum baseline for responsive image handling.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "27ff4381-0771-40ff-b4b2-d94baf4e472e",
+          "TopicId": "6a67c6b3-2537-4095-81eb-690175a08456",
+          "Title": "Responsive Images with the srcset Attribute",
+          "BodyText": "The HTML srcset attribute allows browsers to select the most appropriate image source based on the user\u0027s screen resolution and viewport size.",
+          "Notes": "For example, a high-resolution Retina display can load a 2x image while a standard monitor loads a smaller 1x version, saving bandwidth and improving performance.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:55:07.5403807-04:00",
+          "ModifiedDate": "2026-06-26T21:55:07.5403807-04:00",
+          "Items": [
+            {
+              "Id": "e5d44173-4467-456d-96e6-fc8b48f2f967",
+              "Text": "srcset provides a list of image URLs alongside width descriptors or pixel density descriptors.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ecb2adc9-5eda-4c8f-ae47-7515503ffc28",
+              "Text": "The browser automatically chooses the best-fit image, reducing unnecessary data transfer on smaller devices.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "aa34f809-e09d-4457-b24e-1b386028230c",
+              "Text": "The sizes attribute can be combined with srcset to give the browser additional layout-width hints.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f4937a2c-be40-4150-90e6-1b9434c06379",
+              "Text": "This approach improves both performance and visual quality across diverse screen types.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "0cc816f1-ea9a-4091-a894-5890e27b7845",
+          "TopicId": "6a67c6b3-2537-4095-81eb-690175a08456",
+          "Title": "Using the picture Element for Art Direction",
+          "BodyText": "The HTML picture element gives designers precise control over which image is displayed at different breakpoints, enabling art direction beyond simple scaling.",
+          "Notes": "Art direction means intentionally cropping or swapping images to highlight the most important content at a given screen size, such as showing a close-up portrait on mobile and a wide landscape on desktop.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:55:07.5403807-04:00",
+          "ModifiedDate": "2026-06-26T21:55:07.5403807-04:00",
+          "Items": [
+            {
+              "Id": "409d58f3-3b51-46a8-9be4-1afc89e5846c",
+              "Text": "The picture element contains multiple source elements, each with a media attribute defining when that source applies.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "07c1e606-346c-44cb-8571-23837cda0135",
+              "Text": "Designers can serve entirely different image compositions rather than just smaller versions of the same image.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "247f5a2b-b16e-48d7-a40c-69aff51378ce",
+              "Text": "A fallback img element inside picture ensures backward compatibility with older browsers.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "fa4d4b88-2a7c-4fb5-8332-01fc77f4aff0",
+              "Text": "This technique is ideal when a single scaled-down image does not communicate the intended visual message effectively.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "b5612fdf-e7b0-42ca-b674-128496f5da02",
+          "TopicId": "6a67c6b3-2537-4095-81eb-690175a08456",
+          "Title": "Fluid Video and Embedded Media",
+          "BodyText": "Video and iframes require additional CSS techniques to remain responsive because they often have fixed width and height attributes set in their HTML.",
+          "Notes": "The aspect-ratio-box technique (sometimes called the padding-hack) has been widely used, but the modern CSS aspect-ratio property now offers a cleaner solution.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:55:07.5403807-04:00",
+          "ModifiedDate": "2026-06-26T21:55:07.5403807-04:00",
+          "Items": [
+            {
+              "Id": "43b02bf3-0774-4932-b6bc-fe6d1ce732a6",
+              "Text": "Removing fixed width and height attributes and setting width: 100% allows video elements to scale with their container.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "492bd7cc-1c68-4cbc-94f7-d51c0330c375",
+              "Text": "The CSS aspect-ratio property (e.g., aspect-ratio: 16 / 9) preserves the correct proportions without extra wrapper elements.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "28b0124c-f448-4378-90d7-dd19a13b6e9e",
+              "Text": "For embedded iframes such as YouTube videos, wrapping them in a relative-positioned container with a percentage-based padding-bottom maintains the aspect ratio.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "bb82ce8c-f488-43d5-aba7-e4ccddaa6b1f",
+              "Text": "Always test embedded third-party media separately, as external embeds may override responsive CSS rules.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "58945396-ed01-42ff-ba6e-96b7211eb0b6",
+          "TopicId": "6a67c6b3-2537-4095-81eb-690175a08456",
+          "Title": "CSS background-size for Responsive Background Images",
+          "BodyText": "CSS background images are controlled differently from inline images and require the background-size property to behave responsively.",
+          "Notes": "The cover value is especially popular for hero sections, as it ensures the background always fills its container while cropping gracefully rather than leaving empty space.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:55:07.5403807-04:00",
+          "ModifiedDate": "2026-06-26T21:55:07.5403807-04:00",
+          "Items": [
+            {
+              "Id": "6c29e5e6-b140-4b27-89d6-87a5c5200361",
+              "Text": "Setting background-size: cover scales the background image to fully cover the container, maintaining aspect ratio.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1e34122b-5ee4-4fc1-ab92-e9e828bbf4de",
+              "Text": "Setting background-size: contain ensures the entire image is visible within the container without cropping.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "31573c24-03dc-4edd-bdb3-1c9eed3c24c4",
+              "Text": "Using background-position helps control which part of the image remains in focus when it is cropped by the cover setting.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "ea68a92e-23d2-4efa-af3d-2a370e2b7251",
+              "Text": "Media queries can swap background-image URLs at different breakpoints to serve appropriately sized assets.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "9fa9039d-849c-4b0c-8945-ac605d513504",
+          "TopicId": "6a67c6b3-2537-4095-81eb-690175a08456",
+          "Title": "Performance Considerations for Responsive Media",
+          "BodyText": "Serving correctly sized images and media is as much a performance concern as a layout concern, directly affecting page load times on mobile networks.",
+          "Notes": "Tools such as Squoosh, ImageOptim, or build-pipeline plugins can automate image compression and format conversion as part of a responsive workflow.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:55:07.5403807-04:00",
+          "ModifiedDate": "2026-06-26T21:55:07.5403807-04:00",
+          "Items": [
+            {
+              "Id": "affd970d-ab11-4e60-9498-ce53a8cb0984",
+              "Text": "Always compress images before deployment using modern formats such as WebP or AVIF for smaller file sizes.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a93f6303-9167-47e6-b8fd-e3a2f4df832b",
+              "Text": "Lazy loading (loading=\u0027lazy\u0027 attribute) defers off-screen images from loading until the user scrolls near them.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1c946fe5-760b-433f-85ee-0ffee92f8ee9",
+              "Text": "Avoid using CSS to visually shrink a large image; always serve an appropriately dimensioned source file.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "19d30e9c-b066-4b9b-a295-4bde8e7a6d7b",
+              "Text": "Responsive images paired with a CDN can further reduce latency by serving assets from geographically closer servers.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "f30840cf-cf13-41b6-ae52-3e095f925b0d",
+      "Title": "CSS Media Queries",
+      "Summary": "Understand how to write and apply CSS media queries to target specific screen sizes, orientations, and device capabilities to deliver tailored styles.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-06-26T21:53:48.9518325-04:00",
+      "ModifiedDate": "2026-06-26T21:53:48.9518325-04:00",
+      "Elements": [
+        {
+          "Id": "b0e930c2-c68f-4e85-b69f-8645c4d4dbf7",
+          "TopicId": "f30840cf-cf13-41b6-ae52-3e095f925b0d",
+          "Title": "What Are CSS Media Queries?",
+          "BodyText": "CSS media queries are conditional rules that apply specific styles only when certain device or viewport conditions are met.",
+          "Notes": "Media queries are the cornerstone of responsive design, allowing a single stylesheet to serve multiple device types without separate files.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:55:38.5167619-04:00",
+          "ModifiedDate": "2026-06-26T21:55:38.5167619-04:00",
+          "Items": [
+            {
+              "Id": "c4584b35-94d8-4810-b430-667b59f5fe78",
+              "Text": "A media query uses the @media rule followed by a condition, such as screen width or orientation, to scope CSS declarations.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8f72bd76-5f0c-44f0-a058-2cbf5801340f",
+              "Text": "When the condition evaluates to true, the enclosed styles are applied; when false, they are ignored by the browser.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "fb7df894-7857-459d-98ad-b06b000a79b8",
+              "Text": "Media queries enable developers to tailor layout, typography, and spacing to the user\u0027s current viewing environment.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "0b1d0fd4-ca2a-4f48-9a78-7c83355eac7c",
+          "TopicId": "f30840cf-cf13-41b6-ae52-3e095f925b0d",
+          "Title": "Basic Media Query Syntax",
+          "BodyText": "Writing a media query requires understanding its core syntax: the @media keyword, a media type, and one or more feature expressions.",
+          "Notes": "Example: @media screen and (max-width: 768px) { body { font-size: 14px; } } \u2014 this targets screens no wider than 768 pixels.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:55:38.5167619-04:00",
+          "ModifiedDate": "2026-06-26T21:55:38.5167619-04:00",
+          "Items": [
+            {
+              "Id": "3bd9b4af-c44d-472b-a431-21d9f67dfc32",
+              "Text": "The media type (e.g., \u0027screen\u0027, \u0027print\u0027, \u0027all\u0027) specifies the category of device the query targets.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "80605dcd-3b4c-458d-ba89-a0ac2fb5b880",
+              "Text": "Feature expressions are wrapped in parentheses and test properties such as width, height, or orientation.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c64ce3d4-e5c1-4797-8650-dbd1f0bf92cc",
+              "Text": "Multiple conditions can be combined using logical operators: \u0027and\u0027 requires all conditions to be true, \u0027or\u0027 (comma-separated) requires at least one, and \u0027not\u0027 negates the query.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "b2d5d75a-c093-4ea9-96ed-7e5f9b04b0fb",
+              "Text": "Omitting the media type defaults to \u0027all\u0027, making it apply across every device category.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "014b87b2-5efe-4681-a86f-c985d5bb9f2a",
+          "TopicId": "f30840cf-cf13-41b6-ae52-3e095f925b0d",
+          "Title": "Targeting Screen Sizes with Width Breakpoints",
+          "BodyText": "Width-based breakpoints are the most commonly used media query feature, allowing styles to change at specific pixel thresholds.",
+          "Notes": "Common breakpoints often align with typical device widths: 480px for small phones, 768px for tablets, 1024px for laptops, and 1280px or wider for desktops.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:55:38.5167619-04:00",
+          "ModifiedDate": "2026-06-26T21:55:38.5167619-04:00",
+          "Items": [
+            {
+              "Id": "9580be6c-12d7-4169-9fb1-493b3859815e",
+              "Text": "The \u0027max-width\u0027 feature applies styles when the viewport is at or below the specified value, typically used in desktop-first workflows.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6fc23740-7a4d-46d2-98ef-d41c19b76889",
+              "Text": "The \u0027min-width\u0027 feature applies styles when the viewport meets or exceeds a value, forming the basis of mobile-first design.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "50f8338a-90a2-4291-9df1-c48d61991d7d",
+              "Text": "Combining \u0027min-width\u0027 and \u0027max-width\u0027 in a single query creates a range, targeting only a specific band of screen sizes.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "dd7c79a5-fa09-4823-aa5f-289627a8c044",
+              "Text": "Choosing breakpoints based on content needs rather than specific device models produces more durable, future-friendly designs.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "c5f7dc3a-764a-4fd6-bacb-a11be71b08bb",
+          "TopicId": "f30840cf-cf13-41b6-ae52-3e095f925b0d",
+          "Title": "Orientation and Aspect Ratio Queries",
+          "BodyText": "Beyond width, media queries can detect a device\u0027s orientation and aspect ratio to deliver context-appropriate layouts.",
+          "Notes": "Orientation queries are especially useful for tablets and phones, where users frequently rotate their device during a session.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:55:38.5167619-04:00",
+          "ModifiedDate": "2026-06-26T21:55:38.5167619-04:00",
+          "Items": [
+            {
+              "Id": "dfd12905-6dc0-42b0-bf69-a1eb52509840",
+              "Text": "The \u0027orientation: portrait\u0027 condition matches when the viewport height is greater than or equal to its width.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6d2c388e-1f2e-4ba2-b8b6-ba57e5a7b949",
+              "Text": "The \u0027orientation: landscape\u0027 condition matches when the viewport width exceeds its height.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2965710c-282e-4752-b296-6080dc8c8512",
+              "Text": "The \u0027aspect-ratio\u0027 feature allows targeting specific width-to-height ratios, useful for optimizing video or image-heavy layouts.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a67cc136-59d1-4377-8db8-34d74de9cabe",
+              "Text": "Orientation queries should complement, not replace, width breakpoints for a fully robust responsive strategy.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "cbd33357-115c-457f-a2c7-71e3bcac1862",
+          "TopicId": "f30840cf-cf13-41b6-ae52-3e095f925b0d",
+          "Title": "Device Capability Queries",
+          "BodyText": "Modern media queries can probe device capabilities such as color depth, display resolution, and pointer precision to refine the user experience.",
+          "Notes": "Capability queries help serve high-resolution assets only to devices that can render them, avoiding unnecessary bandwidth consumption on lower-end hardware.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:55:38.5167619-04:00",
+          "ModifiedDate": "2026-06-26T21:55:38.5167619-04:00",
+          "Items": [
+            {
+              "Id": "fd02b062-5cba-4123-bdc5-c6d03e0177dc",
+              "Text": "The \u0027resolution\u0027 feature (e.g., min-resolution: 2dppx) targets high-density or Retina displays, enabling delivery of sharper images.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7f3f3174-3ab0-46eb-aa17-3dba96fcea28",
+              "Text": "The \u0027hover\u0027 media feature detects whether the primary input mechanism can hover, distinguishing touch-only devices from mouse-driven ones.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "feeca9ce-df48-4816-be22-dce7feeddd9b",
+              "Text": "The \u0027pointer\u0027 feature (\u0027coarse\u0027 vs. \u0027fine\u0027) identifies input precision, allowing touch interfaces to receive larger tap targets.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "af090c37-8e30-4220-a937-5efd188c2a07",
+              "Text": "Using capability queries alongside width breakpoints creates a richer, more accessible experience tailored to actual user hardware.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "70ae20e1-64c7-446b-b8cc-fc0be51f35f2",
+          "TopicId": "f30840cf-cf13-41b6-ae52-3e095f925b0d",
+          "Title": "Applying Media Queries: Inline vs. External",
+          "BodyText": "Media queries can be placed directly within a stylesheet or used to conditionally load entire external CSS files, each approach suiting different project needs.",
+          "Notes": "Loading separate stylesheets per breakpoint via the HTML link element\u0027s media attribute can improve code organisation but may add HTTP requests in older workflows.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:55:38.5167619-04:00",
+          "ModifiedDate": "2026-06-26T21:55:38.5167619-04:00",
+          "Items": [
+            {
+              "Id": "cedd2ce3-96ec-482e-bd4e-3fe5cfdea82f",
+              "Text": "Inline media queries, embedded within a single stylesheet, keep all related styles together and reduce HTTP requests.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b7755257-1666-4f3b-b5f9-7700c6b0842b",
+              "Text": "External media queries use the \u0027media\u0027 attribute on a \u003Clink\u003E tag (e.g., media=\u0027screen and (max-width: 600px)\u0027) to load a stylesheet conditionally.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "36dde95c-2d4a-496b-9a31-bcc0a4d114fb",
+              "Text": "Most modern projects favor inline queries within a single file, processed by a CSS preprocessor or bundler for performance.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "d484c698-1ca5-4bb2-bd89-13b01e8626f1",
+              "Text": "Regardless of approach, well-organised media query placement \u2014 either at the end of each component\u0027s styles or grouped at the bottom of the file \u2014 improves maintainability.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "faffc84b-8ac6-4ee1-a602-28f430a8a8f3",
+          "TopicId": "f30840cf-cf13-41b6-ae52-3e095f925b0d",
+          "Title": "Best Practices for Writing Media Queries",
+          "BodyText": "Following established best practices ensures media queries remain readable, maintainable, and performant as a project scales.",
+          "Notes": "Consistency in breakpoint naming and values across a project, often enforced through CSS custom properties or preprocessor variables, prevents conflicting or redundant rules.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:55:38.5167619-04:00",
+          "ModifiedDate": "2026-06-26T21:55:38.5167619-04:00",
+          "Items": [
+            {
+              "Id": "7a0a4cb3-197c-46fc-840b-5c79213befcd",
+              "Text": "Adopt a mobile-first approach by writing base styles for small screens first and layering complexity with min-width queries for larger viewports.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6ca6edc6-1c7e-4b00-bff1-b98d29cb5863",
+              "Text": "Keep the number of breakpoints to a meaningful minimum; every additional breakpoint increases long-term maintenance overhead.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1a1721a7-15ab-40f7-aacf-22d5e9272f02",
+              "Text": "Avoid using device-specific pixel values as breakpoints; instead, let the design\u0027s content dictate where layout changes are needed.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "91607b26-8df2-4826-ac42-a648ceb77447",
+              "Text": "Test media queries on real devices and emulators to verify that conditional styles behave as intended across browsers and operating systems.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "24a4db86-530a-4375-b2a6-539369eda7f1",
+      "Title": "Mobile-First Design Philosophy",
+      "Summary": "Examine the mobile-first approach to web design, which prioritizes designing for the smallest screens first and progressively enhancing the experience for larger displays.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-06-26T21:53:48.9518325-04:00",
+      "ModifiedDate": "2026-06-26T21:53:48.9518325-04:00",
+      "Elements": [
+        {
+          "Id": "ad3ca46d-6b0f-45d9-aba8-9e550ceceb08",
+          "TopicId": "24a4db86-530a-4375-b2a6-539369eda7f1",
+          "Title": "What Is Mobile-First Design?",
+          "BodyText": "Mobile-first design is a philosophy where the design and development process begins with the smallest screen sizes and progressively builds up to larger displays.",
+          "Notes": "This approach was popularized by Luke Wroblewski and has become an industry standard as mobile internet usage surpassed desktop usage globally.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:56:06.2995399-04:00",
+          "ModifiedDate": "2026-06-26T21:56:06.2995399-04:00",
+          "Items": [
+            {
+              "Id": "cc8a415f-c318-4817-9924-9598e3e74e2e",
+              "Text": "Designers create the core experience for mobile devices before considering tablets or desktops.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8f5098d5-4f6d-49ad-a232-aac9e4f2b968",
+              "Text": "It forces prioritization of essential content and functionality by working within tight constraints first.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1ca4a75a-bbf1-419d-9185-bbe5cb51790c",
+              "Text": "The philosophy contrasts with the older \u0027graceful degradation\u0027 approach, which started with desktop and stripped features for mobile.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "431304d5-25cf-4c00-a0c7-3a06668ef094",
+          "TopicId": "24a4db86-530a-4375-b2a6-539369eda7f1",
+          "Title": "Why Mobile-First Matters",
+          "BodyText": "Prioritizing mobile design reflects the reality that a majority of web traffic now originates from smartphones and other small-screen devices.",
+          "Notes": "Ignoring mobile users can result in poor user experiences, higher bounce rates, and lower search engine rankings, since Google uses mobile-first indexing.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:56:06.2995399-04:00",
+          "ModifiedDate": "2026-06-26T21:56:06.2995399-04:00",
+          "Items": [
+            {
+              "Id": "5d30ef72-7a05-462e-a475-4a35fbf3f03f",
+              "Text": "Mobile-first ensures that the most constrained users receive a fully functional and optimized experience.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "15346415-6630-4226-8f27-9d162f66c049",
+              "Text": "Starting small prevents the common mistake of cramming a complex desktop layout into a small screen as an afterthought.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "998a8eef-b301-4004-a1e8-714d34b3e2f4",
+              "Text": "Search engines like Google reward mobile-optimized sites with better rankings through mobile-first indexing policies.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "09e58e71-4d17-434c-9dfa-1d2d4fdd3c6d",
+          "TopicId": "24a4db86-530a-4375-b2a6-539369eda7f1",
+          "Title": "Progressive Enhancement Strategy",
+          "BodyText": "Progressive enhancement is the core technique behind mobile-first design, where a baseline experience is built for small screens and then enhanced with additional features for larger ones.",
+          "Notes": "For example, a single-column layout on mobile might expand to a multi-column grid on a tablet and a wide sidebar layout on a desktop.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:56:06.2995399-04:00",
+          "ModifiedDate": "2026-06-26T21:56:06.2995399-04:00",
+          "Items": [
+            {
+              "Id": "0d1cc4eb-26e5-4725-9d2b-63a67952c340",
+              "Text": "The baseline design includes only the most critical content and interactions necessary for the user\u0027s goals.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ffb0aaa7-ee4d-404a-a173-3e0ea2c0ac67",
+              "Text": "As screen real estate grows, designers layer in additional visual complexity, navigation options, and richer media.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6d8d2406-294a-4a44-af96-26c211889553",
+              "Text": "This strategy ensures functionality and usability are never sacrificed, regardless of the device being used.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "faf5cacb-2127-4f2f-858b-3c362d695586",
+          "TopicId": "24a4db86-530a-4375-b2a6-539369eda7f1",
+          "Title": "Content Prioritization in Mobile-First Thinking",
+          "BodyText": "Designing for mobile first requires ruthless prioritization of content, since small screens demand that only the most important elements be immediately visible.",
+          "Notes": "A useful exercise is to rank every piece of content or feature by its importance to the user\u0027s primary goal before beginning layout design.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:56:06.2995399-04:00",
+          "ModifiedDate": "2026-06-26T21:56:06.2995399-04:00",
+          "Items": [
+            {
+              "Id": "e0d93f4c-0190-49b7-b0c8-5dfb873f8869",
+              "Text": "Designers must distinguish between must-have content and nice-to-have content before creating any layouts.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "006f3f2a-1c0a-4c76-9378-e0709fb09d9f",
+              "Text": "Secondary content can be hidden, collapsed, or relocated to less prominent areas that are revealed on larger screens.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1a38e911-6b6a-4941-bd5c-167e06a115e6",
+              "Text": "Clear content hierarchy established during mobile design typically improves the overall clarity of the experience on all screen sizes.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "9e31868e-dcaa-4ef0-994b-6cb64a7ec573",
+          "TopicId": "24a4db86-530a-4375-b2a6-539369eda7f1",
+          "Title": "Mobile-First CSS and Media Queries",
+          "BodyText": "In practice, mobile-first design is implemented in CSS by writing base styles for small screens and using min-width media queries to progressively apply styles for larger breakpoints.",
+          "Notes": "For example, a base style might display a single-column layout, with a min-width: 768px media query introducing a two-column grid for tablets.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:56:06.2995399-04:00",
+          "ModifiedDate": "2026-06-26T21:56:06.2995399-04:00",
+          "Items": [
+            {
+              "Id": "c73a2c08-1db6-49ab-b776-c4e1bdf74e35",
+              "Text": "Base CSS rules are written without any media query wrapper, targeting the default small-screen experience.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "55700dee-08bd-4802-98b4-73a98bc65b1a",
+              "Text": "Min-width media queries are used to override and extend styles as the viewport grows, rather than using max-width to restrict them.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "acb41332-8467-4390-83bd-388818a1c6d1",
+              "Text": "This approach results in cleaner, more maintainable CSS compared to starting with desktop styles and overriding them downward.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "765374a4-dec1-49a6-a90d-94af297dce30",
+          "TopicId": "24a4db86-530a-4375-b2a6-539369eda7f1",
+          "Title": "Performance Benefits of Mobile-First",
+          "BodyText": "The mobile-first approach naturally encourages performance optimization, since mobile devices often have slower connections and less processing power than desktops.",
+          "Notes": "Starting lean means mobile users only download what they need, while desktop users can receive enhanced assets and features through progressive loading strategies.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:56:06.2995399-04:00",
+          "ModifiedDate": "2026-06-26T21:56:06.2995399-04:00",
+          "Items": [
+            {
+              "Id": "b07aeafc-a1ea-4496-b918-bc6e64997b96",
+              "Text": "Designing mobile-first discourages loading large images or heavy scripts by default, improving page load times for all users.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a402c0fe-024f-49d2-af8d-c15369124e30",
+              "Text": "Performance considerations such as image compression, minimal HTTP requests, and efficient CSS are built into the process from the start.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d55a3369-2342-4d84-8a32-71528cce5ee2",
+              "Text": "Faster load times on mobile lead to better user retention, higher conversion rates, and improved SEO performance.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "e752aae4-4636-42f7-b17c-fc8072a0eb2a",
+          "TopicId": "24a4db86-530a-4375-b2a6-539369eda7f1",
+          "Title": "Shifting the Design Mindset",
+          "BodyText": "Adopting a mobile-first philosophy requires a fundamental shift in how designers and developers think about layout, interaction, and user context from the very beginning of a project.",
+          "Notes": "Teams new to mobile-first often find it helpful to sketch or prototype on paper at mobile dimensions before moving to digital tools.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:56:06.2995399-04:00",
+          "ModifiedDate": "2026-06-26T21:56:06.2995399-04:00",
+          "Items": [
+            {
+              "Id": "af4667a2-6521-46c7-b0e3-0d38930ace1e",
+              "Text": "Designers should consider touch-based interactions, thumb reach zones, and one-handed use as primary interaction models.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "54eabc4d-9047-4ade-be6e-a56084a2a769",
+              "Text": "Mobile-first encourages thinking about context of use, such as users who are on the go, distracted, or in low-connectivity environments.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5ef8c5ab-b219-4804-8f1f-e89b8d2d0a78",
+              "Text": "Embracing constraints early in the process consistently leads to more focused, user-centered designs across all screen sizes.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "dc0e2fb1-5c75-4ac4-add8-4260c659d359",
+      "Title": "Viewport Configuration and Screen Sizes",
+      "Summary": "Learn how to configure the viewport meta tag and manage breakpoints to ensure websites render correctly across a wide range of devices and screen dimensions.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-06-26T21:53:48.9518325-04:00",
+      "ModifiedDate": "2026-06-26T21:53:48.9518325-04:00",
+      "Elements": [
+        {
+          "Id": "6ce7bc86-f647-477f-bf8f-c9a4be29b0cf",
+          "TopicId": "dc0e2fb1-5c75-4ac4-add8-4260c659d359",
+          "Title": "The Viewport Meta Tag",
+          "BodyText": "The viewport meta tag is an HTML element placed in the \u003Chead\u003E section that instructs the browser how to control the page\u0027s dimensions and scaling on different devices.",
+          "Notes": "Without this tag, mobile browsers will render the page at a typical desktop width and then scale it down, making text and elements appear tiny.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:56:32.4497371-04:00",
+          "ModifiedDate": "2026-06-26T21:56:32.4497371-04:00",
+          "Items": [
+            {
+              "Id": "54b1073d-a9a7-4e19-b005-a1d44f672f6e",
+              "Text": "The standard viewport meta tag is: \u003Cmeta name=\u0027viewport\u0027 content=\u0027width=device-width, initial-scale=1.0\u0027\u003E.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "17719711-d532-4b6d-92a8-f258db505a15",
+              "Text": "\u0027width=device-width\u0027 sets the page width to match the screen width of the device being used.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "52b578a8-3d8f-49ed-910b-b1e0a2e64a95",
+              "Text": "\u0027initial-scale=1.0\u0027 sets the initial zoom level when the page is first loaded.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "fd6dd956-7d0e-4727-9643-82cf6fee78d3",
+              "Text": "Additional attributes like \u0027maximum-scale\u0027 and \u0027user-scalable\u0027 can control zoom behavior, though restricting user scaling can harm accessibility.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "f7f4b385-1910-4106-9ad9-bad3a9cab177",
+          "TopicId": "dc0e2fb1-5c75-4ac4-add8-4260c659d359",
+          "Title": "Understanding Device Screen Sizes",
+          "BodyText": "Modern devices span a wide range of screen dimensions, from small smartwatches to large desktop monitors, requiring designers to plan layouts that adapt gracefully across all sizes.",
+          "Notes": "Common categories include mobile (320px\u2013480px), large mobile (481px\u2013767px), tablet (768px\u20131024px), laptop (1025px\u20131280px), and desktop (1281px and above), though exact ranges vary by design system.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:56:32.4497371-04:00",
+          "ModifiedDate": "2026-06-26T21:56:32.4497371-04:00",
+          "Items": [
+            {
+              "Id": "a2cd8c0a-40bc-407b-83a6-ad60c419f17f",
+              "Text": "Screen size is typically measured in CSS pixels, not physical pixels, to account for high-density (Retina) displays.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "21bf85a1-936b-4725-a89c-062cfb30ea5a",
+              "Text": "The device pixel ratio (DPR) describes how many physical pixels correspond to one CSS pixel, which affects image sharpness.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3aff776b-2b8f-4f67-b3fe-2dcf2c9b2956",
+              "Text": "Designing for the most common screen size ranges ensures the majority of users receive an optimized experience.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "aba51471-2ba9-42dc-95da-cef57a22ceed",
+              "Text": "Regularly consulting device usage analytics helps prioritize which screen sizes to target first.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "6b2cdee5-c52a-4853-9492-b0f24a5ac3fd",
+          "TopicId": "dc0e2fb1-5c75-4ac4-add8-4260c659d359",
+          "Title": "CSS Breakpoints Defined",
+          "BodyText": "Breakpoints are specific screen-width thresholds in CSS at which a website\u0027s layout changes to better suit the current viewing environment.",
+          "Notes": "Breakpoints are used inside CSS media queries to apply different style rules depending on the detected screen width, height, or orientation.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:56:32.4497371-04:00",
+          "ModifiedDate": "2026-06-26T21:56:32.4497371-04:00",
+          "Items": [
+            {
+              "Id": "60d19aaf-06bb-42da-8497-e9a63057bee8",
+              "Text": "A breakpoint is not a fixed standard \u2014 it should be determined by where the content starts to look broken or awkward.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8b5f128b-23ec-4cfa-9ba8-c78f08445389",
+              "Text": "Common breakpoints align with typical device categories: 480px, 768px, 1024px, and 1280px are frequently used values.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bbec369d-5b81-458c-a115-57020049aa53",
+              "Text": "Using too many breakpoints can make CSS difficult to maintain; aim for the minimum number needed to keep content readable.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "90035a73-eb5c-4404-89d9-4d9c3ed0d97e",
+              "Text": "Content-driven breakpoints \u2014 set where the design naturally needs to change \u2014 are often more effective than device-driven ones.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "83527a7b-847b-4968-92a3-04fa92aea28f",
+          "TopicId": "dc0e2fb1-5c75-4ac4-add8-4260c659d359",
+          "Title": "Writing Media Queries for Breakpoints",
+          "BodyText": "CSS media queries are the primary tool for applying breakpoint-specific styles, allowing different layout rules to activate based on screen dimensions.",
+          "Notes": "Example: @media (min-width: 768px) { .container { display: flex; } } applies a flex layout only on screens 768px wide or larger.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:56:32.4497371-04:00",
+          "ModifiedDate": "2026-06-26T21:56:32.4497371-04:00",
+          "Items": [
+            {
+              "Id": "e48aeca2-7579-4e25-b447-750b18684029",
+              "Text": "The \u0027min-width\u0027 approach activates styles at or above a given width and is associated with mobile-first design.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "44f4858a-b97f-4ca8-8483-b229aad1e983",
+              "Text": "The \u0027max-width\u0027 approach activates styles at or below a given width and is associated with desktop-first design.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d04d9876-fde4-418b-9f24-855eafc774a9",
+              "Text": "Media queries can also target orientation (landscape or portrait) and resolution, beyond just width.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e3e9fd58-2ab7-40de-801f-049abe6658d0",
+              "Text": "Nesting multiple conditions with \u0027and\u0027 allows precise targeting, such as: @media (min-width: 600px) and (max-width: 1024px).",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "b6801447-aeb4-4a00-bb9e-55d74b61d0df",
+          "TopicId": "dc0e2fb1-5c75-4ac4-add8-4260c659d359",
+          "Title": "Mobile-First vs. Desktop-First Breakpoint Strategy",
+          "BodyText": "The order in which breakpoints are written in CSS reflects whether a project follows a mobile-first or desktop-first design philosophy, each with distinct implications for performance and maintainability.",
+          "Notes": "Mobile-first is generally recommended as the modern best practice because it encourages simpler base styles and progressively enhances the layout for larger screens.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:56:32.4497371-04:00",
+          "ModifiedDate": "2026-06-26T21:56:32.4497371-04:00",
+          "Items": [
+            {
+              "Id": "d1446f57-9d38-45b0-ba98-519aff3f6363",
+              "Text": "Mobile-first starts with base styles for small screens and uses \u0027min-width\u0027 media queries to layer in styles for larger screens.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8d331719-eecd-4a92-b5f2-66ef5bc3e94c",
+              "Text": "Desktop-first starts with styles for large screens and uses \u0027max-width\u0027 media queries to override them for smaller screens.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "681b6350-3413-4d17-b80b-117d53f29ac9",
+              "Text": "Mobile-first tends to produce leaner CSS because small-screen styles are typically simpler than large-screen layouts.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "1ac5abb4-96d9-4671-832d-96f831096ac4",
+              "Text": "Choosing a strategy early in a project keeps media query logic consistent and prevents conflicts between overlapping rules.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "81fe94ab-6a32-404a-af1a-27555c95de7a",
+          "TopicId": "dc0e2fb1-5c75-4ac4-add8-4260c659d359",
+          "Title": "Testing Across Screen Sizes",
+          "BodyText": "Verifying that viewport configuration and breakpoints work correctly requires systematic testing on a variety of real and simulated screen sizes.",
+          "Notes": "Browser developer tools (such as Chrome DevTools\u0027 Device Mode) allow quick simulation of different screen sizes and device pixel ratios without needing physical devices.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:56:32.4497371-04:00",
+          "ModifiedDate": "2026-06-26T21:56:32.4497371-04:00",
+          "Items": [
+            {
+              "Id": "ee56555f-4cfb-4bb7-bf27-5f68bccf0d06",
+              "Text": "Browser responsive design modes let you manually drag the viewport to any width to observe how breakpoints activate.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9039b047-3caf-4a88-aa7b-549e8cb3e8db",
+              "Text": "Testing on actual physical devices reveals rendering differences that emulators may not accurately reproduce.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "506f7fbf-5d44-486c-9c58-7dc0db7d6270",
+              "Text": "Key things to check include text legibility, touch target sizes, image scaling, and navigation usability at each breakpoint.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "cb1df957-752c-4fcd-b3e3-ffae7bca848b",
+              "Text": "Automated tools like BrowserStack or Sauce Labs enable testing across many device and OS combinations simultaneously.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 39
+}

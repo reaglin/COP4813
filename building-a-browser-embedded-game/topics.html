@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Building a Browser-Embedded Game — Module Topics</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.2rem;margin-top:28px;color:#1a3c6e}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<h1>Building a Browser-Embedded Game — Module Topics</h1>
+<h2>Game Design Fundamentals</h2>
+<div class="summary">Students learn the core principles of designing a simple browser game, including defining objectives, rules, and the overall game structure before writing any code.</div>
+<ul>
+<li><strong>Defining the Game Objective</strong> <span class="el-body">— Every game needs a clear, singular goal that tells the player what they are trying to achieve.</span></li>
+<li><strong>Establishing the Rules</strong> <span class="el-body">— Rules define the boundaries of player behavior and determine how the game world responds to actions.</span></li>
+<li><strong>Identifying Game Entities</strong> <span class="el-body">— Game entities are the objects and characters that exist within the game world and interact with each other.</span></li>
+<li><strong>Sketching the Game Structure</strong> <span class="el-body">— Before writing any code, outlining the overall structure of the game — its states and flow — provides a roadmap for development.</span></li>
+<li><strong>Scoping the Project Appropriately</strong> <span class="el-body">— Choosing a game concept that matches the available time and technical skills is a critical design decision.</span></li>
+<li><strong>Planning the Player Interaction Model</strong> <span class="el-body">— The interaction model describes how the player controls the game, which directly shapes the event handling code you will write.</span></li>
+</ul>
+<h2>Canvas Drawing for Games</h2>
+<div class="summary">Students apply HTML5 Canvas drawing techniques to render game elements such as characters, obstacles, and backgrounds onto the browser screen.</div>
+<ul>
+<li><strong>Setting Up the Canvas Element</strong> <span class="el-body">— The HTML5 Canvas element provides a drawable surface within the browser that games use as their visual output.</span></li>
+<li><strong>Drawing Background Layers</strong> <span class="el-body">— A game background provides the visual environment and is typically drawn first so all other elements appear on top of it.</span></li>
+<li><strong>Rendering Character Sprites</strong> <span class="el-body">— Characters are the player-controlled or animated figures drawn onto the canvas to represent the main actors in the game.</span></li>
+<li><strong>Drawing Obstacles and Game Objects</strong> <span class="el-body">— Obstacles and collectibles are additional drawn elements that create challenge and interactivity within the game world.</span></li>
+<li><strong>Clearing and Redrawing the Canvas</strong> <span class="el-body">— Because games update visually many times per second, the canvas must be cleared before each frame is redrawn to prevent visual artifacts.</span></li>
+<li><strong>Using Coordinates and the Canvas Grid</strong> <span class="el-body">— The canvas uses a pixel-based coordinate system where (0, 0) is the top-left corner, with x increasing to the right and y increasing downward.</span></li>
+</ul>
+<h2>Animation and the Game Loop</h2>
+<div class="summary">Students implement a continuous game loop using requestAnimationFrame to drive smooth animation and update game state on every frame.</div>
+<ul>
+<li><strong>What Is a Game Loop?</strong> <span class="el-body">— A game loop is a continuous cycle that updates game state and redraws the screen many times per second to create the illusion of motion and interactivity.</span></li>
+<li><strong>Introducing requestAnimationFrame</strong> <span class="el-body">— requestAnimationFrame is a browser API that schedules a callback function to run just before the browser paints the next frame, typically 60 times per second.</span></li>
+<li><strong>Writing the Core Loop Function</strong> <span class="el-body">— The loop function is called on every frame and serves as the heartbeat of the entire game, coordinating all updates and drawing in the correct order.</span></li>
+<li><strong>Updating Game State Each Frame</strong> <span class="el-body">— The update step advances all game objects — such as player position, enemy movement, and score — based on logic and elapsed time before anything is drawn.</span></li>
+<li><strong>Delta Time and Frame-Rate Independence</strong> <span class="el-body">— Delta time is the number of milliseconds elapsed since the last frame, and multiplying movement values by it ensures objects move at a consistent speed on any device.</span></li>
+<li><strong>Starting and Stopping the Loop</strong> <span class="el-body">— The loop must be explicitly started once when the game begins, and it can be stopped by cancelling the scheduled animation frame when the game ends or pauses.</span></li>
+</ul>
+<h2>Event Handling and Player Input</h2>
+<div class="summary">Students wire up keyboard, mouse, or touch event listeners to capture player input and translate it into meaningful in-game actions.</div>
+<ul>
+<li><strong>Attaching Event Listeners to the Document or Canvas</strong> <span class="el-body">— Event listeners are registered using addEventListener() on the document or the canvas element to begin capturing player input.</span></li>
+<li><strong>Reading Keyboard Input</strong> <span class="el-body">— Keyboard events expose properties like event.key and event.code that identify which key was pressed, released, or held down.</span></li>
+<li><strong>Reading Mouse Input</strong> <span class="el-body">— Mouse events provide cursor coordinates and button state, allowing players to aim, click, or drag within the game canvas.</span></li>
+<li><strong>Handling Touch Input for Mobile Play</strong> <span class="el-body">— Touch events mirror mouse events but support multiple simultaneous contact points, making them essential for mobile-compatible games.</span></li>
+<li><strong>Translating Raw Input into Game Actions</strong> <span class="el-body">— Raw event data must be mapped to meaningful in-game behaviors such as moving a character, firing a projectile, or pausing the game.</span></li>
+<li><strong>Preventing Default Browser Behavior</strong> <span class="el-body">— Many keys and gestures trigger built-in browser behaviors that can disrupt gameplay and must be suppressed with event.preventDefault().</span></li>
+</ul>
+<h2>Game Logic and State Management</h2>
+<div class="summary">Students manage core game mechanics such as scoring, collision detection, win and loss conditions, and tracking the overall state of the game.</div>
+<ul>
+<li><strong>Tracking Game State</strong> <span class="el-body">— Game state refers to all the variables that describe the current condition of the game at any moment, such as whether the game is running, paused, or over.</span></li>
+<li><strong>Implementing a Scoring System</strong> <span class="el-body">— A scoring system rewards players for successful actions and provides feedback on their performance throughout the game.</span></li>
+<li><strong>Collision Detection</strong> <span class="el-body">— Collision detection determines when two game objects occupy the same space, triggering gameplay consequences such as losing a life or earning a point.</span></li>
+<li><strong>Win Conditions</strong> <span class="el-body">— A win condition is a specific goal the player must achieve to successfully complete the game or a level.</span></li>
+<li><strong>Loss Conditions and Lives</strong> <span class="el-body">— Loss conditions end the game when the player fails to meet survival requirements, such as running out of lives or time.</span></li>
+<li><strong>Resetting and Restarting the Game</strong> <span class="el-body">— Providing a reset mechanism lets players try again without reloading the page, improving the overall user experience.</span></li>
+</ul>
+<h2>Integrating and Assembling the Complete Game</h2>
+<div class="summary">Students bring together all previous skills — drawing, animation, input, and logic — into a single cohesive, fully functional browser-embedded game project.</div>
+<ul>
+<li><strong>Establishing the Project Structure</strong> <span class="el-body">— A well-organized file and code structure is the foundation of a complete, maintainable browser game.</span></li>
+<li><strong>Combining Drawing and Animation Systems</strong> <span class="el-body">— The visual layer of the game requires merging Canvas drawing routines with the animation loop established in earlier lessons.</span></li>
+<li><strong>Wiring Up Event Handling and Player Input</strong> <span class="el-body">— Player interaction is connected to the game by attaching the event listeners built in previous lessons to the unified game loop.</span></li>
+<li><strong>Implementing the Unified Game Loop</strong> <span class="el-body">— The game loop is the central engine that calls update and render in sequence every frame, tying all subsystems together.</span></li>
+<li><strong>Integrating Game Logic and Win/Lose Conditions</strong> <span class="el-body">— All collision detection, scoring, and state-transition logic developed earlier must be consolidated into the update phase of the game loop.</span></li>
+<li><strong>Testing and Debugging the Complete Project</strong> <span class="el-body">— Once all components are assembled, systematic testing ensures the integrated game behaves correctly as a whole.</span></li>
+<li><strong>Embedding and Presenting the Finished Game</strong> <span class="el-body">— The final step is ensuring the completed game runs reliably in a browser and is ready to be shared or submitted as a finished project.</span></li>
+</ul>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

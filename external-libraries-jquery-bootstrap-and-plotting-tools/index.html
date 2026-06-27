@@ -1,0 +1,281 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>External Libraries: jQuery, Bootstrap, and Plotting Tools — COP4813</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f4f6f9;
+      color: #1e2530;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header / Hero ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
+      color: #ffffff;
+      padding: 3rem 1.5rem 2.5rem;
+      text-align: center;
+    }
+
+    header .course-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 999px;
+      padding: 0.25rem 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.55rem, 4vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.25;
+      max-width: 680px;
+      margin: 0 auto 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    header p.intro {
+      font-size: 1rem;
+      max-width: 620px;
+      margin: 0 auto;
+      color: rgba(255, 255, 255, 0.87);
+    }
+
+    /* ── Main Content ── */
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+
+    /* ── Section Label ── */
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: #5a6b82;
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 2px solid #d9e2ec;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+      gap: 1.25rem;
+    }
+
+    /* ── Artifact Card ── */
+    .card {
+      background: #ffffff;
+      border: 1px solid #dae1eb;
+      border-radius: 10px;
+      padding: 1.35rem 1.4rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      box-shadow: 0 1px 4px rgba(30, 50, 80, 0.06);
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 18px rgba(30, 50, 80, 0.11);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card Top Row ── */
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 0.5rem 0.75rem;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1e2530;
+      flex: 1 1 auto;
+    }
+
+    .card-title a {
+      color: #1a5cb8;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.15s;
+    }
+
+    .card-title a:hover,
+    .card-title a:focus {
+      border-color: #1a5cb8;
+      outline: none;
+    }
+
+    /* ── Source Link ── */
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.28rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: #4a6280;
+      background: #edf2f8;
+      border: 1px solid #c8d6e8;
+      border-radius: 5px;
+      padding: 0.18rem 0.5rem;
+      text-decoration: none;
+      white-space: nowrap;
+      align-self: flex-start;
+      margin-top: 0.1rem;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background: #d4e4f7;
+      color: #1a3a5c;
+      outline: none;
+    }
+
+    .source-link svg {
+      flex-shrink: 0;
+    }
+
+    /* ── Badges row ── */
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+    }
+
+    .badge {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-radius: 5px;
+      padding: 0.22rem 0.55rem;
+    }
+
+    .badge-type {
+      background: #e8f0fe;
+      color: #2255b0;
+      border: 1px solid #b8d0f8;
+    }
+
+    .badge-filetype {
+      background: #f0f7f0;
+      color: #276527;
+      border: 1px solid #b3d9b3;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    /* ── Description ── */
+    .card-description {
+      font-size: 0.88rem;
+      color: #3d4f63;
+      line-height: 1.65;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #8097b1;
+      padding: 1.5rem 1rem 2rem;
+      border-top: 1px solid #dae1eb;
+    }
+
+    /* ── Focus Visible ── */
+    a:focus-visible {
+      outline: 3px solid #2563a8;
+      outline-offset: 2px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      header { padding: 2.25rem 1rem 2rem; }
+      .card { padding: 1.1rem 1.1rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="course-label">COP4813</div>
+    <h1>External Libraries: jQuery, Bootstrap, and Plotting Tools</h1>
+    <p class="intro">
+      Explore how to leverage industry-standard external libraries to accelerate web development.
+      This module covers CDN integration, jQuery-powered DOM manipulation and event handling,
+      responsive design with Bootstrap components, and data visualization using plotting tools.
+    </p>
+  </header>
+
+  <main>
+    <p class="section-label">Module Artifacts</p>
+
+    <div class="card-grid">
+
+      <!-- Artifact: Module Topics -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">
+            <a href="content/module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="source/hierarchy.json">
+            <!-- file icon -->
+            <svg width="11" height="13" viewBox="0 0 11 13" fill="none" aria-hidden="true"
+                 xmlns="http://www.w3.org/2000/svg">
+              <path d="M1.5 0.5H7L10 3.5V12.5H1.5V0.5Z" stroke="currentColor" stroke-width="1"
+                    stroke-linejoin="round" fill="none"/>
+              <path d="M6.5 0.5V4H10" stroke="currentColor" stroke-width="1"
+                    stroke-linejoin="round" fill="none"/>
+              <line x1="3" y1="6.5" x2="8" y2="6.5" stroke="currentColor" stroke-width="0.9"
+                    stroke-linecap="round"/>
+              <line x1="3" y1="8.5" x2="8" y2="8.5" stroke="currentColor" stroke-width="0.9"
+                    stroke-linecap="round"/>
+            </svg>
+            source file
+          </a>
+        </div>
+
+        <div class="card-meta">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+
+        <p class="card-description">
+          A structured outline of the module's lecture topics covering external libraries and CDN
+          integration, jQuery fundamentals, DOM manipulation, events, Bootstrap components, and
+          plotting tools, used by instructors to organize content delivery and by learners to
+          preview what concepts will be taught.
+        </p>
+      </div>
+
+    </div><!-- /.card-grid -->
+  </main>
+
+  <footer>
+    COP4813 &mdash; External Libraries: jQuery, Bootstrap, and Plotting Tools
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics</h2><p><a href="topics.html">View Topics</a></p></section></body>
+</html>

@@ -1,0 +1,304 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animation Techniques in the Browser — COP4813</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #f4f6f9;
+      color: #2c3e50;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header / Hero ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
+      color: #ffffff;
+      padding: 3rem 2rem 2.5rem;
+      border-bottom: 4px solid #f0a500;
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .course-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background-color: rgba(255, 255, 255, 0.15);
+      color: #d9eaff;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 0.85rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    header p {
+      font-size: 1rem;
+      max-width: 680px;
+      color: #cce0ff;
+      line-height: 1.7;
+    }
+
+    /* ── Main Content ── */
+    main {
+      max-width: 960px;
+      margin: 2.5rem auto 4rem;
+      padding: 0 1.5rem;
+    }
+
+    .section-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #6b7a90;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #dde3ec;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #dde3ec;
+      border-radius: 10px;
+      padding: 1.5rem 1.5rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.045);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.09);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card Header Row ── */
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .card-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      line-height: 1.3;
+    }
+
+    .card-name a {
+      color: #1a3a5c;
+      text-decoration: none;
+      border-bottom: 2px solid #2563a8;
+      padding-bottom: 1px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .card-name a:hover,
+    .card-name a:focus {
+      color: #2563a8;
+      border-color: #f0a500;
+      outline: none;
+    }
+
+    .card-name a:focus-visible {
+      outline: 2px solid #2563a8;
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    /* ── Source File Link ── */
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #5a7a9f;
+      text-decoration: none;
+      background-color: #eef3fb;
+      border: 1px solid #c5d5eb;
+      border-radius: 999px;
+      padding: 0.2rem 0.6rem;
+      white-space: nowrap;
+      transition: background-color 0.15s, color 0.15s;
+      margin-top: 0.15rem;
+    }
+
+    .source-link::before {
+      content: '⬇';
+      font-size: 0.65rem;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background-color: #d5e4f7;
+      color: #1a3a5c;
+      outline: none;
+    }
+
+    .source-link:focus-visible {
+      outline: 2px solid #2563a8;
+      outline-offset: 2px;
+    }
+
+    /* ── Badges ── */
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .badge-type {
+      background-color: #e8f0fe;
+      color: #2c5fc4;
+      border: 1px solid #c5d5f5;
+    }
+
+    .badge-filetype {
+      background-color: #fef3e2;
+      color: #b25e00;
+      border: 1px solid #f5d9a5;
+      font-family: 'Courier New', Courier, monospace;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Description ── */
+    .card-description {
+      font-size: 0.9rem;
+      color: #4a5568;
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #8a97a8;
+      padding: 1.5rem 1rem;
+      border-top: 1px solid #dde3ec;
+      background-color: #f4f6f9;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      header {
+        padding: 2rem 1.25rem 2rem;
+      }
+
+      .card {
+        padding: 1.25rem 1.25rem 1rem;
+      }
+
+      .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header role="banner">
+    <div class="header-inner">
+      <span class="course-label">COP4813</span>
+      <h1>Animation Techniques in the Browser</h1>
+      <p>
+        This module explores core browser animation methods — from CSS transitions and keyframe
+        animations to JavaScript-driven motion. Work through the artifacts below to build a solid
+        understanding of how animations are constructed, controlled, and optimised for the web.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <p class="section-title">Module Artifacts</p>
+
+    <ul class="card-grid" role="list">
+
+      <!-- ── Artifact: Module Topics ── -->
+      <li class="card">
+        <div class="card-header">
+          <span class="card-name">
+            <a href="content/module_topics.html">Module Topics</a>
+          </span>
+          <a
+            class="source-link"
+            href="source/hierarchy.json"
+            aria-label="Source file for Module Topics"
+          >source file</a>
+        </div>
+
+        <div class="card-meta">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+
+        <p class="card-description">
+          Outlines the module's learning topics across browser animation fundamentals, CSS transitions,
+          CSS keyframe animations, and JavaScript-driven animation, serving as a navigational overview
+          for learners and instructors to see what concepts will be covered and in what order.
+        </p>
+      </li>
+
+    </ul>
+  </main>
+
+  <footer>
+    <p>COP4813 &mdash; Animation Techniques in the Browser</p>
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics</h2><p><a href="topics.html">View Topics</a></p></section></body>
+</html>

@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Styling Web Pages with CSS — Module Topics</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.2rem;margin-top:28px;color:#1a3c6e}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<h1>Styling Web Pages with CSS — Module Topics</h1>
+<h2>Introduction to CSS</h2>
+<div class="summary">An overview of what Cascading Style Sheets are and how they work alongside HTML to control the visual presentation of web pages. Students learn how to link CSS to their HTML documents using inline, internal, and external stylesheet methods.</div>
+<ul>
+<li><strong>What is CSS?</strong> <span class="el-body">— CSS, or Cascading Style Sheets, is a stylesheet language used to control the visual presentation of HTML documents.</span></li>
+<li><strong>How CSS Works with HTML</strong> <span class="el-body">— CSS works alongside HTML by targeting HTML elements and applying visual rules to them.</span></li>
+<li><strong>Inline CSS</strong> <span class="el-body">— Inline CSS is applied directly to a single HTML element using the style attribute within the opening tag.</span></li>
+<li><strong>Internal CSS</strong> <span class="el-body">— Internal CSS is written inside a &lt;style&gt; element placed within the &lt;head&gt; section of an HTML document.</span></li>
+<li><strong>External CSS</strong> <span class="el-body">— External CSS stores all styles in a separate .css file that is linked to one or more HTML documents.</span></li>
+<li><strong>Choosing the Right Method</strong> <span class="el-body">— Each of the three CSS methods — inline, internal, and external — has appropriate use cases depending on the scope and scale of styling needed.</span></li>
+</ul>
+<h2>CSS Selectors</h2>
+<div class="summary">Exploration of the different types of CSS selectors including element, class, ID, and combination selectors used to target specific HTML elements. Students learn how specificity and the cascade determine which styles are applied when rules conflict.</div>
+<ul>
+<li><strong>Element Selectors</strong> <span class="el-body">— Element selectors target HTML elements directly by their tag name, applying styles to every instance of that element on the page.</span></li>
+<li><strong>Class Selectors</strong> <span class="el-body">— Class selectors target elements that share a specific class attribute, allowing the same styles to be applied to multiple elements regardless of their tag type.</span></li>
+<li><strong>ID Selectors</strong> <span class="el-body">— ID selectors target a single, unique element on a page using the element&#39;s id attribute, making them ideal for styling one-of-a-kind components.</span></li>
+<li><strong>Combination Selectors</strong> <span class="el-body">— Combination selectors allow developers to target elements based on their relationship to other elements or by combining multiple conditions, enabling precise styling control.</span></li>
+<li><strong>CSS Specificity</strong> <span class="el-body">— Specificity is a scoring system browsers use to determine which CSS rule takes precedence when multiple rules target the same element and property.</span></li>
+<li><strong>The Cascade</strong> <span class="el-body">— The cascade is the algorithm CSS uses to resolve conflicts between rules, considering origin, specificity, and source order to decide which styles are ultimately applied.</span></li>
+</ul>
+<h2>The Box Model</h2>
+<div class="summary">A foundational concept explaining how every HTML element is treated as a rectangular box with content, padding, border, and margin areas. Students learn how to manipulate these properties to control spacing and sizing of elements on a page.</div>
+<ul>
+<li><strong>What Is the Box Model?</strong> <span class="el-body">— Every HTML element on a web page is treated by the browser as a rectangular box. This box is made up of four distinct areas that together form the CSS Box Model.</span></li>
+<li><strong>The Content Area</strong> <span class="el-body">— The content area is the innermost part of the box, where the actual text, images, or other media of an element are displayed.</span></li>
+<li><strong>Padding</strong> <span class="el-body">— Padding is the space between the content area and the element&#39;s border. It creates breathing room inside the element, pushing the content away from the edges.</span></li>
+<li><strong>Border</strong> <span class="el-body">— The border wraps around the padding and content areas, forming a visible or invisible boundary around the element. It sits between the padding and the margin.</span></li>
+<li><strong>Margin</strong> <span class="el-body">— Margin is the outermost layer of the box model, creating space outside the element&#39;s border to separate it from neighboring elements.</span></li>
+<li><strong>The box-sizing Property</strong> <span class="el-body">— By default, the &#39;width&#39; and &#39;height&#39; properties in CSS apply only to the content area, meaning padding and border are added on top of that size. The &#39;box-sizing&#39; property changes how the total size of an element is calculated.</span></li>
+<li><strong>Inspecting the Box Model with DevTools</strong> <span class="el-body">— Modern browser developer tools provide a visual diagram of the box model for any selected element, making it easy to inspect and debug spacing and sizing issues.</span></li>
+</ul>
+<h2>Typography and Colors</h2>
+<div class="summary">Covers CSS properties for styling text including font family, size, weight, line height, and text alignment to improve readability. Students also learn how to apply colors using named values, hex codes, and RGB notation to both text and backgrounds.</div>
+<ul>
+<li><strong>Font Family</strong> <span class="el-body">— The font-family property specifies the typeface used to display text on a web page.</span></li>
+<li><strong>Font Size and Weight</strong> <span class="el-body">— Font size controls how large text appears, while font weight controls its thickness or boldness.</span></li>
+<li><strong>Line Height and Text Alignment</strong> <span class="el-body">— Line height and text alignment are key properties that directly affect the readability and layout of text blocks.</span></li>
+<li><strong>Applying Colors with Named Values and Hex Codes</strong> <span class="el-body">— CSS allows colors to be specified using human-readable named values or precise hexadecimal codes.</span></li>
+<li><strong>Applying Colors with RGB Notation</strong> <span class="el-body">— RGB notation defines colors by specifying the intensity of red, green, and blue channels as numeric values from 0 to 255.</span></li>
+<li><strong>Styling Text Color and Background Color</strong> <span class="el-body">— CSS provides two distinct properties for applying color: one for text and one for the background of an element.</span></li>
+</ul>
+<h2>CSS Layout Techniques</h2>
+<div class="summary">An introduction to modern CSS layout methods including Flexbox and basic positioning to arrange elements on a web page. Students apply these techniques to structure multi-section page layouts in a visually organized way.</div>
+<ul>
+<li><strong>Understanding CSS Layout Flow</strong> <span class="el-body">— By default, browsers arrange HTML elements using normal document flow, where block elements stack vertically and inline elements sit side by side.</span></li>
+<li><strong>Introducing Flexbox</strong> <span class="el-body">— Flexbox is a one-dimensional CSS layout model that arranges items in a row or column, making it easy to align and distribute space among elements in a container.</span></li>
+<li><strong>Aligning and Justifying Flex Items</strong> <span class="el-body">— Flexbox provides two primary axes — the main axis and the cross axis — each controlled by dedicated alignment properties.</span></li>
+<li><strong>Controlling Individual Flex Items</strong> <span class="el-body">— Properties applied directly to flex children let you override container-level alignment and control how each item grows or shrinks.</span></li>
+<li><strong>CSS Positioning</strong> <span class="el-body">— The position property removes elements from normal flow or adjusts their placement relative to a reference point, enabling overlapping and fixed UI elements.</span></li>
+<li><strong>Structuring Multi-Section Page Layouts</strong> <span class="el-body">— Combining Flexbox and positioning allows you to build organized, multi-section page layouts such as headers, sidebars, main content areas, and footers.</span></li>
+</ul>
+<h2>Styling a Complete Web Page</h2>
+<div class="summary">Students bring together all learned CSS concepts to apply cohesive visual styling to the websites they built in the previous lesson. This capstone topic reinforces best practices for writing clean, organized CSS stylesheets.</div>
+<ul>
+<li><strong>Linking Your Stylesheet to Your HTML Page</strong> <span class="el-body">— Before any CSS can be applied, the external stylesheet must be properly connected to the HTML document using a link element in the head section.</span></li>
+<li><strong>Organizing Your CSS Stylesheet</strong> <span class="el-body">— A well-organized stylesheet groups related rules together and uses comments to label each section, making the code easier to read and maintain.</span></li>
+<li><strong>Applying Typography Across the Page</strong> <span class="el-body">— Consistent typography ties a web page together visually by establishing a clear hierarchy of headings, body text, and supporting content.</span></li>
+<li><strong>Using Color Cohesively</strong> <span class="el-body">— A cohesive color scheme unifies all sections of a web page and reinforces the overall visual identity of the site.</span></li>
+<li><strong>Styling Layout and Spacing with the Box Model</strong> <span class="el-body">— Proper use of margin, padding, and width controls how each element occupies space on the page and how sections relate to one another visually.</span></li>
+<li><strong>Styling Navigation and Interactive Elements</strong> <span class="el-body">— Navigation links and buttons are the primary interactive elements on most pages and should receive deliberate styling that signals their purpose to users.</span></li>
+<li><strong>Reviewing and Refining the Finished Stylesheet</strong> <span class="el-body">— Once all styles are applied, a final review pass ensures the stylesheet is clean, consistent, and free of redundant or conflicting rules.</span></li>
+</ul>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

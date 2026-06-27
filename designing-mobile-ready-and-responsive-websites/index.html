@@ -1,0 +1,283 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Designing Mobile-Ready and Responsive Websites – COP4813</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f9;
+      color: #2c3e50;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── Header / Hero ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2e6da4 100%);
+      color: #ffffff;
+      padding: 3rem 2rem 2.5rem;
+      text-align: center;
+    }
+
+    header .course-label {
+      display: inline-block;
+      background-color: rgba(255, 255, 255, 0.18);
+      color: #dce9f7;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.85rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    header p.intro {
+      max-width: 680px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+      color: #cde0f4;
+      line-height: 1.75;
+    }
+
+    /* ── Main Content ── */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: #5a7a99;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #dde5ef;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #dde5ef;
+      border-radius: 10px;
+      padding: 1.5rem 1.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      box-shadow: 0 2px 8px rgba(30, 60, 100, 0.07);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 20px rgba(30, 60, 100, 0.13);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card Header Row ── */
+    .card-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.55rem;
+    }
+
+    .artifact-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      line-height: 1.3;
+    }
+
+    .artifact-name a {
+      color: #1a6bb5;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .artifact-name a:hover,
+    .artifact-name a:focus {
+      color: #0d4f8a;
+      border-bottom-color: #0d4f8a;
+      outline: none;
+    }
+
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #5a7a99;
+      text-decoration: none;
+      background-color: #eef3f9;
+      border: 1px solid #c8d8ea;
+      border-radius: 4px;
+      padding: 0.15rem 0.55rem;
+      transition: background-color 0.15s ease, color 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .source-link::before {
+      content: '⬇';
+      font-size: 0.7rem;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background-color: #d4e4f5;
+      color: #1a3a5c;
+      outline: none;
+    }
+
+    /* ── Badges ── */
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.22rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    .badge-type {
+      background-color: #e8f0fb;
+      color: #2e6da4;
+      border: 1px solid #b8d0ef;
+    }
+
+    .badge-filetype {
+      background-color: #f0f4f0;
+      color: #3a6b3a;
+      border: 1px solid #b5d0b5;
+    }
+
+    /* ── Description ── */
+    .card-description {
+      font-size: 0.9rem;
+      color: #4a5e72;
+      line-height: 1.65;
+      flex-grow: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: 0.8rem;
+      color: #8fa5bc;
+      border-top: 1px solid #dde5ef;
+      background-color: #f4f6f9;
+    }
+
+    /* ── Accessibility Focus Outline ── */
+    a:focus-visible {
+      outline: 3px solid #2e6da4;
+      outline-offset: 2px;
+      border-radius: 3px;
+    }
+
+    /* ── Responsive Tweaks ── */
+    @media (max-width: 480px) {
+      header {
+        padding: 2rem 1.25rem 2rem;
+      }
+
+      main {
+        padding: 2rem 1rem 3rem;
+      }
+
+      .card {
+        padding: 1.25rem 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="course-label">COP4813</div>
+    <h1>Designing Mobile-Ready and Responsive Websites</h1>
+    <p class="intro">
+      This module explores the principles and practices behind building websites that adapt
+      seamlessly to any screen size. From fluid grids and flexible images to media queries and
+      mobile-first development strategies, learners will gain the skills needed to craft modern,
+      accessible, and device-agnostic web experiences.
+    </p>
+  </header>
+
+  <main>
+    <h2 class="section-title">Module Artifacts</h2>
+
+    <div class="card-grid">
+
+        <div class="card">
+          <div class="card-header">
+            <span class="artifact-name">
+                <a href="content/module_topics.html">Module Topics</a>
+                  <a
+                    class="source-link"
+                    href="source/hierarchy.json"
+                    aria-label="Source file for Module Topics"
+                  >source file</a>
+            </span>
+          </div>
+
+          <div class="badge-row">
+            <span class="badge badge-type">Module Topics</span>
+            <span class="badge badge-filetype">.json</span>
+          </div>
+
+          <p class="card-description">
+            Outlines the full scope of the module&#x27;s content—covering responsive web design fundamentals, fluid grids, flexible images, media queries, mobile-first development, and related frameworks—serving as a navigational overview for learners and instructors to understand what topics will be taught and in what sequence.
+          </p>
+        </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>COP4813 &mdash; Designing Mobile-Ready and Responsive Websites</p>
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics</h2><p><a href="topics.html">View Topics</a></p></section></body>
+</html>

@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drawing and Graphics with the HTML5 Canvas — Module Topics</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.2rem;margin-top:28px;color:#1a3c6e}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<h1>Drawing and Graphics with the HTML5 Canvas — Module Topics</h1>
+<h2>Introduction to the HTML5 Canvas Element</h2>
+<div class="summary">Students learn what the HTML5 Canvas element is, how to add it to a webpage, and how to access the 2D rendering context using JavaScript to begin drawing programmatically.</div>
+<ul>
+<li><strong>What is the HTML5 Canvas Element?</strong> <span class="el-body">— The HTML5 Canvas element is a rectangular drawing surface defined in HTML that allows developers to render graphics dynamically using JavaScript.</span></li>
+<li><strong>Adding the Canvas Element to a Webpage</strong> <span class="el-body">— Placing a canvas on a webpage requires a single HTML tag with optional width and height attributes to define its dimensions.</span></li>
+<li><strong>Selecting the Canvas Element with JavaScript</strong> <span class="el-body">— Before any drawing can occur, JavaScript must obtain a reference to the canvas DOM element using a selection method.</span></li>
+<li><strong>Understanding the Rendering Context</strong> <span class="el-body">— The rendering context is the object that exposes the drawing API; it must be retrieved from the canvas element before any graphics can be produced.</span></li>
+<li><strong>Writing the Basic Canvas Setup Code</strong> <span class="el-body">— A minimal canvas setup involves three lines of JavaScript: selecting the element, getting the context, and verifying the result before drawing.</span></li>
+<li><strong>Canvas Coordinate System</strong> <span class="el-body">— The canvas uses a 2D coordinate system where the origin (0, 0) is located at the top-left corner, with x increasing to the right and y increasing downward.</span></li>
+</ul>
+<h2>Drawing Basic Shapes</h2>
+<div class="summary">This topic covers how to draw fundamental shapes such as rectangles, circles, and polygons using the Canvas API&#39;s built-in methods and properties.</div>
+<ul>
+<li><strong>Setting Up the Canvas Context</strong> <span class="el-body">— Before drawing any shapes, you must obtain a 2D rendering context from the canvas element using JavaScript.</span></li>
+<li><strong>Drawing Rectangles</strong> <span class="el-body">— The Canvas API provides three built-in methods specifically for drawing rectangles, making them the simplest shapes to render.</span></li>
+<li><strong>Drawing Circles and Arcs</strong> <span class="el-body">— Circles and arcs are drawn using the arc() method as part of a path, since there is no dedicated circle method in the Canvas API.</span></li>
+<li><strong>Drawing Polygons and Lines with Paths</strong> <span class="el-body">— Multi-sided shapes like triangles, pentagons, and custom polygons are constructed by defining a series of connected line segments using path methods.</span></li>
+<li><strong>Applying Fill and Stroke Styles</strong> <span class="el-body">— The visual appearance of shapes is controlled by setting fillStyle and strokeStyle properties on the context before drawing.</span></li>
+<li><strong>Drawing Rounded Rectangles</strong> <span class="el-body">— Rounded rectangles combine straight edges with arc-based corners and can be created using the roundRect() method or constructed manually with paths and arcs.</span></li>
+</ul>
+<h2>Working with Paths and Lines</h2>
+<div class="summary">Students explore how to create complex custom shapes and line drawings by defining paths, using moveTo, lineTo, and related methods to construct precise graphics.</div>
+<ul>
+<li><strong>Understanding the Path Concept</strong> <span class="el-body">— A path in the HTML5 Canvas is an invisible set of connected points and curves that defines the outline of a shape before it is rendered.</span></li>
+<li><strong>Starting and Resetting a Path with beginPath()</strong> <span class="el-body">— The beginPath() method resets the current drawing path, ensuring that new drawing commands do not connect to or interfere with previously defined paths.</span></li>
+<li><strong>Moving the Drawing Cursor with moveTo()</strong> <span class="el-body">— The moveTo(x, y) method repositions the starting point of a new sub-path to the specified coordinates without drawing any line.</span></li>
+<li><strong>Drawing Straight Lines with lineTo()</strong> <span class="el-body">— The lineTo(x, y) method draws a straight line from the current position of the drawing cursor to the specified (x, y) coordinate.</span></li>
+<li><strong>Closing a Path with closePath()</strong> <span class="el-body">— The closePath() method draws a straight line from the current point back to the starting point of the path, automatically closing the shape.</span></li>
+<li><strong>Rendering Paths with stroke() and fill()</strong> <span class="el-body">— Once a path is defined, stroke() renders the outline of the path and fill() fills the enclosed area with the current fill color or style.</span></li>
+<li><strong>Controlling Line Appearance</strong> <span class="el-body">— The Canvas API provides several properties to control how stroked lines look, including their width, end caps, and join style between segments.</span></li>
+</ul>
+<h2>Applying Colors, Styles, and Gradients</h2>
+<div class="summary">This topic introduces fill and stroke styles, including solid colors, gradients, and patterns, enabling students to add visual richness and detail to their canvas drawings.</div>
+<ul>
+<li><strong>Fill and Stroke Style Basics</strong> <span class="el-body">— The Canvas API provides two fundamental style properties — fillStyle and strokeStyle — that control how shapes and paths are colored when drawn.</span></li>
+<li><strong>Using Solid Colors</strong> <span class="el-body">— Solid colors are the simplest style option and can be specified using any valid CSS color format, including named colors, hex codes, rgb(), rgba(), hsl(), and hsla().</span></li>
+<li><strong>Creating Linear Gradients</strong> <span class="el-body">— A linear gradient transitions colors along a straight line and is created using the ctx.createLinearGradient() method, then assigned as a fillStyle or strokeStyle.</span></li>
+<li><strong>Creating Radial Gradients</strong> <span class="el-body">— A radial gradient transitions colors outward from one circle to another and is created using ctx.createRadialGradient(), producing a spherical or spotlight-like color effect.</span></li>
+<li><strong>Working with Patterns</strong> <span class="el-body">— Patterns allow an image, canvas, or video element to be tiled and used as a fill or stroke style, enabling textured and repeating backgrounds within canvas drawings.</span></li>
+<li><strong>Controlling Global Opacity and Composite Operations</strong> <span class="el-body">— Beyond per-color transparency, the Canvas API provides globalAlpha and globalCompositeOperation properties to control how new drawing operations interact visually with existing canvas content.</span></li>
+</ul>
+<h2>Rendering Text on the Canvas</h2>
+<div class="summary">Students learn how to render and style text on the canvas, including setting font properties, alignment, and applying fill or stroke to textual content.</div>
+<ul>
+<li><strong>Setting Up the Canvas Context for Text</strong> <span class="el-body">— Before rendering text, you must obtain a 2D rendering context from the canvas element using JavaScript.</span></li>
+<li><strong>Configuring the Font Property</strong> <span class="el-body">— The `font` property of the 2D context defines the typeface, size, and style applied to rendered text, using CSS font syntax.</span></li>
+<li><strong>Filling Text with fillText()</strong> <span class="el-body">— The `fillText()` method renders solid, filled text at a specified position on the canvas using the current `fillStyle`.</span></li>
+<li><strong>Stroking Text with strokeText()</strong> <span class="el-body">— The `strokeText()` method renders text as an outline only, using the current `strokeStyle` and `lineWidth` settings.</span></li>
+<li><strong>Controlling Text Alignment</strong> <span class="el-body">— The `textAlign` property determines the horizontal positioning of text relative to the x-coordinate passed to `fillText()` or `strokeText()`.</span></li>
+<li><strong>Setting the Text Baseline</strong> <span class="el-body">— The `textBaseline` property controls vertical alignment by defining which part of the text&#39;s line box aligns with the y-coordinate.</span></li>
+<li><strong>Measuring Text Width with measureText()</strong> <span class="el-body">— The `measureText()` method returns a `TextMetrics` object that provides the measured width of a string given the current font settings.</span></li>
+</ul>
+<h2>Drawing and Manipulating Images</h2>
+<div class="summary">This topic covers how to load and draw images onto the canvas using the drawImage method, including techniques for cropping and scaling image content.</div>
+<ul>
+<li><strong>Loading an Image for Canvas Use</strong> <span class="el-body">— Before drawing an image onto the canvas, it must be loaded into the browser using a JavaScript Image object.</span></li>
+<li><strong>Basic drawImage Usage</strong> <span class="el-body">— The `drawImage` method is the primary Canvas API function used to render an image onto the canvas at a specified position.</span></li>
+<li><strong>Scaling Images with drawImage</strong> <span class="el-body">— The `drawImage` method supports an extended signature that allows you to specify a destination width and height, enabling image scaling.</span></li>
+<li><strong>Cropping Images with drawImage</strong> <span class="el-body">— The full nine-argument form of `drawImage` enables cropping by defining a source rectangle within the original image before drawing it to the canvas.</span></li>
+<li><strong>Combining Cropping and Scaling</strong> <span class="el-body">— Using all nine arguments of `drawImage` simultaneously allows you to both crop a specific region of an image and scale that region to a different size on the canvas.</span></li>
+<li><strong>Practical Considerations for Image Drawing</strong> <span class="el-body">— Working with images on the canvas involves several practical concerns related to performance, cross-origin access, and canvas state.</span></li>
+</ul>
+<h2>Foundations of Interactive Canvas Graphics</h2>
+<div class="summary">Students are introduced to the principles of combining Canvas drawing with JavaScript events to create dynamic and interactive browser-based graphics experiences.</div>
+<ul>
+<li><strong>The Canvas Element as an Interactive Surface</strong> <span class="el-body">— The HTML5 Canvas element serves as a programmable drawing surface that can respond to user input, making it the foundation for interactive browser-based graphics.</span></li>
+<li><strong>Connecting JavaScript Events to Canvas</strong> <span class="el-body">— Interactivity is achieved by attaching JavaScript event listeners to the canvas element, allowing user actions such as mouse clicks and movements to trigger drawing operations.</span></li>
+<li><strong>Translating Mouse Coordinates to Canvas Space</strong> <span class="el-body">— Mouse event coordinates are reported relative to the browser viewport, so they must be converted to canvas-relative coordinates before drawing accurately.</span></li>
+<li><strong>Redrawing the Canvas for Dynamic Graphics</strong> <span class="el-body">— Because the canvas is a pixel-based surface with no retained object model, creating dynamic visuals requires clearing and redrawing the canvas in response to state changes or user input.</span></li>
+<li><strong>Using requestAnimationFrame for Smooth Interactivity</strong> <span class="el-body">— For continuously animated or highly responsive canvas experiences, requestAnimationFrame provides a browser-optimized loop that synchronizes redraws with the display refresh rate.</span></li>
+<li><strong>Structuring Interactive Canvas Code</strong> <span class="el-body">— Well-organized code separates concerns into initialization, event handling, state management, and rendering, making interactive canvas programs easier to build, read, and maintain.</span></li>
+</ul>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

@@ -1,0 +1,1358 @@
+{
+  "ModuleFolderName": "Drawing_and_Graphics",
+  "CourseName": "COP4813",
+  "GeneratedDate": "2026-06-26T21:42:57.6571462-04:00",
+  "ModifiedDate": "2026-06-26T21:45:42.7096507-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "84d798ca-d099-452e-8bd2-561921f04205",
+      "Title": "Introduction to the HTML5 Canvas Element",
+      "Summary": "Students learn what the HTML5 Canvas element is, how to add it to a webpage, and how to access the 2D rendering context using JavaScript to begin drawing programmatically.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-06-26T21:42:57.6571462-04:00",
+      "ModifiedDate": "2026-06-26T21:42:57.6571462-04:00",
+      "Elements": [
+        {
+          "Id": "ccb333d9-5a10-4a03-b0e5-23d5aaff4fcf",
+          "TopicId": "84d798ca-d099-452e-8bd2-561921f04205",
+          "Title": "What is the HTML5 Canvas Element?",
+          "BodyText": "The HTML5 Canvas element is a rectangular drawing surface defined in HTML that allows developers to render graphics dynamically using JavaScript.",
+          "Notes": "Unlike static image elements, the canvas itself contains no visual content by default \u2014 all drawing is done programmatically through scripting.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:43:17.7923887-04:00",
+          "ModifiedDate": "2026-06-26T21:43:17.7923887-04:00",
+          "Items": [
+            {
+              "Id": "b803118e-e9ab-433e-8f08-5da4562f876f",
+              "Text": "The \u003Ccanvas\u003E element acts as a blank bitmap surface embedded directly in an HTML page.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f4c4f8cb-46d4-4861-b198-6eb53d3acae8",
+              "Text": "It was introduced in HTML5 to enable client-side, scriptable rendering of 2D and 3D graphics without plugins.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a75b65c1-67c1-467d-b948-29f2b7da51a4",
+              "Text": "Common use cases include data visualizations, animations, game graphics, and interactive diagrams.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "8c44b935-c0d9-4499-9da0-29f139c26f32",
+          "TopicId": "84d798ca-d099-452e-8bd2-561921f04205",
+          "Title": "Adding the Canvas Element to a Webpage",
+          "BodyText": "Placing a canvas on a webpage requires a single HTML tag with optional width and height attributes to define its dimensions.",
+          "Notes": "Example: \u003Ccanvas id=\u0022myCanvas\u0022 width=\u0022600\u0022 height=\u0022400\u0022\u003E\u003C/canvas\u003E. If width and height are omitted, the canvas defaults to 300\u00D7150 pixels.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:43:17.7923887-04:00",
+          "ModifiedDate": "2026-06-26T21:43:17.7923887-04:00",
+          "Items": [
+            {
+              "Id": "598fecad-0c67-4590-8820-be7dc3e63daf",
+              "Text": "Use the \u003Ccanvas\u003E tag with a unique id attribute so JavaScript can reference it easily.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "016f724b-bee7-4c70-bb65-1f0c2fe3de32",
+              "Text": "Set width and height in the HTML attributes rather than CSS to avoid unintended scaling of the drawing surface.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "34ffa4d0-6245-44ae-a18b-2b54466d1525",
+              "Text": "Fallback content placed between the opening and closing tags is displayed in browsers that do not support the canvas element.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "530cee5a-f105-424c-89b5-efd1b537d8dc",
+          "TopicId": "84d798ca-d099-452e-8bd2-561921f04205",
+          "Title": "Selecting the Canvas Element with JavaScript",
+          "BodyText": "Before any drawing can occur, JavaScript must obtain a reference to the canvas DOM element using a selection method.",
+          "Notes": "The most common approach is document.getElementById(\u0027myCanvas\u0027), though querySelector can also be used.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:43:17.7923887-04:00",
+          "ModifiedDate": "2026-06-26T21:43:17.7923887-04:00",
+          "Items": [
+            {
+              "Id": "2781c2ef-0c1d-4ae5-b882-50ebe06ecbfb",
+              "Text": "Storing the canvas reference in a variable allows repeated access without querying the DOM multiple times.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6a02e320-1942-4346-b983-6a120732d8be",
+              "Text": "The canvas reference itself is not used for drawing \u2014 it is the gateway to obtaining the rendering context.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "12cb1609-062e-40c9-870e-a6be070197ef",
+              "Text": "Scripts should run after the DOM has loaded (e.g., placed before \u003C/body\u003E or inside a DOMContentLoaded listener) to ensure the element exists.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "fb409916-9dd3-4975-92dd-bedf14380193",
+          "TopicId": "84d798ca-d099-452e-8bd2-561921f04205",
+          "Title": "Understanding the Rendering Context",
+          "BodyText": "The rendering context is the object that exposes the drawing API; it must be retrieved from the canvas element before any graphics can be produced.",
+          "Notes": "The context type string \u00272d\u0027 returns a CanvasRenderingContext2D object. Other context types such as \u0027webgl\u0027 support 3D rendering but are outside this module\u0027s scope.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:43:17.7923887-04:00",
+          "ModifiedDate": "2026-06-26T21:43:17.7923887-04:00",
+          "Items": [
+            {
+              "Id": "5e07f09f-6216-4662-ba6b-f97e23e9b7a1",
+              "Text": "Call the canvas element\u0027s getContext() method and pass the string \u00272d\u0027 to obtain a 2D rendering context.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7eb40dc0-6ce0-4b70-9ccb-33fcf45e3118",
+              "Text": "The returned context object contains all the properties and methods used to draw shapes, text, images, and paths.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "90241bb0-a87b-4ce6-91e4-bdf87bda605d",
+              "Text": "Storing the context in a variable (conventionally named ctx) is standard practice for readability and convenience.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "115b8c6d-1d19-468f-97c8-843f2b5df278",
+          "TopicId": "84d798ca-d099-452e-8bd2-561921f04205",
+          "Title": "Writing the Basic Canvas Setup Code",
+          "BodyText": "A minimal canvas setup involves three lines of JavaScript: selecting the element, getting the context, and verifying the result before drawing.",
+          "Notes": "Example: const canvas = document.getElementById(\u0027myCanvas\u0027); const ctx = canvas.getContext(\u00272d\u0027); \u2014 after these two lines, ctx is ready for drawing commands.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:43:17.7923887-04:00",
+          "ModifiedDate": "2026-06-26T21:43:17.7923887-04:00",
+          "Items": [
+            {
+              "Id": "420ff1f7-7e00-46cd-934d-a995c610ed16",
+              "Text": "Selecting the canvas and calling getContext(\u00272d\u0027) are always the first two steps in any canvas-based drawing script.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "74c148c5-366b-49ff-930a-d403eab4baff",
+              "Text": "A simple check such as if (ctx) { ... } guards against errors in environments where canvas is unsupported.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "57798e39-d88e-4f3e-bbf4-b3d6a68513f4",
+              "Text": "Once the context is available, drawing commands can be chained immediately or organized into reusable functions.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ae0f72ab-e796-4766-98b6-d2fe45d147ed",
+          "TopicId": "84d798ca-d099-452e-8bd2-561921f04205",
+          "Title": "Canvas Coordinate System",
+          "BodyText": "The canvas uses a 2D coordinate system where the origin (0, 0) is located at the top-left corner, with x increasing to the right and y increasing downward.",
+          "Notes": "Understanding this coordinate system is essential because it differs from traditional mathematical graphs where y increases upward.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:43:17.7923887-04:00",
+          "ModifiedDate": "2026-06-26T21:43:17.7923887-04:00",
+          "Items": [
+            {
+              "Id": "c86fb2b3-ef6c-46f5-b424-7205366f3aea",
+              "Text": "Every pixel position on the canvas is addressed as an (x, y) pair measured in pixels from the top-left origin.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fabdf948-ff54-4c1f-8731-39c1876c8e3d",
+              "Text": "The canvas width determines the maximum x value, and the height determines the maximum y value.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6584ee33-7105-417d-a00b-8ec4968c0961",
+              "Text": "Coordinates outside the canvas boundaries are not rendered, so drawings must be positioned within the defined dimensions.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "bc976b87-ef2b-4bc7-a582-b21e38e078d8",
+      "Title": "Drawing Basic Shapes",
+      "Summary": "This topic covers how to draw fundamental shapes such as rectangles, circles, and polygons using the Canvas API\u0027s built-in methods and properties.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-06-26T21:42:57.6571462-04:00",
+      "ModifiedDate": "2026-06-26T21:42:57.6571462-04:00",
+      "Elements": [
+        {
+          "Id": "4f5f2112-0276-4732-84cb-6918c6b3291b",
+          "TopicId": "bc976b87-ef2b-4bc7-a582-b21e38e078d8",
+          "Title": "Setting Up the Canvas Context",
+          "BodyText": "Before drawing any shapes, you must obtain a 2D rendering context from the canvas element using JavaScript.",
+          "Notes": "Use document.getElementById(\u0027myCanvas\u0027).getContext(\u00272d\u0027) to retrieve the context object, commonly stored in a variable named \u0027ctx\u0027. All drawing methods are called on this context object.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:43:41.6295222-04:00",
+          "ModifiedDate": "2026-06-26T21:43:41.6295222-04:00",
+          "Items": [
+            {
+              "Id": "a1e992bf-1901-4ba8-8142-1ec2212ad533",
+              "Text": "The canvas element is defined in HTML with a specified width and height, e.g., \u003Ccanvas id=\u0027myCanvas\u0027 width=\u0027500\u0027 height=\u0027400\u0027\u003E\u003C/canvas\u003E.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b7a05ee0-2e54-4cdd-9763-d2f6dd91d547",
+              "Text": "The getContext(\u00272d\u0027) method returns a CanvasRenderingContext2D object that exposes all drawing APIs.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a9eb81ba-1b92-4dd0-821f-bd8c0fbe4b7d",
+              "Text": "Always check that the browser supports the Canvas API before attempting to draw.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "fb413feb-edac-4694-b8e6-421e7b576ebe",
+          "TopicId": "bc976b87-ef2b-4bc7-a582-b21e38e078d8",
+          "Title": "Drawing Rectangles",
+          "BodyText": "The Canvas API provides three built-in methods specifically for drawing rectangles, making them the simplest shapes to render.",
+          "Notes": "Rectangles are the only shapes with dedicated non-path methods in the Canvas API. Parameters follow the pattern (x, y, width, height).",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:43:41.6295222-04:00",
+          "ModifiedDate": "2026-06-26T21:43:41.6295222-04:00",
+          "Items": [
+            {
+              "Id": "4fe7b2c1-ad74-4afa-8da3-7ef4ae9196a6",
+              "Text": "fillRect(x, y, width, height) draws a solid filled rectangle at the specified position and size.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5dbf7510-85f2-4740-831b-a86c89a6fe6b",
+              "Text": "strokeRect(x, y, width, height) draws only the outline (border) of a rectangle without filling it.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c8ad1f59-1c4b-43ec-ac87-355ad93f461d",
+              "Text": "clearRect(x, y, width, height) erases a rectangular area, making it fully transparent, useful for animation or clearing the canvas.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "10b511b6-9901-4adf-8fa7-d7c3340268f4",
+          "TopicId": "bc976b87-ef2b-4bc7-a582-b21e38e078d8",
+          "Title": "Drawing Circles and Arcs",
+          "BodyText": "Circles and arcs are drawn using the arc() method as part of a path, since there is no dedicated circle method in the Canvas API.",
+          "Notes": "A full circle is achieved by setting the startAngle to 0 and the endAngle to 2 * Math.PI. Partial values create arc segments.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:43:41.6295222-04:00",
+          "ModifiedDate": "2026-06-26T21:43:41.6295222-04:00",
+          "Items": [
+            {
+              "Id": "5c78b6bf-525a-4404-9ee7-31b31fd41e2a",
+              "Text": "The arc() method signature is arc(x, y, radius, startAngle, endAngle, anticlockwise), where x and y define the center point.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b128e766-a878-4ed8-bf9a-e17eb6684ce6",
+              "Text": "Angles are measured in radians; convert degrees to radians using the formula: radians = degrees * (Math.PI / 180).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a6fa5e0e-ce60-41e7-9263-5e7eba77684a",
+              "Text": "After calling arc(), use fill() to create a filled circle or stroke() to render only the circle\u0027s outline.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "49414122-808d-45fd-9518-d65149d00b55",
+              "Text": "The optional anticlockwise boolean parameter (default false) controls the direction in which the arc is drawn.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "fda279cf-c093-4382-bd1f-59b13e30fcfc",
+          "TopicId": "bc976b87-ef2b-4bc7-a582-b21e38e078d8",
+          "Title": "Drawing Polygons and Lines with Paths",
+          "BodyText": "Multi-sided shapes like triangles, pentagons, and custom polygons are constructed by defining a series of connected line segments using path methods.",
+          "Notes": "Calling closePath() draws a straight line back to the starting point, completing the shape. Without it, the shape remains open.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:43:41.6295222-04:00",
+          "ModifiedDate": "2026-06-26T21:43:41.6295222-04:00",
+          "Items": [
+            {
+              "Id": "d2c28364-9292-460e-bc07-7e38625cddf0",
+              "Text": "Begin a new path with beginPath() to ensure previous drawing commands do not interfere with the new shape.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3a6f1a6d-e09e-4af1-b14e-e3cf582031a5",
+              "Text": "Use moveTo(x, y) to position the virtual \u0027pen\u0027 at the starting vertex without drawing anything.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c34704e2-38dd-41b1-8eb5-d34e4ef8f7cf",
+              "Text": "Use lineTo(x, y) repeatedly to define each subsequent vertex of the polygon.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "b42df4f5-1d9a-4fac-af9a-3375ad3e16f6",
+              "Text": "Call closePath() to automatically connect the last point back to the first, then use fill() or stroke() to render the shape.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "00198ddf-b30d-4d2e-ac3c-de667c808519",
+          "TopicId": "bc976b87-ef2b-4bc7-a582-b21e38e078d8",
+          "Title": "Applying Fill and Stroke Styles",
+          "BodyText": "The visual appearance of shapes is controlled by setting fillStyle and strokeStyle properties on the context before drawing.",
+          "Notes": "Styles can be set using CSS color strings, hex codes, RGB/RGBA values, or even gradient and pattern objects for advanced effects.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:43:41.6295222-04:00",
+          "ModifiedDate": "2026-06-26T21:43:41.6295222-04:00",
+          "Items": [
+            {
+              "Id": "70dbf80c-f22c-4fa7-8bd7-942f9aa50242",
+              "Text": "ctx.fillStyle accepts any valid CSS color value and determines the interior color of filled shapes.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "bc022e3d-9a8f-4ac7-92a9-c6110e9369d5",
+              "Text": "ctx.strokeStyle sets the color of the outline drawn by stroke() or strokeRect().",
+              "SortOrder": 1
+            },
+            {
+              "Id": "52e4a55a-ad83-4b96-92d5-798ca0ddaa05",
+              "Text": "ctx.lineWidth controls the thickness of strokes in pixels; the default value is 1.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "0948885c-1c55-43bd-b93b-2c58889e8485",
+              "Text": "Style properties persist for all subsequent draw calls until they are explicitly changed, so set them before each shape when using different colors.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "1e8bdd61-f4dd-4a16-8a2f-59ea51e09631",
+          "TopicId": "bc976b87-ef2b-4bc7-a582-b21e38e078d8",
+          "Title": "Drawing Rounded Rectangles",
+          "BodyText": "Rounded rectangles combine straight edges with arc-based corners and can be created using the roundRect() method or constructed manually with paths and arcs.",
+          "Notes": "The roundRect() method was introduced as a native convenience method in more recent browser implementations. For older browser support, manually combining lineTo() and arcTo() calls remains a reliable approach.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:43:41.6295222-04:00",
+          "ModifiedDate": "2026-06-26T21:43:41.6295222-04:00",
+          "Items": [
+            {
+              "Id": "cf295fe0-7d3f-4996-ba7c-5c5f13ad9b07",
+              "Text": "The native roundRect(x, y, width, height, radii) method simplifies creating rectangles with rounded corners by accepting a corner radius value.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f0bd3b15-7a45-443f-964d-fb1e3d3408fd",
+              "Text": "The arcTo(x1, y1, x2, y2, radius) method can be used inside a path to create smooth curved corners manually.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d6df0798-d527-49d5-8046-efbb2fbf6462",
+              "Text": "As with other path-based shapes, call fill() or stroke() after defining the rounded rectangle path to render it.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "2bd276ac-fee5-473f-ac83-272dadb9455b",
+      "Title": "Working with Paths and Lines",
+      "Summary": "Students explore how to create complex custom shapes and line drawings by defining paths, using moveTo, lineTo, and related methods to construct precise graphics.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-06-26T21:42:57.6571462-04:00",
+      "ModifiedDate": "2026-06-26T21:42:57.6571462-04:00",
+      "Elements": [
+        {
+          "Id": "ee3a73f3-c270-408d-88ec-070d87fef1a3",
+          "TopicId": "2bd276ac-fee5-473f-ac83-272dadb9455b",
+          "Title": "Understanding the Path Concept",
+          "BodyText": "A path in the HTML5 Canvas is an invisible set of connected points and curves that defines the outline of a shape before it is rendered.",
+          "Notes": "Think of a path like lifting a pen and plotting a route on paper \u2014 nothing is drawn until you explicitly stroke or fill the path.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:44:05.1008681-04:00",
+          "ModifiedDate": "2026-06-26T21:44:05.1008681-04:00",
+          "Items": [
+            {
+              "Id": "f0cadc6e-5778-4193-9784-72adce0a32b0",
+              "Text": "Paths must be explicitly started with beginPath() before any drawing commands are issued.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "aabb2d9a-b27a-48be-8f57-c7b522d14f26",
+              "Text": "A single path can consist of multiple sub-paths, straight lines, arcs, and curves.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "33b84b87-1110-4605-928c-815ae290e20a",
+              "Text": "Paths are not visible on the canvas until you call stroke() or fill() to render them.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "b47c7905-fc0f-486d-86bb-ac1f017b44b4",
+          "TopicId": "2bd276ac-fee5-473f-ac83-272dadb9455b",
+          "Title": "Starting and Resetting a Path with beginPath()",
+          "BodyText": "The beginPath() method resets the current drawing path, ensuring that new drawing commands do not connect to or interfere with previously defined paths.",
+          "Notes": "Forgetting to call beginPath() is a common mistake that causes unintended lines to appear, connecting the end of one shape to the start of another.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:44:05.1008681-04:00",
+          "ModifiedDate": "2026-06-26T21:44:05.1008681-04:00",
+          "Items": [
+            {
+              "Id": "d13af377-a069-410c-aeee-0d8fa23820f8",
+              "Text": "Call ctx.beginPath() at the start of every new shape or line sequence to clear the previous path.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "755804a4-feff-4954-a15b-34f68f6a1dac",
+              "Text": "Without beginPath(), subsequent moveTo() and lineTo() calls will be appended to the existing path.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "221ddaad-51d4-4dce-9411-b6db93ed8d23",
+              "Text": "beginPath() does not visually erase anything already drawn on the canvas; it only resets the path definition.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "5db4d992-4c6b-4a56-a350-21a46058840f",
+          "TopicId": "2bd276ac-fee5-473f-ac83-272dadb9455b",
+          "Title": "Moving the Drawing Cursor with moveTo()",
+          "BodyText": "The moveTo(x, y) method repositions the starting point of a new sub-path to the specified coordinates without drawing any line.",
+          "Notes": "moveTo() is analogous to lifting a pen and placing it at a new location on the page \u2014 it sets the origin for the next drawing command.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:44:05.1008681-04:00",
+          "ModifiedDate": "2026-06-26T21:44:05.1008681-04:00",
+          "Items": [
+            {
+              "Id": "a37d6090-1f62-4baf-9dd0-40609665b519",
+              "Text": "moveTo(x, y) accepts canvas pixel coordinates and places the \u0027pen\u0027 at that position.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e6ce6ede-eb55-4f81-83ac-04f3c6469bab",
+              "Text": "It is typically the first command after beginPath() to set where drawing will begin.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8e54668b-1541-4b11-91d2-78e5b626d82c",
+              "Text": "Multiple moveTo() calls within one path create separate sub-paths, allowing disconnected shapes in a single draw call.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "44e63878-8118-49e5-8ea5-5c6a71f39965",
+          "TopicId": "2bd276ac-fee5-473f-ac83-272dadb9455b",
+          "Title": "Drawing Straight Lines with lineTo()",
+          "BodyText": "The lineTo(x, y) method draws a straight line from the current position of the drawing cursor to the specified (x, y) coordinate.",
+          "Notes": "Each subsequent lineTo() call continues from the endpoint of the previous line, making it straightforward to chain multiple line segments together.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:44:05.1008681-04:00",
+          "ModifiedDate": "2026-06-26T21:44:05.1008681-04:00",
+          "Items": [
+            {
+              "Id": "b027c0f0-b9f4-4bb2-aed0-05c3ba4f8a53",
+              "Text": "lineTo(x, y) updates the current point to (x, y) after defining the line segment.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0ddceae5-69fb-4a51-baaf-3dc74475320e",
+              "Text": "Chaining multiple lineTo() calls creates a polyline or multi-segment path.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "62ac262f-59d0-445e-bc96-e85898846dfd",
+              "Text": "The line is not rendered until stroke() or fill() is called on the path.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "e11bb2aa-7f2c-48c9-a2d1-85c553590e26",
+          "TopicId": "2bd276ac-fee5-473f-ac83-272dadb9455b",
+          "Title": "Closing a Path with closePath()",
+          "BodyText": "The closePath() method draws a straight line from the current point back to the starting point of the path, automatically closing the shape.",
+          "Notes": "closePath() is especially useful when drawing polygons, as it ensures the final edge of the shape is cleanly connected without gaps at the corner join.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:44:05.1008681-04:00",
+          "ModifiedDate": "2026-06-26T21:44:05.1008681-04:00",
+          "Items": [
+            {
+              "Id": "2d1edd96-1a7a-4ed2-9391-10933ba0144c",
+              "Text": "closePath() is optional \u2014 open paths (like standalone lines) do not require it.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8b665a4e-6565-473b-9c7a-321e741cb554",
+              "Text": "When used before fill(), it ensures the filled region is properly enclosed.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c8dc06d0-755c-4953-850e-e6cbe068bdd8",
+              "Text": "closePath() does not end the path; you can continue adding sub-paths afterward.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "b7b43786-0b0e-4f83-b4cf-5acef00cee16",
+          "TopicId": "2bd276ac-fee5-473f-ac83-272dadb9455b",
+          "Title": "Rendering Paths with stroke() and fill()",
+          "BodyText": "Once a path is defined, stroke() renders the outline of the path and fill() fills the enclosed area with the current fill color or style.",
+          "Notes": "You can call both stroke() and fill() on the same path to produce a shape with both a visible border and a colored interior.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:44:05.1008681-04:00",
+          "ModifiedDate": "2026-06-26T21:44:05.1008681-04:00",
+          "Items": [
+            {
+              "Id": "d2cfc2d1-7a46-4202-bce5-2fcc1a7f28c2",
+              "Text": "stroke() uses the current strokeStyle, lineWidth, and related properties to draw the path outline.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "73d36e72-61f5-4f3b-b229-c7cb49fb5ee8",
+              "Text": "fill() uses the current fillStyle and automatically closes any open sub-paths before filling.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "401bac66-033f-4cd4-a3c5-8718d48b6eb9",
+              "Text": "The order of stroke() and fill() matters: calling fill() last draws it on top of the stroke, and vice versa.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "423c8857-c406-446c-b854-c04b129054de",
+          "TopicId": "2bd276ac-fee5-473f-ac83-272dadb9455b",
+          "Title": "Controlling Line Appearance",
+          "BodyText": "The Canvas API provides several properties to control how stroked lines look, including their width, end caps, and join style between segments.",
+          "Notes": "Adjusting these properties before calling stroke() allows fine-grained control over the visual style of any path-based drawing.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:44:05.1008681-04:00",
+          "ModifiedDate": "2026-06-26T21:44:05.1008681-04:00",
+          "Items": [
+            {
+              "Id": "7f1be1ee-f5cd-48a5-bd2f-211be553241a",
+              "Text": "ctx.lineWidth sets the thickness of stroked lines in pixels; the default value is 1.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "dd2981f5-feef-4a33-b3d8-00ebb7a05b0f",
+              "Text": "ctx.lineCap controls the shape of line endpoints and can be set to \u0027butt\u0027, \u0027round\u0027, or \u0027square\u0027.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2540235e-d357-4641-9094-39af60319a31",
+              "Text": "ctx.lineJoin controls how two connected line segments meet, with options \u0027miter\u0027, \u0027round\u0027, and \u0027bevel\u0027.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "d827974b-d8dc-42b4-8d5b-94bde3770df7",
+              "Text": "ctx.setLineDash() accepts an array of numbers to create dashed or dotted line patterns along a path.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "a5ec435f-201d-4c76-8e60-b988ffc35bce",
+      "Title": "Applying Colors, Styles, and Gradients",
+      "Summary": "This topic introduces fill and stroke styles, including solid colors, gradients, and patterns, enabling students to add visual richness and detail to their canvas drawings.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-06-26T21:42:57.6571462-04:00",
+      "ModifiedDate": "2026-06-26T21:42:57.6571462-04:00",
+      "Elements": [
+        {
+          "Id": "df04a215-158a-4bfb-99c1-57f4db299471",
+          "TopicId": "a5ec435f-201d-4c76-8e60-b988ffc35bce",
+          "Title": "Fill and Stroke Style Basics",
+          "BodyText": "The Canvas API provides two fundamental style properties \u2014 fillStyle and strokeStyle \u2014 that control how shapes and paths are colored when drawn.",
+          "Notes": "These properties accept CSS color strings, gradient objects, or pattern objects, giving developers flexible control over appearance.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:44:29.0711086-04:00",
+          "ModifiedDate": "2026-06-26T21:44:29.0711086-04:00",
+          "Items": [
+            {
+              "Id": "8b4b7bd4-5622-4a8e-8639-b5b168bb903e",
+              "Text": "Set ctx.fillStyle before calling fill() to apply an interior color to a closed shape.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6d444105-ad31-4cbf-918c-78ee640b9255",
+              "Text": "Set ctx.strokeStyle before calling stroke() to apply a color to the outline or path of a shape.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5cc08cb1-dd6a-4d76-b319-6b6e4a78fc12",
+              "Text": "Both properties default to black (#000000) if not explicitly set.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "39e77c69-6396-4f08-a67c-b2ff5782cdef",
+              "Text": "Changes to these properties persist and affect all subsequent drawing operations until changed again.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "1b923b2c-06de-4ed1-81a5-5e5cf5e59234",
+          "TopicId": "a5ec435f-201d-4c76-8e60-b988ffc35bce",
+          "Title": "Using Solid Colors",
+          "BodyText": "Solid colors are the simplest style option and can be specified using any valid CSS color format, including named colors, hex codes, rgb(), rgba(), hsl(), and hsla().",
+          "Notes": "Using rgba() or hsla() allows you to control opacity directly within the color value, which is useful for layering semi-transparent shapes.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:44:29.0711086-04:00",
+          "ModifiedDate": "2026-06-26T21:44:29.0711086-04:00",
+          "Items": [
+            {
+              "Id": "42986d06-ce4a-4996-b3e9-23271cb47c68",
+              "Text": "Named colors (e.g., \u0027red\u0027, \u0027blue\u0027) and hex codes (e.g., \u0027#ff0000\u0027) are the most concise way to set a solid color.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "58579f9d-5089-4b35-bfb7-b549e1aee6f6",
+              "Text": "The rgb() function lets you define colors numerically using red, green, and blue channel values from 0 to 255.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "70ee9015-2670-403d-9225-f3959c24582b",
+              "Text": "The rgba() function adds an alpha channel (0.0 to 1.0) for transparency, enabling blending effects between layers.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e433efc5-7ab0-48b9-9339-e13b76efcfda",
+              "Text": "hsl() and hsla() specify color via hue, saturation, and lightness, which can be more intuitive for programmatic color generation.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "3e3a44cb-17f2-4072-a09c-7eb025a7ead6",
+          "TopicId": "a5ec435f-201d-4c76-8e60-b988ffc35bce",
+          "Title": "Creating Linear Gradients",
+          "BodyText": "A linear gradient transitions colors along a straight line and is created using the ctx.createLinearGradient() method, then assigned as a fillStyle or strokeStyle.",
+          "Notes": "The gradient\u0027s start and end coordinates define the direction of the color transition \u2014 for example, left-to-right or top-to-bottom.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:44:29.0711086-04:00",
+          "ModifiedDate": "2026-06-26T21:44:29.0711086-04:00",
+          "Items": [
+            {
+              "Id": "528de4f1-d642-4408-9acf-825b87db7d9c",
+              "Text": "Call ctx.createLinearGradient(x0, y0, x1, y1) to define a gradient from point (x0, y0) to point (x1, y1).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "941612f6-47e8-429e-8677-725ae2ffb7b7",
+              "Text": "Use gradient.addColorStop(offset, color) to set color values at positions from 0.0 (start) to 1.0 (end).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "070b43e4-5ad6-4986-97fa-0c6b0578cb64",
+              "Text": "Multiple color stops can be added to create multi-color transitions across the gradient line.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "fa164d12-4c5d-47cd-bd1a-78909f84251e",
+              "Text": "Assign the resulting gradient object to ctx.fillStyle or ctx.strokeStyle before drawing to apply it.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "4fd5c784-01b5-4f97-9d15-8e27f044b5b1",
+          "TopicId": "a5ec435f-201d-4c76-8e60-b988ffc35bce",
+          "Title": "Creating Radial Gradients",
+          "BodyText": "A radial gradient transitions colors outward from one circle to another and is created using ctx.createRadialGradient(), producing a spherical or spotlight-like color effect.",
+          "Notes": "Radial gradients are useful for simulating lighting, glows, and three-dimensional shading on circular or elliptical shapes.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:44:29.0711086-04:00",
+          "ModifiedDate": "2026-06-26T21:44:29.0711086-04:00",
+          "Items": [
+            {
+              "Id": "70a0f976-c1f7-476a-a8e1-6f1541a7818e",
+              "Text": "Call ctx.createRadialGradient(x0, y0, r0, x1, y1, r1) to define an inner circle and an outer circle for the gradient.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7e61821d-e304-41fd-8e0f-53eb4a419fab",
+              "Text": "Color stops work the same as in linear gradients \u2014 offset 0.0 maps to the inner circle and 1.0 to the outer circle.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ec1dacf3-1cff-418d-8084-78d7741e17e5",
+              "Text": "Setting different centers for the two circles creates an off-center glow or lens-flare effect.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "bd4d2c2f-bb08-451d-8ce9-6123025eddd4",
+              "Text": "Like linear gradients, the object is assigned to fillStyle or strokeStyle before calling fill() or stroke().",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "adb18ba1-a6f7-481f-9fda-a11b71e10c09",
+          "TopicId": "a5ec435f-201d-4c76-8e60-b988ffc35bce",
+          "Title": "Working with Patterns",
+          "BodyText": "Patterns allow an image, canvas, or video element to be tiled and used as a fill or stroke style, enabling textured and repeating backgrounds within canvas drawings.",
+          "Notes": "Patterns are especially useful for creating backgrounds, decorative fills, or simulating surface textures such as wood or fabric.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:44:29.0711086-04:00",
+          "ModifiedDate": "2026-06-26T21:44:29.0711086-04:00",
+          "Items": [
+            {
+              "Id": "a6cecd53-83fe-480e-b128-3bd8c2f2c86c",
+              "Text": "Create a pattern with ctx.createPattern(image, repetition), where repetition can be \u0027repeat\u0027, \u0027repeat-x\u0027, \u0027repeat-y\u0027, or \u0027no-repeat\u0027.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "bd4d6ed6-c493-4cbe-b894-aac4eec01833",
+              "Text": "The image source can be an HTMLImageElement, an HTMLCanvasElement, or an HTMLVideoElement.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2cf24afc-e364-49e8-90b9-535d58077a3c",
+              "Text": "Once created, assign the pattern object to ctx.fillStyle or ctx.strokeStyle just like a color or gradient.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "63d5fe80-8c6a-4ffd-866d-f394961d550f",
+              "Text": "The pattern tiles relative to the canvas origin, so using transforms can shift or rotate how the pattern is applied.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "40ed4606-98ef-472d-b69a-8ef1c2baddba",
+          "TopicId": "a5ec435f-201d-4c76-8e60-b988ffc35bce",
+          "Title": "Controlling Global Opacity and Composite Operations",
+          "BodyText": "Beyond per-color transparency, the Canvas API provides globalAlpha and globalCompositeOperation properties to control how new drawing operations interact visually with existing canvas content.",
+          "Notes": "Composite operations can produce creative blending effects similar to layer blend modes found in image editing software.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:44:29.0711086-04:00",
+          "ModifiedDate": "2026-06-26T21:44:29.0711086-04:00",
+          "Items": [
+            {
+              "Id": "27e44863-df0b-4f7b-8b40-08a309a9b36b",
+              "Text": "Set ctx.globalAlpha to a value between 0.0 and 1.0 to apply uniform transparency to all subsequent drawing operations.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "829e5768-1c4a-41c9-bd66-37b3be0cc4e5",
+              "Text": "ctx.globalCompositeOperation determines how new shapes are blended with existing pixels \u2014 common values include \u0027source-over\u0027, \u0027multiply\u0027, and \u0027screen\u0027.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "712171c8-f0ff-4ecb-ad82-d5e746815461",
+              "Text": "Unlike rgba() transparency, globalAlpha affects fills, strokes, images, and text simultaneously.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "47f2c30c-db61-408b-87b5-f1ea2e9c8d58",
+              "Text": "Resetting globalAlpha to 1.0 and globalCompositeOperation to \u0027source-over\u0027 restores default drawing behavior.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "550bc6f6-dd3e-4780-8e71-c522a812ed96",
+      "Title": "Rendering Text on the Canvas",
+      "Summary": "Students learn how to render and style text on the canvas, including setting font properties, alignment, and applying fill or stroke to textual content.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-06-26T21:42:57.6571462-04:00",
+      "ModifiedDate": "2026-06-26T21:42:57.6571462-04:00",
+      "Elements": [
+        {
+          "Id": "eaa91c56-8d91-454d-8a37-9d32cf207044",
+          "TopicId": "550bc6f6-dd3e-4780-8e71-c522a812ed96",
+          "Title": "Setting Up the Canvas Context for Text",
+          "BodyText": "Before rendering text, you must obtain a 2D rendering context from the canvas element using JavaScript.",
+          "Notes": "Use \u0060const ctx = canvas.getContext(\u00272d\u0027);\u0060 to access the context on which all text drawing methods are called.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:44:55.7805493-04:00",
+          "ModifiedDate": "2026-06-26T21:44:55.7805493-04:00",
+          "Items": [
+            {
+              "Id": "d51308ed-5ed9-4192-a93f-0f5313761748",
+              "Text": "The 2D context object (\u0060ctx\u0060) exposes all text-related properties and methods.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "014e3b0c-d9f2-4294-b5a3-47c7c8e97e77",
+              "Text": "Text rendering shares the same context used for shapes and paths, so property changes affect all subsequent drawing operations.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c9191841-ab37-4598-ada6-919a09865f19",
+              "Text": "Always reference the canvas element via \u0060document.getElementById()\u0060 or a similar selector before calling \u0060getContext(\u00272d\u0027)\u0060.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "0a3aaa9e-3fb3-4ca8-98c2-8facf6f531fb",
+          "TopicId": "550bc6f6-dd3e-4780-8e71-c522a812ed96",
+          "Title": "Configuring the Font Property",
+          "BodyText": "The \u0060font\u0060 property of the 2D context defines the typeface, size, and style applied to rendered text, using CSS font syntax.",
+          "Notes": "Example: \u0060ctx.font = \u0027bold 24px Arial\u0027;\u0060 sets bold text at 24 pixels in the Arial typeface. If not set, the default is typically \u0060\u002710px sans-serif\u0027\u0060.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:44:55.7805493-04:00",
+          "ModifiedDate": "2026-06-26T21:44:55.7805493-04:00",
+          "Items": [
+            {
+              "Id": "cb423dbd-163c-4077-ab6c-8b3dddb66879",
+              "Text": "The value assigned to \u0060ctx.font\u0060 follows the same shorthand syntax as the CSS \u0060font\u0060 property (e.g., \u0060\u0027italic 16px Georgia\u0027\u0060).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d2aba176-491c-4a6b-a41d-e48c3d483b78",
+              "Text": "Font size must include a unit such as \u0060px\u0060, \u0060em\u0060, or \u0060pt\u0060; omitting units may cause the property to be ignored.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "43eccd7a-5fb6-4cf5-839e-741a1268db83",
+              "Text": "Multiple style tokens like \u0060bold\u0060, \u0060italic\u0060, and \u0060small-caps\u0060 can be combined before the size and family (e.g., \u0060\u0027italic bold 20px Verdana\u0027\u0060).",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "609e1a4b-ef78-4771-a6da-f41b026f20c2",
+          "TopicId": "550bc6f6-dd3e-4780-8e71-c522a812ed96",
+          "Title": "Filling Text with fillText()",
+          "BodyText": "The \u0060fillText()\u0060 method renders solid, filled text at a specified position on the canvas using the current \u0060fillStyle\u0060.",
+          "Notes": "Syntax: \u0060ctx.fillText(text, x, y [, maxWidth]);\u0060. The optional \u0060maxWidth\u0060 parameter constrains the rendered width, compressing the text if necessary.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:44:55.7805493-04:00",
+          "ModifiedDate": "2026-06-26T21:44:55.7805493-04:00",
+          "Items": [
+            {
+              "Id": "c52ec2b8-2595-4475-9dfa-7ed100bbf75b",
+              "Text": "Set \u0060ctx.fillStyle\u0060 to a color, gradient, or pattern before calling \u0060fillText()\u0060 to control the text\u0027s fill appearance.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fb1b2805-03c8-418d-a611-7e1d541434f9",
+              "Text": "The \u0060x\u0060 and \u0060y\u0060 coordinates define the text\u0027s anchor point, which is influenced by the current alignment and baseline settings.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "398da223-a7fc-498b-a0af-f2a1f79275a2",
+              "Text": "Passing a \u0060maxWidth\u0060 value causes the browser to scale or condense the text so it does not exceed that pixel width.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "27f50388-d4bc-423d-a89b-f6f209f45317",
+          "TopicId": "550bc6f6-dd3e-4780-8e71-c522a812ed96",
+          "Title": "Stroking Text with strokeText()",
+          "BodyText": "The \u0060strokeText()\u0060 method renders text as an outline only, using the current \u0060strokeStyle\u0060 and \u0060lineWidth\u0060 settings.",
+          "Notes": "Example: \u0060ctx.strokeStyle = \u0027navy\u0027; ctx.lineWidth = 2; ctx.strokeText(\u0027Hello\u0027, 50, 100);\u0060 produces navy-outlined text with no fill.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:44:55.7805493-04:00",
+          "ModifiedDate": "2026-06-26T21:44:55.7805493-04:00",
+          "Items": [
+            {
+              "Id": "f118b9f4-bc83-4da5-882d-f89c51fb67aa",
+              "Text": "Unlike \u0060fillText()\u0060, \u0060strokeText()\u0060 draws only the border of each character, leaving the interior transparent.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "421bf2a8-1fa3-4b65-b2de-b551d916add1",
+              "Text": "\u0060strokeStyle\u0060 accepts the same values as \u0060fillStyle\u0060: named colors, hex codes, RGB, or gradients.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bbadb399-9eea-4062-a50d-d1e8ab08cfa6",
+              "Text": "\u0060fillText()\u0060 and \u0060strokeText()\u0060 can be combined on the same text string to produce filled text with a visible outline.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "529d5aa0-0207-4bba-af0f-5e402299f3b7",
+          "TopicId": "550bc6f6-dd3e-4780-8e71-c522a812ed96",
+          "Title": "Controlling Text Alignment",
+          "BodyText": "The \u0060textAlign\u0060 property determines the horizontal positioning of text relative to the x-coordinate passed to \u0060fillText()\u0060 or \u0060strokeText()\u0060.",
+          "Notes": "Possible values are \u0060\u0027left\u0027\u0060, \u0060\u0027right\u0027\u0060, \u0060\u0027center\u0027\u0060, \u0060\u0027start\u0027\u0060, and \u0060\u0027end\u0027\u0060. The default is \u0060\u0027start\u0027\u0060, which behaves like \u0060\u0027left\u0027\u0060 in left-to-right locales.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:44:55.7805493-04:00",
+          "ModifiedDate": "2026-06-26T21:44:55.7805493-04:00",
+          "Items": [
+            {
+              "Id": "cca21400-204e-494d-982c-d53ea210aa12",
+              "Text": "Setting \u0060ctx.textAlign = \u0027center\u0027\u0060 causes the text to be centered horizontally around the given x position, useful for labels on charts or centered headings.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "647f9420-99a9-45c4-9058-bc0d43fadd76",
+              "Text": "\u0060\u0027left\u0027\u0060 and \u0060\u0027right\u0027\u0060 anchor the text so its left or right edge falls at the x coordinate, respectively.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "02d8a6fd-6fc7-4568-87d5-1c9e350c9a84",
+              "Text": "\u0060\u0027start\u0027\u0060 and \u0060\u0027end\u0027\u0060 respect the writing direction of the document, making them preferable for internationalized applications.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "fec1cb74-4d35-42ee-a8a5-165e8c66d8b9",
+          "TopicId": "550bc6f6-dd3e-4780-8e71-c522a812ed96",
+          "Title": "Setting the Text Baseline",
+          "BodyText": "The \u0060textBaseline\u0060 property controls vertical alignment by defining which part of the text\u0027s line box aligns with the y-coordinate.",
+          "Notes": "Common values include \u0060\u0027alphabetic\u0027\u0060 (default), \u0060\u0027top\u0027\u0060, \u0060\u0027middle\u0027\u0060, \u0060\u0027bottom\u0027\u0060, \u0060\u0027hanging\u0027\u0060, and \u0060\u0027ideographic\u0027\u0060.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:44:55.7805493-04:00",
+          "ModifiedDate": "2026-06-26T21:44:55.7805493-04:00",
+          "Items": [
+            {
+              "Id": "5b7716e3-1396-4caa-af10-a55f64c16b82",
+              "Text": "The default \u0060\u0027alphabetic\u0027\u0060 baseline aligns text as it would appear in standard Latin script typography.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "45e93691-accc-4f3e-a9a6-1c333ce81ce0",
+              "Text": "Using \u0060\u0027middle\u0027\u0060 centers the text vertically around the y coordinate, which is helpful when positioning labels relative to shapes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1fd180d7-4168-4c5c-8a20-1dc472560dcf",
+              "Text": "Choosing the right baseline is important for precise layout, especially when mixing text with drawn graphics or icons.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "64063bde-2a4c-4923-81de-3c2e48cb87c2",
+          "TopicId": "550bc6f6-dd3e-4780-8e71-c522a812ed96",
+          "Title": "Measuring Text Width with measureText()",
+          "BodyText": "The \u0060measureText()\u0060 method returns a \u0060TextMetrics\u0060 object that provides the measured width of a string given the current font settings.",
+          "Notes": "Example: \u0060const metrics = ctx.measureText(\u0027Hello World\u0027); const width = metrics.width;\u0060. This is particularly useful for dynamically centering or wrapping text.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:44:55.7805493-04:00",
+          "ModifiedDate": "2026-06-26T21:44:55.7805493-04:00",
+          "Items": [
+            {
+              "Id": "622ec606-9596-4064-9010-00ab47ad093c",
+              "Text": "Call \u0060ctx.measureText(string)\u0060 before drawing to calculate the pixel width a string will occupy on the canvas.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "dbc4aa60-ad3a-488b-bb77-dbaa880c627d",
+              "Text": "The returned \u0060TextMetrics\u0060 object\u0027s \u0060width\u0060 property reflects the current \u0060ctx.font\u0060 setting, so always set the font first.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "fe70b727-9e5d-4184-b04d-97bd58942ff2",
+              "Text": "Text wrapping logic can be built manually by measuring words and accumulating widths until a line exceeds the available canvas width.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "f39bb129-d741-4ef0-a553-7a8541b3f63e",
+      "Title": "Drawing and Manipulating Images",
+      "Summary": "This topic covers how to load and draw images onto the canvas using the drawImage method, including techniques for cropping and scaling image content.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-06-26T21:42:57.6571462-04:00",
+      "ModifiedDate": "2026-06-26T21:42:57.6571462-04:00",
+      "Elements": [
+        {
+          "Id": "a50160ae-6a84-4faa-9233-06d33451d71c",
+          "TopicId": "f39bb129-d741-4ef0-a553-7a8541b3f63e",
+          "Title": "Loading an Image for Canvas Use",
+          "BodyText": "Before drawing an image onto the canvas, it must be loaded into the browser using a JavaScript Image object.",
+          "Notes": "It is critical to wait for the image to fully load before attempting to draw it, otherwise the canvas will render a blank or broken result.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:45:18.3971325-04:00",
+          "ModifiedDate": "2026-06-26T21:45:18.3971325-04:00",
+          "Items": [
+            {
+              "Id": "fd70c5cd-2c51-4ab1-985d-fae2f921955c",
+              "Text": "Create an Image object in JavaScript using \u0060const img = new Image();\u0060 and set its \u0060src\u0060 property to the image file path.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8f4ad654-91af-496e-9c03-8eb08a2b5e0a",
+              "Text": "Attach an \u0060onload\u0060 event handler to the image object to ensure drawing code only executes after the image has fully loaded.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ac753f5a-fb28-4552-a389-0d347b26b0df",
+              "Text": "Attempting to draw an image before it loads is a common mistake that results in nothing appearing on the canvas.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "6ed40994-1e60-47c0-900f-8009d8253a88",
+          "TopicId": "f39bb129-d741-4ef0-a553-7a8541b3f63e",
+          "Title": "Basic drawImage Usage",
+          "BodyText": "The \u0060drawImage\u0060 method is the primary Canvas API function used to render an image onto the canvas at a specified position.",
+          "Notes": "The simplest form of drawImage takes three arguments: the image source, and the x and y coordinates where the image\u0027s top-left corner will be placed.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:45:18.3971325-04:00",
+          "ModifiedDate": "2026-06-26T21:45:18.3971325-04:00",
+          "Items": [
+            {
+              "Id": "daa9d617-eeeb-4c53-b876-65cd6e9c9d67",
+              "Text": "Call \u0060ctx.drawImage(img, x, y)\u0060 to draw the image at coordinates (x, y) using the image\u0027s natural width and height.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "791396fb-1558-440f-83aa-78aa50a0f470",
+              "Text": "The \u0060ctx\u0060 variable refers to the 2D rendering context obtained from the canvas element via \u0060canvas.getContext(\u00272d\u0027)\u0060.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4efe5ffe-7982-4283-8a13-2d17ee1417f1",
+              "Text": "The image is drawn relative to the canvas coordinate system, with (0, 0) at the top-left corner of the canvas.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "d140b185-1126-401e-a665-c933e8b3942b",
+          "TopicId": "f39bb129-d741-4ef0-a553-7a8541b3f63e",
+          "Title": "Scaling Images with drawImage",
+          "BodyText": "The \u0060drawImage\u0060 method supports an extended signature that allows you to specify a destination width and height, enabling image scaling.",
+          "Notes": "Scaling can enlarge or shrink an image to fit a particular area of the canvas, which is useful for thumbnails, responsive layouts, or animations.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:45:18.3971325-04:00",
+          "ModifiedDate": "2026-06-26T21:45:18.3971325-04:00",
+          "Items": [
+            {
+              "Id": "3dcd71a4-1172-44ec-8ed7-f9469e33218a",
+              "Text": "Use \u0060ctx.drawImage(img, x, y, width, height)\u0060 to draw the image scaled to the specified width and height dimensions.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "65cee14b-446d-47fb-80bc-f07082c34d13",
+              "Text": "Setting width and height values smaller than the original shrinks the image, while larger values stretch it.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ed9484d1-f20f-47c2-9c25-f42bee062535",
+              "Text": "Aspect ratio is not automatically preserved; you must calculate proportional dimensions manually if needed.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ec456781-245d-412b-8563-1c42c68fde8e",
+          "TopicId": "f39bb129-d741-4ef0-a553-7a8541b3f63e",
+          "Title": "Cropping Images with drawImage",
+          "BodyText": "The full nine-argument form of \u0060drawImage\u0060 enables cropping by defining a source rectangle within the original image before drawing it to the canvas.",
+          "Notes": "This technique is widely used in sprite sheet animation, where different sections of a single image file represent individual frames or icons.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:45:18.3971325-04:00",
+          "ModifiedDate": "2026-06-26T21:45:18.3971325-04:00",
+          "Items": [
+            {
+              "Id": "2eb1f3e4-c374-4a94-8438-382bfbcf50dd",
+              "Text": "The full syntax is \u0060ctx.drawImage(img, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)\u0060, where \u0060s\u0060 parameters define the source crop region and \u0060d\u0060 parameters define the destination on the canvas.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "eb763dd3-800f-4b64-a33a-d160907ca2e9",
+              "Text": "\u0060sx\u0060 and \u0060sy\u0060 specify the top-left corner of the crop region within the source image, measured in pixels.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d0ad1623-51f1-437e-9652-5010865b27d1",
+              "Text": "\u0060sWidth\u0060 and \u0060sHeight\u0060 define how wide and tall the cropped region is within the source image.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a58af07c-5dc9-4ffb-9ea0-c66c0c9ea1d0",
+              "Text": "The cropped region is then drawn and optionally scaled to fit the destination rectangle defined by \u0060dx\u0060, \u0060dy\u0060, \u0060dWidth\u0060, and \u0060dHeight\u0060.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "19218f4f-e0d5-42f8-98b0-575f3a59a28c",
+          "TopicId": "f39bb129-d741-4ef0-a553-7a8541b3f63e",
+          "Title": "Combining Cropping and Scaling",
+          "BodyText": "Using all nine arguments of \u0060drawImage\u0060 simultaneously allows you to both crop a specific region of an image and scale that region to a different size on the canvas.",
+          "Notes": "For example, a sprite sheet might contain a 32x32 pixel sprite that you crop and then scale up to 128x128 pixels for display.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:45:18.3971325-04:00",
+          "ModifiedDate": "2026-06-26T21:45:18.3971325-04:00",
+          "Items": [
+            {
+              "Id": "67005fb2-94ad-450d-bf5b-21b989295b3d",
+              "Text": "Specify a small source crop region and a larger destination region to magnify a portion of the image on the canvas.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b21f9a31-5cef-46b3-8f1a-de14ff9c19a8",
+              "Text": "Specify a large source region and a smaller destination region to create a miniaturized view of part of the image.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d53eb627-4bbd-4bc9-9f06-dc0a5efb5fc3",
+              "Text": "This combination is essential for sprite-based animations and image gallery thumbnail generation.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "3b26ce55-e682-4bcb-96d8-1d70d1af24ee",
+          "TopicId": "f39bb129-d741-4ef0-a553-7a8541b3f63e",
+          "Title": "Practical Considerations for Image Drawing",
+          "BodyText": "Working with images on the canvas involves several practical concerns related to performance, cross-origin access, and canvas state.",
+          "Notes": "Being aware of these considerations helps avoid common errors and ensures images render correctly across different browsers and environments.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:45:18.3971325-04:00",
+          "ModifiedDate": "2026-06-26T21:45:18.3971325-04:00",
+          "Items": [
+            {
+              "Id": "67be92a0-3726-4d6e-8f94-f3f1da1e7685",
+              "Text": "Images loaded from a different domain may trigger CORS (Cross-Origin Resource Sharing) restrictions, preventing them from being drawn onto the canvas.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1f468fd2-ee0b-4ed2-8a3e-94b460c2aa07",
+              "Text": "To avoid CORS issues with external images, the server must include appropriate \u0060Access-Control-Allow-Origin\u0060 headers, or the image must be served from the same origin.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "eaaa1ff7-f1da-4546-853b-1c09a0f376e4",
+              "Text": "Redrawing images repeatedly in an animation loop is common; clearing the canvas with \u0060ctx.clearRect()\u0060 before each frame prevents image ghosting.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "1941baa4-c017-4a77-a321-092372e498c4",
+              "Text": "Caching the Image object rather than creating a new one each frame significantly improves rendering performance.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "3ab0ea34-4058-407c-be48-9571bcc3f9af",
+      "Title": "Foundations of Interactive Canvas Graphics",
+      "Summary": "Students are introduced to the principles of combining Canvas drawing with JavaScript events to create dynamic and interactive browser-based graphics experiences.",
+      "SortOrder": 6,
+      "CreatedDate": "2026-06-26T21:42:57.6571462-04:00",
+      "ModifiedDate": "2026-06-26T21:42:57.6571462-04:00",
+      "Elements": [
+        {
+          "Id": "18892e1c-2ab7-4386-8f0b-b6466e6ffb2c",
+          "TopicId": "3ab0ea34-4058-407c-be48-9571bcc3f9af",
+          "Title": "The Canvas Element as an Interactive Surface",
+          "BodyText": "The HTML5 Canvas element serves as a programmable drawing surface that can respond to user input, making it the foundation for interactive browser-based graphics.",
+          "Notes": "Unlike static images, a canvas can be redrawn at any time in response to events, enabling experiences like drawing apps, games, and data visualizations.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:45:42.7095767-04:00",
+          "ModifiedDate": "2026-06-26T21:45:42.7095767-04:00",
+          "Items": [
+            {
+              "Id": "dfcca84d-e4e1-4556-812b-740eaae1fc72",
+              "Text": "The \u003Ccanvas\u003E element is placed in HTML and accessed via JavaScript using getElementById or querySelector.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "efec155c-8833-45e2-b585-d8bca2dc709d",
+              "Text": "A 2D rendering context is obtained with getContext(\u00272d\u0027), providing all drawing methods and properties.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2dd85999-eeac-4775-91a2-ace56b786511",
+              "Text": "The canvas coordinate system starts at (0, 0) in the top-left corner, with x increasing right and y increasing downward.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "0263bfe5-5f47-4992-b2f9-ccbeece493f3",
+              "Text": "Canvas dimensions are set with the width and height attributes directly on the element to avoid scaling distortion.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "ffd11481-fa41-40fb-9fb5-7c461a2b688a",
+          "TopicId": "3ab0ea34-4058-407c-be48-9571bcc3f9af",
+          "Title": "Connecting JavaScript Events to Canvas",
+          "BodyText": "Interactivity is achieved by attaching JavaScript event listeners to the canvas element, allowing user actions such as mouse clicks and movements to trigger drawing operations.",
+          "Notes": "Common events used with canvas include mousemove, mousedown, mouseup, click, touchstart, and touchmove for mobile support.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:45:42.7095767-04:00",
+          "ModifiedDate": "2026-06-26T21:45:42.7095767-04:00",
+          "Items": [
+            {
+              "Id": "513eb049-c2b1-4ecf-a528-e80b7049f566",
+              "Text": "Event listeners are added using addEventListener(), specifying the event type and a callback function to execute.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a2d24ed3-3f16-488a-b9a4-87ba35f1a24b",
+              "Text": "The callback function receives an event object containing details such as mouse position and button state.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "19fcc783-7e7b-47ce-9bf1-633bdac3c973",
+              "Text": "Multiple event listeners can be combined to handle complex interactions like click-and-drag drawing.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "ba90084b-ea9b-4572-a635-b0807faee51c",
+              "Text": "Removing event listeners with removeEventListener() is important for managing memory and preventing unintended behavior.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "0e6eef4b-d50c-4d06-9ac3-cb271270294a",
+          "TopicId": "3ab0ea34-4058-407c-be48-9571bcc3f9af",
+          "Title": "Translating Mouse Coordinates to Canvas Space",
+          "BodyText": "Mouse event coordinates are reported relative to the browser viewport, so they must be converted to canvas-relative coordinates before drawing accurately.",
+          "Notes": "Using getBoundingClientRect() is the most reliable method for this conversion, especially when the canvas is offset from the page origin or scaled via CSS.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:45:42.7095767-04:00",
+          "ModifiedDate": "2026-06-26T21:45:42.7095767-04:00",
+          "Items": [
+            {
+              "Id": "afc976a1-7c5b-4ee1-92e2-04683434da6a",
+              "Text": "The event properties clientX and clientY give the mouse position relative to the viewport.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "dd4a3638-1724-4b38-9d30-809168b3dc55",
+              "Text": "Subtracting the canvas element\u0027s bounding rectangle\u0027s left and top values converts viewport coordinates to canvas coordinates.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "86f44e5b-383e-40d8-a5fa-120c59a28cd2",
+              "Text": "CSS scaling or padding on the canvas element can introduce additional offsets that must be accounted for.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c23b0af6-a3d7-46f7-b121-d9cc92d23d50",
+              "Text": "Storing the computed canvas-relative coordinates in variables makes them reusable across multiple drawing calls.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "4c2e4afe-9f42-4218-bf27-2f831214b114",
+          "TopicId": "3ab0ea34-4058-407c-be48-9571bcc3f9af",
+          "Title": "Redrawing the Canvas for Dynamic Graphics",
+          "BodyText": "Because the canvas is a pixel-based surface with no retained object model, creating dynamic visuals requires clearing and redrawing the canvas in response to state changes or user input.",
+          "Notes": "This clear-and-redraw pattern is central to animation loops, interactive tools, and any scenario where the visual output must update over time.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:45:42.7095767-04:00",
+          "ModifiedDate": "2026-06-26T21:45:42.7095767-04:00",
+          "Items": [
+            {
+              "Id": "3fc8b0f2-ec0e-41b9-9dfe-00f0592135b3",
+              "Text": "clearRect(0, 0, canvas.width, canvas.height) erases all pixels on the canvas before each redraw.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e266a6ae-07e5-4900-96bd-b2bc8b58be41",
+              "Text": "Application state (such as shape positions or user-drawn paths) is stored in JavaScript variables or arrays, not in the canvas itself.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f29364f6-de46-4721-b45f-1162a6de1c41",
+              "Text": "On each relevant event or animation frame, the stored state is used to re-render the entire scene from scratch.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e0f550d1-1266-4587-9508-eb39ee51c9d3",
+              "Text": "This approach keeps rendering logic predictable and separates data management from drawing concerns.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "c7be1839-7541-4918-971d-ac9cd56a07a2",
+          "TopicId": "3ab0ea34-4058-407c-be48-9571bcc3f9af",
+          "Title": "Using requestAnimationFrame for Smooth Interactivity",
+          "BodyText": "For continuously animated or highly responsive canvas experiences, requestAnimationFrame provides a browser-optimized loop that synchronizes redraws with the display refresh rate.",
+          "Notes": "requestAnimationFrame is preferred over setInterval or setTimeout for animations because it pauses automatically when the tab is not visible, saving CPU and battery resources.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:45:42.7095767-04:00",
+          "ModifiedDate": "2026-06-26T21:45:42.7095767-04:00",
+          "Items": [
+            {
+              "Id": "71ca979b-497e-4520-bfa8-5915b26d4493",
+              "Text": "requestAnimationFrame accepts a callback function that is called before the next browser repaint, typically 60 times per second.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "cc87d3e3-1235-4e72-8526-c0ad38ce77c3",
+              "Text": "The animation loop is sustained by calling requestAnimationFrame recursively within its own callback.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "df5fa7a8-4940-4804-b440-367cf15259b0",
+              "Text": "Interactive input events update shared state variables, and the animation loop reads that state to render each frame.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e50b7bbb-cfa1-4060-908e-515161955650",
+              "Text": "Combining event-driven state updates with a requestAnimationFrame loop decouples input handling from rendering for smoother results.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "560ad481-b295-4fcb-9afe-3d3b6b05444e",
+          "TopicId": "3ab0ea34-4058-407c-be48-9571bcc3f9af",
+          "Title": "Structuring Interactive Canvas Code",
+          "BodyText": "Well-organized code separates concerns into initialization, event handling, state management, and rendering, making interactive canvas programs easier to build, read, and maintain.",
+          "Notes": "As projects grow, patterns such as separating a draw() function, an update() function, and an init() function help manage complexity and support future enhancements.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:45:42.7095767-04:00",
+          "ModifiedDate": "2026-06-26T21:45:42.7095767-04:00",
+          "Items": [
+            {
+              "Id": "2b0106b8-7284-4408-891c-2833be77dba0",
+              "Text": "An init() function sets up the canvas, context, initial state, and event listeners when the page loads.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "08bb6364-72b2-4253-b53c-89d453699041",
+              "Text": "Event handler functions update application state variables but do not perform drawing directly.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e38692cb-db43-47e9-919c-6e95c8025e9e",
+              "Text": "A dedicated draw() or render() function reads current state and issues all canvas drawing commands.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a73c2f16-c6a7-47f0-ac1b-0c8cb2c077f7",
+              "Text": "Keeping drawing logic in one place makes it straightforward to add features like undo history or multi-layer graphics.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 44
+}

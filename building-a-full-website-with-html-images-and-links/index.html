@@ -1,0 +1,272 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building a Full Website with HTML, Images, and Links — COP4813</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: #f4f6f9;
+      color: #1e2533;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header Banner ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
+      color: #ffffff;
+      padding: 2.75rem 2rem 2.25rem;
+      text-align: center;
+    }
+
+    header .course-label {
+      display: inline-block;
+      background: rgba(255 255 255 / 0.15);
+      border: 1px solid rgba(255 255 255 / 0.3);
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.28rem 0.85rem;
+      margin-bottom: 0.9rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.5rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.85rem;
+      line-height: 1.25;
+    }
+
+    header p.intro {
+      max-width: 680px;
+      margin: 0 auto;
+      font-size: 1rem;
+      color: rgba(255 255 255 / 0.88);
+    }
+
+    /* ── Main Content ── */
+    main {
+      max-width: 960px;
+      margin: 2.5rem auto;
+      padding: 0 1.25rem 3rem;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #5a6a82;
+      margin-bottom: 1rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 2px solid #dde3ed;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #dde3ed;
+      border-radius: 10px;
+      padding: 1.4rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      box-shadow: 0 1px 4px rgba(0 0 0 / 0.06);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 16px rgba(0 0 0 / 0.1);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card Header Row ── */
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .card-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1e2533;
+      flex: 1 1 auto;
+    }
+
+    .card-name a {
+      color: #1a52a0;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .card-name a:hover,
+    .card-name a:focus {
+      color: #0e3573;
+      border-bottom-color: #0e3573;
+      outline: none;
+    }
+
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: #5a7ab5;
+      background: #eef2fb;
+      border: 1px solid #c5d3ee;
+      border-radius: 4px;
+      padding: 0.18rem 0.55rem;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.15s ease, color 0.15s ease;
+      align-self: flex-start;
+      margin-top: 0.1rem;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background: #dce6f7;
+      color: #1a3a5c;
+      outline: none;
+    }
+
+    .source-link::before {
+      content: '{}';
+      font-family: 'Courier New', monospace;
+      font-size: 0.68rem;
+      opacity: 0.75;
+    }
+
+    /* ── Badges Row ── */
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .badge-type {
+      background: #e6eeff;
+      color: #2b4fa0;
+      border: 1px solid #bdd0f5;
+    }
+
+    .badge-filetype {
+      background: #e8f5ec;
+      color: #1f6e38;
+      border: 1px solid #a8d8b4;
+      font-family: 'Courier New', monospace;
+      text-transform: lowercase;
+    }
+
+    /* ── Description ── */
+    .card-description {
+      font-size: 0.9rem;
+      color: #4a5568;
+      line-height: 1.65;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 1.25rem 1rem;
+      font-size: 0.78rem;
+      color: #8a96aa;
+      border-top: 1px solid #dde3ed;
+      background: #ffffff;
+    }
+
+    /* ── Focus Visible ── */
+    a:focus-visible {
+      outline: 3px solid #2563a8;
+      outline-offset: 2px;
+      border-radius: 3px;
+    }
+
+    /* ── Responsive Tweaks ── */
+    @media (max-width: 480px) {
+      header { padding: 2rem 1.25rem 1.75rem; }
+      .card  { padding: 1.15rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="course-label">COP4813</div>
+    <h1>Building a Full Website with HTML, Images, and Links</h1>
+    <p class="intro">
+      Explore the core concepts behind constructing complete, multi-page websites — from
+      semantic HTML structure and image embedding to hyperlink creation. Use the artifacts
+      below to navigate the module materials.
+    </p>
+  </header>
+
+  <main>
+    <p class="section-label">Module Artifacts</p>
+
+    <div class="card-grid">
+
+      <!-- ── Artifact: Module Topics ── -->
+      <article class="card">
+        <div class="card-header">
+          <span class="card-name">
+            <!-- viewHref is non-empty → render as link -->
+            <a href="content/module_topics.html">Module Topics</a>
+          </span>
+          <!-- sourceHref is non-empty → render secondary link -->
+          <a class="source-link" href="source/hierarchy.json">source file</a>
+        </div>
+
+        <div class="card-meta">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+
+        <p class="card-description">
+          Covers the structure and topics of the module, including multi-page website
+          architecture, semantic HTML elements, embedding images with proper attributes,
+          and creating hyperlinks, serving as a navigational outline for learners and
+          instructors to understand what the module addresses.
+        </p>
+      </article>
+
+    </div><!-- /.card-grid -->
+  </main>
+
+  <footer>
+    COP4813 &mdash; Building a Full Website with HTML, Images, and Links
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics</h2><p><a href="topics.html">View Topics</a></p></section></body>
+</html>

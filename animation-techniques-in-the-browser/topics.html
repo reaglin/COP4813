@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animation Techniques in the Browser — Module Topics</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.2rem;margin-top:28px;color:#1a3c6e}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<h1>Animation Techniques in the Browser — Module Topics</h1>
+<h2>Introduction to Browser Animation</h2>
+<div class="summary">Overview of how animations work in the browser and why they matter for user experience. Introduces the two primary approaches: CSS-based and JavaScript-driven animation.</div>
+<ul>
+<li><strong>What Browser Animation Is</strong> <span class="el-body">— Browser animation is the process of changing the visual properties of elements over time to create the illusion of motion or transformation within a web page.</span></li>
+<li><strong>Why Animation Matters for User Experience</strong> <span class="el-body">— Well-designed animations improve usability by providing visual feedback, guiding attention, and making interfaces feel responsive and intuitive.</span></li>
+<li><strong>The Two Primary Approaches to Animation</strong> <span class="el-body">— Browser animations are produced through two main strategies: CSS-based animation and JavaScript-driven animation, each suited to different use cases.</span></li>
+<li><strong>CSS-Based Animation: An Overview</strong> <span class="el-body">— CSS provides two built-in mechanisms for animation: transitions, which animate between two states, and keyframe animations, which define multi-step sequences.</span></li>
+<li><strong>JavaScript-Driven Animation: An Overview</strong> <span class="el-body">— JavaScript animation gives developers full programmatic control by updating element properties frame by frame, typically using the requestAnimationFrame API.</span></li>
+<li><strong>Performance Fundamentals for Smooth Animation</strong> <span class="el-body">— Smooth animation targets 60 frames per second, giving the browser approximately 16 milliseconds per frame to perform all calculations and rendering.</span></li>
+</ul>
+<h2>CSS Transitions</h2>
+<div class="summary">Covers how to use CSS transitions to animate changes in element properties smoothly over time. Explores transition properties such as duration, timing functions, and delay.</div>
+<ul>
+<li><strong>What Are CSS Transitions?</strong> <span class="el-body">— CSS transitions allow property changes in CSS values to occur smoothly over a specified duration, rather than happening instantaneously.</span></li>
+<li><strong>The transition-property</strong> <span class="el-body">— The transition-property specifies which CSS property or properties should be animated when their values change.</span></li>
+<li><strong>Controlling Duration with transition-duration</strong> <span class="el-body">— The transition-duration property defines how long the transition animation takes to complete, expressed in seconds (s) or milliseconds (ms).</span></li>
+<li><strong>Timing Functions and transition-timing-function</strong> <span class="el-body">— The transition-timing-function property controls the acceleration curve of the transition, determining how the intermediate values are calculated over time.</span></li>
+<li><strong>Adding a Delay with transition-delay</strong> <span class="el-body">— The transition-delay property specifies how long the browser should wait before starting the transition after a property change is triggered.</span></li>
+<li><strong>The Transition Shorthand Property</strong> <span class="el-body">— The transition shorthand property allows all four transition sub-properties to be set in a single CSS declaration, making code more concise.</span></li>
+<li><strong>Performance Considerations for CSS Transitions</strong> <span class="el-body">— Not all CSS properties are equally efficient to animate; choosing the right properties ensures smooth, high-performance transitions.</span></li>
+</ul>
+<h2>CSS Keyframe Animations</h2>
+<div class="summary">Explains how to define multi-step animations using the @keyframes rule in CSS. Covers animation properties including iteration, direction, and fill modes.</div>
+<ul>
+<li><strong>Defining Animations with @keyframes</strong> <span class="el-body">— The @keyframes rule is the foundation of CSS keyframe animations, allowing you to define discrete steps that describe how an element should change over time.</span></li>
+<li><strong>Attaching Animations to Elements</strong> <span class="el-body">— Once a @keyframes rule is defined, it must be applied to an element using the animation-name and animation-duration properties at minimum.</span></li>
+<li><strong>Controlling Iteration and Repetition</strong> <span class="el-body">— The animation-iteration-count property determines how many times an animation cycle plays before stopping.</span></li>
+<li><strong>Animation Direction</strong> <span class="el-body">— The animation-direction property controls whether the animation plays forward, backward, or alternates between both on successive iterations.</span></li>
+<li><strong>Fill Modes</strong> <span class="el-body">— The animation-fill-mode property defines what styles are applied to an element before the animation starts and after it ends.</span></li>
+<li><strong>Timing Functions and Delay</strong> <span class="el-body">— animation-timing-function and animation-delay give precise control over the pacing and start time of each animation cycle.</span></li>
+<li><strong>Play State and Pausing Animations</strong> <span class="el-body">— The animation-play-state property allows an animation to be paused and resumed without removing it from the element entirely.</span></li>
+</ul>
+<h2>JavaScript-Driven Animation with requestAnimationFrame</h2>
+<div class="summary">Introduces the requestAnimationFrame API for creating animations controlled through JavaScript. Demonstrates how to build animation loops that are synchronized with the browser&#39;s rendering cycle.</div>
+<ul>
+<li><strong>What is requestAnimationFrame?</strong> <span class="el-body">— requestAnimationFrame (rAF) is a browser API that schedules a JavaScript function to run just before the browser performs its next repaint.</span></li>
+<li><strong>Synchronization with the Browser&#39;s Rendering Cycle</strong> <span class="el-body">— requestAnimationFrame aligns JavaScript execution with the browser&#39;s natural repaint schedule, ensuring animations appear smooth and consistent.</span></li>
+<li><strong>Building a Basic Animation Loop</strong> <span class="el-body">— An animation loop is created by having the rAF callback recursively schedule itself, producing a continuous cycle of updates and repaints.</span></li>
+<li><strong>Using the Timestamp Parameter</strong> <span class="el-body">— The callback passed to requestAnimationFrame automatically receives a high-resolution timestamp representing the time the frame began.</span></li>
+<li><strong>Updating DOM or Canvas Properties Each Frame</strong> <span class="el-body">— Inside the rAF callback, you apply incremental changes to element styles, attributes, or canvas drawings to produce the visual progression of an animation.</span></li>
+<li><strong>Stopping and Controlling the Animation Loop</strong> <span class="el-body">— requestAnimationFrame returns a numeric ID that can be used to cancel a scheduled frame, giving you the ability to pause or stop animations on demand.</span></li>
+<li><strong>Performance Advantages Over Timer-Based Animation</strong> <span class="el-body">— Using requestAnimationFrame instead of setInterval or setTimeout offers measurable performance and visual quality improvements for browser animations.</span></li>
+</ul>
+<h2>Animation Performance and Best Practices</h2>
+<div class="summary">Examines techniques for creating smooth, performant animations by minimizing layout and paint operations. Covers concepts such as compositing, GPU acceleration, and choosing the right animation approach for a given use case.</div>
+<ul>
+<li><strong>Understanding the Browser Rendering Pipeline</strong> <span class="el-body">— Smooth animations depend on understanding how the browser processes changes: through layout, paint, and composite stages. Triggering earlier stages in this pipeline is more expensive and can cause jank.</span></li>
+<li><strong>GPU Acceleration and Composited Properties</strong> <span class="el-body">— Certain CSS properties are handled directly by the GPU compositor, bypassing layout and paint entirely. Animating these properties is the most performant approach available in the browser.</span></li>
+<li><strong>Avoiding Layout Thrashing</strong> <span class="el-body">— Layout thrashing occurs when JavaScript repeatedly reads and writes DOM properties that force synchronous reflows, stalling the rendering pipeline. Structuring code to batch reads and writes separately prevents this bottleneck.</span></li>
+<li><strong>Choosing Between CSS and JavaScript Animations</strong> <span class="el-body">— CSS transitions and keyframe animations are often the right default choice for simple, declarative animations, while JavaScript-driven animations via requestAnimationFrame offer greater control for complex or interactive scenarios.</span></li>
+<li><strong>Using requestAnimationFrame Correctly</strong> <span class="el-body">— requestAnimationFrame schedules a callback to run before the browser&#39;s next repaint, keeping JavaScript animations synchronized with the display refresh rate. Using it correctly is essential for smooth, efficient animation loops.</span></li>
+<li><strong>Measuring and Profiling Animation Performance</strong> <span class="el-body">— Identifying performance bottlenecks requires measurement with browser developer tools rather than guesswork. The Performance panel and Rendering tools in Chrome DevTools are the primary instruments for diagnosing animation issues.</span></li>
+<li><strong>Animation Best Practices Summary</strong> <span class="el-body">— Applying a consistent set of best practices ensures animations remain smooth and do not degrade the overall page experience. These guidelines cover property selection, layer management, and code structure.</span></li>
+</ul>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

@@ -1,0 +1,257 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dynamic Objects and Controls with JavaScript and the DOM — COP4813</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f4f6f9;
+      color: #1e2530;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── Page Shell ── */
+    .page-wrapper {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+
+    /* ── Course Label ── */
+    .course-label {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #ffffff;
+      background: #2563eb;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 0.85rem;
+    }
+
+    /* ── Header ── */
+    .module-header {
+      border-bottom: 3px solid #2563eb;
+      padding-bottom: 1.5rem;
+      margin-bottom: 2.25rem;
+    }
+
+    .module-header h1 {
+      font-size: clamp(1.5rem, 4vw, 2.1rem);
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+    }
+
+    .module-header p {
+      font-size: 0.975rem;
+      color: #4b5563;
+      max-width: 72ch;
+    }
+
+    /* ── Section Label ── */
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 1rem;
+    }
+
+    /* ── Card Grid ── */
+    .artifact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+      gap: 1.25rem;
+    }
+
+    /* ── Artifact Card ── */
+    .artifact-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 1.4rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .artifact-card:hover {
+      box-shadow: 0 6px 24px rgba(37, 99, 235, 0.09);
+      border-color: #93c5fd;
+    }
+
+    /* ── Card Top Row ── */
+    .card-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.45rem 0.75rem;
+    }
+
+    .artifact-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .artifact-name a {
+      color: #1d4ed8;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .artifact-name a:hover,
+    .artifact-name a:focus {
+      color: #1e40af;
+      border-bottom-color: #93c5fd;
+      outline: none;
+    }
+
+    .source-link {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #6b7280;
+      text-decoration: none;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+      white-space: nowrap;
+      transition: background 0.15s ease, color 0.15s ease;
+      align-self: center;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background: #dbeafe;
+      color: #1d4ed8;
+      border-color: #93c5fd;
+      outline: none;
+    }
+
+    /* ── Badges Row ── */
+    .card-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .badge {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+    }
+
+    .badge-type {
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+    }
+
+    .badge-filetype {
+      background: #f0fdf4;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+
+    /* ── Description ── */
+    .artifact-description {
+      font-size: 0.875rem;
+      color: #4b5563;
+      line-height: 1.65;
+    }
+
+    /* ── Footer ── */
+    .page-footer {
+      margin-top: 3.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid #e2e8f0;
+      font-size: 0.78rem;
+      color: #9ca3af;
+      text-align: center;
+    }
+
+    /* ── Focus-visible outline for accessibility ── */
+    a:focus-visible {
+      outline: 2px solid #2563eb;
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+
+    /* ── Responsive tweak ── */
+    @media (max-width: 480px) {
+      .artifact-card { padding: 1.1rem 1.1rem; }
+      .module-header h1 { font-size: 1.35rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <!-- ── Header ── -->
+    <header class="module-header">
+      <span class="course-label">COP4813</span>
+      <h1>Dynamic Objects and Controls with JavaScript and the DOM</h1>
+      <p>
+        This module explores how JavaScript interacts with the Document Object Model to create
+        rich, interactive web experiences. Topics include DOM structure and traversal, dynamic
+        element creation and insertion, attribute and style manipulation, event handling, and
+        building JavaScript-driven UI controls — providing the foundational skills for modern
+        client-side web development.
+      </p>
+    </header>
+
+    <!-- ── Artifacts ── -->
+    <main>
+      <p class="section-label">Module Artifacts</p>
+      <div class="artifact-grid">
+
+        <!-- Artifact: Module Topics -->
+        <article class="artifact-card">
+          <div class="card-top">
+            <span class="artifact-name">
+              <a href="content/module_topics.html">Module Topics</a>
+            </span>
+            <a class="source-link" href="source/hierarchy.json" aria-label="Source file for Module Topics">source file</a>
+          </div>
+          <div class="card-badges">
+            <span class="badge badge-type">Module Topics</span>
+            <span class="badge badge-filetype">.json</span>
+          </div>
+          <p class="artifact-description">
+            Outlines the module's core topics — including DOM structure, dynamic element creation
+            and insertion, attribute and style modification, event handling, and JavaScript-driven
+            UI controls — serving as a syllabus reference for learners and instructors to understand
+            what concepts will be taught and in what sequence.
+          </p>
+        </article>
+
+      </div>
+    </main>
+
+    <!-- ── Footer ── -->
+    <footer class="page-footer">
+      <p>COP4813 &mdash; Dynamic Objects and Controls with JavaScript and the DOM</p>
+    </footer>
+
+  </div>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics</h2><p><a href="topics.html">View Topics</a></p></section></body>
+</html>

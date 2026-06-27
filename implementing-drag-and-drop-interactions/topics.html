@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Implementing Drag and Drop Interactions — Module Topics</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.2rem;margin-top:28px;color:#1a3c6e}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<h1>Implementing Drag and Drop Interactions — Module Topics</h1>
+<h2>Introduction to HTML5 Drag and Drop</h2>
+<div class="summary">Overview of the native HTML5 drag-and-drop API and its role in building interactive web interfaces. Covers browser support, use cases, and the foundational concepts behind draggable elements.</div>
+<ul>
+<li><strong>What is the HTML5 Drag and Drop API?</strong> <span class="el-body">— The HTML5 Drag and Drop API is a set of native browser interfaces that allow users to click and drag elements across a web page and drop them onto designated targets.</span></li>
+<li><strong>Browser Support and Compatibility</strong> <span class="el-body">— The HTML5 Drag and Drop API enjoys broad support across all major modern browsers, making it a reliable choice for interactive web interfaces.</span></li>
+<li><strong>Common Use Cases for Drag and Drop</strong> <span class="el-body">— Drag and drop interactions are widely used to make web applications more intuitive and visually engaging for end users.</span></li>
+<li><strong>Making an Element Draggable</strong> <span class="el-body">— Any HTML element can be made draggable by adding the draggable attribute and setting its value to true.</span></li>
+<li><strong>The DataTransfer Object</strong> <span class="el-body">— The DataTransfer object is the core mechanism of the API, acting as a data store that carries information between the drag source and the drop target.</span></li>
+<li><strong>Overview of Core Drag and Drop Events</strong> <span class="el-body">— The HTML5 Drag and Drop API fires a sequence of events on both the dragged element and the potential drop targets throughout the interaction lifecycle.</span></li>
+</ul>
+<h2>Making Elements Draggable</h2>
+<div class="summary">Explains how to enable drag functionality on HTML elements using the draggable attribute. Covers the setup required to prepare elements as drag sources within the DOM.</div>
+<ul>
+<li><strong>The draggable Attribute</strong> <span class="el-body">— The draggable attribute is an HTML5 global attribute that controls whether a user can drag an element with a mouse or touch input.</span></li>
+<li><strong>Identifying Drag Source Elements</strong> <span class="el-body">— A drag source is the DOM element the user picks up and moves during a drag-and-drop interaction.</span></li>
+<li><strong>Setting Up the dragstart Event Listener</strong> <span class="el-body">— The dragstart event fires on the source element the moment the user begins dragging it, and it is the primary place to configure the drag operation.</span></li>
+<li><strong>Storing Data with dataTransfer</strong> <span class="el-body">— The dataTransfer object is available on drag events and acts as a data store that carries information from the drag source to the drop target.</span></li>
+<li><strong>Visual Feedback During Drag</strong> <span class="el-body">— Browsers automatically render a ghost image of the dragged element, but developers can customize or enhance this feedback to improve usability.</span></li>
+<li><strong>Accessibility Considerations for Draggable Elements</strong> <span class="el-body">— Making elements draggable with HTML5 alone does not automatically make the interaction accessible to keyboard or assistive-technology users.</span></li>
+</ul>
+<h2>Handling the dragstart Event</h2>
+<div class="summary">Explores the dragstart event and how to use JavaScript to initialize drag operations. Covers how to store drag data using the DataTransfer object when a drag begins.</div>
+<ul>
+<li><strong>What is the dragstart Event?</strong> <span class="el-body">— The dragstart event fires on an element the moment a user begins dragging it, signaling the start of a drag operation.</span></li>
+<li><strong>Attaching a dragstart Event Listener</strong> <span class="el-body">— You register a dragstart handler using JavaScript&#39;s addEventListener method on any draggable element.</span></li>
+<li><strong>Introduction to the DataTransfer Object</strong> <span class="el-body">— The DataTransfer object is the mechanism through which data is packaged and carried during a drag-and-drop operation.</span></li>
+<li><strong>Storing Drag Data with setData()</strong> <span class="el-body">— Inside the dragstart handler, you call event.dataTransfer.setData() to store the information that should travel with the dragged element.</span></li>
+<li><strong>Setting the Drag Effect</strong> <span class="el-body">— The dragstart handler is also the right place to set event.dataTransfer.effectAllowed, which communicates what type of operation is permitted.</span></li>
+<li><strong>Customizing the Drag Image</strong> <span class="el-body">— During dragstart you can optionally replace the browser&#39;s default ghost image — the semi-transparent copy of the dragged element — with a custom visual.</span></li>
+</ul>
+<h2>Handling the dragover Event</h2>
+<div class="summary">Covers the dragover event and how to designate valid drop targets by preventing default browser behavior. Explains how to provide visual feedback to users during an active drag operation.</div>
+<ul>
+<li><strong>The Role of the dragover Event</strong> <span class="el-body">— The dragover event fires continuously as a draggable element is moved over a potential drop target, making it the key event for controlling drop zone behavior.</span></li>
+<li><strong>Preventing Default Browser Behavior</strong> <span class="el-body">— By default, most HTML elements do not allow other elements to be dropped onto them; calling event.preventDefault() inside the dragover handler overrides this restriction.</span></li>
+<li><strong>Designating Valid Drop Targets</strong> <span class="el-body">— Not every element on the page should accept a drop; attaching a dragover listener with preventDefault() selectively marks only the intended elements as valid drop zones.</span></li>
+<li><strong>Providing Visual Feedback During a Drag</strong> <span class="el-body">— Good user experience requires clear visual cues when a draggable element hovers over a valid drop target, so users know where they can release the item.</span></li>
+<li><strong>Coordinating dragover with dragleave</strong> <span class="el-body">— Because dragover continuously applies visual changes, the dragleave event is needed as a counterpart to clean up styles when the dragged item exits the drop zone.</span></li>
+<li><strong>Using dataTransfer.dropEffect in dragover</strong> <span class="el-body">— The dataTransfer.dropEffect property can be set inside the dragover handler to communicate the type of operation (move, copy, link, or none) that will occur upon drop.</span></li>
+</ul>
+<h2>Handling the drop Event</h2>
+<div class="summary">Examines the drop event and how to retrieve transferred data to complete a drag-and-drop interaction. Covers updating the DOM appropriately when an element is successfully dropped onto a target.</div>
+<ul>
+<li><strong>Listening for the drop Event</strong> <span class="el-body">— The drop event fires on a valid drop target when the user releases a dragged element over it. You must attach a drop event listener to the target element to capture and handle the interaction.</span></li>
+<li><strong>Preventing Default Browser Behavior on Drop</strong> <span class="el-body">— Browsers have default actions for drop events, such as opening a file or navigating to a URL when an element is dropped. Calling event.preventDefault() inside the drop handler suppresses these defaults.</span></li>
+<li><strong>Retrieving Transferred Data with dataTransfer.getData()</strong> <span class="el-body">— The dataTransfer object available on the drop event provides access to any data stored during the dragstart event. The getData() method retrieves this information by the same type key used when it was set.</span></li>
+<li><strong>Identifying the Dragged Element from Retrieved Data</strong> <span class="el-body">— A common pattern is to store the dragged element&#39;s ID in the dataTransfer object and then use that ID in the drop handler to locate the element in the DOM. This allows you to reference and manipulate the original element after the drop.</span></li>
+<li><strong>Updating the DOM After a Successful Drop</strong> <span class="el-body">— Once the dragged element is identified, the DOM must be updated to reflect the drop — typically by appending or inserting the dragged element into the drop target. This is what visually completes the drag-and-drop interaction for the user.</span></li>
+<li><strong>Cleaning Up Visual Feedback After the Drop</strong> <span class="el-body">— Any visual styles applied during dragover to indicate a valid drop target (such as highlighted borders or background colors) should be removed when the drop event fires. This restores the target&#39;s normal appearance.</span></li>
+</ul>
+<h2>Building an Interactive UI Component</h2>
+<div class="summary">Brings together all drag-and-drop events and techniques to construct a fully functional interactive UI component. Students apply their knowledge to a practical project such as a sortable list or Kanban-style board.</div>
+<ul>
+<li><strong>Planning the Interactive UI Component</strong> <span class="el-body">— Before writing any code, a clear plan defines the structure and behavior of the drag-and-drop component, such as a sortable list or Kanban-style board.</span></li>
+<li><strong>Setting Up the HTML Structure</strong> <span class="el-body">— A well-structured HTML foundation is essential for a functional drag-and-drop component, using the draggable attribute to enable native drag behavior on items.</span></li>
+<li><strong>Implementing the dragstart Event</strong> <span class="el-body">— The dragstart event fires when the user begins dragging an element, and it is the correct moment to capture and store information about the dragged item.</span></li>
+<li><strong>Handling the dragover Event on Drop Targets</strong> <span class="el-body">— The dragover event must be explicitly managed on drop targets to allow items to be dropped, since the browser&#39;s default behavior prevents dropping.</span></li>
+<li><strong>Implementing the drop Event to Reorder or Move Items</strong> <span class="el-body">— The drop event is where the core logic executes — retrieving the dragged element&#39;s data and inserting it into the correct position within the UI component.</span></li>
+<li><strong>Managing State and Updating the Data Model</strong> <span class="el-body">— A robust interactive component keeps an underlying data model synchronized with the DOM so that the UI accurately reflects the current order or placement of items.</span></li>
+<li><strong>Accessibility and Usability Enhancements</strong> <span class="el-body">— A fully functional drag-and-drop component should also consider users who cannot use a mouse, requiring keyboard alternatives and appropriate ARIA attributes.</span></li>
+</ul>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

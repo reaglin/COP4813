@@ -1,0 +1,292 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GitHub, GitHub Pages, and Your First HTML Page — COP4813</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: #f4f6f9;
+      color: #1e2530;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    /* ── Layout ── */
+    .page-wrapper {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+
+    /* ── Header ── */
+    .page-header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #24527a 60%, #2d6a9f 100%);
+      color: #ffffff;
+      border-radius: 10px;
+      padding: 2.5rem 2rem 2rem;
+      margin-bottom: 2.25rem;
+      box-shadow: 0 4px 18px rgba(26, 58, 92, 0.22);
+    }
+
+    .course-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background-color: rgba(255, 255, 255, 0.18);
+      color: #d6eaff;
+      border-radius: 4px;
+      padding: 0.2rem 0.6rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .page-header h1 {
+      font-size: clamp(1.45rem, 3.5vw, 2rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.85rem;
+      letter-spacing: -0.01em;
+    }
+
+    .page-header p {
+      font-size: 0.97rem;
+      color: #cce0f5;
+      max-width: 680px;
+      line-height: 1.7;
+    }
+
+    /* ── Section title ── */
+    .section-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #5a6a7e;
+      margin-bottom: 1rem;
+      padding-left: 0.15rem;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+      gap: 1.25rem;
+    }
+
+    /* ── Artifact Card ── */
+    .card {
+      background: #ffffff;
+      border: 1px solid #dde3eb;
+      border-radius: 9px;
+      padding: 1.4rem 1.5rem 1.35rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.055);
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 20px rgba(26, 58, 92, 0.13);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card Header Row ── */
+    .card-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.5rem 0.75rem;
+    }
+
+    .artifact-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      line-height: 1.3;
+    }
+
+    .artifact-name a {
+      color: #1a5fa8;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .artifact-name a:hover,
+    .artifact-name a:focus {
+      color: #0d3f78;
+      border-bottom-color: #0d3f78;
+      outline: none;
+    }
+
+    .artifact-name a:focus-visible {
+      outline: 3px solid #4a9ede;
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    .source-link {
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: #5a6a7e;
+      text-decoration: none;
+      background-color: #eef2f7;
+      border: 1px solid #cdd5df;
+      border-radius: 4px;
+      padding: 0.18rem 0.5rem;
+      white-space: nowrap;
+      transition: background-color 0.15s ease, color 0.15s ease;
+      align-self: center;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background-color: #dce6f2;
+      color: #1a3a5c;
+      outline: none;
+    }
+
+    .source-link:focus-visible {
+      outline: 3px solid #4a9ede;
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    /* ── Meta Badges ── */
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.22rem 0.55rem;
+      border-radius: 4px;
+    }
+
+    .badge-type {
+      background-color: #e8f0fb;
+      color: #1a4f9c;
+      border: 1px solid #bdd2f5;
+    }
+
+    .badge-filetype {
+      background-color: #edf7ef;
+      color: #235c2c;
+      border: 1px solid #aadcb2;
+      font-family: 'Courier New', Courier, monospace;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Description ── */
+    .card-description {
+      font-size: 0.88rem;
+      color: #3e4e62;
+      line-height: 1.7;
+      border-top: 1px solid #edf0f5;
+      padding-top: 0.65rem;
+    }
+
+    /* ── Footer ── */
+    .page-footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.78rem;
+      color: #8a97a8;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 540px) {
+      .page-header {
+        padding: 1.75rem 1.25rem 1.5rem;
+      }
+
+      .card {
+        padding: 1.15rem 1.15rem 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <!-- ── Page Header ── -->
+    <header class="page-header" role="banner">
+      <span class="course-label">COP4813</span>
+      <h1>GitHub, GitHub Pages, and Your First HTML Page</h1>
+      <p>
+        This module introduces students to version control with GitHub, repository creation, 
+        static site deployment via GitHub Pages, and the fundamentals of writing an HTML document. 
+        Explore the artifacts below to access learning materials, outlines, and resources 
+        organized for this module.
+      </p>
+    </header>
+
+    <!-- ── Artifacts Section ── -->
+    <main>
+      <p class="section-title">Module Artifacts</p>
+      <div class="card-grid" role="list">
+
+        <!-- Artifact: Module Topics -->
+        <article class="card" role="listitem" aria-label="Module Topics artifact">
+          <div class="card-header">
+            <span class="artifact-name">
+              <a href="content/module_topics.html">Module Topics</a>
+            </span>
+            <a
+              class="source-link"
+              href="source/hierarchy.json"
+              aria-label="Source file for Module Topics"
+            >source file</a>
+          </div>
+
+          <div class="card-meta">
+            <span class="badge badge-type" aria-label="Type: Module Topics">Module Topics</span>
+            <span class="badge badge-filetype" aria-label="File type: .json">.json</span>
+          </div>
+
+          <p class="card-description">
+            A structured outline of the module's learning topics — covering GitHub fundamentals, 
+            repository creation, GitHub Pages deployment, and writing a first HTML document — 
+            used by instructors to organize content sequence and by learners to preview what 
+            concepts and skills the module will teach.
+          </p>
+        </article>
+
+      </div>
+    </main>
+
+    <!-- ── Footer ── -->
+    <footer class="page-footer" role="contentinfo">
+      <p>COP4813 &mdash; GitHub, GitHub Pages, and Your First HTML Page &mdash; Course Module Index</p>
+    </footer>
+
+  </div>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics</h2><p><a href="topics.html">View Topics</a></p></section></body>
+</html>

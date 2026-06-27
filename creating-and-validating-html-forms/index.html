@@ -1,0 +1,295 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creating and Validating HTML Forms – COP4813</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f9;
+      color: #2c3e50;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── Header / Hero ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2e6da4 100%);
+      color: #ffffff;
+      padding: 3rem 2rem 2.5rem;
+      text-align: center;
+    }
+
+    header .course-label {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background-color: rgba(255, 255, 255, 0.15);
+      color: #d4e8ff;
+      border-radius: 999px;
+      padding: 0.25rem 0.85rem;
+      margin-bottom: 0.85rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 1rem;
+      line-height: 1.25;
+    }
+
+    header p.intro {
+      max-width: 680px;
+      margin: 0 auto;
+      font-size: 1rem;
+      color: #cce0f5;
+      line-height: 1.75;
+    }
+
+    /* ── Main Content ── */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    /* ── Section Heading ── */
+    .section-heading {
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #5a7a99;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #d8e4ef;
+    }
+
+    /* ── Artifact Grid ── */
+    .artifact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.4rem;
+    }
+
+    /* ── Artifact Card ── */
+    .card {
+      background: #ffffff;
+      border: 1px solid #dce8f0;
+      border-radius: 10px;
+      padding: 1.5rem 1.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      box-shadow: 0 2px 8px rgba(30, 60, 100, 0.06);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 20px rgba(30, 60, 100, 0.12);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card Header Row ── */
+    .card-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.55rem;
+    }
+
+    .card-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      line-height: 1.3;
+    }
+
+    .card-name a {
+      color: #1a5fa8;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.18s ease, color 0.18s ease;
+    }
+
+    .card-name a:hover,
+    .card-name a:focus {
+      color: #0d3f7a;
+      border-bottom-color: #0d3f7a;
+      outline: none;
+    }
+
+    .card-name a:focus-visible {
+      outline: 3px solid #4a9edd;
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    /* ── Source File Link ── */
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #5a8fbd;
+      text-decoration: none;
+      border: 1px solid #a8cbea;
+      border-radius: 999px;
+      padding: 0.15rem 0.55rem;
+      transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+      white-space: nowrap;
+      align-self: flex-start;
+    }
+
+    .source-link::before {
+      content: "⬇";
+      font-size: 0.65rem;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background-color: #deeef9;
+      color: #1a3a5c;
+      border-color: #5a8fbd;
+      outline: none;
+    }
+
+    .source-link:focus-visible {
+      outline: 3px solid #4a9edd;
+      outline-offset: 2px;
+      border-radius: 999px;
+    }
+
+    /* ── Meta Badges ── */
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border-radius: 5px;
+      padding: 0.2rem 0.55rem;
+    }
+
+    .badge-type {
+      background-color: #e8f0f9;
+      color: #2a5a8f;
+      border: 1px solid #c2d7ef;
+    }
+
+    .badge-filetype {
+      background-color: #edf7f2;
+      color: #1e6e46;
+      border: 1px solid #b2ddc8;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    /* ── Description ── */
+    .card-description {
+      font-size: 0.9rem;
+      color: #4a5f74;
+      line-height: 1.65;
+      flex-grow: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: 0.8rem;
+      color: #8fa8bf;
+      border-top: 1px solid #dce8f0;
+      background-color: #f4f6f9;
+    }
+
+    /* ── Responsive adjustments ── */
+    @media (max-width: 480px) {
+      header {
+        padding: 2.2rem 1.2rem 2rem;
+      }
+
+      main {
+        padding: 2rem 1rem 3rem;
+      }
+
+      .card {
+        padding: 1.25rem 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════ HEADER ══════════════ -->
+  <header>
+    <div class="course-label">COP4813</div>
+    <h1>Creating and Validating HTML Forms</h1>
+    <p class="intro">
+      This module covers everything you need to design, build, and validate accessible HTML forms.
+      Explore the artifacts below to navigate topics such as form structure, input types, semantic
+      labelling, fieldset grouping, client-side validation, and form submission workflows.
+    </p>
+  </header>
+
+  <!-- ══════════════ MAIN ══════════════ -->
+  <main>
+    <h2 class="section-heading">Module Artifacts</h2>
+
+    <div class="artifact-grid">
+
+      <!-- ── Card: Module Topics ── -->
+      <article class="card" aria-label="Artifact: Module Topics">
+        <div class="card-header">
+          <span class="card-name">
+            <!-- viewHref is non-empty → hyperlink -->
+            <a href="content/module_topics.html">Module Topics</a>
+          </span>
+          <!-- sourceHref is non-empty → secondary source link -->
+          <a class="source-link" href="source/hierarchy.json" aria-label="Source file for Module Topics">source file</a>
+        </div>
+
+        <div class="card-meta">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+
+        <p class="card-description">
+          Outlines the full scope of the module by listing all topics covered—including HTML form
+          structure, input types, accessibility with labels and fieldsets, and form submission—serving
+          as a navigation guide for learners and a planning reference for instructors.
+        </p>
+      </article>
+
+    </div><!-- /artifact-grid -->
+  </main>
+
+  <!-- ══════════════ FOOTER ══════════════ -->
+  <footer>
+    <p>COP4813 &mdash; Creating and Validating HTML Forms &mdash; Course Module Index</p>
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics</h2><p><a href="topics.html">View Topics</a></p></section></body>
+</html>

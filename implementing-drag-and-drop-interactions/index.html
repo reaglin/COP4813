@@ -1,0 +1,301 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Implementing Drag and Drop Interactions – COP4813</title>
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f4f6f9;
+      color: #1e2530;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── Top bar ── */
+    header {
+      background: #1a3a5c;
+      color: #ffffff;
+      padding: 0.45rem 2rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    /* ── Hero / intro ── */
+    .hero {
+      background: linear-gradient(135deg, #1a3a5c 0%, #26537f 55%, #1f7a8c 100%);
+      color: #ffffff;
+      padding: 3.5rem 2rem 3rem;
+      text-align: center;
+    }
+
+    .hero .course-label {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      padding: 0.25rem 0.85rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.7rem, 4vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 1rem;
+      line-height: 1.25;
+    }
+
+    .hero p {
+      max-width: 680px;
+      margin: 0 auto;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.7;
+    }
+
+    /* ── Main content ── */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    .section-heading {
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #5a6a7e;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-heading::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: #dde3ec;
+      border-radius: 2px;
+    }
+
+    /* ── Card grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.35rem;
+    }
+
+    /* ── Individual card ── */
+    .card {
+      background: #ffffff;
+      border: 1px solid #dde3ec;
+      border-radius: 10px;
+      padding: 1.4rem 1.5rem 1.35rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
+      position: relative;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 24px rgba(26, 58, 92, 0.1);
+      transform: translateY(-2px);
+    }
+
+    /* accent bar */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, #1f7a8c, #26537f);
+      border-radius: 10px 0 0 10px;
+    }
+
+    /* ── Card header row ── */
+    .card-header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .card-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      line-height: 1.3;
+    }
+
+    .card-name a {
+      color: #1a3a5c;
+      text-decoration: none;
+      border-bottom: 2px solid #1f7a8c;
+      padding-bottom: 1px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .card-name a:hover {
+      color: #1f7a8c;
+      border-color: #26537f;
+    }
+
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.73rem;
+      font-weight: 600;
+      color: #5a6a7e;
+      text-decoration: none;
+      background: #f0f4f8;
+      border: 1px solid #cbd3de;
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+      margin-left: 0.5rem;
+      letter-spacing: 0.02em;
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+
+    .source-link:hover {
+      background: #dde3ec;
+      color: #1a3a5c;
+    }
+
+    .source-link svg {
+      flex-shrink: 0;
+    }
+
+    /* ── Badges ── */
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      padding: 0.2rem 0.55rem;
+    }
+
+    .badge-type {
+      background: #e8f0fb;
+      color: #2255a4;
+      border: 1px solid #c2d4f5;
+    }
+
+    .badge-filetype {
+      background: #e6f6f4;
+      color: #15746a;
+      border: 1px solid #b2dcd8;
+    }
+
+    /* ── Description ── */
+    .card-desc {
+      font-size: 0.875rem;
+      color: #4a5568;
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 1.25rem 1rem 1.75rem;
+      font-size: 0.78rem;
+      color: #8a97a8;
+      border-top: 1px solid #dde3ec;
+    }
+
+    /* ── Responsive tweaks ── */
+    @media (max-width: 480px) {
+      .hero { padding: 2.5rem 1.25rem 2rem; }
+      main  { padding: 1.75rem 1rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>COP4813 &mdash; Web Applications</header>
+
+  <div class="hero">
+    <span class="course-label">COP4813 &nbsp;|&nbsp; Module</span>
+    <h1>Implementing Drag and Drop Interactions</h1>
+    <p>
+      Explore the HTML5 Drag and Drop API from the ground up — covering browser
+      compatibility, draggable elements, the full drag lifecycle, the
+      <code>DataTransfer</code> object, and hands-on interaction patterns. Use
+      the resources below to guide your learning through every stage of this
+      module.
+    </p>
+  </div>
+
+  <main>
+    <p class="section-heading">Module Artifacts</p>
+
+    <div class="card-grid">
+
+        <!-- Card: Module Topics -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-name">
+                <a href="content/module_topics.html">Module Topics</a>
+                  <a
+                    class="source-link"
+                    href="source/hierarchy.json"
+                    title="View raw source file"
+                  >
+                    <!-- small download/file icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2.2"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                      <polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                    source file
+                  </a>
+            </div>
+          </div>
+
+          <div class="badge-row">
+            <span class="badge badge-type">Module Topics</span>
+            <span class="badge badge-filetype">.json</span>
+          </div>
+
+          <p class="card-desc">
+            This file outlines the topics covered in the module, progressing from foundational HTML5 Drag and Drop API concepts and browser compatibility through making elements draggable, handling drag lifecycle events (dragstart, dragover, drop, dragend), working with the DataTransfer object, and implementing practical drag-and-drop interactions; instructors use it to structure lesson sequencing and learners use it as a roadmap of what to expect throughout the module.
+          </p>
+        </div>
+
+    </div>
+  </main>
+
+  <footer>
+    COP4813 &ndash; Implementing Drag and Drop Interactions &nbsp;&bull;&nbsp;
+    All materials are for educational use.
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics</h2><p><a href="topics.html">View Topics</a></p></section></body>
+</html>

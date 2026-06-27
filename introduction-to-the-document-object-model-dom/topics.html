@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introduction to the Document Object Model (DOM) — Module Topics</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.2rem;margin-top:28px;color:#1a3c6e}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<h1>Introduction to the Document Object Model (DOM) — Module Topics</h1>
+<h2>What is the DOM?</h2>
+<div class="summary">Introduces the Document Object Model as a concept, explaining what it is and why it exists as a bridge between HTML documents and JavaScript programming.</div>
+<ul>
+<li><strong>Defining the DOM</strong> <span class="el-body">— The Document Object Model (DOM) is a programming interface that represents an HTML document as a structured, programmable object.</span></li>
+<li><strong>Why the DOM Exists</strong> <span class="el-body">— The DOM exists to bridge the gap between a static HTML document and dynamic programming languages like JavaScript.</span></li>
+<li><strong>How Browsers Create the DOM</strong> <span class="el-body">— When a browser loads an HTML page, it parses the markup and builds the DOM in memory as a structured object model.</span></li>
+<li><strong>The DOM as a Tree Structure</strong> <span class="el-body">— The DOM organizes the objects created from an HTML document into a hierarchical tree, reflecting the nested nature of HTML markup.</span></li>
+<li><strong>The DOM as an Interface Between HTML and JavaScript</strong> <span class="el-body">— The DOM acts as the critical interface — or bridge — that allows JavaScript code to interact with the content and structure of an HTML document.</span></li>
+</ul>
+<h2>How Browsers Parse HTML into the DOM</h2>
+<div class="summary">Explains the process browsers use to read HTML markup and construct the DOM tree, including how the parsing sequence affects script execution and page rendering.</div>
+<ul>
+<li><strong>What Happens When a Browser Receives HTML</strong> <span class="el-body">— When a browser receives an HTML file from a server, it begins reading the raw markup text and converting it into a structured, in-memory representation called the DOM.</span></li>
+<li><strong>Tokenization: Breaking HTML into Meaningful Pieces</strong> <span class="el-body">— The first stage of parsing is tokenization, where the browser&#39;s HTML parser scans the character stream and groups characters into discrete tokens such as opening tags, closing tags, and text content.</span></li>
+<li><strong>Building the DOM Tree from Tokens</strong> <span class="el-body">— Once tokens are produced, the browser&#39;s tree construction algorithm arranges them into a hierarchy of parent and child nodes, forming the DOM tree.</span></li>
+<li><strong>How Parser-Blocking Scripts Affect Parsing</strong> <span class="el-body">— When the parser encounters a &lt;script&gt; tag without special attributes, it pauses HTML parsing, downloads the script if needed, executes it, and only then continues building the DOM.</span></li>
+<li><strong>The defer and async Attributes</strong> <span class="el-body">— The defer and async attributes on a &lt;script&gt; tag instruct the browser to download the script without blocking the HTML parser, though they differ in when the script actually executes.</span></li>
+<li><strong>The DOMContentLoaded Event and Parse Completion</strong> <span class="el-body">— Once the browser has finished parsing the HTML and constructing the DOM tree, it fires the DOMContentLoaded event on the document object, signaling that the DOM is ready to be accessed.</span></li>
+<li><strong>Parsing Order and Its Impact on Page Rendering</strong> <span class="el-body">— Because the browser parses HTML top to bottom, the order in which elements and resources appear in the markup directly influences how quickly content becomes visible to the user.</span></li>
+</ul>
+<h2>The DOM Tree Structure</h2>
+<div class="summary">Describes the hierarchical node-based structure of the DOM, covering the relationships between document, element, text, and attribute nodes.</div>
+<ul>
+<li><strong>What Is the DOM Tree?</strong> <span class="el-body">— The DOM (Document Object Model) represents an HTML document as a hierarchical, tree-shaped structure that browsers construct when they parse HTML.</span></li>
+<li><strong>The Document Node</strong> <span class="el-body">— The document node sits at the very top of the DOM tree and serves as the entry point to the entire document.</span></li>
+<li><strong>Element Nodes</strong> <span class="el-body">— Element nodes correspond directly to HTML tags such as &lt;html&gt;, &lt;body&gt;, &lt;p&gt;, and &lt;div&gt;, forming the primary structural building blocks of the DOM tree.</span></li>
+<li><strong>Text Nodes</strong> <span class="el-body">— Text nodes contain the actual textual content found between HTML tags and are always leaf nodes — they cannot have children of their own.</span></li>
+<li><strong>Attribute Nodes</strong> <span class="el-body">— Attribute nodes represent the attributes defined on HTML elements, such as id, class, href, or src, and are associated with their parent element node.</span></li>
+<li><strong>Parent, Child, and Sibling Relationships</strong> <span class="el-body">— The DOM tree is defined by the relationships between nodes: every node (except the document root) has exactly one parent, may have multiple children, and may have sibling nodes at the same level.</span></li>
+<li><strong>How Browsers Build the DOM Tree from HTML</strong> <span class="el-body">— Browsers parse HTML source code top-to-bottom and incrementally construct the DOM tree, translating each tag and piece of text into the appropriate node type.</span></li>
+</ul>
+<h2>Selecting DOM Elements</h2>
+<div class="summary">Covers the core vanilla JavaScript methods used to query and retrieve elements from the DOM, such as getElementById, querySelector, and querySelectorAll.</div>
+<ul>
+<li><strong>What Is DOM Selection?</strong> <span class="el-body">— DOM selection is the process of using JavaScript to locate and retrieve specific HTML elements from the DOM tree so they can be read or manipulated programmatically.</span></li>
+<li><strong>getElementById</strong> <span class="el-body">— getElementById is the most direct selection method, retrieving a single element that carries a specific &#39;id&#39; attribute value.</span></li>
+<li><strong>querySelector</strong> <span class="el-body">— querySelector retrieves the first element in the document that matches a given CSS selector string, offering flexible single-element selection.</span></li>
+<li><strong>querySelectorAll</strong> <span class="el-body">— querySelectorAll extends the querySelector approach to return every element in the document that matches the given CSS selector, collected as a NodeList.</span></li>
+<li><strong>Scoped Selection with Element References</strong> <span class="el-body">— Selection methods can be called on any Element object, not just on &#39;document&#39;, allowing you to search only within a specific part of the DOM tree.</span></li>
+<li><strong>Reading and Verifying Selection Results</strong> <span class="el-body">— After selecting an element, developers should verify the result before operating on it to prevent null-reference errors that crash scripts.</span></li>
+</ul>
+<h2>Manipulating DOM Elements</h2>
+<div class="summary">Explains how to read and modify element properties, attributes, styles, and text content using JavaScript once elements have been selected.</div>
+<ul>
+<li><strong>Reading and Writing Text Content</strong> <span class="el-body">— JavaScript provides properties to read and update the visible text inside a DOM element once it has been selected.</span></li>
+<li><strong>Modifying HTML Attributes</strong> <span class="el-body">— Attributes such as href, src, id, and alt can be read and changed programmatically through dedicated DOM methods.</span></li>
+<li><strong>Working with the classList API</strong> <span class="el-body">— The classList property exposes a set of methods that make adding, removing, and toggling CSS classes straightforward without overwriting existing ones.</span></li>
+<li><strong>Directly Modifying Inline Styles</strong> <span class="el-body">— Each DOM element exposes a style property that maps to its inline CSS declarations, allowing individual style rules to be set via JavaScript.</span></li>
+<li><strong>Reading Computed Styles</strong> <span class="el-body">— To determine the actual rendered style of an element—including styles inherited from stylesheets—use the getComputedStyle method.</span></li>
+<li><strong>Getting and Setting Element Properties</strong> <span class="el-body">— Beyond attributes, DOM elements expose a range of JavaScript properties that directly reflect characteristics of the element object itself.</span></li>
+</ul>
+<h2>Adding and Removing DOM Nodes</h2>
+<div class="summary">Demonstrates how to dynamically create new elements, insert them into the DOM tree, and remove existing nodes using JavaScript methods.</div>
+<ul>
+<li><strong>Creating New Elements with createElement()</strong> <span class="el-body">— JavaScript provides the document.createElement() method to dynamically generate new HTML elements in memory before they are added to the page.</span></li>
+<li><strong>Setting Content and Attributes on New Nodes</strong> <span class="el-body">— Before inserting a newly created element, you typically populate it with text content or set attributes to make it meaningful and functional.</span></li>
+<li><strong>Inserting Nodes with appendChild() and append()</strong> <span class="el-body">— Once an element is created, it must be inserted into the existing DOM tree using methods such as appendChild() or the newer append().</span></li>
+<li><strong>Inserting Nodes at Specific Positions with insertBefore() and insertAdjacentElement()</strong> <span class="el-body">— When precise placement within a parent is required, JavaScript offers methods to insert nodes at specific positions rather than always at the end.</span></li>
+<li><strong>Removing Nodes with removeChild() and remove()</strong> <span class="el-body">— JavaScript allows existing DOM nodes to be deleted from the document tree using removeChild() on the parent or the simpler remove() method called directly on the target element.</span></li>
+<li><strong>Cloning Nodes with cloneNode()</strong> <span class="el-body">— The cloneNode() method creates a copy of an existing DOM node, which can then be inserted elsewhere in the tree without affecting the original element.</span></li>
+<li><strong>Replacing Nodes with replaceChild() and replaceWith()</strong> <span class="el-body">— Existing nodes can be swapped out for new ones using replaceChild() on the parent element or the modern replaceWith() method called on the node being replaced.</span></li>
+</ul>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

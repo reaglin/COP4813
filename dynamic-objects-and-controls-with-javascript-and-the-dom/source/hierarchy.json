@@ -1,0 +1,1250 @@
+{
+  "ModuleFolderName": "Dynamic_Objects_and",
+  "CourseName": "COP4813",
+  "GeneratedDate": "2026-06-26T21:56:47.1076095-04:00",
+  "ModifiedDate": "2026-06-26T21:59:24.3244634-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "b9c22cc3-d14d-4358-8ae1-6ba45edf62a4",
+      "Title": "Introduction to the DOM and Dynamic Manipulation",
+      "Summary": "Introduces the Document Object Model as a programmable interface and establishes the foundation for dynamically interacting with HTML elements using JavaScript at runtime.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-06-26T21:56:47.1076095-04:00",
+      "ModifiedDate": "2026-06-26T21:56:47.1076095-04:00",
+      "Elements": [
+        {
+          "Id": "2f759d43-c2d9-4be2-862e-bc1fdebaa72e",
+          "TopicId": "b9c22cc3-d14d-4358-8ae1-6ba45edf62a4",
+          "Title": "What is the Document Object Model (DOM)?",
+          "BodyText": "The DOM is a programming interface provided by the browser that represents an HTML document as a structured tree of objects.",
+          "Notes": "Think of the DOM as a live map of your webpage \u2014 every tag, attribute, and piece of text becomes a node in this tree that JavaScript can read and modify.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:57:13.1638513-04:00",
+          "ModifiedDate": "2026-06-26T21:57:13.1638513-04:00",
+          "Items": [
+            {
+              "Id": "7064fd4b-4337-4ded-8f9c-08b9927be735",
+              "Text": "The browser parses HTML and constructs the DOM tree automatically when a page loads.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "cad60285-e568-4977-9a5f-638b63de9c1c",
+              "Text": "Each HTML element becomes a \u0027node\u0027 object with properties and methods JavaScript can access.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "384bb6c3-ef9d-4520-be59-296a09732254",
+              "Text": "The DOM is language-agnostic but is most commonly manipulated using JavaScript in web browsers.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "62a86614-8563-41b2-a498-f5cc3e41c976",
+              "Text": "Changes made to the DOM are reflected immediately in the rendered page without reloading.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "56a30f7f-1271-4e8f-9652-abb3c2d945e9",
+          "TopicId": "b9c22cc3-d14d-4358-8ae1-6ba45edf62a4",
+          "Title": "The DOM as a Programmable Interface",
+          "BodyText": "Beyond representing page structure, the DOM exposes a rich API that allows scripts to query, read, and alter every aspect of the document at runtime.",
+          "Notes": "The DOM API is standardized by the W3C, meaning the core methods behave consistently across modern browsers.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:57:13.1638513-04:00",
+          "ModifiedDate": "2026-06-26T21:57:13.1638513-04:00",
+          "Items": [
+            {
+              "Id": "a81887c3-a8e1-4cdb-bec9-fe31df166cd4",
+              "Text": "The DOM API includes methods for finding elements, changing content, modifying styles, and responding to user events.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7102e9e1-0206-4e73-9a7a-226ebee180bf",
+              "Text": "JavaScript interacts with the DOM through the global \u0027document\u0027 object, which serves as the entry point to the entire tree.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "12a5ff2a-9d6a-42ac-be79-64a921fd6afc",
+              "Text": "Runtime manipulation means changes happen after the page has loaded, enabling truly dynamic user experiences.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "d8bcc44d-a313-4b23-9fbc-8a1a1070948a",
+          "TopicId": "b9c22cc3-d14d-4358-8ae1-6ba45edf62a4",
+          "Title": "The DOM Tree Structure",
+          "BodyText": "HTML documents are represented in the DOM as a hierarchical tree where nodes have parent, child, and sibling relationships.",
+          "Notes": "For example, an \u003Cul\u003E element is the parent node of its \u003Cli\u003E children; the \u003Cli\u003E elements are siblings to each other.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:57:13.1638513-04:00",
+          "ModifiedDate": "2026-06-26T21:57:13.1638513-04:00",
+          "Items": [
+            {
+              "Id": "8ccbfd39-72ba-46d8-b059-a58f6053a11e",
+              "Text": "The root of every DOM tree is the \u0027document\u0027 node, with \u0027html\u0027 as its first child element node.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6f6c4d8e-23b0-4569-86c1-8f6974614272",
+              "Text": "Element nodes, text nodes, and attribute nodes are the three most commonly manipulated node types.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d2757ba9-bcd8-47c3-a591-98e690122422",
+              "Text": "Understanding parent-child relationships is essential for navigating and restructuring the DOM dynamically.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "5d190cf8-c024-466b-a54c-d0bafb7b2865",
+              "Text": "Traversal properties such as parentNode, childNodes, firstChild, and nextSibling allow movement through the tree.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "c070bee3-64e2-4708-bae6-eee169e5674d",
+          "TopicId": "b9c22cc3-d14d-4358-8ae1-6ba45edf62a4",
+          "Title": "Accessing Elements with JavaScript",
+          "BodyText": "Before any dynamic manipulation can occur, JavaScript must first locate the target element within the DOM tree.",
+          "Notes": "Modern best practice favors querySelector and querySelectorAll because they accept standard CSS selector syntax, making them flexible and readable.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:57:13.1638513-04:00",
+          "ModifiedDate": "2026-06-26T21:57:13.1638513-04:00",
+          "Items": [
+            {
+              "Id": "42a0a340-94c1-4923-9477-2f7009981fba",
+              "Text": "document.getElementById() retrieves a single element by its unique id attribute.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "34c0f714-6478-4168-b068-b2c273833c1c",
+              "Text": "document.querySelector() returns the first element matching a CSS selector string.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1bcd45c5-52e9-4361-8719-0ef474bfaa2b",
+              "Text": "document.querySelectorAll() returns a NodeList of all elements matching the given CSS selector.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "2fcdc685-ec0b-4a53-9f8f-feaeffbff417",
+              "Text": "The returned objects are live references \u2014 changes made through them update the actual page immediately.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "0e8d8ae7-0cb1-43a4-84dc-c5d864605f19",
+          "TopicId": "b9c22cc3-d14d-4358-8ae1-6ba45edf62a4",
+          "Title": "Reading and Modifying Element Content",
+          "BodyText": "Once an element is selected, JavaScript can both read its current content and overwrite it dynamically using built-in properties.",
+          "Notes": "Use textContent when you only need to work with plain text to avoid unintended HTML injection security risks.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:57:13.1638513-04:00",
+          "ModifiedDate": "2026-06-26T21:57:13.1638513-04:00",
+          "Items": [
+            {
+              "Id": "219bf8d1-38d3-4c63-ab8b-b46a5d3ac267",
+              "Text": "The \u0027innerHTML\u0027 property gets or sets the HTML markup contained within an element, including nested tags.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c5794f1c-58ff-451c-843d-be09b4e997af",
+              "Text": "The \u0027textContent\u0027 property gets or sets only the plain text content, ignoring any HTML markup.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6bf27e4d-3717-4eb5-b277-a672330cd362",
+              "Text": "Assigning a new value to either property instantly updates what the user sees in the browser.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "71ce94ea-970b-4463-99b3-9bad3cf592e1",
+              "Text": "Reading these properties before modifying them is a common pattern for appending to existing content.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "550f3d2a-16da-4279-9e5b-82e8e4f72199",
+          "TopicId": "b9c22cc3-d14d-4358-8ae1-6ba45edf62a4",
+          "Title": "Dynamic vs. Static Web Pages",
+          "BodyText": "Understanding the distinction between static and dynamic content is the conceptual foundation for everything covered in DOM manipulation.",
+          "Notes": "Early websites delivered fully static HTML; modern applications rely heavily on JavaScript DOM manipulation to update content without server round-trips.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:57:13.1638513-04:00",
+          "ModifiedDate": "2026-06-26T21:57:13.1638513-04:00",
+          "Items": [
+            {
+              "Id": "3177fee8-5563-48e2-8e0a-d7ed10c5eff5",
+              "Text": "A static page displays fixed content that only changes when the server sends a new HTML file.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2fc8dafc-2d1a-4c1b-9749-f7e7896e7751",
+              "Text": "A dynamic page uses JavaScript to modify the DOM after load, updating content, structure, or styles in real time.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "359d4d2a-63d6-40d9-98d5-e35e3ddc2168",
+              "Text": "DOM manipulation enables interactive UI controls \u2014 such as tabs, modals, and live form validation \u2014 built entirely in JavaScript.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "135db7c6-a898-4285-8d7c-4af6cf12b68e",
+              "Text": "This runtime interaction is what distinguishes a modern web application from a simple document.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "9cf29ef7-e2fd-458b-9cbe-b1afca60d5ee",
+          "TopicId": "b9c22cc3-d14d-4358-8ae1-6ba45edf62a4",
+          "Title": "The Role of JavaScript at Runtime",
+          "BodyText": "JavaScript executes in the browser after the HTML has been parsed, giving it direct access to the fully constructed DOM to create, modify, or remove elements on demand.",
+          "Notes": "Scripts placed at the end of the \u003Cbody\u003E or loaded with the \u0027defer\u0027 attribute ensure the DOM is fully built before the script runs.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:57:13.1638513-04:00",
+          "ModifiedDate": "2026-06-26T21:57:13.1638513-04:00",
+          "Items": [
+            {
+              "Id": "61d33717-80d5-4229-bb6e-a6be05207a13",
+              "Text": "Runtime execution means JavaScript responds to events, timers, or data changes to update the page without a reload.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fcf2257e-39d7-4c3c-9831-9510f01553d2",
+              "Text": "The browser\u0027s JavaScript engine and its DOM API work together, allowing scripts to bridge logic and visual presentation.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "aafe2e75-596d-474f-a248-10d1b29444e6",
+              "Text": "Dynamically created elements \u2014 built entirely in JavaScript \u2014 can be inserted into the DOM tree just like hard-coded HTML elements.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "0259d534-576e-47ec-bd4d-8a2d023852cd",
+              "Text": "This capability is the basis for building interactive controls such as buttons, dropdowns, and dynamic lists through code alone.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "5d7aa1dc-6dea-4d49-b212-243d17493ead",
+      "Title": "Creating and Inserting HTML Elements Dynamically",
+      "Summary": "Covers JavaScript methods for programmatically creating new HTML elements and inserting them into the DOM at specified locations within a webpage.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-06-26T21:56:47.1076095-04:00",
+      "ModifiedDate": "2026-06-26T21:56:47.1076095-04:00",
+      "Elements": [
+        {
+          "Id": "1fef7afb-a10d-4a11-85db-db9769cc94c2",
+          "TopicId": "5d7aa1dc-6dea-4d49-b212-243d17493ead",
+          "Title": "The createElement() Method",
+          "BodyText": "The document.createElement() method is the primary way to programmatically generate new HTML elements in JavaScript without writing static HTML.",
+          "Notes": "For example, document.createElement(\u0027div\u0027) creates a new \u003Cdiv\u003E element in memory, and document.createElement(\u0027button\u0027) creates a new button \u2014 neither appears on the page until explicitly inserted.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:57:36.5197112-04:00",
+          "ModifiedDate": "2026-06-26T21:57:36.5197112-04:00",
+          "Items": [
+            {
+              "Id": "e1ec0fcb-835d-4378-a674-11ca915d0974",
+              "Text": "Pass a valid HTML tag name as a string argument, such as \u0027p\u0027, \u0027ul\u0027, or \u0027input\u0027, to create the corresponding element.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "df322c94-dad0-42bc-ae5d-fa3b47b16ee9",
+              "Text": "The newly created element exists only in memory as a detached node and is not yet part of the live DOM.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0144f8b5-9791-452b-b798-68fb468596bb",
+              "Text": "You can set properties like id, className, textContent, or attributes on the element before inserting it into the page.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "255b5bf3-9ffc-4d3f-a606-a3768a07e0ba",
+          "TopicId": "5d7aa1dc-6dea-4d49-b212-243d17493ead",
+          "Title": "Setting Content and Attributes Before Insertion",
+          "BodyText": "Before inserting a new element into the DOM, it is best practice to configure its content, attributes, and styles so it renders correctly the moment it appears.",
+          "Notes": "Example: const btn = document.createElement(\u0027button\u0027); btn.textContent = \u0027Click Me\u0027; btn.setAttribute(\u0027id\u0027, \u0027myBtn\u0027); btn.classList.add(\u0027highlight\u0027);",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:57:36.5197112-04:00",
+          "ModifiedDate": "2026-06-26T21:57:36.5197112-04:00",
+          "Items": [
+            {
+              "Id": "12308e82-533b-4bbb-a76f-3dc2b1ece270",
+              "Text": "Use the textContent or innerHTML property to set the visible text or inner markup of the new element.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "531c6f6e-00e8-44f7-8ee6-d49d524f4fa0",
+              "Text": "Use setAttribute(name, value) to assign HTML attributes such as href, src, type, or data-* attributes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d57567e1-97fa-4a74-aec2-ae2de3ed1824",
+              "Text": "Apply CSS classes with classList.add() or inline styles via the style property to control appearance before the element is visible.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "c413fe82-7131-4349-9fae-f18047417c54",
+          "TopicId": "5d7aa1dc-6dea-4d49-b212-243d17493ead",
+          "Title": "Inserting Elements with appendChild()",
+          "BodyText": "The appendChild() method attaches a newly created element as the last child of a specified parent node, making it visible in the DOM.",
+          "Notes": "Example: document.getElementById(\u0027container\u0027).appendChild(newElement); \u2014 this places newElement at the end of the container\u0027s children. If the element already exists elsewhere in the DOM, it is moved rather than duplicated.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:57:36.5197112-04:00",
+          "ModifiedDate": "2026-06-26T21:57:36.5197112-04:00",
+          "Items": [
+            {
+              "Id": "8c4fa348-f462-4f3e-81a0-23e7fb26d8ad",
+              "Text": "Select the target parent element using a method such as getElementById() or querySelector() before calling appendChild().",
+              "SortOrder": 0
+            },
+            {
+              "Id": "06a1956b-e267-4c12-b4c0-f46b68479424",
+              "Text": "The new element is added after all existing children of the parent, appearing at the bottom of the parent\u0027s content.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "826d4b6d-2ab2-4bc2-acb7-9af51b741c30",
+              "Text": "appendChild() returns the appended child node, which can be captured in a variable for further manipulation.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "702d745c-9111-413a-8b1f-65ada780dd20",
+          "TopicId": "5d7aa1dc-6dea-4d49-b212-243d17493ead",
+          "Title": "Inserting Elements with insertBefore()",
+          "BodyText": "The insertBefore() method gives precise control over placement by inserting a new node before a specified reference child node within a parent.",
+          "Notes": "Syntax: parentNode.insertBefore(newNode, referenceNode); If referenceNode is null, insertBefore() behaves like appendChild() and adds the element at the end.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:57:36.5197112-04:00",
+          "ModifiedDate": "2026-06-26T21:57:36.5197112-04:00",
+          "Items": [
+            {
+              "Id": "9ab921a3-e93d-4d0b-b12f-ff2828a9554c",
+              "Text": "You must have a reference to both the parent node and the specific sibling node you want the new element to precede.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d199049b-9321-4c99-95f9-56c5665c2f2b",
+              "Text": "This method is useful when elements must appear in a particular order, such as inserting a list item at a specific position.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "297b47aa-8ab7-4c63-8a19-97ad00ad36a8",
+              "Text": "Passing null as the reference node is a valid fallback that appends the new element to the end of the parent.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "935aeb39-36f7-4dee-941a-4bc504c009c0",
+          "TopicId": "5d7aa1dc-6dea-4d49-b212-243d17493ead",
+          "Title": "Modern Insertion Methods: insertAdjacentElement() and append()",
+          "BodyText": "Modern JavaScript provides additional flexible insertion methods that simplify placing elements at various positions relative to a target element.",
+          "Notes": "insertAdjacentElement() uses position strings: \u0027beforebegin\u0027, \u0027afterbegin\u0027, \u0027beforeend\u0027, and \u0027afterend\u0027 to describe placement relative to the target element.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:57:36.5197112-04:00",
+          "ModifiedDate": "2026-06-26T21:57:36.5197112-04:00",
+          "Items": [
+            {
+              "Id": "e1f7da54-2e51-4786-8fbb-3bfcff01e51f",
+              "Text": "The append() method, unlike appendChild(), can accept multiple nodes or strings in a single call and does not return the appended node.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "04dcc96f-ec6d-4b48-9002-0b2c6cc33dcb",
+              "Text": "insertAdjacentElement(position, element) allows insertion outside the target element (as a sibling) as well as inside it (as a child), offering four distinct positions.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "82184919-fe73-4dcd-a3e0-96eae2b99535",
+              "Text": "prepend() inserts one or more nodes before the first child of a parent element, acting as the complement to append().",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "f09ce725-c9e9-448c-86d9-faeaec1da754",
+          "TopicId": "5d7aa1dc-6dea-4d49-b212-243d17493ead",
+          "Title": "Building and Inserting Nested Element Structures",
+          "BodyText": "Dynamic UI components often require creating multiple related elements and assembling them into a nested structure before inserting the entire tree into the DOM.",
+          "Notes": "For example, building a list involves creating a \u003Cul\u003E, then creating each \u003Cli\u003E with createElement(), appending each \u003Cli\u003E to the \u003Cul\u003E, and finally appending the completed \u003Cul\u003E to the page \u2014 resulting in a single DOM reflow.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:57:36.5197112-04:00",
+          "ModifiedDate": "2026-06-26T21:57:36.5197112-04:00",
+          "Items": [
+            {
+              "Id": "dd7531e1-7678-4639-a58f-27b2c915ff0b",
+              "Text": "Create each child element separately with createElement(), configure it, then use appendChild() or append() to attach it to its parent element in memory.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c641cc6d-cdef-43c8-8b97-72092b235796",
+              "Text": "Assembling the full structure before inserting it into the live DOM is more performant because it minimizes the number of DOM reflows and repaints.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1c230f9d-560c-4c3d-b72a-92566d02f41d",
+              "Text": "This pattern \u2014 build first, then insert \u2014 is a foundational technique for dynamically rendering lists, cards, forms, and other composite components.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "a62661a1-602b-4518-86a7-bbd0b1a9ce2b",
+      "Title": "Modifying Existing Elements and Their Properties",
+      "Summary": "Explores techniques for reading and updating element attributes, styles, classes, and content to change the appearance and behavior of existing DOM nodes at runtime.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-06-26T21:56:47.1076095-04:00",
+      "ModifiedDate": "2026-06-26T21:56:47.1076095-04:00",
+      "Elements": [
+        {
+          "Id": "f1e0bc34-a895-497b-a242-b3031a920385",
+          "TopicId": "a62661a1-602b-4518-86a7-bbd0b1a9ce2b",
+          "Title": "Reading and Writing Element Attributes",
+          "BodyText": "Attributes such as \u0060id\u0060, \u0060src\u0060, \u0060href\u0060, and \u0060alt\u0060 can be read or updated at runtime using JavaScript\u0027s built-in attribute methods.",
+          "Notes": "Use \u0060getAttribute(\u0027attr\u0027)\u0060 to read a current value and \u0060setAttribute(\u0027attr\u0027, value)\u0060 to change it. To remove an attribute entirely, use \u0060removeAttribute(\u0027attr\u0027)\u0060.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:58:06.5395106-04:00",
+          "ModifiedDate": "2026-06-26T21:58:06.5395106-04:00",
+          "Items": [
+            {
+              "Id": "da4e6c90-f67a-4f4a-94e2-e63cf15cab30",
+              "Text": "\u0060element.getAttribute(\u0027src\u0027)\u0060 returns the current value of the \u0060src\u0060 attribute without modifying it.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1d914f45-05d8-42d5-8e47-c9c30acb19ff",
+              "Text": "\u0060element.setAttribute(\u0027href\u0027, \u0027https://example.com\u0027)\u0060 updates or adds the specified attribute on the element.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c5bbd633-3b51-47ba-a2e4-8ba0d7df21f8",
+              "Text": "\u0060element.removeAttribute(\u0027disabled\u0027)\u0060 removes the attribute from the element, which can re-enable a form control.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "7100586d-7c73-4497-87c6-763132265b98",
+              "Text": "Direct property access (e.g., \u0060element.id = \u0027newId\u0027\u0060) is a shorthand alternative for reflected IDL attributes.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "55909022-4cf3-42fc-a239-1ca57b84f482",
+          "TopicId": "a62661a1-602b-4518-86a7-bbd0b1a9ce2b",
+          "Title": "Modifying Inline Styles",
+          "BodyText": "The \u0060style\u0060 property on a DOM element provides direct access to that element\u0027s inline CSS declarations, allowing precise visual changes at runtime.",
+          "Notes": "CSS property names are written in camelCase in JavaScript (e.g., \u0060backgroundColor\u0060 instead of \u0060background-color\u0060). Inline styles override stylesheet rules due to high specificity.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:58:06.5395106-04:00",
+          "ModifiedDate": "2026-06-26T21:58:06.5395106-04:00",
+          "Items": [
+            {
+              "Id": "9d84da15-9249-4401-8372-ab4736896ff7",
+              "Text": "\u0060element.style.color = \u0027red\u0027\u0060 sets the text color as an inline style directly on the element.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3e0758b2-9bc6-4cc5-a8a6-4d8b4578bebb",
+              "Text": "\u0060element.style.display = \u0027none\u0027\u0060 hides an element, while setting it to \u0060\u0027block\u0027\u0060 or \u0060\u0027flex\u0027\u0060 makes it visible again.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "43cd8bfd-1d51-414b-8284-8aa85fca848d",
+              "Text": "Setting \u0060element.style.cssText = \u0027color: red; font-size: 16px;\u0027\u0060 applies multiple declarations at once by replacing the entire inline style string.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9ea4889b-87c6-45fd-8bee-6bfcc37162ce",
+              "Text": "Reading \u0060element.style.propertyName\u0060 only reflects inline styles, not computed styles from external stylesheets.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "c58bae68-b593-4bc5-8828-70548238ab83",
+          "TopicId": "a62661a1-602b-4518-86a7-bbd0b1a9ce2b",
+          "Title": "Reading Computed Styles",
+          "BodyText": "\u0060window.getComputedStyle(element)\u0060 retrieves the final, resolved styles applied to an element after all stylesheets and inline rules are combined.",
+          "Notes": "This is useful when you need to read a style value that was set via a CSS class rather than an inline rule, such as checking the current width or color defined in a stylesheet.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:58:06.5395106-04:00",
+          "ModifiedDate": "2026-06-26T21:58:06.5395106-04:00",
+          "Items": [
+            {
+              "Id": "157f500d-e966-4393-9af7-60459df63b10",
+              "Text": "\u0060getComputedStyle(element).getPropertyValue(\u0027font-size\u0027)\u0060 returns the actual font size as rendered by the browser.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "946d0443-094c-434d-9b5b-2d2033f78b85",
+              "Text": "Computed styles are read-only; you cannot set values through the object returned by \u0060getComputedStyle\u0060.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "71f3b28e-000f-4970-b816-e0753bc6307f",
+              "Text": "Values are always returned in absolute units (e.g., pixels), even if the original CSS used relative units like \u0060em\u0060 or \u0060%\u0060.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "17b83faf-75ec-4870-aa36-cf6075be6c8e",
+          "TopicId": "a62661a1-602b-4518-86a7-bbd0b1a9ce2b",
+          "Title": "Manipulating CSS Classes",
+          "BodyText": "The \u0060classList\u0060 API provides methods to add, remove, toggle, and check CSS classes on an element, making it easy to apply pre-defined style rules dynamically.",
+          "Notes": "Using classes instead of inline styles keeps styling concerns in CSS and logic in JavaScript, which improves maintainability and supports cleaner separation of concerns.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:58:06.5395106-04:00",
+          "ModifiedDate": "2026-06-26T21:58:06.5395106-04:00",
+          "Items": [
+            {
+              "Id": "26b8f8ea-6c72-43e4-9454-bbea5d5d74cd",
+              "Text": "\u0060element.classList.add(\u0027active\u0027)\u0060 appends the class to the element without affecting existing classes.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5c12c414-2167-480f-8ee2-3917c926caf7",
+              "Text": "\u0060element.classList.remove(\u0027hidden\u0027)\u0060 removes a specific class while leaving all other classes intact.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e9aacf25-4ac7-4f53-a4ae-332ca4d5763e",
+              "Text": "\u0060element.classList.toggle(\u0027open\u0027)\u0060 adds the class if absent or removes it if present, ideal for show/hide or expand/collapse interactions.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "dc26acb6-bac6-4f84-8f5b-3b25e3fd03a8",
+              "Text": "\u0060element.classList.contains(\u0027selected\u0027)\u0060 returns \u0060true\u0060 or \u0060false\u0060, useful for conditional logic based on element state.",
+              "SortOrder": 3
+            },
+            {
+              "Id": "1f7e0019-b106-4073-a867-888581c14f7f",
+              "Text": "\u0060element.classList.replace(\u0027old-class\u0027, \u0027new-class\u0027)\u0060 swaps one class for another in a single operation.",
+              "SortOrder": 4
+            }
+          ]
+        },
+        {
+          "Id": "124d3bd7-8ab0-4330-8151-8e8869f00573",
+          "TopicId": "a62661a1-602b-4518-86a7-bbd0b1a9ce2b",
+          "Title": "Updating Text and HTML Content",
+          "BodyText": "An element\u0027s visible text and inner markup can be read or replaced at runtime through the \u0060textContent\u0060, \u0060innerText\u0060, and \u0060innerHTML\u0060 properties.",
+          "Notes": "Prefer \u0060textContent\u0060 over \u0060innerHTML\u0060 when inserting plain text to avoid cross-site scripting (XSS) vulnerabilities, since \u0060textContent\u0060 treats the value as a literal string rather than markup.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:58:06.5395106-04:00",
+          "ModifiedDate": "2026-06-26T21:58:06.5395106-04:00",
+          "Items": [
+            {
+              "Id": "aa62581d-1d8b-4046-9144-a7cd7adb880e",
+              "Text": "\u0060element.textContent = \u0027Hello World\u0027\u0060 replaces all child nodes with a single text node containing the given string.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "bf26c836-3da0-46b9-acde-1f9a45bfbb7b",
+              "Text": "\u0060element.innerText\u0060 is similar to \u0060textContent\u0060 but respects CSS visibility and returns only rendered text, making it slightly slower.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "925e1818-35c5-44fc-a2a4-aba2e0d09ce0",
+              "Text": "\u0060element.innerHTML = \u0027\u003Cstrong\u003EBold\u003C/strong\u003E\u0027\u0060 parses the string as HTML and replaces the element\u0027s children with the resulting nodes.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "900dc616-fdf3-40ef-9357-31343be05c11",
+              "Text": "Reading \u0060element.innerHTML\u0060 returns the serialized HTML of all child nodes, which can be used to inspect or clone markup.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "73af5d63-4dd4-4fbd-ab01-ce01741e9013",
+          "TopicId": "a62661a1-602b-4518-86a7-bbd0b1a9ce2b",
+          "Title": "Modifying Element Properties Directly",
+          "BodyText": "Many HTML attributes are reflected as JavaScript properties on the element object, allowing direct property assignment as a concise alternative to \u0060setAttribute\u0060.",
+          "Notes": "Reflected properties and attributes are usually kept in sync, but there are subtle differences\u2014for example, \u0060input.value\u0060 reflects the current live value while \u0060getAttribute(\u0027value\u0027)\u0060 returns the original default value.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:58:06.5395106-04:00",
+          "ModifiedDate": "2026-06-26T21:58:06.5395106-04:00",
+          "Items": [
+            {
+              "Id": "b9864361-2dd4-4873-8c4e-d364c42eccbf",
+              "Text": "\u0060inputElement.value = \u0027Default text\u0027\u0060 sets the current value of a text input field directly through its property.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fe07ff5a-ae41-4094-8d77-0cda126c249a",
+              "Text": "\u0060imageElement.src = \u0027new-image.png\u0027\u0060 updates the image source, causing the browser to immediately fetch and display the new image.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e43a5f02-9c30-4d92-a87b-a688c3fefb49",
+              "Text": "\u0060buttonElement.disabled = true\u0060 disables the button, preventing user interaction, while setting it to \u0060false\u0060 re-enables it.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "dcc5c1a0-72e0-4730-9eea-3aea3c33174b",
+              "Text": "\u0060anchorElement.href = \u0027/new-page\u0027\u0060 changes the navigation destination of a link without needing \u0060setAttribute\u0060.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "98ae58bc-4f8c-4f4d-9082-bc29ef4b1f7c",
+          "TopicId": "a62661a1-602b-4518-86a7-bbd0b1a9ce2b",
+          "Title": "Changing Element Dimensions and Position via Style",
+          "BodyText": "Width, height, margin, padding, and positioning can all be set through the \u0060style\u0060 property to programmatically control layout and placement of elements.",
+          "Notes": "When setting numeric dimension values, always include a unit string (e.g., \u0060\u0027200px\u0027\u0060 or \u0060\u002750%\u0027\u0060). Omitting the unit will cause the style to be silently ignored in most browsers.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:58:06.5395106-04:00",
+          "ModifiedDate": "2026-06-26T21:58:06.5395106-04:00",
+          "Items": [
+            {
+              "Id": "96020ebf-c9ec-4fdb-a30f-e14e00f246fa",
+              "Text": "\u0060element.style.width = \u0027300px\u0027\u0060 and \u0060element.style.height = \u0027150px\u0027\u0060 set explicit dimensions on an element.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1eab8635-89b3-4f5d-9d18-6937c48599e0",
+              "Text": "\u0060element.style.position = \u0027absolute\u0027\u0060 combined with \u0060element.style.top\u0060 and \u0060element.style.left\u0060 controls precise placement within a positioned ancestor.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "61b91703-9565-460d-ae95-74b0cb1f7383",
+              "Text": "\u0060element.style.transform = \u0027translateX(100px)\u0027\u0060 moves an element using a CSS transform, which is GPU-accelerated and does not trigger layout reflow.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a9855e68-f7fc-4e80-85aa-b7b802715abd",
+              "Text": "Setting \u0060element.style.margin = \u0027auto\u0027\u0060 can be used to horizontally center a block element with a defined width.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "80a7241a-8e00-4389-b53c-746d7b0e8f69",
+      "Title": "Removing Elements from the DOM",
+      "Summary": "Explains how to programmatically remove HTML elements and their child nodes from the document, including best practices for clean and safe removal.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-06-26T21:56:47.1076095-04:00",
+      "ModifiedDate": "2026-06-26T21:56:47.1076095-04:00",
+      "Elements": [
+        {
+          "Id": "1922c7cd-ebd8-4af5-b64e-9f9dd7162106",
+          "TopicId": "80a7241a-8e00-4389-b53c-746d7b0e8f69",
+          "Title": "The removeChild() Method",
+          "BodyText": "The removeChild() method removes a specified child node from a parent element in the DOM.",
+          "Notes": "You must have a reference to the parent node to use removeChild(). Example: parentElement.removeChild(childElement);",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:58:26.8662848-04:00",
+          "ModifiedDate": "2026-06-26T21:58:26.8662848-04:00",
+          "Items": [
+            {
+              "Id": "ca00470e-53d6-4554-9ef1-e2b00b4de97b",
+              "Text": "removeChild() requires calling the method on the parent node, passing the target child node as an argument.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7f7877de-8478-4660-82e4-05147862b1bb",
+              "Text": "The removed node is returned by the method, allowing you to store it in a variable for later reuse if needed.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "166a409b-15d5-4ff6-be17-e90020669914",
+              "Text": "Attempting to call removeChild() with a node that is not a child of the specified parent will throw a NotFoundError.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "a1d72bd1-1b80-4ae7-b92d-e2e470be1959",
+          "TopicId": "80a7241a-8e00-4389-b53c-746d7b0e8f69",
+          "Title": "The remove() Method",
+          "BodyText": "The modern remove() method allows an element to remove itself directly from the DOM without needing an explicit reference to its parent.",
+          "Notes": "Example: element.remove(); This is cleaner and more concise than removeChild() for most use cases.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:58:26.8662848-04:00",
+          "ModifiedDate": "2026-06-26T21:58:26.8662848-04:00",
+          "Items": [
+            {
+              "Id": "e915e430-4e7c-43ca-8c88-14d8442c39ab",
+              "Text": "remove() is called directly on the element you want to delete, making the code more readable and concise.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f60d112a-b4cd-4861-b5c9-ab37d7a6be84",
+              "Text": "Unlike removeChild(), remove() does not return the removed node.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a1391a62-ccdf-48e2-8b11-4f575902b7b1",
+              "Text": "This method is widely supported in modern browsers but was not available in older browsers like Internet Explorer.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "6e1411f0-5ce6-42e2-bd16-2ee1da191b84",
+          "TopicId": "80a7241a-8e00-4389-b53c-746d7b0e8f69",
+          "Title": "Removing All Child Nodes",
+          "BodyText": "To clear all children from a parent element, you can loop through its child nodes and remove them one by one, or use efficient shorthand techniques.",
+          "Notes": "Setting innerHTML to an empty string (element.innerHTML = \u0027\u0027) is a quick but less precise approach; using a while loop with removeChild is safer for memory management.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:58:26.8662848-04:00",
+          "ModifiedDate": "2026-06-26T21:58:26.8662848-04:00",
+          "Items": [
+            {
+              "Id": "9e101043-3cd8-42e8-a989-05462fc2778d",
+              "Text": "A common pattern is a while loop: while (parent.firstChild) { parent.removeChild(parent.firstChild); }",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d92ea0ed-37cc-41fd-84f4-5df14b6af3e7",
+              "Text": "Setting innerHTML to an empty string removes visual content quickly but may leave orphaned event listeners attached to removed nodes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0d485a08-db3f-4bdd-bdd0-999a87b5bba7",
+              "Text": "Using replaceChildren() with no arguments is a modern, clean alternative that removes all child nodes at once.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "1bae0718-f249-4103-8c75-6ce4c09aedb9",
+          "TopicId": "80a7241a-8e00-4389-b53c-746d7b0e8f69",
+          "Title": "Selecting the Target Element Before Removal",
+          "BodyText": "Before removing an element, you must obtain a valid reference to it using DOM selection methods such as getElementById or querySelector.",
+          "Notes": "Always verify the element exists before attempting removal to avoid runtime errors.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:58:26.8662848-04:00",
+          "ModifiedDate": "2026-06-26T21:58:26.8662848-04:00",
+          "Items": [
+            {
+              "Id": "9d6c5ce4-9b07-4bef-9d71-a294e952d272",
+              "Text": "Use document.getElementById(), document.querySelector(), or similar methods to get a reference to the element you intend to remove.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "06248aad-febc-4f24-b2cb-b3e092420735",
+              "Text": "Checking that the element reference is not null before calling remove() or removeChild() prevents TypeError exceptions.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "319ebe0f-0064-4636-895b-6fc334338b8b",
+              "Text": "You can also traverse the DOM using parentNode or closest() to locate the correct element dynamically at runtime.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "b98e38d8-d596-4a59-b651-ebc0d290b315",
+          "TopicId": "80a7241a-8e00-4389-b53c-746d7b0e8f69",
+          "Title": "Cleaning Up Event Listeners Before Removal",
+          "BodyText": "Removing an element from the DOM without detaching its event listeners can lead to memory leaks, especially in long-running interactive applications.",
+          "Notes": "Use removeEventListener() before removing the element to ensure associated callbacks are properly released by the browser\u0027s garbage collector.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:58:26.8662848-04:00",
+          "ModifiedDate": "2026-06-26T21:58:26.8662848-04:00",
+          "Items": [
+            {
+              "Id": "54abb775-435d-46f5-bfd5-d321e3d18f32",
+              "Text": "Event listeners attached to a removed DOM node may not be garbage collected if other references to the node still exist in JavaScript.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "02fbe30d-dafd-4461-b204-87213c93b849",
+              "Text": "Call removeEventListener() with the same function reference used in addEventListener() to successfully detach the handler.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e90c3c3f-c232-4236-b749-15f855baf033",
+              "Text": "In modern browsers, inline event listeners on nodes with no remaining references are typically cleaned up automatically, but explicit removal is still best practice.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "1882bbd6-f59f-4f3e-90bf-d00ff26d3435",
+          "TopicId": "80a7241a-8e00-4389-b53c-746d7b0e8f69",
+          "Title": "Safe and Defensive Removal Patterns",
+          "BodyText": "Defensive coding practices ensure that DOM removal operations do not cause unexpected errors or break the UI in edge cases.",
+          "Notes": "Wrapping removal logic in conditional checks or try-catch blocks can make your code more robust in dynamic environments.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:58:26.8662848-04:00",
+          "ModifiedDate": "2026-06-26T21:58:26.8662848-04:00",
+          "Items": [
+            {
+              "Id": "2879850a-748e-4eaf-addd-d5b0d9912d7a",
+              "Text": "Always check that an element exists in the DOM before attempting to remove it to avoid null reference errors.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "793aaefb-9fa5-4e7c-8fff-c8f46a71201c",
+              "Text": "When removing dynamically generated elements, ensure your selection logic uniquely targets the intended element to avoid accidentally removing the wrong node.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e358017e-040a-4637-8dc0-6915ec279725",
+              "Text": "Consider disabling or hiding an element as a temporary fallback if removal needs to be deferred or confirmed by the user before it is permanently deleted.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "5d3b3b1b-3359-4084-8297-9a0715d2bc77",
+      "Title": "Adding and Managing Event Listeners",
+      "Summary": "Details how to attach, configure, and remove event listeners on DOM elements to enable user interaction and respond to browser events dynamically.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-06-26T21:56:47.1076095-04:00",
+      "ModifiedDate": "2026-06-26T21:56:47.1076095-04:00",
+      "Elements": [
+        {
+          "Id": "15ae383e-55e7-4e12-9b36-3fb3e553462e",
+          "TopicId": "5d3b3b1b-3359-4084-8297-9a0715d2bc77",
+          "Title": "The addEventListener Method",
+          "BodyText": "The primary way to attach event listeners to DOM elements in modern JavaScript is through the addEventListener method, which registers a callback function to be invoked when a specified event occurs.",
+          "Notes": "For example: element.addEventListener(\u0027click\u0027, handleClick) registers a click handler without overwriting any existing handlers on that element.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:58:55.0857051-04:00",
+          "ModifiedDate": "2026-06-26T21:58:55.0857051-04:00",
+          "Items": [
+            {
+              "Id": "50da939b-e1ba-41b8-82c1-fee9c8737acb",
+              "Text": "addEventListener accepts two required arguments: the event type as a string (e.g., \u0027click\u0027, \u0027keydown\u0027) and the callback function to execute when the event fires.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "cfc91ebf-6b68-4da3-8715-941ca6c413d9",
+              "Text": "Unlike the older onclick property assignment, addEventListener allows multiple listeners of the same event type to coexist on a single element.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e9d62973-2410-4b29-9c8d-e808a3b9a7e3",
+              "Text": "The method can be called on any DOM element, the document object, or the window object.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "d7bffe25-6e3e-40cb-95b7-4189abe18c2d",
+          "TopicId": "5d3b3b1b-3359-4084-8297-9a0715d2bc77",
+          "Title": "Event Types and Common Browser Events",
+          "BodyText": "Browser environments expose a wide variety of event types that cover user input, document lifecycle, and media interactions, all of which can be targeted with addEventListener.",
+          "Notes": "Common categories include mouse events (click, dblclick, mouseover), keyboard events (keydown, keyup, keypress), form events (submit, change, input), and window events (load, resize, scroll).",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:58:55.0857051-04:00",
+          "ModifiedDate": "2026-06-26T21:58:55.0857051-04:00",
+          "Items": [
+            {
+              "Id": "3f3fdb02-365f-4395-b3f8-8d9d2ec27242",
+              "Text": "Choosing the correct event type is critical; for example, \u0027input\u0027 fires on every keystroke in a text field, while \u0027change\u0027 fires only when the field loses focus after a modification.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ceecedb0-16fa-4547-b285-76647510eafd",
+              "Text": "The \u0027DOMContentLoaded\u0027 event on document fires when the HTML is fully parsed, making it a safe place to initialize DOM-dependent scripts.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "80ae0b6c-ebd6-4584-b5f2-2205cac4c79a",
+              "Text": "Custom events can also be created and dispatched, extending the event system beyond built-in browser events.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "7a8e60db-bf63-405d-9398-887e1c2985a9",
+          "TopicId": "5d3b3b1b-3359-4084-8297-9a0715d2bc77",
+          "Title": "The Event Object and Its Properties",
+          "BodyText": "When an event fires, the browser automatically passes an Event object as the first argument to the callback, providing contextual information about the event.",
+          "Notes": "For a click event, event.target gives the exact element clicked, event.clientX and event.clientY provide cursor coordinates, and event.type returns the string \u0027click\u0027.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:58:55.0857051-04:00",
+          "ModifiedDate": "2026-06-26T21:58:55.0857051-04:00",
+          "Items": [
+            {
+              "Id": "64cb3320-3759-4c8e-ad02-97bb9cffba09",
+              "Text": "event.target refers to the element that originally triggered the event, while event.currentTarget refers to the element on which the listener is registered.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c9bbb1e4-0fbe-4abd-9466-9f4ab281ef68",
+              "Text": "event.preventDefault() stops the browser\u0027s default behavior, such as preventing a form from submitting or a link from navigating.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "85e89c1a-4049-4ab6-a057-648e2cce95c9",
+              "Text": "event.stopPropagation() halts the event from bubbling up the DOM tree to ancestor elements.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "0f6fb602-e394-4e1d-b2a4-dae9d86c28ea",
+          "TopicId": "5d3b3b1b-3359-4084-8297-9a0715d2bc77",
+          "Title": "Event Propagation: Bubbling and Capturing",
+          "BodyText": "DOM events travel through the element hierarchy in two phases \u2014 capturing (top-down) and bubbling (bottom-up) \u2014 and understanding this determines where and when listeners fire.",
+          "Notes": "By default, addEventListener registers listeners in the bubbling phase. Passing true as the third argument (or { capture: true }) registers in the capturing phase instead.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:58:55.0857051-04:00",
+          "ModifiedDate": "2026-06-26T21:58:55.0857051-04:00",
+          "Items": [
+            {
+              "Id": "37b39c22-79e4-43c3-91cb-14444a02d4cd",
+              "Text": "During bubbling, an event fired on a child element propagates upward through each ancestor, triggering any matching listeners along the way.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3d60ff86-513a-4682-ac57-c30c66423e28",
+              "Text": "Event delegation exploits bubbling by placing a single listener on a parent element to handle events from multiple child elements dynamically.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "cc06982a-89ca-4e18-a7b9-2ac7ceb7f43c",
+              "Text": "Calling event.stopPropagation() inside a handler prevents the event from continuing to bubble or capture beyond that element.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "486b4610-f35f-49e9-ba3a-740af17d501f",
+          "TopicId": "5d3b3b1b-3359-4084-8297-9a0715d2bc77",
+          "Title": "Listener Options: once, passive, and capture",
+          "BodyText": "The third parameter of addEventListener accepts an options object that fine-tunes listener behavior beyond simply attaching a callback.",
+          "Notes": "Example: element.addEventListener(\u0027click\u0027, handler, { once: true, passive: true }) registers a handler that fires only one time and signals it will not call preventDefault, enabling scroll performance optimizations.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:58:55.0857051-04:00",
+          "ModifiedDate": "2026-06-26T21:58:55.0857051-04:00",
+          "Items": [
+            {
+              "Id": "f04a71c8-ab02-4f1e-8b8f-5a32897d487c",
+              "Text": "The once option automatically removes the listener after it fires for the first time, eliminating the need for manual cleanup in one-shot interaction scenarios.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "730e4bff-e582-4cff-94ea-d967617ab16c",
+              "Text": "The passive option, when set to true, tells the browser the handler will never call preventDefault, allowing the browser to optimize scrolling and touch performance.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5ffa2910-d773-461d-8d70-5c29eecca979",
+              "Text": "The capture option, when true, registers the listener in the capturing phase rather than the default bubbling phase.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "265f2d56-c8c1-43b7-84dc-44979c90af68",
+          "TopicId": "5d3b3b1b-3359-4084-8297-9a0715d2bc77",
+          "Title": "Removing Event Listeners with removeEventListener",
+          "BodyText": "To prevent memory leaks and unintended behavior in dynamic UIs, event listeners should be explicitly removed when they are no longer needed using removeEventListener.",
+          "Notes": "A common pitfall is attempting to remove an anonymous function; since each anonymous function is a unique reference, the removal will silently fail. Always store the callback in a named variable or reference.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:58:55.0857051-04:00",
+          "ModifiedDate": "2026-06-26T21:58:55.0857051-04:00",
+          "Items": [
+            {
+              "Id": "637703c4-693b-4211-8e13-b6a8c5c08674",
+              "Text": "removeEventListener requires the same event type string, the exact same function reference, and matching capture/options flag used during registration.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9b02775f-685e-4b50-8414-c728f9b28bf8",
+              "Text": "Removing listeners is especially important when dynamically created elements are deleted from the DOM to free associated memory.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3b6d8394-9aca-431d-9794-a07e4bf12c34",
+              "Text": "In components or modules that have setup and teardown lifecycles, pairing addEventListener in setup with removeEventListener in teardown is a best practice.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "65b4d365-cba4-475c-bf20-0662e807913a",
+          "TopicId": "5d3b3b1b-3359-4084-8297-9a0715d2bc77",
+          "Title": "Event Delegation for Dynamic Elements",
+          "BodyText": "Event delegation is a pattern that attaches a single listener to a stable ancestor element to manage events from child elements that may be added or removed dynamically at runtime.",
+          "Notes": "For example, attaching one \u0027click\u0027 listener to a \u003Cul\u003E element and inspecting event.target.tagName to detect clicks on dynamically added \u003Cli\u003E children avoids re-registering listeners every time the list changes.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:58:55.0857051-04:00",
+          "ModifiedDate": "2026-06-26T21:58:55.0857051-04:00",
+          "Items": [
+            {
+              "Id": "65fdd921-f552-412c-ac74-5e651599e100",
+              "Text": "Delegation reduces the total number of active event listeners in the document, improving memory efficiency in UIs with many interactive child elements.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "144a4bba-ce94-4e83-a9f4-31bc5e22e121",
+              "Text": "Inside the delegated handler, event.target and event.target.closest() are used to identify which specific child element triggered the event.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2aadfb67-715d-4d3d-8c7d-20dde4b223d6",
+              "Text": "This pattern is essential when child elements are created after the initial page load, since listeners registered before their creation would not apply to them.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "0c7b189a-f474-41ee-b329-e6f03893d545",
+      "Title": "Building Interactive UI Controls with JavaScript",
+      "Summary": "Brings together DOM creation, modification, and event handling concepts to construct fully functional interactive user interface controls entirely through JavaScript code.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-06-26T21:56:47.1076095-04:00",
+      "ModifiedDate": "2026-06-26T21:56:47.1076095-04:00",
+      "Elements": [
+        {
+          "Id": "7a0d1f71-a42d-4450-9152-446610ac0dba",
+          "TopicId": "0c7b189a-f474-41ee-b329-e6f03893d545",
+          "Title": "Planning the UI Control Structure",
+          "BodyText": "Before writing any code, it is essential to plan the structure of the interactive control by identifying the HTML elements needed, their relationships, and the behaviors they must support.",
+          "Notes": "For example, a custom dropdown menu requires a trigger button, a container element, and a list of option items \u2014 each with distinct roles and event needs.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:59:24.3244077-04:00",
+          "ModifiedDate": "2026-06-26T21:59:24.3244077-04:00",
+          "Items": [
+            {
+              "Id": "92f74bf7-612b-45b2-a225-815e7ce1923b",
+              "Text": "Sketch or outline the element hierarchy the control requires, including parent containers and child components.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "46a666b8-cb9b-42b6-8a85-e80428495369",
+              "Text": "Identify which elements need dynamic creation versus pre-existing HTML anchors.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "eb167e23-f317-442a-bfc3-8b4de4d57783",
+              "Text": "Define the states the control must manage, such as open/closed, selected/unselected, or enabled/disabled.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "4738dd75-b91b-439c-a2be-82966101ecac",
+              "Text": "Map out which user interactions \u2014 clicks, key presses, focus events \u2014 must trigger state changes.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "b99f0323-b618-4bc3-8c43-9cf493454cf7",
+          "TopicId": "0c7b189a-f474-41ee-b329-e6f03893d545",
+          "Title": "Constructing Control Elements with JavaScript",
+          "BodyText": "Interactive controls are built by using JavaScript DOM creation methods to programmatically generate all necessary HTML elements without relying on static markup.",
+          "Notes": "Using document.createElement() combined with setting attributes and text content allows the entire control to be self-contained and reusable across different pages or applications.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:59:24.3244077-04:00",
+          "ModifiedDate": "2026-06-26T21:59:24.3244077-04:00",
+          "Items": [
+            {
+              "Id": "819c4f88-29b4-42bd-a4ef-946c52e5d7ad",
+              "Text": "Use document.createElement() to create each element required by the control, such as buttons, lists, or input fields.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e95501b8-4cb5-4e16-8891-c34cb6a40ae9",
+              "Text": "Set attributes, class names, and ARIA roles on each created element to ensure correct styling and accessibility.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ca323ea7-7792-4d6a-b8b4-f86617ee9aa1",
+              "Text": "Build the element tree by appending child elements to parent containers using appendChild() or insertBefore().",
+              "SortOrder": 2
+            },
+            {
+              "Id": "65001ff8-29aa-4f16-a67c-79b2090eb18b",
+              "Text": "Inject the completed control into the live document by appending it to an appropriate target node in the DOM.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "42900be6-21ee-42ee-87a9-01d7de4f97a8",
+          "TopicId": "0c7b189a-f474-41ee-b329-e6f03893d545",
+          "Title": "Attaching Event Listeners to Control Components",
+          "BodyText": "Event listeners are the mechanism that transforms a static collection of elements into a responsive, interactive control by reacting to user actions in real time.",
+          "Notes": "Adding listeners directly to specific elements rather than relying solely on event delegation gives precise control over behavior, though delegation is valuable when child elements are created dynamically after initial setup.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:59:24.3244077-04:00",
+          "ModifiedDate": "2026-06-26T21:59:24.3244077-04:00",
+          "Items": [
+            {
+              "Id": "a58c29bb-a9c3-4109-8673-7ecbfeea9375",
+              "Text": "Attach event listeners to each interactive element using addEventListener(), specifying the event type and a handler function.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "28b56d31-e509-4cac-9685-df0d758d2467",
+              "Text": "Use named handler functions rather than anonymous functions when listeners may need to be removed later with removeEventListener().",
+              "SortOrder": 1
+            },
+            {
+              "Id": "675f28a9-7ecb-4104-9bcc-3bcdb73772ac",
+              "Text": "Apply event delegation on container elements to efficiently handle events from dynamically added child elements.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a9263b56-aba3-4551-aa50-06d9ea36353b",
+              "Text": "Prevent default browser behaviors or stop event propagation using event.preventDefault() and event.stopPropagation() where necessary.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "37edf561-330b-426e-ae7e-f482b07ac424",
+          "TopicId": "0c7b189a-f474-41ee-b329-e6f03893d545",
+          "Title": "Managing Control State Dynamically",
+          "BodyText": "An interactive control must track and update its own state over time, reflecting changes in the UI whenever the user interacts with it.",
+          "Notes": "State can be stored as JavaScript variables, object properties, or represented directly through CSS classes and data attributes on DOM elements.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:59:24.3244077-04:00",
+          "ModifiedDate": "2026-06-26T21:59:24.3244077-04:00",
+          "Items": [
+            {
+              "Id": "bd615180-f519-423a-8bed-d8f166fa2298",
+              "Text": "Use JavaScript variables or objects to hold the current state of the control, such as whether a panel is expanded or which option is selected.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "70f12b11-b0be-4ed0-be08-6c998c54b9e5",
+              "Text": "Synchronize the visual appearance of the control with its state by toggling CSS classes or updating inline styles on relevant elements.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5bac86f3-63ff-4e29-a455-24ecaa1ee1b3",
+              "Text": "Use data attributes on DOM elements to store state information directly in the markup for easy retrieval during event handling.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "3a502cac-55f6-4560-944b-ce14906fba8c",
+              "Text": "Ensure state updates are atomic \u2014 modify all affected elements and variables together to avoid inconsistent UI appearances.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "98e05333-e359-4fd4-9251-788135c242df",
+          "TopicId": "0c7b189a-f474-41ee-b329-e6f03893d545",
+          "Title": "Modifying and Updating Control Elements at Runtime",
+          "BodyText": "As users interact with a control, the DOM must be updated dynamically to reflect new content, options, or configurations without reloading the page.",
+          "Notes": "For example, a dynamic list control might add new items when a user submits input, update existing item text when edited, or remove items when deleted.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:59:24.3244077-04:00",
+          "ModifiedDate": "2026-06-26T21:59:24.3244077-04:00",
+          "Items": [
+            {
+              "Id": "73142a61-9eb2-47a2-adb5-e0eb99bd245a",
+              "Text": "Add new child elements to the control at runtime using appendChild() or insertAdjacentElement() in response to user actions.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "92ca02a2-c9f1-4db2-8c80-d7c8ac85ead9",
+              "Text": "Update the text content or attributes of existing elements using textContent, innerHTML, or setAttribute() as data changes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c030fe21-d522-4cbb-8a8c-ba912dd73ec4",
+              "Text": "Remove elements that are no longer needed using removeChild() or the element\u0027s own remove() method.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9f058c64-952d-4403-87c3-1841c34bea55",
+              "Text": "Re-attach or transfer event listeners when elements are replaced or regenerated to maintain interactivity.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "b89dea35-51f1-458a-8f4d-1b01ff1468ae",
+          "TopicId": "0c7b189a-f474-41ee-b329-e6f03893d545",
+          "Title": "Ensuring Accessibility in JavaScript-Built Controls",
+          "BodyText": "Controls constructed entirely through JavaScript must explicitly include accessibility features since they lack the built-in semantics of native HTML elements.",
+          "Notes": "Screen readers and assistive technologies rely on ARIA attributes and keyboard navigation support to make custom JavaScript controls usable for all users.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:59:24.3244077-04:00",
+          "ModifiedDate": "2026-06-26T21:59:24.3244077-04:00",
+          "Items": [
+            {
+              "Id": "1db5ab25-4e10-438f-95a1-8e2df9ec6f16",
+              "Text": "Assign appropriate ARIA roles, such as role=\u0027button\u0027, role=\u0027listbox\u0027, or role=\u0027dialog\u0027, to elements that do not use native semantic tags.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b10eec65-2dc2-44b2-a79e-893437273b76",
+              "Text": "Keep ARIA state attributes like aria-expanded, aria-selected, and aria-disabled in sync with the control\u0027s current JavaScript state.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1ed75c62-fd06-4565-8cc3-c0d93af0a8f1",
+              "Text": "Implement keyboard navigation within the control by listening for keydown events and handling Tab, Enter, Escape, and arrow key presses.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "bb1c02f5-0c01-41d7-9b30-a3fa48d4166f",
+              "Text": "Manage focus programmatically using element.focus() to guide keyboard users through the control as its state changes.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "1af0ab71-a289-440a-8167-1300d3583a8c",
+          "TopicId": "0c7b189a-f474-41ee-b329-e6f03893d545",
+          "Title": "Encapsulating Controls for Reusability",
+          "BodyText": "Well-designed JavaScript UI controls are encapsulated as reusable functions or classes, making them easy to instantiate multiple times with different configurations.",
+          "Notes": "Encapsulation prevents naming conflicts, keeps related logic together, and allows the control to be shared across projects as a self-contained module.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:59:24.3244077-04:00",
+          "ModifiedDate": "2026-06-26T21:59:24.3244077-04:00",
+          "Items": [
+            {
+              "Id": "4826a8c2-f8f0-4ff0-a410-694f5eb4b72d",
+              "Text": "Wrap the control\u0027s creation and initialization logic inside a factory function or JavaScript class that accepts configuration options as parameters.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2f036298-d978-4aca-880f-deeee32dba9e",
+              "Text": "Expose only a minimal public API \u2014 such as methods to open, close, reset, or destroy the control \u2014 while keeping internal logic private.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b6225bde-2ed7-4a82-a60d-54246193b179",
+              "Text": "Accept a target container element as a parameter so the control can be injected into any part of the page without hardcoded selectors.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a1317052-44a6-40de-9ccd-1569a067ff5e",
+              "Text": "Clean up event listeners and remove DOM elements in a destroy method to prevent memory leaks when the control is no longer needed.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 40
+}

@@ -1,0 +1,966 @@
+{
+  "ModuleFolderName": "GitHub_GitHub_Pages",
+  "CourseName": "COP4813",
+  "GeneratedDate": "2026-06-26T21:25:20.09615-04:00",
+  "ModifiedDate": "2026-06-26T21:27:16.7425597-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "16dde52c-fc96-43c4-a22f-956ecc698ecd",
+      "Title": "Introduction to GitHub",
+      "Summary": "Students learn what GitHub is and why it is used, then create and configure a personal GitHub account to get started.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-06-26T21:25:20.09615-04:00",
+      "ModifiedDate": "2026-06-26T21:25:20.09615-04:00",
+      "Elements": [
+        {
+          "Id": "36bfb691-43b7-41ee-917b-e3e83687ab70",
+          "TopicId": "16dde52c-fc96-43c4-a22f-956ecc698ecd",
+          "Title": "What is GitHub?",
+          "BodyText": "GitHub is a web-based platform that allows developers to store, manage, and share their code online.",
+          "Notes": "Think of GitHub as a cloud-based folder system specifically designed for code, with powerful tools for tracking changes over time.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:25:35.942247-04:00",
+          "ModifiedDate": "2026-06-26T21:25:35.942247-04:00",
+          "Items": [
+            {
+              "Id": "7e29fa12-7f1f-4c44-97b1-6203e956dab8",
+              "Text": "GitHub is built on top of Git, a version control system that tracks every change made to your code.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "884dd9b2-7db0-4137-b39b-9d27c98196ca",
+              "Text": "It is one of the most widely used platforms in the software development industry, hosting millions of public and private projects.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1025d423-1cd4-4b28-8c2b-b14c3d047378",
+              "Text": "GitHub makes it easy to access your code from any computer and share it with others.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "9e27c230-b4ae-45b9-864a-fad9a0bb4bab",
+          "TopicId": "16dde52c-fc96-43c4-a22f-956ecc698ecd",
+          "Title": "Why GitHub is Used",
+          "BodyText": "GitHub serves as both a storage hub for code and a collaboration tool for developers working individually or in teams.",
+          "Notes": "In this course, GitHub will be the place where all of your project files live and where your website will be published.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:25:35.942247-04:00",
+          "ModifiedDate": "2026-06-26T21:25:35.942247-04:00",
+          "Items": [
+            {
+              "Id": "86832c98-6025-4a30-875b-a0ae8dc527a2",
+              "Text": "GitHub keeps a full history of changes to your code, so you can always go back to an earlier version if something breaks.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4e559f0e-3ae3-490f-878c-79dedcf9692a",
+              "Text": "It allows multiple people to work on the same project simultaneously without overwriting each other\u0027s work.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "26c4c550-e389-4772-b6a0-39c09b1089dd",
+              "Text": "For this course, GitHub will serve as your code portfolio, storing every project you build.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "28a0d9c1-b309-48d3-8160-1f5f7060a156",
+          "TopicId": "16dde52c-fc96-43c4-a22f-956ecc698ecd",
+          "Title": "Creating a GitHub Account",
+          "BodyText": "To get started with GitHub, you first need to create a free personal account on the GitHub website.",
+          "Notes": "Go to github.com and click \u0027Sign up.\u0027 You will be guided through a short setup process to create your account.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:25:35.942247-04:00",
+          "ModifiedDate": "2026-06-26T21:25:35.942247-04:00",
+          "Items": [
+            {
+              "Id": "dd9c8aec-3aee-4ef3-b9a1-4db7c8e04a5d",
+              "Text": "Visit github.com and click the \u0027Sign up\u0027 button to begin the registration process.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8a3fd01b-3b76-4331-9df4-1184e154055e",
+              "Text": "You will need to provide a valid email address, create a username, and set a secure password.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "76bc5bdb-a96c-4adb-8d4f-4dca2558f7f0",
+              "Text": "Choose a username carefully \u2014 it will appear in your profile URL and in the web address of your future GitHub Pages site.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "90ddd42a-1fd3-4178-a733-b096a3bc3e18",
+          "TopicId": "16dde52c-fc96-43c4-a22f-956ecc698ecd",
+          "Title": "Choosing a Username",
+          "BodyText": "Your GitHub username is a permanent part of your public identity on the platform and will appear in links to your projects and website.",
+          "Notes": "A good username is short, professional, and easy to remember. Avoid usernames with random numbers or characters that are hard to share verbally.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:25:35.942247-04:00",
+          "ModifiedDate": "2026-06-26T21:25:35.942247-04:00",
+          "Items": [
+            {
+              "Id": "72c13e18-db47-4820-9708-a7776762c7ef",
+              "Text": "Your username will form part of your GitHub Pages URL, such as username.github.io, so choose something professional.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ff78ada3-ec4e-4342-aa48-1d5fdabcc06f",
+              "Text": "Usernames can contain letters, numbers, and hyphens, but cannot contain spaces or special characters.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "649eb8ea-d868-432c-a54f-b2b2c1ce00b7",
+              "Text": "You can change your username later, but doing so can break existing links to your projects.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ffb2a44a-d091-4bdb-8879-cc1e1b42cad2",
+          "TopicId": "16dde52c-fc96-43c4-a22f-956ecc698ecd",
+          "Title": "Configuring Your GitHub Profile",
+          "BodyText": "After creating your account, you can configure your profile to add basic information that helps others identify you and your work.",
+          "Notes": "A completed profile makes a stronger impression when sharing your work with instructors, peers, or future employers.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:25:35.942247-04:00",
+          "ModifiedDate": "2026-06-26T21:25:35.942247-04:00",
+          "Items": [
+            {
+              "Id": "aea7cdde-53bb-4235-81c5-a48226bbf1e1",
+              "Text": "Add a profile photo and a short bio to make your account recognizable and professional.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "af30b174-72ff-4902-9f8c-86e0fd041bf2",
+              "Text": "Your public profile page displays your repositories, contributions, and activity on the platform.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9002331e-016c-4010-a4fe-1bf35e4d9f51",
+              "Text": "Keeping your profile up to date is good practice as you build a portfolio of projects throughout the course.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "3dca1b01-d7f1-437a-940a-379067eb3e92",
+      "Title": "Creating Your First Repository",
+      "Summary": "Students set up a new GitHub repository, understanding key concepts such as repository naming, visibility settings, and initialization options.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-06-26T21:25:20.09615-04:00",
+      "ModifiedDate": "2026-06-26T21:25:20.09615-04:00",
+      "Elements": [
+        {
+          "Id": "c5d151bc-bc3b-4dbd-b9b1-9915ae53051e",
+          "TopicId": "3dca1b01-d7f1-437a-940a-379067eb3e92",
+          "Title": "Navigating to the New Repository Page",
+          "BodyText": "Creating a repository begins by locating the correct option inside your GitHub account.",
+          "Notes": "After logging in, look for the \u0027\u002B\u0027 icon in the top-right navigation bar and select \u0027New repository\u0027, or use the green \u0027New\u0027 button on your repositories dashboard.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:25:53.4611572-04:00",
+          "ModifiedDate": "2026-06-26T21:25:53.4611572-04:00",
+          "Items": [
+            {
+              "Id": "008f45e6-6ebc-42ec-82fb-c0c4d4294d12",
+              "Text": "Click the \u0027\u002B\u0027 icon in the top-right corner of GitHub and choose \u0027New repository\u0027.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7299effb-ab70-48a0-b8a2-d003c94468e9",
+              "Text": "Alternatively, navigate to your profile\u0027s \u0027Repositories\u0027 tab and click the green \u0027New\u0027 button.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "657731e3-df27-4ca0-b18d-a2213f0824a8",
+              "Text": "Both paths lead to the same repository creation form where all setup options are configured.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "3bf89dc6-9dfc-4ce3-b2ae-7ee9182b3c7e",
+          "TopicId": "3dca1b01-d7f1-437a-940a-379067eb3e92",
+          "Title": "Naming Your Repository",
+          "BodyText": "Choosing a clear, descriptive repository name is an important first step that identifies your project on GitHub.",
+          "Notes": "For a GitHub Pages site, naming the repository in the format \u0027username.github.io\u0027 has special significance \u2014 it automatically enables GitHub Pages for the repository.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:25:53.4611572-04:00",
+          "ModifiedDate": "2026-06-26T21:25:53.4611572-04:00",
+          "Items": [
+            {
+              "Id": "2762854f-126d-4a32-8e06-cb51189031bc",
+              "Text": "Repository names must be unique within your account and can contain letters, numbers, hyphens, and underscores.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ece556a3-cfdc-4467-9521-515748d97f56",
+              "Text": "Avoid spaces; GitHub will suggest replacing them with hyphens automatically.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "963d5af8-9df6-41db-9575-f87039715be2",
+              "Text": "For your first GitHub Pages site, consider naming the repository \u0027username.github.io\u0027, replacing \u0027username\u0027 with your actual GitHub username.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "7132c19f-8036-4d80-926b-1cc9beec0b96",
+          "TopicId": "3dca1b01-d7f1-437a-940a-379067eb3e92",
+          "Title": "Setting Repository Visibility",
+          "BodyText": "GitHub allows you to control who can see your repository through visibility settings selected at creation time.",
+          "Notes": "For course projects intended to be published as GitHub Pages sites, a Public repository is required unless you are on a paid plan that supports private Pages.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:25:53.4611572-04:00",
+          "ModifiedDate": "2026-06-26T21:25:53.4611572-04:00",
+          "Items": [
+            {
+              "Id": "b01c6643-15b2-4a1a-aa2b-57de187fd798",
+              "Text": "A Public repository is visible to anyone on the internet, making it suitable for open projects and GitHub Pages deployments.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "acf2300e-550a-47ce-a2fd-97cc7a2c839b",
+              "Text": "A Private repository restricts access to only you and collaborators you explicitly invite.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "30107cf8-e779-4669-8c55-73d379ca8075",
+              "Text": "Select Public for this course project to ensure your GitHub Pages site can be accessed by others.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "c06353e9-1686-4828-861a-3e1d4fba5be8",
+          "TopicId": "3dca1b01-d7f1-437a-940a-379067eb3e92",
+          "Title": "Initializing the Repository",
+          "BodyText": "GitHub offers optional initialization files that give your repository useful starting content and structure right away.",
+          "Notes": "Initializing with a README is recommended for beginners because it creates the first commit automatically, allowing you to clone the repository immediately without extra steps.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:25:53.4611572-04:00",
+          "ModifiedDate": "2026-06-26T21:25:53.4611572-04:00",
+          "Items": [
+            {
+              "Id": "5a6f2372-1d7d-4cc8-95de-b43e38cffe3a",
+              "Text": "Checking \u0027Add a README file\u0027 creates an initial commit with a markdown file describing your project.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6ef103d6-01ce-4c21-9fbb-094999d556ba",
+              "Text": "A \u0027.gitignore\u0027 file tells Git which files to exclude from version control; you can choose a template based on your project type.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7940c63c-22f9-4808-bdfe-bffd6c593873",
+              "Text": "A license file specifies the terms under which others may use your code, which is good practice for public repositories.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "cd2ecc9f-e26c-4874-ba87-bc54ea95f4be",
+              "Text": "For this course, initializing with at least a README file is recommended so the repository is ready to clone immediately.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "1336edf3-d266-4946-8a80-391071db6435",
+          "TopicId": "3dca1b01-d7f1-437a-940a-379067eb3e92",
+          "Title": "Confirming Repository Creation",
+          "BodyText": "Once all options are configured, submitting the form finalizes the creation of your new repository.",
+          "Notes": "After clicking \u0027Create repository\u0027, GitHub redirects you to your new repository\u0027s main page, where you can see the initialized files and the repository URL you will use to clone or link the project.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:25:53.4611572-04:00",
+          "ModifiedDate": "2026-06-26T21:25:53.4611572-04:00",
+          "Items": [
+            {
+              "Id": "48928256-132d-4804-8e4a-fa18e4af7030",
+              "Text": "Review your chosen name, visibility, and initialization options before clicking \u0027Create repository\u0027.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b14f1fbe-cde0-4df4-9acf-cfb92070d42e",
+              "Text": "After creation, GitHub displays your repository\u0027s main page with any initialized files listed.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5a8d2d29-d268-446c-ae90-fffbbf3700b9",
+              "Text": "Copy the repository URL from this page \u2014 you will need it to connect your local project or begin adding files.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "228094f0-7a6c-40f2-aa7e-4f38d1fb1f41",
+      "Title": "Deploying with GitHub Pages",
+      "Summary": "Students enable GitHub Pages on their repository and learn how GitHub automatically publishes web content to a live public URL.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-06-26T21:25:20.09615-04:00",
+      "ModifiedDate": "2026-06-26T21:25:20.09615-04:00",
+      "Elements": [
+        {
+          "Id": "85e92370-9886-4d09-b2c6-52ca1d45bc04",
+          "TopicId": "228094f0-7a6c-40f2-aa7e-4f38d1fb1f41",
+          "Title": "What is GitHub Pages?",
+          "BodyText": "GitHub Pages is a free hosting service built into GitHub that automatically publishes files from your repository as a live website accessible to anyone on the internet.",
+          "Notes": "No separate hosting account or payment is required. GitHub Pages is commonly used for portfolios, project documentation, and course assignments.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:26:11.4826466-04:00",
+          "ModifiedDate": "2026-06-26T21:26:11.4826466-04:00",
+          "Items": [
+            {
+              "Id": "8187595b-e85e-4db2-9f24-99d5ebe44a1c",
+              "Text": "GitHub Pages serves your HTML, CSS, and JavaScript files directly from a GitHub repository.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b771ce9f-8c10-45f0-b938-8abe714e4604",
+              "Text": "Every GitHub user gets at least one free Pages site, making it ideal for student projects.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ad10b1ee-4e79-4322-a271-49cfea2bb068",
+              "Text": "The published site is publicly accessible, meaning anyone with the URL can view your work.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "1a7502ca-a3a1-4043-8354-73a0f719730c",
+          "TopicId": "228094f0-7a6c-40f2-aa7e-4f38d1fb1f41",
+          "Title": "Enabling GitHub Pages on Your Repository",
+          "BodyText": "You activate GitHub Pages through your repository\u0027s Settings tab, selecting the branch and folder GitHub should use as the source for your published site.",
+          "Notes": "The most common setup for beginners is to deploy from the \u0027main\u0027 branch and the root folder. Changes to this setting take effect within a minute or two.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:26:11.4826466-04:00",
+          "ModifiedDate": "2026-06-26T21:26:11.4826466-04:00",
+          "Items": [
+            {
+              "Id": "21cfd84a-e1f3-4a3b-ae9f-c39767b9551c",
+              "Text": "Navigate to your repository on GitHub, then click the \u0027Settings\u0027 tab near the top of the page.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d4a8ef25-e34d-4c8e-b897-063dacbece36",
+              "Text": "Scroll down to the \u0027Pages\u0027 section in the left-hand sidebar.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "74aaad5b-43bb-4817-9794-8a3ce8167715",
+              "Text": "Under \u0027Branch,\u0027 select \u0027main\u0027 (or your default branch) and set the folder to \u0027/ (root)\u0027, then click Save.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "77b9031d-16b7-4d64-a2eb-d3c0de7f8b47",
+          "TopicId": "228094f0-7a6c-40f2-aa7e-4f38d1fb1f41",
+          "Title": "Understanding the Automatic Publishing Process",
+          "BodyText": "Once GitHub Pages is enabled, GitHub automatically detects changes pushed to your selected branch and rebuilds and republishes your site without any manual steps.",
+          "Notes": "This automated pipeline means your workflow is simply: edit files, commit, push \u2014 and your live site updates automatically within moments.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:26:11.4826466-04:00",
+          "ModifiedDate": "2026-06-26T21:26:11.4826466-04:00",
+          "Items": [
+            {
+              "Id": "c128b1b3-1106-4a3d-9910-61eaacf476bd",
+              "Text": "Every time you push a commit to the source branch, GitHub triggers a new build and deployment of your site.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "94729960-cb39-4596-b709-8799cc875030",
+              "Text": "You do not need to upload files manually or use a separate deployment tool.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "184ade8d-3e96-467c-861f-464623753aea",
+              "Text": "A small indicator in your repository\u0027s Actions or Pages settings shows whether the latest deployment succeeded or is still in progress.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "48d9d03e-a3ea-49d8-9f2e-a0d1bcec0439",
+          "TopicId": "228094f0-7a6c-40f2-aa7e-4f38d1fb1f41",
+          "Title": "Your Live Public URL",
+          "BodyText": "GitHub Pages assigns your site a unique public URL based on your GitHub username and repository name, making your site immediately shareable.",
+          "Notes": "For example, a user named \u0027jsmith\u0027 with a repository called \u0027my-site\u0027 would receive the URL https://jsmith.github.io/my-site/. Bookmark this URL \u2014 you will use it throughout the course.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:26:11.4826466-04:00",
+          "ModifiedDate": "2026-06-26T21:26:11.4826466-04:00",
+          "Items": [
+            {
+              "Id": "0611ad14-a171-4d9b-a9a3-7e4aafed5ffd",
+              "Text": "The standard URL format is: https://[your-username].github.io/[repository-name]/",
+              "SortOrder": 0
+            },
+            {
+              "Id": "71771cfc-559c-401e-9fd3-1d7e03f2fc67",
+              "Text": "This URL is found in the Pages section of your repository Settings after enabling the feature.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "df4579b8-3fa2-4723-ba13-8323e2a30c3d",
+              "Text": "Because the URL is public, you can share it with instructors, peers, or anyone else to view your published work.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "98f70064-6bcd-4b59-a9eb-240b62556302",
+          "TopicId": "228094f0-7a6c-40f2-aa7e-4f38d1fb1f41",
+          "Title": "Verifying Your Deployment",
+          "BodyText": "After enabling GitHub Pages, you should confirm that your site is live and displaying the correct content by visiting the published URL in a browser.",
+          "Notes": "It is normal for the first deployment to take up to a couple of minutes. If the page does not appear immediately, wait briefly and refresh.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:26:11.4826466-04:00",
+          "ModifiedDate": "2026-06-26T21:26:11.4826466-04:00",
+          "Items": [
+            {
+              "Id": "f5b9354a-cac7-47cc-9ec0-b373dacca802",
+              "Text": "Copy the URL shown in the Pages settings and open it in a new browser tab.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "93bc8597-947c-4d93-940b-239d4dcc386f",
+              "Text": "If your repository contains an index.html file, GitHub Pages will display it automatically as the homepage.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5b3a712c-dea1-457c-9385-ca14e243bbe5",
+              "Text": "If you see a 404 error, double-check that Pages is enabled on the correct branch and that your file is named exactly \u0027index.html\u0027 in the root folder.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "1092e354-b0fd-4f21-aff0-1b7d932df61f",
+      "Title": "Writing Your First HTML Document",
+      "Summary": "Students create a basic \u0027Hello, World\u0027 HTML file, learning the essential structure of an HTML document including the doctype, head, and body elements.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-06-26T21:25:20.09615-04:00",
+      "ModifiedDate": "2026-06-26T21:25:20.09615-04:00",
+      "Elements": [
+        {
+          "Id": "8a7a0084-29a5-4ab3-9abb-5039b7da34f3",
+          "TopicId": "1092e354-b0fd-4f21-aff0-1b7d932df61f",
+          "Title": "What is an HTML Document?",
+          "BodyText": "An HTML document is a plain text file that a web browser reads and renders as a web page. It uses a set of tags to define the structure and content of the page.",
+          "Notes": "HTML stands for HyperText Markup Language. Files are saved with the .html extension, for example index.html.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:26:34.0598383-04:00",
+          "ModifiedDate": "2026-06-26T21:26:34.0598383-04:00",
+          "Items": [
+            {
+              "Id": "5f60e188-c1a4-4b5b-88fd-c286c7b8c632",
+              "Text": "HTML files are plain text files that any text editor can open and modify.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "21561623-d5a5-4e26-b537-3cb6be69fd42",
+              "Text": "Browsers interpret the HTML tags and display the content visually to the user.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "805c49bf-245b-4485-82dc-49b5179c6fa8",
+              "Text": "The filename index.html is the conventional default page a web server loads first.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "bb02ea82-6afd-4f12-830b-d96462b6b575",
+          "TopicId": "1092e354-b0fd-4f21-aff0-1b7d932df61f",
+          "Title": "The DOCTYPE Declaration",
+          "BodyText": "Every HTML document begins with a DOCTYPE declaration that tells the browser which version of HTML is being used. For modern web development, the declaration is simply \u003C!DOCTYPE html\u003E.",
+          "Notes": "The DOCTYPE is not an HTML tag itself; it is an instruction to the browser. Omitting it can cause browsers to render the page in \u0027quirks mode,\u0027 leading to inconsistent display.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:26:34.0598383-04:00",
+          "ModifiedDate": "2026-06-26T21:26:34.0598383-04:00",
+          "Items": [
+            {
+              "Id": "eab6eca1-060f-4acb-8246-6de36a6a3e75",
+              "Text": "Place \u003C!DOCTYPE html\u003E on the very first line of every HTML file.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e7c9d928-094c-40b5-b33e-0e14b2b83ce0",
+              "Text": "This declaration signals that the document follows the HTML5 standard.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "fa06bf59-8f21-40f0-8b94-b64aac731f17",
+              "Text": "It must appear before the opening \u003Chtml\u003E tag and any other content.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "badfb4ea-bff7-4a39-a75e-3e807dc986a2",
+          "TopicId": "1092e354-b0fd-4f21-aff0-1b7d932df61f",
+          "Title": "The Root \u003Chtml\u003E Element",
+          "BodyText": "The \u003Chtml\u003E element is the root element that wraps all content in the document. Everything else in the file sits inside the opening \u003Chtml\u003E and closing \u003C/html\u003E tags.",
+          "Notes": "Adding the lang attribute (e.g., \u003Chtml lang=\u0027en\u0027\u003E) is a best practice that helps browsers and assistive technologies identify the document\u0027s language.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:26:34.0598383-04:00",
+          "ModifiedDate": "2026-06-26T21:26:34.0598383-04:00",
+          "Items": [
+            {
+              "Id": "fccd367e-7dd2-4a35-9809-0bc784170f2c",
+              "Text": "The \u003Chtml\u003E tag comes immediately after the DOCTYPE declaration.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9ef2dad2-e099-4e8b-b9d2-3a3b83ecbbf1",
+              "Text": "All other elements \u2014 head and body \u2014 are nested inside \u003Chtml\u003E.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2e695565-e20d-4757-a81a-dbc838733be7",
+              "Text": "The closing \u003C/html\u003E tag marks the end of the entire HTML document.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "0e538b93-2540-4ef2-b19f-a460692aa4be",
+          "TopicId": "1092e354-b0fd-4f21-aff0-1b7d932df61f",
+          "Title": "The \u003Chead\u003E Element",
+          "BodyText": "The \u003Chead\u003E element contains metadata about the document \u2014 information that is not displayed directly on the page but is important for the browser and search engines.",
+          "Notes": "Common children of \u003Chead\u003E include \u003Ctitle\u003E, \u003Cmeta charset=\u0027UTF-8\u0027\u003E, and links to stylesheets. The \u003Ctitle\u003E value appears in the browser tab.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:26:34.0598383-04:00",
+          "ModifiedDate": "2026-06-26T21:26:34.0598383-04:00",
+          "Items": [
+            {
+              "Id": "2863388e-fba8-4a4b-804c-6d8c3de030e5",
+              "Text": "The \u003Chead\u003E element is placed directly inside \u003Chtml\u003E, before the \u003Cbody\u003E.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "cfe9793a-6965-4835-81b1-f1c13c8d888c",
+              "Text": "The \u003Ctitle\u003E tag inside \u003Chead\u003E sets the text shown in the browser tab or window title bar.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e7f9f5df-8990-42c6-ac6f-a67f61a05205",
+              "Text": "The \u003Cmeta charset=\u0027UTF-8\u0027\u003E tag ensures the browser correctly interprets special characters.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ad0a08a9-b535-42da-acb0-69a1d1ed7c52",
+          "TopicId": "1092e354-b0fd-4f21-aff0-1b7d932df61f",
+          "Title": "The \u003Cbody\u003E Element",
+          "BodyText": "The \u003Cbody\u003E element contains all the visible content of the web page \u2014 everything the user sees in the browser window. It follows the closing \u003C/head\u003E tag.",
+          "Notes": "For this first document, the body will contain only a simple heading or paragraph displaying \u0027Hello, World.\u0027 Future modules will introduce more elements to place inside the body.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:26:34.0598383-04:00",
+          "ModifiedDate": "2026-06-26T21:26:34.0598383-04:00",
+          "Items": [
+            {
+              "Id": "36fff1b7-2fe8-4d3f-b39f-6fe2504ee8f6",
+              "Text": "All text, images, links, and other visible page elements go inside \u003Cbody\u003E.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9c047390-d960-4540-8e00-cea1d8133a6a",
+              "Text": "The \u003Cbody\u003E element opens after \u003C/head\u003E and closes before \u003C/html\u003E.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9306abaf-56ea-4a1e-8d07-30fe9b465351",
+              "Text": "Only one \u003Cbody\u003E element should exist in a valid HTML document.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "e0b15b63-7119-4acf-ae5b-f8e1c1e6eb2b",
+          "TopicId": "1092e354-b0fd-4f21-aff0-1b7d932df61f",
+          "Title": "Writing \u0027Hello, World\u0027",
+          "BodyText": "The classic first program in any language, \u0027Hello, World,\u0027 is achieved in HTML by placing a simple text element inside the body. A heading tag such as \u003Ch1\u003E is a clear and common choice.",
+          "Notes": "Using \u003Ch1\u003EHello, World!\u003C/h1\u003E inside \u003Cbody\u003E produces a large, bold heading on the page. This confirms that your file is correctly structured and the browser is reading it.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:26:34.0598383-04:00",
+          "ModifiedDate": "2026-06-26T21:26:34.0598383-04:00",
+          "Items": [
+            {
+              "Id": "781d5aa0-23d0-4820-93c7-f8deaf15d066",
+              "Text": "Type \u003Ch1\u003EHello, World!\u003C/h1\u003E inside the \u003Cbody\u003E tags to display a top-level heading.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a6b8eb4a-872e-4019-bd2f-ca975bb208fb",
+              "Text": "Save the file as index.html and open it in a browser to verify it renders correctly.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bdfda0e1-5f1d-4dea-8811-adda8d886c12",
+              "Text": "Seeing the text on screen confirms your basic HTML structure is valid and working.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "714fcddf-f5f4-4a95-ac5d-280cd4ec6d00",
+          "TopicId": "1092e354-b0fd-4f21-aff0-1b7d932df61f",
+          "Title": "Putting It All Together: The Complete Basic Structure",
+          "BodyText": "A minimal, valid HTML document combines the DOCTYPE, the \u003Chtml\u003E root, the \u003Chead\u003E with a title, and the \u003Cbody\u003E with visible content \u2014 all nested in the correct order.",
+          "Notes": "Example structure: \u003C!DOCTYPE html\u003E / \u003Chtml lang=\u0027en\u0027\u003E / \u003Chead\u003E\u003Cmeta charset=\u0027UTF-8\u0027\u003E\u003Ctitle\u003EMy First Page\u003C/title\u003E\u003C/head\u003E / \u003Cbody\u003E\u003Ch1\u003EHello, World!\u003C/h1\u003E\u003C/body\u003E / \u003C/html\u003E. This template is the starting point for every HTML page you will build.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:26:34.0598383-04:00",
+          "ModifiedDate": "2026-06-26T21:26:34.0598383-04:00",
+          "Items": [
+            {
+              "Id": "2e03ac2a-9a6b-470f-8c62-0ae01d27fc63",
+              "Text": "The correct nesting order is DOCTYPE \u2192 \u003Chtml\u003E \u2192 \u003Chead\u003E and \u003Cbody\u003E \u2192 content.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2c34afad-2cc7-44dc-bb58-ca0ebfa1035b",
+              "Text": "Consistent indentation makes the document easier to read and debug.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "44e26e32-dc9b-48f0-aaaf-91bdb2996b31",
+              "Text": "This basic template will serve as the foundation for all future HTML work in this course.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "1c471357-7a97-4466-bb2d-2bd7d6dd2e2a",
+      "Title": "Publishing and Verifying Your Live Page",
+      "Summary": "Students commit and push their HTML file to GitHub and confirm the page renders correctly on their GitHub Pages site.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-06-26T21:25:20.09615-04:00",
+      "ModifiedDate": "2026-06-26T21:25:20.09615-04:00",
+      "Elements": [
+        {
+          "Id": "91d11679-66bc-42c7-a19f-884156ce8c63",
+          "TopicId": "1c471357-7a97-4466-bb2d-2bd7d6dd2e2a",
+          "Title": "Staging and Committing Your HTML File",
+          "BodyText": "Before your file can be published, you must stage it and create a commit that records the change in your repository\u0027s history.",
+          "Notes": "A commit is a saved snapshot of your project. A clear, descriptive commit message like \u0027Add Hello World index.html\u0027 helps you track changes over time.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:26:58.340966-04:00",
+          "ModifiedDate": "2026-06-26T21:26:58.340966-04:00",
+          "Items": [
+            {
+              "Id": "3a325eb9-595c-4bac-b46d-fb2baba34092",
+              "Text": "Use \u0027git add index.html\u0027 (or \u0027git add .\u0027) to stage the file, marking it as ready to be committed.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "26e43d81-76f9-47b8-bf3e-b83dd3c0ccf7",
+              "Text": "Run \u0027git commit -m \u0022Add Hello World index.html\u0022\u0027 to save the staged changes as a new commit in your local repository.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "70f57135-bd44-497d-b6a5-83cf08697289",
+              "Text": "Every commit requires a message; without one Git will prompt you to provide a description before proceeding.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "1d9ba286-4e26-4cf4-8868-2c3a7a97e615",
+          "TopicId": "1c471357-7a97-4466-bb2d-2bd7d6dd2e2a",
+          "Title": "Pushing Your Commit to GitHub",
+          "BodyText": "Pushing sends your local commit to the remote GitHub repository, making the file available online for GitHub Pages to serve.",
+          "Notes": "If this is your first push, you may need to set the upstream branch with \u0027git push -u origin main\u0027. Subsequent pushes only require \u0027git push\u0027.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:26:58.340966-04:00",
+          "ModifiedDate": "2026-06-26T21:26:58.340966-04:00",
+          "Items": [
+            {
+              "Id": "a914c325-be99-41ee-8c03-abaf6b2f0d3b",
+              "Text": "Run \u0027git push origin main\u0027 to upload your local commits to the main branch of your GitHub repository.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "47e8a921-d150-454d-aa60-75af5ddd7cd0",
+              "Text": "After a successful push, your index.html file will be visible in your repository on GitHub.com.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7020d83c-9a12-4da2-be9b-546261ab0930",
+              "Text": "GitHub Pages automatically detects changes pushed to the designated branch and begins rebuilding your site within seconds to a couple of minutes.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "00165af8-faea-4672-952c-d0d7520d35cc",
+          "TopicId": "1c471357-7a97-4466-bb2d-2bd7d6dd2e2a",
+          "Title": "Understanding GitHub Pages Build Delay",
+          "BodyText": "After pushing, GitHub Pages requires a brief processing period before your changes appear at the live URL.",
+          "Notes": "The delay is typically under two minutes for small static sites. Refreshing too quickly may show a cached version of a previous state or a 404 page.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:26:58.340966-04:00",
+          "ModifiedDate": "2026-06-26T21:26:58.340966-04:00",
+          "Items": [
+            {
+              "Id": "6ef503a4-c2a5-4331-b0e8-e1367b754b0b",
+              "Text": "GitHub Pages triggers an automated build process each time new commits are pushed to the source branch.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "037239e5-e304-4b31-842c-f420892b8088",
+              "Text": "Wait one to two minutes after pushing before attempting to view your live site to allow the build to complete.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0e65559b-c88e-4d46-8aee-d2b6fb15fd46",
+              "Text": "You can check the build status under the repository\u0027s Settings \u003E Pages section, where GitHub reports whether the last deployment succeeded.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "07418ac2-ac01-4d37-82c4-58716fd0be9f",
+          "TopicId": "1c471357-7a97-4466-bb2d-2bd7d6dd2e2a",
+          "Title": "Navigating to Your GitHub Pages URL",
+          "BodyText": "Every GitHub Pages site is assigned a public URL based on your GitHub username and repository name.",
+          "Notes": "For a repository named \u0027username.github.io\u0027, the live URL is simply \u0027https://username.github.io\u0027. For other repository names the URL follows the pattern \u0027https://username.github.io/repository-name\u0027.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:26:58.340966-04:00",
+          "ModifiedDate": "2026-06-26T21:26:58.340966-04:00",
+          "Items": [
+            {
+              "Id": "a267fa17-86a5-453f-8e92-636b95423245",
+              "Text": "Your GitHub Pages URL is found in Settings \u003E Pages inside your repository, where GitHub displays the published address once deployment succeeds.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f47f0448-1584-467a-a4dc-2262e39f3db7",
+              "Text": "Open the URL in a browser to load your live site; the browser will request and render your index.html file automatically.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7ffc0d93-e0e8-4ff5-a0e4-0e8b4d3e27f2",
+              "Text": "Bookmark this URL, as you will return to it throughout the course to verify each new change you publish.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "b0848c87-216d-47c7-a81e-4b1c5281de86",
+          "TopicId": "1c471357-7a97-4466-bb2d-2bd7d6dd2e2a",
+          "Title": "Verifying the Page Renders Correctly",
+          "BodyText": "Confirming that your HTML page displays as expected is the final step in the publishing workflow and validates your entire setup.",
+          "Notes": "If the page shows a 404 error, double-check that the file is named exactly \u0027index.html\u0027 (all lowercase) and that it was pushed to the correct branch configured in GitHub Pages settings.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:26:58.340966-04:00",
+          "ModifiedDate": "2026-06-26T21:26:58.340966-04:00",
+          "Items": [
+            {
+              "Id": "07b66071-6778-4ce2-bd30-69ffd1ab9efb",
+              "Text": "Your browser should display the text \u0027Hello, World\u0027 (or whatever content you placed in the body of your HTML file) on a plain webpage.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3bffb6a6-10de-435c-94f2-4dc2206035d3",
+              "Text": "Use the browser\u0027s View Page Source option (Ctrl\u002BU or Cmd\u002BU) to confirm the raw HTML you wrote is being served correctly.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "56691c02-6099-44de-b56d-24b541f28294",
+              "Text": "If the page does not load or shows unexpected content, verify the file name, branch setting, and that the push completed without errors before troubleshooting further.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "eb14789c-0335-4a08-9d98-d30a24789f81",
+          "TopicId": "1c471357-7a97-4466-bb2d-2bd7d6dd2e2a",
+          "Title": "The Commit\u2013Push\u2013Verify Workflow",
+          "BodyText": "The sequence of committing, pushing, and verifying forms the core development loop you will repeat throughout the course whenever you update your site.",
+          "Notes": "Internalizing this loop early builds the habit of frequent, small commits paired with live checks, which makes it easier to identify which change caused any problem that appears.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:26:58.340966-04:00",
+          "ModifiedDate": "2026-06-26T21:26:58.340966-04:00",
+          "Items": [
+            {
+              "Id": "79b79390-8894-4069-814e-b0d32d3292d3",
+              "Text": "Every update to your site follows the same three steps: save and stage your changes, commit them with a meaningful message, then push to GitHub.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0b1fac56-ed55-4e88-9f2b-42a554de6c46",
+              "Text": "After each push, allow GitHub Pages to rebuild and then reload your live URL to confirm the update appears as intended.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5acc4d8f-2a7b-47a1-bd86-2d3f95cfbbd9",
+              "Text": "Catching rendering issues immediately after each small change is far easier than debugging multiple changes made all at once.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "883ea088-10ea-469a-a77e-e36e76abfaa9",
+      "Title": "Understanding the Development Workflow",
+      "Summary": "Students review the end-to-end workflow of editing code locally, committing changes to GitHub, and seeing updates reflected on a live site, establishing the pattern used throughout the course.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-06-26T21:25:20.09615-04:00",
+      "ModifiedDate": "2026-06-26T21:25:20.09615-04:00",
+      "Elements": [
+        {
+          "Id": "e63b6812-2f42-4000-8a1b-00716bfbb5c0",
+          "TopicId": "883ea088-10ea-469a-a77e-e36e76abfaa9",
+          "Title": "The Three Stages of the Local-to-Live Pipeline",
+          "BodyText": "The core development workflow moves code through three distinct stages: editing locally, saving changes to GitHub, and viewing the result on a live site.",
+          "Notes": "Think of each stage as a checkpoint \u2014 local is your workspace, GitHub is your save point, and GitHub Pages is your published output.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:27:16.7347136-04:00",
+          "ModifiedDate": "2026-06-26T21:27:16.7347136-04:00",
+          "Items": [
+            {
+              "Id": "4e33bb24-b5b7-460b-96ee-aa9828d8c944",
+              "Text": "Local editing is where you write and test code on your own machine before sharing it with anyone.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "dfd2f64a-0ba2-4ee5-8a50-5577101f4fc3",
+              "Text": "Committing and pushing to GitHub records a snapshot of your changes in a remote repository.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4cf8a91d-0b94-490a-8ea0-64fd11eceb2f",
+              "Text": "GitHub Pages automatically reads your repository and publishes it as a live website accessible by URL.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "92d63ca4-4bf9-4bda-9d5c-4a0844a85b56",
+          "TopicId": "883ea088-10ea-469a-a77e-e36e76abfaa9",
+          "Title": "Editing Code Locally",
+          "BodyText": "Local editing means writing and modifying your HTML files on your own computer using a code editor before any changes go online.",
+          "Notes": "Working locally lets you experiment and catch errors without affecting the live site. Your files exist only on your machine until you push them to GitHub.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:27:16.7347136-04:00",
+          "ModifiedDate": "2026-06-26T21:27:16.7347136-04:00",
+          "Items": [
+            {
+              "Id": "edd68ce0-6c3b-434f-b739-1a41fcbeb911",
+              "Text": "A code editor (such as VS Code) is used to open, write, and save HTML files stored in a local project folder.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ddd91262-455e-4112-bf7a-cc0c5efe0fd4",
+              "Text": "Changes made locally are invisible to the public until they are committed and pushed to the remote repository.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7d55f40d-4d3a-4c89-bc1d-b0172e712a64",
+              "Text": "Local editing is the starting point of every update cycle you will follow throughout the course.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "241940b5-3a28-43f0-86c1-ff8b797aa0aa",
+          "TopicId": "883ea088-10ea-469a-a77e-e36e76abfaa9",
+          "Title": "Committing Changes to GitHub",
+          "BodyText": "A commit is a saved snapshot of your changes, and pushing that commit sends it from your local machine to your GitHub repository.",
+          "Notes": "Each commit includes a message describing what changed, which builds a readable history of your project over time.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:27:16.7347136-04:00",
+          "ModifiedDate": "2026-06-26T21:27:16.7347136-04:00",
+          "Items": [
+            {
+              "Id": "55ae9e7f-cda7-44c0-aafa-e698a88b2baf",
+              "Text": "Staging and committing groups your saved file changes into a labeled checkpoint in your project\u0027s version history.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8961f0a6-19b5-4a5e-bce4-36a6b3839857",
+              "Text": "Pushing the commit uploads it to GitHub, making your latest code available in the remote repository.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d8d171ca-47fe-4928-918a-18c11fd9d4d1",
+              "Text": "This step is what triggers GitHub Pages to detect new content and begin updating the live site.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "39a3439f-9cf6-444b-ad37-01551b29123a",
+          "TopicId": "883ea088-10ea-469a-a77e-e36e76abfaa9",
+          "Title": "Seeing Updates on the Live Site",
+          "BodyText": "After a commit is pushed, GitHub Pages rebuilds the site automatically and the updates become visible at your public URL within moments.",
+          "Notes": "There is usually a short delay of a few seconds to a couple of minutes before changes appear live. Refreshing the browser is often all that is needed to confirm the update.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:27:16.7347136-04:00",
+          "ModifiedDate": "2026-06-26T21:27:16.7347136-04:00",
+          "Items": [
+            {
+              "Id": "18e68b2f-dee8-4fb4-8d59-951434533e14",
+              "Text": "GitHub Pages listens for new commits to the designated branch and rebuilds the published site without any manual step.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "380d67d4-e6bb-4480-b676-fb9fdb6de8cb",
+              "Text": "Your public GitHub Pages URL follows a predictable pattern (username.github.io/repository-name), making it easy to share and verify.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4eff6b11-73d6-4e2c-906c-0a5ec259ce03",
+              "Text": "Confirming that your live site matches your local edits is the final check that closes each workflow cycle.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "58422f00-162f-4c5d-a3fa-bcdec3b5e930",
+          "TopicId": "883ea088-10ea-469a-a77e-e36e76abfaa9",
+          "Title": "Why This Workflow Is Used Throughout the Course",
+          "BodyText": "This edit-commit-publish cycle is the repeating pattern that every future module will follow, so understanding it now builds the foundation for all subsequent work.",
+          "Notes": "Professional developers use a very similar loop \u2014 the course workflow is a simplified version of industry-standard practices involving Git and continuous deployment.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:27:16.7347136-04:00",
+          "ModifiedDate": "2026-06-26T21:27:16.7347136-04:00",
+          "Items": [
+            {
+              "Id": "d3fc4f51-89f9-467c-9a62-3ac1c5091f44",
+              "Text": "Every new concept introduced later in the course will be practiced by editing a local file, committing it, and checking the live result.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6c216bf1-88a7-43ff-8242-72107825ea18",
+              "Text": "Repeating the same workflow across different topics builds muscle memory and reduces friction when learning new content.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4ecbf6cd-ffb8-40e3-9886-c79a52cd3e3a",
+              "Text": "Establishing this pattern early means you spend less time on process logistics and more time focusing on the code itself.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 33
+}

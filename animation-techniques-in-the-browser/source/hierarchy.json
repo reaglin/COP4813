@@ -1,0 +1,1043 @@
+{
+  "ModuleFolderName": "Animation_Techniques_in",
+  "CourseName": "COP4813",
+  "GeneratedDate": "2026-06-26T21:51:16.4448645-04:00",
+  "ModifiedDate": "2026-06-26T21:53:33.6496228-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "a243cc85-39ea-4b94-b302-ec3e8e718cdb",
+      "Title": "Introduction to Browser Animation",
+      "Summary": "Overview of how animations work in the browser and why they matter for user experience. Introduces the two primary approaches: CSS-based and JavaScript-driven animation.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-06-26T21:51:16.4448645-04:00",
+      "ModifiedDate": "2026-06-26T21:51:16.4448645-04:00",
+      "Elements": [
+        {
+          "Id": "1a920846-7bcc-4548-91b0-eb47107d618c",
+          "TopicId": "a243cc85-39ea-4b94-b302-ec3e8e718cdb",
+          "Title": "What Browser Animation Is",
+          "BodyText": "Browser animation is the process of changing the visual properties of elements over time to create the illusion of motion or transformation within a web page.",
+          "Notes": "Animations can affect properties such as position, size, color, opacity, and shape, and they are rendered by the browser\u0027s rendering engine frame by frame.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:51:38.5449154-04:00",
+          "ModifiedDate": "2026-06-26T21:51:38.5449154-04:00",
+          "Items": [
+            {
+              "Id": "03b49a8d-2d8f-48fc-8ea4-7a8e421984b1",
+              "Text": "An animation is defined by a start state, an end state, and the transition between them over a specified duration.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0badc9f2-2c4b-41d3-88d3-ef8c16409a42",
+              "Text": "Browsers repaint the screen many times per second; smooth animation depends on synchronizing changes with these repaints.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "11a847a3-6f30-43eb-bc58-fd912c238707",
+              "Text": "Even simple effects like a button color change on hover are a form of animation that the browser must calculate and render.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "e4ce6a4c-7654-469d-a38f-e7821e6bb59b",
+          "TopicId": "a243cc85-39ea-4b94-b302-ec3e8e718cdb",
+          "Title": "Why Animation Matters for User Experience",
+          "BodyText": "Well-designed animations improve usability by providing visual feedback, guiding attention, and making interfaces feel responsive and intuitive.",
+          "Notes": "Poor or excessive animation, however, can distract users, cause motion sickness, or slow down perceived performance, so purposeful use is essential.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:51:38.5449154-04:00",
+          "ModifiedDate": "2026-06-26T21:51:38.5449154-04:00",
+          "Items": [
+            {
+              "Id": "2ac45f13-2e69-4140-bf8a-e9cf75ae0467",
+              "Text": "Animations communicate state changes, such as a loading spinner indicating that content is being fetched.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5a99ac2c-22e1-4333-af9a-5a0d6ff0735a",
+              "Text": "They help users understand spatial relationships, for example a panel sliding in from the side to indicate it is a secondary layer.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "35eadb45-6a10-40e6-888e-d7a81b010bda",
+              "Text": "Subtle motion, like a button press effect, confirms that an interaction has been registered, reducing user uncertainty.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "887d2ec1-0153-4503-81d4-fa4b878071c4",
+          "TopicId": "a243cc85-39ea-4b94-b302-ec3e8e718cdb",
+          "Title": "The Two Primary Approaches to Animation",
+          "BodyText": "Browser animations are produced through two main strategies: CSS-based animation and JavaScript-driven animation, each suited to different use cases.",
+          "Notes": "In practice, these two approaches are often combined, with CSS handling simple declarative effects and JavaScript managing complex or data-driven sequences.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:51:38.5449154-04:00",
+          "ModifiedDate": "2026-06-26T21:51:38.5449154-04:00",
+          "Items": [
+            {
+              "Id": "116601a5-191c-4fa0-8ecd-9d1a3d2d34e3",
+              "Text": "CSS-based animation uses stylesheet rules to describe changes declaratively, letting the browser optimize rendering automatically.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e771bde7-1501-4e8c-ac81-0e5d7b97ca3a",
+              "Text": "JavaScript-driven animation gives developers programmatic control over every frame, enabling dynamic, interactive, and conditionally triggered effects.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b8969f10-c3b7-48ba-949a-74569a2376a4",
+              "Text": "Choosing between the two depends on factors such as complexity, interactivity requirements, and performance considerations.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "6531c4e0-e4c3-41c2-9288-93747bc5dc5e",
+          "TopicId": "a243cc85-39ea-4b94-b302-ec3e8e718cdb",
+          "Title": "CSS-Based Animation: An Overview",
+          "BodyText": "CSS provides two built-in mechanisms for animation: transitions, which animate between two states, and keyframe animations, which define multi-step sequences.",
+          "Notes": "CSS animations are declared entirely in stylesheets, keeping animation logic separate from JavaScript business logic and making them easy to maintain.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:51:38.5449154-04:00",
+          "ModifiedDate": "2026-06-26T21:51:38.5449154-04:00",
+          "Items": [
+            {
+              "Id": "93eb083c-543c-4f73-9d10-9df7d5d57548",
+              "Text": "CSS transitions trigger automatically when a property value changes, such as on hover or focus, requiring minimal code.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "70c8089c-f0d2-4da1-823b-bb700da60f53",
+              "Text": "CSS keyframe animations use the @keyframes rule to specify intermediate steps, enabling complex multi-stage effects.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d3790f67-a30b-4593-ba72-076e888fadea",
+              "Text": "Because CSS animations are handled by the browser\u0027s compositor thread, they can run smoothly even when the main JavaScript thread is busy.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "5778cbd5-3eed-4058-9c58-61634ec346dc",
+          "TopicId": "a243cc85-39ea-4b94-b302-ec3e8e718cdb",
+          "Title": "JavaScript-Driven Animation: An Overview",
+          "BodyText": "JavaScript animation gives developers full programmatic control by updating element properties frame by frame, typically using the requestAnimationFrame API.",
+          "Notes": "Libraries such as GSAP build on top of requestAnimationFrame to provide higher-level abstractions, timelines, and easing functions.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:51:38.5449154-04:00",
+          "ModifiedDate": "2026-06-26T21:51:38.5449154-04:00",
+          "Items": [
+            {
+              "Id": "28383ba4-96d1-4e43-aa9e-6c8eba3c837a",
+              "Text": "requestAnimationFrame schedules a callback to run just before the browser\u0027s next repaint, ensuring animations stay synchronized with the display refresh rate.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7fa38ac8-0c0f-4b1e-8746-19a7c4625285",
+              "Text": "JavaScript animation is necessary when animation behavior depends on real-time data, user input, or complex conditional logic.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e9176fca-a69f-4c89-bed4-601e071f3da2",
+              "Text": "Developers have fine-grained control over starting, pausing, reversing, or dynamically altering animations at any point during playback.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "6968865a-46ff-4828-aab7-ab7f53012052",
+          "TopicId": "a243cc85-39ea-4b94-b302-ec3e8e718cdb",
+          "Title": "Performance Fundamentals for Smooth Animation",
+          "BodyText": "Smooth animation targets 60 frames per second, giving the browser approximately 16 milliseconds per frame to perform all calculations and rendering.",
+          "Notes": "Understanding the browser\u0027s rendering pipeline \u2014 style calculation, layout, paint, and composite \u2014 helps developers write animations that avoid costly steps.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:51:38.5449154-04:00",
+          "ModifiedDate": "2026-06-26T21:51:38.5449154-04:00",
+          "Items": [
+            {
+              "Id": "b21143e9-1b96-4dd6-83b4-badb5b0e84ee",
+              "Text": "Animating properties that trigger layout recalculation, such as width or margin, is more expensive than animating transform or opacity.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f546df67-f3a3-47e4-802c-556c121a803b",
+              "Text": "Both CSS and JavaScript animations benefit from promoting animated elements to their own compositor layer using properties like will-change.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0793c35f-0ba3-4605-b3b2-b53b047e1a0d",
+              "Text": "Keeping animation work off the main thread as much as possible prevents janky or dropped frames caused by competing JavaScript execution.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "175ec920-a1a6-4739-b314-c219e5a5fe2f",
+      "Title": "CSS Transitions",
+      "Summary": "Covers how to use CSS transitions to animate changes in element properties smoothly over time. Explores transition properties such as duration, timing functions, and delay.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-06-26T21:51:16.4448645-04:00",
+      "ModifiedDate": "2026-06-26T21:51:16.4448645-04:00",
+      "Elements": [
+        {
+          "Id": "bff29317-a9e5-469c-99da-5de29a93fb0b",
+          "TopicId": "175ec920-a1a6-4739-b314-c219e5a5fe2f",
+          "Title": "What Are CSS Transitions?",
+          "BodyText": "CSS transitions allow property changes in CSS values to occur smoothly over a specified duration, rather than happening instantaneously.",
+          "Notes": "For example, changing a button\u0027s background color on hover can be animated smoothly using a transition instead of snapping abruptly to the new color.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:52:04.7386687-04:00",
+          "ModifiedDate": "2026-06-26T21:52:04.7386687-04:00",
+          "Items": [
+            {
+              "Id": "2bfc6ba9-aab9-48b1-89cb-e951f823fb73",
+              "Text": "Transitions are triggered when a CSS property value changes, such as on :hover, :focus, or a class toggle.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7da95fba-0d02-4d2f-a120-59cfe0e0e2bc",
+              "Text": "They require a start state and an end state; the browser interpolates the values in between.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1b65e746-c43a-4bbb-ba20-a27e08962f56",
+              "Text": "Transitions are defined on the element in its default state, not on the triggering selector.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "2266171c-0a21-45da-b30a-ccfc9571ee44",
+          "TopicId": "175ec920-a1a6-4739-b314-c219e5a5fe2f",
+          "Title": "The transition-property",
+          "BodyText": "The transition-property specifies which CSS property or properties should be animated when their values change.",
+          "Notes": "Using \u0027all\u0027 will animate every property that changes, but targeting specific properties like \u0027opacity\u0027 or \u0027transform\u0027 is recommended for better performance and predictability.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:52:04.7386687-04:00",
+          "ModifiedDate": "2026-06-26T21:52:04.7386687-04:00",
+          "Items": [
+            {
+              "Id": "f540cc5c-310b-4339-b642-c9eb1ffd855a",
+              "Text": "You can specify a single property (e.g., transition-property: background-color) or a comma-separated list of properties.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "adc8b767-58a5-4110-9774-8caeef672b96",
+              "Text": "Only animatable CSS properties can be transitioned; properties such as display cannot be transitioned.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3f9d8042-d31b-4c3d-b49d-6f635fdfd152",
+              "Text": "Using the shorthand \u0027transition\u0027 property allows you to set all transition sub-properties in one declaration.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "f511732b-e11b-4378-adb5-45b1cb4f7aef",
+          "TopicId": "175ec920-a1a6-4739-b314-c219e5a5fe2f",
+          "Title": "Controlling Duration with transition-duration",
+          "BodyText": "The transition-duration property defines how long the transition animation takes to complete, expressed in seconds (s) or milliseconds (ms).",
+          "Notes": "A duration of 0s means the change is instantaneous and no animation occurs. Common durations for UI interactions range from 150ms to 400ms.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:52:04.7386687-04:00",
+          "ModifiedDate": "2026-06-26T21:52:04.7386687-04:00",
+          "Items": [
+            {
+              "Id": "606e2e90-b484-42b6-a1d8-2ca46fad3d62",
+              "Text": "Duration values must include a unit; for example, \u00270.3s\u0027 or \u0027300ms\u0027 both represent 300 milliseconds.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "76a5951d-cab8-4bb6-a0bd-741644c3944a",
+              "Text": "When multiple properties are transitioned, you can supply a comma-separated list of durations to assign different durations to each property.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2b980ae9-a488-4072-beb2-27ca878f64dd",
+              "Text": "Longer durations can feel sluggish for small UI interactions, while very short durations may go unnoticed by users.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "3e819351-e86e-443b-819e-d3557d85fff5",
+          "TopicId": "175ec920-a1a6-4739-b314-c219e5a5fe2f",
+          "Title": "Timing Functions and transition-timing-function",
+          "BodyText": "The transition-timing-function property controls the acceleration curve of the transition, determining how the intermediate values are calculated over time.",
+          "Notes": "Common keywords include ease (default), linear, ease-in, ease-out, and ease-in-out. Custom curves can be defined using cubic-bezier() for fine-grained control.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:52:04.7386687-04:00",
+          "ModifiedDate": "2026-06-26T21:52:04.7386687-04:00",
+          "Items": [
+            {
+              "Id": "0c375550-48a7-4512-9619-bc02dcd676f1",
+              "Text": "\u0027ease\u0027 starts slow, speeds up, then slows down at the end, giving a natural feel to most UI animations.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ef6b2ed5-7abb-4a2e-aad8-5447b58c8f3a",
+              "Text": "\u0027linear\u0027 progresses at a constant rate from start to finish, which is useful for things like progress bars or spinning loaders.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f35e77cd-4bb4-4989-aeaa-24c242847f69",
+              "Text": "The steps() function allows for discrete, frame-by-frame transitions, useful for sprite-sheet style animations.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "94f775b7-9668-40b0-a8f0-f885910f8f50",
+              "Text": "cubic-bezier(x1, y1, x2, y2) lets developers define a fully custom easing curve using control points.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "e9bc22a5-e38f-4b5d-8031-46108922c911",
+          "TopicId": "175ec920-a1a6-4739-b314-c219e5a5fe2f",
+          "Title": "Adding a Delay with transition-delay",
+          "BodyText": "The transition-delay property specifies how long the browser should wait before starting the transition after a property change is triggered.",
+          "Notes": "Delays are useful for sequencing multiple animations or preventing accidental hover triggers on fast mouse movements.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:52:04.7386687-04:00",
+          "ModifiedDate": "2026-06-26T21:52:04.7386687-04:00",
+          "Items": [
+            {
+              "Id": "10def39c-aa8e-42ce-b63e-2c449cb8fbca",
+              "Text": "Like duration, delay values are expressed in seconds or milliseconds (e.g., \u00270.5s\u0027 or \u0027200ms\u0027).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1b5a4003-2517-49de-a18b-08c2c031ee86",
+              "Text": "A negative delay value causes the transition to start immediately but partway through its animation cycle.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4a578f9d-7f42-4e60-868a-a96f78aee38e",
+              "Text": "Multiple properties can have different delays by providing a comma-separated list of delay values.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ab59d236-ec0c-437b-a7e5-2bc695646fed",
+          "TopicId": "175ec920-a1a6-4739-b314-c219e5a5fe2f",
+          "Title": "The Transition Shorthand Property",
+          "BodyText": "The transition shorthand property allows all four transition sub-properties to be set in a single CSS declaration, making code more concise.",
+          "Notes": "Example: \u0027transition: background-color 0.3s ease-in-out 0.1s\u0027 sets the property, duration, timing function, and delay in one line.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:52:04.7386687-04:00",
+          "ModifiedDate": "2026-06-26T21:52:04.7386687-04:00",
+          "Items": [
+            {
+              "Id": "953d538d-ea7c-4510-b64f-602a2bc77751",
+              "Text": "The shorthand order is: transition-property, transition-duration, transition-timing-function, transition-delay.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c34c3dfc-6f07-43ce-b458-e7ae296e1050",
+              "Text": "When the duration and delay are both specified as time values, the first time value is always interpreted as duration.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1a22d059-417a-42ea-9cb4-99558ef0dcfe",
+              "Text": "Multiple transitions can be combined in one declaration by separating each transition definition with a comma.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "6d03ef5d-ea4b-4380-8aa4-112bfafbf084",
+          "TopicId": "175ec920-a1a6-4739-b314-c219e5a5fe2f",
+          "Title": "Performance Considerations for CSS Transitions",
+          "BodyText": "Not all CSS properties are equally efficient to animate; choosing the right properties ensures smooth, high-performance transitions.",
+          "Notes": "Properties like opacity and transform are handled by the GPU compositor layer and do not trigger layout or paint, making them the most performant choices for animation.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:52:04.7386687-04:00",
+          "ModifiedDate": "2026-06-26T21:52:04.7386687-04:00",
+          "Items": [
+            {
+              "Id": "20569755-c881-47ba-92b2-5cd77f187065",
+              "Text": "Animating properties such as width, height, or margin can trigger expensive layout recalculations (reflow) on every frame.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "458c794a-d121-4569-b1f7-b591baa8481a",
+              "Text": "Prefer transitioning transform (for movement and scaling) and opacity (for fading) to keep animations running at 60fps.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b5e02de8-0858-463c-a377-138f4d8597f5",
+              "Text": "Adding will-change: transform or will-change: opacity hints to the browser that an element will be animated, allowing it to optimize rendering in advance.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "8d1b4eae-a095-4c52-a173-88b082e38c6f",
+      "Title": "CSS Keyframe Animations",
+      "Summary": "Explains how to define multi-step animations using the @keyframes rule in CSS. Covers animation properties including iteration, direction, and fill modes.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-06-26T21:51:16.4448645-04:00",
+      "ModifiedDate": "2026-06-26T21:51:16.4448645-04:00",
+      "Elements": [
+        {
+          "Id": "6e210c50-6dc3-4480-a75e-f74f62efd2c7",
+          "TopicId": "8d1b4eae-a095-4c52-a173-88b082e38c6f",
+          "Title": "Defining Animations with @keyframes",
+          "BodyText": "The @keyframes rule is the foundation of CSS keyframe animations, allowing you to define discrete steps that describe how an element should change over time.",
+          "Notes": "For example: @keyframes slideIn { from { transform: translateX(-100%); } to { transform: translateX(0); } }. You can also use percentage values like 0%, 50%, and 100% to define intermediate steps.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:52:31.1314666-04:00",
+          "ModifiedDate": "2026-06-26T21:52:31.1314666-04:00",
+          "Items": [
+            {
+              "Id": "07b68fcb-1d49-49c0-9176-0773508bd56f",
+              "Text": "The @keyframes rule is given a unique name that is later referenced by the animation-name property on an element.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "63341f79-0111-41e7-b0cd-1457551d8ebd",
+              "Text": "Use \u0027from\u0027 and \u0027to\u0027 keywords as shorthand for 0% and 100% when only a start and end state are needed.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d70259d2-ec0d-486b-b485-b9907af29497",
+              "Text": "Multiple intermediate keyframe stops (e.g., 25%, 50%, 75%) allow fine-grained control over complex multi-step animations.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "72579a7b-3fe0-453a-941d-f3d5e9f7f005",
+              "Text": "Any animatable CSS property \u2014 such as opacity, transform, or color \u2014 can be changed between keyframe steps.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "fb36f037-6b00-4df7-9d23-a25891d136d2",
+          "TopicId": "8d1b4eae-a095-4c52-a173-88b082e38c6f",
+          "Title": "Attaching Animations to Elements",
+          "BodyText": "Once a @keyframes rule is defined, it must be applied to an element using the animation-name and animation-duration properties at minimum.",
+          "Notes": "Without animation-duration, the default is 0s and the animation will not be visible. The shorthand \u0027animation\u0027 property can combine all animation sub-properties into a single declaration.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:52:31.1314666-04:00",
+          "ModifiedDate": "2026-06-26T21:52:31.1314666-04:00",
+          "Items": [
+            {
+              "Id": "c488895f-7e97-460e-9085-ac083f7bfe1f",
+              "Text": "The animation-name property references the identifier given in the @keyframes rule.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2cce6933-b52e-4a69-90d4-baa7d593a441",
+              "Text": "The animation-duration property sets how long one full cycle of the animation takes, expressed in seconds (s) or milliseconds (ms).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3395a32e-3c96-4f43-a59f-2a025e8d4c5c",
+              "Text": "The animation shorthand syntax is: animation: name duration timing-function delay iteration-count direction fill-mode play-state.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "b75fc298-3007-4fa0-9e37-c6691336c0c3",
+          "TopicId": "8d1b4eae-a095-4c52-a173-88b082e38c6f",
+          "Title": "Controlling Iteration and Repetition",
+          "BodyText": "The animation-iteration-count property determines how many times an animation cycle plays before stopping.",
+          "Notes": "Setting animation-iteration-count to \u0027infinite\u0027 is useful for looping effects like spinners or pulsing indicators, but should be used with care to avoid distracting users.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:52:31.1314666-04:00",
+          "ModifiedDate": "2026-06-26T21:52:31.1314666-04:00",
+          "Items": [
+            {
+              "Id": "012b4d99-29cc-4f5b-8268-e48d23533b80",
+              "Text": "A numeric value (e.g., 1, 3, 2.5) specifies an exact number of cycles; fractional values end the animation partway through a cycle.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5dda5c82-a041-4b2f-8cbc-5a9b8b61db60",
+              "Text": "The keyword \u0027infinite\u0027 causes the animation to repeat indefinitely until explicitly paused or removed.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "eb03dfd7-f81c-4756-aebb-3414b6a363c8",
+              "Text": "Combining iteration count with animation-delay controls when the looping begins relative to page load or user interaction.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "458729d4-00a2-447f-8220-b0d68aae6606",
+          "TopicId": "8d1b4eae-a095-4c52-a173-88b082e38c6f",
+          "Title": "Animation Direction",
+          "BodyText": "The animation-direction property controls whether the animation plays forward, backward, or alternates between both on successive iterations.",
+          "Notes": "Alternating directions can create a smooth back-and-forth effect without duplicating keyframe definitions, for example making a bouncing ball rise and fall naturally.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:52:31.1314666-04:00",
+          "ModifiedDate": "2026-06-26T21:52:31.1314666-04:00",
+          "Items": [
+            {
+              "Id": "ffb368f7-4260-4f21-9c6e-906d5d1ed3ab",
+              "Text": "\u0027normal\u0027 (default) plays the animation from 0% to 100% on every iteration.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "17945597-c697-4578-a1cb-d55eec92b969",
+              "Text": "\u0027reverse\u0027 plays the animation from 100% to 0%, effectively running it backwards.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "321fbba4-ad4a-4d59-858b-c1824317b377",
+              "Text": "\u0027alternate\u0027 plays forward on odd iterations and backward on even iterations, creating a ping-pong effect.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9cf2214f-b554-4c0e-8466-119cca0687c5",
+              "Text": "\u0027alternate-reverse\u0027 begins with a reverse play and then alternates, the inverse of \u0027alternate\u0027.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "36c2213f-501e-414f-93fc-4086496635ae",
+          "TopicId": "8d1b4eae-a095-4c52-a173-88b082e38c6f",
+          "Title": "Fill Modes",
+          "BodyText": "The animation-fill-mode property defines what styles are applied to an element before the animation starts and after it ends.",
+          "Notes": "Without fill-mode set, an element snaps back to its original styles the moment the animation finishes, which can look jarring. \u0027forwards\u0027 is the most commonly used value to retain the end state.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:52:31.1314666-04:00",
+          "ModifiedDate": "2026-06-26T21:52:31.1314666-04:00",
+          "Items": [
+            {
+              "Id": "a55a687e-c381-4782-abc0-4270892511a8",
+              "Text": "\u0027none\u0027 (default) means the animation has no effect outside its active duration; the element returns to its original styles.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5d30c65a-5981-4fd4-9a97-57a7b6da689f",
+              "Text": "\u0027forwards\u0027 retains the computed styles from the last keyframe after the animation completes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "08964bca-bc0a-4ead-abf4-ffbd3915b06d",
+              "Text": "\u0027backwards\u0027 applies the styles of the first keyframe during the animation-delay period before the animation starts.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "3a318b03-330a-4626-abe7-175b5f21417a",
+              "Text": "\u0027both\u0027 combines forwards and backwards, applying the first-keyframe styles during the delay and the last-keyframe styles after completion.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "8c8d232b-ea51-4671-a365-e8b2f3f4e929",
+          "TopicId": "8d1b4eae-a095-4c52-a173-88b082e38c6f",
+          "Title": "Timing Functions and Delay",
+          "BodyText": "animation-timing-function and animation-delay give precise control over the pacing and start time of each animation cycle.",
+          "Notes": "Timing functions can also be specified per keyframe step, not just on the element, allowing different easing between individual stops within a single animation.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:52:31.1314666-04:00",
+          "ModifiedDate": "2026-06-26T21:52:31.1314666-04:00",
+          "Items": [
+            {
+              "Id": "c4eb6d4e-d721-458c-8460-fbb66c772df7",
+              "Text": "animation-timing-function accepts keywords such as ease, linear, ease-in, ease-out, and ease-in-out, or a custom cubic-bezier() curve.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "56887cb7-1270-4332-8344-7dc6cc4760e4",
+              "Text": "The \u0027steps()\u0027 timing function creates discrete jump animations useful for sprite-sheet style effects.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "92fd5653-1830-49ce-967c-d924f6e8df9c",
+              "Text": "animation-delay accepts positive values (waiting before start) or negative values (starting the animation mid-cycle immediately).",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c5196eac-de65-4da1-a581-8cad20b83317",
+              "Text": "Each of these properties can accept a comma-separated list of values to control multiple animations applied to the same element independently.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "627f0b22-4c65-4d01-96cc-9cf511dab48f",
+          "TopicId": "8d1b4eae-a095-4c52-a173-88b082e38c6f",
+          "Title": "Play State and Pausing Animations",
+          "BodyText": "The animation-play-state property allows an animation to be paused and resumed without removing it from the element entirely.",
+          "Notes": "This is especially useful when combined with JavaScript event listeners, such as pausing an animation when a user hovers over an element or when a tab loses focus.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:52:31.1314666-04:00",
+          "ModifiedDate": "2026-06-26T21:52:31.1314666-04:00",
+          "Items": [
+            {
+              "Id": "c9b9d019-aa36-43dc-bce0-1da59597ced5",
+              "Text": "A value of \u0027running\u0027 (default) means the animation plays normally according to its other properties.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "da2db6b4-c440-438a-adee-e0d299cfdbed",
+              "Text": "A value of \u0027paused\u0027 freezes the animation at its current point in the cycle without resetting it.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "411f8695-d24e-494f-b1ca-9b38fe3f4d4a",
+              "Text": "Toggling animation-play-state via JavaScript or a CSS :hover rule provides a lightweight way to add interactive animation controls.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "9120851b-fc1e-4000-a19f-d347a7bc088c",
+      "Title": "JavaScript-Driven Animation with requestAnimationFrame",
+      "Summary": "Introduces the requestAnimationFrame API for creating animations controlled through JavaScript. Demonstrates how to build animation loops that are synchronized with the browser\u0027s rendering cycle.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-06-26T21:51:16.4448645-04:00",
+      "ModifiedDate": "2026-06-26T21:51:16.4448645-04:00",
+      "Elements": [
+        {
+          "Id": "bf05f761-7bac-4720-8bfe-45bb60bc9d14",
+          "TopicId": "9120851b-fc1e-4000-a19f-d347a7bc088c",
+          "Title": "What is requestAnimationFrame?",
+          "BodyText": "requestAnimationFrame (rAF) is a browser API that schedules a JavaScript function to run just before the browser performs its next repaint.",
+          "Notes": "Unlike setTimeout or setInterval, rAF is purpose-built for animation and is aware of the browser\u0027s rendering pipeline.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:52:57.4257746-04:00",
+          "ModifiedDate": "2026-06-26T21:52:57.4257746-04:00",
+          "Items": [
+            {
+              "Id": "43ba93f5-3ca9-4218-bc82-8817c3b3c787",
+              "Text": "It accepts a callback function that is invoked once per frame, typically at 60 frames per second on most displays.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5374e7ae-fd35-4fd8-923d-17d6f3f45b68",
+              "Text": "The browser can optimize rAF calls, pausing them when the tab is hidden to save CPU and battery.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "94399a9f-f2b7-4519-b4f7-419e8edb8752",
+              "Text": "It replaces older timer-based animation approaches that could cause janky or out-of-sync visuals.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "52344cc6-d717-4ed8-96e2-aa4ffbf3f0c6",
+          "TopicId": "9120851b-fc1e-4000-a19f-d347a7bc088c",
+          "Title": "Synchronization with the Browser\u0027s Rendering Cycle",
+          "BodyText": "requestAnimationFrame aligns JavaScript execution with the browser\u0027s natural repaint schedule, ensuring animations appear smooth and consistent.",
+          "Notes": "Browsers aim to repaint at the display\u0027s refresh rate (commonly 60 Hz, meaning ~16.67 ms per frame). rAF callbacks are fired at the start of each frame budget.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:52:57.4257746-04:00",
+          "ModifiedDate": "2026-06-26T21:52:57.4257746-04:00",
+          "Items": [
+            {
+              "Id": "e5e7cbe1-8207-4fd1-8e99-08d3d1ceaa67",
+              "Text": "Because updates happen in sync with repaints, there is no risk of updating the DOM mid-frame and causing a visible tear.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ec37239d-319f-42f3-8059-360144d56018",
+              "Text": "Aligning with the rendering cycle prevents wasted computation from updates that would never be displayed.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c7d69319-62ad-4582-b0c1-5a6f8f8ee96b",
+              "Text": "High-refresh-rate displays (90 Hz, 120 Hz) are handled automatically; rAF adapts to the actual screen refresh rate.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "be457b35-25d5-4c5d-b3f4-86028bae053b",
+          "TopicId": "9120851b-fc1e-4000-a19f-d347a7bc088c",
+          "Title": "Building a Basic Animation Loop",
+          "BodyText": "An animation loop is created by having the rAF callback recursively schedule itself, producing a continuous cycle of updates and repaints.",
+          "Notes": "Example pattern: function animate(timestamp) { /* update state */ requestAnimationFrame(animate); } requestAnimationFrame(animate);",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:52:57.4257746-04:00",
+          "ModifiedDate": "2026-06-26T21:52:57.4257746-04:00",
+          "Items": [
+            {
+              "Id": "7f76acc4-24c1-4b47-937c-cf14429af279",
+              "Text": "The loop begins with a single call to requestAnimationFrame, passing a named function as the callback.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "273720f6-e5d9-45d4-a21b-e3206e7b2e35",
+              "Text": "At the end of each callback, requestAnimationFrame is called again with the same function to schedule the next frame.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3f2678e5-b456-4fc2-9b2c-4758ea1a915d",
+              "Text": "The loop continues indefinitely until you stop re-scheduling, giving you full programmatic control over the animation lifecycle.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "8528c2ef-cc19-4199-b3c6-8f53297a8326",
+          "TopicId": "9120851b-fc1e-4000-a19f-d347a7bc088c",
+          "Title": "Using the Timestamp Parameter",
+          "BodyText": "The callback passed to requestAnimationFrame automatically receives a high-resolution timestamp representing the time the frame began.",
+          "Notes": "The timestamp is provided in milliseconds with sub-millisecond precision via the Performance API (similar to performance.now()).",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:52:57.4257746-04:00",
+          "ModifiedDate": "2026-06-26T21:52:57.4257746-04:00",
+          "Items": [
+            {
+              "Id": "d4bfbe5f-5c18-4c52-a027-4cf563c95a48",
+              "Text": "By comparing the current timestamp to a stored previous timestamp, you can calculate the elapsed time (delta) between frames.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8a5c7d5e-f69b-4eaf-85a2-a2b4fefa4eb7",
+              "Text": "Using delta time to drive animation values ensures motion speed remains consistent regardless of frame rate fluctuations.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3180ce4c-f28d-43ca-a091-4072ff5f7df4",
+              "Text": "This technique, called delta-time animation, prevents animations from running faster or slower on different devices or under varying load.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "8f1c477b-c32f-4f7b-9845-a1859203838b",
+          "TopicId": "9120851b-fc1e-4000-a19f-d347a7bc088c",
+          "Title": "Updating DOM or Canvas Properties Each Frame",
+          "BodyText": "Inside the rAF callback, you apply incremental changes to element styles, attributes, or canvas drawings to produce the visual progression of an animation.",
+          "Notes": "For CSS property changes, directly setting element.style.transform or element.style.left is common. For canvas-based animations, the entire scene is typically cleared and redrawn each frame.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:52:57.4257746-04:00",
+          "ModifiedDate": "2026-06-26T21:52:57.4257746-04:00",
+          "Items": [
+            {
+              "Id": "caff2445-bf6d-4eb4-adaf-743fcd2cd6b1",
+              "Text": "Calculating the new position or state of an element based on elapsed time and then applying it produces smooth, frame-accurate movement.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "083c1baa-6692-4306-bee6-7e9162142f0d",
+              "Text": "Batching all DOM reads before writes within a single frame avoids forced synchronous layouts (layout thrashing).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bd8fd6ce-64b4-4ceb-bca8-4364fe83aae7",
+              "Text": "canvas-based animations benefit from rAF because the entire drawing context is redrawn each frame in a controlled, predictable manner.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "35812ccd-d49f-4037-9912-d731d9654968",
+          "TopicId": "9120851b-fc1e-4000-a19f-d347a7bc088c",
+          "Title": "Stopping and Controlling the Animation Loop",
+          "BodyText": "requestAnimationFrame returns a numeric ID that can be used to cancel a scheduled frame, giving you the ability to pause or stop animations on demand.",
+          "Notes": "Store the return value: let rafId = requestAnimationFrame(animate); then cancel it with: cancelAnimationFrame(rafId);",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:52:57.4257746-04:00",
+          "ModifiedDate": "2026-06-26T21:52:57.4257746-04:00",
+          "Items": [
+            {
+              "Id": "7107af52-f23b-4e33-9c13-76515d2d8c8d",
+              "Text": "Cancelling the loop is essential for cleanup when a component unmounts, a user navigates away, or an animation reaches its end state.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "53500c5e-0f03-4ddf-bc5b-5ae1f389229b",
+              "Text": "A boolean flag variable can also be used inside the callback to conditionally skip re-scheduling without using cancelAnimationFrame.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "47c82ce3-9dec-4f44-88dd-a6aaa50f259c",
+              "Text": "Properly stopping animation loops prevents memory leaks and unnecessary CPU usage in long-running web applications.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "a23949bb-22a0-42d8-bb29-a0f634846aa9",
+          "TopicId": "9120851b-fc1e-4000-a19f-d347a7bc088c",
+          "Title": "Performance Advantages Over Timer-Based Animation",
+          "BodyText": "Using requestAnimationFrame instead of setInterval or setTimeout offers measurable performance and visual quality improvements for browser animations.",
+          "Notes": "setInterval fires on a fixed schedule that is unaware of repaints, potentially causing multiple DOM updates per frame or updates that are never rendered.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:52:57.4257746-04:00",
+          "ModifiedDate": "2026-06-26T21:52:57.4257746-04:00",
+          "Items": [
+            {
+              "Id": "8e18e9a0-b286-44f8-9775-b290cc9970d2",
+              "Text": "rAF callbacks are automatically throttled or suspended when the page is in a background tab, reducing unnecessary resource consumption.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3079d352-6816-4445-99a5-44278a8ff6c6",
+              "Text": "Timer-based methods can accumulate drift over time, causing animations to fall out of sync; rAF stays tied to actual rendering moments.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b2ed9c5c-eb3f-4e15-bf96-f00a91fe4209",
+              "Text": "Browsers apply additional optimizations such as coalescing rAF callbacks with their compositor pipeline, further improving smoothness.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "73ccb82d-b0e9-4867-b0a3-25fe2238b6c4",
+      "Title": "Animation Performance and Best Practices",
+      "Summary": "Examines techniques for creating smooth, performant animations by minimizing layout and paint operations. Covers concepts such as compositing, GPU acceleration, and choosing the right animation approach for a given use case.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-06-26T21:51:16.4448645-04:00",
+      "ModifiedDate": "2026-06-26T21:51:16.4448645-04:00",
+      "Elements": [
+        {
+          "Id": "eb2dde4d-30c8-46c7-8148-fe58cb70f961",
+          "TopicId": "73ccb82d-b0e9-4867-b0a3-25fe2238b6c4",
+          "Title": "Understanding the Browser Rendering Pipeline",
+          "BodyText": "Smooth animations depend on understanding how the browser processes changes: through layout, paint, and composite stages. Triggering earlier stages in this pipeline is more expensive and can cause jank.",
+          "Notes": "Layout (reflow) recalculates element geometry; paint fills pixels; compositing assembles layers. Animations that only affect compositing skip the two costly earlier stages entirely.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:53:33.6495677-04:00",
+          "ModifiedDate": "2026-06-26T21:53:33.6495677-04:00",
+          "Items": [
+            {
+              "Id": "f0120662-26ae-459f-b227-80a177a7476b",
+              "Text": "Layout is triggered by changes to properties like width, height, margin, or top/left, and forces the browser to recalculate the geometry of elements.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "571cecc9-c58c-4d37-9b92-d626d4f84f81",
+              "Text": "Paint is triggered by visual changes such as color or background, requiring the browser to re-rasterize affected areas.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c685d1eb-a02f-4a7e-9319-dbf2ab699c24",
+              "Text": "Compositing combines pre-painted layers on the GPU and is the cheapest stage to target for animations.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "6a5eb77a-771d-4508-83dc-d101feabc336",
+              "Text": "Keeping animations in the composite stage alone is the key to achieving consistent 60 fps performance.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "2054a0d1-9fa5-42ae-b359-9bb504d287e6",
+          "TopicId": "73ccb82d-b0e9-4867-b0a3-25fe2238b6c4",
+          "Title": "GPU Acceleration and Composited Properties",
+          "BodyText": "Certain CSS properties are handled directly by the GPU compositor, bypassing layout and paint entirely. Animating these properties is the most performant approach available in the browser.",
+          "Notes": "The two primary compositor-friendly properties are transform and opacity. Browsers can promote an element to its own compositor layer, allowing changes to be handled entirely on the GPU.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:53:33.6495677-04:00",
+          "ModifiedDate": "2026-06-26T21:53:33.6495677-04:00",
+          "Items": [
+            {
+              "Id": "f12d9954-f492-43b7-a5d1-67554ed91646",
+              "Text": "transform (including translate, scale, and rotate) and opacity are the two CSS properties that can be animated without triggering layout or paint.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9899eaff-80c8-4570-8651-27f209d34c6c",
+              "Text": "The browser promotes elements to their own GPU layer when it detects they need compositing, a process called layer promotion.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "79f9767c-f211-4628-9278-1d8377eef3b8",
+              "Text": "Using will-change: transform or will-change: opacity hints to the browser to promote an element before animation begins, reducing the cost of the first frame.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "6718d706-2674-40e2-8aca-c1fcc5b86b2e",
+              "Text": "Overusing will-change or layer promotion can consume excessive GPU memory, so it should be applied selectively.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "bf95e2bb-9596-4248-a15c-a81886a4f4d2",
+          "TopicId": "73ccb82d-b0e9-4867-b0a3-25fe2238b6c4",
+          "Title": "Avoiding Layout Thrashing",
+          "BodyText": "Layout thrashing occurs when JavaScript repeatedly reads and writes DOM properties that force synchronous reflows, stalling the rendering pipeline. Structuring code to batch reads and writes separately prevents this bottleneck.",
+          "Notes": "A common example is reading offsetHeight inside a loop after changing styles, which forces a reflow on every iteration. Libraries like FastDOM help enforce read/write separation.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:53:33.6495677-04:00",
+          "ModifiedDate": "2026-06-26T21:53:33.6495677-04:00",
+          "Items": [
+            {
+              "Id": "7dc62017-6873-44da-9249-a08b9fa33d90",
+              "Text": "Reading layout properties such as offsetWidth, clientHeight, or getBoundingClientRect after a style write forces the browser to perform a synchronous reflow immediately.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8ab9536d-ca8f-49df-9220-5797c1b7e802",
+              "Text": "Batch all DOM reads together before performing any writes to allow the browser to defer reflow calculations.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "13e137a9-ab1a-4195-9af1-d54dd1291e55",
+              "Text": "In requestAnimationFrame callbacks, perform reads at the top of the callback and writes after, keeping them clearly separated.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e9c469d1-9f82-4ca7-829e-1815704be127",
+              "Text": "Animating properties like top, left, width, or height via JavaScript is a common source of layout thrashing and should be replaced with transform equivalents.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "648ef10d-90c7-4c1f-8c75-74a952288c25",
+          "TopicId": "73ccb82d-b0e9-4867-b0a3-25fe2238b6c4",
+          "Title": "Choosing Between CSS and JavaScript Animations",
+          "BodyText": "CSS transitions and keyframe animations are often the right default choice for simple, declarative animations, while JavaScript-driven animations via requestAnimationFrame offer greater control for complex or interactive scenarios.",
+          "Notes": "CSS animations running only compositor-friendly properties can be offloaded to a separate compositor thread, making them resilient to main-thread JavaScript blocking. JavaScript animations are necessary when animation logic depends on real-time user input or physics.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:53:33.6495677-04:00",
+          "ModifiedDate": "2026-06-26T21:53:33.6495677-04:00",
+          "Items": [
+            {
+              "Id": "dc0e696c-365e-44b1-8134-6558adddaf8d",
+              "Text": "CSS transitions and animations are declarative, easy to write, and can run on the compositor thread when animating transform and opacity.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4a54cc7b-79f2-4604-8fb3-48dfdc1bf221",
+              "Text": "requestAnimationFrame gives JavaScript precise control over each frame and is necessary for animations that respond dynamically to user interaction or calculated values.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9d1d75fc-8783-431e-8b46-cab904446390",
+              "Text": "The Web Animations API (WAAPI) bridges both worlds, offering JavaScript control with the performance characteristics of CSS animations.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "b81cde95-97de-4508-869e-0b4300acd73c",
+              "Text": "For UI micro-interactions and state transitions, CSS is generally preferred; for game loops, scroll-linked effects, or physics simulations, JavaScript is more appropriate.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "adbf3971-13a2-4ea8-aec6-e4e61f0d4e05",
+          "TopicId": "73ccb82d-b0e9-4867-b0a3-25fe2238b6c4",
+          "Title": "Using requestAnimationFrame Correctly",
+          "BodyText": "requestAnimationFrame schedules a callback to run before the browser\u0027s next repaint, keeping JavaScript animations synchronized with the display refresh rate. Using it correctly is essential for smooth, efficient animation loops.",
+          "Notes": "Animating with setTimeout or setInterval can cause frames to be missed or doubled because they are not synchronized to the display refresh cycle.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:53:33.6495677-04:00",
+          "ModifiedDate": "2026-06-26T21:53:33.6495677-04:00",
+          "Items": [
+            {
+              "Id": "cb400497-431b-4d94-81d8-fbe620c4bafd",
+              "Text": "Always drive animation loops with requestAnimationFrame rather than setTimeout or setInterval to stay in sync with the browser\u0027s rendering cycle.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f9fccde5-6ce5-41a8-9248-4fd7fd5b38e8",
+              "Text": "The callback receives a high-resolution timestamp argument that should be used to calculate delta time, ensuring animations run at a consistent speed regardless of frame rate.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4aab4fbb-575c-4cda-bd38-09f0bf45cc10",
+              "Text": "Cancel animation loops with cancelAnimationFrame when an animation completes or the component is removed to prevent memory leaks and wasted computation.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "24523ea0-b6c1-4c69-8099-54f3a714bac0",
+              "Text": "Avoid performing heavy computation or DOM reads that cause reflow inside a requestAnimationFrame callback, as this eats into the frame budget.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "c5486574-ccff-4542-8c8c-91d03a802338",
+          "TopicId": "73ccb82d-b0e9-4867-b0a3-25fe2238b6c4",
+          "Title": "Measuring and Profiling Animation Performance",
+          "BodyText": "Identifying performance bottlenecks requires measurement with browser developer tools rather than guesswork. The Performance panel and Rendering tools in Chrome DevTools are the primary instruments for diagnosing animation issues.",
+          "Notes": "A frame budget of approximately 16 ms exists at 60 fps. The DevTools flame chart shows exactly how that budget is spent across scripting, rendering, and painting tasks.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:53:33.6495677-04:00",
+          "ModifiedDate": "2026-06-26T21:53:33.6495677-04:00",
+          "Items": [
+            {
+              "Id": "5bb635d8-b9d9-4086-9160-ca5873a867e7",
+              "Text": "Use the Performance panel in Chrome DevTools to record animation timelines and identify long frames, layout events, and paint storms.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e36dcdd3-5130-4dba-a8f5-435fabc89106",
+              "Text": "Enable the FPS meter and Paint Flashing overlays in the Rendering tab to visually detect dropped frames and unnecessary repaints in real time.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "dd59997a-2774-4073-8021-bfa6343ee4a8",
+              "Text": "Look for purple \u0027Recalculate Style\u0027 and green \u0027Layout\u0027 blocks in the flame chart as indicators that animations are triggering expensive pipeline stages.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "eb70811d-05fe-4c85-8467-7bc36a500cbc",
+              "Text": "Target a consistent frame time below 16 ms (for 60 fps) or 8 ms (for 120 Hz displays) to avoid perceptible jank.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "745b1e47-a238-4d26-ab5f-525496a89a1f",
+          "TopicId": "73ccb82d-b0e9-4867-b0a3-25fe2238b6c4",
+          "Title": "Animation Best Practices Summary",
+          "BodyText": "Applying a consistent set of best practices ensures animations remain smooth and do not degrade the overall page experience. These guidelines cover property selection, layer management, and code structure.",
+          "Notes": "",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:53:33.6495677-04:00",
+          "ModifiedDate": "2026-06-26T21:53:33.6495677-04:00",
+          "Items": [
+            {
+              "Id": "21aa478d-be30-47ca-ab0c-c3e887ffb90d",
+              "Text": "Prefer animating only transform and opacity to keep all work on the compositor thread and avoid layout and paint costs.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "29adc7e3-a929-4686-ab39-b19f3a660c1f",
+              "Text": "Use will-change sparingly on elements that will animate, removing it once the animation is complete.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2962d022-0f38-4f0d-9a55-556c6e829945",
+              "Text": "Keep animation logic inside requestAnimationFrame callbacks and separate DOM reads from writes to prevent layout thrashing.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "cc1afda5-bf62-4a36-a863-0fb7c70537a9",
+              "Text": "Profile animations with DevTools before and after optimization to confirm improvements and avoid premature optimization based on assumptions.",
+              "SortOrder": 3
+            },
+            {
+              "Id": "c4b4788f-7fc8-4d14-a4d3-0690398fb085",
+              "Text": "Reduce the number of simultaneously animating elements and promoted layers to stay within GPU memory budgets, especially on mobile devices.",
+              "SortOrder": 4
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 34
+}

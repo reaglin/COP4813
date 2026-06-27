@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Building a Full Website with HTML, Images, and Links — Module Topics</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.2rem;margin-top:28px;color:#1a3c6e}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<h1>Building a Full Website with HTML, Images, and Links — Module Topics</h1>
+<h2>Introduction to Multi-Page Website Structure</h2>
+<div class="summary">Overview of how a full website is organized across multiple pages and the role HTML plays in defining that structure. Establishes the foundational concepts learners will build upon throughout the module.</div>
+<ul>
+<li><strong>What Is a Multi-Page Website?</strong> <span class="el-body">— A multi-page website is a collection of individual HTML files that work together to form a cohesive online presence.</span></li>
+<li><strong>The Role of HTML in Defining Structure</strong> <span class="el-body">— HTML is the foundational language that defines the structure and content of every page within a website.</span></li>
+<li><strong>Core Components of an HTML Page</strong> <span class="el-body">— Every HTML page shares a standard set of components that give it a valid, well-formed structure.</span></li>
+<li><strong>Semantic Markup and Its Importance</strong> <span class="el-body">— Semantic HTML uses meaningful tags that describe the role of content rather than just its appearance.</span></li>
+<li><strong>How Pages Connect: The Concept of Internal Linking</strong> <span class="el-body">— Internal links are the mechanism that ties individual HTML pages together into a navigable website.</span></li>
+<li><strong>Planning a Website Before Writing Code</strong> <span class="el-body">— Before creating any HTML files, outlining the site&#39;s pages and how they relate to each other saves time and prevents structural problems.</span></li>
+</ul>
+<h2>Semantic HTML Markup</h2>
+<div class="summary">Explores the use of semantic HTML elements such as header, nav, main, section, article, and footer to create meaningful, accessible page structure. Explains why semantic markup matters for readability and search engines.</div>
+<ul>
+<li><strong>What Is Semantic HTML?</strong> <span class="el-body">— Semantic HTML uses elements whose names clearly describe their purpose and the type of content they contain, rather than using generic containers like div or span for everything.</span></li>
+<li><strong>The &lt;header&gt; and &lt;nav&gt; Elements</strong> <span class="el-body">— The &lt;header&gt; element represents introductory content at the top of a page or section, while &lt;nav&gt; marks a block of navigation links.</span></li>
+<li><strong>The &lt;main&gt;, &lt;section&gt;, and &lt;article&gt; Elements</strong> <span class="el-body">— These three elements organize the primary body content of a page into meaningful regions, from the overall main area down to individual standalone pieces of content.</span></li>
+<li><strong>The &lt;footer&gt; Element</strong> <span class="el-body">— The &lt;footer&gt; element contains closing information for its nearest sectioning ancestor, such as copyright notices, contact details, or secondary navigation.</span></li>
+<li><strong>Semantic Markup and Accessibility</strong> <span class="el-body">— Screen readers and other assistive technologies rely on semantic elements to create landmark regions, allowing users with disabilities to navigate a page efficiently.</span></li>
+<li><strong>Semantic Markup and Search Engine Optimization (SEO)</strong> <span class="el-body">— Search engine crawlers parse HTML to understand a page&#39;s content hierarchy, and semantic elements provide clear signals about which content is most important.</span></li>
+<li><strong>Structuring a Full Page with Semantic Elements</strong> <span class="el-body">— Combining all semantic elements into a coherent page layout results in a document that is readable, maintainable, and accessible from the very first line of HTML.</span></li>
+</ul>
+<h2>Embedding Images in HTML</h2>
+<div class="summary">Covers how to use the img element to embed images into web pages, including setting source paths, alt text, and sizing attributes. Addresses best practices for image formats and accessibility.</div>
+<ul>
+<li><strong>The img Element</strong> <span class="el-body">— The HTML `&lt;img&gt;` element is used to embed images directly into a web page. It is a self-closing (void) element, meaning it does not require a closing tag.</span></li>
+<li><strong>Setting the Source Path with src</strong> <span class="el-body">— The `src` attribute tells the browser where to find the image file, accepting either a relative or an absolute URL as its value.</span></li>
+<li><strong>Providing Alt Text for Accessibility</strong> <span class="el-body">— The `alt` attribute supplies alternative text that describes an image, which is displayed when the image cannot load and read aloud by screen readers.</span></li>
+<li><strong>Controlling Image Size with width and height</strong> <span class="el-body">— The `width` and `height` attributes can be added to the `&lt;img&gt;` element to specify the display dimensions of an image in pixels.</span></li>
+<li><strong>Choosing the Right Image Format</strong> <span class="el-body">— Selecting an appropriate image format is critical for balancing visual quality, file size, and browser compatibility.</span></li>
+<li><strong>Image Accessibility Best Practices</strong> <span class="el-body">— Beyond alt text, several additional practices ensure that images are accessible and inclusive for all users.</span></li>
+</ul>
+<h2>Creating Hyperlinks</h2>
+<div class="summary">Introduces the anchor element and its attributes for building both internal and external hyperlinks. Explains how linking connects pages and resources to form a cohesive website experience.</div>
+<ul>
+<li><strong>The Anchor Element</strong> <span class="el-body">— The anchor element, written as &lt;a&gt;, is the fundamental HTML tag used to create hyperlinks that connect pages and resources.</span></li>
+<li><strong>The href Attribute</strong> <span class="el-body">— The href (hypertext reference) attribute is placed inside the opening &lt;a&gt; tag to specify the destination URL or file path of the link.</span></li>
+<li><strong>External Hyperlinks</strong> <span class="el-body">— External hyperlinks point to pages or resources hosted on other websites, using a full absolute URL as the href value.</span></li>
+<li><strong>Internal Hyperlinks</strong> <span class="el-body">— Internal hyperlinks connect pages within the same website using relative file paths, allowing users to navigate between your own HTML files.</span></li>
+<li><strong>The target Attribute</strong> <span class="el-body">— The target attribute controls where the linked page or resource opens when the user clicks the hyperlink.</span></li>
+<li><strong>Linking as the Foundation of Website Structure</strong> <span class="el-body">— Hyperlinks are what bind individual HTML pages and resources together, creating the interconnected structure that defines a website.</span></li>
+</ul>
+<h2>Internal Navigation and Site Linking</h2>
+<div class="summary">Focuses on constructing internal links that connect multiple pages within the same website, including relative file paths and navigation menus. Demonstrates how to build a consistent navigation structure across pages.</div>
+<ul>
+<li><strong>Understanding Relative File Paths</strong> <span class="el-body">— Relative file paths define the location of a linked page in relation to the current HTML file, making them the foundation of internal site navigation.</span></li>
+<li><strong>Creating Basic Internal Links with the Anchor Tag</strong> <span class="el-body">— The HTML anchor element &lt;a&gt; with an href attribute pointing to a relative path is the core mechanism for linking pages within the same website.</span></li>
+<li><strong>Building a Navigation Menu Structure</strong> <span class="el-body">— A navigation menu groups multiple internal links together, typically using an unordered list inside a &lt;nav&gt; element to create a clear, accessible site menu.</span></li>
+<li><strong>Maintaining Consistent Navigation Across Pages</strong> <span class="el-body">— Placing the same navigation menu HTML on every page of the site ensures users always have access to the same links regardless of which page they are viewing.</span></li>
+<li><strong>Organizing Multi-Page Site File Structure</strong> <span class="el-body">— A logical file and folder organization is essential for internal linking to work correctly and for the site to remain manageable as it grows.</span></li>
+<li><strong>Linking to Page Sections with Fragment Identifiers</strong> <span class="el-body">— Fragment identifiers allow an internal link to navigate directly to a specific section within a page by targeting an element&#39;s id attribute.</span></li>
+</ul>
+<h2>External Links and Web Resources</h2>
+<div class="summary">Explains how to link to external websites and online resources using absolute URLs and appropriate anchor attributes such as target and rel. Covers security and user experience considerations for external linking.</div>
+<ul>
+<li><strong>Absolute URLs for External Links</strong> <span class="el-body">— External links point to resources on other websites and require a complete, absolute URL including the protocol, domain, and path.</span></li>
+<li><strong>Opening Links in a New Tab with target</strong> <span class="el-body">— The target attribute on an anchor element controls where the linked resource opens when a user clicks the link.</span></li>
+<li><strong>Security Risks of target=&quot;_blank&quot; and the rel Attribute</strong> <span class="el-body">— Opening external links in a new tab with target=&quot;_blank&quot; introduces a security vulnerability known as reverse tabnapping, which can be mitigated using the rel attribute.</span></li>
+<li><strong>Communicating Link Destination to Users</strong> <span class="el-body">— Good user experience requires that visitors know before clicking whether a link will take them to an external site or open a new tab.</span></li>
+<li><strong>Linking to Specific Online Resources</strong> <span class="el-body">— External links can point to a wide variety of online resources, including other web pages, documents, images, and media hosted on different domains.</span></li>
+<li><strong>The rel Attribute for Link Relationships</strong> <span class="el-body">— The rel attribute describes the relationship between the current page and the linked resource, providing semantic meaning for browsers and search engines.</span></li>
+</ul>
+<h2>Bringing It All Together: Building a Complete Website</h2>
+<div class="summary">Guides learners through assembling all module concepts into a cohesive, functional multi-page website using semantic markup, images, and links. Reinforces skills through a practical, end-to-end project exercise.</div>
+<ul>
+<li><strong>Planning Your Multi-Page Website Structure</strong> <span class="el-body">— Before writing a single line of code, successful websites begin with a clear plan that maps out pages, content, and navigation flow.</span></li>
+<li><strong>Setting Up a Consistent File and Folder Organization</strong> <span class="el-body">— A well-organized project folder ensures that HTML files, images, and other assets are easy to locate and reference with correct relative paths.</span></li>
+<li><strong>Applying Semantic Markup Across Every Page</strong> <span class="el-body">— Semantic HTML elements give meaning to page content, improving accessibility, SEO, and code readability throughout your entire site.</span></li>
+<li><strong>Embedding Images with Descriptive Alt Text</strong> <span class="el-body">— Images enhance visual appeal and communication, and every image must include an alt attribute that accurately describes its content for accessibility.</span></li>
+<li><strong>Creating Internal Links Between Pages</strong> <span class="el-body">— Internal hyperlinks connect your site&#39;s pages together, forming the navigation system that allows visitors to move through your website.</span></li>
+<li><strong>Adding External Links and Best Practices</strong> <span class="el-body">— External links direct users to resources on other websites and should be implemented with care to maintain a good user experience and site credibility.</span></li>
+<li><strong>Reviewing and Testing Your Complete Website</strong> <span class="el-body">— Thorough testing is the final step before considering a project complete, ensuring all pages, links, and images work correctly together as a cohesive whole.</span></li>
+</ul>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>
