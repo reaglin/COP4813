@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to GitHub</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+</head><body>
+  <header>
+    <h1>Introduction to GitHub</h1>
+  </header><main>
+    <div class="slide-card">
+      <div class="slide-header"><span class="slide-num">1</span><h2>Introduction to GitHub</h2><span class="chevron">▶</span></div>
+      <div class="slide-body">
+        <p>GitHub is a web-based platform that developers use to store, manage, and share their code. To understand what makes GitHub so powerful, it helps to first understand the technology it is built on: <strong>Git</strong>. Git is a <em>version control system</em> — a tool that tracks every change you make to your files over time. Think of it like a detailed undo history for your entire project. Every time you save a snapshot of your work (called a <em>commit</em>), Git records exactly what changed, when it changed, and who made the change. GitHub takes this system and moves it to the cloud, giving you a place to store those snapshots online so that your code is accessible from any computer, anywhere in the world.</p>
+
+<p>GitHub is not a niche tool — it is the industry standard. Millions of developers, companies, and open-source projects rely on it every day. Major software products you use regularly, from operating systems to mobile apps, have their code managed on GitHub. Because of this, familiarity with GitHub is a genuine professional skill, and building a presence there early in your studies gives you a head start. In this course, every project you build will be stored on GitHub, creating a living portfolio that you can share with instructors, peers, and eventually potential employers.</p>
+
+<p>There are several practical reasons why developers choose GitHub over simply saving files on their computer:</p>
+<ul>
+  <li><strong>Full change history:</strong> GitHub keeps a complete record of every version of your project. If you add a feature and it breaks everything, you can roll back to the last working version without losing all your other progress. This safety net makes it much less stressful to experiment and try new things.</li>
+  <li><strong>Access from anywhere:</strong> Because your code lives on GitHub's servers, you can work on your project from your laptop at home, a computer at school, or any other device with internet access. You are never locked to a single machine.</li>
+  <li><strong>Collaboration without conflict:</strong> GitHub allows multiple people to work on the same project at the same time. Its tools are designed to merge contributions from different people intelligently, so team members do not accidentally overwrite each other's work.</li>
+  <li><strong>Portfolio and visibility:</strong> Your GitHub profile is a public record of what you have built. Sharing a link to a working project is far more compelling than describing it on a résumé.</li>
+</ul>
+
+<p>The first practical step is creating your own GitHub account. Open a browser and go to <strong>github.com</strong>. You will see a prominent <em>Sign up</em> button on the homepage. Click it to begin the registration process. GitHub will walk you through several steps: you will enter a <strong>valid email address</strong>, create a <strong>username</strong>, and set a <strong>secure password</strong>. You may also be asked to verify your account through a short puzzle and a confirmation email. The free tier of GitHub gives you everything you need for this course, so there is no need to select a paid plan.</p>
+
+<p>One decision during sign-up deserves careful thought: your <strong>username</strong>. This is not just a login name — it becomes a permanent part of your public identity on the platform. Your username will appear directly in the web address of your GitHub profile (<em>github.com/yourusername</em>) and, critically, in the address of the live website you will publish later in this module (<em>yourusername.github.io</em>). Because that URL is what you will share with others as part of your portfolio, it is worth choosing something professional and easy to remember. Here are the rules and recommendations:</p>
+<ul>
+  <li>Usernames may contain <strong>letters</strong>, <strong>numbers</strong>, and <strong>hyphens</strong> ( <code>-</code> ).</li>
+  <li>Usernames <strong>cannot</strong> contain spaces, underscores, or other special characters.</li>
+  <li>Usernames are <strong>not case-sensitive</strong>, but the casing you choose is displayed on your profile.</li>
+  <li>Choose something that reflects you professionally — your name, initials, or a consistent online handle works well. Avoid usernames that are overly casual, hard to spell, or likely to feel embarrassing in a professional context.</li>
+  <li>You <em>can</em> change your username after the fact, but doing so will <strong>break any existing links</strong> to your profile and repositories, including the GitHub Pages URL you share with others. It is much easier to choose a good name from the start than to update all those references later.</li>
+</ul>
+
+<p>For example, if your name is Jordan Rivera, a username like <code>jordan-rivera</code> or <code>jrivera-dev</code> is clean, professional, and results in a readable GitHub Pages URL such as <code>jordan-rivera.github.io</code>. A username like <code>coolguy2009</code> is harder to take seriously in a professional portfolio context.</p>
+
+<p>Once your account is created and your email is verified, you should spend a few minutes <strong>configuring your profile</strong>. Click the avatar icon in the top-right corner of any GitHub page and choose <em>Your profile</em>, then <em>Edit profile</em>. There are a few fields worth filling in right away:</p>
+<ul>
+  <li><strong>Profile photo:</strong> Upload a clear, professional-looking photo or a recognizable avatar. Profiles with photos feel more credible and are easier for collaborators and instructors to identify. You can use any image file from your computer.</li>
+  <li><strong>Bio:</strong> Write a short sentence or two describing who you are — for example, <em>"Web development student building my first projects."</em> This short description appears right on your public profile page and gives visitors immediate context about you.</li>
+  <li><strong>Name:</strong> GitHub lets you display your real name separately from your username. Filling this in makes your profile more human and searchable.</li>
+</ul>
+
+<p>Your public profile page is more than just a settings screen — it is the front door to your portfolio. It displays all of your public repositories, a contribution graph showing how actively you have been working, and any profile information you have provided. As you complete projects throughout this course, each one will appear here, gradually building into a record of your growth as a developer. Keeping your profile complete and up to date from the beginning is a small habit with a meaningful long-term payoff.</p>
+        <div class="notes"><strong>Notes</strong>Emphasise to students that the username choice is a one-time decision that is painful to reverse — encourage them to think it through before completing sign-up rather than rushing past it. If running a live lab session, have students share their GitHub profile URL in a course discussion thread immediately after creating their account so instructors can verify completion.</div>
+      </div></div>
+  </main>
+  <script>
+    document.querySelectorAll('.slide-header').forEach(function(h){
+      h.addEventListener('click',function(){
+        var b=this.nextElementSibling,c=this.querySelector('.chevron'),o=b.classList.contains('open');
+        b.classList.toggle('open',!o);c.style.transform=o?'':'rotate(90deg)';
+      });});
+    var f=document.querySelector('.slide-body');
+    if(f){f.classList.add('open');var c=f.previousElementSibling.querySelector('.chevron');if(c)c.style.transform='rotate(90deg)';}
+  </script>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

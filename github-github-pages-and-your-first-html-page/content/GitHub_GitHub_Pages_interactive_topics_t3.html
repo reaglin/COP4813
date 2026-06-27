@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deploying with GitHub Pages</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+</head><body>
+  <header>
+    <h1>Deploying with GitHub Pages</h1>
+  </header><main>
+    <div class="slide-card">
+      <div class="slide-header"><span class="slide-num">1</span><h2>Deploying with GitHub Pages</h2><span class="chevron">▶</span></div>
+      <div class="slide-body">
+        <p>Once you have built a webpage — even a simple one made of HTML, CSS, and JavaScript — you need somewhere to <em>host</em> it so that other people can view it on the internet. Traditionally, hosting meant renting server space, configuring a web server, and uploading files through FTP or a similar tool. GitHub Pages removes all of that complexity. It is a free static-site hosting service built directly into GitHub, and it lets you turn any repository into a live, publicly accessible website with just a few clicks. For student projects, portfolios, and coursework, it is one of the most practical and widely used deployment options available today.</p>
+
+<p><strong>What is GitHub Pages?</strong></p>
+
+<p>GitHub Pages works by reading the files in a designated branch of your GitHub repository and serving them as a website. When someone visits your site's URL, GitHub's servers deliver your <code>index.html</code>, CSS stylesheets, JavaScript files, and any other assets directly to that visitor's browser — exactly the same way a traditional web server would. The key difference is that you do not have to set up or manage the server yourself. GitHub handles all of that infrastructure behind the scenes.</p>
+
+<ul>
+  <li><strong>Free hosting for every GitHub user.</strong> Every GitHub account — personal or organizational — gets at least one free GitHub Pages site. There are no monthly fees, no billing details to enter, and no bandwidth limits that typically affect small student projects. This makes it genuinely accessible for anyone learning web development.</li>
+  <li><strong>Static files only.</strong> GitHub Pages serves <em>static</em> content, meaning HTML, CSS, JavaScript, images, fonts, and other files that the browser can display or execute directly. It does not run server-side languages like Python, PHP, or Node.js on your behalf. For the purposes of this course — building and showcasing front-end web projects — this is not a limitation at all.</li>
+  <li><strong>Publicly accessible by default.</strong> The moment you enable GitHub Pages, your site is visible to anyone in the world who has the URL. This is a feature, not a bug: it means you can share your live project with instructors, classmates, future employers, or anyone else without requiring them to have a GitHub account or install anything.</li>
+</ul>
+
+<p><strong>Enabling GitHub Pages on Your Repository</strong></p>
+
+<p>Before GitHub Pages can publish your site, you need to tell GitHub which branch and folder to use as the source of your web files. The following steps walk you through that process from start to finish.</p>
+
+<ul>
+  <li><strong>Open your repository's Settings.</strong> Navigate to your repository on GitHub (for example, <code>https://github.com/your-username/your-repo-name</code>). Near the top of the repository page you will see a row of tabs: Code, Issues, Pull requests, Actions, Projects, Security, Insights, and <strong>Settings</strong>. Click <strong>Settings</strong>. If you do not see this tab, make sure you are logged in as the owner of the repository, because only the owner or collaborators with admin access can change these settings.</li>
+  <li><strong>Find the Pages section.</strong> In the Settings page, look at the left-hand sidebar. Scroll down until you find the section labeled <strong>Pages</strong> — it is listed under the "Code and automation" group. Click it. This brings up the GitHub Pages configuration panel for your repository.</li>
+  <li><strong>Choose your source branch and folder.</strong> Under the heading "Build and deployment," you will see a "Source" dropdown (which should say "Deploy from a branch") and a "Branch" dropdown below it. Click the Branch dropdown and select <strong>main</strong> (or whatever your repository's default branch is named — some older repositories use <code>master</code>). Next to the branch dropdown is a folder dropdown; set it to <strong>/ (root)</strong>. This tells GitHub Pages to look for your web files directly in the root of that branch rather than in a subdirectory. Finally, click <strong>Save</strong>.</li>
+</ul>
+
+<p>After you click Save, GitHub immediately begins its first build-and-deploy cycle. This usually takes between 30 seconds and a couple of minutes for a simple project.</p>
+
+<p><strong>Understanding the Automatic Publishing Process</strong></p>
+
+<p>One of the most valuable aspects of GitHub Pages is that deployment is <em>continuous</em> and <em>automatic</em>. You do not need to run a separate deploy command, upload files through a control panel, or press a "publish" button each time you make a change. The workflow is simple and powerful:</p>
+
+<ul>
+  <li><strong>Edit → commit → push → live.</strong> Whenever you push one or more commits to your source branch (the branch you selected in the Pages settings), GitHub detects the new commits and automatically triggers a fresh build and deployment of your site. Within a minute or two, your changes are live at your public URL. This tight feedback loop is excellent for learning, because you can make a small change, push it, and immediately see the result in a real browser on the real web.</li>
+  <li><strong>No manual upload or separate tool required.</strong> Unlike older workflows where you might use an FTP client to copy files to a remote server, GitHub Pages treats your repository itself as the source of truth. Whatever is on your chosen branch <em>is</em> your website. Keeping your code in version control and deploying it are no longer two separate steps — they happen together automatically.</li>
+  <li><strong>Monitoring your deployment status.</strong> GitHub gives you two convenient ways to check whether your latest deployment succeeded. First, you can return to <strong>Settings → Pages</strong> and look for a banner or link at the top that says something like "Your site is live at https://…" — this confirms that the most recent deployment completed successfully. Second, you can click the <strong>Actions</strong> tab in your repository and look for a workflow run labeled "pages build and deployment." A green checkmark means success; a red X means something went wrong and you can click the run to read the error log.</li>
+</ul>
+
+<p><strong>Your Live Public URL</strong></p>
+
+<p>Once GitHub Pages is enabled and your first deployment completes, your site is assigned a permanent public URL. Understanding the structure of this URL is important, because it affects how you write links and reference assets inside your project.</p>
+
+<ul>
+  <li><strong>Standard URL format.</strong> The URL follows a predictable pattern: <code>https://[your-username].github.io/[repository-name]/</code>. For example, if your GitHub username is <code>jsmith</code> and your repository is named <code>portfolio</code>, your site's URL will be <code>https://jsmith.github.io/portfolio/</code>. The username portion is your actual GitHub login name, and the repository-name portion is exactly as it appears in your repository's URL — including any hyphens, underscores, or capitalization (though all-lowercase repository names are conventional and avoid potential case-sensitivity issues).</li>
+  <li><strong>Where to find your URL.</strong> GitHub displays your site's URL prominently in the Pages settings panel once deployment succeeds. You will see a box at the top of the Pages settings that reads "Your site is live at" followed by the clickable link. You can copy this URL directly from that panel.</li>
+  <li><strong>Sharing your URL.</strong> Because the URL is public and requires no login to access, you can paste it into an email, a course submission form, a chat message, or a portfolio document, and anyone who clicks it will see your live website immediately in their browser. This is one of the greatest practical advantages of GitHub Pages for coursework: submitting a live, clickable link rather than attaching a zip file of HTML files.</li>
+</ul>
+
+<p><strong>Verifying Your Deployment</strong></p>
+
+<p>After enabling Pages and waiting for the initial deployment to finish, it is important to verify that everything is working correctly before you share the URL with anyone.</p>
+
+<ul>
+  <li><strong>Open the URL in a new browser tab.</strong> Copy the URL from the Pages settings panel and paste it into a new browser tab (or an entirely different browser, or even your phone's browser, to get a clean view with no cached files). If everything is configured correctly, you will see your webpage load just as it does when you open the HTML file locally.</li>
+  <li><strong>The role of <code>index.html</code>.</strong> When a visitor navigates to the root of your site — for example, <code>https://jsmith.github.io/portfolio/</code> — the web server needs to know which file to serve. By convention, web servers (including GitHub Pages) automatically look for a file named exactly <strong><code>index.html</code></strong> in the requested folder and serve it as the default page. This is why your main HTML file must be named <code>index.html</code> (all lowercase, spelled exactly), placed in the root of your repository. If the file is named <code>Index.html</code>, <code>home.html</code>, or <code>index.HTML</code>, GitHub Pages will not automatically find it and your homepage will not load.</li>
+  <li><strong>Troubleshooting a 404 error.</strong> If you see a "404 — There isn't a GitHub Pages site here" error, work through this checklist systematically:
+    <ul>
+      <li>Return to <strong>Settings → Pages</strong> and confirm that Pages is actually enabled — the branch dropdown should show your chosen branch (e.g., <code>main</code>) and the folder should show <code>/ (root)</code>.</li>
+      <li>Check that you clicked <strong>Save</strong> after making those selections — if you navigated away without saving, the settings were not applied.</li>
+      <li>Verify in the <strong>Code</strong> tab of your repository that a file named exactly <code>index.html</code> exists in the root folder (not inside a subfolder).</li>
+      <li>Check the <strong>Actions</strong> tab to confirm the deployment workflow completed successfully. If there is a red X, read the error log for clues.</li>
+      <li>Wait a minute or two and try again — very occasionally the first deployment takes longer than expected, especially right after a new repository is created.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>With your GitHub Pages site verified and live, you have completed a genuinely professional workflow: writing code, managing it with version control, and deploying it to a real public web server — all through a single integrated platform. This is a foundational skill that carries directly into real-world web development practice.</p>
+        <div class="notes"><strong>Notes</strong>Emphasise to students that the repository must be public (on a free GitHub account) for GitHub Pages to work. If a student sees no Pages option or the published site returns a 404, the most common causes are: the repository is private, the file is not named exactly `index.html`, or the Save button was not clicked after selecting the branch. Encourage students to check the Actions tab for deployment status rather than only refreshing the live URL.</div>
+      </div></div>
+  </main>
+  <script>
+    document.querySelectorAll('.slide-header').forEach(function(h){
+      h.addEventListener('click',function(){
+        var b=this.nextElementSibling,c=this.querySelector('.chevron'),o=b.classList.contains('open');
+        b.classList.toggle('open',!o);c.style.transform=o?'':'rotate(90deg)';
+      });});
+    var f=document.querySelector('.slide-body');
+    if(f){f.classList.add('open');var c=f.previousElementSibling.querySelector('.chevron');if(c)c.style.transform='rotate(90deg)';}
+  </script>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

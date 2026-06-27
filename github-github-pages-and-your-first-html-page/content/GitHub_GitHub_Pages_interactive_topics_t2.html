@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creating Your First Repository</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+</head><body>
+  <header>
+    <h1>Creating Your First Repository</h1>
+  </header><main>
+    <div class="slide-card">
+      <div class="slide-header"><span class="slide-num">1</span><h2>Creating Your First Repository</h2><span class="chevron">▶</span></div>
+      <div class="slide-body">
+        <p>A <strong>repository</strong> (often shortened to "repo") is the fundamental container on GitHub where all of your project's files, folders, and their complete revision history are stored. Every project you work on through GitHub lives inside a repository, and creating one is always the first step. Understanding exactly what each option does during this setup process will save you from common headaches later — especially when your goal is to publish a live website through GitHub Pages. This topic walks you through the entire repository creation process in depth, from finding the right button to copying the URL you will use to start working.</p>
+
+<p><strong>Navigating to the New Repository Page</strong></p>
+
+<p>GitHub provides two equally valid routes to the repository creation form, and knowing both means you are never left hunting around the interface. The quickest route is the <strong>'+' icon</strong> located in the top-right corner of any GitHub page, right next to your profile avatar. Clicking it reveals a small dropdown menu — select <em>New repository</em> from that list. The second route is through your personal profile: click your avatar or username to open your profile, select the <strong>Repositories</strong> tab just below your bio, and then click the green <strong>New</strong> button on the right-hand side of the page. Both paths deposit you on exactly the same repository creation form, so use whichever feels more natural. Familiarising yourself with both now means you will be faster next time.</p>
+
+<p><strong>Naming Your Repository</strong></p>
+
+<p>The repository name you choose is more than a label — it becomes part of the URL that anyone uses to find your project on GitHub and, critically for this course, part of the web address where your site will be published. Because of this, naming deserves careful thought before you click anything.</p>
+
+<ul>
+  <li>Names must be <strong>unique within your own account</strong>. You can have a repository called <code>portfolio</code> and so can a million other GitHub users, but you personally cannot have two repositories both called <code>portfolio</code>.</li>
+  <li>Allowed characters are <strong>letters, numbers, hyphens (<code>-</code>), and underscores (<code>_</code>)</strong>. Spaces are not permitted. If you type a space, GitHub's form will highlight the error and typically suggest replacing the space with a hyphen — for example, <code>my project</code> would become <code>my-project</code>.</li>
+  <li>For your <strong>primary GitHub Pages site</strong> — a special, automatically published website tied directly to your account — the repository must be named using a precise pattern: <code>username.github.io</code>, where <code>username</code> is replaced with your <em>exact</em> GitHub username, matching its capitalisation. For example, if your GitHub username is <code>jsmith99</code>, the repository must be named <code>jsmith99.github.io</code>. This specific name tells GitHub to treat the repository as your personal site and publish it automatically at <code>https://jsmith99.github.io</code>. No other repository name triggers this behaviour.</li>
+</ul>
+
+<p>If you choose a different name (say, <code>my-website</code>), GitHub Pages can still publish it, but the URL will be longer: <code>https://username.github.io/my-website</code>. For this course, using the <code>username.github.io</code> naming convention is strongly recommended because it produces the cleanest URL and requires the least additional configuration.</p>
+
+<p><strong>Setting Repository Visibility</strong></p>
+
+<p>Directly below the name field, GitHub asks you to choose between <strong>Public</strong> and <strong>Private</strong> visibility. This setting controls who can see your repository's contents.</p>
+
+<ul>
+  <li>A <strong>Public</strong> repository is visible to <em>anyone on the internet</em>, whether or not they have a GitHub account. Anyone can browse your files, read your commit history, and clone your code. This is the standard choice for open-source software, portfolio projects, and anything you intend to share.</li>
+  <li>A <strong>Private</strong> repository is visible only to you and any collaborators you explicitly invite by username. The repository does not appear in search results and cannot be browsed by the public.</li>
+</ul>
+
+<p>For this course project, you must select <strong>Public</strong>. GitHub Pages on free accounts requires the repository to be public in order to serve a website to the world. If you create a private repository and try to enable GitHub Pages, the site will either not publish at all or will not be accessible to anyone who visits the URL. Select Public now and you avoid that problem entirely.</p>
+
+<p><strong>Initializing the Repository</strong></p>
+
+<p>The initialization section of the form is where you decide whether your new repository starts with some files already in place or starts completely empty. An empty repository is technically valid, but it is harder to work with immediately because Git requires at least one commit before it can function properly. Initializing with one or more files creates that first commit for you automatically.</p>
+
+<ul>
+  <li><strong>Add a README file:</strong> Checking this box creates a file called <code>README.md</code> — a Markdown-formatted document that GitHub automatically renders as a formatted page on your repository's main screen. By convention, the README is where you describe what your project is, how to set it up, and any other information a visitor needs. More importantly for your immediate workflow, checking this box means the repository will have its first commit the moment it is created, making it ready to clone to your computer straight away. <em>For this course, always initialize with a README.</em></li>
+  <li><strong>Add a .gitignore:</strong> A <code>.gitignore</code> file contains a list of file patterns that Git should deliberately ignore and never track. Common examples include operating system clutter files (like <code>.DS_Store</code> on macOS or <code>Thumbs.db</code> on Windows), editor configuration folders (like <code>.vscode/</code>), and dependency directories generated by package managers (like <code>node_modules/</code> for Node.js projects). GitHub provides ready-made templates for dozens of project types — selecting the template that matches your technology stack fills the file with sensible defaults automatically. For a simple HTML/CSS website, a <code>.gitignore</code> is less critical, but it is still good practice to include one.</li>
+  <li><strong>Choose a license:</strong> A license is a legal document that tells others what they are and are not allowed to do with your code. Without a license, copyright law applies by default, meaning others technically have no right to use, copy, or modify your work even if it is publicly visible. Common choices include the <strong>MIT License</strong> (very permissive — others can do almost anything as long as they credit you) and the <strong>GNU GPL</strong> (requires derivative works to also be open source). For a course portfolio project, MIT is a common and reasonable choice. Adding a license is considered good professional practice for any public repository.</li>
+</ul>
+
+<p>At minimum, check the <strong>Add a README file</strong> box before proceeding. This single action ensures your repository is immediately functional and cloneable the moment it is created.</p>
+
+<p><strong>Confirming Repository Creation</strong></p>
+
+<p>Before you click the green <strong>Create repository</strong> button, take a moment to review your choices at the bottom of the form. Confirm that the repository name is spelled correctly (especially important if you are using the <code>username.github.io</code> pattern — a single typo means GitHub Pages will not work), that visibility is set to <strong>Public</strong>, and that you have checked the README initialization option. These settings can be changed after creation, but correcting a misnamed repository later adds unnecessary steps.</p>
+
+<p>Once you click <strong>Create repository</strong>, GitHub processes your request and immediately redirects you to your new repository's main page. You will see:</p>
+
+<ul>
+  <li>The repository name displayed prominently at the top, along with your username in the format <code>username/repository-name</code>.</li>
+  <li>A file listing showing any files you chose to initialize (your <code>README.md</code>, <code>.gitignore</code>, and/or license file).</li>
+  <li>The rendered content of your <code>README.md</code> displayed below the file listing.</li>
+  <li>A <strong>Code</strong> button (green, near the top right of the file listing area) that reveals your repository's URL.</li>
+</ul>
+
+<p>Click that green <strong>Code</strong> button and you will see a panel with the repository's URL in HTTPS format, which looks like this:</p>
+
+<pre><code>https://github.com/username/username.github.io.git</code></pre>
+
+<p>Copy this URL — you will use it whenever you need to connect your local computer to this repository, whether by cloning it with Git on the command line or linking it inside a code editor. Keep this URL somewhere accessible as you move into the next steps of the course. Your repository is now live on GitHub and ready for files.</p>
+        <div class="notes"><strong>Notes</strong>Emphasise to students that the `username.github.io` naming convention is case-sensitive and must exactly match their GitHub username. A common mistake is capitalising the first letter of the repository name when the GitHub username is all lowercase — this prevents GitHub Pages from recognising it as the root user site. Also remind students they can verify their exact username by checking the top-right corner of any GitHub page while logged in.</div>
+      </div></div>
+  </main>
+  <script>
+    document.querySelectorAll('.slide-header').forEach(function(h){
+      h.addEventListener('click',function(){
+        var b=this.nextElementSibling,c=this.querySelector('.chevron'),o=b.classList.contains('open');
+        b.classList.toggle('open',!o);c.style.transform=o?'':'rotate(90deg)';
+      });});
+    var f=document.querySelector('.slide-body');
+    if(f){f.classList.add('open');var c=f.previousElementSibling.querySelector('.chevron');if(c)c.style.transform='rotate(90deg)';}
+  </script>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>
