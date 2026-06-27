@@ -12,365 +12,331 @@
       padding: 0;
     }
 
-    html {
-      font-size: 16px;
-    }
-
     body {
-      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #1e2532;
       background-color: #f4f6f9;
-      color: #1e2a38;
-      line-height: 1.65;
       min-height: 100vh;
     }
 
-    /* ── Page Shell ── */
-    .page-wrapper {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 2.5rem 1.5rem 4rem;
-    }
-
     /* ── Header ── */
-    .page-header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
-      border-radius: 10px;
-      padding: 2.5rem 2.25rem;
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #24527a 60%, #2d6899 100%);
       color: #ffffff;
-      margin-bottom: 2.5rem;
-      box-shadow: 0 4px 18px rgba(26, 58, 92, 0.22);
+      padding: 2.75rem 1.5rem 2.25rem;
+      text-align: center;
     }
 
     .course-label {
       display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      background-color: rgba(255, 255, 255, 0.18);
-      color: #cde3ff;
-      border-radius: 4px;
-      padding: 0.25rem 0.65rem;
+      background-color: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 20px;
+      padding: 0.25rem 0.85rem;
+      margin-bottom: 1rem;
+      color: #cfe3f5;
+    }
+
+    header h1 {
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.25;
       margin-bottom: 0.85rem;
     }
 
-    .page-header h1 {
-      font-size: clamp(1.45rem, 3vw, 2.1rem);
-      font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: 1rem;
-      letter-spacing: -0.01em;
+    header p {
+      max-width: 640px;
+      margin: 0 auto;
+      font-size: 1rem;
+      color: #cde2f4;
+      font-weight: 400;
     }
 
-    .page-header p {
-      font-size: 0.97rem;
-      color: #cde3ff;
-      max-width: 70ch;
-      line-height: 1.7;
+    /* ── Main Content ── */
+    main {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
     }
 
-    /* ── Section Heading ── */
-    .section-heading {
-      font-size: 1.05rem;
+    .section-title {
+      font-size: 0.7rem;
       font-weight: 700;
+      letter-spacing: 0.13em;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #4a637e;
+      color: #5a6a82;
       margin-bottom: 1.25rem;
       padding-bottom: 0.5rem;
-      border-bottom: 2px solid #dce4ef;
+      border-bottom: 2px solid #dce3ed;
     }
 
     /* ── Card Grid ── */
     .card-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.35rem;
+      gap: 1.25rem;
     }
 
     /* ── Card ── */
     .card {
       background: #ffffff;
-      border: 1px solid #dce4ef;
-      border-radius: 9px;
-      padding: 1.5rem 1.5rem 1.35rem;
+      border: 1px solid #dce3ed;
+      border-radius: 10px;
+      padding: 1.4rem 1.5rem 1.3rem;
       display: flex;
       flex-direction: column;
       gap: 0.65rem;
-      box-shadow: 0 2px 8px rgba(26, 58, 92, 0.07);
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
+      position: relative;
     }
 
     .card:hover {
-      box-shadow: 0 6px 22px rgba(26, 58, 92, 0.13);
+      box-shadow: 0 6px 22px rgba(26, 58, 92, 0.11);
       transform: translateY(-2px);
     }
 
-    /* ── Card Meta Row ── */
+    /* Type + File Type badges row */
     .card-meta {
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
+      flex-wrap: wrap;
       gap: 0.45rem;
     }
 
     .badge {
       display: inline-block;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
       border-radius: 4px;
-      padding: 0.2rem 0.55rem;
-      line-height: 1.4;
+      padding: 0.18rem 0.55rem;
+      white-space: nowrap;
     }
 
     .badge-type {
-      background-color: #e8f0fb;
-      color: #1e5daa;
+      background-color: #e8eef6;
+      color: #24527a;
+      border: 1px solid #c5d5e9;
     }
 
     .badge-filetype {
-      background-color: #edf7f0;
-      color: #207a47;
+      background-color: #edf7ee;
+      color: #27763a;
+      border: 1px solid #b6deba;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.67rem;
     }
 
-    /* ── Card Title Row ── */
+    /* Card title row */
     .card-title-row {
       display: flex;
+      align-items: baseline;
       flex-wrap: wrap;
-      align-items: center;
-      gap: 0.6rem;
+      gap: 0.55rem;
     }
 
     .card-name {
-      font-size: 1.05rem;
+      font-size: 1.04rem;
       font-weight: 700;
-      color: #1e2a38;
+      color: #1e2532;
       line-height: 1.3;
     }
 
     .card-name a {
-      color: #1a5caa;
+      color: #1a3a5c;
       text-decoration: none;
-      border-bottom: 2px solid transparent;
-      transition: border-color 0.15s ease, color 0.15s ease;
+      border-bottom: 2px solid #aac4de;
+      transition: color 0.15s, border-color 0.15s;
     }
 
     .card-name a:hover,
     .card-name a:focus {
-      color: #0d3f80;
-      border-bottom-color: #0d3f80;
+      color: #2d6899;
+      border-bottom-color: #2d6899;
       outline: none;
     }
 
-    .card-name a:focus-visible {
-      outline: 3px solid #2563a8;
-      outline-offset: 2px;
-      border-radius: 2px;
-    }
-
     .source-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 600;
-      color: #5a748f;
+      color: #5a6a82;
       text-decoration: none;
-      border: 1px solid #b8c9dc;
+      background: #f0f3f8;
+      border: 1px solid #cdd7e5;
       border-radius: 4px;
-      padding: 0.18rem 0.52rem;
+      padding: 0.15rem 0.5rem;
       white-space: nowrap;
-      transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      transition: background 0.15s, color 0.15s;
+      align-self: center;
     }
 
     .source-link:hover,
     .source-link:focus {
-      background-color: #eaf1fa;
-      color: #1a5caa;
-      border-color: #2563a8;
+      background: #dce6f5;
+      color: #1a3a5c;
       outline: none;
     }
 
-    .source-link:focus-visible {
-      outline: 3px solid #2563a8;
-      outline-offset: 2px;
-      border-radius: 4px;
-    }
-
-    .source-link svg {
-      flex-shrink: 0;
-    }
-
-    /* ── Card Description ── */
+    /* Description */
     .card-description {
       font-size: 0.88rem;
-      color: #3e5266;
-      line-height: 1.65;
-      flex: 1;
+      color: #4a5568;
+      line-height: 1.6;
     }
 
     /* ── Footer ── */
-    .page-footer {
-      margin-top: 3.5rem;
+    footer {
       text-align: center;
-      font-size: 0.8rem;
-      color: #8fa4bb;
+      font-size: 0.78rem;
+      color: #8898aa;
+      padding: 1.5rem 1rem 2rem;
+      border-top: 1px solid #dce3ed;
     }
 
     /* ── Responsive ── */
-    @media (max-width: 520px) {
-      .page-wrapper {
-        padding: 1.5rem 1rem 3rem;
-      }
-
-      .page-header {
-        padding: 1.75rem 1.25rem;
+    @media (max-width: 480px) {
+      header {
+        padding: 2rem 1rem 1.75rem;
       }
 
       .card {
-        padding: 1.25rem 1.15rem;
+        padding: 1.15rem 1.1rem;
+      }
+
+      .card-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
-  <div class="page-wrapper">
 
-    <!-- ── Page Header ── -->
-    <header class="page-header" role="banner">
-      <span class="course-label">COP4813</span>
-      <h1>GitHub, GitHub Pages, and Your First HTML Page</h1>
-      <p>
-        This module introduces version control with Git and GitHub, walks you through
-        creating and managing repositories, and shows you how to publish a static web
-        page for free using GitHub Pages — no server required. Work through the
-        artifacts below in order to build a solid foundation before writing your first
-        HTML document.
-      </p>
-    </header>
+  <header>
+    <span class="course-label">COP4813</span>
+    <h1>GitHub, GitHub Pages, and Your First HTML Page</h1>
+    <p>
+      Explore the resources in this module to get started with version control,
+      repository management, free static-site hosting via GitHub Pages, and
+      writing your very first HTML document.
+    </p>
+  </header>
 
-    <!-- ── Artifact Cards ── -->
-    <main>
-      <h2 class="section-heading">Module Artifacts</h2>
+  <main>
+    <p class="section-title">Module Artifacts &mdash; 5 items</p>
 
-      <div class="card-grid" role="list">
+    <div class="card-grid">
 
-        <!-- Card 1 — Module Topics -->
-        <article class="card" role="listitem">
-          <div class="card-meta">
-            <span class="badge badge-type">Module Topics</span>
-            <span class="badge badge-filetype">.json</span>
-          </div>
-          <div class="card-title-row">
-            <span class="card-name">
-              <a href="content/module_topics.html">Module Topics</a>
-            </span>
-            <a
-              class="source-link"
-              href="source/hierarchy.json"
-              aria-label="Source file for Module Topics"
-            >
-              <!-- small file icon -->
-              <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false">
-                <path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V5.5L9.5 0H4zm5 1.5L13.5 6H10a1 1 0 0 1-1-1V1.5z"/>
-              </svg>
-              source file
-            </a>
-          </div>
-          <p class="card-description">
-            A structured outline of the module's learning topics — covering GitHub
-            fundamentals, repository creation, GitHub Pages deployment, and writing a
-            first HTML document — used by instructors to organize content sequence and
-            by learners to preview what concepts and skills the module will teach.
-          </p>
-        </article>
+      <!-- Artifact 1: Module Topics -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="source/hierarchy.json">source file</a>
+        </div>
+        <p class="card-description">
+          A structured outline of the module's learning topics — covering GitHub
+          fundamentals, repository creation, GitHub Pages deployment, and writing
+          a first HTML document — used by instructors to organize content sequence
+          and by learners to preview what concepts and skills the module will teach.
+        </p>
+      </div>
 
-        <!-- Card 2 — Interactive HTML (GitHub Pages hosting) -->
-        <article class="card" role="listitem">
-          <div class="card-meta">
-            <span class="badge badge-type">Text Content</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <div class="card-title-row">
-            <span class="card-name">
-              <a href="content/_interactive.html">Interactive HTML</a>
-            </span>
-          </div>
-          <p class="card-description">
-            This interactive reading explains what GitHub Pages is and how to use it
-            to host a static website (HTML, CSS, and JavaScript) for free, walking
-            learners through the deployment process as an alternative to traditional
-            server-based hosting.
-          </p>
-        </article>
+      <!-- Artifact 2: Deploying with GitHub Pages (interactive) -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/_interactive.html">Deploying with GitHub Pages</a>
+          </span>
+        </div>
+        <p class="card-description">
+          This interactive reading explains what GitHub Pages is and how to use
+          it to host a static website (HTML, CSS, and JavaScript) for free,
+          walking learners through the deployment process as an alternative to
+          traditional server-based hosting.
+        </p>
+      </div>
 
-        <!-- Card 3 — Interactive HTML (What is GitHub / Git) -->
-        <article class="card" role="listitem">
-          <div class="card-meta">
-            <span class="badge badge-type">Text Content</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <div class="card-title-row">
-            <span class="card-name">
-              <a href="content/GitHub_GitHub_Pages_interactive_topics_t1.html">Interactive HTML</a>
-            </span>
-          </div>
-          <p class="card-description">
-            An interactive reading introducing GitHub and its underlying technology,
-            Git, explaining version control concepts and why GitHub is a widely used
-            platform for storing, managing, and sharing code, intended for learners
-            with no prior experience.
-          </p>
-        </article>
+      <!-- Artifact 3: Introduction to GitHub -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/GitHub_GitHub_Pages_interactive_topics_t1.html">Introduction to GitHub</a>
+          </span>
+        </div>
+        <p class="card-description">
+          An interactive reading introducing GitHub and its underlying technology,
+          Git, explaining version control concepts and why GitHub is a widely used
+          platform for storing, managing, and sharing code, intended for learners
+          with no prior experience.
+        </p>
+      </div>
 
-        <!-- Card 4 — Interactive HTML (Creating a repository) -->
-        <article class="card" role="listitem">
-          <div class="card-meta">
-            <span class="badge badge-type">Text Content</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <div class="card-title-row">
-            <span class="card-name">
-              <a href="content/GitHub_GitHub_Pages_interactive_topics_t2.html">Interactive HTML</a>
-            </span>
-          </div>
-          <p class="card-description">
-            An interactive reading that walks learners through creating their first
-            GitHub repository, explaining what a repository is, what each setup option
-            means, and why creating a repo is the required first step for any project.
-          </p>
-        </article>
+      <!-- Artifact 4: Creating Your First Repository -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/GitHub_GitHub_Pages_interactive_topics_t2.html">Creating Your First Repository</a>
+          </span>
+        </div>
+        <p class="card-description">
+          An interactive reading that walks learners through creating their first
+          GitHub repository, explaining what a repository is, what each setup
+          option means, and why creating a repo is the required first step for
+          any project.
+        </p>
+      </div>
 
-        <!-- Card 5 — Interactive HTML (GitHub Pages deep-dive) -->
-        <article class="card" role="listitem">
-          <div class="card-meta">
-            <span class="badge badge-type">Text Content</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <div class="card-title-row">
-            <span class="card-name">
-              <a href="content/GitHub_GitHub_Pages_interactive_topics_t3.html">Interactive HTML</a>
-            </span>
-          </div>
-          <p class="card-description">
-            An interactive reading on GitHub Pages that explains what the free
-            static-site hosting service is, how it works, and how learners can use it
-            to publish their HTML, CSS, and JavaScript files to the web without
-            renting a server or using FTP.
-          </p>
-        </article>
+      <!-- Artifact 5: Deploying with GitHub Pages (t3) -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/GitHub_GitHub_Pages_interactive_topics_t3.html">Deploying with GitHub Pages</a>
+          </span>
+        </div>
+        <p class="card-description">
+          An interactive reading on GitHub Pages that explains what the free
+          static-site hosting service is, how it works, and how learners can use
+          it to publish their HTML, CSS, and JavaScript files to the web without
+          renting a server or using FTP.
+        </p>
+      </div>
 
-      </div><!-- /.card-grid -->
-    </main>
+    </div><!-- /.card-grid -->
+  </main>
 
-    <!-- ── Footer ── -->
-    <footer class="page-footer" role="contentinfo">
-      <p>COP4813 &mdash; Web-Based IT Applications &bull; Module: GitHub, GitHub Pages, and Your First HTML Page</p>
-    </footer>
+  <footer>
+    COP4813 &mdash; GitHub, GitHub Pages, and Your First HTML Page &mdash; Course Module Index
+  </footer>
 
-  </div><!-- /.page-wrapper -->
 
 <footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
 <section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics</h2><p><a href="topics.html">View Topics</a></p></section></body>
