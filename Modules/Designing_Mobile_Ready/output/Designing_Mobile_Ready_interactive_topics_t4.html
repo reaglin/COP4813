@@ -1,0 +1,399 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Media Queries</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>CSS Media Queries</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>CSS Media Queries</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Modern websites are viewed on an enormous range of devices — from small smartphones held in one hand to wide desktop monitors, tablets in both orientations, and even printers. CSS alone, without any conditional logic, would apply the same layout rules to all of them, often producing cramped, overflowing, or comically oversized results. <strong>CSS media queries</strong> solve this by letting you wrap a block of CSS declarations inside a condition. The browser evaluates that condition against the current environment, and only if the condition is true does it apply the enclosed styles. This single mechanism is the backbone of responsive web design.</p>
+
+<p>A media query is written with the <code>@media</code> at-rule. At its simplest it looks like this:</p>
+
+<pre><code>@media screen and (max-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+}</code></pre>
+
+<p>Here the browser asks two questions: Is the output device a screen? Is the viewport width 768 px or less? Only when both answers are yes does it set <code>font-size</code> to 16 px on <code>body</code>. When the viewport is wider — or when the page is being printed — that rule is silently ignored. This conditional scoping is what makes media queries so powerful: every style you write inside a query is invisible to environments that don't match it.</p>
+
+<p>The practical benefit goes far beyond font sizes. With media queries you can restructure entire grid layouts, hide or reveal navigation patterns, swap images, adjust spacing, and even change animation behaviour — all driven by the real characteristics of the user's current environment rather than assumptions baked into the design at build time.</p>
+
+<p><strong>Basic Media Query Syntax</strong></p>
+
+<p>Every media query is built from up to three ingredients: an optional <em>media type</em>, one or more <em>feature expressions</em>, and <em>logical operators</em> that combine them.</p>
+
+<p>The <strong>media type</strong> is a broad category keyword that says what kind of output device the query targets. The most common values are:</p>
+
+<ul>
+  <li><code>screen</code> — any colour screen device (phones, tablets, desktops, laptops).</li>
+  <li><code>print</code> — the page as it would appear on paper or in a print preview.</li>
+  <li><code>all</code> — every output type; this is the default when you omit the media type entirely.</li>
+</ul>
+
+<p>A <strong>feature expression</strong> tests a specific characteristic of the environment, always wrapped in parentheses:</p>
+
+<pre><code>(max-width: 600px)
+(orientation: landscape)
+(min-resolution: 2dppx)</code></pre>
+
+<p><strong>Logical operators</strong> let you build compound conditions:</p>
+
+<ul>
+  <li><code>and</code> — every condition must be true. Example: <code>screen and (min-width: 400px) and (max-width: 900px)</code>.</li>
+  <li><strong>comma</strong> (acts as <code>or</code>) — at least one of the comma-separated queries must match. Example: <code>screen and (max-width: 600px), print</code> applies to narrow screens <em>or</em> print.</li>
+  <li><code>not</code> — negates the entire query. Example: <code>not print</code> matches everything that is not a printer.</li>
+</ul>
+
+<p>When the media type is omitted, the browser assumes <code>all</code>, so the following two rules are equivalent:</p>
+
+<pre><code>/* Explicit */
+@media all and (max-width: 480px) { … }
+
+/* Implicit — media type defaults to 'all' */
+@media (max-width: 480px) { … }</code></pre>
+
+<p>This shorthand is extremely common in real codebases. You will encounter it constantly.</p>
+
+<p><strong>Targeting Screen Sizes with Width Breakpoints</strong></p>
+
+<p>Width-based queries are by far the most used type of media query. The viewport width is the single most reliable signal for how much horizontal space a layout has to work with, and most responsive design systems are structured around a set of width thresholds called <em>breakpoints</em>.</p>
+
+<p>There are two fundamental approaches, each anchored to a different feature:</p>
+
+<p><code>max-width</code> applies its styles when the viewport is <em>at or below</em> the specified value. This is the heart of a <strong>desktop-first</strong> workflow: you write your full-featured desktop layout as the base, then override parts of it as the screen shrinks.</p>
+
+<pre><code>/* Base styles target a wide desktop layout */
+.container {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 2rem;
+}
+
+/* Override for screens 768 px wide or narrower */
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr; /* Stack columns */
+    gap: 1rem;
+  }
+}</code></pre>
+
+<p><code>min-width</code> applies its styles when the viewport is <em>at or above</em> the specified value. This is the heart of a <strong>mobile-first</strong> workflow: you write your simplest, lightest layout as the base and progressively enhance it for larger screens.</p>
+
+<pre><code>/* Base styles for narrow, mobile screens */
+.container {
+  display: block;
+  padding: 1rem;
+}
+
+/* Enhancement for screens 768 px and wider */
+@media (min-width: 768px) {
+  .container {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    padding: 2rem;
+  }
+}</code></pre>
+
+<p>You can combine both features in a single query to <strong>target a specific band</strong> of screen widths, leaving smaller and larger screens untouched:</p>
+
+<pre><code>/* Applies only to viewports between 600 px and 1024 px */
+@media (min-width: 600px) and (max-width: 1024px) {
+  .sidebar {
+    width: 200px;
+  }
+}</code></pre>
+
+<p>A critical best practice is to choose breakpoints <em>based on your content</em>, not on the pixel dimensions of popular device models. Device screen sizes change every product cycle; a breakpoint invented to match a specific phone model becomes outdated within a year or two. Instead, open your design in a browser and slowly drag the viewport narrower until the layout starts to look awkward or broken — that is where a breakpoint genuinely belongs.</p>
+
+<p>A typical mobile-first breakpoint scale might look like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Breakpoint name</th>
+      <th>Min-width value</th>
+      <th>Typical target</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Base (no query)</td>
+      <td>0 px</td>
+      <td>Small phones</td>
+    </tr>
+    <tr>
+      <td>Small</td>
+      <td>480 px</td>
+      <td>Large phones / small tablets</td>
+    </tr>
+    <tr>
+      <td>Medium</td>
+      <td>768 px</td>
+      <td>Tablets / large landscape phones</td>
+    </tr>
+    <tr>
+      <td>Large</td>
+      <td>1024 px</td>
+      <td>Small laptops / large tablets</td>
+    </tr>
+    <tr>
+      <td>Extra large</td>
+      <td>1280 px</td>
+      <td>Desktop monitors</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Orientation and Aspect Ratio Queries</strong></p>
+
+<p>Beyond raw width, the <em>orientation</em> of the viewport carries design-relevant information. A tablet held upright has very different proportions from the same tablet turned sideways, even if the raw pixel count is identical.</p>
+
+<ul>
+  <li><code>orientation: portrait</code> — matches when the viewport's height is greater than or equal to its width. Most phones in a natural upright position match this.</li>
+  <li><code>orientation: landscape</code> — matches when the viewport's width strictly exceeds its height. A phone rotated sideways, or almost any laptop or desktop, matches this.</li>
+</ul>
+
+<pre><code>/* Tighten horizontal padding in portrait so content isn't pinched */
+@media (orientation: portrait) {
+  .hero-image {
+    height: 50vw;
+  }
+}
+
+/* Use the extra width in landscape to lay out content side by side */
+@media (orientation: landscape) {
+  .hero-image {
+    height: 35vw;
+  }
+}</code></pre>
+
+<p>The <code>aspect-ratio</code> feature goes further, letting you target a precise width-to-height ratio. This is especially useful for video players or image galleries where you want to maintain a specific cinematic or widescreen proportion:</p>
+
+<pre><code>/* Target viewports with exactly a 16:9 ratio */
+@media (aspect-ratio: 16/9) {
+  .video-player {
+    /* Perfect fit, no letterboxing needed */
+  }
+}
+
+/* Target viewports wider than 16:9 */
+@media (min-aspect-ratio: 16/9) {
+  .video-player {
+    max-width: 80vw;
+  }
+}</code></pre>
+
+<p>An important caveat: orientation alone is a blunt instrument. A landscape phone and a landscape desktop monitor both match <code>orientation: landscape</code>, but they have vastly different amounts of space. For this reason, orientation queries work best as a <em>supplement</em> to width breakpoints, fine-tuning specific components rather than driving the entire layout strategy.</p>
+
+<p><strong>Device Capability Queries</strong></p>
+
+<p>Some of the most powerful media features go beyond the viewport's dimensions and probe the <em>capabilities</em> of the hardware itself. These queries let you tailor the experience to real user hardware rather than making assumptions.</p>
+
+<p>The <strong><code>resolution</code></strong> feature targets display pixel density. Standard screens show one device pixel per CSS pixel; high-density "Retina" or HiDPI displays pack two or more physical pixels into that same CSS pixel. An icon or image that looks sharp on a standard screen can appear blurry on a Retina display unless you serve a higher-resolution asset.</p>
+
+<pre><code>/* Serve a standard icon by default */
+.logo {
+  background-image: url('logo.png');
+}
+
+/* Serve a 2× asset to Retina/HiDPI screens */
+@media (min-resolution: 2dppx) {
+  .logo {
+    background-image: url('logo@2x.png');
+    background-size: contain;
+  }
+}</code></pre>
+
+<p><code>dppx</code> means "dots per CSS pixel". You may also see the older <code>dpi</code> unit; 2 dppx equals 192 dpi.</p>
+
+<p>The <strong><code>hover</code></strong> feature asks whether the device's <em>primary input</em> can hover over elements without activating them. A mouse can; a finger on a touchscreen cannot.</p>
+
+<ul>
+  <li><code>hover: hover</code> — the primary input supports hover (typically a mouse or trackpad).</li>
+  <li><code>hover: none</code> — the primary input cannot hover (typical of touch-only devices).</li>
+</ul>
+
+<pre><code>/* Only show dropdown on hover when the device supports it */
+@media (hover: hover) {
+  .nav-item:hover .dropdown {
+    display: block;
+  }
+}
+
+/* On touch devices, use a click-to-open pattern instead (handled in JS) */
+@media (hover: none) {
+  .dropdown-toggle {
+    display: inline-block; /* Make toggle button visible */
+  }
+}</code></pre>
+
+<p>The <strong><code>pointer</code></strong> feature describes the <em>precision</em> of the primary input device:</p>
+
+<ul>
+  <li><code>pointer: fine</code> — a precise pointing device, such as a mouse or stylus, is primary. Small targets are acceptable.</li>
+  <li><code>pointer: coarse</code> — an imprecise pointing device, such as a finger on a touchscreen, is primary. Targets must be large enough to hit reliably (the W3C recommends at least 44×44 CSS pixels).</li>
+  <li><code>pointer: none</code> — no pointing device at all (e.g., a keyboard-only interface).</li>
+</ul>
+
+<pre><code>/* Enlarge buttons and form controls for touch devices */
+@media (pointer: coarse) {
+  button,
+  input[type="checkbox"],
+  input[type="radio"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}</code></pre>
+
+<p>These capability queries let you build interfaces that are genuinely adapted to how users interact with them — not just how big their screens are. A large tablet could have a coarse pointer (finger) or a fine one (stylus), so width alone would not tell you how big to make your tap targets.</p>
+
+<p><strong>Applying Media Queries: Inline vs. External</strong></p>
+
+<p>There are two places you can write media queries: embedded in your main stylesheet, or as a condition on a separate <code>&lt;link&gt;</code> element in your HTML.</p>
+
+<p><strong>Inline media queries</strong> live inside your CSS file alongside the rest of your rules:</p>
+
+<pre><code>/* styles.css */
+
+.card {
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .card {
+    padding: 2rem;
+  }
+}</code></pre>
+
+<p>This approach keeps all styles for a component in one place, which is maintainable and means only one HTTP request for the stylesheet. It is the dominant pattern in modern projects, especially those using bundlers like Webpack or Vite, or preprocessors like Sass or PostCSS.</p>
+
+<p><strong>External media queries</strong> use the <code>media</code> attribute on a <code>&lt;link&gt;</code> tag to load an entire separate stylesheet conditionally:</p>
+
+<pre><code>&lt;link rel="stylesheet" href="base.css"&gt;
+&lt;link rel="stylesheet" href="mobile.css" media="screen and (max-width: 600px)"&gt;
+&lt;link rel="stylesheet" href="print.css" media="print"&gt;</code></pre>
+
+<p>A crucial subtlety: <em>modern browsers download all linked stylesheets regardless of whether the media condition currently matches</em> — they just defer applying the non-matching ones. This means external media queries do not save bandwidth; they only control which styles the browser parses and applies. For printing stylesheets this pattern is common and clean; for responsive breakpoints it is largely obsolete in favour of inline queries.</p>
+
+<p>Within a single stylesheet, you have two organizational options for where to place your media queries:</p>
+
+<ul>
+  <li><strong>Component-adjacent placement</strong> — put each component's responsive overrides immediately after that component's base styles. When you open a component's code you see its full responsive behaviour in one place.</li>
+  <li><strong>Grouped at the bottom</strong> — collect all media queries at the end of the file. Some developers prefer this to avoid scrolling past queries while editing base styles.</li>
+</ul>
+
+<p>Neither is definitively correct; consistency within a project matters more than the choice itself.</p>
+
+<p><strong>Best Practices for Writing Media Queries</strong></p>
+
+<p>Years of industry experience have crystallised a set of guidelines that make media queries easier to write, reason about, and maintain over time.</p>
+
+<p><strong>Adopt a mobile-first approach.</strong> Write your base CSS for the narrowest viewport — the most constrained environment — and use <code>min-width</code> queries to progressively add complexity for larger screens. This has three concrete benefits: smaller screens (often on slower networks) receive the lightest CSS with no overrides needed; the cascade works with you rather than against you; and you are forced to prioritise essential content from the start.</p>
+
+<pre><code>/* Mobile-first: base is a single-column, minimal layout */
+.grid {
+  display: block;
+}
+
+/* Tablet and up: introduce a two-column grid */
+@media (min-width: 768px) {
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Desktop and up: three columns */
+@media (min-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}</code></pre>
+
+<p><strong>Keep the number of breakpoints minimal.</strong> Every breakpoint you add must be tested, maintained, and documented. Most projects need no more than three or four. If you find yourself adding breakpoints every 50 px to fix small alignment issues, the root problem is usually that the layout itself lacks flexibility (consider <code>flexbox</code> or <code>grid</code> with <code>auto-fill</code>/<code>auto-fit</code> instead).</p>
+
+<p><strong>Never use device-specific pixel values.</strong> Breakpoints like 320 px (original iPhone), 375 px (iPhone 6/7/8), or 1366 px (common laptop) seem specific and precise, but device screen sizes shift with every new product generation. A breakpoint that perfectly targets today's popular phone will be misaligned by next year's model. Let your content dictate the breakpoint: resize the browser until something breaks, then add a breakpoint there.</p>
+
+<p><strong>Test on real devices and multiple browsers.</strong> Browser developer tools include excellent device emulators, but they simulate dimensions and pixel density — not always the exact rendering engine behaviour, touch event handling, or font rendering of the actual hardware. Whenever possible, test on a real phone, a real tablet, and at least two different browsers. Pay special attention to:</p>
+
+<ul>
+  <li>The browser's own UI (address bar, bottom navigation bar) consuming viewport height on mobile.</li>
+  <li>Font rendering differences between operating systems.</li>
+  <li>The <code>hover</code> and <code>pointer</code> media features, which behave differently on hybrid laptop/tablet devices.</li>
+</ul>
+
+<p><strong>Use <code>em</code> or <code>rem</code> units for breakpoints</strong> when supporting users who change their browser's default font size. If a user sets their base font to 20 px for readability and your breakpoints are all in <code>px</code>, your layout may break at a point the user's device wasn't actually narrow enough to warrant. Writing breakpoints in <code>em</code> (relative to the browser's font size, not the page's) ensures the layout adapts to both viewport width and the user's text scaling preferences:</p>
+
+<pre><code>/* 768px ÷ 16px default font size = 48em */
+@media (min-width: 48em) {
+  /* Tablet layout */
+}</code></pre>
+
+<p>Together, these practices make media queries a durable, maintainable tool rather than a growing tangle of overrides that becomes harder to manage with every design revision.</p>
+        <div class="notes"><strong>Notes</strong>Covers all listed subtopics in depth: definition and conditional logic of @media, syntax (media types, feature expressions, logical operators), width breakpoints (max-width desktop-first vs. min-width mobile-first, range queries, content-driven breakpoints), orientation and aspect-ratio queries, device capability queries (resolution, hover, pointer), inline vs. external application, and best practices. Includes code examples for every major concept and one HTML table illustrating a common breakpoint scale.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

@@ -1,0 +1,381 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Handling the dragstart Event</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Handling the dragstart Event</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Handling the dragstart Event</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When a user begins dragging an element on a web page, the browser fires a sequence of drag-related events. The very first event in that sequence is <strong>dragstart</strong>, and understanding it deeply is the foundation of building any drag-and-drop interaction in the browser. Everything that makes a drag operation meaningful — what data is being moved, what visual feedback the user sees, and what operations are permitted — is configured right here, in the <code>dragstart</code> handler. Getting this event right means the rest of the drag-and-drop pipeline flows naturally.</p>
+
+<p>The <strong>dragstart</strong> event fires on the <em>source element</em> — that is, the element the user actually grabbed and started dragging. This is an important distinction: it does not fire on the drop target where the element will eventually land, nor does it fire on any intermediate element the cursor passes over. It fires exactly once, at the very beginning of the drag gesture, before any <code>dragover</code> events start streaming in and certainly before any <code>drop</code> event occurs. Think of it as a single initialization moment: the browser is essentially asking your code, "A drag is starting — what do you want to communicate about it?"</p>
+
+<p>For <code>dragstart</code> to fire on an element at all, that element must opt in to being draggable. You do this by setting the <strong><code>draggable="true"</code></strong> HTML attribute on it. Without this attribute, most elements are not draggable (with the notable exception of anchor tags with an <code>href</code> and images, which are draggable by default). Setting <code>draggable="true"</code> is what signals to the browser that user interaction with that element should initiate a drag gesture.</p>
+
+<pre><code>&lt;!-- This paragraph will not fire dragstart without draggable="true" --&gt;
+&lt;p&gt;I cannot be dragged.&lt;/p&gt;
+
+&lt;!-- This one is draggable and will fire dragstart when the user drags it --&gt;
+&lt;p draggable="true" id="card-1"&gt;Drag me!&lt;/p&gt;
+</code></pre>
+
+<p>Once an element has <code>draggable="true"</code>, the browser will fire <code>dragstart</code> as soon as the user presses the mouse button and moves the pointer a small amount (the "drag threshold"). That threshold prevents accidental drags from simple clicks.</p>
+
+<p><strong>Attaching a dragstart Event Listener</strong></p>
+
+<p>The standard and recommended way to listen for <code>dragstart</code> is with <strong><code>addEventListener('dragstart', handler)</code></strong>. Using <code>addEventListener</code> rather than the older <code>ondragstart</code> property assignment is best practice because it allows multiple independent listeners to coexist on the same element without overwriting each other. This matters in larger applications where different modules may each want to react to the same drag event.</p>
+
+<pre><code>const draggableCard = document.getElementById('card-1');
+
+draggableCard.addEventListener('dragstart', function(event) {
+  console.log('Drag started on:', event.target.id);
+});
+</code></pre>
+
+<p>The <strong>event object</strong> passed into the handler is a <code>DragEvent</code>, which extends the standard <code>MouseEvent</code>. Its most important property for <code>dragstart</code> handling is <code>event.dataTransfer</code>, which gives you access to the <code>DataTransfer</code> object — the mechanism for storing and communicating drag data. We will cover that in detail shortly.</p>
+
+<p>In real applications you rarely have just one draggable element. More often you have a list of cards, rows in a table, or tiles in a grid — all of which need to be draggable. Rather than attaching a listener to each element individually (which is inefficient), you can <strong>iterate over a NodeList</strong> and attach the same handler to every element at once:</p>
+
+<pre><code>// HTML:
+// &lt;ul id="task-list"&gt;
+//   &lt;li draggable="true" data-id="task-1"&gt;Write report&lt;/li&gt;
+//   &lt;li draggable="true" data-id="task-2"&gt;Review PR&lt;/li&gt;
+//   &lt;li draggable="true" data-id="task-3"&gt;Update docs&lt;/li&gt;
+// &lt;/ul&gt;
+
+const draggableItems = document.querySelectorAll('[draggable="true"]');
+
+draggableItems.forEach(function(item) {
+  item.addEventListener('dragstart', handleDragStart);
+});
+
+function handleDragStart(event) {
+  console.log('Dragging item with id:', event.currentTarget.dataset.id);
+}
+</code></pre>
+
+<p>Alternatively, for very large or dynamically generated lists, you can use <strong>event delegation</strong> — attach a single <code>dragstart</code> listener to a common ancestor and check <code>event.target</code> inside the handler to determine which child element initiated the drag. This is particularly efficient when items are added and removed from the list at runtime.</p>
+
+<pre><code>const taskList = document.getElementById('task-list');
+
+taskList.addEventListener('dragstart', function(event) {
+  if (event.target.matches('[draggable="true"]')) {
+    console.log('Delegated drag start:', event.target.dataset.id);
+  }
+});
+</code></pre>
+
+<p><strong>Introduction to the DataTransfer Object</strong></p>
+
+<p>The <strong>DataTransfer</strong> object is the communication channel of the drag-and-drop system. It travels with the drag operation and serves two key purposes: it holds data that the drag source wants to share with the drop target, and it carries configuration about what kinds of operations are permitted. You access it through <strong><code>event.dataTransfer</code></strong> inside any drag event handler, but it is in the <code>dragstart</code> handler where you <em>write</em> to it. By the time the <code>drop</code> event fires, you can only <em>read</em> from it.</p>
+
+<p>Internally, the DataTransfer object stores data as a collection of <strong>key-value pairs</strong> where each key is a <strong>MIME type string</strong> (such as <code>'text/plain'</code>, <code>'text/html'</code>, or <code>'application/json'</code>) and the value is a string payload. Multiple formats can be registered for the same drag operation, and the drop target can choose whichever format it understands. This mirrors how the clipboard works in operating systems, where a copy operation might store both plain text and rich text simultaneously so that different paste destinations can pick their preferred format.</p>
+
+<p>An important subtlety: for security reasons, the <em>values</em> stored on the DataTransfer object are only accessible in the <code>drop</code> handler (and during <code>dragstart` itself). During <code>dragover</code>, only the <em>types</em> (keys) are readable, not the values. This lets a drop target decide whether to accept a drop based on format without exposing the full payload prematurely.</p>
+
+<p><strong>Storing Drag Data with setData()</strong></p>
+
+<p>The primary method for writing to the DataTransfer object is <strong><code>setData(format, data)</code></strong>. It takes exactly two string arguments: the MIME type (the format key) and the data value to store. It must be called during the <code>dragstart</code> event; calling it at any other point in the drag lifecycle has no effect.</p>
+
+<pre><code>function handleDragStart(event) {
+  // Store the element's ID as plain text
+  event.dataTransfer.setData('text/plain', event.target.id);
+}
+</code></pre>
+
+<p>You can call <code>setData()</code> multiple times with different format strings to make the same payload available in multiple representations. The browser will store all of them, and a drop target can request whichever format suits it best using <code>getData(format)</code>:</p>
+
+<pre><code>function handleDragStart(event) {
+  const elementId = event.target.id;
+  const elementText = event.target.innerText;
+
+  // Plain text version — compatible with any drop target, including text inputs
+  event.dataTransfer.setData('text/plain', elementText);
+
+  // HTML version — preserves markup if dropped into a rich-text editor
+  event.dataTransfer.setData('text/html', event.target.outerHTML);
+
+  // Custom application format — carries the element's ID for DOM manipulation
+  event.dataTransfer.setData('text/x-card-id', elementId);
+}
+</code></pre>
+
+<p>The most widely used pattern in single-page application drag-and-drop is <strong>storing the element's ID</strong> (or some other unique identifier). When the drop event fires, the handler retrieves this ID and uses it to look up the actual DOM element, then performs the necessary DOM manipulation — moving the node, updating application state, making an API call, and so on. This keeps the DataTransfer payload lightweight (just an ID string) while giving the drop handler everything it needs to act.</p>
+
+<pre><code>// dragstart handler on a kanban card
+function handleDragStart(event) {
+  event.dataTransfer.setData('text/plain', event.currentTarget.dataset.taskId);
+}
+
+// drop handler on a kanban column
+function handleDrop(event) {
+  event.preventDefault();
+  const taskId = event.dataTransfer.getData('text/plain'); // "task-42"
+  const draggedCard = document.querySelector(`[data-task-id="${taskId}"]`);
+  event.currentTarget.appendChild(draggedCard); // move the card into this column
+}
+</code></pre>
+
+<p>A common mistake is trying to share JavaScript objects directly through <code>setData()</code>. Since the value must be a string, you need to serialize any complex data first:</p>
+
+<pre><code>function handleDragStart(event) {
+  const payload = {
+    taskId: event.target.dataset.taskId,
+    columnId: event.target.closest('.column').dataset.columnId,
+    priority: 'high'
+  };
+  // Serialize the object to a JSON string
+  event.dataTransfer.setData('application/json', JSON.stringify(payload));
+}
+
+function handleDrop(event) {
+  event.preventDefault();
+  const raw = event.dataTransfer.getData('application/json');
+  const payload = JSON.parse(raw);
+  console.log(payload.taskId, payload.priority);
+}
+</code></pre>
+
+<p><strong>Setting the Drag Effect</strong></p>
+
+<p>Beyond the data payload, the DataTransfer object carries configuration about what <em>kind</em> of drag operation is taking place. The <strong><code>effectAllowed</code></strong> property, set on the drag source during <code>dragstart</code>, declares which operations are valid for this particular drag. The <strong><code>dropEffect</code></strong> property, set on the drop target during <code>dragover</code>, specifies which of those allowed operations will actually be performed when the user releases the mouse.</p>
+
+<p>Together, these two properties control the cursor appearance and communicate intent. The table below shows all valid values:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Value</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>effectAllowed</code></td>
+      <td><code>'none'</code></td>
+      <td>No drag operation is permitted.</td>
+    </tr>
+    <tr>
+      <td><code>effectAllowed</code></td>
+      <td><code>'copy'</code></td>
+      <td>The data may be copied to the drop target.</td>
+    </tr>
+    <tr>
+      <td><code>effectAllowed</code></td>
+      <td><code>'move'</code></td>
+      <td>The data may be moved to the drop target (source should be removed).</td>
+    </tr>
+    <tr>
+      <td><code>effectAllowed</code></td>
+      <td><code>'link'</code></td>
+      <td>A link to the source data may be created at the drop target.</td>
+    </tr>
+    <tr>
+      <td><code>effectAllowed</code></td>
+      <td><code>'copyMove'</code></td>
+      <td>Either copy or move is permitted.</td>
+    </tr>
+    <tr>
+      <td><code>effectAllowed</code></td>
+      <td><code>'copyLink'</code></td>
+      <td>Either copy or link is permitted.</td>
+    </tr>
+    <tr>
+      <td><code>effectAllowed</code></td>
+      <td><code>'linkMove'</code></td>
+      <td>Either link or move is permitted.</td>
+    </tr>
+    <tr>
+      <td><code>effectAllowed</code></td>
+      <td><code>'all'</code></td>
+      <td>Any operation is permitted (the default).</td>
+    </tr>
+    <tr>
+      <td><code>dropEffect</code></td>
+      <td><code>'copy'</code></td>
+      <td>A copy of the source element is placed at the drop target.</td>
+    </tr>
+    <tr>
+      <td><code>dropEffect</code></td>
+      <td><code>'move'</code></td>
+      <td>The element is moved from source to target.</td>
+    </tr>
+    <tr>
+      <td><code>dropEffect</code></td>
+      <td><code>'link'</code></td>
+      <td>A link from the drop target back to the source is created.</td>
+    </tr>
+    <tr>
+      <td><code>dropEffect</code></td>
+      <td><code>'none'</code></td>
+      <td>The item cannot be dropped here.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Setting <code>effectAllowed</code> during <code>dragstart</code> is how a drag source constrains what drop targets are allowed to do. For example, a file attachment widget might allow only <code>'copy'</code> (the file stays in its source location and a copy appears in the drop zone), whereas a kanban card should use <code>'move'</code> (the card leaves its original column). If you do not set <code>effectAllowed</code>, it defaults to <code>'all'</code>, giving drop targets complete freedom to choose any operation.</p>
+
+<pre><code>function handleDragStart(event) {
+  event.dataTransfer.setData('text/plain', event.target.dataset.taskId);
+
+  // Only a move is meaningful here — the card must leave its current column
+  event.dataTransfer.effectAllowed = 'move';
+}
+</code></pre>
+
+<p>On the drop target side, setting <code>dropEffect = 'move'</code> inside a <code>dragover</code> handler both updates the cursor icon (to a move cursor, typically an arrow with a small box) and communicates intent. After the drop completes, it is your JavaScript code's responsibility to actually remove the source element if a move was intended — the browser will not do that automatically.</p>
+
+<p><strong>Customizing the Drag Image</strong></p>
+
+<p>When a drag begins, the browser automatically creates a <strong>ghost image</strong> — a semi-transparent snapshot of the dragged element — that follows the cursor during the drag. In many cases this default ghost is perfectly adequate. But sometimes you want something more polished: a smaller thumbnail, a styled badge showing a count ("Moving 3 items"), a completely custom graphic, or an off-screen element that the user never sees in the normal document flow.</p>
+
+<p>You can replace the default ghost image by calling <strong><code>event.dataTransfer.setDragImage(element, xOffset, yOffset)</code></strong> inside the <code>dragstart</code> handler. This must be called before the <code>dragstart</code> handler returns.</p>
+
+<p>The three arguments are:</p>
+<ul>
+  <li><strong>element</strong> — Any visible HTML element or an <code>Image</code> object. The browser renders this element as the ghost. The element does not have to be in the viewport, but it does need to be part of the document (or at least rendered) for the browser to generate its visual. A common trick is to append it to the body with absolute positioning far off-screen, use it as the drag image, then remove it after a brief delay.</li>
+  <li><strong>xOffset</strong> — The horizontal offset in pixels from the left edge of the image to the cursor's hotspot. An offset of <code>0</code> puts the cursor at the far left of the image; half the image width centers the cursor horizontally.</li>
+  <li><strong>yOffset</strong> — The vertical offset in pixels from the top edge of the image to the cursor's hotspot.</li>
+</ul>
+
+<pre><code>function handleDragStart(event) {
+  event.dataTransfer.setData('text/plain', event.target.id);
+  event.dataTransfer.effectAllowed = 'move';
+
+  // Create a custom drag image
+  const ghost = document.createElement('div');
+  ghost.textContent = 'Moving task...';
+  ghost.style.cssText = `
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    background: #4f46e5;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: sans-serif;
+    pointer-events: none;
+  `;
+  document.body.appendChild(ghost);
+
+  // Place cursor at horizontal center, 10px from top
+  event.dataTransfer.setDragImage(ghost, ghost.offsetWidth / 2, 10);
+
+  // Clean up after a brief delay (dragstart has already captured the image by then)
+  setTimeout(() => ghost.remove(), 0);
+}
+</code></pre>
+
+<p>You can also use an <code>Image</code> object preloaded with a URL. This is useful when you want a specific icon or thumbnail without having to create a DOM element:</p>
+
+<pre><code>function handleDragStart(event) {
+  event.dataTransfer.setData('text/plain', event.target.id);
+
+  const img = new Image();
+  img.src = '/icons/drag-card.png';
+
+  // Position cursor at center of a 48x48 icon
+  event.dataTransfer.setDragImage(img, 24, 24);
+}
+</code></pre>
+
+<p>If <code>setDragImage()</code> is never called, the browser simply takes a screenshot of the dragged element at the moment the drag begins and uses that as the ghost. This default is usually acceptable for simple cases, but the customization capability is invaluable for polished UIs — for instance, when dragging multiple selected items at once, you might show a stacked-cards ghost with a count badge rather than a snapshot of a single item.</p>
+
+<p>Pulling all these concepts together, a complete, production-quality <code>dragstart</code> handler for a kanban card might look like this:</p>
+
+<pre><code>function handleDragStart(event) {
+  const card = event.currentTarget;
+
+  // 1. Store the unique identifier so the drop handler knows which card to move
+  event.dataTransfer.setData('text/plain', card.dataset.taskId);
+
+  // 2. Also store richer data for drop targets that can use it
+  event.dataTransfer.setData('application/json', JSON.stringify({
+    taskId: card.dataset.taskId,
+    sourceColumn: card.closest('.column').dataset.columnId
+  }));
+
+  // 3. Declare that only a move operation makes sense for kanban cards
+  event.dataTransfer.effectAllowed = 'move';
+
+  // 4. Show a compact ghost instead of the full card
+  const ghost = document.createElement('div');
+  ghost.className = 'drag-ghost';
+  ghost.textContent = card.querySelector('.card-title').textContent;
+  document.body.appendChild(ghost);
+  event.dataTransfer.setDragImage(ghost, 75, 20);
+  setTimeout(() => ghost.remove(), 0);
+
+  // 5. Visually dim the original card during the drag
+  setTimeout(() => card.classList.add('dragging'), 0);
+}
+</code></pre>
+
+<p>Each step serves a clear purpose: the <code>setData()</code> calls give drop targets what they need, <code>effectAllowed</code> constrains the operation type, <code>setDragImage()</code> polishes the visual feedback, and the class addition provides an in-place visual cue that the card is "in flight." This is the kind of cohesive, well-structured <code>dragstart</code> handler that underpins smooth drag-and-drop experiences in modern web applications.</p>
+        <div class="notes"><strong>Notes</strong>The section on event delegation under &quot;Attaching a dragstart Event Listener&quot; goes slightly beyond the listed subtopics but is practically important and commonly needed alongside NodeList iteration. The JSON serialization example under setData() is an additional elaboration that aids real-world understanding. Browser support for setDragImage() is excellent across modern browsers but has historically had quirks in some versions of Safari; instructors may wish to flag this.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

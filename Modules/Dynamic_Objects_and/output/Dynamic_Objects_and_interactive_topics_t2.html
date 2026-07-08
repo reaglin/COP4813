@@ -1,0 +1,400 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creating and Inserting HTML Elements Dynamically</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Creating and Inserting HTML Elements Dynamically</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Creating and Inserting HTML Elements Dynamically</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>One of the most powerful capabilities JavaScript provides in the browser is the ability to create entirely new HTML elements on the fly and place them precisely where needed within the existing document structure. Rather than relying solely on the static HTML delivered from a server, you can build interface components, insert feedback messages, render fetched data, or construct complex forms entirely through code. This dynamic creation and insertion of elements is a foundational skill for any interactive web application, and it revolves around a small but versatile set of DOM methods and properties.</p>
+
+<p>Understanding this topic means understanding a two-phase process: first you <em>create and configure</em> an element in memory, and then you <em>insert</em> it into the live document. These two phases are deliberately separate, and grasping why they are separated — and how each step works — gives you precise control over what appears on screen and when.</p>
+
+<p><strong>The createElement() Method</strong></p>
+
+<p>The entry point for dynamic element creation is <code>document.createElement()</code>. You call it on the global <code>document</code> object and pass a single string argument: a valid HTML tag name. The method is case-insensitive in HTML documents, though lowercase is conventional and recommended.</p>
+
+<pre><code>// Create a paragraph element
+const para = document.createElement('p');
+
+// Create an unordered list
+const list = document.createElement('ul');
+
+// Create a text input
+const input = document.createElement('input');
+</code></pre>
+
+<p>The critical thing to understand immediately is that the element returned by <code>createElement()</code> is a fully formed DOM node — it has all the properties and methods any element of that type would have — but it is <em>detached</em>. It exists only in JavaScript memory, completely invisible to the user and not connected to the document tree in any way. You can think of it as a newly manufactured component sitting on a workbench, ready to be configured and eventually installed.</p>
+
+<p>Because it is a real element object, you can immediately begin reading and writing its properties. Setting <code>id</code>, <code>className</code>, <code>textContent</code>, or calling <code>setAttribute()</code> on it at this stage is perfectly valid, and doing so before insertion is generally the right approach.</p>
+
+<pre><code>const heading = document.createElement('h2');
+heading.id = 'section-title';
+heading.className = 'card-heading highlight';
+heading.textContent = 'Welcome to the Dashboard';
+// The heading is fully configured but still detached from the document
+</code></pre>
+
+<p><strong>Setting Content and Attributes Before Insertion</strong></p>
+
+<p>Before you add your new element to the page, it is best practice to fully configure it. This involves setting its visible content, its HTML attributes, its CSS classes, and any inline styles it needs. Doing all of this while the element is still detached is efficient and keeps your code organised.</p>
+
+<p>The two primary ways to set an element's content are <code>textContent</code> and <code>innerHTML</code>. They behave differently and serve different purposes:</p>
+
+<ul>
+  <li><strong>textContent</strong> sets the element's content as plain text. Any HTML special characters are automatically escaped, meaning a string like <code>'&lt;strong&gt;Hello&lt;/strong&gt;'</code> would appear literally on screen rather than being rendered as bold text. This is the safe choice when inserting user-supplied data, as it prevents cross-site scripting (XSS) attacks.</li>
+  <li><strong>innerHTML</strong> parses the string as HTML markup and creates the corresponding child nodes inside the element. Use it when you need nested markup, but <em>never</em> use it to insert unvalidated user input.</li>
+</ul>
+
+<pre><code>// Safe: sets plain text
+const label = document.createElement('span');
+label.textContent = 'User input: &lt;script&gt;alert("xss")&lt;/script&gt;';
+// The above renders as literal text, not executable code
+
+// Structural: sets inner HTML
+const card = document.createElement('div');
+card.innerHTML = '&lt;strong&gt;Featured&lt;/strong&gt; &amp;mdash; Today only';
+</code></pre>
+
+<p>To set HTML attributes — properties that appear inside the opening tag of an element, such as <code>href</code>, <code>src</code>, <code>type</code>, <code>name</code>, or custom <code>data-*</code> attributes — use <code>setAttribute(name, value)</code>. For some standard attributes there are equivalent DOM properties (for example, <code>input.type = 'checkbox'</code> and <code>input.setAttribute('type', 'checkbox')</code> both work), but <code>setAttribute()</code> is the universal and reliable approach, especially for custom data attributes.</p>
+
+<pre><code>const link = document.createElement('a');
+link.setAttribute('href', 'https://example.com');
+link.setAttribute('target', '_blank');
+link.setAttribute('rel', 'noopener noreferrer');
+link.textContent = 'Visit Example';
+
+const image = document.createElement('img');
+image.setAttribute('src', '/images/logo.png');
+image.setAttribute('alt', 'Company Logo');
+
+const dataButton = document.createElement('button');
+dataButton.setAttribute('data-action', 'delete');
+dataButton.setAttribute('data-id', '42');
+dataButton.textContent = 'Delete Item';
+</code></pre>
+
+<p>To manage CSS classes, <code>classList.add()</code> is preferred over directly assigning to <code>className</code> because it does not overwrite existing classes. You can add multiple classes in one call:</p>
+
+<pre><code>const alert = document.createElement('div');
+alert.classList.add('alert', 'alert-warning', 'fade-in');
+</code></pre>
+
+<p>For inline styles, assign values to properties of the element's <code>style</code> object using camelCase property names (because hyphens are not valid in JavaScript identifiers):</p>
+
+<pre><code>const box = document.createElement('div');
+box.style.backgroundColor = '#f0f4ff';
+box.style.padding = '1rem';
+box.style.borderRadius = '8px';
+box.style.display = 'flex';
+</code></pre>
+
+<p><strong>Inserting Elements with appendChild()</strong></p>
+
+<p>Once your element is configured, you need a parent node already present in the live document to attach it to. You locate that parent using any of the standard selection methods, then call <code>appendChild()</code> on it, passing the new element as the argument.</p>
+
+<pre><code>// HTML already in the document: &lt;ul id="task-list"&gt;&lt;/ul&gt;
+
+const list = document.getElementById('task-list');
+
+const item = document.createElement('li');
+item.textContent = 'Buy groceries';
+
+list.appendChild(item);
+// The &lt;li&gt; is now live inside the &lt;ul&gt; and visible in the browser
+</code></pre>
+
+<p><code>appendChild()</code> always places the new node <em>after</em> all existing children of the parent — in other words, at the very end. If the parent currently has three <code>&lt;li&gt;</code> elements, the appended item becomes the fourth. This is the appropriate method when you want to add something to the bottom of a list, the end of a container, or the last position within any parent.</p>
+
+<p>The method returns the node that was appended, which means you can capture it for further use without needing to re-select it:</p>
+
+<pre><code>const taskList = document.querySelector('#task-list');
+const newTask = document.createElement('li');
+newTask.textContent = 'Read a book';
+
+const insertedTask = taskList.appendChild(newTask);
+// insertedTask === newTask, now live in the DOM
+insertedTask.classList.add('completed'); // modify after insertion
+</code></pre>
+
+<p>An important and sometimes surprising behaviour: if you pass an element that is <em>already</em> in the DOM to <code>appendChild()</code>, it is <em>moved</em> from its current location to the new position. The element is not duplicated.</p>
+
+<pre><code>// Moves the first list item to the end of the same list
+const firstItem = taskList.querySelector('li:first-child');
+taskList.appendChild(firstItem); // first item is now the last item
+</code></pre>
+
+<p><strong>Inserting Elements with insertBefore()</strong></p>
+
+<p>When you need finer positional control — inserting a new element before a specific existing sibling rather than at the end — use <code>parentNode.insertBefore(newNode, referenceNode)</code>. This method requires you to hold a reference to both the parent and the sibling that the new node should precede.</p>
+
+<pre><code>// HTML in document:
+// &lt;ul id="priority-list"&gt;
+//   &lt;li id="task-b"&gt;Task B&lt;/li&gt;
+//   &lt;li id="task-c"&gt;Task C&lt;/li&gt;
+// &lt;/ul&gt;
+
+const priorityList = document.getElementById('priority-list');
+const taskB = document.getElementById('task-b');
+
+const newItem = document.createElement('li');
+newItem.textContent = 'Task A (urgent)';
+
+priorityList.insertBefore(newItem, taskB);
+// Result: Task A (urgent) → Task B → Task C
+</code></pre>
+
+<p>A common use case is maintaining a sorted or prioritised list where items must appear in a specific order determined at runtime. You locate the correct reference node by querying the existing children, then insert precisely before it.</p>
+
+<p>Passing <code>null</code> as the reference node is explicitly defined behaviour: when the second argument is <code>null</code>, <code>insertBefore()</code> behaves identically to <code>appendChild()</code> and adds the element at the end of the parent's children. This is useful when your code conditionally finds a reference node and may not always find one:</p>
+
+<pre><code>// referenceNode might be null if no matching element exists
+const referenceNode = priorityList.querySelector('.deadline-today') || null;
+priorityList.insertBefore(newItem, referenceNode);
+// If no .deadline-today exists, newItem goes to the end
+</code></pre>
+
+<p><strong>Modern Insertion Methods: insertAdjacentElement(), append(), and prepend()</strong></p>
+
+<p>The DOM Living Standard introduced several more expressive and convenient insertion methods that address limitations of the older <code>appendChild()</code> and <code>insertBefore()</code>.</p>
+
+<p>The <code>append()</code> method is a modern upgrade to <code>appendChild()</code>. Its key differences are:</p>
+
+<ul>
+  <li>It accepts <em>multiple</em> arguments in a single call — any combination of Element nodes and plain strings.</li>
+  <li>Strings are automatically converted to Text nodes, so you can mix elements and text without manually creating text nodes.</li>
+  <li>It does <em>not</em> return the appended node (it returns <code>undefined</code>).</li>
+</ul>
+
+<pre><code>const container = document.querySelector('.card-body');
+
+const icon = document.createElement('span');
+icon.classList.add('icon-star');
+
+const badge = document.createElement('span');
+badge.classList.add('badge');
+badge.textContent = 'New';
+
+// Append icon, a text string, and badge — all in one call
+container.append(icon, ' Featured Item ', badge);
+</code></pre>
+
+<p>The <code>prepend()</code> method is the counterpart to <code>append()</code>: it inserts one or more nodes or strings <em>before</em> the first child of the parent element. It shares the same flexibility — multiple arguments, supports strings — and also returns <code>undefined</code>.</p>
+
+<pre><code>const navList = document.querySelector('nav ul');
+const homeLink = document.createElement('li');
+homeLink.innerHTML = '&lt;a href="/"&gt;Home&lt;/a&gt;';
+
+// Make "Home" the very first navigation item, regardless of what's already there
+navList.prepend(homeLink);
+</code></pre>
+
+<p>The <code>insertAdjacentElement(position, element)</code> method offers the most precise positional control of all. It inserts an element at one of four named positions relative to the element on which it is called. The four position strings are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Position String</th>
+      <th>Where the New Element Is Inserted</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>'beforebegin'</code></td>
+      <td>Immediately before the target element itself (as a preceding sibling)</td>
+    </tr>
+    <tr>
+      <td><code>'afterbegin'</code></td>
+      <td>Inside the target element, before its first child</td>
+    </tr>
+    <tr>
+      <td><code>'beforeend'</code></td>
+      <td>Inside the target element, after its last child (equivalent to append)</td>
+    </tr>
+    <tr>
+      <td><code>'afterend'</code></td>
+      <td>Immediately after the target element itself (as a following sibling)</td>
+    </tr>
+  </tbody>
+</table>
+
+<pre><code>const section = document.querySelector('section.main-content');
+
+const beforeBanner = document.createElement('div');
+beforeBanner.classList.add('promo-banner');
+beforeBanner.textContent = 'Special offer above section!';
+section.insertAdjacentElement('beforebegin', beforeBanner);
+
+const firstNote = document.createElement('p');
+firstNote.textContent = 'Note: read the introduction first.';
+section.insertAdjacentElement('afterbegin', firstNote);
+
+const footNote = document.createElement('p');
+footNote.textContent = 'End of section content.';
+section.insertAdjacentElement('beforeend', footNote);
+
+const afterBanner = document.createElement('div');
+afterBanner.classList.add('related-links');
+afterBanner.textContent = 'Related articles appear here.';
+section.insertAdjacentElement('afterend', afterBanner);
+</code></pre>
+
+<p>Unlike <code>append()</code>, <code>insertAdjacentElement()</code> returns the inserted element, making it easy to chain further configuration. Also note its sibling-level positions (<code>'beforebegin'</code> and <code>'afterend'</code>) are simply not possible with <code>appendChild()</code> or <code>append()</code>, making it uniquely valuable when you need to inject content around an element rather than inside it.</p>
+
+<p><strong>Building and Inserting Nested Element Structures</strong></p>
+
+<p>Real-world dynamic content rarely consists of a single element. More commonly you need to construct a hierarchy — a list with items, a card with a header, body, and footer, a form with labels and inputs. The correct approach is to build the entire nested structure in memory first, then attach it to the live document with a single insertion call.</p>
+
+<p>Here is the general pattern, illustrated by building a complete card component:</p>
+
+<pre><code>// Target container already in the live document
+const feed = document.querySelector('#article-feed');
+
+// 1. Create the root element of the component
+const card = document.createElement('article');
+card.classList.add('card');
+
+// 2. Create child elements and configure each one
+const cardHeader = document.createElement('header');
+cardHeader.classList.add('card-header');
+
+const title = document.createElement('h3');
+title.textContent = 'JavaScript Tips';
+title.classList.add('card-title');
+
+const cardBody = document.createElement('div');
+cardBody.classList.add('card-body');
+
+const description = document.createElement('p');
+description.textContent = 'A weekly roundup of useful JavaScript patterns and techniques.';
+
+const readMore = document.createElement('a');
+readMore.setAttribute('href', '/articles/js-tips');
+readMore.textContent = 'Read more →';
+readMore.classList.add('btn', 'btn-link');
+
+// 3. Assemble the structure in memory (no DOM contact yet)
+cardHeader.appendChild(title);
+cardBody.appendChild(description);
+cardBody.appendChild(readMore);
+card.appendChild(cardHeader);
+card.appendChild(cardBody);
+
+// 4. Single insertion into the live DOM
+feed.appendChild(card);
+</code></pre>
+
+<p>This build-then-insert pattern is not just a stylistic choice — it carries a real performance benefit. Every time you insert or modify a node in the live document, the browser may need to recalculate element positions and repaint part of the screen (a process called <em>reflow</em> and <em>repaint</em>). If you inserted each element individually into the live DOM as you created it, you could trigger multiple reflows. By assembling the entire tree in memory and performing a single final insertion, you reduce that cost to one reflow at most.</p>
+
+<p>For generating a dynamic list from an array of data — a common pattern when rendering fetched API results — the same principle applies: create all list items in memory, attach them to a detached <code>&lt;ul&gt;</code>, then insert the <code>&lt;ul&gt;</code> once:</p>
+
+<pre><code>const products = [
+  { id: 1, name: 'Wireless Mouse', price: '$29.99' },
+  { id: 2, name: 'Mechanical Keyboard', price: '$89.99' },
+  { id: 3, name: 'USB-C Hub', price: '$49.99' },
+];
+
+const productList = document.createElement('ul');
+productList.classList.add('product-list');
+
+products.forEach(product => {
+  const item = document.createElement('li');
+  item.setAttribute('data-id', product.id);
+  item.classList.add('product-item');
+
+  const nameSpan = document.createElement('span');
+  nameSpan.classList.add('product-name');
+  nameSpan.textContent = product.name;
+
+  const priceSpan = document.createElement('span');
+  priceSpan.classList.add('product-price');
+  priceSpan.textContent = product.price;
+
+  item.append(nameSpan, ' — ', priceSpan);
+  productList.appendChild(item);
+});
+
+// One DOM insertion for the whole list
+document.querySelector('#product-section').appendChild(productList);
+</code></pre>
+
+<p>An alternative to building a tree manually when performance is critical at very large scale is using a <code>DocumentFragment</code>. A <code>DocumentFragment</code> is a lightweight, minimal document object that can hold nodes but has no parent itself. Appending to a fragment generates no reflows at all, and when the fragment is finally inserted into the live DOM, its children are moved in (the fragment itself does not appear as a node). For most everyday dynamic rendering the build-in-memory approach with a regular detached element is sufficient, but it is worth knowing the fragment option exists for advanced scenarios.</p>
+
+<pre><code>const fragment = document.createDocumentFragment();
+
+['Alpha', 'Beta', 'Gamma'].forEach(name => {
+  const li = document.createElement('li');
+  li.textContent = name;
+  fragment.appendChild(li);
+});
+
+document.querySelector('#greek-list').appendChild(fragment);
+// The &lt;li&gt; elements are inserted; the fragment itself vanishes
+</code></pre>
+
+<p>Together, these methods and patterns give you complete, precise control over the structure of any web page at runtime. Whether you are responding to user events, rendering server data, or building interactive UI components entirely from JavaScript, the ability to create, configure, and insert elements dynamically is the mechanism that makes it all possible.</p>
+        <div class="notes"><strong>Notes</strong>The DocumentFragment mention under the nested structures section goes slightly beyond the listed subtopics but is directly relevant and commonly paired with this subject; instructors may choose to expand it into its own discussion. The XSS caution under innerHTML is deliberately included as it is essential professional context when teaching textContent vs innerHTML.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

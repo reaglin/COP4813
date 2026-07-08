@@ -1,0 +1,80 @@
+{
+  "Id": "41c3d890-6f17-44bb-af0b-42947bdb15c5",
+  "Name": "COP4813",
+  "Description": "This course covers development of web systems with a focus on client-side development. Topics include use of XHTML, the Document Object Model (DOM), Cascading Style Sheets (CSS), use of Javascript for providing client side interactivity, ADA accessibility, Javascript Object Notation (JSON), and design for mobile platforms. A web site design project is included.",
+  "CreatedBy": "",
+  "CreatedDate": "2026-06-26T21:24:49.9690991-04:00",
+  "LastModifiedDate": "2026-07-07T20:09:57.3130572-04:00",
+  "Modules": [
+    {
+      "ModuleName": "1 -GitHub, GitHub Pages, and Your First HTML Page",
+      "FolderName": "GitHub_GitHub_Pages",
+      "Order": 1
+    },
+    {
+      "ModuleName": "2 -Building a Full Website with HTML, Images, and Links",
+      "FolderName": "Building_a_Full",
+      "Order": 2
+    },
+    {
+      "ModuleName": "3 -Styling Web Pages with CSS",
+      "FolderName": "Styling_Web_Pages",
+      "Order": 3
+    },
+    {
+      "ModuleName": "4 - Introduction to the Document Object Model (DOM)",
+      "FolderName": "Introduction_to_the",
+      "Order": 4
+    },
+    {
+      "ModuleName": "5 - Creating and Validating HTML Forms",
+      "FolderName": "Creating_and_Validating",
+      "Order": 5
+    },
+    {
+      "ModuleName": "6 - External Libraries: jQuery, Bootstrap, and Plotting Tools",
+      "FolderName": "External_Libraries_jQuery",
+      "Order": 6
+    },
+    {
+      "ModuleName": "7 - Drawing and Graphics with the HTML5 Canvas",
+      "FolderName": "Drawing_and_Graphics",
+      "Order": 7
+    },
+    {
+      "ModuleName": "8 - Introduction to JSON and Using It in the Browser",
+      "FolderName": "Introduction_to_JSON",
+      "Order": 8
+    },
+    {
+      "ModuleName": "9 - Implementing Drag and Drop Interactions",
+      "FolderName": "Implementing_Drag_and",
+      "Order": 9
+    },
+    {
+      "ModuleName": "10 - Animation Techniques in the Browser",
+      "FolderName": "Animation_Techniques_in",
+      "Order": 10
+    },
+    {
+      "ModuleName": "11 - Designing Mobile-Ready and Responsive Websites",
+      "FolderName": "Designing_Mobile_Ready",
+      "Order": 11
+    },
+    {
+      "ModuleName": "12 - Dynamic Objects and Controls with JavaScript and the DOM",
+      "FolderName": "Dynamic_Objects_and",
+      "Order": 12
+    },
+    {
+      "ModuleName": "13 - Building a Browser-Embedded Game",
+      "FolderName": "Building_a_Browser",
+      "Order": 13
+    },
+    {
+      "ModuleName": "14 - Content Management Systems, Webmaster Roles, and Site Maintenance",
+      "FolderName": "Content_Management_Systems",
+      "Order": 14
+    }
+  ]
+}

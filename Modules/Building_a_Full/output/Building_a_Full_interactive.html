@@ -1,0 +1,290 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bringing It All Together: Building a Complete Website</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Bringing It All Together: Building a Complete Website</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Bringing It All Together: Building a Complete Website</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Building a complete website from scratch is the moment when every individual skill you have learned — writing semantic HTML, embedding images, creating links, and organizing files — converges into a single, coherent project. Rather than practicing isolated techniques, you now apply them together, making decisions that affect the entire site rather than just one element on one page. This end-to-end process mirrors real-world web development work, where thoughtful planning, consistent structure, and careful testing are just as important as knowing the syntax of any particular tag. The sections below walk through every stage of constructing a functional multi-page website, from the first sketch on paper to the final validation check in a browser.</p>
+
+<p><strong>Planning Your Multi-Page Website Structure</strong></p>
+
+<p>Every successful website begins not with code but with a plan. Before you create a single file, you need to answer a fundamental question: what pages does this site actually need? For most beginner projects — and many professional ones — the answer centers on a small set of core pages. A <strong>Home page</strong> (<code>index.html</code>) serves as the entry point and gives visitors an immediate sense of what the site is about. An <strong>About page</strong> (<code>about.html</code>) provides background information, whether about a person, a business, or an organization. A <strong>Contact page</strong> (<code>contact.html</code>) gives visitors a way to reach out, typically with an email address, a phone number, or a form.</p>
+
+<p>Depending on the site's purpose, you might also need additional pages — a portfolio gallery, a services listing, a blog index — but starting with these three gives you a manageable scope while covering all the structural patterns you need to practice. The key discipline at this stage is resisting the urge to invent pages you do not need yet. A focused three-page site built well is far more valuable than a sprawling ten-page site built inconsistently.</p>
+
+<p>Once you know which pages you need, sketch a <strong>site map</strong>. A site map is a simple diagram — even a hand-drawn one — showing each page as a labeled box and drawing arrows between boxes to represent links. For a three-page site the map might look like this conceptually: the Home page links to About and Contact; About links back to Home and to Contact; Contact links back to Home and About. Every page links to every other page through the navigation menu. This diagram is not decoration — it is a blueprint that tells you exactly which <code>&lt;a&gt;</code> elements you will need to write and prevents you from forgetting a connection.</p>
+
+<p>The planning stage is also the right moment to inventory your <strong>media assets</strong>. List every image you intend to use: a logo, a hero photograph, a profile portrait, icons, and so on. Collect or create those files before you begin coding. Trying to write an <code>&lt;img&gt;</code> tag pointing to a file that does not exist yet, or hunting for images midway through coding, interrupts your workflow and leads to broken paths. Gather everything first, name the files clearly, and place them in your project's image folder so they are ready when you need them.</p>
+
+<p><strong>Setting Up a Consistent File and Folder Organization</strong></p>
+
+<p>A well-organized folder structure is not about tidiness for its own sake — it directly determines whether your links and image paths will work correctly. The standard approach for a small multi-page site places all HTML files at the <strong>root level</strong> of the project folder, meaning they sit directly inside the main project directory rather than inside any subfolder. This makes internal links between pages simple and predictable. To link from <code>index.html</code> to <code>about.html</code>, you write <code>href="about.html"</code> with no folder prefix needed because both files live in the same directory.</p>
+
+<p>A recommended folder layout for a three-page project looks like this:</p>
+
+<pre><code>my-website/
+├── index.html
+├── about.html
+├── contact.html
+└── images/
+    ├── logo.png
+    ├── hero-photo.jpg
+    └── profile-portrait.jpg
+</code></pre>
+
+<p>All image files go inside a dedicated <strong><code>images/</code> subfolder</strong>. This separation keeps the root directory from becoming cluttered as the project grows and makes image paths consistent: every <code>&lt;img&gt;</code> tag on every page will use a path that begins with <code>images/</code> followed by the filename. If you later add a CSS stylesheet, you would create a <code>css/</code> folder on the same level as <code>images/</code> and follow the same pattern.</p>
+
+<p>One subtle but important rule is to use <strong>lowercase, hyphenated filenames</strong> throughout — for HTML files, image files, and folder names alike. Write <code>about.html</code>, not <code>About.html</code>. Write <code>hero-photo.jpg</code>, not <code>HeroPhoto.jpg</code>. The reason is operating-system case sensitivity. On Windows, the file system treats <code>About.html</code> and <code>about.html</code> as the same file, so a casing error may go unnoticed during development. On Linux-based web servers — which host the vast majority of websites — those two filenames are completely different, and a link using the wrong casing produces a 404 error the moment the site is uploaded. Adopting lowercase-and-hyphen naming from the very beginning eliminates this entire category of bug.</p>
+
+<p><strong>Applying Semantic Markup Across Every Page</strong></p>
+
+<p>Semantic HTML means choosing elements based on the <em>meaning and role</em> of the content they contain, not merely how those elements look by default in a browser. When you use semantic elements consistently across every page, you create a site that is understandable to browsers, search engines, assistive technologies like screen readers, and other developers who might read your code.</p>
+
+<p>The core semantic structure for a web page uses five elements working together: <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>, and <code>&lt;section&gt;</code>. A typical page skeleton looks like this:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Home – My Website&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+
+    &lt;header&gt;
+      &lt;img src="images/logo.png" alt="My Website logo"&gt;
+      &lt;h1&gt;My Website&lt;/h1&gt;
+    &lt;/header&gt;
+
+    &lt;nav&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href="index.html"&gt;Home&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="about.html"&gt;About&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="contact.html"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+
+    &lt;main&gt;
+      &lt;section&gt;
+        &lt;h2&gt;Welcome&lt;/h2&gt;
+        &lt;p&gt;This is the home page of my website.&lt;/p&gt;
+      &lt;/section&gt;
+    &lt;/main&gt;
+
+    &lt;footer&gt;
+      &lt;p&gt;&amp;copy; 2024 My Website&lt;/p&gt;
+    &lt;/footer&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>The <code>&lt;header&gt;</code> element wraps introductory content that appears at the top of the page — typically the site logo and name. The <code>&lt;nav&gt;</code> element marks up the primary navigation links. Screen readers announce the presence of a <code>&lt;nav&gt;</code> element so that keyboard users can jump directly to it or skip past it. The <code>&lt;main&gt;</code> element contains the content that is unique to the current page — it should appear only once per page and should not include repeated elements like the header or footer. The <code>&lt;footer&gt;</code> holds closing information such as copyright notices or secondary links. The <code>&lt;section&gt;</code> element groups related content within <code>&lt;main&gt;</code> when the page has multiple distinct areas.</p>
+
+<p>Applying this same skeleton across <code>index.html</code>, <code>about.html</code>, and <code>contact.html</code> creates a coherent, consistent site. Only the content inside <code>&lt;main&gt;</code> changes from page to page; the header, nav, and footer remain structurally identical. This consistency makes the site easier to maintain and easier for users to understand.</p>
+
+<p><strong>Embedding Images with Descriptive Alt Text</strong></p>
+
+<p>Images are embedded using the <code>&lt;img&gt;</code> element, which is a void element — it has no closing tag. Its two required attributes are <code>src</code> and <code>alt</code>. The <code>src</code> attribute provides the path to the image file, and the <code>alt</code> attribute provides a text description of the image.</p>
+
+<p>Because all image files live in the <code>images/</code> subfolder, every <code>src</code> path on every page begins with <code>images/</code> followed by the filename:</p>
+
+<pre><code>&lt;img src="images/hero-photo.jpg" alt="A panoramic view of the city skyline at dusk"&gt;
+</code></pre>
+
+<p>Writing good <code>alt</code> text is both a usability requirement and an accessibility obligation. The alt text is read aloud by screen readers for users who cannot see the image, and it appears as visible text in the browser if the image fails to load. Good alt text describes the <em>content and purpose</em> of the image in the context of the page. A profile photograph on an About page might use <code>alt="María García, founder of Bright Ideas Studio"</code>. A decorative background texture that carries no informational meaning should use an empty alt attribute — <code>alt=""</code> — so that screen readers skip it entirely rather than announcing a useless description.</p>
+
+<p>What to avoid in alt text:</p>
+<ul>
+  <li>Using the filename: <code>alt="hero-photo.jpg"</code> tells a screen reader user nothing.</li>
+  <li>Using generic labels: <code>alt="image"</code> or <code>alt="photo"</code> are equally meaningless.</li>
+  <li>Beginning with "Image of" or "Picture of" — screen readers already announce that an image is present, so this phrasing is redundant.</li>
+</ul>
+
+<p>You should also control image dimensions to prevent <strong>layout shift</strong> — the jarring reflow that happens when a browser renders the page before knowing how large an image is, then jumps the layout when the image finally loads. The most reliable approach is to add <code>width</code> and <code>height</code> attributes directly on the <code>&lt;img&gt;</code> tag using the image's actual pixel dimensions. The browser reserves the correct amount of space immediately, even before the image downloads:</p>
+
+<pre><code>&lt;img src="images/profile-portrait.jpg"
+     alt="María García, founder of Bright Ideas Studio"
+     width="300"
+     height="300"&gt;
+</code></pre>
+
+<p><strong>Creating Internal Links Between Pages</strong></p>
+
+<p>Internal links connect pages within your own site. Because all your HTML files sit at the same root level, linking between them uses simple <strong>relative paths</strong> — just the filename, with no domain name or folder prefix needed:</p>
+
+<pre><code>&lt;a href="about.html"&gt;About&lt;/a&gt;
+&lt;a href="contact.html"&gt;Contact&lt;/a&gt;
+&lt;a href="index.html"&gt;Home&lt;/a&gt;
+</code></pre>
+
+<p>These links work correctly as long as the file they point to exists at the expected location in the project folder. This is why file organization and consistent naming matter so much — a misplaced file or a casing error in the filename produces a broken link.</p>
+
+<p>Your navigation menu must appear on <strong>every page</strong> in exactly the same form. A visitor who lands directly on your Contact page from a search engine result must have the same navigation available to them as a visitor who started on the Home page. Inconsistent navigation — present on some pages but absent on others — disorients users and damages the site's usability.</p>
+
+<p>One important enhancement is <strong>highlighting the active page link</strong> so users always know where they are. The simplest HTML-only technique is to add a descriptive attribute to the link for the current page. In modern HTML you would use <code>aria-current="page"</code>, which communicates the active page both to screen readers and to CSS rules:</p>
+
+<pre><code>&lt;!-- On index.html --&gt;
+&lt;nav&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="index.html" aria-current="page"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="about.html"&gt;About&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="contact.html"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+</code></pre>
+
+<p>The <code>aria-current="page"</code> attribute on the Home link tells assistive technologies that this is the link for the currently displayed page. You would move this attribute to whichever link matches the page the visitor is currently viewing — it appears on the Home link only in <code>index.html</code>, on the About link only in <code>about.html</code>, and so on. Even without CSS styling, this attribute provides a meaningful signal to screen reader users.</p>
+
+<p><strong>Adding External Links and Best Practices</strong></p>
+
+<p>External links point to pages on other websites. Unlike internal links, external links require the complete, absolute URL as the <code>href</code> value — the full address including the protocol (<code>https://</code>), the domain name, and any path:</p>
+
+<pre><code>&lt;a href="https://www.example.com"&gt;Visit Example&lt;/a&gt;
+</code></pre>
+
+<p>A very common convention for external links is opening them in a new browser tab using the <code>target="_blank"</code> attribute. The rationale is that when a user clicks an external link and it opens in the same tab, they navigate away from your site entirely. Opening in a new tab lets them explore the external resource while keeping your site open and accessible:</p>
+
+<pre><code>&lt;a href="https://www.example.com" target="_blank"&gt;Visit Example&lt;/a&gt;
+</code></pre>
+
+<p>However, <code>target="_blank"</code> alone introduces a security vulnerability. By default, a page opened in a new tab via <code>target="_blank"</code> can access the <code>window.opener</code> JavaScript object of the original page, potentially allowing a malicious external site to redirect your page to a phishing URL. To prevent this, always pair <code>target="_blank"</code> with <code>rel="noopener noreferrer"</code>:</p>
+
+<pre><code>&lt;a href="https://www.example.com"
+   target="_blank"
+   rel="noopener noreferrer"&gt;Visit Example&lt;/a&gt;
+</code></pre>
+
+<p>The two values in the <code>rel</code> attribute serve slightly different purposes:</p>
+
+<ul>
+  <li><strong><code>noopener</code></strong> — prevents the new tab from having access to <code>window.opener</code>, blocking the security risk.</li>
+  <li><strong><code>noreferrer</code></strong> — prevents the browser from sending the HTTP <code>Referer</code> header to the destination site, adding a layer of privacy. It also implies <code>noopener</code> behavior in most browsers, but including both is the clearest and most compatible approach.</li>
+</ul>
+
+<p>This combination — <code>target="_blank" rel="noopener noreferrer"</code> — has become the standard, expected pattern for external links across the entire web development industry. Make it a habit to write all three attributes together whenever you create an external link.</p>
+
+<p><strong>Reviewing and Testing Your Complete Website</strong></p>
+
+<p>Writing code is only part of building a website. Thorough testing is what separates a site that looks finished from a site that actually works. Testing a multi-page site involves several distinct checks, each targeting a different type of potential problem.</p>
+
+<p>Begin with <strong>link testing</strong>. Open every HTML file in your browser. On each page, click every link in the navigation menu and verify that it loads the correct destination page. Then check that any additional in-page links — to external resources, to sections within the same page using anchor fragments, or to downloadable files — all resolve correctly. A single click is not enough; navigate through every possible path a user might take. A link that appears broken only when coming from a specific page is a real bug even if it works from other pages.</p>
+
+<p>Next, perform an <strong>image audit</strong>. Review every page for broken image icons — the small placeholder that browsers display when an image file cannot be found. Broken images are usually caused by a typo in the <code>src</code> path, a misplaced file, or a filename casing error. Fix each broken image by confirming the file exists in the <code>images/</code> folder and that the path in the <code>src</code> attribute matches the actual filename exactly, including its extension (<code>.jpg</code>, <code>.png</code>, <code>.gif</code>, etc.). While reviewing images, also check that every <code>&lt;img&gt;</code> element has an <code>alt</code> attribute and that the alt text accurately and usefully describes the image.</p>
+
+<p>After link and image testing, run your HTML through a <strong>validator</strong>. The <strong>W3C Markup Validation Service</strong> (<em>validator.w3.org</em>) is the industry-standard tool for this purpose. You can paste your HTML directly, upload the file, or (for deployed sites) provide a URL. The validator checks your markup against the HTML specification and reports errors — such as unclosed tags, missing required attributes, or elements nested in ways the specification does not permit — and warnings, which are less severe issues worth knowing about. Validating every page catches structural problems that browsers often silently compensate for, which means those problems may appear as rendering defects in less forgiving browsers or on future browser versions.</p>
+
+<p>Finally, conduct a <strong>responsive review</strong>. Open each page on a desktop browser at full width and inspect whether the layout looks as intended. Then resize the browser window to a narrow width simulating a mobile phone screen. You can also use your browser's built-in developer tools — available in Chrome, Firefox, Edge, and Safari by pressing F12 or right-clicking and selecting "Inspect" — to preview the page at specific device dimensions. Check that text remains readable, that images do not overflow their containers, that the navigation menu is accessible, and that no content is cut off or hidden unintentionally. Ensuring your site works at multiple screen sizes is not optional in a world where more than half of all web traffic comes from mobile devices.</p>
+
+<p>The following table summarizes the complete testing checklist for a multi-page website:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Test Category</th>
+      <th>What to Check</th>
+      <th>Common Causes of Failure</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Internal link testing</td>
+      <td>Every nav link on every page leads to the correct destination</td>
+      <td>Wrong filename, incorrect relative path, file moved or renamed</td>
+    </tr>
+    <tr>
+      <td>External link testing</td>
+      <td>External links open the correct URL, in a new tab if applicable</td>
+      <td>Typo in URL, missing <code>https://</code>, missing <code>rel</code> attributes</td>
+    </tr>
+    <tr>
+      <td>Image loading</td>
+      <td>All images display without broken-image placeholders</td>
+      <td>Incorrect <code>src</code> path, filename casing mismatch, missing file</td>
+    </tr>
+    <tr>
+      <td>Alt text accuracy</td>
+      <td>Every <code>&lt;img&gt;</code> has a meaningful <code>alt</code> attribute</td>
+      <td>Missing attribute, generic text like "image", or filename used as alt</td>
+    </tr>
+    <tr>
+      <td>HTML validation</td>
+      <td>No errors reported by the W3C Markup Validation Service</td>
+      <td>Unclosed tags, invalid nesting, missing required attributes</td>
+    </tr>
+    <tr>
+      <td>Responsive layout</td>
+      <td>Content is readable and usable at desktop and mobile widths</td>
+      <td>Fixed pixel widths on images, text too small, navigation inaccessible</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Working through this checklist methodically — rather than assuming the site works because it looked fine during the last coding session — is the professional approach to web development. Bugs found during your own testing cost minutes to fix; bugs found by users after launch damage trust and credibility. Completing each stage of this process, from initial planning through final validation, gives you a multi-page website that is structurally sound, accessible, secure, and ready to build upon as your skills continue to grow.</p>
+        <div class="notes"><strong>Notes</strong>This topic synthesizes all prior module concepts into a practical end-to-end project walkthrough. The W3C Markup Validation Service URL referenced is validator.w3.org. Instructors may wish to assign the three-page site (index, about, contact) as a graded capstone project. The responsive review section intentionally stops short of CSS media queries since those are typically covered in a subsequent module; the focus here is on checking behavior with default browser rendering and developer tools preview modes.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

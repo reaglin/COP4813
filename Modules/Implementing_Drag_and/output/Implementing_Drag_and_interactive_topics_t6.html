@@ -1,0 +1,512 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building an Interactive UI Component</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Building an Interactive UI Component</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Building an Interactive UI Component</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Building an interactive UI component with drag-and-drop functionality is one of the most rewarding exercises in front-end development. It requires you to coordinate HTML structure, the browser's native drag-and-drop API, JavaScript event handling, data-model management, and accessibility best practices — all working together to create a seamless experience. A classic example is a <strong>Kanban board</strong>, where cards representing tasks can be dragged between columns ("To Do", "In Progress", "Done"), or a <strong>sortable list</strong> where items can be reordered by dragging. Throughout this topic, we will build toward exactly that kind of component, explaining every decision in depth so you understand not just <em>what</em> to do but <em>why</em>.</p>
+
+<p>The HTML Drag and Drop API is built into modern browsers and exposes a set of events (<code>dragstart</code>, <code>drag</code>, <code>dragover</code>, <code>dragleave</code>, <code>drop</code>, <code>dragend</code>) along with a <code>DataTransfer</code> object that carries information about what is being dragged. Understanding the lifecycle of a single drag gesture — from the moment the user presses the mouse button on an element to the moment they release it over a target — is the foundation for everything else in this topic.</p>
+
+<p><strong>Planning the Interactive UI Component</strong></p>
+
+<p>Good planning prevents a tangle of event listeners and broken state updates later. Before writing a single line of JavaScript, you should be able to answer three questions clearly: <em>Which elements are draggable?</em> <em>Where are they allowed to be dropped?</em> <em>What should happen at each stage of the interaction?</em></p>
+
+<p>Start by <strong>identifying the draggable elements and their valid drop targets</strong>. In a Kanban board, the draggable elements are the task cards, and the valid drop targets are the column containers. In a sortable list, every list item is draggable and every gap between items (or the list itself) is a valid drop target. Writing this down explicitly — even just in a comment at the top of your JavaScript file — saves significant debugging time.</p>
+
+<p>Next, <strong>sketch the HTML structure</strong> on paper or in a design tool before touching the editor. A Kanban board might look like this conceptually:</p>
+
+<ul>
+  <li>A <code>&lt;div class="board"&gt;</code> wrapping the whole component</li>
+  <li>Three <code>&lt;div class="column"&gt;</code> containers, one per status</li>
+  <li>Inside each column, a <code>&lt;div class="card"&gt;</code> for each task</li>
+</ul>
+
+<p>Sketching forces you to decide questions like: does the drop target include the column heading, or just the card list area inside it? Should an item dropped onto another item insert before or after it? Getting these answers before coding means your event listeners have a clear contract to implement.</p>
+
+<p>Finally, <strong>define the expected user interaction flow</strong> step by step:</p>
+
+<ul>
+  <li>User presses the mouse button on a card → <code>dragstart</code> fires; the card should appear slightly transparent to show it is "picked up".</li>
+  <li>User drags over a column → <code>dragover</code> fires repeatedly; the column should highlight to signal it is a valid drop zone.</li>
+  <li>User moves out of a column without dropping → <code>dragleave</code> fires; the column highlight is removed.</li>
+  <li>User releases the card over a column → <code>drop</code> fires; the card is physically moved into the column in the DOM and the data model is updated.</li>
+  <li>Drag ends (whether dropped or cancelled) → <code>dragend</code> fires; any remaining visual feedback classes are cleaned up.</li>
+</ul>
+
+<p><strong>Setting Up the HTML Structure</strong></p>
+
+<p>With the plan in hand, translate it into HTML. The most important attribute at this stage is <code>draggable="true"</code>. Without it, the browser will not initiate a drag gesture on the element regardless of any JavaScript you attach.</p>
+
+<pre><code>&lt;div class="board"&gt;
+
+  &lt;div class="column" id="col-todo" aria-label="To Do"&gt;
+    &lt;h2&gt;To Do&lt;/h2&gt;
+    &lt;div class="card-list"&gt;
+      &lt;div class="card" draggable="true" id="card-1" data-card-id="1"&gt;Write tests&lt;/div&gt;
+      &lt;div class="card" draggable="true" id="card-2" data-card-id="2"&gt;Update docs&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="column" id="col-inprogress" aria-label="In Progress"&gt;
+    &lt;h2&gt;In Progress&lt;/h2&gt;
+    &lt;div class="card-list"&gt;
+      &lt;div class="card" draggable="true" id="card-3" data-card-id="3"&gt;Build login page&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="column" id="col-done" aria-label="Done"&gt;
+    &lt;h2&gt;Done&lt;/h2&gt;
+    &lt;div class="card-list"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;</code></pre>
+
+<p>Notice several deliberate choices here. Each <code>.card</code> has <strong>both an <code>id</code> and a <code>data-card-id</code> attribute</strong>. The <code>id</code> gives us a fast DOM lookup handle; the <code>data-card-id</code> is what we will pass through the <code>DataTransfer</code> object, because it is the stable identifier that connects the DOM element to the data model. Using a <code>data-*</code> attribute instead of passing the raw <code>id</code> string means you can change your ID naming convention without breaking the data layer.</p>
+
+<p>The drop targets are the <code>.card-list</code> <code>div</code>s inside each column, not the column headings. This is an important structural decision: attaching <code>dragover</code> and <code>drop</code> listeners to the <code>.card-list</code> means dropping on the heading does nothing, which matches most users' mental model of a Kanban board.</p>
+
+<p><strong>Implementing the dragstart Event</strong></p>
+
+<p>The <code>dragstart</code> event fires once, at the very beginning of a drag gesture. It is your only opportunity to load data into the <code>DataTransfer</code> object, which acts as a clipboard for the drag operation.</p>
+
+<pre><code>const cards = document.querySelectorAll('.card');
+
+cards.forEach(card =&gt; {
+  card.addEventListener('dragstart', handleDragStart);
+  card.addEventListener('dragend', handleDragEnd);
+});
+
+function handleDragStart(event) {
+  // Store the card's identifier so the drop handler can find the element later
+  event.dataTransfer.setData('text/plain', event.target.dataset.cardId);
+
+  // Store a reference to the element itself for same-page drops
+  // (Many implementations also set a module-level variable for convenience)
+  draggedCard = event.target;
+
+  // Give visual feedback: the card looks "lifted"
+  event.target.classList.add('dragging');
+}
+
+function handleDragEnd(event) {
+  // Always clean up, whether the drop succeeded or was cancelled
+  event.target.classList.remove('dragging');
+  draggedCard = null;
+}</code></pre>
+
+<p><code>event.dataTransfer.setData('text/plain', value)</code> stores a string under the MIME-type key <code>'text/plain'</code>. This is the most universally compatible choice. You can store multiple pieces of data under different keys (e.g., a custom type like <code>'application/x-card-id'</code>), but <code>text/plain</code> is always readable in the drop handler.</p>
+
+<p>Storing a module-level variable (<code>draggedCard</code>) alongside <code>setData</code> is a common pattern for same-page drags. The <code>DataTransfer</code> data is protected during the drag — you cannot read it in <code>dragover</code>, only in <code>drop</code> — so the variable gives you access to the element itself during intermediate events if you need it. However, the <code>DataTransfer</code> approach is what enables cross-tab or cross-application drops if you ever need them.</p>
+
+<p>The CSS class <code>'dragging'</code> typically reduces the card's opacity and perhaps adds a slight border or shadow to indicate it has been "picked up":</p>
+
+<pre><code>.card.dragging {
+  opacity: 0.5;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  cursor: grabbing;
+}</code></pre>
+
+<p><strong>Handling the dragover Event on Drop Targets</strong></p>
+
+<p>The <code>dragover</code> event fires continuously — many times per second — while a draggable element is held over a potential drop target. By default, browsers <strong>do not permit dropping</strong> on any element. The way you opt in to receiving a drop is by calling <code>event.preventDefault()</code> inside a <code>dragover</code> handler. This is the single most common mistake beginners make: they write a <code>drop</code> handler but forget <code>preventDefault()</code> in <code>dragover</code>, and the drop never fires.</p>
+
+<pre><code>const cardLists = document.querySelectorAll('.card-list');
+
+cardLists.forEach(list =&gt; {
+  list.addEventListener('dragover', handleDragOver);
+  list.addEventListener('dragleave', handleDragLeave);
+  list.addEventListener('drop', handleDrop);
+});
+
+function handleDragOver(event) {
+  event.preventDefault(); // Crucial: tells the browser this is a valid drop zone
+
+  // Set the visual cursor style (optional but informative)
+  event.dataTransfer.dropEffect = 'move';
+
+  // Highlight the target column to show it will accept the drop
+  event.currentTarget.classList.add('drag-over');
+}
+
+function handleDragLeave(event) {
+  // Remove highlight when drag moves away
+  // Use relatedTarget to avoid flickering when moving between child elements
+  if (!event.currentTarget.contains(event.relatedTarget)) {
+    event.currentTarget.classList.remove('drag-over');
+  }
+}</code></pre>
+
+<p>The <code>dragleave</code> nuance is important. If the <code>.card-list</code> contains child elements (the cards themselves), the browser fires <code>dragleave</code> when the mouse moves over a child element and <code>dragenter</code> on that child — even though visually you are still inside the list. Using <code>event.currentTarget.contains(event.relatedTarget)</code> checks whether the element the pointer moved <em>to</em> is still inside the drop target. If it is, we are not truly leaving, so we keep the highlight.</p>
+
+<p>The <code>drag-over</code> CSS class might look like this:</p>
+
+<pre><code>.card-list.drag-over {
+  background-color: #e8f4ff;
+  border: 2px dashed #4a90e2;
+  border-radius: 6px;
+}</code></pre>
+
+<p><strong>Implementing the drop Event to Reorder or Move Items</strong></p>
+
+<p>When the user releases the dragged element over a highlighted drop target, the <code>drop</code> event fires. Here is where the actual DOM manipulation happens.</p>
+
+<pre><code>function handleDrop(event) {
+  event.preventDefault(); // Prevent default browser behavior (e.g., opening a link)
+
+  // Retrieve the identifier stored during dragstart
+  const cardId = event.dataTransfer.getData('text/plain');
+
+  // Locate the actual DOM element using the retrieved identifier
+  const card = document.querySelector(`.card[data-card-id="${cardId}"]`);
+
+  // Remove highlight from the drop target
+  event.currentTarget.classList.remove('drag-over');
+
+  if (card) {
+    // Append the card to the new column's card list
+    event.currentTarget.appendChild(card);
+
+    // Update the data model (covered in the next section)
+    updateDataModel(cardId, event.currentTarget.closest('.column').id);
+  }
+}</code></pre>
+
+<p>Using <code>querySelector</code> with a <code>data-card-id</code> attribute selector is robust: it works even if the element has been moved in the DOM since <code>dragstart</code>, because we are querying the live document. The <code>appendChild</code> call moves the element — it does not clone it. If the element already exists in the DOM (which it does, in its original column), calling <code>appendChild</code> on a different parent automatically removes it from the original parent. This is a built-in feature of the DOM that makes the move operation a single call.</p>
+
+<p>For a sortable list where order within the same container matters, you would use <code>insertBefore</code> instead of <code>appendChild</code>. A typical approach is to find the card element immediately after the cursor position and insert before it:</p>
+
+<pre><code>function getDragAfterElement(container, y) {
+  // Get all non-dragging cards in this container
+  const draggableElements = [
+    ...container.querySelectorAll('.card:not(.dragging)')
+  ];
+
+  return draggableElements.reduce((closest, child) => {
+    const box = child.getBoundingClientRect();
+    const offset = y - box.top - box.height / 2;
+    // Find the element whose center is just below the cursor
+    if (offset &lt; 0 &amp;&amp; offset &gt; closest.offset) {
+      return { offset: offset, element: child };
+    } else {
+      return closest;
+    }
+  }, { offset: Number.NEGATIVE_INFINITY }).element;
+}
+
+function handleDrop(event) {
+  event.preventDefault();
+  const cardId = event.dataTransfer.getData('text/plain');
+  const card = document.querySelector(`.card[data-card-id="${cardId}"]`);
+  event.currentTarget.classList.remove('drag-over');
+
+  if (card) {
+    const afterElement = getDragAfterElement(event.currentTarget, event.clientY);
+    if (afterElement == null) {
+      event.currentTarget.appendChild(card);
+    } else {
+      event.currentTarget.insertBefore(card, afterElement);
+    }
+    updateDataModel(cardId, event.currentTarget.closest('.column').id);
+  }
+}</code></pre>
+
+<p><code>getBoundingClientRect()</code> gives the pixel position of each card. By comparing the cursor's Y coordinate (<code>event.clientY</code>) to each card's midpoint, we find the correct insertion position, enabling precise reordering within the same column.</p>
+
+<p><strong>Managing State and Updating the Data Model</strong></p>
+
+<p>Moving elements in the DOM gives the user visual feedback, but the DOM is a poor place to store application state. The DOM can be modified by browser extensions, accessibility tools, or other scripts; it is slow to query for complex data needs; and it does not serialize easily for saving or syncing. Instead, maintain a <strong>JavaScript data model</strong> that mirrors the board state.</p>
+
+<pre><code>// Initial data model — mirrors the starting HTML
+let boardState = {
+  'col-todo': ['1', '2'],
+  'col-inprogress': ['3'],
+  'col-done': []
+};
+
+function updateDataModel(cardId, newColumnId) {
+  // Remove the card from whichever column currently holds it
+  for (const columnId in boardState) {
+    boardState[columnId] = boardState[columnId].filter(id =&gt; id !== cardId);
+  }
+
+  // Find its new position in the DOM to insert at the correct index
+  const column = document.getElementById(newColumnId);
+  const cardList = column.querySelector('.card-list');
+  const domOrder = [...cardList.querySelectorAll('.card')].map(
+    el =&gt; el.dataset.cardId
+  );
+
+  // Replace the column's array with the current DOM order
+  boardState[newColumnId] = domOrder;
+
+  console.log('Board state updated:', JSON.stringify(boardState, null, 2));
+  // In a real app, you might persist this to localStorage or send it to a server
+  persistState();
+}
+
+function persistState() {
+  localStorage.setItem('kanbanBoard', JSON.stringify(boardState));
+}</code></pre>
+
+<p>This approach keeps the data model and the DOM in sync: the DOM drives the visual, and immediately after each drop we read the new DOM order back into the model. An alternative is to update the model <em>first</em> and then re-render the DOM from the model (the "single source of truth" pattern used by React and Vue). For a vanilla JavaScript project the DOM-first approach shown above is simpler and equally correct.</p>
+
+<p>On page load, you can restore saved state from <code>localStorage</code>:</p>
+
+<pre><code>function loadState() {
+  const saved = localStorage.getItem('kanbanBoard');
+  if (saved) {
+    boardState = JSON.parse(saved);
+    renderBoard();
+  }
+}
+
+function renderBoard() {
+  for (const columnId in boardState) {
+    const cardList = document.querySelector(`#${columnId} .card-list`);
+    cardList.innerHTML = ''; // Clear existing cards
+    boardState[columnId].forEach(cardId =&gt; {
+      // Find the card element from a detached pool or create it fresh
+      const card = createCardElement(cardId);
+      cardList.appendChild(card);
+    });
+  }
+}
+
+loadState();</code></pre>
+
+<p>This round-trip — save to model on drop, restore from model on load — gives your component persistence without a backend.</p>
+
+<p><strong>Accessibility and Usability Enhancements</strong></p>
+
+<p>A drag-and-drop interface built entirely on mouse events is inaccessible to users who navigate by keyboard, use screen readers, or have motor impairments that make precise dragging impossible. Accessibility is not an optional polish step; it is part of the component's definition of "done".</p>
+
+<p><strong>ARIA attributes</strong> communicate drag state to assistive technologies. The relevant attributes are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Applied To</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>aria-grabbed="false"</code></td>
+      <td>Draggable elements (at rest)</td>
+      <td>Announces the element can be grabbed</td>
+    </tr>
+    <tr>
+      <td><code>aria-grabbed="true"</code></td>
+      <td>The element currently being dragged</td>
+      <td>Announces the element has been picked up</td>
+    </tr>
+    <tr>
+      <td><code>aria-dropeffect="move"</code></td>
+      <td>Valid drop target containers</td>
+      <td>Tells screen readers what action dropping will perform</td>
+    </tr>
+    <tr>
+      <td><code>aria-dropeffect="none"</code></td>
+      <td>Containers that are not valid targets</td>
+      <td>Signals the container does not accept this drag</td>
+    </tr>
+    <tr>
+      <td><code>role="listitem"</code></td>
+      <td>Each draggable card</td>
+      <td>Provides semantic context within a <code>role="list"</code> container</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Update these attributes in your event handlers:</p>
+
+<pre><code>function handleDragStart(event) {
+  event.dataTransfer.setData('text/plain', event.target.dataset.cardId);
+  draggedCard = event.target;
+  event.target.classList.add('dragging');
+  event.target.setAttribute('aria-grabbed', 'true');
+
+  // Mark all valid drop targets
+  document.querySelectorAll('.card-list').forEach(list =&gt; {
+    list.setAttribute('aria-dropeffect', 'move');
+  });
+}
+
+function handleDragEnd(event) {
+  event.target.classList.remove('dragging');
+  event.target.setAttribute('aria-grabbed', 'false');
+  draggedCard = null;
+
+  // Reset all drop targets
+  document.querySelectorAll('.card-list').forEach(list =&gt; {
+    list.setAttribute('aria-dropeffect', 'none');
+    list.classList.remove('drag-over');
+  });
+}</code></pre>
+
+<p><strong>Keyboard interaction</strong> is the most important accessibility enhancement. A user should be able to select a card, then use keyboard commands to move it. A clean pattern:</p>
+
+<ul>
+  <li><strong>Space</strong> or <strong>Enter</strong> on a focused card: "picks up" the card (enters move mode).</li>
+  <li><strong>Arrow keys</strong>: move the card up/down within the current column, or left/right between columns.</li>
+  <li><strong>Space</strong> or <strong>Enter</strong> again: "drops" the card in its current position, confirming the move.</li>
+  <li><strong>Escape</strong>: cancels the operation and returns the card to its original position.</li>
+</ul>
+
+<pre><code>let selectedCard = null;
+let originalPosition = null; // { parentNode, nextSibling }
+
+cards.forEach(card =&gt; {
+  card.setAttribute('tabindex', '0'); // Make keyboard focusable
+
+  card.addEventListener('keydown', (event) =&gt; {
+    if (event.key === ' ' || event.key === 'Enter') {
+      event.preventDefault();
+      if (!selectedCard) {
+        // Pick up
+        selectedCard = card;
+        originalPosition = {
+          parentNode: card.parentNode,
+          nextSibling: card.nextSibling
+        };
+        card.classList.add('dragging');
+        card.setAttribute('aria-grabbed', 'true');
+        announceToScreenReader(`${card.textContent} picked up. Use arrow keys to move.`);
+      } else {
+        // Drop
+        selectedCard.classList.remove('dragging');
+        selectedCard.setAttribute('aria-grabbed', 'false');
+        updateDataModel(selectedCard.dataset.cardId,
+                        selectedCard.closest('.column').id);
+        announceToScreenReader(`${selectedCard.textContent} dropped.`);
+        selectedCard = null;
+      }
+    }
+
+    if (selectedCard &amp;&amp; event.key === 'ArrowDown') {
+      event.preventDefault();
+      const next = selectedCard.nextElementSibling;
+      if (next) {
+        selectedCard.parentNode.insertBefore(next, selectedCard);
+        selectedCard.focus();
+      }
+    }
+
+    if (selectedCard &amp;&amp; event.key === 'ArrowUp') {
+      event.preventDefault();
+      const prev = selectedCard.previousElementSibling;
+      if (prev) {
+        selectedCard.parentNode.insertBefore(selectedCard, prev);
+        selectedCard.focus();
+      }
+    }
+
+    if (event.key === 'Escape' &amp;&amp; selectedCard) {
+      // Return to original position
+      originalPosition.parentNode.insertBefore(selectedCard,
+                                               originalPosition.nextSibling);
+      selectedCard.classList.remove('dragging');
+      selectedCard.setAttribute('aria-grabbed', 'false');
+      announceToScreenReader(`Move cancelled.`);
+      selectedCard = null;
+    }
+  });
+});
+
+// A live region for screen reader announcements
+function announceToScreenReader(message) {
+  let region = document.getElementById('sr-announcer');
+  if (!region) {
+    region = document.createElement('div');
+    region.id = 'sr-announcer';
+    region.setAttribute('aria-live', 'assertive');
+    region.setAttribute('aria-atomic', 'true');
+    region.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;';
+    document.body.appendChild(region);
+  }
+  region.textContent = '';
+  // Small timeout so the change is noticed by screen readers
+  setTimeout(() =&gt; { region.textContent = message; }, 50);
+}</code></pre>
+
+<p>The <code>aria-live="assertive"</code> region causes the screen reader to immediately interrupt and read the announcement, which is appropriate for action feedback. Use <code>"polite"</code> for non-urgent updates like status changes that can wait for the reader to finish its current sentence.</p>
+
+<p><strong>Focus management</strong> ensures that after a card is moved, the keyboard user's focus stays on the card, not lost to the <code>body</code> or some other element. Calling <code>selectedCard.focus()</code> after every DOM insertion — as shown above in the arrow-key handlers — achieves this. Additionally, ensure your CSS provides a clear focus indicator:</p>
+
+<pre><code>.card:focus {
+  outline: 3px solid #005fcc;
+  outline-offset: 2px;
+}</code></pre>
+
+<p>Never use <code>outline: none</code> on interactive elements without providing an equally visible custom focus style. Many users with low vision rely on the focus ring to know where they are on the page.</p>
+
+<p>Putting it all together, a complete and accessible drag-and-drop component requires: a clear HTML structure with <code>draggable="true"</code> and meaningful <code>data-*</code> attributes; <code>dragstart</code>/<code>dragend</code> handlers for the drag lifecycle; <code>dragover</code> with <code>preventDefault()</code> and <code>dragleave</code> for drop-target feedback; a <code>drop</code> handler that retrieves the identifier, moves the DOM element, and updates the data model; a JavaScript state object kept in sync with the DOM after every operation; ARIA attributes updated in lockstep with visual state changes; a keyboard interaction path that mirrors every mouse-based operation; and an <code>aria-live</code> region that narrates each significant action to screen reader users. With all these pieces in place, your component is not just interactive — it is inclusive, maintainable, and production-ready.
+        <div class="notes"><strong>Notes</strong>The keyboard interaction code uses a module-level `selectedCard` variable to track pick-up state; in a class-based or framework-based implementation this would be instance state. The `announceToScreenReader` helper function creates a visually hidden ARIA live region on first call, which is a lightweight alternative to including the element in the initial HTML. Instructors may wish to extend the cross-column arrow-key movement (ArrowLeft/ArrowRight) as a guided exercise, since the pattern follows directly from the ArrowUp/ArrowDown implementation shown.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

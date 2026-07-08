@@ -1,0 +1,391 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Logic and State Management</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Game Logic and State Management</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Game Logic and State Management</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Every interactive game — no matter how simple or complex — is fundamentally a program that tracks information over time and reacts to changes in that information. A bullet either hits a target or it doesn't. A player either has lives remaining or they don't. The score either meets a winning threshold or it doesn't. <strong>Game logic and state management</strong> is the discipline of organizing, updating, and responding to all of this information in a structured, reliable way. Without a clear system for managing state, games quickly become tangled webs of variables that fall out of sync, produce invisible bugs, or behave inconsistently. With a clear system, every mechanic — scoring, collision, winning, losing, restarting — becomes a predictable and maintainable piece of a larger whole.</p>
+
+<p>This topic walks through the core pillars of game logic: how to define and track game state, how to implement scoring, how to detect collisions between objects, how to recognize win and loss conditions, and how to give players the ability to restart cleanly. Each concept builds on the one before it, and together they form the backbone of almost every browser-based Canvas game.</p>
+
+<p><strong>Tracking Game State</strong></p>
+
+<p>Game state is the complete picture of what is happening in a game at any given moment. It answers questions like: Is the game currently running or paused? How many lives does the player have left? Where is the player on screen? Where are the enemies? What is the current score? If you can answer all of those questions by looking at a set of variables, then those variables collectively represent your game state.</p>
+
+<p>The most important principle for managing game state well is <em>centralization</em>. Rather than scattering individual variables across different functions or letting them live implicitly inside closures, you should define a dedicated state object or a clearly grouped set of variables at the top of your script, before the game loop starts. This makes the state easy to inspect, easy to reset, and easy to reason about.</p>
+
+<p>Consider a simple approach using a plain object:</p>
+
+<pre><code>const gameState = {
+  isRunning: false,
+  isPaused: false,
+  isGameOver: false,
+  score: 0,
+  lives: 3,
+  level: 1,
+  playerX: 200,
+  playerY: 400,
+  enemyX: 100,
+  enemyY: 50,
+  enemySpeed: 2
+};
+</code></pre>
+
+<p>Grouping everything into one object has a practical advantage: when you need to reset the game, you only need to restore the properties of one object rather than hunt down a dozen individual variables spread across the file. Each property is a named, readable description of something meaningful in the game world.</p>
+
+<p>State variables must be updated <em>inside the game loop or event handlers</em> whenever a meaningful change occurs. If the player moves right, you update <code>gameState.playerX</code>. If the player presses the spacebar to fire, an event handler sets a flag like <code>gameState.isFiring = true</code>, and the game loop responds to that flag on its next tick. This separation of concerns — input sets flags, the loop reads flags and updates state, rendering reads state and draws — is a clean pattern that prevents confusion.</p>
+
+<p>At the start of each iteration of the game loop, you should check state flags to decide what the loop should do. A common structure looks like this:</p>
+
+<pre><code>function gameLoop() {
+  if (gameState.isGameOver) {
+    renderGameOver();
+    return; // Stop the loop from scheduling itself again
+  }
+
+  if (gameState.isPaused) {
+    requestAnimationFrame(gameLoop); // Keep the loop alive but do nothing else
+    return;
+  }
+
+  update();   // Apply movement, physics, AI
+  checkCollisions();
+  checkWinCondition();
+  render();   // Draw the current state to the Canvas
+
+  requestAnimationFrame(gameLoop);
+}
+</code></pre>
+
+<p>This structure ensures the loop always begins with a clear decision about whether it should proceed normally, wait, or stop entirely. The state drives the behavior — the loop never assumes anything.</p>
+
+<p><strong>Implementing a Scoring System</strong></p>
+
+<p>A scoring system gives players feedback and motivation. Implementing one correctly involves three steps: initializing the score, incrementing it in response to events, and displaying it every frame.</p>
+
+<p>Initialize the score before the loop begins. Whether you store it in a state object or as a standalone variable, it must start at zero so there is no leftover value from a previous run:</p>
+
+<pre><code>gameState.score = 0;
+</code></pre>
+
+<p>Increment the score whenever the player performs a positive action. This might happen inside a collision detection routine (the player's projectile hit an enemy), inside an item pickup check, or at a time-based interval (surviving for ten seconds earns bonus points). The key is that the increment happens in a logical, meaningful place — not randomly:</p>
+
+<pre><code>function handleEnemyHit() {
+  gameState.score += 100;
+  // Additional logic: remove enemy, play sound effect, etc.
+}
+</code></pre>
+
+<p>You might also want tiered scoring — worth more points for harder enemies, or bonus points for hitting targets quickly. This is simply a matter of passing the point value as a parameter or using conditional logic:</p>
+
+<pre><code>function awardPoints(baseValue, comboMultiplier) {
+  gameState.score += baseValue * comboMultiplier;
+}
+</code></pre>
+
+<p>Finally, the score must be drawn on the Canvas every frame. Because the Canvas is a pixel surface and not a DOM document, drawing text once does not make it persist — the next frame's <code>clearRect</code> call wipes it away. Redrawing the score each frame ensures the display always reflects the current value:</p>
+
+<pre><code>function renderScore(ctx) {
+  ctx.fillStyle = 'white';
+  ctx.font = '20px Arial';
+  ctx.fillText('Score: ' + gameState.score, 10, 30);
+}
+</code></pre>
+
+<p>Call <code>renderScore</code> at the end of your <code>render</code> function, after clearing the canvas, so the score appears on top of all other drawn elements.</p>
+
+<p><strong>Collision Detection</strong></p>
+
+<p>Collision detection is the process of determining whether two game objects occupy overlapping space. It is one of the most computationally active parts of any game loop, because it must run every single frame for every relevant pair of objects. Choosing the right approach depends on the shape of your objects.</p>
+
+<p>For <strong>rectangular objects</strong> (the most common case in simple games), the algorithm is called <em>Axis-Aligned Bounding Box</em> (AABB) detection. Two rectangles overlap if and only if they overlap on <em>both</em> the X axis <em>and</em> the Y axis at the same time. If they are separated on even one axis, they do not collide. The logic checks whether one rectangle's right edge is past the other's left edge, and vice versa, on both axes:</p>
+
+<pre><code>function rectsOverlap(a, b) {
+  // a and b each have: x, y, width, height
+  return (
+    a.x &lt; b.x + b.width  &&
+    a.x + a.width &gt; b.x  &&
+    a.y &lt; b.y + b.height &&
+    a.y + a.height &gt; b.y
+  );
+}
+</code></pre>
+
+<p>Walk through an example to build intuition. Suppose object A is at position (50, 50) with a width and height of 40, and object B is at position (80, 70) with a width and height of 40:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Check</th>
+      <th>Calculation</th>
+      <th>Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A's left &lt; B's right</td>
+      <td>50 &lt; 80 + 40 = 120</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>A's right &gt; B's left</td>
+      <td>50 + 40 = 90 &gt; 80</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>A's top &lt; B's bottom</td>
+      <td>50 &lt; 70 + 40 = 110</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>A's bottom &gt; B's top</td>
+      <td>50 + 40 = 90 &gt; 70</td>
+      <td>true</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>All four conditions are true, so the rectangles overlap and a collision is detected.</p>
+
+<p>For <strong>circular objects</strong> (balls, bubbles, planets), AABB is inaccurate because it treats circles as squares. Instead, measure the distance between the two centers and compare it to the sum of their radii. If the distance is less than or equal to the combined radii, the circles overlap:</p>
+
+<pre><code>function circlesOverlap(a, b) {
+  // a and b each have: cx, cy, radius
+  const dx = a.cx - b.cx;
+  const dy = a.cy - b.cy;
+  const distance = Math.sqrt(dx * dx + dy * dy);
+  return distance &lt;= a.radius + b.radius;
+}
+</code></pre>
+
+<p>For performance, many developers avoid the square root step (which is expensive) by comparing the squared distance to the squared sum of radii:</p>
+
+<pre><code>function circlesOverlapFast(a, b) {
+  const dx = a.cx - b.cx;
+  const dy = a.cy - b.cy;
+  const distanceSquared = dx * dx + dy * dy;
+  const radiusSum = a.radius + b.radius;
+  return distanceSquared &lt;= radiusSum * radiusSum;
+}
+</code></pre>
+
+<p>Regardless of which detection method you use, the collision function must be called <em>inside the game loop every frame</em>. Missing a frame means potentially missing a collision — especially for fast-moving objects that could pass completely through another object between frames:</p>
+
+<pre><code>function checkCollisions() {
+  enemies.forEach(function(enemy) {
+    if (rectsOverlap(gameState.player, enemy)) {
+      handlePlayerHit();
+    }
+
+    projectiles.forEach(function(projectile) {
+      if (rectsOverlap(projectile, enemy)) {
+        handleEnemyHit(enemy, projectile);
+      }
+    });
+  });
+}
+</code></pre>
+
+<p><strong>Win Conditions</strong></p>
+
+<p>A win condition is the specific state of the game in which the player has succeeded. It could be reaching a score threshold, defeating all enemies, reaching a goal position, surviving for a set time, or collecting all items. The most important thing about win conditions is that you must <em>define them clearly before building the game</em>, because the check must be woven into the game loop from the start.</p>
+
+<p>Once you have defined the win condition, you evaluate it every frame by comparing current state variables against the target. The check is usually small and fast:</p>
+
+<pre><code>function checkWinCondition() {
+  if (gameState.score &gt;= 1000) {
+    triggerWin();
+  }
+
+  if (enemies.length === 0) {
+    triggerWin();
+  }
+}
+</code></pre>
+
+<p>When the condition is met, you stop the game loop and display a win screen. Stopping the loop means not calling <code>requestAnimationFrame</code> again. Displaying the win screen means drawing congratulatory text and shapes onto the Canvas using the same drawing API you use for everything else:</p>
+
+<pre><code>function triggerWin() {
+  gameState.isRunning = false;
+
+  // Draw a semi-transparent overlay
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Draw win message
+  ctx.fillStyle = 'gold';
+  ctx.font = 'bold 48px Arial';
+  ctx.textAlign = 'center';
+  ctx.fillText('YOU WIN!', canvas.width / 2, canvas.height / 2);
+
+  ctx.fillStyle = 'white';
+  ctx.font = '24px Arial';
+  ctx.fillText('Final Score: ' + gameState.score, canvas.width / 2, canvas.height / 2 + 50);
+}
+</code></pre>
+
+<p>Notice that <code>triggerWin</code> does not call <code>requestAnimationFrame</code>, so the loop stops naturally. If you want a "Play Again" button, you can render it on the Canvas and attach a click listener to the canvas element that checks whether the click coordinates land on the button area.</p>
+
+<p><strong>Loss Conditions and Lives</strong></p>
+
+<p>Loss conditions are the mirror image of win conditions. Where a win condition checks for achievement, a loss condition checks for failure. The most common failure mechanic is a lives system, where the player has a limited number of chances before the game ends.</p>
+
+<p>Initialize the lives variable as part of the game state before the loop starts:</p>
+
+<pre><code>gameState.lives = 3;
+</code></pre>
+
+<p>Each time the player makes a critical mistake — gets hit by an enemy, falls off a platform, runs out of time — decrement the lives count:</p>
+
+<pre><code>function handlePlayerHit() {
+  gameState.lives -= 1;
+
+  if (gameState.lives &lt;= 0) {
+    gameState.isGameOver = true;
+    triggerGameOver();
+  } else {
+    resetPlayerPosition(); // Give the player another chance
+  }
+}
+</code></pre>
+
+<p>Note the conditional logic: if lives remain, the player is repositioned and the game continues. Only when lives reach zero is the game over flag set and the game-over sequence triggered. This separation makes the lives system feel fair — the player experiences the consequence of a mistake without immediately losing the game.</p>
+
+<p>Rendering the remaining lives on screen every frame keeps the player constantly informed. Lives can be displayed as a number, as repeated icons (hearts, ships, etc.), or as both:</p>
+
+<pre><code>function renderLives(ctx) {
+  ctx.fillStyle = 'white';
+  ctx.font = '20px Arial';
+  ctx.fillText('Lives: ' + gameState.lives, canvas.width - 100, 30);
+
+  // Optionally draw heart icons
+  for (let i = 0; i &lt; gameState.lives; i++) {
+    ctx.fillStyle = 'red';
+    ctx.beginPath();
+    // Simplified: draw a red circle as a "life icon"
+    ctx.arc(canvas.width - 90 + (i * 25), 55, 8, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+</code></pre>
+
+<p>The <code>renderLives</code> function is called every frame inside the main <code>render</code> function, just like the score display. Because the Canvas redraws from scratch every frame, the life icons always reflect the exact current value of <code>gameState.lives</code>.</p>
+
+<p><strong>Resetting and Restarting the Game</strong></p>
+
+<p>A well-implemented restart is the sign of a mature game architecture. When a player wants to play again after winning or losing, the game must restore every piece of state to its original value and restart the loop cleanly. Doing this poorly leads to scores that don't reset, enemies that don't reappear, or loops that run multiple times simultaneously (a common and confusing bug).</p>
+
+<p>The solution is a dedicated <code>resetGame()</code> function that takes responsibility for the entire reset process:</p>
+
+<pre><code>function resetGame() {
+  // Reset all state variables
+  gameState.score = 0;
+  gameState.lives = 3;
+  gameState.isRunning = true;
+  gameState.isGameOver = false;
+  gameState.isPaused = false;
+  gameState.level = 1;
+
+  // Reposition the player
+  gameState.playerX = 200;
+  gameState.playerY = 400;
+
+  // Rebuild enemy and item arrays
+  enemies = createInitialEnemies();
+  projectiles = [];
+  collectibles = createInitialCollectibles();
+
+  // Restart the loop
+  requestAnimationFrame(gameLoop);
+}
+</code></pre>
+
+<p>Every state variable goes back to its initial value. Every game object — player, enemies, projectiles, items — goes back to its starting position or is recreated from scratch. Only after all of that does the function call <code>requestAnimationFrame(gameLoop)</code> to start the loop again.</p>
+
+<p>One subtle but important detail: you must ensure only one instance of the game loop is running at any time. If the player clicks "Restart" and <code>requestAnimationFrame(gameLoop)</code> is called while the previous loop is still running, two loops will execute concurrently, causing doubled movement speeds, doubled score increments, and chaotic behavior. Guard against this by checking or canceling any existing animation frame before starting a new one:</p>
+
+<pre><code>let animationFrameId = null;
+
+function startLoop() {
+  if (animationFrameId) {
+    cancelAnimationFrame(animationFrameId);
+  }
+  animationFrameId = requestAnimationFrame(gameLoop);
+}
+
+function gameLoop() {
+  // ... all game logic ...
+  animationFrameId = requestAnimationFrame(gameLoop);
+}
+</code></pre>
+
+<p>By storing the ID returned by <code>requestAnimationFrame</code> and canceling it before starting a new loop, you guarantee that only one loop ever runs at once. This is a small but critical piece of defensive programming that prevents some of the hardest-to-debug game bugs.</p>
+
+<p>Putting all of these systems together — a centralized state object, a scoring system that updates and renders every frame, frame-accurate collision detection, clearly defined win and loss conditions, a lives system with visual feedback, and a clean reset function — creates a game that is not just playable but maintainable and extensible. Adding a new enemy type, a new scoring rule, or a new win condition becomes straightforward because the architecture already has a defined place for each kind of information and each kind of change.</p>
+        <div class="notes"><strong>Notes</strong>Students should pay close attention to the double-loop bug when restarting — it is one of the most common mistakes in Canvas game development. Encourage them to test the restart behavior explicitly by logging a counter inside the game loop to confirm only one loop is running. The AABB vs. circle collision distinction is also worth reinforcing with a visual diagram if the learning environment supports supplementary materials.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

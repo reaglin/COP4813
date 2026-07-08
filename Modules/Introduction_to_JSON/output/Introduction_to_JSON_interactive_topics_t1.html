@@ -1,0 +1,242 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What is JSON?</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>What is JSON?</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>What is JSON?</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>JSON, which stands for <strong>JavaScript Object Notation</strong>, is one of the most important data formats in modern web development. At its core, JSON is a <strong>plain-text, lightweight format for representing structured data</strong>. Because it is plain text, you can open a JSON file in any basic text editor and read it immediately — no special software, no binary decoding, no proprietary tools required. This human-readability is one of the qualities that helped JSON become the dominant data-interchange format on the web.</p>
+
+<p>JSON's syntax is directly derived from the way objects are written as literals in JavaScript. If you have ever written something like <code>{ "name": "Alice", "age": 30 }</code> in a JavaScript program, you have already written valid JSON. The similarity is intentional: JSON was formalized by Douglas Crockford in the early 2000s as a minimal subset of JavaScript's object literal notation, stripped down to just the parts needed to describe data. Despite those JavaScript origins, JSON is completely <strong>language-independent</strong>. Every mainstream programming language — Python, Java, C#, Ruby, PHP, Go, Rust, Swift, and many more — has built-in or widely available libraries for both reading (parsing) and writing (serializing) JSON. This universality is central to JSON's role as a <em>lingua franca</em> for data exchange.</p>
+
+<p>To understand why JSON matters, consider the problem it solves. Modern applications are built from many separate components: a database server, a back-end API, a web browser, a mobile app. These components are often written in different programming languages and run on different machines. They need a way to hand structured data back and forth. JSON provides a neutral, agreed-upon format that every component can produce and consume, regardless of what language it is written in. A Python back end can serialize a dictionary to JSON, send it over HTTP, and a JavaScript front end can parse that JSON string into an object it can work with — no special negotiation required.</p>
+
+<p>Before JSON became widespread, <strong>XML (Extensible Markup Language)</strong> was the standard format for this kind of data exchange. XML is powerful and flexible, but it is also verbose. Consider representing a single person's name and age in both formats:</p>
+
+<pre><code>&lt;!-- The same data in XML --&gt;
+&lt;person&gt;
+  &lt;name&gt;Alice&lt;/name&gt;
+  &lt;age&gt;30&lt;/age&gt;
+&lt;/person&gt;
+
+// The same data in JSON
+{
+  "name": "Alice",
+  "age": 30
+}</code></pre>
+
+<p>The JSON version is noticeably shorter. At the scale of a busy API responding to millions of requests per day, smaller payloads mean less bandwidth consumed, faster transmission, and lower costs. JSON also requires less parsing work, making it faster to process. These practical advantages led to JSON displacing XML in the vast majority of new web API designs over the past fifteen years.</p>
+
+<p><strong>JSON Structure and Syntax</strong> are defined by just a handful of rules, which is part of what makes the format so approachable.</p>
+
+<p>A <strong>JSON object</strong> is a collection of key-value pairs enclosed in curly braces <code>{ }</code>. Each key must be a <strong>double-quoted string</strong>, followed by a colon, followed by a value. Multiple key-value pairs are separated by commas. For example:</p>
+
+<pre><code>{
+  "firstName": "Alice",
+  "lastName": "Smith",
+  "age": 30,
+  "isStudent": false,
+  "score": 98.5,
+  "address": null
+}</code></pre>
+
+<p>A <strong>JSON array</strong> is an ordered list of values enclosed in square brackets <code>[ ]</code>, with values separated by commas. Arrays can hold any mix of valid JSON value types:</p>
+
+<pre><code>["apple", "banana", "cherry"]
+
+[1, 2, 3, 4, 5]
+
+[true, false, null, 42, "hello"]</code></pre>
+
+<p>The <strong>value types</strong> that JSON supports are precisely defined:</p>
+
+<ul>
+  <li><strong>String</strong> — a sequence of Unicode characters wrapped in double quotes, e.g., <code>"Hello, world!"</code></li>
+  <li><strong>Number</strong> — an integer or floating-point value, e.g., <code>42</code> or <code>3.14</code>. JSON does not distinguish between integer and float types at the syntax level.</li>
+  <li><strong>Boolean</strong> — either <code>true</code> or <code>false</code> (lowercase, no quotes)</li>
+  <li><strong>Null</strong> — the value <code>null</code> (lowercase, no quotes), representing the intentional absence of a value</li>
+  <li><strong>Object</strong> — a nested <code>{ }</code> structure, allowing arbitrarily deep nesting</li>
+  <li><strong>Array</strong> — a nested <code>[ ]</code> list, which can itself contain objects or other arrays</li>
+</ul>
+
+<p>This ability to nest objects and arrays inside one another is what makes JSON powerful enough to represent complex, real-world data structures. Here is a more realistic example showing nesting:</p>
+
+<pre><code>{
+  "user": {
+    "id": 1042,
+    "name": "Alice Smith",
+    "email": "alice@example.com",
+    "roles": ["admin", "editor"],
+    "address": {
+      "street": "123 Main St",
+      "city": "Springfield",
+      "country": "US"
+    },
+    "active": true
+  }
+}</code></pre>
+
+<p>JSON's simplicity comes with strict rules, and there are several <strong>common syntax mistakes</strong> that beginners make:</p>
+
+<ul>
+  <li><strong>Single-quoted strings are not valid.</strong> <code>{ 'name': 'Alice' }</code> is not JSON. Keys and string values must always use double quotes.</li>
+  <li><strong>Trailing commas are not allowed.</strong> <code>{ "a": 1, "b": 2, }</code> is invalid because of the comma after the last pair. Many programming languages allow trailing commas in their own syntax, but JSON does not.</li>
+  <li><strong>Comments are not supported.</strong> You cannot add <code>// comments</code> or <code>/* block comments */</code> to JSON. The format contains only data, never annotations. (Some tools support a superset called JSONC for configuration files, but that is not standard JSON.)</li>
+  <li><strong>Unquoted keys are not valid.</strong> <code>{ name: "Alice" }</code> is a JavaScript object literal syntax, not JSON. JSON always requires quoted keys.</li>
+  <li><strong>Functions and undefined are not valid values.</strong> JSON cannot represent executable code or JavaScript's <code>undefined</code> type.</li>
+</ul>
+
+<p><strong>Why JSON is Widely Used on the Web</strong> comes down to a combination of technical and practical factors working together. First, JSON is <em>natively understood by JavaScript</em>, the language that runs in every web browser. The browser's JavaScript engine can parse a JSON string into a usable object with a single built-in function call — <code>JSON.parse()</code> — and serialize an object back to a JSON string with <code>JSON.stringify()</code>. No external library is needed.</p>
+
+<p>Second, JSON's lightweight nature has a direct impact on performance. Because JSON payloads are compact, web applications can fetch data faster, especially on mobile networks where bandwidth is limited. APIs that once returned kilobytes of XML markup can return a fraction of that size in JSON, improving response times and reducing server egress costs.</p>
+
+<p>Third, JSON strikes an ideal balance between being <strong>machine-parseable and human-readable</strong>. Developers can inspect a raw JSON response in a browser's developer tools or a terminal and immediately understand the data structure without running any decoding step. This dramatically speeds up debugging and development.</p>
+
+<p>Fourth, the ecosystem around JSON is mature and comprehensive. There are online validators and formatters (such as JSONLint), editor plugins that syntax-highlight and pretty-print JSON, schema validation tools (like JSON Schema), and database systems (like PostgreSQL and MongoDB) that natively store and query JSON data. This tooling investment reinforces JSON's position as the standard.</p>
+
+<p>The table below summarizes how JSON compares to XML across several practical dimensions:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dimension</th>
+      <th>JSON</th>
+      <th>XML</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Verbosity</td>
+      <td>Compact — minimal punctuation overhead</td>
+      <td>Verbose — opening and closing tags for every element</td>
+    </tr>
+    <tr>
+      <td>Human readability</td>
+      <td>Easy to read and write by hand</td>
+      <td>Readable but more cluttered with markup</td>
+    </tr>
+    <tr>
+      <td>Native browser support</td>
+      <td>Yes — built into JavaScript engines</td>
+      <td>Requires DOM parsing or external libraries</td>
+    </tr>
+    <tr>
+      <td>Comments</td>
+      <td>Not supported</td>
+      <td>Supported natively</td>
+    </tr>
+    <tr>
+      <td>Data types</td>
+      <td>Strings, numbers, booleans, null, arrays, objects</td>
+      <td>Everything is text; types inferred or declared via schema</td>
+    </tr>
+    <tr>
+      <td>Schema support</td>
+      <td>JSON Schema (external standard)</td>
+      <td>XSD — powerful and widely used</td>
+    </tr>
+    <tr>
+      <td>Typical use case</td>
+      <td>Web APIs, configuration files, data storage</td>
+      <td>Document markup, enterprise systems, legacy APIs</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>An important concept for JavaScript developers is the distinction between <strong>JSON and a JavaScript object</strong>, because they look very similar but are fundamentally different things. A JavaScript object is a live, in-memory data structure. It can have <em>methods</em> (properties whose values are functions), its keys do not need to be quoted in source code, and it can contain values of any JavaScript type, including <code>undefined</code>, functions, <code>Symbol</code>, and more. JSON, by contrast, is a <em>text string</em> — a sequence of characters. It cannot contain functions, it only supports its own six value types, and its keys must always be double-quoted strings.</p>
+
+<p>The two are related by two operations. When data arrives over a network as a JSON string, you must <strong>parse</strong> it into a JavaScript object before you can work with its properties:</p>
+
+<pre><code>// A JSON string received from an API
+const jsonString = '{"name": "Alice", "age": 30}';
+
+// Parse it into a JavaScript object
+const user = JSON.parse(jsonString);
+
+console.log(user.name); // "Alice"
+console.log(user.age);  // 30</code></pre>
+
+<p>Conversely, when you want to send a JavaScript object to a server or save it to a file, you must <strong>stringify</strong> it — serialize it into a JSON-formatted text string:</p>
+
+<pre><code>// A JavaScript object in memory
+const user = {
+  name: "Alice",
+  age: 30,
+  greet: function() { return "Hello!"; } // This method will be lost
+};
+
+// Serialize it to a JSON string
+const jsonString = JSON.stringify(user);
+
+console.log(jsonString);
+// Output: '{"name":"Alice","age":30}'
+// Note: the greet function is silently dropped because
+// functions are not a valid JSON value type</code></pre>
+
+<p>This serialization and deserialization cycle — <code>JSON.parse()</code> to turn a string into an object, <code>JSON.stringify()</code> to turn an object back into a string — is the fundamental workflow whenever a JavaScript application communicates with a server. Understanding that JSON is always <em>text</em>, and that it must be explicitly converted in both directions, prevents a large category of common programming errors where developers accidentally try to access properties on an unparsed string or try to send a raw object where a text payload is expected.</p>
+        <div class="notes"><strong>Notes</strong>An introduction to the JSON (JavaScript Object Notation) data format, its purpose, and why it is widely used for data interchange on the web.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

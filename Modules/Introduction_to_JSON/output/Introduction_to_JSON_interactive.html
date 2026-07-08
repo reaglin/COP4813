@@ -1,0 +1,438 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Displaying JSON Data in a Web Page</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Displaying JSON Data in a Web Page</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Displaying JSON Data in a Web Page</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>One of the most practical and frequently encountered tasks in modern web development is taking JSON data — whether fetched from a remote API, loaded from a local file, or generated dynamically — and presenting it meaningfully to the user inside a web page. This process bridges the gap between raw data and a polished user interface. It involves selecting the right place in the document to put your content, converting raw JSON text into a living JavaScript object, constructing HTML from that data, and injecting it into the page in a way that is both efficient and safe. Each of these steps has its own nuances, and mastering them together gives you the foundation for building virtually any data-driven web application.</p>
+
+<p>The steps involved can be thought of as a pipeline: <strong>select a target element → parse the JSON → build HTML or DOM nodes → insert into the page → handle updates gracefully</strong>. The sections below walk through each stage in depth, with examples and explanations of the underlying browser APIs.</p>
+
+<p><strong>Selecting DOM Elements as Render Targets</strong></p>
+
+<p>Before you can display anything, you need a reference to the element in your HTML document that will serve as the container for your rendered data. The two most common methods for obtaining such a reference are <code>document.getElementById()</code> and <code>document.querySelector()</code>.</p>
+
+<p><code>document.getElementById('container')</code> accepts an element's <code>id</code> attribute value as a string and returns the matching element, or <code>null</code> if none is found. It is fast and unambiguous because IDs are supposed to be unique per page. <code>document.querySelector('.results')</code> accepts any valid CSS selector — class names, attribute selectors, pseudo-classes, descendant combinators, and more — and returns the <em>first</em> matching element in document order. Its sibling <code>document.querySelectorAll()</code> returns a static <code>NodeList</code> of all matches.</p>
+
+<pre><code>// Using getElementById — best when you have a unique ID on your container
+const container = document.getElementById('product-list');
+
+// Using querySelector — flexible, accepts any CSS selector
+const resultsPanel = document.querySelector('.results-panel');
+
+// querySelectorAll — returns all matching elements
+const cards = document.querySelectorAll('.card');
+</code></pre>
+
+<p>A key best practice is to <strong>store the reference in a variable</strong> rather than calling the selector method repeatedly. Every call to <code>querySelector</code> causes the browser to traverse the DOM tree again. Caching the result in a variable means the lookup happens once and you reuse the same reference throughout your rendering code, which is both faster and cleaner.</p>
+
+<p>Choosing the right <strong>semantic HTML container</strong> for your content matters beyond aesthetics. Semantics help screen readers, search engines, and other assistive technologies understand the structure of your page. Common choices include:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data Shape</th>
+      <th>Recommended Container</th>
+      <th>Reason</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Unordered collection of items</td>
+      <td><code>&lt;ul&gt;</code> with <code>&lt;li&gt;</code> children</td>
+      <td>Communicates list semantics to screen readers</td>
+    </tr>
+    <tr>
+      <td>Ordered / ranked items</td>
+      <td><code>&lt;ol&gt;</code> with <code>&lt;li&gt;</code> children</td>
+      <td>Implies sequence or priority</td>
+    </tr>
+    <tr>
+      <td>Tabular / relational data</td>
+      <td><code>&lt;table&gt;</code> with <code>&lt;thead&gt;</code> / <code>&lt;tbody&gt;</code></td>
+      <td>Allows column headers and row relationships</td>
+    </tr>
+    <tr>
+      <td>Card-based layouts</td>
+      <td><code>&lt;div&gt;</code> or <code>&lt;article&gt;</code> wrappers</td>
+      <td><code>&lt;article&gt;</code> suits self-contained content units</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For example, if you are rendering a list of blog posts, wrapping them in a <code>&lt;ul&gt;</code> element rather than a generic <code>&lt;div&gt;</code> is immediately more meaningful to both humans and machines.</p>
+
+<p><strong>Parsing Fetched JSON into a JavaScript Object</strong></p>
+
+<p>JSON data arrives in one of two forms: as a raw string (when you use <code>XMLHttpRequest</code>, read a file, or receive a message over a WebSocket), or implicitly parsed when you use the modern <code>Fetch API</code> with its built-in <code>response.json()</code> method.</p>
+
+<p><code>response.json()</code> is a method on the <code>Response</code> object returned by <code>fetch()</code>. It reads the response body to completion, then parses it as JSON and returns a <strong>Promise</strong> that resolves to the resulting JavaScript value. This makes it very natural to use inside an <code>async/await</code> function or a <code>.then()</code> chain:</p>
+
+<pre><code>// async/await style — reads top to bottom like synchronous code
+async function loadProducts() {
+  const container = document.getElementById('product-list');
+  try {
+    const response = await fetch('https://api.example.com/products');
+    if (!response.ok) {
+      throw new Error(`HTTP error — status: ${response.status}`);
+    }
+    const products = await response.json(); // resolves to a JS array or object
+    renderProducts(products, container);
+  } catch (error) {
+    container.textContent = `Failed to load products: ${error.message}`;
+  }
+}
+
+// Equivalent .then() chain style
+fetch('https://api.example.com/products')
+  .then(response =&gt; {
+    if (!response.ok) throw new Error(`HTTP error — status: ${response.status}`);
+    return response.json();
+  })
+  .then(products =&gt; renderProducts(products, container))
+  .catch(error =&gt; { container.textContent = error.message; });
+</code></pre>
+
+<p>When you already have a JSON string — perhaps stored in a variable, retrieved from <code>localStorage</code>, or passed as a data attribute — you parse it manually with <code>JSON.parse()</code>:</p>
+
+<pre><code>const jsonString = '{"name":"Alice","age":30}';
+
+try {
+  const user = JSON.parse(jsonString);
+  console.log(user.name); // "Alice"
+} catch (error) {
+  // JSON.parse throws a SyntaxError for malformed JSON
+  console.error('Invalid JSON:', error.message);
+}
+</code></pre>
+
+<p>Wrapping <code>JSON.parse()</code> in a <code>try/catch</code> block is essential because any syntax error in the string — a missing closing brace, an unquoted key, a trailing comma — will throw a <code>SyntaxError</code> and halt execution if unhandled. The <code>try/catch</code> lets you recover gracefully, log the error, or show the user a helpful message.</p>
+
+<p>Once parsed, the resulting value is a plain JavaScript object or array, and you access its properties with familiar notation:</p>
+
+<pre><code>const product = { id: 1, name: 'Widget', price: 9.99, tags: ['sale', 'new'] };
+
+// Dot notation — clean and readable when key is a valid identifier
+console.log(product.name);   // "Widget"
+
+// Bracket notation — necessary when the key is dynamic or not a valid identifier
+const key = 'price';
+console.log(product[key]);   // 9.99
+
+// Nested access
+const data = { user: { address: { city: 'Springfield' } } };
+console.log(data.user.address.city); // "Springfield"
+</code></pre>
+
+<p><strong>Building HTML Strings from JSON Data</strong></p>
+
+<p>One of the quickest ways to render JSON data is to build a string of HTML markup from the data and assign it directly to an element's <code>innerHTML</code> property. This approach is concise and works well for trusted, controlled data.</p>
+
+<p>The typical pattern uses <code>Array.map()</code> to transform each object in a parsed array into an HTML fragment string, then <code>.join('')</code> to concatenate all fragments into a single string, which is finally assigned to <code>element.innerHTML</code>:</p>
+
+<pre><code>function renderProducts(products, container) {
+  const html = products.map(product =&gt; `
+    &lt;li class="product-card"&gt;
+      &lt;h2&gt;${product.name}&lt;/h2&gt;
+      &lt;p&gt;Price: $${product.price.toFixed(2)}&lt;/p&gt;
+      &lt;p&gt;Category: ${product.category}&lt;/p&gt;
+    &lt;/li&gt;
+  `).join('');
+
+  container.innerHTML = `&lt;ul class="product-list"&gt;${html}&lt;/ul&gt;`;
+}
+</code></pre>
+
+<p>Using <code>join('')</code> (joining with an empty string) avoids the commas that would appear if you called <code>.toString()</code> on the array directly. A <code>for</code> loop with string concatenation works equally well when you prefer imperative style:</p>
+
+<pre><code>function renderProducts(products, container) {
+  let html = '&lt;ul&gt;';
+  for (const product of products) {
+    html += `&lt;li&gt;${product.name} — $${product.price}&lt;/li&gt;`;
+  }
+  html += '&lt;/ul&gt;';
+  container.innerHTML = html;
+}
+</code></pre>
+
+<p>Setting <code>innerHTML</code> is powerful but carries an important security caveat. If any part of the data originates from user input or an untrusted source, an attacker could inject malicious HTML or JavaScript — a vulnerability known as <strong>Cross-Site Scripting (XSS)</strong>. For example, if a product name were the string <code>&lt;img src=x onerror=alert('hacked')&gt;</code>, assigning it directly via template literals into <code>innerHTML</code> would execute that script.</p>
+
+<p>To guard against this, sanitize untrusted values before embedding them in HTML. The simplest approach is to escape special HTML characters:</p>
+
+<pre><code>function escapeHTML(str) {
+  return String(str)
+    .replace(/&amp;/g, '&amp;amp;')
+    .replace(/&lt;/g, '&amp;lt;')
+    .replace(/&gt;/g, '&amp;gt;')
+    .replace(/"/g, '&amp;quot;')
+    .replace(/'/g, '&amp;#039;');
+}
+
+const safeName = escapeHTML(product.name);
+html += `&lt;li&gt;${safeName}&lt;/li&gt;`;
+</code></pre>
+
+<p>For more complex scenarios, established libraries such as <strong>DOMPurify</strong> provide robust sanitization. Alternatively, bypassing <code>innerHTML</code> entirely by creating DOM nodes programmatically (described next) is inherently safer because text content is never interpreted as markup.</p>
+
+<p><strong>Creating and Appending DOM Nodes Programmatically</strong></p>
+
+<p>Rather than building an HTML string, you can construct individual DOM elements using the <code>document.createElement()</code> API. This approach is inherently XSS-safe when you set content via <code>textContent</code>, because the browser treats the value as plain text rather than markup.</p>
+
+<pre><code>function createProductItem(product) {
+  // Create the list item element
+  const li = document.createElement('li');
+  li.className = 'product-card';            // set a class directly
+
+  // Create a heading for the product name
+  const heading = document.createElement('h2');
+  heading.textContent = product.name;       // safe — never parsed as HTML
+
+  // Create a paragraph for the price
+  const price = document.createElement('p');
+  price.textContent = `Price: $${product.price.toFixed(2)}`;
+
+  // Set an attribute (e.g., a data attribute for later use)
+  li.setAttribute('data-id', product.id);
+
+  // Assemble the hierarchy
+  li.appendChild(heading);
+  li.appendChild(price);
+
+  return li;
+}
+</code></pre>
+
+<p>Key methods and properties involved:</p>
+
+<ul>
+  <li><strong><code>document.createElement(tagName)</code></strong> — creates a new element node of the specified type. It is not attached to the document yet; it exists in memory.</li>
+  <li><strong><code>element.textContent</code></strong> — sets or gets the text content of a node and all its descendants. Unlike <code>innerHTML</code>, it does not parse HTML, so special characters are never interpreted as tags.</li>
+  <li><strong><code>element.setAttribute(name, value)</code></strong> — sets an HTML attribute. Useful for <code>href</code>, <code>src</code>, <code>data-*</code> attributes, <code>aria-*</code> attributes, and so on.</li>
+  <li><strong><code>element.className</code></strong> — directly sets the element's <code>class</code> attribute as a string; convenient for single classes. For adding or removing individual classes on existing elements, <code>element.classList.add()</code> and <code>element.classList.remove()</code> are more flexible.</li>
+  <li><strong><code>parentElement.appendChild(newElement)</code></strong> — appends a node as the last child of the parent. The older, standards-compliant method.</li>
+  <li><strong><code>parentElement.append(...nodes)</code></strong> — newer, accepts multiple nodes or strings and appends them all. Strings are treated as text nodes.</li>
+</ul>
+
+<p><strong>Iterating Over JSON Arrays to Generate Repeated Elements</strong></p>
+
+<p>Most real-world JSON responses are arrays of objects — a list of products, users, articles, or records. Iterating over these arrays and creating a DOM element for each object is the core rendering loop in any data-driven UI.</p>
+
+<p>You can use <code>forEach</code>, <code>for...of</code>, or <code>map()</code>. All are appropriate; the choice depends on whether you want a return value (<code>map</code> returns a new array) or purely side effects (<code>forEach</code> and <code>for...of</code>).</p>
+
+<pre><code>// forEach — good when you just want to iterate and build nodes
+products.forEach(product =&gt; {
+  const item = createProductItem(product);
+  container.appendChild(item);
+});
+
+// for...of — clean, readable, supports break/continue
+for (const product of products) {
+  const item = createProductItem(product);
+  container.appendChild(item);
+}
+
+// map — returns an array of elements you can append in bulk
+const items = products.map(product =&gt; createProductItem(product));
+</code></pre>
+
+<p>A significant performance consideration when appending many nodes is the number of times you trigger a browser <strong>reflow</strong> (recalculation of layout). Each time you append a node to an element that is already in the document, the browser may recalculate styles and layout. If you append 500 items one by one, that could mean 500 reflow operations.</p>
+
+<p>The solution is to use a <strong><code>DocumentFragment</code></strong>. A <code>DocumentFragment</code> is a lightweight, in-memory container that is not part of the live document. You append all your new nodes to the fragment, and then append the fragment itself to the real DOM in a single operation. The browser only reflows once:</p>
+
+<pre><code>function renderProducts(products, container) {
+  // Create an off-screen fragment
+  const fragment = document.createDocumentFragment();
+
+  products.forEach(product =&gt; {
+    // Pull out specific properties
+    const { id, name, price, category } = product;
+
+    const li = document.createElement('li');
+    li.setAttribute('data-id', id);
+
+    const nameEl = document.createElement('strong');
+    nameEl.textContent = name;
+
+    const detailEl = document.createElement('span');
+    detailEl.textContent = ` — ${category} — $${price.toFixed(2)}`;
+
+    li.appendChild(nameEl);
+    li.appendChild(detailEl);
+
+    // Append to fragment, NOT to the real DOM yet
+    fragment.appendChild(li);
+  });
+
+  // Single DOM insertion — one reflow
+  container.appendChild(fragment);
+}
+</code></pre>
+
+<p>Inside the loop, always extract only the properties you need. Using destructuring (<code>const { name, price } = product</code>) makes the code cleaner and your intent explicit. When working with nested JSON objects, drill into them with chained dot notation: <code>product.seller.name</code>, <code>product.images[0].url</code>.</p>
+
+<p><strong>Updating the DOM Dynamically After Data Changes</strong></p>
+
+<p>In interactive applications, you often need to re-render content — for instance, when the user filters a list, requests the next page of results, or when a server pushes fresh data. Re-rendering requires first clearing the old content so you do not accumulate duplicate elements.</p>
+
+<p>The simplest clearing strategy is setting <code>innerHTML</code> to an empty string:</p>
+
+<pre><code>container.innerHTML = ''; // removes all child nodes at once
+</code></pre>
+
+<p>An alternative that avoids touching <code>innerHTML</code> is a <code>while</code> loop that removes children one at a time. This is slightly more verbose but avoids any side effects of resetting <code>innerHTML</code>:</p>
+
+<pre><code>while (container.firstChild) {
+  container.removeChild(container.firstChild);
+}
+// Or more concisely with the newer replaceChildren():
+container.replaceChildren(); // removes all children, no arguments needed
+</code></pre>
+
+<p>Once cleared, you re-run your rendering function with the new data. A full update cycle might look like this:</p>
+
+<pre><code>async function refreshData(apiUrl, container, loadingEl, errorEl) {
+  // 1. Show a loading indicator
+  loadingEl.hidden = false;
+  errorEl.hidden = true;
+
+  try {
+    const response = await fetch(apiUrl);
+    if (!response.ok) throw new Error(`Server error: ${response.status}`);
+    const data = await response.json();
+
+    // 2. Clear old content
+    container.replaceChildren();
+
+    // 3. Render new content
+    renderProducts(data.products, container);
+
+  } catch (err) {
+    // 4. Show error message in the DOM
+    errorEl.textContent = `Could not load data: ${err.message}`;
+    errorEl.hidden = false;
+  } finally {
+    // 5. Always hide the loading indicator
+    loadingEl.hidden = true;
+  }
+}
+</code></pre>
+
+<p>Providing user feedback throughout the async lifecycle is crucial for a good experience. A <strong>loading indicator</strong> (a spinner, a skeleton screen, or even a simple "Loading…" text node) tells the user the application is working and not frozen. An <strong>error message rendered into the DOM</strong> — rather than only logged to the console — ensures that when something goes wrong, the user understands what happened and can take action, rather than staring at a blank panel.</p>
+
+<p>The complete picture of the data-to-DOM pipeline, combining all the steps above, can be summarized as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Step</th>
+      <th>Primary API / Technique</th>
+      <th>Key Consideration</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Select render target</td>
+      <td><code>getElementById</code>, <code>querySelector</code></td>
+      <td>Cache the reference; choose semantic container element</td>
+    </tr>
+    <tr>
+      <td>Fetch data</td>
+      <td><code>fetch()</code> with <code>async/await</code></td>
+      <td>Check <code>response.ok</code>; handle network errors in <code>catch</code></td>
+    </tr>
+    <tr>
+      <td>Parse JSON</td>
+      <td><code>response.json()</code> or <code>JSON.parse()</code></td>
+      <td>Wrap <code>JSON.parse</code> in <code>try/catch</code> for malformed input</td>
+    </tr>
+    <tr>
+      <td>Build HTML string</td>
+      <td><code>Array.map()</code> + template literals + <code>innerHTML</code></td>
+      <td>Sanitize untrusted data before inserting as HTML</td>
+    </tr>
+    <tr>
+      <td>Create DOM nodes</td>
+      <td><code>createElement</code>, <code>textContent</code>, <code>setAttribute</code></td>
+      <td>Using <code>textContent</code> is XSS-safe by default</td>
+    </tr>
+    <tr>
+      <td>Iterate array</td>
+      <td><code>forEach</code>, <code>for...of</code>, <code>map()</code></td>
+      <td>Use <code>DocumentFragment</code> to batch insertions and minimize reflows</td>
+    </tr>
+    <tr>
+      <td>Clear and update</td>
+      <td><code>innerHTML = ''</code> or <code>replaceChildren()</code></td>
+      <td>Show loading/error feedback; re-render on each data refresh</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Mastering these techniques gives you a complete, flexible toolkit for transforming any JSON data structure into a rich, interactive, and accessible user interface — whether you are building a simple product listing, a real-time dashboard, or a complex data explorer.</p>
+        <div class="notes"><strong>Notes</strong>Covers all six subtopic clusters: selecting render targets, parsing JSON, building HTML strings (including XSS warnings), creating DOM nodes programmatically, iterating with DocumentFragment for performance, and dynamic updates with loading/error feedback. Examples are self-contained and progressively build on one another.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

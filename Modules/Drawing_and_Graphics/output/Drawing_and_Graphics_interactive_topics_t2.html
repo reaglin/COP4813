@@ -1,0 +1,326 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drawing Basic Shapes</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Drawing Basic Shapes</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Drawing Basic Shapes</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The HTML5 Canvas API is one of the most powerful tools available in a web browser for rendering graphics programmatically. Rather than relying on static images or CSS visuals, the Canvas API lets you draw shapes, paths, text, and images directly onto a pixel-based surface using JavaScript. Before any drawing can happen, you need to understand how to prepare the canvas and obtain the drawing context — the gateway to every visual operation the API offers.</p>
+
+<p>The Canvas API draws everything imperatively: you issue commands that immediately paint pixels onto the surface. Unlike the DOM, where elements persist and can be styled or queried later, canvas drawings are essentially "burned" into a bitmap. This makes it critical to understand the order of operations, how styles are applied, and how paths work, because there are no individual shape objects to select and modify after the fact.</p>
+
+<p><strong>Setting Up the Canvas Context</strong></p>
+
+<p>The first step is placing a <code>&lt;canvas&gt;</code> element in your HTML document. The element accepts <code>width</code> and <code>height</code> attributes that define the resolution of the drawing surface in CSS pixels. These are not the same as the element's CSS display size — the <code>width</code> and <code>height</code> attributes define the actual coordinate space of the canvas buffer.</p>
+
+<pre><code>&lt;canvas id="myCanvas" width="500" height="400"&gt;
+  Your browser does not support the Canvas API.
+&lt;/canvas&gt;
+</code></pre>
+
+<p>The fallback text between the opening and closing tags is shown only in browsers that do not support the <code>&lt;canvas&gt;</code> element at all. For all modern browsers this text will never be visible, but it is a good accessibility practice to include it. A more robust approach is to test for Canvas support in JavaScript before attempting to draw:</p>
+
+<pre><code>const canvas = document.getElementById('myCanvas');
+
+if (!canvas.getContext) {
+  console.error('Canvas is not supported in this browser.');
+} else {
+  const ctx = canvas.getContext('2d');
+  // All drawing code goes here
+}
+</code></pre>
+
+<p>The <code>getContext('2d')</code> call returns a <strong>CanvasRenderingContext2D</strong> object, commonly stored in a variable named <code>ctx</code>. This object exposes every drawing method and style property you will use — rectangles, paths, arcs, colors, line widths, and much more. If the context type passed to <code>getContext()</code> is not supported, the method returns <code>null</code>, so checking for a falsy return value is a safe defensive measure.</p>
+
+<p>It is also worth noting that if you resize a canvas using CSS (for example, setting it to <code>width: 100%</code>), the drawn pixels are stretched to fit, which can make graphics look blurry. To avoid this, always set the <code>width</code> and <code>height</code> attributes to match the intended pixel dimensions, and handle high-DPI (Retina) screens separately if crisp rendering on those displays is required.</p>
+
+<p><strong>Drawing Rectangles</strong></p>
+
+<p>The rectangle is the only shape that the Canvas API can render with a single method call, without the need to build a path first. Three dedicated methods handle rectangles directly:</p>
+
+<ul>
+  <li><strong>fillRect(x, y, width, height)</strong> — Draws a solid, filled rectangle. The top-left corner is positioned at <code>(x, y)</code>, and the rectangle extends <code>width</code> pixels to the right and <code>height</code> pixels downward. The fill color is determined by the current <code>fillStyle</code> property.</li>
+  <li><strong>strokeRect(x, y, width, height)</strong> — Draws only the border (outline) of a rectangle at the same position and size, without filling the interior. The border color and thickness come from <code>strokeStyle</code> and <code>lineWidth</code>.</li>
+  <li><strong>clearRect(x, y, width, height)</strong> — Erases all pixels within the specified rectangular area, making them fully transparent. This is particularly useful when creating animations, where you need to wipe the canvas clean before redrawing the next frame.</li>
+</ul>
+
+<pre><code>const canvas = document.getElementById('myCanvas');
+const ctx = canvas.getContext('2d');
+
+// Draw a solid blue rectangle
+ctx.fillStyle = 'steelblue';
+ctx.fillRect(50, 50, 200, 100);
+
+// Draw an outlined rectangle in dark red
+ctx.strokeStyle = 'darkred';
+ctx.lineWidth = 4;
+ctx.strokeRect(300, 50, 150, 100);
+
+// Clear a small region inside the blue rectangle
+ctx.clearRect(100, 75, 60, 50);
+</code></pre>
+
+<p>In this example, a solid blue rectangle appears at position (50, 50). A dark red outlined rectangle appears to the right. The <code>clearRect</code> call punches a transparent hole inside the blue rectangle, revealing the white canvas background (or whatever is behind the canvas element). This demonstrates how <code>clearRect</code> does not paint a color — it removes pixels entirely.</p>
+
+<p><strong>Drawing Circles and Arcs</strong></p>
+
+<p>The Canvas API does not have a dedicated <code>drawCircle()</code> method. Instead, circles are drawn using the general-purpose <code>arc()</code> method, which is part of the path system. Its full signature is:</p>
+
+<pre><code>ctx.arc(x, y, radius, startAngle, endAngle, anticlockwise)
+</code></pre>
+
+<ul>
+  <li><strong>x, y</strong> — The coordinates of the center point of the arc.</li>
+  <li><strong>radius</strong> — The radius of the arc in pixels.</li>
+  <li><strong>startAngle</strong> — The angle at which the arc begins, measured in radians from the positive x-axis (the rightmost point of the circle).</li>
+  <li><strong>endAngle</strong> — The angle at which the arc ends, also in radians.</li>
+  <li><strong>anticlockwise</strong> — An optional boolean (default <code>false</code>). When <code>true</code>, the arc is drawn counterclockwise from the start angle to the end angle.</li>
+</ul>
+
+<p>Angles in the Canvas API are always expressed in <strong>radians</strong>, not degrees. A full circle spans <code>2 * Math.PI</code> radians (approximately 6.283). If you are more comfortable thinking in degrees, use this conversion formula:</p>
+
+<pre><code>radians = degrees * (Math.PI / 180)
+</code></pre>
+
+<p>For example, 90 degrees equals <code>90 * (Math.PI / 180)</code>, which is <code>Math.PI / 2</code> radians. To draw a complete circle you start at <code>0</code> radians and end at <code>2 * Math.PI</code>:</p>
+
+<pre><code>const ctx = document.getElementById('myCanvas').getContext('2d');
+
+// Filled circle
+ctx.beginPath();
+ctx.arc(150, 150, 80, 0, 2 * Math.PI);
+ctx.fillStyle = 'tomato';
+ctx.fill();
+
+// Outlined circle (same center, different radius)
+ctx.beginPath();
+ctx.arc(350, 150, 60, 0, 2 * Math.PI);
+ctx.strokeStyle = 'navy';
+ctx.lineWidth = 5;
+ctx.stroke();
+</code></pre>
+
+<p>Notice that <code>beginPath()</code> is called before each arc. Without it, both arcs would be joined together as a single path, producing unexpected results when <code>fill()</code> or <code>stroke()</code> is called. The <code>anticlockwise</code> parameter matters most when drawing partial arcs (wedges or pie slices). For example, drawing an arc from 0 to <code>Math.PI / 2</code> clockwise gives you the bottom-right quarter of a circle, while drawing it anticlockwise gives you the remaining three-quarters.</p>
+
+<p><strong>Drawing Polygons and Lines with Paths</strong></p>
+
+<p>Beyond rectangles and circles, almost every other shape — triangles, pentagons, stars, arrows — is built by constructing a <strong>path</strong>. A path is a sequence of connected points and curves that you define step by step, and then render all at once with <code>fill()</code> or <code>stroke()</code>. The key path methods are:</p>
+
+<ul>
+  <li><strong>beginPath()</strong> — Resets the current path, discarding any previously defined segments. Always call this before starting a new shape to avoid unintentionally connecting it to previous drawings.</li>
+  <li><strong>moveTo(x, y)</strong> — Lifts the virtual "pen" and places it at <code>(x, y)</code> without drawing anything. This sets the starting point of the path.</li>
+  <li><strong>lineTo(x, y)</strong> — Draws a straight line from the current pen position to <code>(x, y)</code>, then moves the pen to the new point.</li>
+  <li><strong>closePath()</strong> — Draws a straight line from the current position back to the point defined by the most recent <code>moveTo()</code>, effectively closing the shape.</li>
+  <li><strong>fill()</strong> — Fills the enclosed area of the current path with the current <code>fillStyle</code>.</li>
+  <li><strong>stroke()</strong> — Draws the outline of the current path using the current <code>strokeStyle</code> and <code>lineWidth</code>.</li>
+</ul>
+
+<p>Here is how to draw a filled triangle:</p>
+
+<pre><code>ctx.beginPath();
+ctx.moveTo(250, 50);   // Top vertex
+ctx.lineTo(100, 300);  // Bottom-left vertex
+ctx.lineTo(400, 300);  // Bottom-right vertex
+ctx.closePath();       // Line back to (250, 50)
+ctx.fillStyle = 'mediumseagreen';
+ctx.fill();
+ctx.strokeStyle = 'darkgreen';
+ctx.lineWidth = 3;
+ctx.stroke();
+</code></pre>
+
+<p>The same technique scales to any polygon. For a regular pentagon, you can use trigonometry to calculate each vertex's position based on an angle that increments by <code>(2 * Math.PI) / 5</code> for each of the five sides:</p>
+
+<pre><code>const sides = 5;
+const centerX = 250, centerY = 200, radius = 100;
+
+ctx.beginPath();
+for (let i = 0; i &lt; sides; i++) {
+  const angle = (2 * Math.PI / sides) * i - Math.PI / 2; // Start from the top
+  const x = centerX + radius * Math.cos(angle);
+  const y = centerY + radius * Math.sin(angle);
+  if (i === 0) {
+    ctx.moveTo(x, y);
+  } else {
+    ctx.lineTo(x, y);
+  }
+}
+ctx.closePath();
+ctx.fillStyle = 'goldenrod';
+ctx.fill();
+</code></pre>
+
+<p>Subtracting <code>Math.PI / 2</code> from the angle rotates the starting point to the top of the polygon, which gives it the natural "upright" orientation that most people expect. Without this offset, the first vertex would appear at the rightmost point of the bounding circle.</p>
+
+<p><strong>Applying Fill and Stroke Styles</strong></p>
+
+<p>Colors and line styles in the Canvas API are set as properties on the context object before drawing commands are issued. The most important style properties are:</p>
+
+<ul>
+  <li><strong>ctx.fillStyle</strong> — Accepts any valid CSS color value as a string: named colors (<code>'red'</code>), hex codes (<code>'#ff6347'</code>), <code>rgb()</code>, <code>rgba()</code>, <code>hsl()</code>, and <code>hsla()</code>. This property governs the interior color of any shape rendered with <code>fill()</code> or <code>fillRect()</code>.</li>
+  <li><strong>ctx.strokeStyle</strong> — Same format as <code>fillStyle</code>, but controls the color of outlines drawn by <code>stroke()</code> or <code>strokeRect()</code>.</li>
+  <li><strong>ctx.lineWidth</strong> — A number specifying the stroke thickness in pixels. The default is <code>1</code>. Setting it to <code>5</code>, for instance, makes all subsequent stroked lines five pixels wide.</li>
+</ul>
+
+<p>A crucial behavior to understand is that these properties are <strong>stateful and persistent</strong>. Once you set <code>fillStyle</code> to <code>'red'</code>, every subsequent fill call will use red until you explicitly change it. This means you must set the appropriate styles immediately before drawing each shape when you want different shapes to have different appearances:</p>
+
+<pre><code>// Shape 1: orange fill, black stroke
+ctx.fillStyle = 'orange';
+ctx.strokeStyle = 'black';
+ctx.lineWidth = 2;
+ctx.fillRect(50, 50, 120, 80);
+ctx.strokeRect(50, 50, 120, 80);
+
+// Shape 2: purple fill, no visible stroke (lineWidth still 2)
+ctx.fillStyle = 'purple';
+ctx.beginPath();
+ctx.arc(300, 100, 60, 0, 2 * Math.PI);
+ctx.fill();
+</code></pre>
+
+<p>The <code>rgba()</code> color format is especially useful because it lets you control transparency. An alpha value of <code>0</code> is fully transparent, and <code>1</code> is fully opaque. For example, <code>'rgba(255, 0, 0, 0.4)'</code> draws a semi-transparent red that allows shapes underneath to show through, enabling layering effects without extra DOM elements.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Default Value</th>
+      <th>Accepted Formats</th>
+      <th>Affects</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>fillStyle</code></td>
+      <td><code>'black'</code></td>
+      <td>CSS color string, gradient, pattern</td>
+      <td><code>fill()</code>, <code>fillRect()</code></td>
+    </tr>
+    <tr>
+      <td><code>strokeStyle</code></td>
+      <td><code>'black'</code></td>
+      <td>CSS color string, gradient, pattern</td>
+      <td><code>stroke()</code>, <code>strokeRect()</code></td>
+    </tr>
+    <tr>
+      <td><code>lineWidth</code></td>
+      <td><code>1</code></td>
+      <td>Positive number (pixels)</td>
+      <td>All stroke operations</td>
+    </tr>
+    <tr>
+      <td><code>globalAlpha</code></td>
+      <td><code>1.0</code></td>
+      <td>Number between 0 and 1</td>
+      <td>All drawing operations</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Drawing Rounded Rectangles</strong></p>
+
+<p>Plain sharp-cornered rectangles cover many use cases, but interfaces often call for rectangles with rounded corners — buttons, cards, badges, and tooltips all commonly use them. The Canvas API provides two approaches.</p>
+
+<p>The modern approach uses the native <code>roundRect()</code> method, which was added to the specification and is supported in all current major browsers:</p>
+
+<pre><code>ctx.beginPath();
+ctx.roundRect(50, 50, 200, 100, 20); // 20-pixel corner radius
+ctx.fillStyle = 'cornflowerblue';
+ctx.fill();
+ctx.strokeStyle = 'midnightblue';
+ctx.lineWidth = 3;
+ctx.stroke();
+</code></pre>
+
+<p>The <code>radii</code> parameter (the fifth argument) can be a single number to apply uniformly to all four corners, an array of two numbers <code>[horizontal, vertical]</code> for elliptical corners, or an array of up to four values to control each corner independently — following the same top-right-bottom-left order as CSS <code>border-radius</code>.</p>
+
+<p>For environments where <code>roundRect()</code> may not be available, or when you need finer control, you can build a rounded rectangle manually using the <code>arcTo()</code> method inside a path. The <code>arcTo(x1, y1, x2, y2, radius)</code> method draws an arc that is tangent to two lines: one from the current point to <code>(x1, y1)</code>, and another from <code>(x1, y1)</code> to <code>(x2, y2)</code>. It is ideal for creating smooth corners:</p>
+
+<pre><code>function drawRoundedRect(ctx, x, y, width, height, radius) {
+  ctx.beginPath();
+  ctx.moveTo(x + radius, y);                                      // Top edge start
+  ctx.lineTo(x + width - radius, y);                             // Top edge end
+  ctx.arcTo(x + width, y, x + width, y + radius, radius);        // Top-right corner
+  ctx.lineTo(x + width, y + height - radius);                    // Right edge
+  ctx.arcTo(x + width, y + height, x + width - radius, y + height, radius); // Bottom-right
+  ctx.lineTo(x + radius, y + height);                            // Bottom edge
+  ctx.arcTo(x, y + height, x, y + height - radius, radius);     // Bottom-left corner
+  ctx.lineTo(x, y + radius);                                     // Left edge
+  ctx.arcTo(x, y, x + radius, y, radius);                       // Top-left corner
+  ctx.closePath();
+}
+
+drawRoundedRect(ctx, 50, 50, 200, 100, 20);
+ctx.fillStyle = 'salmon';
+ctx.fill();
+</code></pre>
+
+<p>Each call to <code>arcTo()</code> handles one corner of the rectangle by drawing a circular arc between two lines. The straight <code>lineTo()</code> calls connect the arcs along each edge. This pattern gives you full control over corner radii and can be adapted to round only specific corners by substituting a <code>lineTo()</code> for the <code>arcTo()</code> at corners you want to keep sharp.</p>
+
+<p>Whether you use <code>roundRect()</code> or the manual <code>arcTo()</code> approach, the rendering step is the same: after defining the path, call <code>fill()</code>, <code>stroke()</code>, or both to make the shape visible on the canvas. Both shapes and styles together form the complete visual output — neither alone is sufficient.</p>
+        <div class="notes"><strong>Notes</strong>The roundRect() method has broad modern browser support but was not available in older browsers. When teaching to mixed audiences it is worth noting the arcTo() fallback approach remains important. Also worth mentioning: ctx.save() and ctx.restore() can be introduced as a natural follow-up for managing style state across multiple shapes.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

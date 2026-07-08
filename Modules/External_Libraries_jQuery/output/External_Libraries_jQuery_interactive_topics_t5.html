@@ -1,0 +1,446 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bootstrap UI Components and Styling</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Bootstrap UI Components and Styling</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Bootstrap UI Components and Styling</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Bootstrap is one of the most widely adopted front-end frameworks in the world, and for good reason: it provides a comprehensive library of pre-built UI components, a powerful responsive grid system, and an extensive set of utility classes that allow developers to build polished, professional interfaces without writing large amounts of custom CSS. Rather than reinventing the wheel for every project, Bootstrap lets you compose sophisticated layouts and interactive elements using well-tested, accessible patterns. This topic walks through the most essential Bootstrap components and utilities — navigation bars, buttons, modals, cards, utility classes, and the responsive grid — explaining how each works and demonstrating how they fit together in real-world markup.</p>
+
+<p>Bootstrap 5 (the current major version) drops the jQuery dependency and relies on its own lightweight JavaScript bundle. You include it via a CDN link in your HTML <code>&lt;head&gt;</code> for the CSS and just before <code>&lt;/body&gt;</code> for the JS bundle, or you install it through a package manager like npm. Everything described below applies to Bootstrap 5 unless otherwise noted.</p>
+
+<p><strong>Navigation Bars with Bootstrap</strong></p>
+
+<p>A navigation bar is almost always the first component a visitor sees. Bootstrap's navbar system gives you a fully responsive, accessible header in a handful of classes. The foundation is a <code>&lt;nav&gt;</code> element with the <code>navbar</code> class applied. On its own, <code>navbar</code> sets up flexbox alignment and some padding. You then add <code>navbar-expand-{breakpoint}</code> — for example <code>navbar-expand-lg</code> — to tell Bootstrap <em>at which viewport width</em> the navbar should switch from a collapsed mobile view to a fully expanded desktop view.</p>
+
+<p>Inside the <code>&lt;nav&gt;</code> element, two key sub-components appear most often. The <strong>brand</strong> element uses the class <code>navbar-brand</code> and is typically an <code>&lt;a&gt;</code> tag wrapping either a text logo or an <code>&lt;img&gt;</code> tag. The <strong>navigation links</strong> live inside a <code>&lt;ul&gt;</code> with the class <code>navbar-nav</code>. Each list item receives <code>nav-item</code> and the anchor inside it receives <code>nav-link</code>. An active page is indicated by adding the <code>active</code> class and the ARIA attribute <code>aria-current="page"</code> to the relevant <code>nav-link</code>.</p>
+
+<p>The collapse behavior — the hamburger menu on small screens — requires two more pieces. A <code>&lt;button&gt;</code> with class <code>navbar-toggler</code> acts as the toggle trigger. It carries the data attributes <code>data-bs-toggle="collapse"</code> and <code>data-bs-target="#navbarMenu"</code> (where the value matches the <code>id</code> of the collapsible wrapper). The collapsible wrapper itself is a <code>&lt;div&gt;</code> with both <code>collapse</code> and <code>navbar-collapse</code> classes plus the matching <code>id</code>. Bootstrap's JavaScript listens for clicks on the toggler and toggles the <code>show</code> class on the wrapper automatically — no custom JavaScript needed.</p>
+
+<p>Bootstrap also ships theme helpers for navbars. Adding <code>navbar-dark</code> and a background utility like <code>bg-dark</code> produces a dark bar with light text. Using <code>navbar-light</code> with <code>bg-light</code> gives you the inverse. You can also apply any <code>bg-*</code> utility or even a custom background color.</p>
+
+<pre><code>&lt;nav class="navbar navbar-expand-lg navbar-dark bg-dark"&gt;
+  &lt;div class="container"&gt;
+
+    &lt;!-- Brand / Logo --&gt;
+    &lt;a class="navbar-brand" href="#"&gt;MyApp&lt;/a&gt;
+
+    &lt;!-- Hamburger toggler (visible on small screens) --&gt;
+    &lt;button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNav"
+            aria-controls="mainNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"&gt;
+      &lt;span class="navbar-toggler-icon"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+
+    &lt;!-- Collapsible link list --&gt;
+    &lt;div class="collapse navbar-collapse" id="mainNav"&gt;
+      &lt;ul class="navbar-nav ms-auto mb-2 mb-lg-0"&gt;
+        &lt;li class="nav-item"&gt;
+          &lt;a class="nav-link active" aria-current="page" href="#"&gt;Home&lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li class="nav-item"&gt;
+          &lt;a class="nav-link" href="#"&gt;Features&lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li class="nav-item"&gt;
+          &lt;a class="nav-link" href="#"&gt;Pricing&lt;/a&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+&lt;/nav&gt;</code></pre>
+
+<p>Notice the utility class <code>ms-auto</code> on the <code>&lt;ul&gt;</code>. This is a spacing utility that pushes the link group to the right side of the flex container by applying <code>margin-inline-start: auto</code> — a common technique for right-aligning nav links. The classes <code>mb-2 mb-lg-0</code> remove bottom margin on large screens while providing small-screen spacing.</p>
+
+<p><strong>Bootstrap Button Styles</strong></p>
+
+<p>Buttons are among the most frequently used interactive elements in any interface, and Bootstrap provides a complete system for styling them consistently. Every Bootstrap button requires the <code>btn</code> base class, which sets the cursor, padding, border-radius, font size, and transition behavior. On its own, <code>btn</code> renders an unstyled button; you pair it with a <strong>contextual variant</strong> to apply color meaning.</p>
+
+<p>The standard contextual variants are named after Bootstrap's theme colors:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Class</th>
+      <th>Background Color</th>
+      <th>Typical Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>btn-primary</code></td>
+      <td>Blue (default)</td>
+      <td>Main call-to-action</td>
+    </tr>
+    <tr>
+      <td><code>btn-secondary</code></td>
+      <td>Gray</td>
+      <td>Alternative or cancel actions</td>
+    </tr>
+    <tr>
+      <td><code>btn-success</code></td>
+      <td>Green</td>
+      <td>Confirm, save, submit</td>
+    </tr>
+    <tr>
+      <td><code>btn-danger</code></td>
+      <td>Red</td>
+      <td>Delete, remove, destructive actions</td>
+    </tr>
+    <tr>
+      <td><code>btn-warning</code></td>
+      <td>Yellow/Amber</td>
+      <td>Caution, proceed with care</td>
+    </tr>
+    <tr>
+      <td><code>btn-info</code></td>
+      <td>Cyan</td>
+      <td>Informational, neutral actions</td>
+    </tr>
+    <tr>
+      <td><code>btn-light</code></td>
+      <td>White/Light gray</td>
+      <td>Subtle actions on dark backgrounds</td>
+    </tr>
+    <tr>
+      <td><code>btn-dark</code></td>
+      <td>Dark gray/Black</td>
+      <td>Prominent actions on light backgrounds</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Size variants let you scale a button up or down without writing any custom CSS. Adding <code>btn-lg</code> increases padding and font size, while <code>btn-sm</code> reduces them. This is especially useful when buttons appear inside compact UI elements like cards or table rows.</p>
+
+<pre><code>&lt;!-- Standard sizes --&gt;
+&lt;button class="btn btn-primary btn-lg"&gt;Large Primary&lt;/button&gt;
+&lt;button class="btn btn-secondary"&gt;Default Secondary&lt;/button&gt;
+&lt;button class="btn btn-danger btn-sm"&gt;Small Danger&lt;/button&gt;</code></pre>
+
+<p>The <strong>outline variants</strong> (<code>btn-outline-*</code>) swap the filled background for a transparent one, keeping only a colored border and matching text. This is ideal for secondary actions you want to de-emphasize visually without making them invisible. On hover, the full color fills in, providing clear interactive feedback.</p>
+
+<pre><code>&lt;button class="btn btn-outline-primary"&gt;Outline Primary&lt;/button&gt;
+&lt;button class="btn btn-outline-danger"&gt;Outline Danger&lt;/button&gt;</code></pre>
+
+<p>Buttons can be applied not just to <code>&lt;button&gt;</code> elements but also to <code>&lt;a&gt;</code> tags and <code>&lt;input type="submit"&gt;</code> elements. When applying to an <code>&lt;a&gt;</code> tag, add <code>role="button"</code> for accessibility. Disabled states are achieved with the HTML <code>disabled</code> attribute on real buttons or by adding the <code>disabled</code> class and <code>aria-disabled="true"</code> on anchor-based buttons.</p>
+
+<p><strong>Modal Dialogs</strong></p>
+
+<p>Modals are overlay dialogs that appear on top of the main page content, drawing focus to a specific task or piece of information without navigating away from the page. Bootstrap's modal component handles the overlay backdrop, focus trapping, keyboard dismissal (Escape key), and scroll locking — all behaviors that are tedious to implement correctly from scratch.</p>
+
+<p>The structural anatomy of a Bootstrap modal has two outer layers. The outermost element is a <code>&lt;div&gt;</code> with the class <code>modal</code> and an <code>id</code> that will be used as the trigger target. It also typically receives <code>tabindex="-1"</code> and ARIA attributes for screen-reader accessibility. Inside it sits <code>.modal-dialog</code>, which controls sizing and positioning. Inside <em>that</em> is <code>.modal-content</code>, the visible white box, which in turn contains three semantic sections:</p>
+
+<ul>
+  <li><strong><code>.modal-header</code></strong> — typically contains a title (<code>.modal-title</code>) and a close button with <code>data-bs-dismiss="modal"</code>.</li>
+  <li><strong><code>.modal-body</code></strong> — the main content area, which can hold any HTML.</li>
+  <li><strong><code>.modal-footer</code></strong> — usually contains action buttons like "Save" and "Cancel".</li>
+</ul>
+
+<p>To trigger a modal from a button or link anywhere on the page, add two data attributes to the trigger element: <code>data-bs-toggle="modal"</code> tells Bootstrap's JS that clicking this element should open a modal, and <code>data-bs-target="#myModal"</code> specifies which modal by matching its <code>id</code>.</p>
+
+<pre><code>&lt;!-- Trigger button --&gt;
+&lt;button class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#confirmModal"&gt;
+  Open Modal
+&lt;/button&gt;
+
+&lt;!-- Modal markup --&gt;
+&lt;div class="modal fade" id="confirmModal" tabindex="-1"
+     aria-labelledby="confirmModalLabel" aria-hidden="true"&gt;
+  &lt;div class="modal-dialog modal-dialog-centered modal-lg"&gt;
+    &lt;div class="modal-content"&gt;
+
+      &lt;div class="modal-header"&gt;
+        &lt;h5 class="modal-title" id="confirmModalLabel"&gt;Confirm Action&lt;/h5&gt;
+        &lt;button type="button" class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"&gt;&lt;/button&gt;
+      &lt;/div&gt;
+
+      &lt;div class="modal-body"&gt;
+        &lt;p&gt;Are you sure you want to proceed? This action cannot be undone.&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;div class="modal-footer"&gt;
+        &lt;button type="button" class="btn btn-secondary"
+                data-bs-dismiss="modal"&gt;Cancel&lt;/button&gt;
+        &lt;button type="button" class="btn btn-danger"&gt;Yes, Delete&lt;/button&gt;
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+<p>The <code>fade</code> class on the outer modal adds a CSS transition so the modal fades in and out smoothly. Without it, the modal appears and disappears instantly.</p>
+
+<p>The <code>.modal-dialog-centered</code> modifier class vertically centers the dialog in the viewport, which is generally more visually appealing than the default top-of-screen positioning. Size modifiers adjust the dialog's maximum width: <code>modal-sm</code> produces a narrow 300px dialog, <code>modal-lg</code> produces a wider 800px dialog, and <code>modal-xl</code> extends to 1140px. For very tall content, <code>modal-dialog-scrollable</code> makes only the body area scroll while keeping the header and footer fixed.</p>
+
+<p><strong>Card Components</strong></p>
+
+<p>Cards are versatile content containers used to group related information — think product listings, blog post previews, user profiles, or dashboard widgets. Bootstrap's card component is a flexible box with optional sections for images, headers, footers, and body content.</p>
+
+<p>The minimum card structure is a <code>&lt;div class="card"&gt;</code> containing a <code>&lt;div class="card-body"&gt;</code>. Inside the body, <code>.card-title</code> (usually an <code>&lt;h5&gt;</code>) and <code>.card-text</code> (usually a <code>&lt;p&gt;</code>) establish a clear typographic hierarchy. The card-body also commonly holds buttons, links styled with <code>card-link</code>, or any other inline content.</p>
+
+<pre><code>&lt;div class="card" style="width: 18rem;"&gt;
+  &lt;img src="product.jpg" class="card-img-top" alt="Product image"&gt;
+  &lt;div class="card-body"&gt;
+    &lt;h5 class="card-title"&gt;Wireless Headphones&lt;/h5&gt;
+    &lt;p class="card-text"&gt;
+      Premium noise-cancelling headphones with 30-hour battery life.
+    &lt;/p&gt;
+    &lt;a href="#" class="btn btn-primary"&gt;View Product&lt;/a&gt;
+  &lt;/div&gt;
+  &lt;div class="card-footer text-muted"&gt;
+    Last updated 3 days ago
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+<p>The <code>.card-img-top</code> class on the <code>&lt;img&gt;</code> element places the image at the top of the card with rounded top corners matching the card's border radius. Using <code>.card-img-bottom</code> places it at the bottom with rounded bottom corners instead. Bootstrap ensures the image fills the card's width while maintaining its natural aspect ratio. If you need a full-bleed image with text overlaid, the <code>.card-img-overlay</code> class positions text content absolutely over a <code>.card-img</code> background image.</p>
+
+<p>The <code>.card-footer</code> sits at the bottom of the card, visually separated by a subtle border-top. It is the right place for timestamps, status labels, or secondary action links. Pairing it with a utility like <code>text-muted</code> keeps it visually subordinate to the main card content.</p>
+
+<p>Cards integrate naturally with Bootstrap's grid. Wrapping multiple cards in a <code>.row</code> and placing each in a <code>.col-md-4</code> column creates a three-up card grid on medium screens and above that collapses to a single column on small screens. The <code>row-cols-*</code> shorthand classes (<code>row-cols-1 row-cols-md-3</code>) make this even more concise.</p>
+
+<p><strong>Bootstrap Utility Classes</strong></p>
+
+<p>Utility classes are single-purpose CSS classes that do one specific thing. Instead of writing custom CSS rules for common needs like padding, margin, text color, or display mode, you apply the appropriate utility class directly in your HTML. This approach, often called "utility-first" styling, significantly reduces the amount of custom CSS a project needs and keeps styling decisions visible right in the markup.</p>
+
+<p><em>Spacing utilities</em> — covering margin and padding — follow a consistent naming pattern: <code>{property}{side}-{size}</code>. The property is either <code>m</code> (margin) or <code>p</code> (padding). The side is optional: <code>t</code> (top), <code>b</code> (bottom), <code>s</code> (start/left), <code>e</code> (end/right), <code>x</code> (horizontal, both sides), <code>y</code> (vertical, both sides), or omitted for all four sides. The size is a number from 0 to 5, where 0 removes spacing entirely and 5 applies the largest amount (3rem by default). There is also a special value <code>auto</code> for margins, useful for centering block elements or pushing flex children apart.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Class</th>
+      <th>Effect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>m-0</code></td>
+      <td>Remove all margins</td>
+    </tr>
+    <tr>
+      <td><code>mt-3</code></td>
+      <td>Margin-top: 1rem</td>
+    </tr>
+    <tr>
+      <td><code>mb-5</code></td>
+      <td>Margin-bottom: 3rem</td>
+    </tr>
+    <tr>
+      <td><code>mx-auto</code></td>
+      <td>Horizontal margin auto (centers block element)</td>
+    </tr>
+    <tr>
+      <td><code>p-4</code></td>
+      <td>Padding on all sides: 1.5rem</td>
+    </tr>
+    <tr>
+      <td><code>px-2</code></td>
+      <td>Horizontal padding: 0.5rem</td>
+    </tr>
+    <tr>
+      <td><code>py-1</code></td>
+      <td>Vertical padding: 0.25rem</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>Color utilities</em> apply Bootstrap's theme colors to text and backgrounds. <code>text-primary</code>, <code>text-secondary</code>, <code>text-success</code>, <code>text-danger</code>, and so on set the foreground color. <code>text-muted</code> applies a lighter gray for de-emphasized content. The background equivalents are <code>bg-primary</code>, <code>bg-light</code>, <code>bg-dark</code>, <code>bg-white</code>, and so on. These utility colors are tied to Bootstrap's CSS custom properties (variables), so if you customize the theme (for example changing the primary color to your brand's purple), all utility classes update automatically.</p>
+
+<p><em>Display utilities</em> let you change how an element is rendered in the document flow. <code>d-none</code> hides an element entirely (equivalent to <code>display: none</code>). <code>d-block</code>, <code>d-inline</code>, <code>d-inline-block</code>, <code>d-flex</code>, and <code>d-grid</code> switch the element to those display modes. Breakpoint-aware versions are extremely powerful: <code>d-none d-md-block</code> hides something on small screens and shows it as a block on medium screens and above, with no custom media queries needed.</p>
+
+<p><em>Text utilities</em> handle alignment, weight, style, and transformation. <code>text-center</code>, <code>text-start</code>, and <code>text-end</code> control horizontal alignment. <code>fw-bold</code>, <code>fw-semibold</code>, and <code>fw-light</code> adjust font weight. <code>fst-italic</code> applies italic style. <code>text-uppercase</code>, <code>text-lowercase</code>, and <code>text-capitalize</code> transform letter casing via CSS (the underlying HTML text is unchanged). <code>text-truncate</code> clips overflowing text with an ellipsis, useful inside fixed-width containers.</p>
+
+<pre><code>&lt;p class="text-center fw-bold text-primary mt-4"&gt;
+  Welcome to MyApp
+&lt;/p&gt;
+
+&lt;span class="text-muted fst-italic"&gt;Last edited 2 hours ago&lt;/span&gt;
+
+&lt;div class="d-flex justify-content-between align-items-center p-3 bg-light"&gt;
+  &lt;span class="fw-semibold"&gt;Total:&lt;/span&gt;
+  &lt;span class="text-success fs-4"&gt;$49.99&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+
+<p><strong>Responsive Grid and Component Integration</strong></p>
+
+<p>The Bootstrap grid is the backbone of page layout. It is built on CSS Flexbox and organized around a 12-column system with five responsive breakpoints. Understanding how the grid works enables you to compose every other Bootstrap component into a coherent, responsive page.</p>
+
+<p>Every grid layout starts with a <strong>container</strong>. The <code>.container</code> class creates a centered, fixed-width wrapper whose maximum width steps up at each breakpoint. The <code>.container-fluid</code> class stretches to 100% of the viewport width at all times, adding only horizontal padding. There are also intermediate options like <code>.container-md</code>, which is fluid on small screens but becomes fixed-width at the medium breakpoint and above.</p>
+
+<p>Inside a container, you create a <strong>row</strong> with <code>.row</code>. A row is a flexbox container with negative horizontal margins that compensate for the gutter padding on columns. Inside a row, you place <strong>column</strong> elements using <code>.col-*</code> classes. The number after <code>col-</code> specifies how many of the 12 columns that element should span. If all columns in a row add up to 12, they fill the full width evenly. If you omit the number and use just <code>.col</code>, Bootstrap distributes space equally among all <code>.col</code> siblings automatically.</p>
+
+<p>The breakpoint infix makes columns responsive. <code>.col-md-6</code> means "span 6 columns (half width) on medium screens and larger." On screens narrower than the medium breakpoint, that column reverts to full width (spanning all 12 columns). You can stack multiple breakpoint classes on a single element to describe different widths at different sizes: <code>class="col-12 col-sm-6 col-lg-4"</code> means full-width on extra-small, half-width on small and medium, one-third-width on large and above.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Breakpoint</th>
+      <th>Infix</th>
+      <th>Minimum Width</th>
+      <th>Container Max Width</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Extra small</td>
+      <td><em>none</em></td>
+      <td>&lt;576px</td>
+      <td>100% (fluid)</td>
+    </tr>
+    <tr>
+      <td>Small</td>
+      <td><code>sm</code></td>
+      <td>≥576px</td>
+      <td>540px</td>
+    </tr>
+    <tr>
+      <td>Medium</td>
+      <td><code>md</code></td>
+      <td>≥768px</td>
+      <td>720px</td>
+    </tr>
+    <tr>
+      <td>Large</td>
+      <td><code>lg</code></td>
+      <td>≥992px</td>
+      <td>960px</td>
+    </tr>
+    <tr>
+      <td>Extra large</td>
+      <td><code>xl</code></td>
+      <td>≥1200px</td>
+      <td>1140px</td>
+    </tr>
+    <tr>
+      <td>Extra extra large</td>
+      <td><code>xxl</code></td>
+      <td>≥1400px</td>
+      <td>1320px</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The grid integrates directly with all other Bootstrap components. For example, you can place a navbar inside a <code>.container</code> for consistent edge alignment, lay out a row of cards using column classes, and use spacing utilities to fine-tune gaps between rows. The following example shows a realistic integration: a page section with a heading and three equal-width cards that collapse to one column on mobile.</p>
+
+<pre><code>&lt;section class="py-5 bg-light"&gt;
+  &lt;div class="container"&gt;
+
+    &lt;p class="text-center fw-bold fs-2 mb-4"&gt;Our Features&lt;/p&gt;
+
+    &lt;div class="row g-4"&gt;
+
+      &lt;div class="col-12 col-md-4"&gt;
+        &lt;div class="card h-100"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;h5 class="card-title"&gt;Fast Performance&lt;/h5&gt;
+            &lt;p class="card-text"&gt;
+              Optimized for speed so your users never have to wait.
+            &lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class="card-footer text-muted"&gt;Core feature&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class="col-12 col-md-4"&gt;
+        &lt;div class="card h-100"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;h5 class="card-title"&gt;Secure by Default&lt;/h5&gt;
+            &lt;p class="card-text"&gt;
+              End-to-end encryption and best-practice security baked in.
+            &lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class="card-footer text-muted"&gt;Core feature&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class="col-12 col-md-4"&gt;
+        &lt;div class="card h-100"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;h5 class="card-title"&gt;Easy Integration&lt;/h5&gt;
+            &lt;p class="card-text"&gt;
+              Connects with your existing tools through a clean REST API.
+            &lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class="card-footer text-muted"&gt;Core feature&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+
+<p>The <code>g-4</code> class on the row is a <strong>gutter</strong> utility — a Bootstrap 5 feature that adds consistent spacing between columns both horizontally and vertically, without requiring additional margin utilities on individual cards. <code>h-100</code> on each card makes cards in the same row stretch to equal height regardless of content length, creating a clean visual alignment. This combination of grid, card, and utility classes produces a production-ready feature section in pure HTML with no custom CSS.</p>
+
+<p>Taken together, these Bootstrap components and utilities form a composable toolkit. The navbar keeps users oriented and provides global navigation. Buttons communicate available actions. Modals capture focused user attention for confirmations or forms. Cards organize discrete content items. Utility classes handle the typography, spacing, and color details that tie everything together. And the responsive grid ensures the whole interface adapts gracefully from mobile phones to wide desktop monitors — all with a minimal amount of hand-written CSS.</p>
+        <div class="notes"><strong>Notes</strong>All code examples use Bootstrap 5 syntax. The key behavioral distinction from Bootstrap 4 is the replacement of jQuery-based data attributes (data-toggle, data-target) with the Bootstrap 5 equivalents (data-bs-toggle, data-bs-target), and the use of logical-property spacing utilities (ms-*, me-*, ps-*, pe-*) instead of ml-*/mr-*/pl-*/pr-*. Instructors should verify the CDN links they share with students point to Bootstrap 5.x, not 4.x, to avoid attribute mismatch confusion.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

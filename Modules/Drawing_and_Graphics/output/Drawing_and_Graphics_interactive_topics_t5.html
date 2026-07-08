@@ -1,0 +1,397 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rendering Text on the Canvas</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Rendering Text on the Canvas</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Rendering Text on the Canvas</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The HTML Canvas API is most commonly associated with drawing shapes, paths, and images, but it also provides a powerful and flexible system for rendering text directly onto a canvas element. Unlike DOM-based text, which is laid out and styled by the browser's rendering engine, canvas text is drawn as pixels — meaning it becomes part of the bitmap and can be combined seamlessly with graphics, animations, and visual effects. Understanding how to configure and use the canvas text API opens the door to building data visualizations with labels, game HUDs, custom typography effects, chart annotations, and much more.</p>
+
+<p>Text on the canvas is rendered through the 2D drawing context, the same object used to draw rectangles, arcs, and paths. This means text shares the same coordinate system, transformation matrix, and compositing rules as everything else on the canvas. It also means that properties you set on the context — such as fill color or line width — will persist and affect all subsequent drawing operations unless explicitly changed. Keeping track of context state is therefore an important discipline when mixing text with other graphics.</p>
+
+<p><strong>Setting Up the Canvas Context for Text</strong></p>
+
+<p>Before any text (or any drawing) can happen, you must obtain a reference to the canvas element and retrieve its 2D rendering context. The standard approach is to select the canvas element from the DOM and call <code>getContext('2d')</code> on it. The returned context object — conventionally named <code>ctx</code> — is the single gateway to all drawing operations, including text rendering.</p>
+
+<pre><code>&lt;canvas id="myCanvas" width="600" height="300"&gt;&lt;/canvas&gt;
+
+&lt;script&gt;
+  const canvas = document.getElementById('myCanvas');
+  const ctx = canvas.getContext('2d');
+&lt;/script&gt;
+</code></pre>
+
+<p>The <code>ctx</code> object exposes all text-related properties (<code>font</code>, <code>fillStyle</code>, <code>textAlign</code>, <code>textBaseline</code>) and methods (<code>fillText()</code>, <code>strokeText()</code>, <code>measureText()</code>) that you will use throughout text rendering. Because all of these live on the same shared context object, any property change you make — for example, changing <code>ctx.fillStyle</code> to draw a red background rectangle — will remain in effect when you later call <code>fillText()</code> unless you reset it. A common best practice is to wrap distinct drawing operations in <code>ctx.save()</code> and <code>ctx.restore()</code> calls, which push and pop a snapshot of the context's state, preventing unintended side effects.</p>
+
+<pre><code>ctx.save();
+ctx.fillStyle = 'red';
+ctx.fillRect(10, 10, 200, 100); // red rectangle
+ctx.restore(); // fillStyle is no longer red
+
+ctx.fillStyle = 'black';
+ctx.fillText('Hello, Canvas!', 20, 200); // drawn in black
+</code></pre>
+
+<p><strong>Configuring the Font Property</strong></p>
+
+<p>The <code>ctx.font</code> property controls every typographic aspect of how characters are shaped: their typeface family, weight, style, and size. The value you assign to it follows exactly the same shorthand syntax used by the CSS <code>font</code> property, which makes it familiar to anyone with web development experience.</p>
+
+<p>The general order of values in the shorthand is: <em>font-style</em>, <em>font-variant</em>, <em>font-weight</em>, <em>font-size</em> (required), and <em>font-family</em> (required). Any optional tokens that are omitted default to their initial values.</p>
+
+<pre><code>// Minimal: size and family only
+ctx.font = '16px Arial';
+
+// With weight
+ctx.font = 'bold 24px Georgia';
+
+// With style and weight
+ctx.font = 'italic bold 20px Verdana';
+
+// With small-caps variant
+ctx.font = 'small-caps 18px serif';
+</code></pre>
+
+<p>One of the most common pitfalls is omitting the unit from the font size. Writing <code>'16 Arial'</code> instead of <code>'16px Arial'</code> results in the browser ignoring the entire assignment and falling back to the previous font value (the default is <code>'10px sans-serif'</code>). Always include a valid CSS length unit: <code>px</code> (pixels) is the most predictable for canvas work, but <code>em</code>, <code>rem</code>, and <code>pt</code> are also accepted.</p>
+
+<p>Web-safe fonts such as <code>Arial</code>, <code>Georgia</code>, <code>Verdana</code>, <code>Times New Roman</code>, and <code>Courier New</code> are reliably available across platforms. You can also use custom fonts loaded via <code>@font-face</code> or the Google Fonts API — but be aware that a font must be fully loaded by the browser before it can be used on the canvas. Drawing text before the font file has loaded will fall back to the browser's default font. Using the CSS Font Loading API (<code>document.fonts.ready</code>) ensures fonts are available before you start drawing.</p>
+
+<pre><code>document.fonts.ready.then(() => {
+  ctx.font = 'bold 32px "Open Sans"';
+  ctx.fillText('Custom Font Text', 50, 100);
+});
+</code></pre>
+
+<p><strong>Filling Text with fillText()</strong></p>
+
+<p>The <code>fillText()</code> method is the primary way to draw solid text on the canvas. It fills the interior of each character's glyph with the current <code>fillStyle</code>, which can be a CSS color string, a <code>CanvasGradient</code>, or a <code>CanvasPattern</code>.</p>
+
+<p>The method signature is:</p>
+
+<pre><code>ctx.fillText(text, x, y [, maxWidth]);
+</code></pre>
+
+<ul>
+  <li><strong>text</strong> — the string to draw.</li>
+  <li><strong>x</strong> — the horizontal position of the text's anchor point (affected by <code>textAlign</code>).</li>
+  <li><strong>y</strong> — the vertical position of the text's anchor point (affected by <code>textBaseline</code>).</li>
+  <li><strong>maxWidth</strong> (optional) — a maximum pixel width; if the text would exceed this, the browser scales or condenses it to fit.</li>
+</ul>
+
+<pre><code>ctx.font = 'bold 36px Arial';
+ctx.fillStyle = 'steelblue';
+ctx.fillText('Hello, World!', 50, 100);
+</code></pre>
+
+<p>Setting <code>fillStyle</code> to a gradient creates visually striking text with no additional complexity:</p>
+
+<pre><code>const gradient = ctx.createLinearGradient(0, 0, 400, 0);
+gradient.addColorStop(0, 'red');
+gradient.addColorStop(0.5, 'orange');
+gradient.addColorStop(1, 'gold');
+
+ctx.font = 'bold 48px Impact';
+ctx.fillStyle = gradient;
+ctx.fillText('Gradient Text', 20, 80);
+</code></pre>
+
+<p>The optional <code>maxWidth</code> parameter is a simple but useful tool for preventing text overflow in constrained layouts. If the measured width of the string exceeds the specified maximum, the browser applies a scaling transform to the glyphs horizontally, compressing them. This can produce a slightly condensed appearance, so it should be used judiciously — ideally as a safety net rather than a primary layout strategy.</p>
+
+<pre><code>ctx.font = '24px Arial';
+ctx.fillStyle = 'black';
+// This long string will be compressed to fit within 200px
+ctx.fillText('A very long label that might overflow', 10, 50, 200);
+</code></pre>
+
+<p><strong>Stroking Text with strokeText()</strong></p>
+
+<p>Where <code>fillText()</code> fills the body of each glyph, <code>strokeText()</code> draws only the outline — the stroked path along each character's edges — leaving the inside transparent. This is analogous to the difference between <code>fillRect()</code> and <code>strokeRect()</code> for shapes.</p>
+
+<pre><code>ctx.font = 'bold 60px Georgia';
+ctx.strokeStyle = 'darkred';
+ctx.lineWidth = 2;
+ctx.strokeText('Outlined', 50, 120);
+</code></pre>
+
+<p>The stroke color is controlled by <code>ctx.strokeStyle</code>, and the thickness of the outline is controlled by <code>ctx.lineWidth</code>. Because the stroke is centered on the glyph's path, a very thick <code>lineWidth</code> will extend both inward and outward, which can obscure fine details at small font sizes.</p>
+
+<p>One of the most visually effective techniques is layering <code>fillText()</code> and <code>strokeText()</code> on top of each other to produce filled characters with a visible border. The order matters: draw the stroke first (so it appears underneath) and then the fill on top, or draw the fill first and the stroke on top for an overlay effect.</p>
+
+<pre><code>ctx.font = 'bold 72px Impact';
+
+// Draw white fill first
+ctx.fillStyle = 'white';
+ctx.fillText('COMICS', 40, 120);
+
+// Draw black stroke on top as an outline
+ctx.strokeStyle = 'black';
+ctx.lineWidth = 3;
+ctx.strokeText('COMICS', 40, 120);
+</code></pre>
+
+<p>Alternatively, drawing the stroke first ensures that the fill covers the inner half of the stroke line, producing a cleaner external outline:</p>
+
+<pre><code>ctx.font = 'bold 72px Impact';
+ctx.strokeStyle = 'black';
+ctx.lineWidth = 6; // thicker stroke, drawn first
+ctx.strokeText('OUTLINED', 40, 120);
+
+ctx.fillStyle = 'yellow';
+ctx.fillText('OUTLINED', 40, 120); // fill covers the inner portion
+</code></pre>
+
+<p><strong>Controlling Text Alignment</strong></p>
+
+<p>The <code>ctx.textAlign</code> property determines how the text string is positioned horizontally relative to the <code>x</code> coordinate passed to <code>fillText()</code> or <code>strokeText()</code>. It accepts five values:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Behavior</th>
+      <th>Typical Use Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>'left'</code></td>
+      <td>The left edge of the text sits at the x coordinate (default).</td>
+      <td>Standard left-to-right body text placement.</td>
+    </tr>
+    <tr>
+      <td><code>'right'</code></td>
+      <td>The right edge of the text sits at the x coordinate.</td>
+      <td>Right-aligned labels, legends.</td>
+    </tr>
+    <tr>
+      <td><code>'center'</code></td>
+      <td>The text is centered horizontally around the x coordinate.</td>
+      <td>Centered headings, data labels on bar charts.</td>
+    </tr>
+    <tr>
+      <td><code>'start'</code></td>
+      <td>Same as <code>'left'</code> for LTR text; same as <code>'right'</code> for RTL text.</td>
+      <td>Internationalized applications.</td>
+    </tr>
+    <tr>
+      <td><code>'end'</code></td>
+      <td>Same as <code>'right'</code> for LTR text; same as <code>'left'</code> for RTL text.</td>
+      <td>Internationalized applications.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The distinction between <code>'left'</code>/<code>'right'</code> and <code>'start'</code>/<code>'end'</code> is subtle but important for global applications. In a right-to-left writing system (such as Arabic or Hebrew), <code>'start'</code> will automatically anchor text to the right, matching the natural reading direction, without any extra code changes. For most English-language canvas work, <code>'left'</code>, <code>'right'</code>, and <code>'center'</code> are the practical choices.</p>
+
+<p>A very common use of <code>'center'</code> alignment is placing a label directly above the center of a bar in a bar chart:</p>
+
+<pre><code>function drawBar(ctx, x, barWidth, barHeight, canvasHeight, label) {
+  const barX = x;
+  const barY = canvasHeight - barHeight;
+
+  // Draw the bar
+  ctx.fillStyle = 'steelblue';
+  ctx.fillRect(barX, barY, barWidth, barHeight);
+
+  // Draw the centered label above the bar
+  ctx.font = '14px Arial';
+  ctx.fillStyle = 'black';
+  ctx.textAlign = 'center';
+  ctx.fillText(label, barX + barWidth / 2, barY - 8);
+}
+</code></pre>
+
+<p>By setting <code>textAlign</code> to <code>'center'</code> and passing <code>barX + barWidth / 2</code> as the x coordinate, the label is perfectly centered over the bar regardless of its pixel width.</p>
+
+<p><strong>Setting the Text Baseline</strong></p>
+
+<p>The <code>ctx.textBaseline</code> property controls how the text is aligned vertically relative to the <code>y</code> coordinate. This is the canvas equivalent of the CSS <code>vertical-align</code> concept, and choosing the wrong baseline can result in text that appears subtly (or dramatically) misplaced.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Description</th>
+      <th>Best For</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>'alphabetic'</code></td>
+      <td>The baseline on which most Latin letters "sit" (default). Descenders like <em>g</em>, <em>p</em>, and <em>y</em> extend below it.</td>
+      <td>General Latin text, consistent with typography norms.</td>
+    </tr>
+    <tr>
+      <td><code>'top'</code></td>
+      <td>The top of the em square (roughly the tallest ascender) aligns with y.</td>
+      <td>Placing text so its top edge is at an exact pixel row.</td>
+    </tr>
+    <tr>
+      <td><code>'middle'</code></td>
+      <td>The middle of the em square aligns with y.</td>
+      <td>Vertically centering text within a bounding box or next to an icon.</td>
+    </tr>
+    <tr>
+      <td><code>'bottom'</code></td>
+      <td>The bottom of the em square aligns with y.</td>
+      <td>Placing text so its bottom edge is at an exact pixel row.</td>
+    </tr>
+    <tr>
+      <td><code>'hanging'</code></td>
+      <td>Used in Indic scripts where glyphs hang from a top line.</td>
+      <td>Devanagari and similar scripts.</td>
+    </tr>
+    <tr>
+      <td><code>'ideographic'</code></td>
+      <td>Bottom of ideographic character box; used for CJK scripts.</td>
+      <td>Chinese, Japanese, Korean text.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For most canvas drawing tasks involving Latin text, the two baselines you will use most often are <code>'alphabetic'</code> (the default) and <code>'middle'</code>. Using <code>'middle'</code> is especially useful when you want to center a text label vertically within a drawn shape, such as a button rectangle or a pie chart slice:</p>
+
+<pre><code>const rectX = 100, rectY = 60, rectW = 200, rectH = 50;
+
+// Draw a button shape
+ctx.fillStyle = '#4CAF50';
+ctx.fillRect(rectX, rectY, rectW, rectH);
+
+// Center the label inside the button
+ctx.font = 'bold 18px Arial';
+ctx.fillStyle = 'white';
+ctx.textAlign = 'center';
+ctx.textBaseline = 'middle';
+ctx.fillText('Click Me', rectX + rectW / 2, rectY + rectH / 2);
+</code></pre>
+
+<p>With both <code>textAlign</code> set to <code>'center'</code> and <code>textBaseline</code> set to <code>'middle'</code>, the text is positioned at the exact geometric center of the rectangle — a pattern used constantly in canvas-based UI components and data visualizations.</p>
+
+<p><strong>Measuring Text Width with measureText()</strong></p>
+
+<p>Because the canvas does not automatically wrap or reflow text the way the browser's layout engine does for HTML, you are responsible for calculating whether text fits within available space. The <code>ctx.measureText()</code> method is the essential tool for this job. It takes a string as its argument and returns a <code>TextMetrics</code> object that describes the dimensional properties of that string <em>as it would be rendered with the current font settings</em>.</p>
+
+<pre><code>ctx.font = 'bold 24px Arial';
+const metrics = ctx.measureText('Hello, Canvas!');
+console.log(metrics.width); // e.g., 187.5 (pixels)
+</code></pre>
+
+<p>The most widely supported property on the <code>TextMetrics</code> object is <code>width</code>. Modern browsers also expose additional properties such as <code>actualBoundingBoxAscent</code>, <code>actualBoundingBoxDescent</code>, <code>fontBoundingBoxAscent</code>, and <code>fontBoundingBoxDescent</code>, which allow you to calculate the precise height of a text block — essential for exact vertical centering or collision detection with other drawn elements.</p>
+
+<p>A critical rule: <strong>always set <code>ctx.font</code> before calling <code>measureText()</code></strong>. The returned width is computed based on whatever font is currently active. Measuring with the wrong font and then switching fonts before drawing will produce a mismatch between the measured and rendered widths.</p>
+
+<pre><code>// Wrong: measure before setting font
+const badMetrics = ctx.measureText('Test'); // uses previous/default font
+ctx.font = 'bold 24px Arial';
+ctx.fillText('Test', 50, 50); // rendered width differs from badMetrics.width
+
+// Correct: set font first
+ctx.font = 'bold 24px Arial';
+const goodMetrics = ctx.measureText('Test'); // accurate for this font
+ctx.fillText('Test', 50, 50); // rendered width matches goodMetrics.width
+</code></pre>
+
+<p>One of the most important practical applications of <code>measureText()</code> is building a manual text-wrapping function. Since the canvas provides no built-in line breaking, you must write logic that splits text into words, measures each word, and wraps to a new line when the accumulated width exceeds the available area.</p>
+
+<pre><code>function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+  const words = text.split(' ');
+  let line = '';
+
+  for (let i = 0; i &lt; words.length; i++) {
+    const testLine = line + words[i] + ' ';
+    const metrics = ctx.measureText(testLine);
+    const testWidth = metrics.width;
+
+    if (testWidth &gt; maxWidth &amp;&amp; i &gt; 0) {
+      ctx.fillText(line.trim(), x, y);
+      line = words[i] + ' ';
+      y += lineHeight;
+    } else {
+      line = testLine;
+    }
+  }
+  // Draw the last remaining line
+  ctx.fillText(line.trim(), x, y);
+}
+
+// Usage
+ctx.font = '16px Arial';
+ctx.fillStyle = 'black';
+wrapText(
+  ctx,
+  'This is a longer paragraph of text that should wrap across multiple lines on the canvas.',
+  20,    // x
+  40,    // y
+  300,   // maxWidth
+  24     // lineHeight in pixels
+);
+</code></pre>
+
+<p>In this function, each word is tentatively added to the current line and measured. If the test line's width exceeds <code>maxWidth</code>, the current line is drawn and a new line begins with the word that caused the overflow. The <code>y</code> coordinate is incremented by <code>lineHeight</code> for each new line, manually replicating the behavior that the browser provides automatically for HTML text. The <code>lineHeight</code> value is typically set to 1.2–1.5 times the font size for comfortable reading.</p>
+
+<p><code>measureText()</code> is also useful for right-aligning or centering text without relying on <code>textAlign</code>, for detecting whether a user's mouse click falls within a rendered text string, and for precisely positioning decorative elements (such as underlines or highlight boxes) relative to known text dimensions. The combination of font configuration, fill and stroke methods, alignment controls, and text measurement gives you everything needed to implement sophisticated typographic layouts directly on the canvas.</p>
+        <div class="notes"><strong>Notes</strong>Students should practice combining fillText() and strokeText() layering, and implement the wrapText() function as a hands-on exercise. Emphasize always setting ctx.font before measureText() and highlight save()/restore() as a best practice when switching between text and shape drawing operations.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

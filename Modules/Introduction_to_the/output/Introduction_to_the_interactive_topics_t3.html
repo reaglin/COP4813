@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The DOM Tree Structure</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>The DOM Tree Structure</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>The DOM Tree Structure</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When a browser receives an HTML file, it does not display the raw markup text directly. Instead, it reads through the markup character by character and constructs a rich, interconnected data structure entirely in memory. This data structure is called the <strong>Document Object Model</strong>, or <strong>DOM</strong>, and its shape is that of a <strong>tree</strong> — a hierarchical arrangement of linked objects called <em>nodes</em>. Understanding this tree is the foundation of all JavaScript-based web development, because every interaction a script has with a web page — reading content, changing styles, responding to clicks, injecting new elements — is really an interaction with this in-memory tree, not with the HTML text file itself.</p>
+
+<p>The tree metaphor is precise and intentional. Just like a botanical tree, the DOM tree has a single root from which everything else branches outward. Each branch point is a <em>node</em>, and nodes are connected to one another through clearly defined relationships: a node can be a <strong>parent</strong> of the nodes below it, a <strong>child</strong> of the node above it, and a <strong>sibling</strong> of nodes that share the same parent. These relationships mirror exactly the nesting structure of the original HTML tags. A <code>&lt;p&gt;</code> element nested inside a <code>&lt;div&gt;</code> becomes a child node of the <code>&lt;div&gt;</code> node. Text written between an opening and closing <code>&lt;p&gt;</code> tag becomes a child node of that <code>&lt;p&gt;</code> node. The tree captures every piece of the document — its structure, its content, and its metadata — in a form that programs can traverse and modify.</p>
+
+<p>There are several distinct <em>types</em> of nodes in the DOM tree. The most important are the <strong>document node</strong>, <strong>element nodes</strong>, <strong>text nodes</strong>, and <strong>attribute nodes</strong>. Each type has a specific role, and together they account for nearly everything a developer works with when scripting a web page.</p>
+
+<p><strong>The Document Node</strong></p>
+
+<p>At the very top of every DOM tree sits a single, unique object: the <strong>document node</strong>. There is exactly one document node per page, and it is the root ancestor of every other node in the entire tree. In JavaScript, this node is always available through the global variable <code>document</code>. It does not correspond to any visible HTML element — you will not see a <code>&lt;document&gt;</code> tag in your markup — but it represents the HTML document as a whole, serving as the entry point to everything inside it.</p>
+
+<p>Because the document node is the root, all DOM queries begin there. When you write <code>document.getElementById('main')</code> or <code>document.querySelector('.highlight')</code>, you are asking the document node to search its descendant tree for matching nodes. Without this single, stable starting point, navigating the tree would have no reliable origin. Every node in the tree can ultimately trace its lineage back through parent relationships to the document node.</p>
+
+<p>The document node also exposes properties that describe the document itself, such as <code>document.title</code>, <code>document.URL</code>, and <code>document.doctype</code>. These are attributes of the document as a whole, not of any particular element within it.</p>
+
+<p><strong>Element Nodes</strong></p>
+
+<p>Every HTML tag you write in your markup — <code>&lt;html&gt;</code>, <code>&lt;body&gt;</code>, <code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;li&gt;</code>, and so on — becomes an <strong>element node</strong> in the DOM tree. Element nodes are by far the most common node type a developer interacts with, and they form the skeleton of the tree.</p>
+
+<p>The nesting of element nodes in the DOM directly reflects the nesting of tags in the HTML source. Consider this markup:</p>
+
+<pre><code>&lt;div id="container"&gt;
+  &lt;h1&gt;Hello, World&lt;/h1&gt;
+  &lt;p&gt;Welcome to the DOM.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+<p>In the DOM tree, the <code>&lt;div&gt;</code> element node is the parent of both the <code>&lt;h1&gt;</code> element node and the <code>&lt;p&gt;</code> element node. The <code>&lt;h1&gt;</code> and <code>&lt;p&gt;</code> nodes are <em>siblings</em> of each other, because they share the same parent. The <code>&lt;div&gt;</code> itself is a child of the <code>&lt;body&gt;</code> element node, which is a child of the <code>&lt;html&gt;</code> element node, which is a child of the document node.</p>
+
+<p>Element nodes support a rich set of JavaScript properties and methods. You can read or change an element's <code>innerHTML</code>, <code>textContent</code>, <code>style</code>, and <code>classList</code>. You can call <code>appendChild()</code>, <code>removeChild()</code>, and <code>replaceChild()</code> to restructure the tree. When developers talk about "selecting an element" or "manipulating the DOM," they are almost always working with element nodes.</p>
+
+<p><strong>Text Nodes</strong></p>
+
+<p>Between the opening and closing tags of an element, any raw string of characters — including ordinary words, numbers, punctuation, and even whitespace — becomes a <strong>text node</strong>. Text nodes are always <em>children</em> of element nodes, and they are always <em>leaves</em> of the tree, meaning they have no children of their own. They sit at the outermost edges of the DOM tree.</p>
+
+<p>In the example above, the string <code>Hello, World</code> inside the <code>&lt;h1&gt;</code> tag is not stored directly on the <code>&lt;h1&gt;</code> element node. It is stored in a separate text node that is a child of the <code>&lt;h1&gt;</code> element node. The same is true of <code>Welcome to the DOM.</code> inside the <code>&lt;p&gt;</code> tag.</p>
+
+<p>This distinction matters when navigating the tree programmatically. If you access <code>h1Element.childNodes</code>, you will find a collection that includes the text node, not just child elements. If you want to read or change the visible text, you can access the text node's <code>nodeValue</code> property, or more conveniently use the element's <code>textContent</code> property, which collects the text content of the element and all its descendants.</p>
+
+<p>Whitespace in HTML — newlines and spaces between tags — also creates text nodes, which can sometimes surprise developers who are iterating over <code>childNodes</code> and encounter unexpected entries. Using <code>children</code> (which returns only element nodes) instead of <code>childNodes</code> (which returns all node types) is a common way to avoid this.</p>
+
+<p><strong>Attribute Nodes</strong></p>
+
+<p>HTML elements carry attributes — pieces of metadata written directly in the opening tag, such as <code>id="container"</code>, <code>class="highlight"</code>, <code>href="https://example.com"</code>, or <code>src="image.png"</code>. Each such attribute is modeled in the DOM as an <strong>attribute node</strong>.</p>
+
+<p>Attribute nodes occupy a special position in the DOM. Unlike element nodes and text nodes, attribute nodes are <em>not</em> considered children of their element in the standard parent-child sense. They are treated as properties that <em>belong to</em> their element node, rather than nodes that hang below it in the tree hierarchy. You will not encounter attribute nodes when walking <code>childNodes</code> or <code>children</code>. Instead, they are accessed through dedicated APIs on the element node itself.</p>
+
+<p>JavaScript provides several methods for working with attribute nodes:</p>
+
+<ul>
+  <li><code>element.getAttribute('class')</code> — reads the value of the named attribute, returning it as a string.</li>
+  <li><code>element.setAttribute('class', 'new-value')</code> — sets or updates the named attribute to the given value.</li>
+  <li><code>element.removeAttribute('class')</code> — removes the attribute entirely from the element.</li>
+  <li><code>element.hasAttribute('class')</code> — returns <code>true</code> if the attribute exists, <code>false</code> otherwise.</li>
+</ul>
+
+<p>Many commonly used attributes also have direct JavaScript property equivalents on the element node. For instance, <code>element.id</code>, <code>element.className</code>, <code>element.href</code>, and <code>element.src</code> provide shorthand access to their corresponding HTML attributes. The <code>element.classList</code> API goes further, exposing methods like <code>add()</code>, <code>remove()</code>, and <code>toggle()</code> for managing CSS classes without manipulating raw strings.</p>
+
+<p><strong>Parent, Child, and Sibling Relationships</strong></p>
+
+<p>The power of the DOM tree comes largely from the navigational relationships between nodes. These relationships allow a developer starting at any node to move to any other node in the tree, traveling upward toward ancestors, downward toward descendants, or sideways to siblings.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Relationship</th>
+      <th>Definition</th>
+      <th>JavaScript Property</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Parent</td>
+      <td>The node directly above the current node in the hierarchy</td>
+      <td><code>node.parentNode</code> / <code>element.parentElement</code></td>
+    </tr>
+    <tr>
+      <td>Child</td>
+      <td>A node directly below the current node</td>
+      <td><code>node.childNodes</code> / <code>element.children</code></td>
+    </tr>
+    <tr>
+      <td>First Child</td>
+      <td>The first node in the current node's list of children</td>
+      <td><code>node.firstChild</code> / <code>element.firstElementChild</code></td>
+    </tr>
+    <tr>
+      <td>Last Child</td>
+      <td>The last node in the current node's list of children</td>
+      <td><code>node.lastChild</code> / <code>element.lastElementChild</code></td>
+    </tr>
+    <tr>
+      <td>Next Sibling</td>
+      <td>The node immediately after the current node, sharing the same parent</td>
+      <td><code>node.nextSibling</code> / <code>element.nextElementSibling</code></td>
+    </tr>
+    <tr>
+      <td>Previous Sibling</td>
+      <td>The node immediately before the current node, sharing the same parent</td>
+      <td><code>node.previousSibling</code> / <code>element.previousElementSibling</code></td>
+    </tr>
+    <tr>
+      <td>Ancestor</td>
+      <td>Any node above the current node (parent, grandparent, etc.)</td>
+      <td>Traversed via repeated <code>.parentNode</code> calls or <code>closest()</code></td>
+    </tr>
+    <tr>
+      <td>Descendant</td>
+      <td>Any node below the current node at any depth</td>
+      <td><code>element.querySelectorAll()</code> searches all descendants</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Notice that most relationships have two flavors of property: one that accounts for <em>all</em> node types (including text nodes and comment nodes), and one suffixed with <code>Element</code> that considers only element nodes. In practice, the <code>Element</code> variants are more commonly useful, because developers usually want to navigate between tags rather than raw text strings.</p>
+
+<p>To illustrate these relationships concretely, consider the following HTML:</p>
+
+<pre><code>&lt;ul id="list"&gt;
+  &lt;li&gt;First&lt;/li&gt;
+  &lt;li&gt;Second&lt;/li&gt;
+  &lt;li&gt;Third&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+<p>In the DOM, the <code>&lt;ul&gt;</code> node is the <strong>parent</strong> of three <code>&lt;li&gt;</code> nodes. Each <code>&lt;li&gt;</code> node is a <strong>child</strong> of the <code>&lt;ul&gt;</code>. The three <code>&lt;li&gt;</code> nodes are <strong>siblings</strong> of each other. The text <code>First</code> is a text node child of the first <code>&lt;li&gt;</code>. The first <code>&lt;li&gt;</code> has no previous sibling, and the third <code>&lt;li&gt;</code> has no next sibling. Using JavaScript:</p>
+
+<pre><code>const list = document.getElementById('list');
+
+// Access children
+const items = list.children;         // HTMLCollection of three &lt;li&gt; elements
+const first = list.firstElementChild; // the first &lt;li&gt;
+const last  = list.lastElementChild;  // the third &lt;li&gt;
+
+// Sibling navigation from the first item
+const second = first.nextElementSibling; // the second &lt;li&gt;
+
+// Move upward
+const parentOfList = list.parentElement; // the &lt;body&gt; element (or enclosing container)</code></pre>
+
+<p><strong>How Browsers Build the DOM Tree from HTML</strong></p>
+
+<p>The DOM tree does not appear all at once. It is built incrementally by the browser's <strong>HTML parser</strong> as it reads the source file from top to bottom. Understanding this construction process illuminates both how the tree gets its shape and why the order of elements in HTML matters.</p>
+
+<p>The process works as follows:</p>
+
+<ul>
+  <li>The parser begins by creating the document node, which immediately becomes the root of the tree.</li>
+  <li>As the parser reads the first opening tag — <code>&lt;html&gt;</code> — it creates a corresponding element node and attaches it as a child of the document node. The parser then descends into this node, meaning subsequent nodes will be created as children of <code>&lt;html&gt;</code>.</li>
+  <li>When the parser encounters the next opening tag — say, <code>&lt;head&gt;</code> — it creates a <code>&lt;head&gt;</code> element node as a child of <code>&lt;html&gt;</code> and descends again.</li>
+  <li>When it encounters a closing tag — <code>&lt;/head&gt;</code> — it moves back up to the parent node (<code>&lt;html&gt;</code>), signaling that the <code>&lt;head&gt;</code> subtree is complete.</li>
+  <li>Character data found between tags is used to create text nodes, attached as children of the current element node.</li>
+  <li>This process of descend-on-open, ascend-on-close continues recursively through the entire document, perfectly reproducing the nested structure of the HTML as a tree of linked node objects.</li>
+</ul>
+
+<p>By the time the parser reaches the end of the HTML file, the full DOM tree exists in memory. This completed tree is what JavaScript interacts with at runtime. A script can call <code>document.createElement('p')</code> to create a new element node, set its <code>textContent</code>, and then call <code>someParent.appendChild(newParagraph)</code> to insert it into the tree. The browser will immediately update what is displayed on screen to reflect this change.</p>
+
+<p>Crucially, these changes to the DOM tree are entirely <em>in memory</em>. The original <code>.html</code> file sitting on the server is never touched. If you reload the page, the browser re-parses the original file and builds a fresh tree, discarding any modifications made by JavaScript during the previous session. The DOM is a <em>live representation</em> of the current state of the document in the browser, not a persistent record of the file on disk.</p>
+
+<p>This also explains why JavaScript placed at the top of an HTML file — before the rest of the page is parsed — can fail to find elements that are defined lower in the markup. At the moment that script executes, those elements have not yet been parsed into the DOM tree. Placing scripts at the bottom of the <code>&lt;body&gt;</code> or using the <code>defer</code> attribute on <code>&lt;script&gt;</code> tags ensures the full tree is available before code runs.</p>
+        <div class="notes"><strong>Notes</strong>Describes the hierarchical node-based structure of the DOM, covering the relationships between document, element, text, and attribute nodes.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

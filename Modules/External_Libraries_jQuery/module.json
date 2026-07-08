@@ -1,0 +1,9 @@
+{
+  "Id": "fd8979f6-860b-4b50-8f60-d4af3d0cee9b",
+  "Name": "6 - External Libraries: jQuery, Bootstrap, and Plotting Tools",
+  "Description": "This lesson demonstrates how to integrate third-party libraries via CDN, covering jQuery for DOM manipulation, Bootstrap for responsive layout and components, and a plotting library such as Chart.js for data visualization.",
+  "CreatedBy": "Ron Eaglin",
+  "CreatedDate": "2026-06-26T21:24:50.0309166-04:00",
+  "LastModifiedDate": "2026-07-07T16:40:34.5762248-04:00",
+  "Actions": []
+}

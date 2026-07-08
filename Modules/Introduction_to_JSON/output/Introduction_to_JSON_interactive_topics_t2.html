@@ -1,0 +1,327 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON Syntax and Structure</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>JSON Syntax and Structure</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>JSON Syntax and Structure</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>JSON, which stands for <strong>JavaScript Object Notation</strong>, is a lightweight, text-based data interchange format that has become the dominant standard for transmitting structured data across the web. It was derived from the object literal syntax of JavaScript, but it is entirely language-independent — virtually every modern programming language has libraries capable of parsing and generating JSON. Its popularity stems from a simple but powerful combination of qualities: it is compact, it is human-readable, and it maps naturally onto the data structures (objects and arrays) that developers work with every day.</p>
+
+<p>When a web browser requests data from a server — for example, fetching a user's profile or a list of products — the server almost always responds with a JSON string. The browser's JavaScript engine can parse that string into native objects and work with the data immediately. Despite this close relationship with JavaScript, it is important to understand a fundamental distinction: <strong>JSON is a string</strong>. It is a textual representation of structured data, not a live JavaScript object. A JavaScript object can contain functions, undefined values, and other constructs that have no JSON equivalent. JSON is a strict, portable subset of notation that any language can read and write.</p>
+
+<p>JSON is also written as plain text, which means you can open a <code>.json</code> file in any text editor, read it without special tools, and spot errors by eye. This transparency makes debugging and logging significantly easier compared to binary formats like Protocol Buffers or MessagePack.</p>
+
+<p>To work effectively with JSON, you need a solid understanding of the data types it supports, the rules for constructing objects and arrays, the formatting conventions that separate valid JSON from invalid JSON, and the way structures can be nested to represent complex real-world data.</p>
+
+<p><strong>JSON Data Types</strong></p>
+
+<p>Every value in a JSON document must belong to one of six permitted data types. Using any other type — for instance, a JavaScript function or a date object — is not valid JSON.</p>
+
+<ul>
+  <li><strong>String:</strong> A sequence of Unicode characters enclosed in <em>double quotes</em>. Single quotes are not permitted. Strings support standard escape sequences such as <code>\"</code> for an embedded double quote, <code>\\</code> for a backslash, <code>\n</code> for a newline, and <code>\uXXXX</code> for a Unicode code point. Example: <code>"name": "Alice"</code>.</li>
+  <li><strong>Number:</strong> An integer or floating-point value written without quotes. JSON numbers follow standard decimal notation and support scientific notation (e.g., <code>1.5e3</code>). There is no separate integer type; <code>30</code> and <code>30.0</code> are both numbers. Example: <code>"age": 30</code>, <code>"price": 9.99</code>.</li>
+  <li><strong>Boolean:</strong> Exactly one of the two literal values <code>true</code> or <code>false</code>, written in lowercase with no quotes. Capitalised variants like <code>True</code> or <code>TRUE</code> are invalid. Example: <code>"active": true</code>.</li>
+  <li><strong>Null:</strong> The single literal value <code>null</code>, also in lowercase with no quotes. It represents an intentional absence of a value, distinct from an empty string or the number zero. Example: <code>"middleName": null</code>.</li>
+  <li><strong>Object:</strong> An unordered collection of key-value pairs enclosed in curly braces <code>{}</code>. Objects are themselves valid values, enabling nesting.</li>
+  <li><strong>Array:</strong> An ordered list of values enclosed in square brackets <code>[]</code>. Arrays are also valid values and can be nested freely.</li>
+</ul>
+
+<p>The table below summarises these types with concise examples:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Example Value</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>String</td>
+      <td><code>"Hello, world!"</code></td>
+      <td>Must use double quotes</td>
+    </tr>
+    <tr>
+      <td>Number</td>
+      <td><code>42</code>, <code>3.14</code>, <code>-7</code>, <code>2e10</code></td>
+      <td>No quotes; integers and decimals both valid</td>
+    </tr>
+    <tr>
+      <td>Boolean</td>
+      <td><code>true</code>, <code>false</code></td>
+      <td>Lowercase literals only</td>
+    </tr>
+    <tr>
+      <td>Null</td>
+      <td><code>null</code></td>
+      <td>Represents intentional absence of value</td>
+    </tr>
+    <tr>
+      <td>Object</td>
+      <td><code>{"key": "value"}</code></td>
+      <td>Unordered key-value pairs</td>
+    </tr>
+    <tr>
+      <td>Array</td>
+      <td><code>[1, 2, 3]</code></td>
+      <td>Ordered list; preserves sequence</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>JSON Objects</strong></p>
+
+<p>A JSON object is an unordered set of key-value pairs wrapped in curly braces. It is the most commonly encountered JSON structure and directly mirrors the concept of a dictionary, map, or hash in most programming languages. The rules for writing a valid JSON object are precise and must be followed exactly.</p>
+
+<ul>
+  <li><strong>Keys must be strings in double quotes.</strong> Unlike JavaScript object literals, where keys can be unquoted identifiers, JSON requires every key to be a double-quoted string. Writing <code>{name: "Alice"}</code> is not valid JSON; you must write <code>{"name": "Alice"}</code>.</li>
+  <li><strong>Each key is followed by a colon</strong> (<code>:</code>), then its associated value.</li>
+  <li><strong>Pairs are separated by commas.</strong> There must be no trailing comma after the last key-value pair.</li>
+  <li><strong>Values can be any valid JSON type</strong>, including another object, enabling nesting.</li>
+</ul>
+
+<p>Here is a straightforward JSON object representing a person:</p>
+
+<pre><code>{
+  "firstName": "Alice",
+  "lastName": "Johnson",
+  "age": 34,
+  "isEmployed": true,
+  "nickname": null
+}</code></pre>
+
+<p>Notice that there is no comma after the last pair (<code>"nickname": null</code>). Adding one would make the document invalid. Also observe that each key — <code>"firstName"</code>, <code>"lastName"</code>, etc. — is enclosed in double quotes.</p>
+
+<p>Objects can be <em>nested</em>: the value associated with a key can itself be a JSON object. For example, an address can be represented as a nested object inside a person object:</p>
+
+<pre><code>{
+  "firstName": "Alice",
+  "age": 34,
+  "address": {
+    "street": "12 Maple Avenue",
+    "city": "Springfield",
+    "postalCode": "62701"
+  }
+}</code></pre>
+
+<p>The <code>"address"</code> key holds an entire object as its value. That inner object follows exactly the same rules as the outer one.</p>
+
+<p><strong>JSON Arrays</strong></p>
+
+<p>A JSON array is an ordered list of values enclosed in square brackets. Order is meaningful — the first element is always the first element, and parsers are required to preserve that sequence. Arrays are ideal for representing collections of items: a list of tags, a series of measurements, or a roster of users.</p>
+
+<ul>
+  <li><strong>Elements can be any valid JSON type</strong>, including strings, numbers, booleans, null, objects, or other arrays.</li>
+  <li><strong>Elements are separated by commas</strong>, and as with objects, a trailing comma after the last element is not permitted.</li>
+  <li><strong>Arrays preserve order</strong>, so the position of each element carries meaning.</li>
+  <li><strong>A single array may contain mixed types</strong>, though in practice most arrays hold elements of a consistent type for clarity.</li>
+</ul>
+
+<p>A simple array of strings:</p>
+
+<pre><code>["red", "green", "blue"]</code></pre>
+
+<p>An array of numbers:</p>
+
+<pre><code>[10, 20, 30, 40, 50]</code></pre>
+
+<p>A particularly common pattern is an array of objects, which represents a list of structured records. The following example shows an array of two user objects:</p>
+
+<pre><code>[
+  {
+    "id": 1,
+    "username": "alice",
+    "active": true
+  },
+  {
+    "id": 2,
+    "username": "bob",
+    "active": false
+  }
+]</code></pre>
+
+<p>This structure is exactly what a REST API might return when a client requests a list of users. Each element in the array is a complete, self-contained JSON object, and together they form an ordered collection.</p>
+
+<p>Arrays can also be nested within arrays. A two-dimensional grid of numbers, for instance, could be represented as:</p>
+
+<pre><code>[
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9]
+]</code></pre>
+
+<p><strong>JSON Formatting Conventions</strong></p>
+
+<p>Valid JSON is governed by a strict set of syntactic rules. Violating any of them produces a document that cannot be parsed. These rules are worth memorising, because even a single misplaced character will cause an error.</p>
+
+<ul>
+  <li><strong>Double quotes only.</strong> All string keys and all string values must be wrapped in double quotes (<code>"</code>). Single quotes (<code>'</code>) are not valid in JSON under any circumstances.</li>
+  <li><strong>No trailing commas.</strong> A comma must appear between consecutive elements or pairs, but not after the last one. Many developers transitioning from JavaScript make this mistake because modern JavaScript tolerates trailing commas; JSON does not.</li>
+  <li><strong>No comments.</strong> JSON has no comment syntax. Adding <code>// ...</code> or <code>/* ... */</code> anywhere in a JSON document immediately makes it invalid. If you need to annotate JSON configuration files, some tools support a superset like JSON5 or JSONC, but those are not standard JSON.</li>
+  <li><strong>Whitespace is insignificant.</strong> Spaces, tabs, and newlines can be inserted freely between tokens for readability. The compact form <code>{"a":1,"b":2}</code> and the indented form below are semantically identical:</li>
+</ul>
+
+<pre><code>{
+  "a": 1,
+  "b": 2
+}</code></pre>
+
+<ul>
+  <li><strong>A single root element.</strong> Every valid JSON document has exactly one root element. That root can be an object, an array, a string, a number, a boolean, or null — but there can only be one of them at the top level. You cannot place two separate objects side by side at the root.</li>
+  <li><strong>Case sensitivity.</strong> JSON is case-sensitive. The key <code>"Name"</code> and the key <code>"name"</code> are two entirely different keys. Similarly, <code>True</code> is not a valid boolean; only <code>true</code> is.</li>
+</ul>
+
+<p>The following example highlights several common errors and their corrections:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Invalid JSON</th>
+      <th>Problem</th>
+      <th>Corrected JSON</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>{name: "Alice"}</code></td>
+      <td>Key not in double quotes</td>
+      <td><code>{"name": "Alice"}</code></td>
+    </tr>
+    <tr>
+      <td><code>{'name': 'Alice'}</code></td>
+      <td>Single quotes used</td>
+      <td><code>{"name": "Alice"}</code></td>
+    </tr>
+    <tr>
+      <td><code>{"name": "Alice",}</code></td>
+      <td>Trailing comma</td>
+      <td><code>{"name": "Alice"}</code></td>
+    </tr>
+    <tr>
+      <td><code>{"active": True}</code></td>
+      <td>Boolean not lowercase</td>
+      <td><code>{"active": true}</code></td>
+    </tr>
+    <tr>
+      <td><code>{"score": .5}</code></td>
+      <td>Number must start with digit</td>
+      <td><code>{"score": 0.5}</code></td>
+    </tr>
+    <tr>
+      <td><code>// comment<br>{"x": 1}</code></td>
+      <td>Comments not allowed</td>
+      <td><code>{"x": 1}</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Nested Structures in JSON</strong></p>
+
+<p>One of JSON's greatest strengths is its ability to represent hierarchical, real-world data through nesting. Objects can contain arrays, arrays can contain objects, and both can go multiple levels deep. Each nested level obeys exactly the same syntax rules as the top level, so once you understand the basic structure, you can read and write arbitrarily complex documents.</p>
+
+<p>Consider a JSON document representing a company. A company has a name, a founding year, a list of departments, and each department has its own name and a list of employees. Each employee has a name, a role, and a set of skills:</p>
+
+<pre><code>{
+  "company": "Acme Corp",
+  "founded": 1947,
+  "departments": [
+    {
+      "name": "Engineering",
+      "employees": [
+        {
+          "name": "Alice",
+          "role": "Backend Developer",
+          "skills": ["Python", "SQL", "Docker"]
+        },
+        {
+          "name": "Bob",
+          "role": "Frontend Developer",
+          "skills": ["JavaScript", "CSS", "React"]
+        }
+      ]
+    },
+    {
+      "name": "Marketing",
+      "employees": [
+        {
+          "name": "Carol",
+          "role": "Campaign Manager",
+          "skills": ["SEO", "Analytics"]
+        }
+      ]
+    }
+  ]
+}</code></pre>
+
+<p>Walking through this structure: the root is a JSON object with three keys. The <code>"departments"</code> key holds an array. Each element of that array is an object with a <code>"name"</code> key (a string) and an <code>"employees"</code> key (another array). Each element of the employees array is itself an object containing a <code>"skills"</code> key whose value is an array of strings. This is three levels of nesting, and every level follows the same fundamental rules.</p>
+
+<p>While nesting can go arbitrarily deep, practical wisdom suggests keeping structures as flat as reasonably possible. Deeply nested JSON becomes difficult to read, harder to maintain, and can complicate the parsing code on the receiving end. When you find yourself five or six levels deep, it may be worth reconsidering the data model.</p>
+
+<p>It is also worth noting that when objects contain arrays and arrays contain objects in the same structure, you gain the full expressive power needed to model almost any real-world dataset — from configuration files and API responses to database exports and inter-service communication payloads. JSON's simplicity is not a limitation; it is precisely what makes it so universally interoperable.</p>
+        <div class="notes"><strong>Notes</strong>An exploration of the rules and structure of valid JSON, including data types, objects, arrays, and formatting conventions.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

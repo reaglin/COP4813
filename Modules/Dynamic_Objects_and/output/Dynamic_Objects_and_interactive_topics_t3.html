@@ -1,0 +1,431 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modifying Existing Elements and Their Properties</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Modifying Existing Elements and Their Properties</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Modifying Existing Elements and Their Properties</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>One of the most fundamental tasks in client-side JavaScript is reaching into a live web page and changing what the user sees or how elements behave — without reloading the page. The Document Object Model (DOM) exposes a rich set of properties and methods that let you read and write virtually every characteristic of an element: its attributes, its styles, its classes, its text, and its dimensions. Mastering these techniques is the foundation of interactive web development, because nearly every UI feature — toggling a menu, disabling a button after a form submits, swapping an image, showing a validation error — relies on modifying existing elements at runtime.</p>
+
+<p>This topic walks through each category of modification in depth, explains the subtle but important distinctions between similar-looking APIs (such as <code>getAttribute</code> vs. direct property access, or <code>textContent</code> vs. <code>innerText</code> vs. <code>innerHTML</code>), and supplies concrete examples you can reason about and adapt.</p>
+
+<p><strong>Reading and Writing Element Attributes</strong></p>
+
+<p>HTML elements carry <em>attributes</em> — the key-value pairs written directly in markup, like <code>src="photo.jpg"</code> or <code>disabled</code>. The DOM provides three dedicated methods for working with these attributes as strings, regardless of what kind of attribute they are.</p>
+
+<p><code>element.getAttribute('src')</code> reads the current serialized value of any attribute. It always returns a string (or <code>null</code> if the attribute does not exist), and it never alters the element. This is the safe, universal way to inspect any attribute, including non-standard data attributes and ARIA attributes:</p>
+
+<pre><code>const img = document.querySelector('img');
+const currentSrc = img.getAttribute('src');
+console.log(currentSrc); // e.g. "images/hero.jpg"
+
+const role = img.getAttribute('aria-label');
+console.log(role); // null if not present
+</code></pre>
+
+<p><code>element.setAttribute('href', 'https://example.com')</code> creates the attribute if it does not already exist, or replaces its value if it does. The second argument is always coerced to a string:</p>
+
+<pre><code>const link = document.querySelector('a');
+link.setAttribute('href', 'https://example.com');
+link.setAttribute('target', '_blank');
+link.setAttribute('rel', 'noopener noreferrer');
+</code></pre>
+
+<p><code>element.removeAttribute('disabled')</code> deletes the attribute entirely from the element. This matters especially for boolean attributes like <code>disabled</code>, <code>checked</code>, or <code>readonly</code>, where the <em>presence</em> of the attribute — not its value — determines the behavior. Removing <code>disabled</code> from a form control re-enables it for user interaction:</p>
+
+<pre><code>const btn = document.querySelector('#submit-btn');
+btn.setAttribute('disabled', '');   // disables the button
+// ... later, after validation passes:
+btn.removeAttribute('disabled');    // re-enables it
+</code></pre>
+
+<p><strong>Direct property access</strong> is a shorthand that works for <em>reflected IDL attributes</em> — attributes that the browser automatically mirrors as JavaScript properties on the element object. For example, <code>element.id</code>, <code>element.className</code>, <code>element.href</code>, and <code>input.value</code> are all reflected properties:</p>
+
+<pre><code>const heading = document.querySelector('h1');
+heading.id = 'main-title';         // same effect as setAttribute('id', 'main-title')
+console.log(heading.id);           // 'main-title'
+</code></pre>
+
+<p>The important distinction is that properties and attributes can diverge. After a user types into an input, <code>input.value</code> (the property) reflects what is currently in the field, while <code>input.getAttribute('value')</code> still returns the original default from the HTML. For URLs, <code>anchor.href</code> (property) returns the fully resolved absolute URL, whereas <code>anchor.getAttribute('href')</code> returns whatever string was written in the markup. Use <code>getAttribute</code> when you need the raw authored value; use properties for live, reflected state.</p>
+
+<p><strong>Modifying Inline Styles</strong></p>
+
+<p>Every element has a <code>style</code> property that exposes its <em>inline</em> style declarations — the ones that would appear inside a <code>style="..."</code> attribute in markup. You read and write individual CSS properties through camelCased JavaScript property names:</p>
+
+<pre><code>const box = document.querySelector('.box');
+box.style.color = 'red';
+box.style.fontSize = '18px';       // hyphenated CSS → camelCase JS
+box.style.backgroundColor = '#f0f0f0';
+box.style.borderRadius = '8px';
+</code></pre>
+
+<p><code>element.style.display = 'none'</code> is one of the most common operations in DOM scripting — it hides an element by removing it from the layout flow entirely. To make it visible again, assign a meaningful display value:</p>
+
+<pre><code>const modal = document.querySelector('#modal');
+modal.style.display = 'none';       // hide
+
+// show again:
+modal.style.display = 'flex';       // or 'block', 'grid', etc.
+</code></pre>
+
+<p>When you need to apply several style declarations at once, <code>element.style.cssText</code> lets you write them as a single CSS string. Note that assigning <code>cssText</code> <em>replaces</em> the entire inline style, discarding any previously set inline declarations:</p>
+
+<pre><code>box.style.cssText = 'color: red; font-size: 16px; margin: 0 auto;';
+</code></pre>
+
+<p>A crucial limitation: reading <code>element.style.propertyName</code> only reflects styles that were set inline — either in the <code>style</code> attribute in markup or via JavaScript. It returns an empty string for any property controlled by an external stylesheet or a <code>&lt;style&gt;</code> block:</p>
+
+<pre><code>// If CSS file says: p { color: blue; }
+const para = document.querySelector('p');
+console.log(para.style.color); // '' — empty! Not visible here.
+</code></pre>
+
+<p>To actually read the rendered value, you need computed styles (covered next).</p>
+
+<p><strong>Reading Computed Styles</strong></p>
+
+<p>The browser's <em>cascade</em> merges rules from every stylesheet, inherited properties, and browser defaults into a final set of computed values for every element. <code>getComputedStyle(element)</code> returns a live <code>CSSStyleDeclaration</code> object representing those resolved values:</p>
+
+<pre><code>const para = document.querySelector('p');
+const styles = getComputedStyle(para);
+
+console.log(styles.getPropertyValue('font-size'));   // e.g. "16px"
+console.log(styles.getPropertyValue('color'));        // e.g. "rgb(33, 33, 33)"
+console.log(styles.getPropertyValue('line-height'));  // e.g. "24px"
+</code></pre>
+
+<p>You can also access properties directly using camelCase notation on the returned object:</p>
+
+<pre><code>console.log(styles.fontSize);        // "16px"
+console.log(styles.backgroundColor); // "rgba(0, 0, 0, 0)" if transparent
+</code></pre>
+
+<p>Three important rules about computed styles:</p>
+
+<ul>
+  <li><strong>Read-only.</strong> Attempting to assign a value through the <code>getComputedStyle</code> result throws an error. To change a style, use <code>element.style</code> or manipulate classes.</li>
+  <li><strong>Absolute units.</strong> All length values are resolved to pixels, even if the original CSS used <code>em</code>, <code>rem</code>, <code>%</code>, or <code>vw</code>. This makes computed styles reliable for layout calculations.</li>
+  <li><strong>Pseudo-elements.</strong> You can pass a second argument to inspect pseudo-element styles: <code>getComputedStyle(element, '::before')</code>.</li>
+</ul>
+
+<pre><code>// Practical example: check if an element is visible
+function isVisible(el) {
+  const cs = getComputedStyle(el);
+  return cs.display !== 'none' &&
+         cs.visibility !== 'hidden' &&
+         cs.opacity !== '0';
+}
+</code></pre>
+
+<p><strong>Manipulating CSS Classes</strong></p>
+
+<p>Rather than hard-coding styles in JavaScript, the preferred approach is to define visual states as CSS classes and then add or remove those classes with JavaScript. This cleanly separates presentation from behavior. The <code>classList</code> API makes this ergonomic and reliable.</p>
+
+<p><code>element.classList.add('active')</code> appends a class name to the element's class list. If the class is already present, it is not duplicated:</p>
+
+<pre><code>const nav = document.querySelector('nav');
+nav.classList.add('active');
+nav.classList.add('highlighted', 'visible'); // multiple classes at once
+</code></pre>
+
+<p><code>element.classList.remove('hidden')</code> removes a class without affecting any others. If the class is not present, no error is thrown:</p>
+
+<pre><code>nav.classList.remove('hidden');
+nav.classList.remove('loading', 'error'); // remove multiple at once
+</code></pre>
+
+<p><code>element.classList.toggle('open')</code> is a convenient single call for show/hide or expand/collapse patterns. It adds the class if absent, removes it if present, and returns a boolean indicating the new state:</p>
+
+<pre><code>const menuBtn = document.querySelector('#menu-btn');
+const menu = document.querySelector('#menu');
+
+menuBtn.addEventListener('click', () => {
+  const isOpen = menu.classList.toggle('open');
+  menuBtn.setAttribute('aria-expanded', isOpen);
+});
+</code></pre>
+
+<p>You can pass a second boolean argument to force a specific state: <code>classList.toggle('open', true)</code> always adds; <code>classList.toggle('open', false)</code> always removes.</p>
+
+<p><code>element.classList.contains('selected')</code> returns <code>true</code> or <code>false</code>, allowing conditional logic:</p>
+
+<pre><code>if (card.classList.contains('selected')) {
+  submitSelection(card);
+} else {
+  card.classList.add('selected');
+}
+</code></pre>
+
+<p><code>element.classList.replace('old-class', 'new-class')</code> atomically swaps one class for another, which is tidier than a remove-then-add pair. It returns <code>true</code> if the replacement succeeded (i.e., the old class was present), or <code>false</code> if it was not found:</p>
+
+<pre><code>const result = btn.classList.replace('loading', 'success');
+if (!result) {
+  // 'loading' wasn't there; handle accordingly
+}
+</code></pre>
+
+<p><strong>Updating Text and HTML Content</strong></p>
+
+<p>Three properties let you read or overwrite what is inside an element, and choosing the right one matters for both correctness and security.</p>
+
+<p><code>element.textContent</code> treats everything as plain text. Assigning to it removes all existing child nodes and inserts a single text node. Any HTML tags in the assigned string are rendered as literal characters, not parsed as markup — making it inherently safe against injection attacks:</p>
+
+<pre><code>const div = document.querySelector('#message');
+div.textContent = 'Hello, World!';
+
+// Safe even with user-supplied data:
+const userInput = '&lt;script&gt;alert("xss")&lt;/script&gt;';
+div.textContent = userInput; // displays the raw string, does NOT execute
+</code></pre>
+
+<p><code>element.innerText</code> is superficially similar but has key differences: it is <em>layout-aware</em>, meaning it only returns text that is actually rendered and visible. Hidden elements (via <code>display: none</code>) are excluded. It also normalizes whitespace according to CSS rendering rules and respects line breaks. Reading <code>innerText</code> forces the browser to perform a layout calculation, making it noticeably slower than <code>textContent</code>. Prefer <code>textContent</code> when you only need raw string content; use <code>innerText</code> only when you specifically need the user-visible text:</p>
+
+<pre><code>// textContent includes text in hidden children; innerText does not
+const container = document.querySelector('#info');
+console.log(container.textContent);  // all text, including from display:none children
+console.log(container.innerText);    // only visible text
+</code></pre>
+
+<p><code>element.innerHTML</code> parses the assigned string as HTML and replaces the element's children with the resulting node tree. This is powerful but dangerous with untrusted data. Always sanitize user-supplied strings before passing them to <code>innerHTML</code>:</p>
+
+<pre><code>const article = document.querySelector('article');
+
+// Reading: get serialized HTML of children
+const backup = article.innerHTML;
+
+// Writing: parse and insert markup
+article.innerHTML = '&lt;p&gt;Updated &lt;strong&gt;content&lt;/strong&gt; here.&lt;/p&gt;';
+
+// DANGER — never do this with user data:
+// article.innerHTML = userSuppliedString; // XSS vulnerability
+</code></pre>
+
+<p>Reading <code>element.innerHTML</code> returns the browser's serialization of the current child nodes as an HTML string, useful for inspecting or temporarily saving markup before you modify it.</p>
+
+<p><strong>Modifying Element Properties Directly</strong></p>
+
+<p>Many element types expose purpose-specific properties that map to their key behaviors. These are the most direct and idiomatic way to control form controls, images, and links.</p>
+
+<p><code>inputElement.value</code> gets or sets the current value of a text, number, or textarea field. This is the live value — it reflects what the user has typed, not the initial <code>value</code> attribute:</p>
+
+<pre><code>const input = document.querySelector('#username');
+input.value = 'Default text';       // pre-fill the field
+console.log(input.value);           // read whatever is currently in the field
+
+// Clear a field:
+input.value = '';
+</code></pre>
+
+<p><code>imageElement.src</code> reassigns the image source. The browser immediately initiates a network request for the new URL and displays the image when it loads. This is the basis of image sliders, lazy-loading, and avatar updates:</p>
+
+<pre><code>const avatar = document.querySelector('#avatar');
+avatar.src = 'images/user-42.png';
+
+// Handle load/error:
+avatar.addEventListener('error', () => {
+  avatar.src = 'images/default-avatar.png';
+});
+</code></pre>
+
+<p><code>buttonElement.disabled</code> is a boolean property. Setting it to <code>true</code> adds the <code>disabled</code> attribute and prevents all user interaction (clicks, keyboard activation). Setting it to <code>false</code> removes the attribute and restores interactivity:</p>
+
+<pre><code>const submitBtn = document.querySelector('#submit');
+submitBtn.disabled = true;   // prevent double-submit
+// ... after async operation completes:
+submitBtn.disabled = false;
+</code></pre>
+
+<p><code>anchorElement.href</code> changes where a link navigates. You can assign either an absolute or relative URL. The property always reflects the absolute resolved URL, which is distinct from the raw string stored in the attribute:</p>
+
+<pre><code>const link = document.querySelector('#next-page');
+link.href = '/chapter-2';          // relative URL
+console.log(link.href);            // "https://example.com/chapter-2" (absolute)
+console.log(link.getAttribute('href')); // "/chapter-2" (as written)
+</code></pre>
+
+<p><strong>Changing Element Dimensions and Position via Style</strong></p>
+
+<p>JavaScript can control layout-related CSS properties through the same <code>element.style</code> interface described earlier. Setting explicit dimensions is straightforward:</p>
+
+<pre><code>const panel = document.querySelector('.panel');
+panel.style.width = '300px';
+panel.style.height = '150px';
+panel.style.overflow = 'hidden';
+</code></pre>
+
+<p>Precise positioning uses <code>position</code> in combination with offset properties. The element's position is calculated relative to its nearest positioned ancestor (one with <code>position</code> set to anything other than <code>static</code>):</p>
+
+<pre><code>const tooltip = document.querySelector('#tooltip');
+tooltip.style.position = 'absolute';
+tooltip.style.top = '40px';
+tooltip.style.left = '120px';
+tooltip.style.zIndex = '100';
+</code></pre>
+
+<p><code>element.style.transform</code> is the performance-preferred way to visually move or scale elements. CSS transforms operate on the compositor thread, which means they are GPU-accelerated and do not trigger a full layout reflow of the page. This makes them far smoother for animations than changing <code>top</code> or <code>left</code> directly:</p>
+
+<pre><code>// Move 100px to the right — no reflow triggered:
+el.style.transform = 'translateX(100px)';
+
+// Combine multiple transforms:
+el.style.transform = 'translateX(50px) scale(1.2) rotate(15deg)';
+
+// Animate with a transition:
+el.style.transition = 'transform 0.3s ease';
+el.style.transform = 'translateX(200px)';
+</code></pre>
+
+<p>Centering a block element horizontally with JavaScript mirrors the classic CSS technique:</p>
+
+<pre><code>const centered = document.querySelector('.centered');
+centered.style.display = 'block';
+centered.style.width = '500px';
+centered.style.margin = 'auto';       // browser splits remaining space equally left and right
+</code></pre>
+
+<p>The table below summarizes the key APIs covered in this topic, their purpose, and the most important caveat for each:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>API</th>
+      <th>Category</th>
+      <th>Purpose</th>
+      <th>Key Caveat</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>getAttribute / setAttribute / removeAttribute</code></td>
+      <td>Attributes</td>
+      <td>Read, write, or delete any HTML attribute as a string</td>
+      <td>Always returns strings; use for non-reflected or data attributes</td>
+    </tr>
+    <tr>
+      <td><code>element.id</code>, <code>element.href</code>, etc.</td>
+      <td>Attributes</td>
+      <td>Direct property access for reflected IDL attributes</td>
+      <td>Property and attribute values can diverge (e.g., <code>href</code> absolute vs. raw)</td>
+    </tr>
+    <tr>
+      <td><code>element.style.property</code></td>
+      <td>Inline Styles</td>
+      <td>Read or set individual inline CSS declarations</td>
+      <td>Only reflects inline styles, not stylesheet rules</td>
+    </tr>
+    <tr>
+      <td><code>element.style.cssText</code></td>
+      <td>Inline Styles</td>
+      <td>Apply multiple inline declarations at once</td>
+      <td>Replaces entire inline style string</td>
+    </tr>
+    <tr>
+      <td><code>getComputedStyle(element)</code></td>
+      <td>Computed Styles</td>
+      <td>Read the final resolved style values the browser is using</td>
+      <td>Read-only; values always in absolute units (pixels)</td>
+    </tr>
+    <tr>
+      <td><code>classList.add / remove / toggle / contains / replace</code></td>
+      <td>Classes</td>
+      <td>Manage CSS class membership cleanly</td>
+      <td>Preferred over <code>className</code> for targeted manipulation</td>
+    </tr>
+    <tr>
+      <td><code>element.textContent</code></td>
+      <td>Content</td>
+      <td>Set or read element text safely (no HTML parsing)</td>
+      <td>Ignores CSS visibility; safe for user data</td>
+    </tr>
+    <tr>
+      <td><code>element.innerText</code></td>
+      <td>Content</td>
+      <td>Read visible rendered text only</td>
+      <td>Triggers layout; slower than <code>textContent</code></td>
+    </tr>
+    <tr>
+      <td><code>element.innerHTML</code></td>
+      <td>Content</td>
+      <td>Parse and insert HTML markup as children</td>
+      <td>XSS risk with untrusted input; never use with raw user data</td>
+    </tr>
+    <tr>
+      <td><code>input.value</code>, <code>img.src</code>, <code>btn.disabled</code></td>
+      <td>Element Properties</td>
+      <td>Control live behavior of specific element types</td>
+      <td>Operates on current state, not the initial HTML attribute</td>
+    </tr>
+    <tr>
+      <td><code>element.style.transform</code></td>
+      <td>Dimensions / Position</td>
+      <td>Move or scale elements without causing layout reflow</td>
+      <td>GPU-accelerated; preferred for animations over <code>top</code>/<code>left</code></td>
+    </tr>
+  </tbody>
+</table>
+        <div class="notes"><strong>Notes</strong>The XSS warning for innerHTML is worth emphasizing in any classroom or code review context. Students should be shown a sanitization library (such as DOMPurify) as the safe alternative when HTML insertion from dynamic data is genuinely required. The difference between the `value` property and the `value` attribute is a perennial source of bugs and deserves a hands-on exercise where students observe the divergence in a live browser.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

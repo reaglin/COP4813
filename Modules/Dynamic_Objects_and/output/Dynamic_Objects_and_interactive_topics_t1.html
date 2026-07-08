@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to the DOM and Dynamic Manipulation</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Introduction to the DOM and Dynamic Manipulation</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to the DOM and Dynamic Manipulation</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Every time a web browser loads an HTML file, it does far more than simply display text and images on the screen. Behind the scenes, the browser reads — or <em>parses</em> — the raw HTML markup and transforms it into a structured, in-memory representation called the <strong>Document Object Model</strong>, commonly abbreviated as the <strong>DOM</strong>. This representation is not a copy of the original text file; it is a living, programmable tree of objects that JavaScript can inspect, traverse, and modify at any moment during the page's lifetime. Understanding the DOM is the single most important conceptual step toward writing JavaScript that actually <em>does</em> something visible — that responds to clicks, updates content, shows and hides elements, and reacts to data — all without reloading the page.</p>
+
+<p>The DOM is defined by a set of standards maintained by the W3C and WHATWG, and it is deliberately <strong>language-agnostic</strong>: in principle, any programming language could be used to interact with it. In practice, however, the DOM is almost universally manipulated using JavaScript inside web browsers, because JavaScript is the only language browsers execute natively on the client side. When developers talk about "DOM manipulation," they almost always mean JavaScript code that reads or changes the DOM at runtime — that is, <em>after</em> the page has already been loaded and rendered.</p>
+
+<p>One of the most important properties of the DOM is that changes made to it are <strong>reflected immediately in the rendered page</strong>. There is no compile step, no server round-trip, and no page refresh. The moment JavaScript updates a node in the DOM tree, the browser repaints the affected portion of the screen. This immediacy is what makes modern web interfaces feel responsive and alive.</p>
+
+<p><strong>The DOM as a Programmable Interface</strong></p>
+
+<p>The DOM exposes a rich <strong>API</strong> — an Application Programming Interface — that gives JavaScript a standardized vocabulary for working with HTML documents. This API is available through the global <code>document</code> object, which is automatically created by the browser and serves as the single entry point to the entire page. Every element, every text node, every attribute, and every comment in the HTML document is reachable through <code>document</code>.</p>
+
+<p>The DOM API covers four broad categories of operations:</p>
+<ul>
+  <li><strong>Finding elements</strong> — locating specific nodes in the tree using IDs, class names, tag names, or CSS selectors.</li>
+  <li><strong>Changing content</strong> — reading and writing the text or HTML markup inside elements.</li>
+  <li><strong>Modifying styles and attributes</strong> — updating CSS classes, inline styles, <code>src</code> attributes, <code>href</code> values, and so on.</li>
+  <li><strong>Responding to user events</strong> — attaching listeners that fire when a user clicks, types, scrolls, or interacts in any other way.</li>
+</ul>
+
+<p>Because these operations happen at <strong>runtime</strong> — after the browser has finished its initial parse and render — the page can react to user input, data fetched from a server, timers, or any other dynamic condition. This is the fundamental mechanism that separates a modern <em>web application</em> from a static <em>web document</em>.</p>
+
+<p><strong>The DOM Tree Structure</strong></p>
+
+<p>The DOM is organized as a <strong>tree</strong> — a hierarchical structure in which every item is a <em>node</em> and every node (except the root) has exactly one parent. Consider this minimal HTML document:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;My Page&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Hello, World!&lt;/h1&gt;
+    &lt;p&gt;Welcome to the &lt;strong&gt;DOM&lt;/strong&gt;.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<p>When the browser parses this markup, it constructs a tree that looks roughly like the following (indentation represents parent-child relationships):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Level</th>
+      <th>Node</th>
+      <th>Node Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>document</td>
+      <td>Document node (root)</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>&lt;html&gt;</td>
+      <td>Element node</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>&lt;head&gt;</td>
+      <td>Element node</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>&lt;title&gt;</td>
+      <td>Element node</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>"My Page"</td>
+      <td>Text node</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>&lt;body&gt;</td>
+      <td>Element node</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>&lt;h1&gt;</td>
+      <td>Element node</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>"Hello, World!"</td>
+      <td>Text node</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>&lt;p&gt;</td>
+      <td>Element node</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>"Welcome to the "</td>
+      <td>Text node</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>&lt;strong&gt;</td>
+      <td>Element node</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>"DOM"</td>
+      <td>Text node</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>"."</td>
+      <td>Text node</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The three node types that developers work with most frequently are <strong>element nodes</strong> (representing HTML tags like <code>&lt;p&gt;</code> or <code>&lt;div&gt;</code>), <strong>text nodes</strong> (representing the actual characters between tags), and <strong>attribute nodes</strong> (representing the attributes on element tags, such as <code>class="intro"</code> or <code>id="main"</code>).</p>
+
+<p>Understanding the parent-child relationships in this tree is critical because the DOM API is built around them. JavaScript provides several <strong>traversal properties</strong> that allow code to move through the tree in any direction:</p>
+
+<ul>
+  <li><strong><code>parentNode</code></strong> — returns the node that directly contains the current node.</li>
+  <li><strong><code>childNodes</code></strong> — returns a live NodeList of all direct children, including text nodes.</li>
+  <li><strong><code>firstChild</code></strong> / <strong><code>lastChild</code></strong> — return the first or last child node (again, including text nodes).</li>
+  <li><strong><code>nextSibling</code></strong> / <strong><code>previousSibling</code></strong> — move horizontally to adjacent nodes sharing the same parent.</li>
+  <li><strong><code>children</code></strong> — similar to <code>childNodes</code> but returns only element nodes, skipping text and comment nodes.</li>
+  <li><strong><code>firstElementChild</code></strong> / <strong><code>nextElementSibling</code></strong> — element-only equivalents of the node-level properties above.</li>
+</ul>
+
+<p>For example, given a reference to the <code>&lt;body&gt;</code> element, <code>body.firstElementChild</code> would return the <code>&lt;h1&gt;</code>, and <code>body.firstElementChild.nextElementSibling</code> would return the <code>&lt;p&gt;</code>. These traversal tools become invaluable when restructuring or inspecting the DOM programmatically.</p>
+
+<p><strong>Accessing Elements with JavaScript</strong></p>
+
+<p>Before JavaScript can change anything in the DOM, it must first <em>find</em> the relevant node. The <code>document</code> object provides several methods for this. The three that every developer must know well are <code>getElementById</code>, <code>querySelector</code>, and <code>querySelectorAll</code>.</p>
+
+<p><code>document.getElementById()</code> is the oldest and most direct method. It accepts a string matching the <code>id</code> attribute of an element and returns that single element — or <code>null</code> if no match is found. Because IDs must be unique within a document, this method always returns at most one element.</p>
+
+<pre><code>&lt;!-- HTML --&gt;
+&lt;h1 id="main-title"&gt;Welcome&lt;/h1&gt;
+
+&lt;!-- JavaScript --&gt;
+const title = document.getElementById('main-title');
+console.log(title); // &lt;h1 id="main-title"&gt;Welcome&lt;/h1&gt;</code></pre>
+
+<p><code>document.querySelector()</code> is far more flexible. It accepts any valid CSS selector string and returns the <em>first</em> matching element in document order. This means you can target elements by tag name, class, attribute, relationship, pseudo-class, or any combination thereof — exactly as you would in a stylesheet.</p>
+
+<pre><code>// Select the first &lt;p&gt; inside a &lt;section&gt; with class "intro"
+const firstPara = document.querySelector('section.intro p');
+
+// Select the first input with type="email"
+const emailInput = document.querySelector('input[type="email"]');</code></pre>
+
+<p><code>document.querySelectorAll()</code> works identically to <code>querySelector</code> but returns a <strong>NodeList</strong> containing <em>all</em> matching elements, not just the first. A NodeList behaves similarly to an array — you can iterate over it with <code>forEach</code> or convert it to a true array with <code>Array.from()</code> — but it is not an array itself.</p>
+
+<pre><code>// Select every list item on the page
+const allItems = document.querySelectorAll('li');
+
+allItems.forEach(function(item) {
+  console.log(item.textContent);
+});</code></pre>
+
+<p>A crucial concept shared by all of these methods is that the returned objects are <strong>live references</strong> to the actual DOM nodes, not copies. When you hold a reference to an element and modify it through that reference, the change happens directly in the DOM — and the browser updates the display immediately. There is no need to "push" the change back anywhere.</p>
+
+<p><strong>Reading and Modifying Element Content</strong></p>
+
+<p>Once you have a reference to a DOM element, two properties give you direct access to its content: <code>innerHTML</code> and <code>textContent</code>.</p>
+
+<p><strong><code>innerHTML</code></strong> represents the full HTML markup <em>inside</em> an element, including any child tags. Reading it returns a string of HTML; writing to it parses that string as HTML and replaces the element's entire content with the resulting nodes.</p>
+
+<pre><code>&lt;!-- HTML --&gt;
+&lt;div id="box"&gt;&lt;p&gt;Original &lt;em&gt;content&lt;/em&gt;&lt;/p&gt;&lt;/div&gt;
+
+&lt;!-- JavaScript --&gt;
+const box = document.getElementById('box');
+
+// Reading innerHTML
+console.log(box.innerHTML);
+// Output: &lt;p&gt;Original &lt;em&gt;content&lt;/em&gt;&lt;/p&gt;
+
+// Writing innerHTML — replaces all existing content
+box.innerHTML = '&lt;ul&gt;&lt;li&gt;Item One&lt;/li&gt;&lt;li&gt;Item Two&lt;/li&gt;&lt;/ul&gt;';
+
+// Appending to existing innerHTML (read-then-write pattern)
+box.innerHTML += '&lt;p&gt;Added paragraph&lt;/p&gt;';</code></pre>
+
+<p>The <code>innerHTML</code> read-then-write pattern is common but has a performance cost: the browser must serialize the entire subtree to a string, concatenate, then re-parse and re-render. For large or frequently updated sections, more targeted DOM methods like <code>appendChild</code> or <code>insertAdjacentHTML</code> are preferable. Additionally, never inject untrusted user-supplied strings directly into <code>innerHTML</code>, as this creates a cross-site scripting (XSS) vulnerability.</p>
+
+<p><strong><code>textContent</code></strong> is safer and simpler: it gets or sets the <em>plain text</em> content of an element and all its descendants, stripping out any HTML tags. When you assign to <code>textContent</code>, any HTML characters in the string are treated as literal text (they are automatically escaped), so there is no XSS risk.</p>
+
+<pre><code>const heading = document.querySelector('h1');
+
+// Reading textContent
+console.log(heading.textContent); // "Hello, World!"
+
+// Setting textContent — any HTML is escaped, not interpreted
+heading.textContent = 'New &lt;em&gt;Title&lt;/em&gt;';
+// The browser displays: New &lt;em&gt;Title&lt;/em&gt;  (literally, not italicized)</code></pre>
+
+<p>Choosing between these two properties comes down to intent: use <code>innerHTML</code> when you need to insert or read structured markup, and use <code>textContent</code> when you are working with plain text and safety is a concern.</p>
+
+<p><strong>Dynamic vs. Static Web Pages</strong></p>
+
+<p>To fully appreciate the DOM's role, it helps to contrast two approaches to delivering content to users.</p>
+
+<p>A <strong>static web page</strong> is a fixed HTML file sitting on a server. Every visitor receives the same markup. If the content needs to change — even slightly — a new HTML file must be created or the server must regenerate and send a fresh response. The browser has no say in what changes; it simply renders whatever HTML it receives.</p>
+
+<p>A <strong>dynamic web page</strong> uses JavaScript to modify the DOM <em>after</em> the initial page load. The server may still deliver HTML, but that HTML is treated as a starting point rather than a finished product. From that point on, JavaScript can:</p>
+
+<ul>
+  <li>Show or hide sections based on user interaction (e.g., accordion panels, modal dialogs).</li>
+  <li>Validate form input in real time and display error messages without a server round-trip.</li>
+  <li>Fetch new data in the background and inject it into the page (AJAX / Fetch API patterns).</li>
+  <li>Switch between "tabs" of content by manipulating CSS classes or <code>display</code> styles.</li>
+  <li>Build entire UI components — lists, cards, navigation menus — from data arrays using JavaScript alone.</li>
+</ul>
+
+<p>This distinction is not merely academic. The shift from static documents to dynamic DOM-manipulated applications is what gave rise to the modern web as a platform for software — everything from email clients to spreadsheets to video editors now runs in the browser, driven by JavaScript DOM manipulation.</p>
+
+<p><strong>The Role of JavaScript at Runtime</strong></p>
+
+<p>JavaScript is a <em>runtime</em> language in the context of the browser: it executes while the page is being used, not before it is delivered. The browser's JavaScript engine (V8 in Chrome, SpiderMonkey in Firefox, JavaScriptCore in Safari) runs scripts in response to various triggers:</p>
+
+<ul>
+  <li><strong>Page load events</strong> — code that runs as soon as the DOM is ready or the page fully loads.</li>
+  <li><strong>User events</strong> — clicks, keyboard input, mouse movement, form submission, and so on.</li>
+  <li><strong>Timers</strong> — <code>setTimeout</code> and <code>setInterval</code> allow code to run after a delay or at regular intervals.</li>
+  <li><strong>Network responses</strong> — data returned from API calls can trigger DOM updates as soon as it arrives.</li>
+</ul>
+
+<p>The JavaScript engine and the browser's DOM API work in close partnership. The engine handles logic, calculations, and control flow; the DOM API handles everything related to the visual document. When JavaScript calls a DOM method like <code>element.textContent = 'Updated'</code>, it crosses the boundary from the scripting environment into the rendering environment, instructing the browser to update its internal representation and repaint the screen.</p>
+
+<p>A particularly powerful aspect of runtime manipulation is the ability to <strong>create elements entirely in JavaScript</strong> — elements that never existed in the original HTML file. The <code>document.createElement()</code> method creates a new element node, which can then be configured and inserted into the tree:</p>
+
+<pre><code>// Create a new &lt;li&gt; element
+const newItem = document.createElement('li');
+
+// Set its text content
+newItem.textContent = 'Dynamically added item';
+
+// Find the existing list and append the new item
+const list = document.querySelector('ul');
+list.appendChild(newItem);</code></pre>
+
+<p>This three-step pattern — <em>create</em>, <em>configure</em>, <em>insert</em> — is one of the most common idioms in DOM programming. Dynamically created elements behave identically to hand-coded HTML elements: they can be styled, traversed, modified, and listened to for events. This capability is the architectural foundation of virtually every interactive UI component built in JavaScript — dropdown menus, notification banners, infinite-scroll feeds, drag-and-drop interfaces, and far more.</p>
+
+<p>In summary, the DOM is the bridge between a static HTML document and a living, interactive user interface. It represents the page as a navigable tree of objects, exposes a rich API through the <code>document</code> global, and reflects every JavaScript-driven change instantly in the browser. Mastering how to find elements, read and write their content, and understand their relationships within the tree is the indispensable foundation for all client-side web development.</p>
+        <div class="notes"><strong>Notes</strong>Covers all listed subtopics: DOM definition, browser parsing, node types, the document object, DOM API categories, tree structure and traversal, getElementById/querySelector/querySelectorAll, innerHTML vs textContent, static vs dynamic pages, and runtime JavaScript execution with createElement. Includes a structured HTML table illustrating the DOM tree and multiple annotated code examples throughout.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

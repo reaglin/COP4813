@@ -1,0 +1,408 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 7 – Drawing and Graphics with the HTML5 Canvas | COP4813</title>
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f4f6f9;
+      color: #2c3e50;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header banner ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2d6a9f 100%);
+      color: #fff;
+      padding: 2.5rem 1.5rem 2rem;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .course-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 4px;
+      padding: 0.2rem 0.65rem;
+      margin-bottom: 0.75rem;
+      color: #d6eaf8;
+    }
+
+    header h1 {
+      font-size: clamp(1.45rem, 3.5vw, 2.1rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.85rem;
+      letter-spacing: -0.01em;
+    }
+
+    header p {
+      font-size: 0.97rem;
+      color: #c8dff2;
+      max-width: 720px;
+      line-height: 1.65;
+    }
+
+    /* ── Main content ── */
+    main {
+      max-width: 1100px;
+      margin: 2.2rem auto 3rem;
+      padding: 0 1.25rem;
+    }
+
+    .section-heading {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #5d7fa3;
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 2px solid #dce5ef;
+    }
+
+    /* ── Card grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #dce5ef;
+      border-radius: 8px;
+      padding: 1.25rem 1.35rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      transition: box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 14px rgba(0,0,0,0.10);
+      border-color: #b0c8e4;
+    }
+
+    /* ── Card header row ── */
+    .card-title-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.5rem 0.65rem;
+    }
+
+    .card-name {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      line-height: 1.3;
+    }
+
+    .card-name a {
+      color: #1a6bb5;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+
+    .card-name a:hover,
+    .card-name a:focus {
+      border-bottom-color: #1a6bb5;
+      outline: none;
+    }
+
+    .source-link {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #fff;
+      background: #5d8fbd;
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+      text-decoration: none;
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+      transition: background 0.15s;
+      align-self: center;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background: #1a6bb5;
+      outline: none;
+    }
+
+    /* ── Meta badges row ── */
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      padding: 0.18rem 0.55rem;
+      white-space: nowrap;
+    }
+
+    .badge-type {
+      background: #eaf1fb;
+      color: #2d6a9f;
+      border: 1px solid #c5d9f0;
+    }
+
+    .badge-filetype {
+      background: #f0f4f0;
+      color: #3a6b3a;
+      border: 1px solid #bfd8bf;
+      font-family: "Courier New", monospace;
+      font-size: 0.68rem;
+    }
+
+    /* ── Description ── */
+    .card-description {
+      font-size: 0.875rem;
+      color: #4a5f72;
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #8fa8bf;
+      padding: 1.5rem 1rem 2rem;
+      border-top: 1px solid #dce5ef;
+      background: #fff;
+    }
+
+    /* ── Responsive tweaks ── */
+    @media (max-width: 520px) {
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        padding: 2rem 1rem 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <span class="course-label">COP4813 &mdash; Module 7</span>
+      <h1>Drawing and Graphics with the HTML5 Canvas</h1>
+      <p>
+        This module introduces the HTML5 Canvas API and teaches you how to programmatically draw
+        shapes, paths, text, and images directly in the browser. You will explore colors, gradients,
+        and styles, then progress to image manipulation and interactive, event-driven graphics &mdash;
+        building the practical skills needed for data visualizations, games, and rich web applications.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <p class="section-heading">Module Artifacts &mdash; 9 items</p>
+
+    <div class="card-grid">
+
+      <!-- Artifact 1 -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="../hierarchy.json">source file</a>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <p class="card-description">
+          Outlines the full scope of the module by listing its major topics and subtopics &mdash;
+          covering the HTML5 Canvas element, drawing shapes, paths and lines, colors and styles,
+          text, images, and animations &mdash; serving as a navigational overview for learners and
+          a planning reference for instructors.
+        </p>
+      </div>
+
+      <!-- Artifact 2 -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Drawing_and_Graphics_interactive_topics_t1.html">Introduction to the HTML5 Canvas Element</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          A reading that explains what the HTML5 Canvas element is, its history and advantages over
+          older plugin-based approaches, and how to add it to a webpage and obtain a 2D rendering
+          context in JavaScript, serving as the foundational lesson before any drawing begins.
+        </p>
+      </div>
+
+      <!-- Artifact 3 -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Drawing_and_Graphics_interactive_topics_t2.html">Drawing Basic Shapes</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          A reading that covers how to prepare the canvas context and draw basic shapes such as
+          rectangles and other primitives using the Canvas 2D API, teaching learners the essential
+          first steps for rendering graphics programmatically.
+        </p>
+      </div>
+
+      <!-- Artifact 4 -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Drawing_and_Graphics_interactive_topics_t3.html">Working with Paths and Lines</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          A reading that explains the Canvas path system &mdash; including
+          <code>beginPath()</code>, <code>moveTo()</code>, <code>lineTo()</code>,
+          <code>stroke()</code>, <code>arc()</code>, and curves &mdash; showing learners how to
+          define and render complex shapes and line-based drawings step by step.
+        </p>
+      </div>
+
+      <!-- Artifact 5 -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Drawing_and_Graphics_interactive_topics_t4.html">Applying Colors, Styles, and Gradients</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          A reading that covers how to apply fill and stroke colors, transparency, linear and radial
+          gradients, and blending options in the Canvas 2D API, teaching learners how to control the
+          visual appearance of all drawn elements.
+        </p>
+      </div>
+
+      <!-- Artifact 6 -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Drawing_and_Graphics_interactive_topics_t5.html">Rendering Text on the Canvas</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          A reading that explains how to render and style text directly on an HTML5 Canvas using the
+          Canvas 2D API, covering font properties, <code>fillText()</code>,
+          <code>strokeText()</code>, and text measurement, and distinguishing canvas text from
+          DOM-based text.
+        </p>
+      </div>
+
+      <!-- Artifact 7 -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Drawing_and_Graphics_interactive_topics_t6.html">Drawing and Manipulating Images</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          A reading that covers how to draw, scale, crop, and manipulate raster images on the HTML5
+          Canvas using <code>drawImage()</code> and related API features, providing the skills
+          needed for use cases such as photo editors, sprite-based games, and image overlays.
+        </p>
+      </div>
+
+      <!-- Artifact 8 -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Drawing_and_Graphics_interactive_topics_t7.html">Foundations of Interactive Canvas Graphics</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          A reading that explains how to combine the Canvas drawing surface with the browser's event
+          system to create interactive graphics, covering event listeners, coordinate mapping, and
+          real-time user input handling on the canvas.
+        </p>
+      </div>
+
+      <!-- Artifact 9 -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Drawing_and_Graphics_interactive.html">Foundations of Interactive Canvas Graphics</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          A duplicate reading of the Foundations of Interactive Canvas Graphics lesson covering how
+          to wire browser events to canvas drawing for real-time interactive graphics, which learners
+          and instructors can use identically to the Topic Detail artifact above.
+        </p>
+      </div>
+
+    </div><!-- /.card-grid -->
+  </main>
+
+  <footer>
+    <p>COP4813 &mdash; Module 7: Drawing and Graphics with the HTML5 Canvas &nbsp;|&nbsp; Course Module Index</p>
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

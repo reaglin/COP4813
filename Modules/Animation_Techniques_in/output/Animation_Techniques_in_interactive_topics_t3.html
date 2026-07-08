@@ -1,0 +1,370 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Keyframe Animations</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>CSS Keyframe Animations</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>CSS Keyframe Animations</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>CSS keyframe animations give you precise, declarative control over how elements change their appearance over time. Unlike CSS transitions, which react to state changes between two values, keyframe animations run independently — they can loop, reverse, pause, and jump through as many intermediate visual states as you need. The mechanism works in two distinct steps: first you <em>define</em> the animation sequence using an <code>@keyframes</code> rule, then you <em>attach</em> that sequence to one or more elements using the <code>animation</code> family of properties. Understanding each part of this system and how they interact gives you the building blocks for everything from a simple fade-in to a complex, multi-stage motion sequence.</p>
+
+<p><strong>Defining Animations with @keyframes</strong></p>
+
+<p>Every CSS keyframe animation begins with an <code>@keyframes</code> rule. This rule acts as a named timeline — a script that describes what CSS properties should look like at various points during the animation's cycle. You give the rule a unique identifier (the animation name), and later reference that name from the element you want to animate.</p>
+
+<p>The simplest form uses the <code>from</code> and <code>to</code> keywords, which are shorthand aliases for <code>0%</code> and <code>100%</code> respectively. They are appropriate when you only need to describe a starting state and an ending state:</p>
+
+<pre><code>@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}</code></pre>
+
+<p>This defines an animation called <code>fadeIn</code> that transitions an element from fully transparent to fully opaque. Any animatable CSS property can be changed between keyframe stops — <code>opacity</code>, <code>transform</code>, <code>color</code>, <code>background-color</code>, <code>width</code>, <code>font-size</code>, and many others. The browser automatically interpolates (calculates the in-between values) for each frame of the animation between the stops you define.</p>
+
+<p>When you need finer control — for example, bouncing, pulsing, or multi-step color changes — you add intermediate percentage stops. These can be placed at any point in the 0–100% range:</p>
+
+<pre><code>@keyframes bounce {
+  0%   { transform: translateY(0);    }
+  25%  { transform: translateY(-30px); }
+  50%  { transform: translateY(0);    }
+  75%  { transform: translateY(-15px); }
+  100% { transform: translateY(0);    }
+}</code></pre>
+
+<p>Here the element drops back to its original position at <code>50%</code> before bouncing a smaller amount at <code>75%</code>, producing a realistic diminishing bounce. Multiple properties can be animated simultaneously within the same keyframe stop, and you can mix and match which properties appear at which stops — any property not mentioned at a given stop is interpolated continuously from the nearest stops where it does appear.</p>
+
+<p>You can also group percentage values that share the same styles by comma-separating them on a single line:</p>
+
+<pre><code>@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1);    }
+  50%       { opacity: 0.6; transform: scale(1.1); }
+}</code></pre>
+
+<p><strong>Attaching Animations to Elements</strong></p>
+
+<p>Once you have defined a <code>@keyframes</code> rule, you attach it to an element using the <code>animation-name</code> property. Without specifying a duration, the animation completes in zero seconds and is invisible, so <code>animation-duration</code> is always required in practice:</p>
+
+<pre><code>.logo {
+  animation-name: fadeIn;
+  animation-duration: 1.5s;
+}</code></pre>
+
+<p>Duration is expressed in seconds (<code>s</code>) or milliseconds (<code>ms</code>). <code>1.5s</code> and <code>1500ms</code> are equivalent. Sub-second values like <code>400ms</code> are common for UI micro-interactions, while longer values like <code>3s</code> or <code>5s</code> suit ambient or decorative animations.</p>
+
+<p>All individual animation properties can be combined into the <code>animation</code> shorthand, whose syntax follows this order:</p>
+
+<pre><code>animation: name duration timing-function delay iteration-count direction fill-mode play-state;</code></pre>
+
+<p>A practical example:</p>
+
+<pre><code>.hero-banner {
+  animation: slideIn 0.8s ease-out 0.2s 1 normal forwards running;
+}</code></pre>
+
+<p>Not every value needs to be specified — any omitted values fall back to their defaults. The two most commonly required values are the name and duration, and the rest are tuned as needed.</p>
+
+<p><strong>Controlling Iteration and Repetition</strong></p>
+
+<p>The <code>animation-iteration-count</code> property controls how many times the animation cycle plays. A plain integer such as <code>1</code> (the default) plays the animation once and stops. A value of <code>3</code> runs it three full times. Fractional values are also valid: <code>2.5</code> plays two full cycles and then stops halfway through the third, leaving the element at the state that corresponds to the <code>50%</code> keyframe:</p>
+
+<pre><code>.spinner {
+  animation-name: rotate;
+  animation-duration: 1s;
+  animation-iteration-count: 3;
+}
+
+.loading-ring {
+  animation-name: rotate;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}</code></pre>
+
+<p>The <code>infinite</code> keyword causes the animation to run continuously until the animation is paused, the element is removed from the DOM, or the <code>animation-name</code> is unset. It is the standard choice for loaders, spinners, and ambient background effects.</p>
+
+<p><code>animation-delay</code> works in conjunction with iteration count to control when the looping begins. A delay of <code>2s</code> means the animation waits two full seconds before its first iteration starts; subsequent iterations follow immediately one after another with no additional delay between them. This is useful for staggering animations across a list of sibling elements:</p>
+
+<pre><code>.card:nth-child(1) { animation: popIn 0.4s ease both; animation-delay: 0s;    }
+.card:nth-child(2) { animation: popIn 0.4s ease both; animation-delay: 0.1s;  }
+.card:nth-child(3) { animation: popIn 0.4s ease both; animation-delay: 0.2s;  }</code></pre>
+
+<p><strong>Animation Direction</strong></p>
+
+<p>The <code>animation-direction</code> property determines the order in which keyframe stops are visited on each iteration. There are four keyword values:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Behavior</th>
+      <th>Typical Use Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>normal</code></td>
+      <td>Plays 0% → 100% on every iteration (default)</td>
+      <td>Standard forward animations (fade-in, slide-in)</td>
+    </tr>
+    <tr>
+      <td><code>reverse</code></td>
+      <td>Plays 100% → 0% on every iteration</td>
+      <td>Fade-out or slide-out effects using existing keyframes</td>
+    </tr>
+    <tr>
+      <td><code>alternate</code></td>
+      <td>Plays 0% → 100% on odd iterations, 100% → 0% on even iterations</td>
+      <td>Ping-pong loops (breathing pulse, swinging pendulum)</td>
+    </tr>
+    <tr>
+      <td><code>alternate-reverse</code></td>
+      <td>Plays 100% → 0% on odd iterations, 0% → 100% on even iterations</td>
+      <td>Same ping-pong effect but starting from the end state</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The <code>alternate</code> value is especially valuable because it eliminates the jarring visual jump that happens when a looping animation with <code>normal</code> direction snaps instantly from its <code>100%</code> state back to its <code>0%</code> state at the start of each new iteration. With <code>alternate</code>, the return journey is smooth:</p>
+
+<pre><code>@keyframes breathe {
+  from { transform: scale(1);   opacity: 0.8; }
+  to   { transform: scale(1.08); opacity: 1;   }
+}
+
+.orb {
+  animation: breathe 3s ease-in-out infinite alternate;
+}</code></pre>
+
+<p>Note that when using <code>alternate</code>, the effective perceived period of a full round-trip is twice the <code>animation-duration</code>, since each direction takes one full duration.</p>
+
+<p><strong>Fill Modes</strong></p>
+
+<p>By default, an animation only affects an element's appearance while it is actively running. Before it starts (during its delay period) and after it ends, the element displays its original styles as defined by the rest of the stylesheet. The <code>animation-fill-mode</code> property overrides this behavior:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Before animation (during delay)</th>
+      <th>After animation completes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>none</code></td>
+      <td>Original styles</td>
+      <td>Original styles (default)</td>
+    </tr>
+    <tr>
+      <td><code>forwards</code></td>
+      <td>Original styles</td>
+      <td>Styles from the last keyframe</td>
+    </tr>
+    <tr>
+      <td><code>backwards</code></td>
+      <td>Styles from the first keyframe</td>
+      <td>Original styles</td>
+    </tr>
+    <tr>
+      <td><code>both</code></td>
+      <td>Styles from the first keyframe</td>
+      <td>Styles from the last keyframe</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code>forwards</code> is extremely common when an animation is used to introduce an element — for example, fading in a modal. Without <code>forwards</code>, the element would flash back to <code>opacity: 0</code> the moment the animation finishes. With <code>forwards</code>, the final <code>opacity: 1</code> is retained:</p>
+
+<pre><code>@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+.modal {
+  animation: fadeIn 0.5s ease-out forwards;
+}</code></pre>
+
+<p><code>backwards</code> is useful when an element has an <code>animation-delay</code> and you want it to be invisible (or otherwise at its starting state) during that waiting period rather than briefly flashing its normal styles before the animation begins. <code>both</code> combines both behaviors and is generally the safest all-purpose fill mode for intro animations with a delay.</p>
+
+<p><strong>Timing Functions and Delay</strong></p>
+
+<p>The <code>animation-timing-function</code> property controls the <em>rate of change</em> between keyframe stops — whether the interpolation is constant, starts slow and ends fast, or follows a completely custom curve. The built-in keyword values map to predefined cubic Bézier curves:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Keyword</th>
+      <th>Cubic Bézier Equivalent</th>
+      <th>Feel</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>ease</code></td>
+      <td><code>cubic-bezier(0.25, 0.1, 0.25, 1)</code></td>
+      <td>Starts slow, speeds up, then eases out (default)</td>
+    </tr>
+    <tr>
+      <td><code>linear</code></td>
+      <td><code>cubic-bezier(0, 0, 1, 1)</code></td>
+      <td>Constant speed throughout</td>
+    </tr>
+    <tr>
+      <td><code>ease-in</code></td>
+      <td><code>cubic-bezier(0.42, 0, 1, 1)</code></td>
+      <td>Starts slow, accelerates toward the end</td>
+    </tr>
+    <tr>
+      <td><code>ease-out</code></td>
+      <td><code>cubic-bezier(0, 0, 0.58, 1)</code></td>
+      <td>Starts fast, decelerates toward the end</td>
+    </tr>
+    <tr>
+      <td><code>ease-in-out</code></td>
+      <td><code>cubic-bezier(0.42, 0, 0.58, 1)</code></td>
+      <td>Slow at both ends, fast in the middle</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For total control, you can supply a <code>cubic-bezier(x1, y1, x2, y2)</code> value directly. Tools like the Firefox DevTools animation panel or cubic-bezier.com let you design custom curves visually.</p>
+
+<p>The <code>steps()</code> function is a fundamentally different timing model. Instead of smooth interpolation, it divides the animation into a fixed number of discrete jumps, making it ideal for sprite-sheet animation or any effect where you want a deliberate stepped appearance rather than a smooth one:</p>
+
+<pre><code>@keyframes sprite-walk {
+  from { background-position: 0 0;      }
+  to   { background-position: -800px 0; }
+}
+
+.character {
+  width: 100px;
+  height: 100px;
+  background-image: url('walk-spritesheet.png');
+  animation: sprite-walk 0.8s steps(8) infinite;
+}</code></pre>
+
+<p>Here <code>steps(8)</code> jumps through 8 discrete frames across the 800px-wide sprite sheet, with each step revealing exactly the next 100px-wide character pose. The optional second argument, <code>start</code> or <code>end</code> (default), controls whether the jump happens at the beginning or end of each step interval.</p>
+
+<p>Negative values for <code>animation-delay</code> are a powerful and often overlooked feature. A negative delay such as <code>-1s</code> tells the browser to start the animation as if it had already been playing for one second. This means the animation begins immediately but partway through its cycle. It is particularly effective for staggering looping animations so they appear to be at different phases of the same rhythm:</p>
+
+<pre><code>.wave-dot:nth-child(1) { animation: wave 1.2s ease-in-out infinite; animation-delay: 0s;     }
+.wave-dot:nth-child(2) { animation: wave 1.2s ease-in-out infinite; animation-delay: -0.4s;  }
+.wave-dot:nth-child(3) { animation: wave 1.2s ease-in-out infinite; animation-delay: -0.8s;  }</code></pre>
+
+<p>Each of the <code>animation</code> sub-properties — <code>animation-name</code>, <code>animation-duration</code>, <code>animation-delay</code>, <code>animation-timing-function</code>, <code>animation-iteration-count</code>, <code>animation-direction</code>, <code>animation-fill-mode</code>, and <code>animation-play-state</code> — accepts a comma-separated list of values. This allows multiple independent animations to be applied to the same element, each with its own settings:</p>
+
+<pre><code>.notification-icon {
+  animation-name:            spin,      pulse;
+  animation-duration:        2s,        1s;
+  animation-timing-function: linear,    ease-in-out;
+  animation-iteration-count: infinite,  infinite;
+  animation-direction:       normal,    alternate;
+}</code></pre>
+
+<p>The first set of values applies to <code>spin</code> and the second to <code>pulse</code>. If the lists differ in length, the shorter list wraps around (cycles) to fill the remaining animations.</p>
+
+<p><strong>Play State and Pausing Animations</strong></p>
+
+<p>The <code>animation-play-state</code> property has two possible values: <code>running</code> (the default) and <code>paused</code>. When set to <code>paused</code>, the animation freezes at its current point in the cycle — it does not reset to the beginning. Switching it back to <code>running</code> resumes from exactly where it stopped.</p>
+
+<p>This makes it trivially easy to add user-controlled animation pausing without JavaScript timers or manual state tracking. A CSS-only approach using <code>:hover</code>:</p>
+
+<pre><code>.spinner {
+  animation: rotate 1.5s linear infinite;
+}
+
+.spinner:hover {
+  animation-play-state: paused;
+}</code></pre>
+
+<p>For more complex interactions — such as a play/pause button — you can toggle a class with JavaScript and let CSS handle the rest:</p>
+
+<pre><code>/* CSS */
+.animated-element {
+  animation: drift 4s ease-in-out infinite alternate;
+}
+
+.animated-element.paused {
+  animation-play-state: paused;
+}
+</code></pre>
+
+<pre><code>/* JavaScript */
+const el = document.querySelector('.animated-element');
+const btn = document.querySelector('#pause-btn');
+
+btn.addEventListener('click', () => {
+  el.classList.toggle('paused');
+});</code></pre>
+
+<p>This pattern is lightweight, accessible to CSS-only inspection tools, and avoids the pitfalls of resetting an animation by removing and re-adding the property. Because <code>paused</code> freezes the animation in-place rather than resetting it, the visual result is always coherent — there is no flash or jump when the user toggles playback.</p>
+
+<p>Understanding play state alongside the full suite of <code>@keyframes</code> definition, attachment properties, iteration control, direction, fill mode, and timing functions gives you a comprehensive and flexible toolkit for creating polished, production-quality CSS animations without reaching for a JavaScript animation library.</p>
+        <div class="notes"><strong>Notes</strong>Covers the full CSS keyframe animation system: @keyframes definition with from/to and percentage stops, all animation sub-properties and shorthand, iteration count with infinite and fractional values, all four direction keywords, all four fill-mode values, timing functions including cubic-bezier and steps(), negative delays for phase-offset looping, comma-separated multi-animation lists, and play-state toggling via CSS hover and JavaScript class toggling. Tabular data rendered as HTML tables.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

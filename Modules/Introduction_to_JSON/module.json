@@ -1,0 +1,9 @@
+{
+  "Id": "7e652f3a-344e-4b77-9555-8387496f2ed6",
+  "Name": "8 - Introduction to JSON and Using It in the Browser",
+  "Description": "This lesson explains the JSON data format, how to parse and stringify JSON in JavaScript, and how to fetch and display JSON data in a web page using the Fetch API or XMLHttpRequest.",
+  "CreatedBy": "Ron Eaglin",
+  "CreatedDate": "2026-06-26T21:24:50.0468727-04:00",
+  "LastModifiedDate": "2026-07-07T20:08:34.4275721-04:00",
+  "Actions": []
+}

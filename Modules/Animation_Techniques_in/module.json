@@ -1,0 +1,9 @@
+{
+  "Id": "c614270c-1822-4ee2-88c0-f468e4103b2b",
+  "Name": "10 - Animation Techniques in the Browser",
+  "Description": "This lesson covers CSS transitions and keyframe animations as well as JavaScript-driven animation using requestAnimationFrame, enabling students to create smooth, performant browser animations.",
+  "CreatedBy": "Ron Eaglin",
+  "CreatedDate": "2026-06-26T21:24:50.0644196-04:00",
+  "LastModifiedDate": "2026-07-07T20:09:12.7200102-04:00",
+  "Actions": []
+}

@@ -1,0 +1,359 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Working with Paths and Lines</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Working with Paths and Lines</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Working with Paths and Lines</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The HTML Canvas API draws shapes and lines through a concept called a <strong>path</strong>. Unlike simple rectangle methods such as <code>fillRect()</code>, which render immediately, a path is an invisible blueprint — a sequence of points, line segments, arcs, and curves that you define step by step. Only when you explicitly ask the canvas to render that blueprint, by calling <code>stroke()</code> or <code>fill()</code>, does anything become visible. This separation between <em>defining</em> a shape and <em>drawing</em> it is what makes the path system so powerful and flexible. You can build arbitrarily complex shapes — triangles, stars, custom icons, data charts — all from the same small set of path methods.</p>
+
+<p>To work with paths effectively you need to understand each stage of the process: opening a fresh path, positioning the drawing cursor, laying out line segments, optionally closing the shape, and finally rendering it with the right style. Each stage has specific rules that, when misunderstood, produce subtle bugs like shapes bleeding into one another or lines appearing in unexpected colors. The sections below walk through every part of this system in depth, with practical examples that illustrate both the correct approach and the common pitfalls.</p>
+
+<p><strong>Understanding the Path Concept</strong></p>
+
+<p>Internally, the canvas maintains a single <em>current path</em> object. Think of it as a list of instructions stored in memory: "start here, draw a line to here, curve to here," and so on. At any given moment the canvas holds exactly one such list. Every path-building method you call — <code>moveTo()</code>, <code>lineTo()</code>, <code>arc()</code>, <code>bezierCurveTo()</code>, and others — appends an instruction to that list.</p>
+
+<p>This current path can contain multiple <strong>sub-paths</strong>. A sub-path is a connected sequence of segments. When you pick up the pen and put it down somewhere else with <code>moveTo()</code>, you start a new sub-path, but both sub-paths still belong to the same current path object. This means a single call to <code>stroke()</code> or <code>fill()</code> renders all of them at once, which is efficient but also means they all share the same <code>strokeStyle</code> or <code>fillStyle</code> at the moment of rendering.</p>
+
+<p>A critical rule: <strong>paths are never visible until you call <code>stroke()</code> or <code>fill()</code></strong>. You can chain dozens of <code>lineTo()</code> calls and nothing will appear on screen. This is intentional — it lets you set up your styles and properties before committing the drawing to the canvas pixels.</p>
+
+<p>Consider a simple conceptual example: drawing a triangle.</p>
+
+<pre><code>const canvas = document.getElementById('myCanvas');
+const ctx = canvas.getContext('2d');
+
+ctx.beginPath();          // Start a fresh path
+ctx.moveTo(150, 50);      // Move pen to the top vertex
+ctx.lineTo(250, 200);     // Line to bottom-right vertex
+ctx.lineTo(50, 200);      // Line to bottom-left vertex
+ctx.closePath();          // Close back to the starting point (150, 50)
+ctx.stroke();             // Now render the triangle outline
+</code></pre>
+
+<p>Until <code>stroke()</code> is called, the canvas pixel buffer is completely unchanged. The path commands above only modify the internal path list.</p>
+
+<p><strong>Starting and Resetting a Path with beginPath()</strong></p>
+
+<p><code>ctx.beginPath()</code> discards the current path list entirely and starts a new, empty one. This is <em>the single most important habit</em> to build when working with canvas paths. Forgetting to call it is the root cause of a large proportion of canvas rendering bugs encountered by beginners.</p>
+
+<p>Here is why: suppose you draw a red line, then without calling <code>beginPath()</code> you try to draw a blue line. The second call to <code>stroke()</code> redraws <em>everything in the current path</em> — including the original red line — but now with the current <code>strokeStyle</code>, which is blue. The result is that the first line gets repainted blue on top of its original red color.</p>
+
+<pre><code>// BUG: forgetting beginPath()
+ctx.strokeStyle = 'red';
+ctx.moveTo(10, 10);
+ctx.lineTo(200, 10);
+ctx.stroke();             // Draws a red line
+
+ctx.strokeStyle = 'blue';
+ctx.moveTo(10, 50);
+ctx.lineTo(200, 50);
+ctx.stroke();             // Redraws BOTH lines in blue!
+</code></pre>
+
+<pre><code>// CORRECT: using beginPath() before each shape
+ctx.strokeStyle = 'red';
+ctx.beginPath();
+ctx.moveTo(10, 10);
+ctx.lineTo(200, 10);
+ctx.stroke();             // Draws a red line
+
+ctx.strokeStyle = 'blue';
+ctx.beginPath();
+ctx.moveTo(10, 50);
+ctx.lineTo(200, 50);
+ctx.stroke();             // Draws only the blue line
+</code></pre>
+
+<p>An important clarification: <code>beginPath()</code> does <strong>not</strong> erase anything from the canvas surface. Pixels that have already been painted remain exactly where they are. It only resets the internal path definition in memory, giving you a clean slate to describe the next shape. This distinction matters: if you want to clear pixels from the canvas, you need <code>ctx.clearRect()</code>.</p>
+
+<p><strong>Moving the Drawing Cursor with moveTo()</strong></p>
+
+<p><code>ctx.moveTo(x, y)</code> places the drawing cursor at the specified canvas pixel coordinates without drawing anything. It is the equivalent of lifting a pen off paper, moving it to a new spot, and setting it down again. No line is created; only the current position changes.</p>
+
+<p>After <code>beginPath()</code>, the cursor has no defined position. The very first thing you usually do is call <code>moveTo()</code> to establish a starting point. If you skip this and go straight to <code>lineTo()</code>, the canvas treats the current point as (0, 0), which often produces an unexpected diagonal line from the top-left corner.</p>
+
+<p><code>moveTo()</code> can be called multiple times within a single path to create <strong>disconnected sub-paths</strong>. Each <code>moveTo()</code> starts a new sub-path from that position. This is useful when you want to draw multiple separate shapes that will all share the same style and be rendered in a single <code>stroke()</code> call.</p>
+
+<pre><code>// Drawing two separate lines with one stroke() call
+ctx.beginPath();
+
+ctx.moveTo(20, 30);       // Start of first sub-path
+ctx.lineTo(180, 30);      // First horizontal line
+
+ctx.moveTo(20, 70);       // Start of second sub-path (disconnected)
+ctx.lineTo(180, 70);      // Second horizontal line
+
+ctx.strokeStyle = 'green';
+ctx.lineWidth = 2;
+ctx.stroke();             // Both lines rendered green at once
+</code></pre>
+
+<p>This technique is particularly efficient when drawing grids, tick marks, or any pattern made of many disconnected strokes that share the same appearance.</p>
+
+<p><strong>Drawing Straight Lines with lineTo()</strong></p>
+
+<p><code>ctx.lineTo(x, y)</code> adds a straight-line segment from the current cursor position to the point <code>(x, y)</code>, and then updates the current position to <code>(x, y)</code>. Like all path commands, it is invisible until rendered.</p>
+
+<p>Chaining multiple <code>lineTo()</code> calls produces a <strong>polyline</strong> — a series of connected straight segments. Because each call updates the current point, you do not need to repeat coordinates; the starting point of each new segment is automatically the ending point of the previous one.</p>
+
+<pre><code>// Drawing a lightning bolt / zigzag polyline
+ctx.beginPath();
+ctx.moveTo(100, 20);
+ctx.lineTo(60,  100);
+ctx.lineTo(100, 100);
+ctx.lineTo(60,  180);
+ctx.strokeStyle = '#f0c000';
+ctx.lineWidth = 4;
+ctx.stroke();
+</code></pre>
+
+<p>A common source of confusion is that <code>lineTo()</code> called immediately after <code>beginPath()</code> — without a prior <code>moveTo()</code> — behaves like a <code>moveTo()</code> for that very first call. This is because when the path is empty, the canvas implicitly moves to the target point rather than drawing a line from an undefined position. Relying on this implicit behavior is not recommended; always be explicit with <code>moveTo()</code> for clarity.</p>
+
+<p>The line created by <code>lineTo()</code> will be rendered differently depending on whether you call <code>stroke()</code> or <code>fill()</code>. With <code>stroke()</code>, you see the line itself. With <code>fill()</code>, the canvas treats the sequence of points as a closed region and fills the interior area, which only makes sense for polylines that form a polygon.</p>
+
+<p><strong>Closing a Path with closePath()</strong></p>
+
+<p><code>ctx.closePath()</code> draws a straight line segment from the current position back to the starting point of the <em>current sub-path</em>, and then marks the sub-path as closed. It is entirely optional for open shapes like a standalone line, but it is very useful when you are drawing polygons.</p>
+
+<p>The practical difference between calling <code>closePath()</code> and manually drawing a <code>lineTo()</code> back to the origin is how <strong>line joins</strong> are handled at that corner. When you use <code>closePath()</code>, the join between the last segment and the closing segment uses the current <code>lineJoin</code> setting, producing a clean mitered, rounded, or beveled corner. If you use <code>lineTo()</code> back to the origin instead, the start and end of the path meet as two <em>line caps</em> placed at the same point, which often creates a visible notch or gap, especially at larger line widths.</p>
+
+<pre><code>// Polygon with a clean corner using closePath()
+ctx.beginPath();
+ctx.moveTo(150, 30);
+ctx.lineTo(260, 180);
+ctx.lineTo(40,  180);
+ctx.closePath();           // Clean join at (150, 30)
+ctx.lineWidth = 6;
+ctx.strokeStyle = '#333';
+ctx.stroke();
+</code></pre>
+
+<p>Another important point: <code>closePath()</code> does <strong>not</strong> end the path. After calling it you can continue adding more sub-paths to the same current path. It simply closes the current sub-path and moves the current point to the sub-path's starting point.</p>
+
+<p>When <code>fill()</code> is called, all open sub-paths are automatically closed before filling, so <code>closePath()</code> is not strictly necessary before <code>fill()</code>. However, calling it explicitly is considered good practice because it makes your intent clear and ensures consistent behavior for <code>stroke()</code> as well.</p>
+
+<p><strong>Rendering Paths with stroke() and fill()</strong></p>
+
+<p>Once the path is defined, you make it visible with one or both of the rendering commands.</p>
+
+<p><code>ctx.stroke()</code> traces the outline of the path using the current <code>ctx.strokeStyle</code> (a color, gradient, or pattern), <code>ctx.lineWidth</code>, and any other line-related properties in effect at the time it is called. It does not close open sub-paths before drawing.</p>
+
+<p><code>ctx.fill()</code> fills the interior area of the path with the current <code>ctx.fillStyle</code>. It automatically closes any open sub-paths first. The "interior" is determined by the <strong>fill rule</strong>, which you can set as an optional argument: <code>ctx.fill('nonzero')</code> (the default) or <code>ctx.fill('evenodd')</code>, which matters for complex self-intersecting shapes.</p>
+
+<p>You can call both on the same path. The <strong>order matters</strong> because the canvas is a pixel buffer and later operations paint on top of earlier ones. The standard convention is to call <code>fill()</code> first and then <code>stroke()</code>, so that the stroke outline appears on top of the filled area and is fully visible. If you call <code>stroke()</code> first and then <code>fill()</code>, the fill color will paint over half the stroke width (the inner half), effectively making the stroke appear thinner.</p>
+
+<pre><code>// Correct order: fill first, then stroke on top
+ctx.beginPath();
+ctx.moveTo(150, 30);
+ctx.lineTo(260, 180);
+ctx.lineTo(40,  180);
+ctx.closePath();
+
+ctx.fillStyle   = 'lightblue';
+ctx.strokeStyle = 'navy';
+ctx.lineWidth   = 4;
+
+ctx.fill();    // Fill the interior first
+ctx.stroke();  // Draw the outline on top
+</code></pre>
+
+<p><strong>Controlling Line Appearance</strong></p>
+
+<p>The canvas context exposes several properties that control exactly how stroked lines look. These are all set on the context object and apply to any subsequent <code>stroke()</code> call.</p>
+
+<p><strong>lineWidth</strong> sets the thickness of the stroke in CSS pixels. The default is <code>1</code>. The line is drawn centered on the mathematical path, so half the width extends to each side. This means a <code>lineWidth</code> of <code>4</code> extends 2 pixels on each side of the path coordinates. On high-DPI (Retina) displays you may need to scale the canvas to avoid blurry lines.</p>
+
+<pre><code>ctx.lineWidth = 8;   // Eight-pixel-wide stroke
+</code></pre>
+
+<p><strong>lineCap</strong> controls the appearance of the two endpoints of an <em>open</em> sub-path. It has three options:</p>
+
+<ul>
+  <li><strong>'butt'</strong> (default) — The line ends exactly at the endpoint coordinates. No extension beyond the endpoint.</li>
+  <li><strong>'round'</strong> — A semicircle is added beyond each endpoint, with a diameter equal to <code>lineWidth</code>. This makes lines appear slightly longer than their defined coordinates.</li>
+  <li><strong>'square'</strong> — A rectangle half as long as <code>lineWidth</code> is added beyond each endpoint. Lines appear the same length as <code>'round'</code> but with square ends. Useful for dashes that need a precise rectangular appearance.</li>
+</ul>
+
+<pre><code>// Demonstrating all three lineCap styles
+const caps = ['butt', 'round', 'square'];
+caps.forEach((cap, i) => {
+    ctx.beginPath();
+    ctx.lineCap = cap;
+    ctx.lineWidth = 16;
+    ctx.moveTo(50, 40 + i * 40);
+    ctx.lineTo(250, 40 + i * 40);
+    ctx.stroke();
+});
+</code></pre>
+
+<p><strong>lineJoin</strong> controls how two connected segments meet at a corner. It has three options:</p>
+
+<ul>
+  <li><strong>'miter'</strong> (default) — The outer edges of the two segments are extended until they meet at a sharp point. This can produce very long spikes on sharp angles. The <code>miterLimit</code> property (default <code>10</code>) caps the spike length: when the miter would be too long, the join falls back to a bevel.</li>
+  <li><strong>'round'</strong> — A filled arc is drawn at the join, creating a rounded corner with a radius equal to half the <code>lineWidth</code>.</li>
+  <li><strong>'bevel'</strong> — The outer corner is cut off with a straight edge, producing a flat, angled join.</li>
+</ul>
+
+<pre><code>// Drawing a zigzag with each lineJoin type
+const joins = ['miter', 'round', 'bevel'];
+joins.forEach((join, i) => {
+    ctx.beginPath();
+    ctx.lineJoin = join;
+    ctx.lineWidth = 12;
+    ctx.moveTo(20,       60 + i * 80);
+    ctx.lineTo(80,       20 + i * 80);
+    ctx.lineTo(140,      60 + i * 80);
+    ctx.stroke();
+});
+</code></pre>
+
+<p>The table below summarises these line appearance properties at a glance:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Default</th>
+      <th>Valid Values</th>
+      <th>What It Controls</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>lineWidth</code></td>
+      <td><code>1</code></td>
+      <td>Any positive number</td>
+      <td>Thickness of the stroke in pixels</td>
+    </tr>
+    <tr>
+      <td><code>lineCap</code></td>
+      <td><code>'butt'</code></td>
+      <td><code>'butt'</code>, <code>'round'</code>, <code>'square'</code></td>
+      <td>Shape of open path endpoints</td>
+    </tr>
+    <tr>
+      <td><code>lineJoin</code></td>
+      <td><code>'miter'</code></td>
+      <td><code>'miter'</code>, <code>'round'</code>, <code>'bevel'</code></td>
+      <td>Shape of corners between segments</td>
+    </tr>
+    <tr>
+      <td><code>miterLimit</code></td>
+      <td><code>10</code></td>
+      <td>Any positive number</td>
+      <td>Maximum miter length before falling back to bevel</td>
+    </tr>
+    <tr>
+      <td><code>setLineDash()</code></td>
+      <td><code>[]</code> (solid)</td>
+      <td>Array of numbers</td>
+      <td>Dash and gap pattern for the stroke</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>setLineDash()</strong> enables dashed or dotted lines. You pass it an array of numbers representing alternating dash lengths and gap lengths, in pixels. If the array has an odd number of elements, the pattern is duplicated to make it even. You can also offset where the dash pattern starts along the path using <code>ctx.lineDashOffset</code>, which is useful for animating a "marching ants" selection effect.</p>
+
+<pre><code>// Dashed line: 10px dash, 5px gap
+ctx.beginPath();
+ctx.setLineDash([10, 5]);
+ctx.moveTo(20, 50);
+ctx.lineTo(280, 50);
+ctx.strokeStyle = 'crimson';
+ctx.lineWidth = 2;
+ctx.stroke();
+
+// Dotted line: 2px dash, 4px gap
+ctx.beginPath();
+ctx.setLineDash([2, 4]);
+ctx.moveTo(20, 80);
+ctx.lineTo(280, 80);
+ctx.stroke();
+
+// Return to solid lines for subsequent drawing
+ctx.setLineDash([]);
+</code></pre>
+
+<pre><code>// Animated marching ants selection border
+let offset = 0;
+function animateDash() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    ctx.setLineDash([6, 3]);
+    ctx.lineDashOffset = -offset;
+    ctx.strokeStyle = '#000';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(30, 30, 200, 120);  // strokeRect respects lineDash too
+    offset = (offset + 1) % 9;        // 9 = sum of dash pattern (6+3)
+    requestAnimationFrame(animateDash);
+}
+animateDash();
+</code></pre>
+
+<p>Together, these properties — <code>lineWidth</code>, <code>lineCap</code>, <code>lineJoin</code>, and <code>setLineDash()</code> — give you precise control over the visual quality of every stroked path. Mastering them, alongside the path construction methods, lets you produce anything from crisp geometric diagrams to expressive hand-drawn-style graphics entirely within the canvas API.</p>
+        <div class="notes"><strong>Notes</strong>Students should practise drawing several multi-segment shapes in sequence, deliberately alternating styles, to build the muscle memory of always calling beginPath() before each new shape. A useful exercise is replicating a simple icon (such as a house or arrow) using only moveTo(), lineTo(), closePath(), fill(), and stroke(), then experimenting with every lineCap and lineJoin option to observe the visual differences firsthand.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

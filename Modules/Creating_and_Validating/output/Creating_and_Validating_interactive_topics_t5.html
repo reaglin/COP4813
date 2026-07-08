@@ -1,0 +1,307 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Built-in HTML5 Validation Attributes</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Built-in HTML5 Validation Attributes</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Built-in HTML5 Validation Attributes</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>HTML5 introduced a powerful set of declarative validation attributes that allow developers to enforce input rules directly in markup, without writing a single line of JavaScript. Before HTML5, virtually all client-side form validation had to be implemented manually through event listeners and custom logic. Today, modern browsers expose a built-in <strong>Constraint Validation API</strong> that reads these attributes, evaluates the user's input against them, and automatically blocks form submission while displaying contextual error messages when a constraint is violated. Understanding each attribute — what it does, how it interacts with other attributes, and when to reach for it — is essential for building accessible, robust HTML forms.</p>
+
+<p>It is important to keep one foundational principle in mind throughout: <strong>client-side validation is a usability layer, not a security layer.</strong> A determined user can bypass every attribute described below by manipulating the DOM or sending raw HTTP requests. Server-side validation must always be performed independently. With that caveat established, native HTML5 validation attributes remain one of the fastest and most maintainable ways to catch common user errors before a request is ever sent.</p>
+
+<p>The <strong><code>required</code></strong> attribute is the simplest and most frequently used validation attribute. Placing it on an <code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code>, or <code>&lt;select&gt;</code> element signals to the browser that the field must contain a value before the enclosing form is submitted. The attribute is a <em>boolean</em>, meaning its presence alone is sufficient — you do not need to assign it a value, though writing <code>required="required"</code> is valid for XML-based contexts such as XHTML.</p>
+
+<pre><code>&lt;form&gt;
+  &lt;label for="username"&gt;Username&lt;/label&gt;
+  &lt;input type="text" id="username" name="username" required&gt;
+
+  &lt;label for="bio"&gt;Short Bio&lt;/label&gt;
+  &lt;textarea id="bio" name="bio" required&gt;&lt;/textarea&gt;
+
+  &lt;label for="country"&gt;Country&lt;/label&gt;
+  &lt;select id="country" name="country" required&gt;
+    &lt;option value=""&gt;-- Select a country --&lt;/option&gt;
+    &lt;option value="us"&gt;United States&lt;/option&gt;
+    &lt;option value="ca"&gt;Canada&lt;/option&gt;
+  &lt;/select&gt;
+
+  &lt;button type="submit"&gt;Register&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+
+<p>When the user clicks the submit button while the username field is empty, the browser intercepts the submission, focuses the empty field, and displays a native tooltip-style error such as <em>"Please fill out this field."</em> The exact wording and visual styling of this message varies by browser and operating system, which is something to account for when designing the overall form experience. For <code>&lt;select&gt;</code> elements, making the first <code>&lt;option&gt;</code>'s value an empty string (<code>value=""</code>) is the conventional way to represent the unselected state that <code>required</code> will catch.</p>
+
+<p>Controlling the <strong>length of text input</strong> is handled by two complementary attributes: <code>minlength</code> and <code>maxlength</code>. These apply to <code>&lt;input&gt;</code> elements whose <code>type</code> is <code>text</code>, <code>search</code>, <code>url</code>, <code>tel</code>, <code>email</code>, or <code>password</code>, as well as to <code>&lt;textarea&gt;</code> elements.</p>
+
+<p><strong><code>maxlength</code></strong> enforces an <em>immediate, hard cap</em> on the number of characters a user can type. Once the limit is reached, the browser simply stops accepting additional keystrokes. Because the user can never exceed the limit, <code>maxlength</code> does not produce a submission-time validation error — the constraint is already satisfied by design. This makes it excellent for fields like postal codes, card numbers, or short titles where a strict upper bound is known in advance.</p>
+
+<p><strong><code>minlength</code></strong>, in contrast, operates differently. The browser does <em>not</em> prevent the user from typing fewer characters than the minimum while they are filling in the field. Instead, the check happens at submission time: if the entered value is shorter than the <code>minlength</code> value, the browser blocks submission and displays an error. This design allows users to gradually build up their answer rather than being interrupted mid-typing.</p>
+
+<pre><code>&lt;label for="password"&gt;Password&lt;/label&gt;
+&lt;input
+  type="password"
+  id="password"
+  name="password"
+  minlength="8"
+  maxlength="64"
+  required
+&gt;
+
+&lt;label for="review"&gt;Product Review&lt;/label&gt;
+&lt;textarea
+  id="review"
+  name="review"
+  minlength="20"
+  maxlength="500"
+&gt;&lt;/textarea&gt;</code></pre>
+
+<p>In the example above, the password field will accept no more than 64 characters (typed input simply stops) and will produce a validation error if the user tries to submit with fewer than 8. The textarea requires a review of at least 20 characters but no more than 500. Note that a field with only <code>minlength</code> and no <code>required</code> will pass validation when it is completely empty — <code>minlength</code> only fires when the field has <em>some</em> content that falls short of the threshold.</p>
+
+<p>The <strong><code>pattern</code></strong> attribute gives developers the ability to match input against an arbitrary regular expression, making it the most flexible of all the native validation attributes. The value of <code>pattern</code> is a JavaScript-compatible regular expression written <em>without</em> the surrounding forward slashes used in JavaScript regex literals. The browser implicitly anchors the pattern to the full value — meaning the entire input string must match, not just a substring — which is equivalent to wrapping the expression in <code>^</code> and <code>$</code>.</p>
+
+<pre><code>&lt;!-- US ZIP code: five digits, optionally followed by a hyphen and four more --&gt;
+&lt;label for="zip"&gt;ZIP Code&lt;/label&gt;
+&lt;input
+  type="text"
+  id="zip"
+  name="zip"
+  pattern="\d{5}(-\d{4})?"
+  title="Enter a 5-digit ZIP code, optionally followed by a dash and 4 digits (e.g. 90210 or 90210-1234)"
+  required
+&gt;
+
+&lt;!-- Simple username: 3–16 alphanumeric characters or underscores --&gt;
+&lt;label for="handle"&gt;Username&lt;/label&gt;
+&lt;input
+  type="text"
+  id="handle"
+  name="handle"
+  pattern="[A-Za-z0-9_]{3,16}"
+  title="3 to 16 characters: letters, numbers, and underscores only"
+  required
+&gt;</code></pre>
+
+<p>When the user's input does not match the pattern and they attempt to submit, the browser blocks submission and shows a validation error. Crucially, if a <code>title</code> attribute is present on the same element, most browsers incorporate its text into the error message — for example, Chrome will display something like <em>"Please match the requested format: 3 to 16 characters: letters, numbers, and underscores only."</em> This makes <code>title</code> an important companion attribute when using <code>pattern</code>, because the native regex syntax is meaningless to end users. Common real-world patterns include phone number formats, national ID numbers, product codes, and username conventions that the built-in type constraints cannot express on their own.</p>
+
+<p>The <strong><code>type</code></strong> attribute on <code>&lt;input&gt;</code> does far more than control visual appearance — each type carries its own built-in semantic validation rules. Using the correct type is simultaneously a validation decision, an accessibility decision, and a mobile UX decision, because browsers on touch devices use the <code>type</code> to determine which on-screen keyboard to present.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Input Type</th>
+      <th>Validation Behavior</th>
+      <th>Mobile Keyboard Hint</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>type="email"</code></td>
+      <td>Checks that the value contains at least one <code>@</code> character with a non-empty local part and domain. Multiple addresses are allowed when the <code>multiple</code> attribute is also present.</td>
+      <td>Email keyboard (@ key prominent)</td>
+    </tr>
+    <tr>
+      <td><code>type="url"</code></td>
+      <td>Requires the value to be an absolute URL with a valid scheme such as <code>http://</code>, <code>https://</code>, or <code>ftp://</code>.</td>
+      <td>URL keyboard (/ and . keys prominent)</td>
+    </tr>
+    <tr>
+      <td><code>type="number"</code></td>
+      <td>Rejects non-numeric input and can be combined with <code>min</code>, <code>max</code>, and <code>step</code> for range constraints.</td>
+      <td>Numeric keypad</td>
+    </tr>
+    <tr>
+      <td><code>type="tel"</code></td>
+      <td>No built-in format validation (phone formats vary globally); use <code>pattern</code> to add one. Primarily valuable for the mobile keyboard it triggers.</td>
+      <td>Phone dialpad</td>
+    </tr>
+    <tr>
+      <td><code>type="date"</code></td>
+      <td>Provides a date picker and enforces ISO 8601 date format (YYYY-MM-DD) for the submitted value; works with <code>min</code> and <code>max</code>.</td>
+      <td>Date picker widget</td>
+    </tr>
+  </tbody>
+</table>
+
+<pre><code>&lt;label for="email"&gt;Email Address&lt;/label&gt;
+&lt;input type="email" id="email" name="email" required&gt;
+
+&lt;label for="website"&gt;Website&lt;/label&gt;
+&lt;input type="url" id="website" name="website" placeholder="https://example.com"&gt;
+
+&lt;label for="age"&gt;Age&lt;/label&gt;
+&lt;input type="number" id="age" name="age" min="18" max="120" required&gt;</code></pre>
+
+<p>It is worth noting that <code>type="email"</code> performs only a basic syntactic check — it will accept <code>user@example.com</code> even if that mailbox does not exist. True email deliverability verification always requires a server-side check or a dedicated service.</p>
+
+<p>The <strong><code>min</code></strong> and <strong><code>max</code></strong> attributes define the lower and upper boundaries of acceptable values for numeric and date/time-based inputs. They are most commonly combined with <code>type="number"</code> but they also apply meaningfully to <code>type="range"</code>, <code>type="date"</code>, <code>type="time"</code>, <code>type="datetime-local"</code>, <code>type="month"</code>, and <code>type="week"</code>.</p>
+
+<pre><code>&lt;!-- Numeric range: allow only quantities from 1 to 100 --&gt;
+&lt;label for="qty"&gt;Quantity&lt;/label&gt;
+&lt;input type="number" id="qty" name="qty" min="1" max="100" step="1" required&gt;
+
+&lt;!-- Date range: only allow booking dates in 2025 --&gt;
+&lt;label for="booking"&gt;Booking Date&lt;/label&gt;
+&lt;input type="date" id="booking" name="booking" min="2025-01-01" max="2025-12-31" required&gt;
+
+&lt;!-- Range slider: temperature preference 16–30 °C in 0.5 steps --&gt;
+&lt;label for="temp"&gt;Preferred Temperature (°C)&lt;/label&gt;
+&lt;input type="range" id="temp" name="temp" min="16" max="30" step="0.5"&gt;</code></pre>
+
+<p>The <strong><code>step</code></strong> attribute deserves particular attention when used alongside <code>min</code> and <code>max</code>. It specifies the legal intervals between values. For <code>type="number"</code>, a <code>step="5"</code> combined with <code>min="0"</code> means only 0, 5, 10, 15, … are valid. Submitting a value of 3 in that scenario would trigger a validation error even though 3 falls between 0 and any reasonable maximum. Setting <code>step="any"</code> removes the increment constraint while still respecting <code>min</code> and <code>max</code>. For date inputs, <code>step</code> is expressed in seconds by default or as day counts depending on the type — for example, <code>step="7"</code> on a <code>type="date"</code> input allows only weekly intervals.</p>
+
+<p>When a submitted value falls outside the range defined by <code>min</code> and <code>max</code>, or does not conform to the <code>step</code> interval, the browser automatically displays a descriptive validation error such as <em>"Value must be less than or equal to 100"</em> — all without any JavaScript event handling.</p>
+
+<p>The final pair of supplementary attributes — <strong><code>placeholder</code></strong> and <strong><code>title</code></strong> — do not validate input themselves, but they meaningfully shape the user experience around validation by guiding users toward correct input before errors can occur.</p>
+
+<p><strong><code>placeholder</code></strong> displays ghost or hint text inside the input field that describes what the user should enter. This text disappears the moment the user begins typing and is <em>never</em> submitted as a value. Common examples include <code>placeholder="e.g. john@example.com"</code> or <code>placeholder="YYYY-MM-DD"</code>. Placeholder text is intentionally low-contrast in most browsers, which helps visually differentiate it from actual user input. However, this low contrast also raises accessibility concerns — placeholder text does not replace a proper <code>&lt;label&gt;</code> element because it disappears when the field is focused and may be difficult to read for users with visual impairments. Always pair <code>placeholder</code> with a visible <code>&lt;label&gt;</code>.</p>
+
+<p><strong><code>title</code></strong> provides a text string that browsers render as a tooltip when the user hovers over the element. More importantly for validation purposes, as noted earlier, browsers incorporate the <code>title</code> text into native validation error messages when the <code>pattern</code> attribute is also present. This makes <code>title</code> the primary mechanism for communicating <em>why</em> the pattern exists and what format the user should follow — turning an opaque browser error into a human-readable instruction.</p>
+
+<pre><code>&lt;label for="phone"&gt;Phone Number&lt;/label&gt;
+&lt;input
+  type="tel"
+  id="phone"
+  name="phone"
+  pattern="\(\d{3}\) \d{3}-\d{4}"
+  placeholder="(555) 867-5309"
+  title="Enter a US phone number in the format (555) 867-5309"
+  required
+&gt;</code></pre>
+
+<p>In the example above, <code>placeholder</code> shows the user an example of the expected format as they look at the empty field, and <code>title</code> ensures that if they still get it wrong and submit, the validation error message contains a plain-English explanation of the required format rather than just a generic prompt.</p>
+
+<p>To summarize the full picture of how these attributes relate to one another and when each is applicable, consider the following reference:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Applies To</th>
+      <th>Validation Trigger</th>
+      <th>Key Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>required</code></td>
+      <td><code>input</code>, <code>textarea</code>, <code>select</code></td>
+      <td>On submit, if field is empty</td>
+      <td>Boolean attribute; no value needed</td>
+    </tr>
+    <tr>
+      <td><code>minlength</code></td>
+      <td>Text-based <code>input</code>, <code>textarea</code></td>
+      <td>On submit, if value length &lt; minimum</td>
+      <td>Does not fire on empty field unless <code>required</code> is also set</td>
+    </tr>
+    <tr>
+      <td><code>maxlength</code></td>
+      <td>Text-based <code>input</code>, <code>textarea</code></td>
+      <td>Prevents typing beyond limit (no submit error)</td>
+      <td>Hard cap on keystrokes; never a submission error</td>
+    </tr>
+    <tr>
+      <td><code>pattern</code></td>
+      <td>Text-based <code>input</code></td>
+      <td>On submit, if value doesn't match regex</td>
+      <td>Full-string match; pair with <code>title</code> for human-readable errors</td>
+    </tr>
+    <tr>
+      <td><code>type</code></td>
+      <td><code>input</code></td>
+      <td>On submit, if format is invalid</td>
+      <td>Also improves mobile keyboard; many types have their own rules</td>
+    </tr>
+    <tr>
+      <td><code>min</code> / <code>max</code></td>
+      <td>Numeric and date/time <code>input</code></td>
+      <td>On submit, if value is out of range</td>
+      <td>Works with <code>step</code>; date values use ISO 8601 strings</td>
+    </tr>
+    <tr>
+      <td><code>step</code></td>
+      <td>Numeric and date/time <code>input</code></td>
+      <td>On submit, if value is not a valid step</td>
+      <td>Use <code>step="any"</code> to allow arbitrary values within range</td>
+    </tr>
+    <tr>
+      <td><code>placeholder</code></td>
+      <td><code>input</code>, <code>textarea</code></td>
+      <td>No validation; hint only</td>
+      <td>Never replaces a <code>&lt;label&gt;</code>; disappears on focus</td>
+    </tr>
+    <tr>
+      <td><code>title</code></td>
+      <td>Any element</td>
+      <td>No validation; hint in error message with <code>pattern</code></td>
+      <td>Shown as tooltip on hover; included in native pattern error text</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Used together thoughtfully, these attributes form a cohesive, zero-JavaScript validation layer that improves data quality, reduces user frustration, and keeps HTML forms semantically meaningful. They also integrate cleanly with CSS pseudo-classes such as <code>:valid</code>, <code>:invalid</code>, and <code>:required</code>, making it straightforward to provide real-time visual feedback purely through styling — a topic that builds naturally on this foundation.</p>
+        <div class="notes"><strong>Notes</strong>Native HTML5 validation attributes (required, minlength, maxlength, pattern, type constraints, min, max, step, placeholder, title) are covered with in-depth explanations, code examples, and reference tables. Emphasis is placed on the distinction between submission-time and keystroke-time constraints, the importance of pairing title with pattern, and the accessibility caveats around placeholder. Server-side validation reminder included as a foundational principle.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

@@ -1,0 +1,248 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to the HTML5 Canvas Element</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Introduction to the HTML5 Canvas Element</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to the HTML5 Canvas Element</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The HTML5 Canvas element is one of the most powerful and flexible tools available to web developers for creating dynamic, scriptable graphics directly inside a browser. Before Canvas arrived, developers who wanted rich visual content in a webpage typically had to rely on browser plugins such as Adobe Flash or Microsoft Silverlight, or they had to use static image files that could not respond to user interaction or data changes in real time. The introduction of the <code>&lt;canvas&gt;</code> element as part of the HTML5 specification changed all of that by giving developers a native, standards-based drawing surface that is controlled entirely through JavaScript.</p>
+
+<p>At its core, the <code>&lt;canvas&gt;</code> element acts as a <strong>blank bitmap surface</strong> embedded directly in the HTML document. Think of it as a rectangular piece of graph paper inserted into your webpage — it has defined dimensions, every point on it can be precisely addressed, and you fill it in programmatically using drawing commands issued through JavaScript. The browser renders whatever you instruct it to draw, pixel by pixel, inside that rectangle. Unlike SVG (Scalable Vector Graphics), which stores shapes as structured XML objects that remain individually selectable and manipulable in the DOM, Canvas is a <em>raster-based</em> system: once a shape is drawn onto the canvas, it becomes part of the flat bitmap. There are no persistent objects to query or modify; if you want to change what is displayed you redraw the affected area.</p>
+
+<p>The range of practical applications for Canvas is enormous. Common use cases include:</p>
+<ul>
+  <li><strong>Data visualizations</strong> — bar charts, line graphs, pie charts, heat maps, and real-time dashboards where data updates continuously</li>
+  <li><strong>Animations</strong> — smooth frame-by-frame motion, particle systems, and physics simulations</li>
+  <li><strong>Game graphics</strong> — 2D sprite-based games, tile maps, collision detection rendering, and heads-up displays</li>
+  <li><strong>Interactive diagrams</strong> — drawing tools, whiteboards, flow-chart editors, and image editors built entirely in the browser</li>
+  <li><strong>Image processing</strong> — pixel-level manipulation such as filters, color correction, and compositing</li>
+</ul>
+
+<p>Understanding how to set up and access the Canvas element correctly is the essential first step before any drawing can take place. The process always follows the same sequence: add the element to HTML, select it with JavaScript, obtain its rendering context, and then issue drawing commands through that context.</p>
+
+<p><strong>Adding the Canvas Element to a Webpage</strong></p>
+
+<p>Placing a canvas on a page is as simple as writing a single HTML tag. The <code>&lt;canvas&gt;</code> element is an inline-block element by default, and like an <code>&lt;img&gt;</code> tag it requires no child content to function. The most important attributes to set are <code>id</code>, <code>width</code>, and <code>height</code>:</p>
+
+<pre><code>&lt;canvas id="myCanvas" width="800" height="450"&gt;
+  Your browser does not support the HTML5 Canvas element.
+&lt;/canvas&gt;</code></pre>
+
+<p>The <code>id</code> attribute gives the element a unique name so that JavaScript can locate it easily with <code>document.getElementById()</code> or <code>document.querySelector()</code>. Without a unique identifier you would have no reliable way to reference the correct canvas when a page contains more than one.</p>
+
+<p>Setting <code>width</code> and <code>height</code> directly as HTML attributes is critically important and is a common source of confusion for beginners. These two attributes define the <strong>actual resolution of the drawing surface</strong> — the number of pixels that exist inside the canvas grid. If you omit them, the browser defaults to a canvas that is 300 pixels wide and 150 pixels tall regardless of how large the element appears on screen. If instead you try to control the canvas size purely through CSS — for example <code>style="width: 800px; height: 450px;"</code> — you change only the <em>display size</em> of the element, not the resolution of its internal pixel grid. The result is that a 300×150 drawing surface is stretched to fill 800×450 screen pixels, making every drawing appear blurry and distorted. Always set dimensions in the HTML attributes to keep the drawing surface and the displayed size in sync.</p>
+
+<p>The text placed between the opening and closing <code>&lt;canvas&gt;</code> tags is <strong>fallback content</strong>. Browsers that fully support Canvas ignore this content entirely. Older browsers that do not understand the <code>&lt;canvas&gt;</code> tag will not render the element and will instead display whatever is between the tags — a descriptive message, a static image, or a link to an alternative. This makes fallback content an important accessibility and graceful-degradation consideration.</p>
+
+<p><strong>Selecting the Canvas Element with JavaScript</strong></p>
+
+<p>Once the HTML is in place, JavaScript must locate the element in the DOM before any drawing can begin. The standard approach is to store a reference to the canvas in a variable:</p>
+
+<pre><code>const canvas = document.getElementById('myCanvas');</code></pre>
+
+<p>Storing the reference in a variable is a best practice for two reasons. First, querying the DOM with <code>getElementById</code> or <code>querySelector</code> is a relatively slow operation compared to reading a local variable. If your drawing code needs to refer to the canvas repeatedly — to check its <code>width</code>, <code>height</code>, or to add event listeners — having the reference cached in a variable avoids redundant DOM lookups. Second, it keeps the code readable: <code>canvas.width</code> is clearer than <code>document.getElementById('myCanvas').width</code> repeated throughout a function.</p>
+
+<p>It is equally important to understand what the canvas reference <em>cannot</em> do: <strong>you cannot draw through the canvas element itself</strong>. The <code>canvas</code> variable gives you access to properties of the DOM element (its width, height, position in the document, and event handling), but it exposes no drawing methods directly. It is the gateway to the rendering context, which is the object that actually knows how to draw.</p>
+
+<p>A crucial timing consideration is that the JavaScript selecting the canvas must run <em>after</em> the browser has parsed the <code>&lt;canvas&gt;</code> tag. If a script in the <code>&lt;head&gt;</code> runs before the body is rendered, <code>document.getElementById('myCanvas')</code> will return <code>null</code> because the element does not yet exist in the DOM. There are two common solutions:</p>
+<ul>
+  <li>Place the <code>&lt;script&gt;</code> tag at the <strong>bottom of the body</strong>, just before <code>&lt;/body&gt;</code>, so that all HTML is parsed before the script executes.</li>
+  <li>Wrap the code in a <strong><code>DOMContentLoaded</code> event listener</strong>, which fires as soon as the HTML document has been fully parsed: <code>document.addEventListener('DOMContentLoaded', function() { /* canvas code here */ });</code></li>
+</ul>
+
+<p><strong>Understanding the Rendering Context</strong></p>
+
+<p>The rendering context is the object through which all drawing actually happens. You obtain it by calling the <code>getContext()</code> method on the canvas DOM element and passing a string that identifies which type of context you want:</p>
+
+<pre><code>const ctx = canvas.getContext('2d');</code></pre>
+
+<p>The string <code>'2d'</code> requests the <strong>2D rendering context</strong>, which provides a rich set of methods for drawing rectangles, paths, arcs, text, images, and gradients on a flat two-dimensional plane. Other valid context types include <code>'webgl'</code> and <code>'webgl2'</code> for hardware-accelerated 3D graphics using the WebGL API, and <code>'bitmaprenderer'</code> for transferring <code>ImageBitmap</code> objects. This module focuses entirely on the <code>'2d'</code> context.</p>
+
+<p>The object returned by <code>getContext('2d')</code> is a <code>CanvasRenderingContext2D</code> instance. It contains:</p>
+<ul>
+  <li><strong>Drawing methods</strong> — such as <code>fillRect()</code>, <code>strokeRect()</code>, <code>beginPath()</code>, <code>arc()</code>, <code>lineTo()</code>, <code>fillText()</code>, and <code>drawImage()</code></li>
+  <li><strong>Style properties</strong> — such as <code>fillStyle</code>, <code>strokeStyle</code>, <code>lineWidth</code>, <code>font</code>, and <code>globalAlpha</code></li>
+  <li><strong>Transformation methods</strong> — such as <code>translate()</code>, <code>rotate()</code>, <code>scale()</code>, and <code>setTransform()</code></li>
+  <li><strong>State management methods</strong> — <code>save()</code> and <code>restore()</code> to push and pop the current drawing state</li>
+</ul>
+
+<p>By convention, the context variable is almost universally named <code>ctx</code> in tutorials, documentation, and real-world code. Using this convention makes your code immediately recognizable to other developers and keeps drawing commands concise: <code>ctx.fillRect(10, 10, 100, 50)</code> is much more readable than a longer or non-standard name would be.</p>
+
+<p><strong>Writing the Basic Canvas Setup Code</strong></p>
+
+<p>Putting the preceding steps together, every canvas-based drawing script begins with the same two-step setup. Here is a complete, minimal example:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Canvas Basics&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;canvas id="myCanvas" width="800" height="450"&gt;
+    Your browser does not support the HTML5 Canvas element.
+  &lt;/canvas&gt;
+
+  &lt;script&gt;
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+
+    if (ctx) {
+      // Drawing commands go here
+      ctx.fillStyle = 'steelblue';
+      ctx.fillRect(50, 50, 200, 100);
+    }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<p>Notice that the script appears just before <code>&lt;/body&gt;</code>, guaranteeing that the <code>&lt;canvas&gt;</code> element has been parsed before JavaScript tries to access it. The conditional check <code>if (ctx)</code> is a defensive guard: in the rare case that <code>getContext()</code> returns <code>null</code> — which can happen in very old browsers or environments where canvas support is disabled — the drawing code inside the block is simply skipped, preventing a runtime error. When <code>ctx</code> is successfully obtained, drawing commands can begin immediately.</p>
+
+<p>For larger projects it is common practice to extract the setup code and the drawing logic into separate named functions, which improves readability and makes it easier to trigger redraws on user events or animation frames:</p>
+
+<pre><code>function setup() {
+  const canvas = document.getElementById('myCanvas');
+  const ctx = canvas.getContext('2d');
+  if (ctx) {
+    draw(ctx, canvas.width, canvas.height);
+  }
+}
+
+function draw(ctx, width, height) {
+  ctx.fillStyle = '#f0a500';
+  ctx.fillRect(0, 0, width, height); // Fill the entire canvas
+}
+
+document.addEventListener('DOMContentLoaded', setup);</code></pre>
+
+<p><strong>Canvas Coordinate System</strong></p>
+
+<p>Before issuing any drawing commands it is essential to understand how positions are specified on the canvas. The canvas uses a straightforward <strong>Cartesian-style coordinate system</strong> with one important difference from the mathematical convention you may be used to: the <em>y-axis is inverted</em>.</p>
+
+<p>The <strong>origin (0, 0)</strong> is located at the <strong>top-left corner</strong> of the canvas. The x-axis increases to the <strong>right</strong>, exactly as expected. The y-axis, however, increases <strong>downward</strong> rather than upward. This means that a point at (100, 200) is 100 pixels from the left edge and 200 pixels from the <em>top</em> edge.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Coordinate</th>
+      <th>Direction of increase</th>
+      <th>Maximum value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>x</td>
+      <td>Left → Right</td>
+      <td>canvas.width − 1</td>
+    </tr>
+    <tr>
+      <td>y</td>
+      <td>Top → Bottom</td>
+      <td>canvas.height − 1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For a canvas declared as <code>width="800" height="450"</code>, the four corners have these coordinates:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Corner</th>
+      <th>x</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Top-left</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Top-right</td>
+      <td>799</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Bottom-left</td>
+      <td>0</td>
+      <td>449</td>
+    </tr>
+    <tr>
+      <td>Bottom-right</td>
+      <td>799</td>
+      <td>449</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Any drawing operation that places content at coordinates outside these bounds — for example, drawing a rectangle starting at x = 900 on an 800-pixel-wide canvas — will simply not be visible. The canvas clips everything to its own boundaries. This behavior can actually be useful: you can intentionally draw a shape that starts inside the canvas and extends beyond the edge, and only the portion within bounds will appear, producing a natural clipping effect without any extra code.</p>
+
+<p>Understanding this coordinate system is indispensable for every subsequent drawing operation. Whether you are placing a rectangle, the center point of a circle, the start of a line, or a piece of text, every position you specify is an (x, y) pair measured in pixels from that top-left origin. Keeping a mental model of the canvas as a grid where (0, 0) is at the top-left and y increases as you move down will prevent the most common positioning mistakes as you begin working with drawing methods.</p>
+        <div class="notes"><strong>Notes</strong>Emphasize to students that confusing CSS-based sizing with HTML attribute sizing is one of the single most common Canvas beginner mistakes — always set width and height as HTML attributes on the element. Also reinforce the inverted y-axis early, as it consistently surprises learners coming from a math background.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

@@ -1,0 +1,371 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Input Types and Elements</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Form Input Types and Elements</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Form Input Types and Elements</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>HTML forms are the primary mechanism through which users interact with web applications — they power everything from login screens and search bars to file uploads and survey tools. At the heart of every form are its <strong>input types and form elements</strong>, each designed to collect a specific kind of data in the most appropriate and user-friendly way. Choosing the right input type is not merely a matter of aesthetics; it unlocks built-in browser validation, triggers optimized mobile keyboards, and communicates intent to assistive technologies. This topic examines every major form input type and element in depth, exploring their attributes, use cases, and the subtle but important differences between them.</p>
+
+<p><strong>Text and Password Inputs</strong></p>
+
+<p>The most fundamental form control is the single-line text input. It is created with the <code>&lt;input&gt;</code> element and its <code>type</code> attribute set to <code>"text"</code>. This input is appropriate whenever you need to collect a short, free-form string from the user — a first name, a username, a search query, a city, or any other general piece of text that does not fit a more specific type.</p>
+
+<pre><code>&lt;label for="username"&gt;Username:&lt;/label&gt;
+&lt;input type="text" id="username" name="username" placeholder="e.g. janedoe"&gt;</code></pre>
+
+<p>The <strong><code>placeholder</code></strong> attribute accepts a short string that appears inside the field when it is empty, giving users a hint about the expected format or content. It disappears the moment the user begins typing. Importantly, a placeholder is <em>not</em> a substitute for a <code>&lt;label&gt;</code> — it disappears on input and is not reliably read by all screen readers, so every field should have an associated label as well.</p>
+
+<p>The <strong><code>maxlength</code></strong> attribute places a hard cap on the number of characters the browser will accept. For example, if a username must be no longer than 20 characters, you would write <code>maxlength="20"</code>. The browser silently prevents the user from typing beyond that limit. A complementary attribute, <code>minlength</code>, sets a minimum required length, though this is enforced only at submission time rather than during typing.</p>
+
+<p>The <strong>password input</strong> (<code>type="password"</code>) behaves almost identically to a text input in terms of structure and supported attributes, but the browser automatically masks each character the user types — displaying dots or asterisks — so that the value cannot be read over someone's shoulder or by casual observation of the screen. Browsers may also prompt the user to save the value in a password manager.</p>
+
+<pre><code>&lt;label for="pwd"&gt;Password:&lt;/label&gt;
+&lt;input type="password" id="pwd" name="password" placeholder="At least 8 characters" maxlength="64"&gt;</code></pre>
+
+<p>It is worth noting that <code>type="password"</code> only masks the display — it does <em>not</em> encrypt the data in transit. You must still use HTTPS to protect the password from being intercepted on the network.</p>
+
+<p><strong>Email, URL, and Tel Inputs</strong></p>
+
+<p>HTML5 introduced several specialised text-like input types that provide format-aware validation and better mobile experiences without requiring any JavaScript.</p>
+
+<p><strong><code>type="email"</code></strong> tells the browser to expect an email address. When the form is submitted, the browser checks that the value at least contains an <code>@</code> sign with text on both sides, and will prevent submission and display an error message if the format is wrong. On smartphones, this type also causes the keyboard to surface the <code>@</code> key and a <code>.com</code> shortcut prominently.</p>
+
+<pre><code>&lt;label for="email"&gt;Email Address:&lt;/label&gt;
+&lt;input type="email" id="email" name="email" placeholder="you@example.com"&gt;</code></pre>
+
+<p><strong><code>type="url"</code></strong> expects a fully qualified web address. The browser validates that the value begins with a recognised protocol such as <code>http://</code> or <code>https://</code> followed by a domain. If a user types <code>www.example.com</code> without the protocol, the browser will flag it as invalid at submission time.</p>
+
+<pre><code>&lt;label for="website"&gt;Your Website:&lt;/label&gt;
+&lt;input type="url" id="website" name="website" placeholder="https://www.example.com"&gt;</code></pre>
+
+<p><strong><code>type="tel"</code></strong> is used for telephone numbers. Unlike <code>email</code> and <code>url</code>, it does <em>not</em> enforce a specific format — phone number conventions vary enormously around the world, so browsers do not attempt to validate the pattern. However, on mobile devices this type causes the numeric dial pad to appear instead of the full keyboard, making data entry significantly easier. You can use the <code>pattern</code> attribute alongside it if you need to enforce a particular local format.</p>
+
+<pre><code>&lt;label for="phone"&gt;Phone Number:&lt;/label&gt;
+&lt;input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000"&gt;</code></pre>
+
+<p><strong>Checkbox and Radio Inputs</strong></p>
+
+<p>These two input types handle selection from a set of options, but they serve fundamentally different purposes determined by whether the user should be able to choose one or many.</p>
+
+<p><strong>Checkboxes</strong> (<code>type="checkbox"</code>) are independent toggles. Each one can be checked or unchecked without affecting any other checkbox on the page, even if they share a name. They are ideal for questions like "Which of the following apply to you?" or "Select all features you want."</p>
+
+<pre><code>&lt;p&gt;Select your interests:&lt;/p&gt;
+
+&lt;input type="checkbox" id="music" name="interests" value="music"&gt;
+&lt;label for="music"&gt;Music&lt;/label&gt;
+
+&lt;input type="checkbox" id="sports" name="interests" value="sports"&gt;
+&lt;label for="sports"&gt;Sports&lt;/label&gt;
+
+&lt;input type="checkbox" id="travel" name="interests" value="travel" checked&gt;
+&lt;label for="travel"&gt;Travel&lt;/label&gt;</code></pre>
+
+<p>In the example above, <code>value="travel"</code> is what gets submitted to the server if that checkbox is checked — not the label text. The <strong><code>checked</code></strong> attribute pre-selects the "Travel" option when the page first loads. If a checkbox is not checked at submission time, its name–value pair is simply omitted from the form data entirely, which is important to account for on the server side.</p>
+
+<p><strong>Radio buttons</strong> (<code>type="radio"</code>) enforce a mutually exclusive single-choice constraint. The critical requirement is that all radio buttons belonging to the same group must share the <em>same</em> <code>name</code> attribute. The browser uses this shared name to link them together, ensuring that selecting one automatically deselects any other in the group.</p>
+
+<pre><code>&lt;p&gt;Choose a subscription plan:&lt;/p&gt;
+
+&lt;input type="radio" id="free" name="plan" value="free" checked&gt;
+&lt;label for="free"&gt;Free&lt;/label&gt;
+
+&lt;input type="radio" id="pro" name="plan" value="pro"&gt;
+&lt;label for="pro"&gt;Pro&lt;/label&gt;
+
+&lt;input type="radio" id="enterprise" name="plan" value="enterprise"&gt;
+&lt;label for="enterprise"&gt;Enterprise&lt;/label&gt;</code></pre>
+
+<p>The <strong><code>&lt;label&gt;</code> element</strong> is essential for both checkboxes and radio buttons. By connecting a label to its input via matching <code>for</code> and <code>id</code> attributes, you achieve two things: the label text becomes a clickable target (making small checkboxes far easier to select, especially on touch screens), and screen readers announce the label text when the control receives focus, making the form accessible.</p>
+
+<p><strong>Select Menus and Option Elements</strong></p>
+
+<p>When you have a predefined list of options — especially a long one — a dropdown select menu is often more space-efficient than a group of radio buttons. The <code>&lt;select&gt;</code> element acts as the container, and each choice is defined by a nested <code>&lt;option&gt;</code> element.</p>
+
+<pre><code>&lt;label for="country"&gt;Country:&lt;/label&gt;
+&lt;select id="country" name="country"&gt;
+  &lt;option value=""&gt;-- Please select --&lt;/option&gt;
+  &lt;option value="us"&gt;United States&lt;/option&gt;
+  &lt;option value="gb"&gt;United Kingdom&lt;/option&gt;
+  &lt;option value="ca" selected&gt;Canada&lt;/option&gt;
+  &lt;option value="au"&gt;Australia&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+
+<p>The <strong><code>value</code></strong> attribute on each <code>&lt;option&gt;</code> is the data actually submitted to the server. The text between the tags is only what the user sees in the dropdown. If you omit the <code>value</code> attribute, the browser falls back to submitting the visible text content. Adding the <strong><code>selected</code></strong> attribute to an option pre-selects it on page load, similar to the <code>checked</code> attribute on inputs.</p>
+
+<p>Adding the <strong><code>multiple</code></strong> attribute to a <code>&lt;select&gt;</code> transforms it from a single-choice dropdown into a scrollable list where users can select several options by holding <kbd>Ctrl</kbd> (or <kbd>Cmd</kbd> on macOS) while clicking. This is less common in modern UI design because the interaction model can be confusing on touch devices, but it remains a valid and useful HTML feature.</p>
+
+<pre><code>&lt;label for="skills"&gt;Skills (select all that apply):&lt;/label&gt;
+&lt;select id="skills" name="skills" multiple size="4"&gt;
+  &lt;option value="html"&gt;HTML&lt;/option&gt;
+  &lt;option value="css"&gt;CSS&lt;/option&gt;
+  &lt;option value="js"&gt;JavaScript&lt;/option&gt;
+  &lt;option value="py"&gt;Python&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+
+<p>For long dropdown lists, <strong><code>&lt;optgroup&gt;</code></strong> lets you visually categorise related options under a labelled heading. The group label is displayed but is not itself selectable.</p>
+
+<pre><code>&lt;label for="car"&gt;Choose a car:&lt;/label&gt;
+&lt;select id="car" name="car"&gt;
+  &lt;optgroup label="German"&gt;
+    &lt;option value="bmw"&gt;BMW&lt;/option&gt;
+    &lt;option value="mercedes"&gt;Mercedes-Benz&lt;/option&gt;
+  &lt;/optgroup&gt;
+  &lt;optgroup label="Japanese"&gt;
+    &lt;option value="toyota"&gt;Toyota&lt;/option&gt;
+    &lt;option value="honda"&gt;Honda&lt;/option&gt;
+  &lt;/optgroup&gt;
+&lt;/select&gt;</code></pre>
+
+<p><strong>Textarea Element</strong></p>
+
+<p>When users need to enter more than a single line of text — a bio, a message, a product review, a code snippet — the <code>&lt;textarea&gt;</code> element is the appropriate control. Unlike <code>&lt;input&gt;</code>, which is a void element, <code>&lt;textarea&gt;</code> has both an opening and a closing tag.</p>
+
+<pre><code>&lt;label for="message"&gt;Your Message:&lt;/label&gt;
+&lt;textarea id="message" name="message" rows="6" cols="50" placeholder="Write your message here..."&gt;&lt;/textarea&gt;</code></pre>
+
+<p>The <strong><code>rows</code></strong> attribute sets the initial visible height of the textarea in lines of text, and <strong><code>cols</code></strong> sets the visible width in average character widths. These are default sizing hints — users can typically drag the resize handle in the bottom-right corner to make the textarea larger or smaller. You can control or disable this resizing behaviour with CSS: <code>resize: none</code> disables it entirely, <code>resize: vertical</code> allows only vertical resizing (the most common choice), and <code>resize: horizontal</code> allows only horizontal resizing.</p>
+
+<p>If you want the textarea to appear with pre-filled content, you place it <em>between the opening and closing tags</em> rather than in a <code>value</code> attribute (which textarea does not support). Be careful about whitespace here — any spaces or line breaks between the tags will appear as content in the textarea.</p>
+
+<pre><code>&lt;textarea id="bio" name="bio" rows="4" cols="40"&gt;Tell us a little about yourself.&lt;/textarea&gt;</code></pre>
+
+<p><strong>Number, Range, and Date Inputs</strong></p>
+
+<p>These three types collect quantitative or temporal values and provide specialised browser UI to make that collection intuitive.</p>
+
+<p><strong><code>type="number"</code></strong> renders a text-like field with up/down spinner arrows. The browser validates that the entered value is actually a number and will reject non-numeric text at form submission. You can constrain the acceptable range with <code>min</code> and <code>max</code>, and control granularity with <code>step</code>.</p>
+
+<pre><code>&lt;label for="qty"&gt;Quantity (1–100):&lt;/label&gt;
+&lt;input type="number" id="qty" name="quantity" min="1" max="100" step="1" value="1"&gt;</code></pre>
+
+<p><strong><code>type="range"</code></strong> presents a slider rather than a text field, making it suitable for settings where precision is less important than a rough value — volume, brightness, a satisfaction rating, and so on. Because users cannot type a specific number, the exact value is somewhat hidden; it is common to display the current value dynamically with a little JavaScript. The same <code>min</code>, <code>max</code>, and <code>step</code> attributes apply.</p>
+
+<pre><code>&lt;label for="volume"&gt;Volume:&lt;/label&gt;
+&lt;input type="range" id="volume" name="volume" min="0" max="100" step="5" value="50"&gt;</code></pre>
+
+<p><strong><code>type="date"</code></strong> provides a native date picker widget in most modern browsers, allowing users to select a year, month, and day from a calendar UI rather than typing a date string. The value is always submitted in <code>YYYY-MM-DD</code> format regardless of the user's locale. You can restrict the selectable range with <code>min</code> and <code>max</code> using the same format.</p>
+
+<pre><code>&lt;label for="dob"&gt;Date of Birth:&lt;/label&gt;
+&lt;input type="date" id="dob" name="dob" min="1900-01-01" max="2024-12-31"&gt;</code></pre>
+
+<p>The following table summarises the key attributes shared across number, range, and date inputs:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Purpose</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>min</code></td>
+      <td>Sets the minimum allowed value</td>
+      <td><code>min="0"</code> or <code>min="2020-01-01"</code></td>
+    </tr>
+    <tr>
+      <td><code>max</code></td>
+      <td>Sets the maximum allowed value</td>
+      <td><code>max="100"</code> or <code>max="2030-12-31"</code></td>
+    </tr>
+    <tr>
+      <td><code>step</code></td>
+      <td>Controls the increment interval</td>
+      <td><code>step="5"</code> allows 0, 5, 10, 15…</td>
+    </tr>
+    <tr>
+      <td><code>value</code></td>
+      <td>Sets the default value on page load</td>
+      <td><code>value="50"</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Hidden, File, and Submit Inputs</strong></p>
+
+<p>These three input types handle less visually obvious but equally important aspects of form submission.</p>
+
+<p><strong><code>type="hidden"</code></strong> creates an invisible field. It is not rendered on screen and the user cannot see or edit it, but its name–value pair is included in the form data when the form is submitted. Hidden inputs are commonly used to pass along context that the server needs — for example, a CSRF token for security, a session identifier, a record ID for an edit form, or a referral code.</p>
+
+<pre><code>&lt;input type="hidden" name="csrf_token" value="a8f3b2e19c..."&gt;
+&lt;input type="hidden" name="user_id" value="4821"&gt;</code></pre>
+
+<p>Because hidden inputs are visible in the page source, they should never be used to store sensitive secrets that must not be known to the user — they are simply a way to include pre-set data in a form submission without cluttering the UI.</p>
+
+<p><strong><code>type="file"</code></strong> renders a button that opens the operating system's file chooser dialog. When the user selects a file, its name appears next to the button. To actually upload the file contents, the enclosing <code>&lt;form&gt;</code> element must have <code>enctype="multipart/form-data"</code> set.</p>
+
+<pre><code>&lt;label for="avatar"&gt;Upload Profile Picture:&lt;/label&gt;
+&lt;input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg"&gt;</code></pre>
+
+<p>The <strong><code>accept</code></strong> attribute provides a hint to the browser about which file types are appropriate, causing the file dialog to filter by default (though users can override this). It accepts MIME types (<code>image/png</code>), file extensions (<code>.pdf</code>), or broad categories (<code>image/*</code>). Adding the <strong><code>multiple</code></strong> attribute allows the user to select more than one file in a single dialog interaction.</p>
+
+<pre><code>&lt;input type="file" name="documents" accept=".pdf,.docx" multiple&gt;</code></pre>
+
+<p><strong><code>type="submit"</code></strong> creates a button that, when clicked, triggers the form's submission process — collecting all field values and sending them to the URL specified in the form's <code>action</code> attribute using the method specified in its <code>method</code> attribute. The <code>value</code> attribute controls the text displayed on the button.</p>
+
+<pre><code>&lt;input type="submit" value="Create Account"&gt;</code></pre>
+
+<p>An equivalent and often more flexible approach is to use a <code>&lt;button&gt;</code> element with <code>type="submit"</code>. Unlike <code>&lt;input type="submit"&gt;</code>, a <code>&lt;button&gt;</code> element can contain child HTML such as an icon, and its label is set by its inner content rather than a <code>value</code> attribute.</p>
+
+<pre><code>&lt;button type="submit"&gt;Create Account&lt;/button&gt;</code></pre>
+
+<p>The table below provides a consolidated overview of all the input types covered in this topic:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Input Type</th>
+      <th>Primary Use Case</th>
+      <th>Key Attributes</th>
+      <th>Browser Behaviour</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>text</code></td>
+      <td>General single-line text</td>
+      <td><code>placeholder</code>, <code>maxlength</code></td>
+      <td>Standard text field</td>
+    </tr>
+    <tr>
+      <td><code>password</code></td>
+      <td>Sensitive credentials</td>
+      <td><code>placeholder</code>, <code>maxlength</code></td>
+      <td>Masks typed characters</td>
+    </tr>
+    <tr>
+      <td><code>email</code></td>
+      <td>Email addresses</td>
+      <td><code>placeholder</code>, <code>multiple</code></td>
+      <td>Validates email format; mobile-optimised keyboard</td>
+    </tr>
+    <tr>
+      <td><code>url</code></td>
+      <td>Web addresses</td>
+      <td><code>placeholder</code></td>
+      <td>Validates URL format including protocol</td>
+    </tr>
+    <tr>
+      <td><code>tel</code></td>
+      <td>Phone numbers</td>
+      <td><code>placeholder</code>, <code>pattern</code></td>
+      <td>Triggers numeric dial-pad on mobile</td>
+    </tr>
+    <tr>
+      <td><code>checkbox</code></td>
+      <td>Multiple independent selections</td>
+      <td><code>checked</code>, <code>value</code></td>
+      <td>Toggle; each is independent</td>
+    </tr>
+    <tr>
+      <td><code>radio</code></td>
+      <td>Single choice from a group</td>
+      <td><code>name</code>, <code>checked</code>, <code>value</code></td>
+      <td>Mutually exclusive within same <code>name</code></td>
+    </tr>
+    <tr>
+      <td><code>number</code></td>
+      <td>Numeric values</td>
+      <td><code>min</code>, <code>max</code>, <code>step</code></td>
+      <td>Spinner control; validates numeric input</td>
+    </tr>
+    <tr>
+      <td><code>range</code></td>
+      <td>Approximate value within a range</td>
+      <td><code>min</code>, <code>max</code>, <code>step</code></td>
+      <td>Slider control</td>
+    </tr>
+    <tr>
+      <td><code>date</code></td>
+      <td>Calendar dates</td>
+      <td><code>min</code>, <code>max</code></td>
+      <td>Native date picker widget</td>
+    </tr>
+    <tr>
+      <td><code>hidden</code></td>
+      <td>Non-visible form data</td>
+      <td><code>value</code></td>
+      <td>Not rendered; included in submission</td>
+    </tr>
+    <tr>
+      <td><code>file</code></td>
+      <td>File uploads</td>
+      <td><code>accept</code>, <code>multiple</code></td>
+      <td>Opens OS file dialog</td>
+    </tr>
+    <tr>
+      <td><code>submit</code></td>
+      <td>Form submission trigger</td>
+      <td><code>value</code></td>
+      <td>Submits the form on click</td>
+    </tr>
+  </tbody>
+</table>
+        <div class="notes"><strong>Notes</strong>Covers all major input types including text, password, email, url, tel, checkbox, radio, select/option/optgroup, textarea, number, range, date, hidden, file, and submit. Includes illustrative code examples for each type and two summary tables for quick reference. Accessibility points (label association) are woven throughout.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

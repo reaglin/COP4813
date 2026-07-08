@@ -1,0 +1,401 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 2 – Building a Full Website with HTML, Images, and Links | COP4813</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f4f6f9;
+      color: #1e2530;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Page Shell ── */
+    .page-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+
+    /* ── Header ── */
+    .page-header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #245c8a 60%, #2d7ab5 100%);
+      color: #fff;
+      border-radius: 10px;
+      padding: 2.5rem 2rem 2rem;
+      margin-bottom: 2.25rem;
+      box-shadow: 0 4px 18px rgba(26,58,92,0.18);
+    }
+
+    .course-label {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      color: #cde4f7;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      margin-bottom: 0.85rem;
+    }
+
+    .page-header h1 {
+      font-size: clamp(1.45rem, 3vw, 2rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.9rem;
+      letter-spacing: -0.01em;
+    }
+
+    .page-header p {
+      font-size: 0.97rem;
+      color: #d0e8f7;
+      max-width: 72ch;
+      line-height: 1.65;
+    }
+
+    /* ── Section Label ── */
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: #5a7a99;
+      margin-bottom: 1rem;
+      padding-left: 0.15rem;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.15rem;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: #ffffff;
+      border: 1px solid #dde4ed;
+      border-radius: 9px;
+      padding: 1.35rem 1.4rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 20px rgba(26,58,92,0.12);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card Top Row ── */
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .badge-group {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .badge-type {
+      background: #e8f0fb;
+      color: #2c5fa8;
+      border: 1px solid #c5d8f5;
+    }
+
+    .badge-filetype {
+      background: #eef6ee;
+      color: #2a6e2a;
+      border: 1px solid #b8ddb8;
+    }
+
+    /* ── Card Title ── */
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1e2530;
+      line-height: 1.35;
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .card-title a {
+      color: #1a5ca8;
+      text-decoration: none;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .card-title a:hover {
+      color: #0f3d7a;
+      border-bottom-color: #0f3d7a;
+    }
+
+    .card-title .plain-name {
+      color: #3a4657;
+    }
+
+    /* ── Source Link ── */
+    .source-link {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #5f7fa3;
+      text-decoration: none;
+      background: #f0f5fb;
+      border: 1px solid #c8d9ee;
+      border-radius: 4px;
+      padding: 0.15rem 0.48rem;
+      white-space: nowrap;
+      transition: background 0.14s, color 0.14s;
+      align-self: center;
+    }
+
+    .source-link:hover {
+      background: #daeaf8;
+      color: #1a3a5c;
+    }
+
+    /* ── Card Description ── */
+    .card-desc {
+      font-size: 0.875rem;
+      color: #4a5568;
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    /* ── Divider ── */
+    .card-divider {
+      height: 1px;
+      background: #edf0f5;
+      border: none;
+      margin: 0.1rem 0;
+    }
+
+    /* ── Footer ── */
+    .page-footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.78rem;
+      color: #8a9ab0;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 520px) {
+      .page-header { padding: 1.75rem 1.25rem 1.5rem; }
+      .card { padding: 1.1rem 1.1rem 1rem; }
+      .card-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <!-- Header -->
+    <header class="page-header">
+      <span class="course-label">COP4813 &mdash; Module 2</span>
+      <h1>Building a Full Website with HTML, Images, and Links</h1>
+      <p>
+        This module guides learners through the process of constructing complete, multi-page websites using
+        HTML. Topics span site architecture, semantic markup, embedding images with accessible attributes,
+        and building both internal and external hyperlinks — culminating in a hands-on walkthrough of
+        planning and publishing a coherent site from scratch.
+      </p>
+    </header>
+
+    <!-- Artifact Grid -->
+    <p class="section-label">Module Artifacts &mdash; 9 items</p>
+    <div class="card-grid">
+
+      <!-- Card 1: Module Topics -->
+      <article class="card">
+        <div class="card-top">
+          <div class="badge-group">
+            <span class="badge badge-type">Module Topics</span>
+            <span class="badge badge-filetype">.json</span>
+          </div>
+        </div>
+        <hr class="card-divider" />
+        <div class="card-title">
+          <a href="module_topics.html">Module Topics</a>
+          <a class="source-link" href="../hierarchy.json">source file</a>
+        </div>
+        <p class="card-desc">
+          Covers the structure and topics of the module, including multi-page website architecture, semantic HTML elements, embedding images with proper attributes, and creating hyperlinks, serving as a navigational outline for learners and instructors to understand what the module addresses.
+        </p>
+      </article>
+
+      <!-- Card 2: Introduction to Multi-Page Website Structure -->
+      <article class="card">
+        <div class="card-top">
+          <div class="badge-group">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+        </div>
+        <hr class="card-divider" />
+        <div class="card-title">
+          <a href="Building_a_Full_interactive_topics_t1.html">Introduction to Multi-Page Website Structure</a>
+        </div>
+        <p class="card-desc">
+          A reading that explains how multi-page websites are organized, how individual HTML pages are structured, and how they interconnect, providing learners with the foundational concepts they need before building their own sites.
+        </p>
+      </article>
+
+      <!-- Card 3: Semantic HTML Markup -->
+      <article class="card">
+        <div class="card-top">
+          <div class="badge-group">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+        </div>
+        <hr class="card-divider" />
+        <div class="card-title">
+          <a href="Building_a_Full_interactive_topics_t2.html">Semantic HTML Markup</a>
+        </div>
+        <p class="card-desc">
+          A reading covering semantic HTML elements — what they are, why choosing meaningful tags matters for browsers, search engines, and assistive technologies, and how learners should apply them when structuring web page content.
+        </p>
+      </article>
+
+      <!-- Card 4: Embedding Images in HTML -->
+      <article class="card">
+        <div class="card-top">
+          <div class="badge-group">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+        </div>
+        <hr class="card-divider" />
+        <div class="card-title">
+          <a href="Building_a_Full_interactive_topics_t3.html">Embedding Images in HTML</a>
+        </div>
+        <p class="card-desc">
+          A reading explaining how to embed images in HTML using the img element, covering correct syntax, file paths, alt text for accessibility, and best practices for displaying images responsibly on a web page.
+        </p>
+      </article>
+
+      <!-- Card 5: Creating Hyperlinks -->
+      <article class="card">
+        <div class="card-top">
+          <div class="badge-group">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+        </div>
+        <hr class="card-divider" />
+        <div class="card-title">
+          <a href="Building_a_Full_interactive_topics_t4.html">Creating Hyperlinks</a>
+        </div>
+        <p class="card-desc">
+          A reading explaining how hyperlinks work in HTML, covering the anchor element, href attribute, absolute versus relative URLs, and how links connect pages and resources across the web.
+        </p>
+      </article>
+
+      <!-- Card 6: Internal Navigation and Site Linking -->
+      <article class="card">
+        <div class="card-top">
+          <div class="badge-group">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+        </div>
+        <hr class="card-divider" />
+        <div class="card-title">
+          <a href="Building_a_Full_interactive_topics_t5.html">Internal Navigation and Site Linking</a>
+        </div>
+        <p class="card-desc">
+          A reading focused on building internal navigation within a multi-page site, covering how to use relative file paths and anchor elements to link between an author's own pages and sections.
+        </p>
+      </article>
+
+      <!-- Card 7: External Links and Web Resources -->
+      <article class="card">
+        <div class="card-top">
+          <div class="badge-group">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+        </div>
+        <hr class="card-divider" />
+        <div class="card-title">
+          <a href="Building_a_Full_interactive_topics_t6.html">External Links and Web Resources</a>
+        </div>
+        <p class="card-desc">
+          A reading covering external linking in HTML, including how to write correct URLs, when and how to open links in a new tab, and security considerations such as the rel='noopener noreferrer' attribute.
+        </p>
+      </article>
+
+      <!-- Card 8: Bringing It All Together (Topic Detail) -->
+      <article class="card">
+        <div class="card-top">
+          <div class="badge-group">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+        </div>
+        <hr class="card-divider" />
+        <div class="card-title">
+          <a href="Building_a_Full_interactive_topics_t7.html">Bringing It All Together: Building a Complete Website</a>
+        </div>
+        <p class="card-desc">
+          A reading that synthesizes all prior module skills — semantic markup, image embedding, and linking — into a guided walkthrough of planning and building a complete, coherent multi-page website from scratch.
+        </p>
+      </article>
+
+      <!-- Card 9: Bringing It All Together (Text Content) -->
+      <article class="card">
+        <div class="card-top">
+          <div class="badge-group">
+            <span class="badge badge-type">Text Content</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+        </div>
+        <hr class="card-divider" />
+        <div class="card-title">
+          <a href="Building_a_Full_interactive.html">Bringing It All Together: Building a Complete Website</a>
+        </div>
+        <p class="card-desc">
+          A reading that synthesizes all prior module skills — semantic markup, image embedding, and linking — into a guided walkthrough of planning and building a complete, coherent multi-page website from scratch.
+        </p>
+      </article>
+
+    </div><!-- /.card-grid -->
+
+    <!-- Footer -->
+    <footer class="page-footer">
+      <p>COP4813 &mdash; Module 2 &bull; Course Resource Index</p>
+    </footer>
+
+  </div><!-- /.page-wrapper -->
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

@@ -1,0 +1,391 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Handling and Player Input</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Event Handling and Player Input</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Event Handling and Player Input</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Every interactive game — whether a side-scrolling platformer, a top-down shooter, or a simple puzzle — lives and dies by how well it responds to the player. The bridge between the player's physical actions (pressing a key, clicking a mouse, tapping a screen) and what happens inside the game world is <strong>event handling</strong>. JavaScript's event system lets you register <em>listeners</em> that fire a function whenever a specific interaction occurs. Understanding how to attach those listeners correctly, read the data they deliver, and translate raw input into smooth, frame-synced game actions is one of the most fundamental skills in browser-based game development.</p>
+
+<p>This topic covers the full input pipeline: attaching listeners to the right target, reading keyboard and pointer state, supporting touch devices, mapping raw values to game actions, and preventing the browser's built-in behaviors from interfering with gameplay.</p>
+
+<p><strong>Attaching Event Listeners to the Document or Canvas</strong></p>
+
+<p>JavaScript dispatches input events on DOM elements. The two most common targets for a canvas game are the <code>document</code> object and the <code>&lt;canvas&gt;</code> element itself. Choosing the right target matters.</p>
+
+<p>Keyboard events are almost always attached to <code>document</code> rather than to the canvas, because keyboard events fire on whichever element currently has focus — and a canvas element does not receive focus by default unless you give it a <code>tabindex</code> attribute. Attaching to the document guarantees you capture every keypress regardless of focus state:</p>
+
+<pre><code>document.addEventListener('keydown', handleKeyDown);
+document.addEventListener('keyup', handleKeyUp);
+</code></pre>
+
+<p>Pointer events (mouse, touch) are better attached directly to the <strong>canvas element</strong>, because you are interested in interactions that happen within the game viewport. Attaching to the document would capture drags that began outside the canvas, which is usually undesirable:</p>
+
+<pre><code>const canvas = document.getElementById('gameCanvas');
+canvas.addEventListener('mousedown', handleMouseDown);
+canvas.addEventListener('mousemove', handleMouseMove);
+canvas.addEventListener('mouseup',   handleMouseUp);
+canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+canvas.addEventListener('touchmove',  handleTouchMove,  { passive: false });
+canvas.addEventListener('touchend',   handleTouchEnd);
+</code></pre>
+
+<p>Notice the <code>{ passive: false }</code> option on the touch listeners. By default, modern browsers mark touch listeners as <em>passive</em> (meaning <code>preventDefault()</code> is ignored) to allow smooth scrolling. Setting <code>passive: false</code> opts out of that optimization and lets you suppress default touch behavior when needed — more on that shortly.</p>
+
+<p>A critical habit: <strong>always store a named reference</strong> to any handler you register. Anonymous arrow functions cannot be removed later because each expression creates a new function object:</p>
+
+<pre><code>// WRONG — you can never remove this listener
+canvas.addEventListener('mousedown', (e) => { /* ... */ });
+
+// RIGHT — store the reference
+function handleMouseDown(e) { /* ... */ }
+canvas.addEventListener('mousedown', handleMouseDown);
+
+// Later, if the game ends or the screen changes:
+canvas.removeEventListener('mousedown', handleMouseDown);
+</code></pre>
+
+<p>Removing listeners is important in games with multiple screens (main menu, gameplay, pause screen) to avoid stale handlers firing during the wrong phase.</p>
+
+<p><strong>Reading Keyboard Input</strong></p>
+
+<p>The browser fires a <code>keydown</code> event the moment a key is pressed and a <code>keyup</code> event when it is released. Both events carry a <code>key</code> property that contains a human-readable string such as <code>'ArrowLeft'</code>, <code>'a'</code>, <code>' '</code> (spacebar), or <code>'Enter'</code>.</p>
+
+<p>A naive approach handles movement directly inside the event handler:</p>
+
+<pre><code>// FRAGILE — don't do this
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight') player.x += 5;
+});
+</code></pre>
+
+<p>This feels choppy. The operating system repeats <code>keydown</code> events at its own pace (usually with an initial delay), so movement is jerky and not tied to your game's frame rate. The correct pattern is to maintain a <strong>keys state object</strong> that records which keys are currently held down, then read that object <em>inside the game loop</em> each frame:</p>
+
+<pre><code>const keys = {};
+
+document.addEventListener('keydown', (e) => {
+  keys[e.key] = true;
+});
+
+document.addEventListener('keyup', (e) => {
+  keys[e.key] = false;
+});
+</code></pre>
+
+<p>Inside your game loop you then poll this object:</p>
+
+<pre><code>function update(dt) {
+  if (keys['ArrowLeft'])  player.x -= player.speed * dt;
+  if (keys['ArrowRight']) player.x += player.speed * dt;
+  if (keys['ArrowUp'])    player.y -= player.speed * dt;
+  if (keys['ArrowDown'])  player.y += player.speed * dt;
+}
+</code></pre>
+
+<p>Because the loop calls <code>update</code> every frame (typically 60 times per second via <code>requestAnimationFrame</code>), movement is smooth and perfectly frame-rate-synced. Multiple keys can be held simultaneously and all will be respected because each key has its own property in the <code>keys</code> object.</p>
+
+<p>One subtle improvement: initialize unknown keys to <code>false</code> rather than leaving them <code>undefined</code>. Using <code>!!keys['ArrowLeft']</code> or checking <code>keys['ArrowLeft'] === true</code> makes the intent explicit and avoids truthy/falsy confusion.</p>
+
+<p><strong>Reading Mouse Input</strong></p>
+
+<p>Mouse events provide the cursor's position through <code>event.clientX</code> and <code>event.clientY</code>, which are measured in CSS pixels from the <em>top-left corner of the browser viewport</em>. If your canvas is not positioned at the very top-left of the page (and it almost never is), you must convert these viewport-relative coordinates into canvas-local coordinates.</p>
+
+<p>The standard technique uses <code>getBoundingClientRect()</code>:</p>
+
+<pre><code>function getCanvasPos(canvas, event) {
+  const rect = canvas.getBoundingClientRect();
+  return {
+    x: event.clientX - rect.left,
+    y: event.clientY - rect.top
+  };
+}
+</code></pre>
+
+<p>If the canvas is CSS-scaled (its CSS size differs from its internal resolution), you must also account for that scaling:</p>
+
+<pre><code>function getCanvasPos(canvas, event) {
+  const rect   = canvas.getBoundingClientRect();
+  const scaleX = canvas.width  / rect.width;
+  const scaleY = canvas.height / rect.height;
+  return {
+    x: (event.clientX - rect.left) * scaleX,
+    y: (event.clientY - rect.top)  * scaleY
+  };
+}
+</code></pre>
+
+<p>Track button state with a simple flag to distinguish click-and-hold (e.g., held fire button) from single clicks:</p>
+
+<pre><code>let mouseX = 0, mouseY = 0;
+let mouseDown = false;
+
+canvas.addEventListener('mousemove', (e) => {
+  const pos = getCanvasPos(canvas, e);
+  mouseX = pos.x;
+  mouseY = pos.y;
+});
+
+canvas.addEventListener('mousedown', (e) => {
+  mouseDown = true;
+  const pos = getCanvasPos(canvas, e);
+  mouseX = pos.x;
+  mouseY = pos.y;
+});
+
+canvas.addEventListener('mouseup', (e) => {
+  mouseDown = false;
+});
+</code></pre>
+
+<p>You can also store per-button state using <code>e.button</code> (0 = left, 1 = middle, 2 = right) if your game needs to distinguish between mouse buttons.</p>
+
+<p><strong>Handling Touch Input for Mobile Play</strong></p>
+
+<p>Touch input mirrors mouse input conceptually but supports multiple simultaneous contact points (multi-touch). The three key events are <code>touchstart</code>, <code>touchmove</code>, and <code>touchend</code>. Each event carries two important lists:</p>
+
+<ul>
+  <li><strong>event.touches</strong> — all touch points currently in contact with the screen.</li>
+  <li><strong>event.changedTouches</strong> — only the touch points that changed in this event (new presses, movements, or lifts). This is the more useful list for most handlers.</li>
+</ul>
+
+<p>Each touch point is an object with <code>clientX</code> and <code>clientY</code> (among others). Apply the same bounding-rect conversion used for mouse events:</p>
+
+<pre><code>canvas.addEventListener('touchstart', (e) => {
+  e.preventDefault(); // prevent scroll / zoom
+  const rect = canvas.getBoundingClientRect();
+  for (const touch of e.changedTouches) {
+    const x = touch.clientX - rect.left;
+    const y = touch.clientY - rect.top;
+    handleTap(x, y);
+  }
+}, { passive: false });
+</code></pre>
+
+<p>For a simple game that needs to support both mouse and touch with minimal branching, you can write a unified pointer handler that maps touch events to the same internal state as mouse events:</p>
+
+<pre><code>function pointerStart(x, y) { mouseDown = true;  mouseX = x; mouseY = y; }
+function pointerMove (x, y) {                    mouseX = x; mouseY = y; }
+function pointerEnd  ()     { mouseDown = false; }
+
+canvas.addEventListener('mousedown',  (e) => { const p = getCanvasPos(canvas,e); pointerStart(p.x, p.y); });
+canvas.addEventListener('mousemove',  (e) => { const p = getCanvasPos(canvas,e); pointerMove (p.x, p.y); });
+canvas.addEventListener('mouseup',    ()  => { pointerEnd(); });
+
+canvas.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  const t = e.changedTouches[0];
+  const p = getCanvasPos(canvas, t);
+  pointerStart(p.x, p.y);
+}, { passive: false });
+
+canvas.addEventListener('touchmove', (e) => {
+  e.preventDefault();
+  const t = e.changedTouches[0];
+  const p = getCanvasPos(canvas, t);
+  pointerMove(p.x, p.y);
+}, { passive: false });
+
+canvas.addEventListener('touchend', () => { pointerEnd(); });
+</code></pre>
+
+<p>This way, the rest of your game code only needs to check <code>mouseX</code>, <code>mouseY</code>, and <code>mouseDown</code> — it doesn't need to know whether the player is using a mouse or a finger.</p>
+
+<p><strong>Translating Raw Input into Game Actions</strong></p>
+
+<p>Raw input values (key strings, pixel coordinates) should never be scattered throughout your game logic. Instead, define a clear <strong>input-to-action mapping</strong> and let the game loop read an abstract action state. This separation makes it easy to rebind controls or add gamepad support later without rewriting gameplay code.</p>
+
+<p>A simple action map might look like this:</p>
+
+<pre><code>const actions = {
+  moveLeft:  false,
+  moveRight: false,
+  jump:      false,
+  fire:      false
+};
+
+function updateActions() {
+  actions.moveLeft  = !!keys['ArrowLeft']  || !!keys['a'];
+  actions.moveRight = !!keys['ArrowRight'] || !!keys['d'];
+  actions.jump      = !!keys['ArrowUp']    || !!keys['w'];
+  actions.fire      = mouseDown;
+}
+</code></pre>
+
+<p>Call <code>updateActions()</code> at the start of each frame update, then drive movement and behavior from <code>actions</code>:</p>
+
+<pre><code>function update(dt) {
+  updateActions();
+
+  if (actions.moveLeft)  player.vx = -player.speed;
+  else if (actions.moveRight) player.vx = player.speed;
+  else player.vx = 0;
+
+  if (actions.jump && player.onGround) {
+    player.vy = -player.jumpForce;
+    player.onGround = false;
+  }
+
+  player.x += player.vx * dt;
+  player.y += player.vy * dt;
+}
+</code></pre>
+
+<p>Notice that movement is applied by modifying <strong>velocity</strong> (e.g., <code>player.vx</code>, <code>player.vy</code>) and then integrating position each frame, rather than directly setting <code>player.x</code>. This is the standard game-physics pattern: it composes naturally with gravity, friction, and collision response.</p>
+
+<p>For <strong>one-time actions</strong> (firing a bullet, jumping, toggling a menu), you need to detect the <em>transition</em> from unpressed to pressed, not just the pressed state. A key that is held down will remain <code>true</code> in the <code>keys</code> object every frame, but you only want to fire once per press. Track the previous frame's state:</p>
+
+<pre><code>const prevKeys = {};
+
+document.addEventListener('keydown', (e) => { keys[e.key] = true; });
+document.addEventListener('keyup',   (e) => { keys[e.key] = false; });
+
+function justPressed(key) {
+  return keys[key] === true && prevKeys[key] !== true;
+}
+
+function update(dt) {
+  if (justPressed(' ')) fireWeapon();     // only on the first frame spacebar is held
+
+  // At the end of the frame, copy current state to previous
+  Object.assign(prevKeys, keys);
+}
+</code></pre>
+
+<p><code>justPressed</code> returns <code>true</code> only on the single frame when the key transitions from <em>not held</em> to <em>held</em>, preventing rapid-fire behaviour from a single press.</p>
+
+<p><strong>Preventing Default Browser Behavior</strong></p>
+
+<p>Many keys and gestures that are natural for gameplay already have built-in browser behaviors that conflict with your game. The table below summarizes the most common offenders and how to suppress them:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Input</th>
+      <th>Default Browser Action</th>
+      <th>Fix</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Arrow keys</td>
+      <td>Scroll the page up/down/left/right</td>
+      <td>Call <code>e.preventDefault()</code> in the <code>keydown</code> handler when an arrow key is detected</td>
+    </tr>
+    <tr>
+      <td>Spacebar</td>
+      <td>Scroll the page down; submit focused forms</td>
+      <td>Call <code>e.preventDefault()</code> in the <code>keydown</code> handler when <code>e.key === ' '</code></td>
+    </tr>
+    <tr>
+      <td>Backspace</td>
+      <td>Navigate back in browser history</td>
+      <td>Call <code>e.preventDefault()</code> if used as a game control</td>
+    </tr>
+    <tr>
+      <td>Right-click</td>
+      <td>Opens browser context menu</td>
+      <td>Call <code>e.preventDefault()</code> in a <code>contextmenu</code> listener on the canvas</td>
+    </tr>
+    <tr>
+      <td>Touch swipe</td>
+      <td>Scroll the page, trigger pull-to-refresh</td>
+      <td>Call <code>e.preventDefault()</code> in <code>touchstart</code> and <code>touchmove</code> (requires <code>passive: false</code>)</td>
+    </tr>
+    <tr>
+      <td>Pinch gesture</td>
+      <td>Pinch-to-zoom the browser viewport</td>
+      <td>Call <code>e.preventDefault()</code> in <code>touchstart</code> and <code>touchmove</code> (requires <code>passive: false</code>)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A practical keydown handler that suppresses the most common problem keys:</p>
+
+<pre><code>const GAME_KEYS = new Set([
+  'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight',
+  ' ', 'w', 'a', 's', 'd'
+]);
+
+document.addEventListener('keydown', (e) => {
+  if (GAME_KEYS.has(e.key)) {
+    e.preventDefault();
+  }
+  keys[e.key] = true;
+});
+</code></pre>
+
+<p>Using a <code>Set</code> makes the check O(1) and keeps the list easy to maintain. Only keys your game actually uses are suppressed, leaving the rest (such as F5 for reload or Ctrl+Tab for tab switching) available to the user.</p>
+
+<p>An additional consideration for touch games: you can also prevent zooming at the HTML level by adding a viewport meta tag, but this should be combined with — not used instead of — <code>preventDefault()</code> in your touch handlers, because the meta tag alone doesn't block all gesture behaviors in every browser:</p>
+
+<pre><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0, user-scalable=no"&gt;
+</code></pre>
+
+<p>Together, the techniques in this topic form a complete input pipeline: listeners attached to the right targets, state tracked in plain objects, coordinates mapped into canvas space, actions abstracted from raw values, one-time events detected via state transitions, and browser defaults cleanly suppressed. Every feature of your game that responds to the player flows through this foundation.</p>
+        <div class="notes"><strong>Notes</strong>Students should wire up a small test page before integrating input into a full game loop — log the keys object to the console each frame to confirm state tracking works correctly before building movement logic on top of it. Emphasize that calling preventDefault() selectively (only on known game keys) is better practice than suppressing all keydown events, which would break accessibility and browser shortcuts.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

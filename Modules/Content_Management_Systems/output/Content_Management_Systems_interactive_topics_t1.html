@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to Content Management Systems</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Introduction to Content Management Systems</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to Content Management Systems</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Before writing a single line of code or uploading a single image, anyone building a website faces a fundamental challenge: how do you store content, organise it, and present it to visitors in a consistent, maintainable way? For the overwhelming majority of websites today — from personal blogs to enterprise portals — the answer is a <strong>Content Management System</strong>, or CMS. Understanding what a CMS is, how its internal parts fit together, and where it sits within the broader web ecosystem is essential groundwork for anyone working in web development, digital marketing, or online publishing.</p>
+
+<p>A CMS is a software application that allows users to create, manage, and publish digital content without needing to write or modify underlying code for every change. The defining architectural idea behind any CMS is the <strong>separation of content from design</strong>. Rather than hard-coding text, images, and layout into a single HTML file — which was the norm in the early web — a CMS stores content (articles, product descriptions, author bios, images, metadata) in a structured database and then pulls that content dynamically into presentation templates whenever a page is requested. Change the template and every page instantly reflects the new design. Update a piece of content in the database and it appears everywhere it is referenced, without touching a single line of markup.</p>
+
+<p>Users interact with a CMS through an <strong>administrative dashboard</strong>, sometimes called the back-end interface. This is a private, password-protected area of the site where authorised users can write and edit posts, upload media, configure menus, install extensions, and manage other users. The visitor-facing side of the site — the public pages rendered from those templates and that stored content — is called the <strong>front-end</strong>. The two layers communicate, but they are experienced very differently: visitors see a polished public website while editors work inside a structured control panel.</p>
+
+<p>CMS platforms exist on a wide spectrum. At one end sit simple, fully hosted solutions such as Wix or Squarespace, where the entire infrastructure — servers, software updates, security patches — is managed by the vendor and the user interacts only with a drag-and-drop interface. At the other end sit powerful, self-hosted open-source platforms such as WordPress, Drupal, or Joomla, which demand that the site owner provision their own hosting environment, manage updates, and handle security hardening, but in return offer near-unlimited customisation potential. Between and beyond those poles lie headless CMS services, enterprise platforms, and purpose-built solutions for specific industries. Choosing the right point on this spectrum is one of the first and most consequential decisions in any web project.</p>
+
+<p><strong>Core Components of a CMS</strong></p>
+
+<p>Every CMS, regardless of its commercial positioning or technical sophistication, is built from the same fundamental components working in concert.</p>
+
+<p>The <strong>content repository or database</strong> is the heart of the system. Every piece of text a user writes, every image uploaded, every category assigned, every tag applied, and every configuration option set is stored here. Most traditional CMS platforms use a relational database — MySQL and MariaDB are by far the most common, though PostgreSQL is preferred in some enterprise contexts. The database organises content into tables with defined relationships: a posts table links to a users table (to track authorship), a media table (to attach images), and a taxonomy table (to assign categories and tags). This structured storage is what makes it possible to query, filter, and sort content flexibly. A news site might store thousands of articles and surface only the ten most recent ones tagged "Technology" — the database query makes this instant and automatic.</p>
+
+<p>The <strong>content delivery layer</strong> is the mechanism that retrieves stored content and renders it for the visitor. When someone requests a URL, the CMS queries the database for the relevant content, passes that data into a <strong>theme or template</strong>, and returns fully assembled HTML to the browser. Templates define the structural and visual skeleton of a page — where the navigation bar appears, how the sidebar is laid out, what fonts and colours are used — while the content slots in dynamically. WordPress templates use PHP files and a hierarchy of template tags; Drupal uses a Twig templating engine; many modern platforms use JavaScript-based rendering. The key point is that the same template can serve hundreds or thousands of different content items consistently, and updating the template instantly changes every page it governs.</p>
+
+<p>The <strong>administration interface</strong> is the workspace for content creators and site managers. A well-designed admin interface abstracts away the technical complexity of database queries and template rendering, presenting editors with familiar productivity tools: rich text editors (similar to word processors), drag-and-drop image uploaders, form fields for metadata, and visual page builders. Modern CMS platforms invest heavily in administration usability because the quality of this interface directly determines how efficiently a publishing team can operate. Features such as draft saving, revision history, scheduled publishing, and content preview allow non-technical staff to manage a production website with confidence.</p>
+
+<p><strong>Plugins or extensions</strong> are discrete software packages that bolt additional functionality onto the core CMS without requiring modification of the platform's core codebase. The WordPress plugin repository alone contains over 60,000 free plugins covering every conceivable use case — e-commerce (WooCommerce), search engine optimisation (Yoast SEO), form building (Gravity Forms), caching and performance, accessibility, social sharing, membership management, and much more. This ecosystem model is one of the greatest practical advantages of established CMS platforms: a developer or site owner can add complex, well-tested functionality in minutes rather than building it from scratch. The trade-off is that plugins introduce third-party code, which must be kept updated and audited for security vulnerabilities and compatibility conflicts.</p>
+
+<p><strong>How a CMS Functions in the Web Ecosystem</strong></p>
+
+<p>Understanding a CMS in isolation is not enough; it must be understood as one component within a larger technical ecosystem that includes web servers, databases, programming runtimes, and hosting infrastructure.</p>
+
+<p>Most traditional CMS platforms are <strong>dynamic</strong>: they generate each page on the fly at the moment it is requested. A visitor navigates to a blog post URL; the web server receives the request and passes it to the CMS application; the CMS queries the database for the post's content, passes it through the appropriate template, assembles HTML, and returns it to the browser — all in a fraction of a second. This dynamism is what makes features like personalised content, live search, user comments, and e-commerce carts possible. However, it also means every page request incurs database and processing overhead, which can become a performance bottleneck under heavy traffic.</p>
+
+<p>In response to this, <strong>static site generation</strong> has become increasingly popular. Static site generators (SSGs) such as Jekyll, Hugo, Eleventy, and Next.js (in static export mode) pre-build all pages into plain HTML files at deploy time rather than at request time. The result is a set of files that a web server can deliver instantly, with no database queries required per request. Some modern CMS platforms — including Gatsby Cloud and certain headless CMS configurations — use this approach, combining a CMS back-end for content authoring with a static or pre-rendered front-end for blazing-fast delivery. The limitation is that truly dynamic features (user-specific content, real-time updates) require additional API calls or hybrid rendering strategies.</p>
+
+<p>The CMS communicates with a <strong>web server</strong> — most commonly <strong>Apache</strong> or <strong>Nginx</strong> — which handles incoming HTTP/HTTPS requests, applies configuration rules (such as URL rewriting, which allows clean permalink structures like <code>/blog/my-article/</code> instead of <code>/?p=42</code>), and routes requests to the appropriate application logic. The web server also manages SSL/TLS certificates for HTTPS, sets security headers, and controls access to sensitive files. Beneath the web server sits a <strong>database engine</strong> — typically <strong>MySQL</strong>, <strong MariaDB</strong>, or <strong>PostgreSQL</strong> — which stores and retrieves all structured content data. The CMS application (written in PHP, Python, Node.js, Ruby, or another language) acts as the intermediary, issuing SQL queries to the database and passing results to templates for rendering.</p>
+
+<p>The <strong>hosting environment</strong> in which a CMS runs has profound implications for performance, reliability, cost, and maintenance burden. The three primary options are:</p>
+
+<ul>
+  <li><strong>Shared hosting:</strong> Multiple websites share resources on the same physical server. It is the cheapest option and easiest to set up, but performance can degrade when neighbouring sites consume excessive resources, and configuration options are often limited. Suitable for small, low-traffic sites.</li>
+  <li><strong>Managed CMS hosting:</strong> Providers such as WP Engine, Kinsta, or Pantheon specialise in hosting specific CMS platforms (predominantly WordPress or Drupal). They handle server configuration, automatic updates, daily backups, and security monitoring, allowing site owners to focus on content rather than infrastructure. More expensive than shared hosting but substantially more reliable and feature-rich.</li>
+  <li><strong>Cloud hosting:</strong> Platforms such as AWS, Google Cloud, and DigitalOcean provide scalable virtual infrastructure that can be configured precisely to the CMS's requirements. This offers the greatest flexibility and scalability — resources can be scaled up during traffic spikes and down during quiet periods — but demands meaningful technical expertise to configure and maintain securely.</li>
+</ul>
+
+<p><strong>The Role of CMS in Modern Web Development</strong></p>
+
+<p>The CMS has transformed who can participate in web publishing. In the early days of the web, adding a new page to a website meant editing HTML files directly, uploading them via FTP, and hoping the markup rendered correctly across browsers. Today, a journalist, marketing manager, or small business owner with no programming background can publish polished, media-rich content to a global audience within minutes of installing a CMS. This <strong>democratisation of publishing</strong> is one of the most significant contributions CMS platforms have made to the open web.</p>
+
+<p>CMS platforms support <strong>team collaboration</strong> through granular, role-based access control. A typical permission model might look like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Role</th>
+      <th>Typical Permissions</th>
+      <th>Example Use Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Administrator</td>
+      <td>Full access: install plugins, manage users, modify themes, configure settings</td>
+      <td>Web developer or IT manager responsible for the site</td>
+    </tr>
+    <tr>
+      <td>Editor</td>
+      <td>Create, edit, publish, and delete any content; manage categories and media</td>
+      <td>Senior content manager overseeing a publication</td>
+    </tr>
+    <tr>
+      <td>Author</td>
+      <td>Create, edit, and publish their own content only</td>
+      <td>Staff writer contributing regular articles</td>
+    </tr>
+    <tr>
+      <td>Contributor</td>
+      <td>Write and edit their own posts but cannot publish without editorial approval</td>
+      <td>Freelance writer submitting content for review</td>
+    </tr>
+    <tr>
+      <td>Subscriber / Viewer</td>
+      <td>Read-only access or access to members-only content</td>
+      <td>Registered community member or newsletter subscriber</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This role hierarchy allows large organisations to maintain editorial standards and security by ensuring that only appropriately authorised individuals can perform sensitive actions, while still empowering a broad team to contribute content efficiently.</p>
+
+<p>From a <strong>development velocity</strong> perspective, CMS platforms dramatically reduce the time required to launch a functional website. A developer building a marketing site from scratch would need to design a database schema, write authentication and user management code, build a media upload and management system, create an editor interface, and develop a templating engine — all before writing a single line of content-layer code. A CMS provides all of this infrastructure out of the box, allowing a developer to focus on theme customisation and plugin integration. Projects that might take months to build from scratch can be launched in days or weeks on a mature CMS platform.</p>
+
+<p>In <strong>digital marketing</strong>, the CMS has become indispensable. Marketing teams need to launch landing pages for campaigns, publish blog content for SEO, run A/B tests, and update promotional banners — often on tight deadlines and without the availability of a developer. A well-configured CMS empowers marketing teams to execute these tasks autonomously, turning what were once IT bottlenecks into self-service workflows. Integrations with analytics platforms (Google Analytics, Matomo), email marketing services (Mailchimp, HubSpot), CRM systems, and advertising networks extend the CMS's role into a central hub for the entire digital marketing stack.</p>
+
+<p><strong>CMS Platforms vs. Custom-Built Websites</strong></p>
+
+<p>The choice between adopting a CMS platform and building a custom website from scratch is one of the most consequential architectural decisions in web development. Neither approach is universally superior; the right choice depends on the project's requirements, budget, timeline, technical resources, and long-term goals.</p>
+
+<p><strong>CMS platforms</strong> offer significant advantages in speed to market, cost efficiency, and ecosystem richness. A freelancer or small business can launch a professional, fully featured website in a weekend using WordPress with a premium theme and a handful of well-chosen plugins. The total cost might be a modest hosting fee and a theme licence, compared with tens of thousands of dollars for a comparable custom build. The large communities around major platforms mean abundant documentation, tutorials, third-party support services, and a constant stream of security patches and feature updates.</p>
+
+<p>However, CMS platforms also impose constraints. Template systems and plugin architectures define how content is structured and how the site behaves, and working against those assumptions — building features the platform was not designed for, or achieving highly bespoke visual designs — can become frustratingly difficult. Performance can suffer under the weight of a general-purpose framework, multiple active plugins, and a dynamic rendering model not tuned for the specific site's needs. Very high-traffic sites (millions of page views per month) may outgrow a standard CMS deployment and require significant infrastructure investment, custom caching layers, or a fundamental architectural rethink.</p>
+
+<p><strong>Custom-built websites</strong> offer maximum architectural freedom. Every database schema, every URL structure, every rendering decision is made deliberately for the specific project's needs. Performance can be optimised at every layer. There are no legacy plugin conflicts, no framework upgrade breaking changes, and no dependency on a third-party vendor's release schedule. For applications with genuinely novel requirements — a highly interactive single-page application, a platform with complex domain logic, a service that integrates deeply with proprietary back-end systems — a custom build is often the only viable path.</p>
+
+<p>The cost of that freedom is substantial. Custom builds require experienced developers, take significantly longer, and produce systems that only those developers (or successors with equivalent expertise) can maintain and extend. There is no plugin ecosystem to draw from; every feature must be built, tested, and maintained. Security vulnerabilities must be identified and patched by the internal team rather than by a community of thousands. For most content-driven sites, this investment is difficult to justify.</p>
+
+<p>A compelling middle path has emerged in the form of the <strong>hybrid or headless approach</strong>. A headless CMS handles content storage and authoring (the back-end) while a custom front-end framework — React, Vue, Next.js, Nuxt, SvelteKit — handles presentation and interactivity (the front-end). The two communicate via APIs. This model gives content editors the familiar, productive environment of a CMS while giving developers complete freedom over the front-end implementation, performance optimisation, and multi-channel content distribution (the same CMS content can feed a website, a mobile app, a smart TV interface, and a voice assistant simultaneously). Headless CMS services such as Contentful, Sanity, and Strapi have grown rapidly in adoption as this architecture has matured.</p>
+
+<p>Key practical considerations when evaluating CMS platforms against custom solutions include:</p>
+
+<ul>
+  <li><strong>Security:</strong> Popular CMS platforms are high-value targets for attackers precisely because of their ubiquity. An unpatched WordPress installation is one of the most common attack vectors on the web. Custom-built systems are less targeted by automated scanners but may contain more application-specific vulnerabilities if not built by security-conscious developers.</li>
+  <li><strong>Update management:</strong> CMS platforms release updates for core software, themes, and plugins that must be applied regularly to maintain security and compatibility. This ongoing maintenance obligation has a real cost in time and can sometimes break site functionality when updates introduce breaking changes.</li>
+  <li><strong>Vendor dependency:</strong> Relying on a SaaS CMS or a proprietary platform creates dependency on that vendor's continued operation, pricing decisions, and feature roadmap. Open-source platforms mitigate this risk significantly, as the codebase remains available regardless of any single organisation's decisions.</li>
+</ul>
+
+<p><strong>Types of CMS Platforms</strong></p>
+
+<p>The CMS landscape is diverse, and understanding the different categories helps in matching the right tool to the right project.</p>
+
+<p>A <strong>traditional or coupled CMS</strong> is the original model: the back-end (content management) and the front-end (content delivery) are built as a single integrated system. WordPress, Joomla, and Drupal in their standard configurations are coupled CMS platforms. The theme or template system lives inside the same application that manages content. This tight integration simplifies deployment and is highly accessible for beginners, but it means the front-end technology choices are constrained by whatever the platform supports. Migrating to a new front-end framework requires migrating the entire CMS.</p>
+
+<p>A <strong>headless CMS</strong> stores and serves content exclusively, exposing it through a RESTful API or GraphQL endpoint. There is no built-in front-end; consuming applications (websites, apps, kiosks) query the API and render the content however they choose. This architecture is ideal for organisations that need to distribute the same content across multiple channels or that want to use a modern JavaScript framework for the front-end without being constrained by a CMS's native templating system. Examples include Contentful, Sanity, Strapi, and Directus, as well as headless modes offered by WordPress (via its REST API or WPGraphQL) and Drupal.</p>
+
+<p>A <strong>Software-as-a-Service (SaaS) CMS</strong> is a fully hosted and managed platform where the vendor handles all infrastructure, updates, backups, and scaling. Wix, Squarespace, Shopify (for e-commerce), and Webflow fall into this category. The site owner pays a subscription fee and interacts only with the content authoring and design tools; they never touch a server. This model dramatically reduces operational overhead and is well-suited for small businesses, individuals, and teams without dedicated technical staff. The trade-offs are less customisation freedom, recurring subscription costs, and dependence on the vendor's platform decisions.</p>
+
+<p>An <strong>open-source CMS</strong> is developed and maintained by a community of contributors and licensed freely (typically under the GPL or MIT licence). WordPress powers approximately 43% of all websites on the internet as of the mid-2020s — a remarkable demonstration of what open-source community development can achieve. Drupal and Joomla are other prominent open-source platforms. Because the source code is publicly available and freely forkable, open-source CMS platforms offer the highest degree of customisation: any behaviour can be modified by a developer with sufficient expertise. There are no licensing fees. The community provides a vast library of free themes and plugins. The responsibilities that come with this freedom — self-managed hosting, applying security updates, managing plugin compatibility — are the primary ongoing costs.</p>
+
+<p>The landscape can be summarised as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>CMS Type</th>
+      <th>Examples</th>
+      <th>Front-End Coupling</th>
+      <th>Hosting Responsibility</th>
+      <th>Best Suited For</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Traditional / Coupled</td>
+      <td>WordPress, Joomla, Drupal</td>
+      <td>Tightly coupled (built-in themes)</td>
+      <td>Site owner (self-hosted)</td>
+      <td>Content-driven sites with standard front-end needs</td>
+    </tr>
+    <tr>
+      <td>Headless</td>
+      <td>Contentful, Sanity, Strapi, Directus</td>
+      <td>Fully decoupled (API-first)</td>
+      <td>Varies (SaaS or self-hosted)</td>
+      <td>Multi-channel delivery, custom front-end frameworks</td>
+    </tr>
+    <tr>
+      <td>SaaS / Hosted</td>
+      <td>Wix, Squarespace, Shopify, Webflow</td>
+      <td>Tightly coupled (vendor-managed)</td>
+      <td>Vendor (fully managed)</td>
+      <td>Small businesses, individuals, low-overhead publishing</td>
+    </tr>
+    <tr>
+      <td>Open-Source</td>
+      <td>WordPress, Drupal, Joomla, TYPO3</td>
+      <td>Coupled or headless depending on configuration</td>
+      <td>Site owner (self-hosted)</td>
+      <td>Projects requiring maximum customisation and no licensing cost</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>These categories are not mutually exclusive. WordPress is simultaneously a traditional coupled CMS, an open-source CMS, and — when configured with its REST API or WPGraphQL plugin — a headless CMS. The meaningful distinctions lie in how much control the site owner has over the infrastructure, how content is delivered to the front-end, and what ongoing responsibilities the choice creates. A thorough understanding of these categories equips developers, project managers, and content strategists to evaluate any CMS platform against the real requirements of a project rather than relying on brand recognition or familiarity alone.</p>
+        <div class="notes"><strong>Notes</strong>This topic serves as the conceptual foundation for the entire module. Emphasis on the separation of content from design, the four core components (database, delivery layer, admin interface, plugins), and the four platform types (coupled, headless, SaaS, open-source) will pay dividends in every subsequent topic. The comparison tables are particularly useful for learners who benefit from structured side-by-side analysis. Instructors may wish to prompt learners to identify a real website they use regularly and speculate about which CMS type it likely uses before revealing the answer.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

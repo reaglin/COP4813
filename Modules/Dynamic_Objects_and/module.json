@@ -1,0 +1,9 @@
+{
+  "Id": "4b8cb36d-85dd-496e-ab21-ab89b23b0cec",
+  "Name": "12 - Dynamic Objects and Controls with JavaScript and the DOM",
+  "Description": "This lesson covers advanced DOM manipulation to dynamically create, modify, and remove HTML elements and event listeners at runtime, building interactive UI controls entirely through JavaScript.",
+  "CreatedBy": "Ron Eaglin",
+  "CreatedDate": "2026-06-26T21:24:50.0750175-04:00",
+  "LastModifiedDate": "2026-07-07T20:09:36.5966029-04:00",
+  "Actions": []
+}

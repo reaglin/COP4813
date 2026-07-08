@@ -1,0 +1,359 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Internal Navigation and Site Linking</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Internal Navigation and Site Linking</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Internal Navigation and Site Linking</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When building a website that spans multiple pages, one of the most essential skills is knowing how to connect those pages together through internal navigation. Unlike external links that send visitors to a completely different website, internal links keep users within your own site, moving them between pages, sections, and resources you control. A well-constructed internal navigation system is the backbone of any multi-page website — it determines how easily visitors can find content, how search engines understand your site's structure, and how professional the overall experience feels. This topic covers everything you need to know to build reliable, well-organized internal navigation: how file paths work, how to write anchor tags for internal links, how to construct and maintain navigation menus, how to organize your files, and how to link directly to specific sections within a page.</p>
+
+<p><strong>Understanding Relative File Paths</strong></p>
+
+<p>Every link on a webpage points to a resource using a path — an address that tells the browser where to find the destination file. When linking to pages within your own website, you should use <em>relative file paths</em> rather than absolute ones. An absolute path includes the full URL, including the protocol and domain name, such as <code>https://www.example.com/about.html</code>. A relative path, by contrast, describes the location of the destination file <em>relative to the current document</em> — it omits the domain and protocol entirely.</p>
+
+<p>Relative paths are preferred for internal links for a very practical reason: they make your site <em>portable</em>. If you move your website to a different server, a different domain, or simply test it locally on your own computer, relative links continue to work correctly without any changes. Absolute internal links would break the moment the domain name changed.</p>
+
+<p>To write a relative path correctly, you need to understand your site's folder structure and the position of the current file within it. Consider a site with the following layout:</p>
+
+<pre><code>my-website/
+├── index.html
+├── about.html
+├── contact.html
+└── blog/
+    ├── post-one.html
+    └── post-two.html
+</code></pre>
+
+<p>If you are currently in <code>index.html</code> (at the root level) and want to link to <code>about.html</code> (also at the root level), the relative path is simply the filename: <code>about.html</code>. To link from <code>index.html</code> to <code>post-one.html</code> inside the <code>blog</code> folder, you write: <code>blog/post-one.html</code>. You move <em>into</em> a subfolder by including the folder name followed by a slash.</p>
+
+<p>The more nuanced case is linking <em>up</em> out of a subfolder. If you are inside <code>blog/post-one.html</code> and want to link back to <code>index.html</code> at the root, you use <code>../</code> to move up one directory level: <code>../index.html</code>. Each <code>../</code> moves you up one folder. If you were two levels deep, you would write <code>../../index.html</code> to climb back to the root.</p>
+
+<p>Keeping your folder structure well-organized from the start pays dividends when writing and maintaining these paths. A logical, shallow structure with descriptive folder names means your paths stay short and readable. Inconsistent nesting or vaguely named folders lead to tangled paths that are error-prone and hard to update.</p>
+
+<p><strong>Creating Basic Internal Links with the Anchor Tag</strong></p>
+
+<p>Internal links are created using the HTML anchor element <code>&lt;a&gt;</code>. The critical attribute is <code>href</code> (hypertext reference), whose value is the relative file path to the destination page. The text placed between the opening and closing <code>&lt;a&gt;</code> tags is what the visitor sees and clicks.</p>
+
+<p>Here is a basic example linking from one page to an about page:</p>
+
+<pre><code>&lt;a href="about.html"&gt;About Us&lt;/a&gt;
+</code></pre>
+
+<p>And linking from inside a subfolder back up to the home page:</p>
+
+<pre><code>&lt;a href="../index.html"&gt;Home&lt;/a&gt;
+</code></pre>
+
+<p>The visible link text — called the <em>anchor text</em> — matters for both usability and accessibility. It should clearly describe what the visitor will find at the destination. Vague phrases like "click here" or "read more" tell the user nothing meaningful, especially for visitors using screen readers who may navigate a page by jumping from link to link. Descriptive anchor text like "View our portfolio" or "Contact the support team" is far more useful.</p>
+
+<p>When a visitor clicks an internal link, the browser loads the destination page from the same server without triggering a full external navigation. The experience feels seamless and fast, particularly when files are hosted together, because the browser may already have common resources like stylesheets or images cached from the previous page.</p>
+
+<p>There is no need to add <code>target="_blank"</code> to internal links (which would open the page in a new tab). Opening your own site's pages in new tabs is generally considered poor practice — it breaks the browser's back button behavior and can disorient users.</p>
+
+<p><strong>Building a Navigation Menu Structure</strong></p>
+
+<p>A navigation menu is a collection of internal links organized so that users can reach any primary section of the site from any page. In modern HTML, menus are built using a combination of semantic and structural elements that make the purpose of the links clear to browsers, search engines, and assistive technologies alike.</p>
+
+<p>The <code>&lt;nav&gt;</code> element is the correct semantic container for a site's navigation block. By using <code>&lt;nav&gt;</code>, you signal explicitly that the links inside form a navigation region. Screen readers and browsers understand this and can present the navigation separately, allowing keyboard users to skip past it or jump to it directly.</p>
+
+<p>Inside the <code>&lt;nav&gt;</code> element, links are organized as an unordered list using <code>&lt;ul&gt;</code> and <code>&lt;li&gt;</code> elements. This provides a logical list structure in the HTML. Each <code>&lt;li&gt;</code> contains one <code>&lt;a&gt;</code> tag linking to a different page. Here is a complete example of a navigation menu for a small website:</p>
+
+<pre><code>&lt;nav&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="index.html"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="about.html"&gt;About&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="services.html"&gt;Services&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="blog/index.html"&gt;Blog&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="contact.html"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+</code></pre>
+
+<p>Using a list for navigation is meaningful even before CSS is applied: the raw HTML communicates that these links belong together as a group. CSS then transforms the list into a horizontal or vertical menu by removing default bullet styles, setting display properties, and adding spacing and colors.</p>
+
+<p>Navigation menus should include links to all primary pages of the site. Users should never feel stranded on a page with no way to return to the main areas of the site. Secondary or deeply nested content (such as individual blog posts) does not necessarily need to appear in the main navigation, but every top-level section should be reachable from anywhere.</p>
+
+<p><strong>Maintaining Consistent Navigation Across Pages</strong></p>
+
+<p>For a navigation menu to be useful, it must appear on every page of the site in the same location and with the same links. Consistent navigation gives the site a unified, professional feel and helps users build an accurate mental model of how the site is organized. If the menu changes from page to page — links disappear, order shifts, items are renamed — users become confused and lose trust in the site.</p>
+
+<p>When working with plain HTML files (without a server-side templating system or framework), consistency is maintained manually: you copy the complete <code>&lt;nav&gt;</code> block into the header section of every HTML page in the site. This is straightforward but requires discipline. Any time you add a new page, rename a page, or reorganize the navigation, you must update every HTML file individually.</p>
+
+<p>A useful enhancement is visually distinguishing the current page's link in the navigation menu. This gives users an immediate visual cue about where they are in the site. The most common technique in plain HTML is to add a specific class to the active link, then style that class differently in CSS:</p>
+
+<pre><code>&lt;!-- On the About page, the About link gets the 'active' class --&gt;
+&lt;nav&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="index.html"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="about.html" class="active"&gt;About&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="services.html"&gt;Services&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="contact.html"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+</code></pre>
+
+<p>In your CSS you might then write:</p>
+
+<pre><code>nav a.active {
+  font-weight: bold;
+  color: #005fcc;
+  border-bottom: 2px solid #005fcc;
+}
+</code></pre>
+
+<p>Because the <code>class="active"</code> must be placed on the correct link for each individual page, this too must be updated manually in plain HTML. On the Home page, the Home link gets the class. On the Services page, the Services link gets it — and so on across every page.</p>
+
+<p><strong>Organizing Multi-Page Site File Structure</strong></p>
+
+<p>Before writing a single link, it is worth planning how your site's files will be organized. A logical file structure prevents broken links, makes relative paths easy to write, and scales gracefully as the site grows.</p>
+
+<p>The most common approach for a small to medium site is to keep the main HTML pages at the root level and group supporting assets into dedicated subfolders. A typical structure might look like this:</p>
+
+<pre><code>my-website/
+├── index.html
+├── about.html
+├── services.html
+├── contact.html
+├── blog/
+│   ├── index.html
+│   ├── post-one.html
+│   └── post-two.html
+├── images/
+│   ├── logo.png
+│   ├── hero.jpg
+│   └── team-photo.jpg
+└── css/
+    └── styles.css
+</code></pre>
+
+<p>Several principles make this structure effective:</p>
+
+<ul>
+  <li><strong>Dedicated asset folders:</strong> Storing all images in an <code>images/</code> folder and all CSS in a <code>css/</code> folder keeps media and code separate from page content. References to these resources use relative paths just like page links: <code>&lt;img src="images/logo.png" alt="Site logo"&gt;</code> from the root, or <code>&lt;img src="../images/logo.png" alt="Site logo"&gt;</code> from inside a subfolder.</li>
+  <li><strong>Consistent naming conventions:</strong> File and folder names should be entirely lowercase, with words separated by hyphens rather than spaces or underscores. Spaces in filenames cause broken links in many environments. Capitalization differences matter on case-sensitive servers (most Linux-based web hosts) — a file named <code>About.html</code> is not the same as <code>about.html</code>. Establishing a consistent convention from the start prevents these errors.</li>
+  <li><strong>Meaningful names:</strong> Names like <code>services.html</code> or <code>blog/post-one.html</code> are self-explanatory. Names like <code>page2.html</code> or <code>new-folder/file-a.html</code> are not — they make maintenance much harder.</li>
+  <li><strong>Shallow nesting:</strong> Avoid creating deeply nested folder structures unless the content genuinely demands it. Three or four levels of nesting means three or four levels of <code>../</code> in relative paths, which is error-prone and hard to read.</li>
+</ul>
+
+<p>A well-planned structure also makes adding new pages straightforward. If you add a new top-level page, you create the file at the root and add one new <code>&lt;li&gt;</code> to the navigation menu in every page file. If you add a new blog post, you drop a file into <code>blog/</code> and optionally link to it from the blog index page.</p>
+
+<p>The following table summarizes common relative path patterns based on the example structure above:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Current File Location</th>
+      <th>Destination File</th>
+      <th>Relative Path to Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>index.html (root)</td>
+      <td>about.html (root)</td>
+      <td><code>about.html</code></td>
+    </tr>
+    <tr>
+      <td>index.html (root)</td>
+      <td>blog/post-one.html</td>
+      <td><code>blog/post-one.html</code></td>
+    </tr>
+    <tr>
+      <td>blog/post-one.html</td>
+      <td>index.html (root)</td>
+      <td><code>../index.html</code></td>
+    </tr>
+    <tr>
+      <td>blog/post-one.html</td>
+      <td>about.html (root)</td>
+      <td><code>../about.html</code></td>
+    </tr>
+    <tr>
+      <td>blog/post-one.html</td>
+      <td>images/logo.png (root)</td>
+      <td><code>../images/logo.png</code></td>
+    </tr>
+    <tr>
+      <td>index.html (root)</td>
+      <td>images/hero.jpg</td>
+      <td><code>images/hero.jpg</code></td>
+    </tr>
+    <tr>
+      <td>blog/post-one.html</td>
+      <td>blog/post-two.html</td>
+      <td><code>post-two.html</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Linking to Page Sections with Fragment Identifiers</strong></p>
+
+<p>Sometimes you need to link not just to a page, but to a specific section <em>within</em> a page. This is accomplished using <em>fragment identifiers</em>, also called anchor links or hash links. They are particularly useful for long pages — such as a single-page layout, a long FAQ, or a detailed article — where jumping the user directly to the relevant section saves significant scrolling.</p>
+
+<p>The first step is to mark the target element with a unique <code>id</code> attribute. Any HTML element can receive an <code>id</code>. Common targets are section containers, headings, or article elements:</p>
+
+<pre><code>&lt;section id="services"&gt;
+  &lt;h2&gt;Our Services&lt;/h2&gt;
+  &lt;p&gt;We offer a range of services...&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;section id="contact"&gt;
+  &lt;h2&gt;Contact Us&lt;/h2&gt;
+  &lt;p&gt;Get in touch with our team...&lt;/p&gt;
+&lt;/section&gt;
+</code></pre>
+
+<p><code>id</code> values must be unique within a page — no two elements on the same page should share the same <code>id</code>. They are case-sensitive and should not contain spaces.</p>
+
+<p>To link to a fragment on the <em>same page</em>, use a <code>href</code> value that starts with the <code>#</code> symbol followed by the target element's <code>id</code>:</p>
+
+<pre><code>&lt;a href="#services"&gt;Jump to Services&lt;/a&gt;
+&lt;a href="#contact"&gt;Jump to Contact&lt;/a&gt;
+</code></pre>
+
+<p>Clicking either link scrolls the page so that the corresponding section comes into view — no new page is loaded. This is ideal for navigation menus on single-page websites or for a "table of contents" at the top of a long article.</p>
+
+<p>Fragment identifiers can also be <em>combined with relative file paths</em> to deep-link into a specific section of a <em>different</em> page in the same site. The syntax is the relative path followed immediately by <code>#</code> and the target <code>id</code>:</p>
+
+<pre><code>&lt;!-- From index.html, linking directly to the contact section on contact.html --&gt;
+&lt;a href="contact.html#contact-form"&gt;Go directly to the contact form&lt;/a&gt;
+
+&lt;!-- From a blog post, linking to the services section on the home page --&gt;
+&lt;a href="../index.html#services"&gt;See our services&lt;/a&gt;
+</code></pre>
+
+<p>When the browser follows a combined path-and-fragment link, it loads the destination page and then automatically scrolls to the element with the matching <code>id</code>. This is a powerful way to guide users to precisely the right content without forcing them to scroll through unrelated material.</p>
+
+<p>Here is a complete, minimal example bringing all these concepts together for a two-page site with a consistent navigation menu and fragment links:</p>
+
+<pre><code>&lt;!-- index.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Home - My Website&lt;/title&gt;
+  &lt;link rel="stylesheet" href="css/styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;nav&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href="index.html" class="active"&gt;Home&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="about.html"&gt;About&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="contact.html"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;section id="intro"&gt;
+      &lt;h2&gt;Welcome&lt;/h2&gt;
+      &lt;p&gt;Explore our site using the navigation above.&lt;/p&gt;
+      &lt;a href="contact.html#map"&gt;Find us on the map&lt;/a&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<pre><code>&lt;!-- contact.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Contact - My Website&lt;/title&gt;
+  &lt;link rel="stylesheet" href="css/styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;nav&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href="index.html"&gt;Home&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="about.html"&gt;About&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="contact.html" class="active"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;section id="contact-form"&gt;
+      &lt;h2&gt;Send a Message&lt;/h2&gt;
+      &lt;p&gt;Fill out the form below to get in touch.&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section id="map"&gt;
+      &lt;h2&gt;Find Us&lt;/h2&gt;
+      &lt;p&gt;We are located at 123 Main Street.&lt;/p&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>Notice how both pages share identical <code>&lt;nav&gt;</code> blocks (differing only in which link carries the <code>active</code> class), how all paths are relative, how the stylesheet is referenced with a relative path, and how the link on <code>index.html</code> combines a relative file path with a fragment identifier to land directly on the map section of the contact page. This pattern — consistent navigation, organized files, descriptive anchor text, and targeted fragment links — forms the foundation of effective internal navigation for any multi-page website.</p>
+        <div class="notes"><strong>Notes</strong>Covers all listed subtopics in depth: relative paths including ../ syntax, anchor tags for internal links, nav/ul/li menu structure, maintaining consistent navigation with active-class highlighting, multi-page file organization with naming conventions, and fragment identifiers both within a page and combined with relative paths. Includes a summary reference table for relative path patterns and a complete two-page worked example.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

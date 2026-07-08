@@ -1,0 +1,434 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foundations of Interactive Canvas Graphics</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Foundations of Interactive Canvas Graphics</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Foundations of Interactive Canvas Graphics</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Interactive canvas graphics sit at the intersection of two capabilities the browser provides: a pixel-level drawing surface and a rich event system that responds to user input in real time. When these two systems are wired together thoughtfully, the canvas becomes far more than a static image — it becomes a living interface where mouse movements paint trails, clicks spawn shapes, and every frame of animation can respond to what the user is doing <em>right now</em>. Understanding how to connect these systems, translate coordinates correctly, manage state, and structure your code cleanly is the foundation upon which every canvas-based application — from drawing tools to games to data visualizations — is built.</p>
+
+<p>The ideas covered here are not independent tricks. They form a pipeline: the canvas element provides the surface, the JavaScript event system feeds in user input, coordinate translation maps that input to canvas space, a state object holds the authoritative description of what should be on screen, and a rendering loop turns that description into pixels. Getting each stage right — and understanding how they fit together — is what separates code that works from code that is maintainable, performant, and extensible.</p>
+
+<p><strong>The Canvas Element as an Interactive Surface</strong></p>
+
+<p>The <code>&lt;canvas&gt;</code> element is an HTML element that reserves a rectangular region of the page for programmatic pixel drawing. Unlike an <code>&lt;img&gt;</code> tag, which displays a static file, the canvas starts completely transparent and empty. Everything visible on it must be drawn by JavaScript. This blank-slate quality is precisely what makes it so powerful for interactivity: the code controls every pixel, every frame.</p>
+
+<p>To begin, the element is placed in the HTML document and given explicit <code>width</code> and <code>height</code> attributes:</p>
+
+<pre><code>&lt;canvas id="myCanvas" width="800" height="500"&gt;&lt;/canvas&gt;</code></pre>
+
+<p>This is an important detail that trips up many beginners. The <code>width</code> and <code>height</code> <em>attributes</em> define the internal resolution of the drawing surface — the actual number of pixels the canvas works with. CSS can separately control how large the canvas element appears on screen, but if the CSS size differs from the attribute size, the browser stretches or compresses the internal drawing surface to fit, causing blurriness or distortion. The safest practice is to set the visual size and the drawing resolution to match, either by omitting CSS sizing or by keeping both in sync explicitly.</p>
+
+<p>In JavaScript, a reference to the element is obtained and then the 2D drawing context is requested:</p>
+
+<pre><code>const canvas = document.getElementById('myCanvas');
+const ctx = canvas.getContext('2d');</code></pre>
+
+<p>The object stored in <code>ctx</code> is the engine room of all canvas drawing. It exposes methods like <code>fillRect()</code>, <code>arc()</code>, <code>drawImage()</code>, and <code>strokeText()</code>, along with properties like <code>fillStyle</code>, <code>strokeStyle</code>, and <code>lineWidth</code>. Every drawing command in the examples that follow is called on this context object.</p>
+
+<p>The coordinate system the context uses places the origin <code>(0, 0)</code> at the <strong>top-left corner</strong> of the canvas. The x-axis increases to the right, and — crucially, because it differs from the mathematical convention — the y-axis increases <em>downward</em>. A point at <code>(200, 150)</code> is therefore 200 pixels from the left edge and 150 pixels from the top edge. Forgetting this can lead to shapes appearing upside-down or in unexpected positions when doing geometry calculations.</p>
+
+<pre><code>// Draw a small filled square 100px from the left, 80px from the top
+ctx.fillStyle = 'steelblue';
+ctx.fillRect(100, 80, 60, 60); // x, y, width, height</code></pre>
+
+<p><strong>Connecting JavaScript Events to Canvas</strong></p>
+
+<p>A canvas becomes interactive the moment it listens for user input. JavaScript's <code>addEventListener()</code> method attaches a listener to any DOM element, including the canvas itself. When the specified event occurs, the browser calls the provided callback function and passes it an <em>event object</em> containing details about what happened.</p>
+
+<pre><code>canvas.addEventListener('mousedown', function(event) {
+  console.log('Mouse button pressed');
+  console.log('Button:', event.button); // 0 = left, 1 = middle, 2 = right
+});</code></pre>
+
+<p>The event object is the messenger. For mouse events it carries properties like <code>clientX</code>, <code>clientY</code> (position in the viewport), <code>button</code> (which mouse button), and <code>buttons</code> (a bitmask of all currently held buttons). For keyboard events it carries <code>key</code> and <code>code</code>. For pointer events it additionally carries pressure and tilt information.</p>
+
+<p>Complex interactions require combining multiple event types. A classic example is freehand drawing, which requires three coordinated listeners:</p>
+
+<pre><code>let isDrawing = false;
+
+canvas.addEventListener('mousedown', (e) => {
+  isDrawing = true;
+  // begin a new path at the click location
+});
+
+canvas.addEventListener('mousemove', (e) => {
+  if (!isDrawing) return; // ignore movement unless button is held
+  // extend the path to the current mouse position
+});
+
+canvas.addEventListener('mouseup', (e) => {
+  isDrawing = false; // stop drawing when button is released
+});
+
+// Also handle the mouse leaving the canvas
+canvas.addEventListener('mouseleave', (e) => {
+  isDrawing = false;
+});
+</code></pre>
+
+<p>The <code>isDrawing</code> flag is a tiny piece of shared state that connects the three handlers. Without it, every mouse movement would trigger drawing regardless of whether the button is held. This pattern — using state to coordinate multiple event listeners — appears constantly in interactive canvas code.</p>
+
+<p>When a listener is no longer needed, it should be removed with <code>removeEventListener()</code>. This requires passing the exact same function reference that was originally registered, which is why named functions are often preferred over anonymous ones when removal will be needed:</p>
+
+<pre><code>function handleMouseMove(e) {
+  // handle movement
+}
+
+canvas.addEventListener('mousemove', handleMouseMove);
+
+// Later, when interaction should stop:
+canvas.removeEventListener('mousemove', handleMouseMove);</code></pre>
+
+<p>Failing to remove listeners that are no longer needed can cause memory leaks (the listener holds references to surrounding variables, keeping them in memory) and unexpected behavior (old listeners firing after they should have become inactive).</p>
+
+<p><strong>Translating Mouse Coordinates to Canvas Space</strong></p>
+
+<p>The single most common mistake in canvas interactivity is using <code>event.clientX</code> and <code>event.clientY</code> directly as canvas coordinates. These values are measured from the top-left corner of the browser <em>viewport</em>, not from the top-left corner of the canvas element. If the canvas is not positioned at the very top-left of the page — which it almost never is — these coordinates will be wrong.</p>
+
+<p>The correct approach uses <code>getBoundingClientRect()</code>, which returns the canvas element's position and size relative to the viewport:</p>
+
+<pre><code>function getCanvasCoords(event) {
+  const rect = canvas.getBoundingClientRect();
+  const canvasX = event.clientX - rect.left;
+  const canvasY = event.clientY - rect.top;
+  return { x: canvasX, y: canvasY };
+}
+
+canvas.addEventListener('mousemove', (e) => {
+  const pos = getCanvasCoords(e);
+  console.log(`Canvas position: (${pos.x}, ${pos.y})`);
+});</code></pre>
+
+<p>The subtraction converts viewport-relative coordinates into canvas-element-relative coordinates. The diagram below summarizes the relationship:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Coordinate System</th>
+      <th>Origin</th>
+      <th>Value Source</th>
+      <th>Use Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Viewport / Screen</td>
+      <td>Top-left of browser window</td>
+      <td><code>event.clientX</code>, <code>event.clientY</code></td>
+      <td>General DOM positioning</td>
+    </tr>
+    <tr>
+      <td>Canvas Element</td>
+      <td>Top-left of the <code>&lt;canvas&gt;</code> tag</td>
+      <td><code>clientX − rect.left</code>, <code>clientY − rect.top</code></td>
+      <td>Drawing commands on the canvas</td>
+    </tr>
+    <tr>
+      <td>Canvas Internal</td>
+      <td>Top-left of the drawing surface</td>
+      <td>Same as canvas element coords <em>when no CSS scaling is applied</em></td>
+      <td>Pixel-accurate drawing</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>When CSS is used to scale the canvas element — for example, displaying an 800×500 canvas inside a 400×250 space — an additional correction is needed. The canvas's internal resolution differs from its displayed size, so coordinates must be scaled by the ratio of internal pixels to displayed pixels:</p>
+
+<pre><code>function getCanvasCoords(event) {
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  return {
+    x: (event.clientX - rect.left) * scaleX,
+    y: (event.clientY - rect.top) * scaleY
+  };
+}</code></pre>
+
+<p>Making this a dedicated utility function and calling it at the start of every mouse handler ensures that the coordinates used in drawing commands are always accurate, regardless of where the canvas sits on the page or how it is styled.</p>
+
+<p><strong>Redrawing the Canvas for Dynamic Graphics</strong></p>
+
+<p>Here is a fundamental truth about the HTML canvas: <em>it has no memory</em>. Once pixels are drawn, they are just pixels — they carry no information about what shape produced them, what color it was supposed to be, or where it came from. If a circle moves ten pixels to the right, you cannot simply update the circle object; you must erase everything and redraw the entire scene with the circle in its new position.</p>
+
+<p>The standard way to erase the entire canvas is:</p>
+
+<pre><code>ctx.clearRect(0, 0, canvas.width, canvas.height);</code></pre>
+
+<p>This fills the entire rectangle with transparent pixels. Alternatively, <code>ctx.fillRect()</code> with a background color can be used if the canvas should have a solid background. Either way, the wipe must happen at the start of every frame before any drawing commands run.</p>
+
+<p>Because the canvas does not remember what was drawn, the JavaScript code must. Application state — the positions, sizes, colors, and properties of everything that can appear on the canvas — lives in JavaScript data structures. A simple moving-ball example stores its state in plain variables:</p>
+
+<pre><code>let ballX = 400;
+let ballY = 250;
+let ballRadius = 30;
+let ballColor = 'tomato';
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  ctx.beginPath();
+  ctx.arc(ballX, ballY, ballRadius, 0, Math.PI * 2);
+  ctx.fillStyle = ballColor;
+  ctx.fill();
+}
+</code></pre>
+
+<p>When the user drags the ball, only <code>ballX</code> and <code>ballY</code> are updated. The <code>draw()</code> function then re-renders the scene using the new values. This separation is critical: state lives in JavaScript, and the canvas is just a display output that reflects that state.</p>
+
+<p>For applications with multiple objects, an array of objects is the natural container:</p>
+
+<pre><code>const shapes = [
+  { type: 'circle', x: 100, y: 100, r: 40, color: 'coral' },
+  { type: 'rect',   x: 300, y: 200, w: 80, h: 60, color: 'teal' }
+];
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (const shape of shapes) {
+    if (shape.type === 'circle') {
+      ctx.beginPath();
+      ctx.arc(shape.x, shape.y, shape.r, 0, Math.PI * 2);
+      ctx.fillStyle = shape.color;
+      ctx.fill();
+    } else if (shape.type === 'rect') {
+      ctx.fillStyle = shape.color;
+      ctx.fillRect(shape.x, shape.y, shape.w, shape.h);
+    }
+  }
+}
+</code></pre>
+
+<p>Adding a new shape is as simple as pushing a new object into the array and calling <code>draw()</code>. Removing a shape means filtering it out of the array. The drawing function itself never changes.</p>
+
+<p><strong>Using requestAnimationFrame for Smooth Interactivity</strong></p>
+
+<p>For animations and highly interactive graphics, calling <code>draw()</code> directly inside event handlers produces choppy results. Mouse events fire irregularly, and forcing a canvas redraw on every single pixel of movement can overwhelm the browser. The professional solution is <code>requestAnimationFrame()</code>.</p>
+
+<p><code>requestAnimationFrame(callback)</code> asks the browser to call <code>callback</code> just before it performs its next visual repaint. The browser schedules these repaints at the display's refresh rate — typically 60 Hz, so about once every 16.67 milliseconds. Critically, the browser can also skip a frame if the tab is hidden or the system is under load, saving battery and CPU without any extra work from the developer.</p>
+
+<p>An animation loop is created by calling <code>requestAnimationFrame</code> recursively within its own callback:</p>
+
+<pre><code>function loop() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  draw();           // render current state
+  requestAnimationFrame(loop); // schedule the next frame
+}
+
+requestAnimationFrame(loop); // kick off the loop</code></pre>
+
+<p>The key insight is that event handlers <em>no longer call</em> <code>draw()</code> directly. Instead, they simply update the state variables. The animation loop reads those variables and renders whatever the current state is:</p>
+
+<pre><code>let mouseX = 0;
+let mouseY = 0;
+
+// Event handler only updates state
+canvas.addEventListener('mousemove', (e) => {
+  const pos = getCanvasCoords(e);
+  mouseX = pos.x;
+  mouseY = pos.y;
+});
+
+// Animation loop reads state and renders
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.beginPath();
+  ctx.arc(mouseX, mouseY, 20, 0, Math.PI * 2);
+  ctx.fillStyle = 'goldenrod';
+  ctx.fill();
+}
+
+function loop() {
+  draw();
+  requestAnimationFrame(loop);
+}
+
+requestAnimationFrame(loop);
+</code></pre>
+
+<p>This <em>decoupling</em> of input handling from rendering is what makes canvas animations smooth. The mouse can fire events at irregular intervals — the animation loop catches up to the latest state at a steady rate synchronized with the display. There is no risk of drawing partial states mid-frame or causing visual tearing.</p>
+
+<p>The callback passed to <code>requestAnimationFrame</code> also receives a timestamp argument (in milliseconds since page load), which can be used to calculate delta time and make animations frame-rate independent:</p>
+
+<pre><code>let lastTime = 0;
+
+function loop(timestamp) {
+  const delta = timestamp - lastTime; // milliseconds since last frame
+  lastTime = timestamp;
+
+  // Move a ball at 100 pixels per second, regardless of frame rate
+  ballX += 100 * (delta / 1000);
+
+  draw();
+  requestAnimationFrame(loop);
+}
+
+requestAnimationFrame(loop);
+</code></pre>
+
+<p><strong>Structuring Interactive Canvas Code</strong></p>
+
+<p>As canvas applications grow, putting everything in one block of code becomes unmaintainable. A clean structure emerges naturally from the pipeline described above: initialization, state, event handling, and rendering are four distinct concerns that deserve to be organized separately.</p>
+
+<p>An <code>init()</code> function handles all one-time setup — obtaining the canvas and context references, setting the initial values of state variables, registering event listeners, and starting the animation loop. It is called once when the page loads:</p>
+
+<pre><code>function init() {
+  // Setup
+  const canvas = document.getElementById('myCanvas');
+  const ctx = canvas.getContext('2d');
+
+  // Initial state
+  let shapes = [];
+  let mousePos = { x: 0, y: 0 };
+
+  // Event listeners
+  canvas.addEventListener('click', (e) => {
+    const pos = getCanvasCoords(e);
+    shapes.push({ x: pos.x, y: pos.y, r: 25, color: 'orchid' });
+  });
+
+  canvas.addEventListener('mousemove', (e) => {
+    mousePos = getCanvasCoords(e);
+  });
+
+  // Rendering
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (const s of shapes) {
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = s.color;
+      ctx.fill();
+    }
+    // Draw a cursor indicator
+    ctx.beginPath();
+    ctx.arc(mousePos.x, mousePos.y, 8, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(0,0,0,0.3)';
+    ctx.fill();
+  }
+
+  function loop() {
+    draw();
+    requestAnimationFrame(loop);
+  }
+
+  requestAnimationFrame(loop);
+}
+
+window.addEventListener('load', init);
+</code></pre>
+
+<p>This structure has several important qualities. Event handlers are short — they update state and nothing else. The <code>draw()</code> function is the single authority on what gets rendered; to see how the canvas will look, you only need to read that one function. State is isolated inside <code>init()</code>'s closure, preventing accidental global variable collisions.</p>
+
+<p>The benefits compound as the application grows. Implementing an undo feature means storing snapshots of the <code>shapes</code> array and restoring the previous one — the rendering code needs zero changes. Adding a second rendering layer (say, a UI overlay on a second canvas element) means writing a second <code>draw()</code> variant and calling it in the same loop. Supporting touch input means adding <code>touchstart</code>, <code>touchmove</code>, and <code>touchend</code> listeners that extract coordinates from <code>event.touches[0]</code> and update the same state variables — again, the rendering code is untouched.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Concern</th>
+      <th>Where It Lives</th>
+      <th>What It Does</th>
+      <th>What It Does NOT Do</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Initialization</td>
+      <td><code>init()</code></td>
+      <td>Sets up canvas, context, state, listeners, starts loop</td>
+      <td>Drawing, state mutation</td>
+    </tr>
+    <tr>
+      <td>State</td>
+      <td>JavaScript variables / arrays / objects</td>
+      <td>Holds the authoritative description of the scene</td>
+      <td>Drawing pixels directly</td>
+    </tr>
+    <tr>
+      <td>Event Handling</td>
+      <td>Listener callbacks</td>
+      <td>Translates input events into state changes</td>
+      <td>Calling canvas drawing methods</td>
+    </tr>
+    <tr>
+      <td>Rendering</td>
+      <td><code>draw()</code> / <code>render()</code></td>
+      <td>Reads state, issues all canvas drawing commands</td>
+      <td>Modifying state or registering listeners</td>
+    </tr>
+    <tr>
+      <td>Animation Loop</td>
+      <td><code>requestAnimationFrame</code> callback</td>
+      <td>Calls <code>draw()</code> at display refresh rate</td>
+      <td>Handling input or managing state directly</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The discipline of maintaining these separations pays dividends immediately: bugs are easier to locate because each function has a single responsibility, features are easier to add because the interfaces between layers are clear, and performance is easier to optimize because rendering happens in one predictable place synchronized with the display. This architecture is the foundation of every serious canvas application, from simple interactive sketching tools to full browser-based game engines.</p>
+        <div class="notes"><strong>Notes</strong>Students should experiment by building a minimal working example that incorporates all five stages — canvas setup, coordinate translation, event-driven state updates, a clearRect-based redraw, and a requestAnimationFrame loop — before moving on to more advanced drawing topics. Even a simple &quot;click to place circles, mousemove to show a cursor dot&quot; demo exercises the entire pipeline.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

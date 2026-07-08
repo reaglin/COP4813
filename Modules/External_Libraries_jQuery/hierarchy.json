@@ -1,0 +1,1489 @@
+{
+  "ModuleFolderName": "External_Libraries_jQuery",
+  "CourseName": "COP4813",
+  "GeneratedDate": "2026-06-26T21:39:24.8329732-04:00",
+  "ModifiedDate": "2026-06-26T21:42:40.3088241-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "915361f1-504e-422a-94ee-49c01fd542f8",
+      "Title": "Introduction to External Libraries and CDN Integration",
+      "Summary": "Explains what third-party libraries are and how to load them into a web project using Content Delivery Networks (CDNs). Covers the benefits of CDNs over local file hosting and the basic script/link tag syntax required.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-06-26T21:39:24.8329732-04:00",
+      "ModifiedDate": "2026-06-26T21:39:24.8329732-04:00",
+      "Elements": [
+        {
+          "Id": "a3a84031-2e0c-4280-9d25-9ccaf10ffd89",
+          "TopicId": "915361f1-504e-422a-94ee-49c01fd542f8",
+          "Title": "What Are Third-Party External Libraries?",
+          "BodyText": "External libraries are pre-written collections of code created by other developers that you can include in your own web project to add functionality without building it from scratch.",
+          "Notes": "Examples include jQuery for DOM manipulation, Bootstrap for responsive design, and Chart.js for data visualization \u2014 all of which save significant development time.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:39:52.2067371-04:00",
+          "ModifiedDate": "2026-06-26T21:39:52.2067371-04:00",
+          "Items": [
+            {
+              "Id": "7975b379-0508-4b31-a446-44c6d1ca6a94",
+              "Text": "Libraries package reusable functions, styles, and components that solve common web development problems.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "aed885ad-cb6d-4502-b0e2-8b8d95d73736",
+              "Text": "Using a well-maintained library reduces bugs and leverages community-tested code rather than custom solutions.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "cb995120-b867-4e0b-901a-f74167fb1eeb",
+              "Text": "Third-party libraries are typically distributed as JavaScript (.js) files, CSS (.css) files, or both.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f711aa54-1be3-4cfb-945f-0de8189eec55",
+              "Text": "Developers choose libraries based on project needs, library popularity, and ongoing community support.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "594ad98c-2533-4d67-b1f3-0c1192498240",
+          "TopicId": "915361f1-504e-422a-94ee-49c01fd542f8",
+          "Title": "What Is a Content Delivery Network (CDN)?",
+          "BodyText": "A Content Delivery Network (CDN) is a geographically distributed network of servers that hosts and delivers files \u2014 such as library assets \u2014 to users from the server closest to them.",
+          "Notes": "Popular CDN providers for web libraries include jsDelivr, cdnjs, and the official CDN links provided by libraries like Bootstrap and jQuery themselves.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:39:52.2067371-04:00",
+          "ModifiedDate": "2026-06-26T21:39:52.2067371-04:00",
+          "Items": [
+            {
+              "Id": "e8ce8f43-5941-4fb1-8d4e-e3c651070372",
+              "Text": "CDNs store copies of library files on servers around the world, reducing the physical distance data must travel to reach the user.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "46e69363-f1cb-496d-b29b-5b007ae14d5f",
+              "Text": "When a browser requests a CDN-hosted file, the CDN automatically routes the request to the nearest available server.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8b432c50-c267-4358-bcad-1bec009cf82b",
+              "Text": "CDNs are maintained by the library providers or dedicated hosting services, meaning you do not need to manage the files yourself.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "db355438-1ffc-4c8b-95fd-89751fd3b28e",
+              "Text": "Many CDNs serve millions of requests daily and are optimized for high availability and fast response times.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "498fc834-0073-465a-8ced-45fb79080a3c",
+          "TopicId": "915361f1-504e-422a-94ee-49c01fd542f8",
+          "Title": "Benefits of Using a CDN Over Local File Hosting",
+          "BodyText": "Loading libraries from a CDN offers several performance and maintenance advantages compared to downloading and hosting the library files yourself on your own server.",
+          "Notes": "Browser caching is one of the most significant CDN benefits: if a user has already visited another site using the same CDN link for jQuery, their browser may already have that file cached locally.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:39:52.2067371-04:00",
+          "ModifiedDate": "2026-06-26T21:39:52.2067371-04:00",
+          "Items": [
+            {
+              "Id": "afc6ffda-2deb-42a5-a98d-2397336a53c4",
+              "Text": "CDN-hosted files are often already cached in a user\u0027s browser from other websites, resulting in faster page load times.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "35a97afa-fd47-4211-81e4-6d784e7b0f90",
+              "Text": "You do not need to download, store, or update library files manually \u2014 the CDN always serves the version you specify.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "418de049-9698-42d2-bc47-20e29e1926f2",
+              "Text": "CDNs use optimized infrastructure including compression and edge caching, improving delivery speed over typical web hosting.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "04734657-41bd-42bb-8dd9-ec8bdacfbec4",
+              "Text": "Offloading library files to a CDN reduces bandwidth consumption and server load on your own hosting environment.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "fddd6dd0-b0ee-469b-ae96-8005ec6c53ef",
+          "TopicId": "915361f1-504e-422a-94ee-49c01fd542f8",
+          "Title": "Loading a JavaScript Library via a Script Tag",
+          "BodyText": "JavaScript libraries are loaded into a web page using the HTML \u003Cscript\u003E tag with a src attribute pointing to the CDN URL of the library file.",
+          "Notes": "It is common practice to place \u003Cscript\u003E tags just before the closing \u003C/body\u003E tag so that the HTML content loads before the scripts execute, improving perceived page performance.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:39:52.2067371-04:00",
+          "ModifiedDate": "2026-06-26T21:39:52.2067371-04:00",
+          "Items": [
+            {
+              "Id": "af07a452-4ba5-4d09-bb8c-e0c8c3c677d4",
+              "Text": "The src attribute of the \u003Cscript\u003E tag must contain the full CDN URL provided by the library\u0027s official documentation.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e93d5aec-ec0e-4d0d-a09a-a92cea56e6ce",
+              "Text": "Script tags for libraries should generally be placed before your own custom script tags so that library functions are available when your code runs.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "571d5c8a-93d9-44dd-a640-95346939da13",
+              "Text": "Example syntax: \u003Cscript src=\u0022https://cdn.example.com/library.min.js\u0022\u003E\u003C/script\u003E",
+              "SortOrder": 2
+            },
+            {
+              "Id": "d9b0f593-42de-4211-b53a-8ffb899dfb3b",
+              "Text": "The .min.js file extension indicates a minified version of the library, which is smaller in size and faster to download.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "b62627a4-4059-42c0-a458-ab32cf13e1ec",
+          "TopicId": "915361f1-504e-422a-94ee-49c01fd542f8",
+          "Title": "Loading a CSS Library via a Link Tag",
+          "BodyText": "CSS-based libraries such as Bootstrap are loaded using the HTML \u003Clink\u003E tag placed inside the \u003Chead\u003E section of the page, referencing the CDN-hosted stylesheet.",
+          "Notes": "Bootstrap, for example, provides both a CSS file (for layout and component styles) and optionally a JavaScript bundle file that must also be included for interactive components to work.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:39:52.2067371-04:00",
+          "ModifiedDate": "2026-06-26T21:39:52.2067371-04:00",
+          "Items": [
+            {
+              "Id": "f13b8227-893b-4e0b-b8c5-478ef84bc880",
+              "Text": "The \u003Clink\u003E tag uses the rel=\u0022stylesheet\u0022 attribute and an href attribute containing the CDN URL of the CSS file.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "554e268f-a0ad-49a5-8c34-f82e3fb4c30b",
+              "Text": "CSS link tags must be placed in the \u003Chead\u003E section so styles are applied before the page content is rendered.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2c5a1367-b9da-4d70-9945-a33c8ed4ebf2",
+              "Text": "Example syntax: \u003Clink rel=\u0022stylesheet\u0022 href=\u0022https://cdn.example.com/library.min.css\u0022\u003E",
+              "SortOrder": 2
+            },
+            {
+              "Id": "1f4df31d-12fb-440d-bad9-35a22c802b72",
+              "Text": "Some libraries require both a CSS file linked in the head and a JS file included via a script tag to function fully.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "81d97b24-9856-4870-90d2-3723768de688",
+          "TopicId": "915361f1-504e-422a-94ee-49c01fd542f8",
+          "Title": "Versioning and Integrity When Using CDN Links",
+          "BodyText": "CDN URLs typically include a specific version number of the library, and modern best practices recommend using Subresource Integrity (SRI) hashes to verify that the file has not been tampered with.",
+          "Notes": "Official library documentation pages (e.g., Bootstrap\u0027s Getting Started page) provide ready-to-copy CDN link and script tags that already include the correct integrity hash and crossorigin attribute.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:39:52.2067371-04:00",
+          "ModifiedDate": "2026-06-26T21:39:52.2067371-04:00",
+          "Items": [
+            {
+              "Id": "045b2d81-e062-4874-90db-0ec705737610",
+              "Text": "Including a version number in the CDN URL (e.g., /jquery/3.7.1/jquery.min.js) ensures your project uses a known, stable release.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8dd59807-07e0-4b23-882c-f10383455742",
+              "Text": "The integrity attribute contains a cryptographic hash; the browser compares this hash to the downloaded file to confirm it has not been altered.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c2fc1763-6738-4c15-a39e-9c417b5283e1",
+              "Text": "The crossorigin=\u0022anonymous\u0022 attribute is required alongside the integrity attribute to enable the browser\u0027s security check.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "afd4fcd4-9e7f-4170-b1bf-10de8e801f33",
+              "Text": "Pinning a specific version prevents unexpected breaking changes if the library is updated, giving you control over when to upgrade.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "eea4342a-9f73-40f5-b9fa-8c711dde5167",
+      "Title": "jQuery Fundamentals and DOM Manipulation",
+      "Summary": "Introduces jQuery as a JavaScript library that simplifies HTML document traversal, event handling, and DOM manipulation. Demonstrates core jQuery syntax and practical examples for selecting and modifying page elements.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-06-26T21:39:24.8329732-04:00",
+      "ModifiedDate": "2026-06-26T21:39:24.8329732-04:00",
+      "Elements": [
+        {
+          "Id": "c3a801c0-bcf1-4792-8d4d-34a5adadb035",
+          "TopicId": "eea4342a-9f73-40f5-b9fa-8c711dde5167",
+          "Title": "What is jQuery and Why Use It?",
+          "BodyText": "jQuery is a fast, lightweight JavaScript library designed to simplify common tasks like HTML document traversal, event handling, and DOM manipulation.",
+          "Notes": "jQuery abstracts away cross-browser inconsistencies, allowing developers to write less code that works reliably across different browsers.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:40:18.5331201-04:00",
+          "ModifiedDate": "2026-06-26T21:40:18.5331201-04:00",
+          "Items": [
+            {
+              "Id": "f3c0f7f0-30fd-4ded-ad6b-c7edd9fcbc4d",
+              "Text": "jQuery condenses verbose vanilla JavaScript operations into concise, readable one-liners.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3e3c7035-8698-4411-ae57-d997eca28ede",
+              "Text": "It is widely supported and can be included in any project quickly via a CDN link in the HTML file.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2935cc4e-d7b9-4eef-91c7-4504e1ca4514",
+              "Text": "The library\u0027s motto, \u0027write less, do more,\u0027 reflects its goal of reducing boilerplate code.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a84d4c48-b1a1-419b-b5ff-b7ef25378831",
+              "Text": "Despite modern JavaScript improvements, jQuery remains common in legacy codebases and many web projects.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "71916231-61a3-43e1-b2c5-9955a1715d8a",
+          "TopicId": "eea4342a-9f73-40f5-b9fa-8c711dde5167",
+          "Title": "Including jQuery via CDN",
+          "BodyText": "The easiest way to add jQuery to a project is by referencing it through a Content Delivery Network (CDN) link placed in the HTML document.",
+          "Notes": "Example: \u003Cscript src=\u0022https://code.jquery.com/jquery-3.6.0.min.js\u0022\u003E\u003C/script\u003E placed before your custom scripts ensures jQuery is loaded first.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:40:18.5331201-04:00",
+          "ModifiedDate": "2026-06-26T21:40:18.5331201-04:00",
+          "Items": [
+            {
+              "Id": "18e81016-d27e-4dbf-999c-cad6d7cc7d35",
+              "Text": "A CDN serves the library file from a remote server, requiring no local download or installation.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "97e98714-fc25-496a-aef2-906e6d2e7aaf",
+              "Text": "The jQuery script tag should appear before any custom JavaScript that depends on it.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f4b5686f-3fa9-4cb4-befb-348c0787936a",
+              "Text": "Using the minified version (jquery.min.js) reduces file size and improves page load performance.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "a8b506c6-cf05-4dfe-a067-9ec230d0a3ad",
+          "TopicId": "eea4342a-9f73-40f5-b9fa-8c711dde5167",
+          "Title": "Core jQuery Syntax: The $ Function",
+          "BodyText": "jQuery\u0027s primary interface is the $ function, which selects one or more HTML elements from the DOM and wraps them in a jQuery object for further manipulation.",
+          "Notes": "The pattern $(selector).action() is the foundation of nearly all jQuery code \u2014 select something, then do something to it.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:40:18.5331201-04:00",
+          "ModifiedDate": "2026-06-26T21:40:18.5331201-04:00",
+          "Items": [
+            {
+              "Id": "ab1f7a6a-c638-4f86-a409-4d3b507d69b3",
+              "Text": "$(\u0022selector\u0022) accepts any valid CSS selector string, such as tag names, class names, or IDs.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7e282a0a-b5bc-47b9-85de-890d134588e5",
+              "Text": "$(document).ready() ensures your jQuery code runs only after the full DOM has loaded.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6a3314ed-6698-4c03-8263-72c6e6ecee9f",
+              "Text": "The shorthand $(function(){ ... }) is equivalent to $(document).ready() and is commonly preferred.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "cba2e62e-523b-4476-b3c9-371dff6fd3ba",
+              "Text": "Chaining allows multiple actions on the same selection, e.g., $(\u0022p\u0022).hide().fadeIn().",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "d6e5042c-86e2-4ff4-8ec4-7e7507aacee6",
+          "TopicId": "eea4342a-9f73-40f5-b9fa-8c711dde5167",
+          "Title": "Selecting and Traversing DOM Elements",
+          "BodyText": "jQuery provides powerful selectors and traversal methods to locate specific elements within the page structure.",
+          "Notes": "For example, $(\u0022ul li:first\u0022) selects the first list item, while $(\u0022#main\u0022).children() retrieves all direct children of the element with id=\u0027main\u0027.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:40:18.5331201-04:00",
+          "ModifiedDate": "2026-06-26T21:40:18.5331201-04:00",
+          "Items": [
+            {
+              "Id": "8a7505b6-a593-4392-853d-6cfa7f2db322",
+              "Text": "Element selectors like $(\u0022p\u0022) target all paragraph tags, while $(\u0022#id\u0022) and $(\u0022.class\u0022) target by ID and class respectively.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f9521b74-bc5f-48b2-adc9-7c9377175968",
+              "Text": "Traversal methods such as .parent(), .children(), .siblings(), and .find() navigate the DOM tree relative to a selected element.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a66a620b-ebdb-4136-bf8f-d123bff4dab7",
+              "Text": "Filtering methods like .first(), .last(), and .eq(index) narrow down a set of matched elements.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "95659c40-e104-4e15-bd38-3d435380c61d",
+          "TopicId": "eea4342a-9f73-40f5-b9fa-8c711dde5167",
+          "Title": "Modifying Content and Attributes",
+          "BodyText": "jQuery makes it straightforward to read and update the text content, HTML, and attributes of selected page elements.",
+          "Notes": "$(\u0022h1\u0022).text(\u0022Hello World\u0022) sets the text of all h1 elements, while $(\u0022img\u0022).attr(\u0022src\u0022, \u0022new.png\u0022) updates image sources dynamically.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:40:18.5331201-04:00",
+          "ModifiedDate": "2026-06-26T21:40:18.5331201-04:00",
+          "Items": [
+            {
+              "Id": "c3664557-aa7e-4b08-84b8-bfdaedf081db",
+              "Text": "The .text() method gets or sets the plain text content of an element, stripping any HTML tags.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ccef1197-98cc-40f0-bd0c-c3039130a0d0",
+              "Text": "The .html() method gets or sets the inner HTML of an element, preserving markup.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bf323cd7-e44b-4df4-90d4-c37fe4a33318",
+              "Text": "The .attr() method reads or updates any HTML attribute, such as href, src, or data attributes.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "38044dcb-9271-43e2-8306-8a945c6208c5",
+              "Text": "The .val() method is used specifically to get or set the value of form input elements.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "4ebd9edf-9aba-4e03-8d99-f1076ba8df6c",
+          "TopicId": "eea4342a-9f73-40f5-b9fa-8c711dde5167",
+          "Title": "Handling Events with jQuery",
+          "BodyText": "jQuery simplifies attaching event listeners to elements, enabling interactive responses to user actions such as clicks, key presses, and mouse movements.",
+          "Notes": "Using .on() is the recommended approach as it supports dynamic elements and multiple event types in one call, e.g., $(\u0022button\u0022).on(\u0022click\u0022, function(){ ... }).",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:40:18.5331201-04:00",
+          "ModifiedDate": "2026-06-26T21:40:18.5331201-04:00",
+          "Items": [
+            {
+              "Id": "969fa767-484f-49da-8d0c-984742fc9a4b",
+              "Text": "Shorthand methods like .click(), .hover(), and .keyup() attach common event handlers quickly.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2b0228ff-bf2d-4552-9046-9afadc01edf5",
+              "Text": "The .on() method is flexible and preferred for attaching one or more events to selected elements.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e5ef5512-3dc1-4efb-91fc-5f3cdf361ed1",
+              "Text": "Inside an event handler, $(this) refers to the specific element that triggered the event.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "eedee651-166f-4497-82ee-47823f309a31",
+              "Text": "Event delegation via .on() allows handling events on dynamically added elements by listening on a parent.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "5f2ce505-8e64-42de-8753-bc67f0ef83c1",
+          "TopicId": "eea4342a-9f73-40f5-b9fa-8c711dde5167",
+          "Title": "Manipulating CSS and Visibility",
+          "BodyText": "jQuery provides methods to dynamically change the styling and visibility of elements without directly editing the stylesheet.",
+          "Notes": "Combining .addClass() and .removeClass() with pre-defined CSS classes is often cleaner than directly applying inline styles with .css().",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:40:18.5331201-04:00",
+          "ModifiedDate": "2026-06-26T21:40:18.5331201-04:00",
+          "Items": [
+            {
+              "Id": "564189c1-ad71-4153-99c0-d2767e915106",
+              "Text": "The .css() method gets or sets one or more inline CSS properties directly on a selected element.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8d2bfe67-b5c5-4da5-8f0b-6b749d87a75e",
+              "Text": "The .addClass() and .removeClass() methods toggle CSS classes, keeping style logic in the stylesheet.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d3476231-3002-4e40-bae8-81dd2837ec4d",
+              "Text": "The .hide() and .show() methods toggle display visibility, while .toggle() switches between the two states.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f67cb9b3-16fb-46d4-ba9d-a43c7fd34f24",
+              "Text": "Animated transitions like .fadeIn(), .fadeOut(), and .slideToggle() add smooth visual effects with minimal code.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "0245a74f-df86-4394-8d36-189786eee601",
+      "Title": "jQuery Events and Dynamic Interactivity",
+      "Summary": "Explores how jQuery handles user events such as clicks, form submissions, and keyboard input to create dynamic, interactive web pages. Covers event binding methods and common interaction patterns.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-06-26T21:39:24.8329732-04:00",
+      "ModifiedDate": "2026-06-26T21:39:24.8329732-04:00",
+      "Elements": [
+        {
+          "Id": "d00fce33-7ceb-4b5f-be67-c08af27d7309",
+          "TopicId": "0245a74f-df86-4394-8d36-189786eee601",
+          "Title": "Binding Events with .on()",
+          "BodyText": "jQuery\u0027s .on() method is the primary way to attach event listeners to DOM elements, replacing older methods like .click() and .submit().",
+          "Notes": "Using .on() is preferred because it supports event delegation and works consistently across jQuery versions. Example: $(\u0027button\u0027).on(\u0027click\u0027, function() { alert(\u0027Button clicked!\u0027); });",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:40:52.0267668-04:00",
+          "ModifiedDate": "2026-06-26T21:40:52.0267668-04:00",
+          "Items": [
+            {
+              "Id": "f90d74cb-dc0c-4482-87b5-612e5dba678d",
+              "Text": "The .on() method accepts an event name (e.g., \u0027click\u0027, \u0027submit\u0027, \u0027keyup\u0027) and a callback function to execute when the event fires.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f2f0ad65-ebbf-4bd0-8ea3-3c213eedd816",
+              "Text": "Multiple events can be bound in a single .on() call by space-separating event names: $(\u0027input\u0027).on(\u0027focus blur\u0027, handler);",
+              "SortOrder": 1
+            },
+            {
+              "Id": "93f8a53a-2b02-4d92-be1b-f103b3df0d51",
+              "Text": "Event delegation can be achieved by passing a selector as the second argument, allowing dynamic elements to inherit event listeners.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "ad1456cf-7671-40dd-9226-f8571f0d3adc",
+              "Text": "Older shorthand methods such as .click(), .hover(), and .keypress() are convenience wrappers around .on() and still work but are less flexible.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "8c46d6ea-b7ec-4791-8409-c11c75c2ea62",
+          "TopicId": "0245a74f-df86-4394-8d36-189786eee601",
+          "Title": "Handling Click Events",
+          "BodyText": "Click events are the most common user interactions handled by jQuery, enabling buttons, links, and other elements to trigger dynamic behavior.",
+          "Notes": "Example pattern: $(\u0027button#submit\u0027).on(\u0027click\u0027, function() { $(\u0027#result\u0027).text(\u0027You clicked submit!\u0027); }); This changes text content on button press without a page reload.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:40:52.0267668-04:00",
+          "ModifiedDate": "2026-06-26T21:40:52.0267668-04:00",
+          "Items": [
+            {
+              "Id": "3a464ec6-81f3-4dcb-9379-48b6b3b15630",
+              "Text": "Inside a click handler, the keyword \u0027this\u0027 refers to the DOM element that triggered the event, and $(this) wraps it as a jQuery object.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f91127d0-f279-468c-8f4e-20ca73dbb1f8",
+              "Text": "Calling event.preventDefault() inside a click handler stops the browser\u0027s default action, such as following a link or submitting a form.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "693f1664-0bc9-4fd7-a62a-30a807a0ccf2",
+              "Text": "Click handlers can read data attributes or element properties to make decisions, enabling highly context-aware interactions.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "1414d43d-02f4-4b57-a430-f43cf2218f7e",
+              "Text": "Chaining DOM manipulation methods after a click event (e.g., .show(), .hide(), .toggleClass()) creates immediate visual feedback for users.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "42d6b731-3ca0-483a-9a3b-053ba1986d4a",
+          "TopicId": "0245a74f-df86-4394-8d36-189786eee601",
+          "Title": "Form Submission Events",
+          "BodyText": "jQuery makes it straightforward to intercept form submissions, validate input, and control whether data is sent to a server.",
+          "Notes": "Example: $(\u0027form\u0027).on(\u0027submit\u0027, function(event) { event.preventDefault(); var val = $(\u0027#name\u0027).val(); if(val === \u0027\u0027) { alert(\u0027Name is required\u0027); } }); This validates before any server call.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:40:52.0267668-04:00",
+          "ModifiedDate": "2026-06-26T21:40:52.0267668-04:00",
+          "Items": [
+            {
+              "Id": "a551896d-c904-470f-bfc0-b53b03bdf0eb",
+              "Text": "Binding to the \u0027submit\u0027 event on a form element fires the handler when the user clicks the submit button or presses Enter in a text field.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7780253b-efbf-4745-a49b-408c45a12c32",
+              "Text": "event.preventDefault() is essential in form handlers when you want to perform client-side validation or use AJAX instead of a full page reload.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b38745c9-02da-439b-9353-fa1467d9db39",
+              "Text": "jQuery\u0027s .val() method retrieves the current value of input, textarea, and select elements for use in validation or processing logic.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "b80564cf-7c4a-4ca9-9c80-d4344e022377",
+              "Text": "After successful validation, the form can be submitted programmatically using this.submit() or data can be sent asynchronously with $.ajax().",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "efaea20d-5031-4d61-ab94-8fc60cec0330",
+          "TopicId": "0245a74f-df86-4394-8d36-189786eee601",
+          "Title": "Keyboard Input Events",
+          "BodyText": "jQuery provides keyboard events \u2014 keydown, keypress, and keyup \u2014 that let developers respond to user typing in real time.",
+          "Notes": "keydown fires when a key is pressed, keyup fires when released, and keypress fires for character-producing keys. For modern use, keydown and keyup are preferred since keypress is deprecated.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:40:52.0267668-04:00",
+          "ModifiedDate": "2026-06-26T21:40:52.0267668-04:00",
+          "Items": [
+            {
+              "Id": "62033bf3-b452-4dca-9299-65ba5270fd71",
+              "Text": "The \u0027keyup\u0027 event is commonly used to trigger live search or input filtering because it fires after the input value has already been updated.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5b035140-9a65-421f-bbeb-e9205120ddef",
+              "Text": "The event object passed to keyboard handlers includes event.key (the key name) and event.code (the physical key), allowing specific key detection.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4c511c92-9558-4adc-bf90-40b0f0ee9d12",
+              "Text": "Listening for the Enter key (event.key === \u0027Enter\u0027) inside a text input is a common pattern to trigger a search or form action without a submit button.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "3dcc9cf7-3a42-49c0-a8f3-d8461a8b83db",
+              "Text": "Keyboard events can be combined with .val() to read the current input value and dynamically update other parts of the page as the user types.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "2f51e008-0613-4041-89df-de410610d31a",
+          "TopicId": "0245a74f-df86-4394-8d36-189786eee601",
+          "Title": "Event Delegation for Dynamic Elements",
+          "BodyText": "Event delegation attaches a listener to a parent element so that dynamically added child elements automatically respond to events without re-binding.",
+          "Notes": "Example: $(\u0027ul\u0027).on(\u0027click\u0027, \u0027li\u0027, function() { $(this).toggleClass(\u0027selected\u0027); }); This works even for list items added to the ul after the page loads.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:40:52.0267668-04:00",
+          "ModifiedDate": "2026-06-26T21:40:52.0267668-04:00",
+          "Items": [
+            {
+              "Id": "6ad603df-eb16-4e45-92a1-0fca3979a25e",
+              "Text": "Direct event binding (e.g., $(\u0027li\u0027).on(\u0027click\u0027, ...)) only applies to elements that exist at the time the script runs, missing any later-added elements.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "225f23d4-6350-4bbf-a47d-3bfdb641c0a9",
+              "Text": "Delegation works because events bubble up the DOM; the parent catches the event and jQuery checks whether it originated from the specified child selector.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bcff6b79-95fd-4f37-bc5d-c0473c2ad9b4",
+              "Text": "A common delegation target is document or a stable container element, ensuring the handler is always available regardless of page changes.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "68424a26-97c0-4b8b-9d1b-0c7de0bccf30",
+              "Text": "Delegation improves performance when many identical child elements need the same handler, since only one listener is registered instead of many.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "50da202d-bf2c-4496-83a0-af2c5917e2d7",
+          "TopicId": "0245a74f-df86-4394-8d36-189786eee601",
+          "Title": "The Event Object and Stopping Propagation",
+          "BodyText": "Every jQuery event handler receives an event object containing details about the interaction and methods to control how the event travels through the DOM.",
+          "Notes": "Stopping propagation is important when nested elements have separate handlers \u2014 for example, a click on a card\u0027s button should not also trigger the card\u0027s own click handler.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:40:52.0267668-04:00",
+          "ModifiedDate": "2026-06-26T21:40:52.0267668-04:00",
+          "Items": [
+            {
+              "Id": "345d5206-b8d4-4173-a9ee-148a6dbe8f1d",
+              "Text": "event.preventDefault() stops the browser\u0027s built-in behavior (e.g., link navigation, form submission) while still allowing the event to bubble.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4870e6b2-a3fe-4deb-873c-26cc81342e5e",
+              "Text": "event.stopPropagation() prevents the event from bubbling up to parent elements, isolating the handler to only the targeted element.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "68bc8295-1bbd-4261-bb65-a19dc9d8ae63",
+              "Text": "event.stopImmediatePropagation() halts both bubbling and any additional handlers bound to the same element.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9813eeee-a92b-4b3c-b822-75fdc7264562",
+              "Text": "Useful event object properties include event.target (the element that triggered the event), event.currentTarget, event.pageX, and event.pageY for mouse position.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "8f8296d8-57b4-4cfe-b7f7-973702c9820b",
+          "TopicId": "0245a74f-df86-4394-8d36-189786eee601",
+          "Title": "Common Interaction Patterns with jQuery",
+          "BodyText": "jQuery enables several recurring UI patterns \u2014 such as toggling visibility, tab switching, and live filtering \u2014 through concise combinations of event binding and DOM manipulation.",
+          "Notes": "These patterns form the building blocks of dynamic pages and are often the first use cases developers encounter when learning jQuery interactivity.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:40:52.0267668-04:00",
+          "ModifiedDate": "2026-06-26T21:40:52.0267668-04:00",
+          "Items": [
+            {
+              "Id": "1d632e61-38c8-4df1-bce7-ffa44b6ffe63",
+              "Text": "Toggle patterns use .toggleClass() or .toggle() inside a click handler to alternately show/hide elements or switch active styles.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f16c2af9-3b38-470a-9acb-e83ce9184933",
+              "Text": "Live search filtering binds to \u0027keyup\u0027 on a text input and iterates over a list with .filter() or .each() to show or hide matching items.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "cf959057-39fb-40bd-83b0-529973a82cfc",
+              "Text": "Tab interfaces bind click events to navigation links and use .hide()/.show() or class toggling to display the corresponding content panel.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "11b21a2d-2d87-44d3-ab72-2e503ac12de2",
+              "Text": "Accordion components expand one section and collapse others by combining a click handler with .slideToggle() and sibling-targeting selectors.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "cf1b0015-18df-4201-949c-7c195f33f138",
+      "Title": "Bootstrap Layout and the Responsive Grid System",
+      "Summary": "Introduces Bootstrap\u0027s grid system and how it enables responsive, mobile-first page layouts using rows and columns. Explains breakpoint classes and how to structure content that adapts across screen sizes.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-06-26T21:39:24.8329732-04:00",
+      "ModifiedDate": "2026-06-26T21:39:24.8329732-04:00",
+      "Elements": [
+        {
+          "Id": "d2de7cdc-d8c2-455b-aa43-773773df4d4c",
+          "TopicId": "cf1b0015-18df-4201-949c-7c195f33f138",
+          "Title": "What Is the Bootstrap Grid System?",
+          "BodyText": "Bootstrap\u0027s grid system is a flexible, 12-column layout framework that makes it straightforward to build structured, responsive web pages.",
+          "Notes": "The 12-column model was chosen because 12 is divisible by 1, 2, 3, 4, 6, and 12, giving designers a wide variety of layout combinations.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:41:19.0322757-04:00",
+          "ModifiedDate": "2026-06-26T21:41:19.0322757-04:00",
+          "Items": [
+            {
+              "Id": "a5784123-eb82-43be-9069-a097114843f7",
+              "Text": "The grid is built on CSS Flexbox, giving each row a set of up to 12 column units to distribute among its children.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "afe33fe6-57a0-4142-840b-1ddb254fb532",
+              "Text": "Columns can be combined \u2014 for example, two columns of width 6, or three columns of width 4, always totaling 12.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "22873019-0e4d-4cfc-9428-63923c9a229a",
+              "Text": "Using more than 12 column units in a single row causes the overflow columns to wrap onto a new line automatically.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "6a2378d9-5f12-4b08-9c94-3a34f9ff283f",
+          "TopicId": "cf1b0015-18df-4201-949c-7c195f33f138",
+          "Title": "Mobile-First Design Philosophy",
+          "BodyText": "Bootstrap is built with a mobile-first approach, meaning styles are defined for small screens by default and then scaled up for larger devices.",
+          "Notes": "This approach aligns with modern web traffic patterns where a majority of users access sites on mobile devices.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:41:19.0322757-04:00",
+          "ModifiedDate": "2026-06-26T21:41:19.0322757-04:00",
+          "Items": [
+            {
+              "Id": "668435f8-c5cb-4a74-abb1-38871af4ae18",
+              "Text": "Mobile-first means you write base styles for the smallest viewport and use breakpoint classes to override them for larger screens.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "083a399c-2fec-4cf0-abfe-a742ebc896e4",
+              "Text": "Applying a class like col-6 with no breakpoint prefix makes the column six units wide at every screen size.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0fafbeb2-a8f5-4da2-ac82-e62f09b32fd3",
+              "Text": "Adding a breakpoint prefix, such as col-md-6, restricts that column width to medium screens and above, while smaller screens default to full width.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "1803df09-48e9-4516-91d5-1428f8c5c11a",
+          "TopicId": "cf1b0015-18df-4201-949c-7c195f33f138",
+          "Title": "Containers: The Foundation of Layout",
+          "BodyText": "Every Bootstrap grid layout must begin with a container element, which centers content and controls its maximum width.",
+          "Notes": "Choosing between container types depends on whether you want fixed side margins or a truly edge-to-edge layout.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:41:19.0322757-04:00",
+          "ModifiedDate": "2026-06-26T21:41:19.0322757-04:00",
+          "Items": [
+            {
+              "Id": "a06be0f7-8a49-4ff8-a9fd-d05a339000bb",
+              "Text": "The class \u0027container\u0027 creates a fixed-width wrapper that adds horizontal padding and centers the content on the page.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ec51f621-147f-40f1-bd5c-7724a7f4f84f",
+              "Text": "The class \u0027container-fluid\u0027 stretches the layout to fill the full width of the viewport with no fixed breakpoints.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5fc4ef84-8e42-456c-8b3b-594dcfd44c41",
+              "Text": "Containers should not be nested inside one another, as this adds unwanted padding and can break alignment.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "2cc8b3aa-a1f4-43db-8c89-4c5f04a54e63",
+          "TopicId": "cf1b0015-18df-4201-949c-7c195f33f138",
+          "Title": "Rows and Columns Structure",
+          "BodyText": "Inside a container, rows and columns are the two building blocks that define how content is positioned and sized.",
+          "Notes": "Always place col-* elements directly inside a row element to avoid unexpected padding and margin issues.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:41:19.0322757-04:00",
+          "ModifiedDate": "2026-06-26T21:41:19.0322757-04:00",
+          "Items": [
+            {
+              "Id": "f6b066a5-77e0-49c4-bb48-c334201a7c41",
+              "Text": "A \u0027row\u0027 class creates a horizontal grouping and uses negative margins to counteract the container\u0027s padding.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b722cfbe-a84d-4b73-ba71-af476087cad0",
+              "Text": "Column classes such as col, col-4, or col-md-8 are applied to child elements within a row to control their width.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9397936e-28b9-407a-932d-4a2ef3254748",
+              "Text": "Columns automatically grow to fill available space when no specific width number is given, distributing space equally among siblings.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "9e4929d4-efb4-468e-9382-7f1e6734282c",
+          "TopicId": "cf1b0015-18df-4201-949c-7c195f33f138",
+          "Title": "Breakpoint Classes and Screen Size Tiers",
+          "BodyText": "Bootstrap defines five responsive breakpoints \u2014 xs, sm, md, lg, and xl \u2014 that correspond to specific minimum viewport widths.",
+          "Notes": "Breakpoints use min-width media queries, so a class targeting \u0027md\u0027 applies at medium screens and all sizes above it unless overridden.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:41:19.0322757-04:00",
+          "ModifiedDate": "2026-06-26T21:41:19.0322757-04:00",
+          "Items": [
+            {
+              "Id": "19a7671a-1fb8-4092-a51d-6a64e7fd61ad",
+              "Text": "xs (extra small) targets screens below 576px and requires no infix \u2014 col-* applies at this level by default.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e2190016-5483-45b4-896a-96c108d6537b",
+              "Text": "sm targets 576px and above, md targets 768px and above, lg targets 992px and above, and xl targets 1200px and above.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bdcb20aa-87ed-46c4-8e5a-9f3bf44f34d3",
+              "Text": "You can stack multiple breakpoint classes on one element, such as \u0027col-12 col-md-6 col-lg-4\u0027, to define different layouts at each tier.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "f2c5cb43-84bd-4ee2-b38e-6fd614fa2199",
+          "TopicId": "cf1b0015-18df-4201-949c-7c195f33f138",
+          "Title": "Offsetting and Ordering Columns",
+          "BodyText": "Bootstrap provides utility classes for offsetting columns and reordering them visually without changing the HTML source order.",
+          "Notes": "Visual reordering is useful for accessibility and SEO, where the logical reading order in HTML may differ from the desired visual presentation.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:41:19.0322757-04:00",
+          "ModifiedDate": "2026-06-26T21:41:19.0322757-04:00",
+          "Items": [
+            {
+              "Id": "5b661e4b-0d8a-44e0-b0eb-ce4252aaf9a5",
+              "Text": "The offset-md-2 class, for example, pushes a column two units to the right by adding a left margin equal to two column widths.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f0fa85cf-bbe9-462a-9532-2fcb9befd223",
+              "Text": "The order-* classes allow columns to appear in a different sequence visually, using values from 1 to 12 or the keywords \u0027first\u0027 and \u0027last\u0027.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "118b11cd-22aa-4ecb-8009-eda7c557d568",
+              "Text": "Offset and order classes are also responsive, meaning you can apply them at specific breakpoints using prefixes like offset-lg-3.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "a1e95769-5a3e-47a1-9d55-8beeec18a526",
+          "TopicId": "cf1b0015-18df-4201-949c-7c195f33f138",
+          "Title": "Nesting Grids for Complex Layouts",
+          "BodyText": "Bootstrap columns can contain their own nested rows and columns, enabling multi-level, complex responsive layouts within a single page.",
+          "Notes": "Nested grids are particularly useful for dashboard-style pages where individual cards or panels need their own internal column structure.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:41:19.0322757-04:00",
+          "ModifiedDate": "2026-06-26T21:41:19.0322757-04:00",
+          "Items": [
+            {
+              "Id": "ba44b206-7386-4b84-be58-314b68d840a6",
+              "Text": "To create a nested grid, add a new row element inside an existing column, then place col-* elements inside that inner row.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6a3ebf6b-9429-4334-a2da-8655d6eaf0a9",
+              "Text": "The nested row still operates on a full 12-column scale relative to its parent column, not the overall page width.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "75d1a7e7-2064-43d2-a31b-6df07721c77f",
+              "Text": "Avoid excessive nesting as it increases HTML complexity and can make responsive behavior harder to predict and maintain.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "59f42785-f8ad-4d38-a0e8-58980f819e58",
+      "Title": "Bootstrap UI Components and Styling",
+      "Summary": "Covers ready-made Bootstrap components such as navigation bars, buttons, modals, and cards that accelerate UI development. Demonstrates how to apply Bootstrap utility classes to achieve consistent, professional styling.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-06-26T21:39:24.8329732-04:00",
+      "ModifiedDate": "2026-06-26T21:39:24.8329732-04:00",
+      "Elements": [
+        {
+          "Id": "015daf20-1f88-4d89-be08-58c280845fe5",
+          "TopicId": "59f42785-f8ad-4d38-a0e8-58980f819e58",
+          "Title": "Navigation Bars with Bootstrap",
+          "BodyText": "Bootstrap\u0027s navbar component provides a ready-made, responsive navigation bar that collapses gracefully on smaller screens.",
+          "Notes": "Use the \u0060navbar-expand-lg\u0060 class combined with a toggler button to enable the hamburger menu on mobile devices.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:41:42.7677329-04:00",
+          "ModifiedDate": "2026-06-26T21:41:42.7677329-04:00",
+          "Items": [
+            {
+              "Id": "e372efa4-fb71-4d44-b119-35210ef4fbdb",
+              "Text": "Add the \u0060navbar\u0060 and \u0060navbar-expand-{breakpoint}\u0060 classes to a \u0060\u003Cnav\u003E\u0060 element to create the base navigation structure.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "434cbacf-7a39-45b7-9647-91ef2680c0e5",
+              "Text": "Include \u0060navbar-brand\u0060 for a logo or site title and \u0060navbar-nav\u0060 with \u0060nav-item\u0060 and \u0060nav-link\u0060 classes for individual links.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "aea023dd-7bf9-49bc-b5a7-666ed54118bf",
+              "Text": "The \u0060navbar-toggler\u0060 button and \u0060collapse navbar-collapse\u0060 wrapper enable automatic show/hide behavior on small screens without custom JavaScript.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "4b68ca7e-21b6-49f9-93db-ae7e3f33193a",
+          "TopicId": "59f42785-f8ad-4d38-a0e8-58980f819e58",
+          "Title": "Bootstrap Button Styles",
+          "BodyText": "Bootstrap offers a comprehensive set of button classes that provide consistent, styled call-to-action elements across an application.",
+          "Notes": "Buttons can be applied to \u0060\u003Cbutton\u003E\u0060, \u0060\u003Ca\u003E\u0060, or \u0060\u003Cinput\u003E\u0060 elements, making them flexible for different HTML contexts.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:41:42.7677329-04:00",
+          "ModifiedDate": "2026-06-26T21:41:42.7677329-04:00",
+          "Items": [
+            {
+              "Id": "17f74c77-dc12-433f-bff2-00c839c3cbee",
+              "Text": "Use the \u0060btn\u0060 base class along with a contextual variant such as \u0060btn-primary\u0060, \u0060btn-secondary\u0060, or \u0060btn-danger\u0060 to convey intent through color.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1fa49424-1efd-4713-a430-fb148209e2b0",
+              "Text": "Size variants like \u0060btn-lg\u0060 and \u0060btn-sm\u0060 allow quick scaling without writing custom CSS.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d8711104-f185-4ebc-a3ef-939c3f74d9cf",
+              "Text": "The \u0060btn-outline-*\u0060 variants provide a bordered style with a transparent background, useful for secondary actions.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "b2d5a882-ef11-4b0c-8c53-0fb975439581",
+          "TopicId": "59f42785-f8ad-4d38-a0e8-58980f819e58",
+          "Title": "Modal Dialogs",
+          "BodyText": "Bootstrap modals are overlay dialog boxes that display additional content or confirmation prompts without navigating away from the current page.",
+          "Notes": "Bootstrap handles focus trapping and background overlay automatically; you only need to wire the trigger and modal markup correctly.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:41:42.7677329-04:00",
+          "ModifiedDate": "2026-06-26T21:41:42.7677329-04:00",
+          "Items": [
+            {
+              "Id": "b42ecec0-3514-4713-9c75-cf1e8bb9e718",
+              "Text": "A modal consists of three main sections inside \u0060.modal-dialog\u0060: \u0060.modal-header\u0060, \u0060.modal-body\u0060, and \u0060.modal-footer\u0060.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "31906bf9-bca1-4aa0-8dc0-cedbeefde79a",
+              "Text": "Trigger a modal by adding \u0060data-bs-toggle=\u0027modal\u0027\u0060 and \u0060data-bs-target=\u0027#modalId\u0027\u0060 to any button or link element.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ba1b4a52-383f-400d-a65b-fed0f0dd32de",
+              "Text": "The \u0060.modal-dialog-centered\u0060 class vertically centers the modal, while \u0060.modal-lg\u0060 or \u0060.modal-sm\u0060 adjust its width.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "2ab9e979-f3f0-4c12-a371-07655441dd46",
+          "TopicId": "59f42785-f8ad-4d38-a0e8-58980f819e58",
+          "Title": "Card Components",
+          "BodyText": "Bootstrap cards are flexible content containers with optional headers, footers, images, and body sections for displaying grouped information.",
+          "Notes": "Cards pair well with Bootstrap\u0027s grid system; placing multiple \u0060.card\u0060 elements inside \u0060.col\u0060 divs creates uniform, responsive card layouts.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:41:42.7677329-04:00",
+          "ModifiedDate": "2026-06-26T21:41:42.7677329-04:00",
+          "Items": [
+            {
+              "Id": "a12090f9-fb6f-435b-acd7-f2f4466cddae",
+              "Text": "The \u0060.card\u0060 wrapper contains \u0060.card-body\u0060 as the primary content area, using \u0060.card-title\u0060 and \u0060.card-text\u0060 for typographic hierarchy.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fda8a703-b8eb-425b-8af2-15f79fda0dba",
+              "Text": "Add \u0060.card-img-top\u0060 or \u0060.card-img-bottom\u0060 to attach images to the card while maintaining consistent aspect ratios.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c494f911-9634-4537-8583-ea942f6cd810",
+              "Text": "Card footers created with \u0060.card-footer\u0060 provide a visually separated area for metadata, timestamps, or action buttons.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "1a1d45b5-4432-4b6c-9744-283d537b01fe",
+          "TopicId": "59f42785-f8ad-4d38-a0e8-58980f819e58",
+          "Title": "Bootstrap Utility Classes",
+          "BodyText": "Utility classes are single-purpose CSS helpers in Bootstrap that apply spacing, color, typography, and layout adjustments directly in HTML without writing custom styles.",
+          "Notes": "Utility classes follow a consistent naming pattern such as \u0060{property}{side}-{size}\u0060, for example \u0060mt-3\u0060 for margin-top level 3.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:41:42.7677329-04:00",
+          "ModifiedDate": "2026-06-26T21:41:42.7677329-04:00",
+          "Items": [
+            {
+              "Id": "e50fe8b2-8146-44be-b28f-72f743d81457",
+              "Text": "Spacing utilities like \u0060m-*\u0060, \u0060p-*\u0060, \u0060mt-*\u0060, and \u0060px-*\u0060 control margin and padding using a scale from 0 to 5 (and auto).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "57510013-d64d-4476-923c-8b9f234125b5",
+              "Text": "Color utilities such as \u0060text-primary\u0060, \u0060bg-light\u0060, and \u0060text-muted\u0060 apply theme-consistent colors without custom CSS.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "16cb68f8-8d71-4ff9-9821-95abf26ab62f",
+              "Text": "Display utilities like \u0060d-none\u0060, \u0060d-flex\u0060, and \u0060d-block\u0060 control element visibility and layout mode inline.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "682d3ef0-31f7-4e0e-87e5-4a1da4a323f3",
+              "Text": "Text utilities including \u0060text-center\u0060, \u0060fw-bold\u0060, and \u0060text-uppercase\u0060 handle alignment and typographic emphasis quickly.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "d1721f57-d00c-4ded-898d-8d7e0471749a",
+          "TopicId": "59f42785-f8ad-4d38-a0e8-58980f819e58",
+          "Title": "Responsive Grid and Component Integration",
+          "BodyText": "Bootstrap\u0027s 12-column grid system works in tandem with its UI components to create professional, responsive page layouts rapidly.",
+          "Notes": "Combining grid classes with component classes\u2014such as placing a card inside a \u0060col-md-4\u0060 column\u2014is the standard Bootstrap workflow for multi-column layouts.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:41:42.7677329-04:00",
+          "ModifiedDate": "2026-06-26T21:41:42.7677329-04:00",
+          "Items": [
+            {
+              "Id": "2d7e12a8-d9a3-4413-9d14-acbf382a6ff1",
+              "Text": "Wrap content in a \u0060.container\u0060 or \u0060.container-fluid\u0060 to apply consistent horizontal padding and center the layout.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7210e0bb-d0e8-4052-bdc7-16e9ad5c2510",
+              "Text": "Use \u0060.row\u0060 and \u0060.col-{breakpoint}-{number}\u0060 classes to divide a page into responsive sections that reflow on different screen sizes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f93d0172-3311-4586-b40b-4da823972011",
+              "Text": "Breakpoints (sm, md, lg, xl, xxl) map to specific minimum widths, allowing components to change arrangement at defined viewport thresholds.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "6bfe78e4-8f50-4e8f-bf4f-34378cb17fd8",
+      "Title": "Data Visualization with Chart.js",
+      "Summary": "Introduces Chart.js as a plotting library and explains how to integrate it via CDN to render interactive charts on an HTML canvas element. Covers creating common chart types such as bar, line, and pie charts using JavaScript data configuration.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-06-26T21:39:24.8329732-04:00",
+      "ModifiedDate": "2026-06-26T21:39:24.8329732-04:00",
+      "Elements": [
+        {
+          "Id": "2ef820be-2997-471a-9d66-8e82c41bd9d9",
+          "TopicId": "6bfe78e4-8f50-4e8f-bf4f-34378cb17fd8",
+          "Title": "What is Chart.js?",
+          "BodyText": "Chart.js is a free, open-source JavaScript library that enables developers to create interactive, animated charts directly in the browser using the HTML5 canvas element.",
+          "Notes": "Chart.js is widely used because it is lightweight, easy to learn, and supports a variety of common chart types out of the box.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:42:11.0588503-04:00",
+          "ModifiedDate": "2026-06-26T21:42:11.0588503-04:00",
+          "Items": [
+            {
+              "Id": "d3e5a33f-0aa2-46b5-a528-38ab530d4a9e",
+              "Text": "Chart.js renders visualizations onto an HTML canvas element using JavaScript.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d1798569-10fa-41f8-9ffa-8967951d18e8",
+              "Text": "It supports eight core chart types including bar, line, pie, doughnut, radar, and scatter.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ab015920-95a5-4c08-9e85-f45bc680e1f4",
+              "Text": "Charts are interactive by default, providing tooltips on hover without any extra configuration.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "57af023b-4320-41d9-a83a-a12c7ebc2e7c",
+              "Text": "The library is well-documented and maintained by an active open-source community.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "42686d8b-a523-4477-ae5c-d045e21b355d",
+          "TopicId": "6bfe78e4-8f50-4e8f-bf4f-34378cb17fd8",
+          "Title": "Integrating Chart.js via CDN",
+          "BodyText": "The simplest way to add Chart.js to an HTML page is by linking to it through a Content Delivery Network, eliminating the need for a local installation or package manager.",
+          "Notes": "Example CDN tag: \u003Cscript src=\u0022https://cdn.jsdelivr.net/npm/chart.js\u0022\u003E\u003C/script\u003E. Place this script tag in the \u003Chead\u003E or just before the closing \u003C/body\u003E tag.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:42:11.0588503-04:00",
+          "ModifiedDate": "2026-06-26T21:42:11.0588503-04:00",
+          "Items": [
+            {
+              "Id": "e4e6245a-5277-43c4-8fa8-99ec6aff5e18",
+              "Text": "Copy the Chart.js CDN script tag from the official Chart.js website or a CDN provider such as jsDelivr.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f2a462ce-330d-4287-ae3d-966ef3879e53",
+              "Text": "Insert the script tag into your HTML file before any custom JavaScript that references Chart.js.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b44f7d2c-113a-4acf-a3e6-5b61e4a83b68",
+              "Text": "Using a CDN means users may load Chart.js from a cached version, improving page load performance.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "605dbc68-5e07-4615-ba5b-e624c7141e7e",
+              "Text": "Always verify the CDN URL points to a stable or specific version to avoid unexpected breaking changes.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "50af65d9-6b9e-4d84-b29d-929d88b6ba37",
+          "TopicId": "6bfe78e4-8f50-4e8f-bf4f-34378cb17fd8",
+          "Title": "Setting Up the Canvas Element",
+          "BodyText": "Every Chart.js chart requires a dedicated HTML canvas element to serve as its drawing surface, identified by a unique id attribute.",
+          "Notes": "Example: \u003Ccanvas id=\u0022myChart\u0022 width=\u0022400\u0022 height=\u0022200\u0022\u003E\u003C/canvas\u003E. The canvas dimensions can also be controlled via CSS or Chart.js configuration options.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:42:11.0588503-04:00",
+          "ModifiedDate": "2026-06-26T21:42:11.0588503-04:00",
+          "Items": [
+            {
+              "Id": "45060d63-31be-4691-9208-f3e21bc8e4c5",
+              "Text": "Add a \u003Ccanvas\u003E tag inside your HTML body where you want the chart to appear.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "63479951-d8fd-4505-a91d-27cefdcbbb3f",
+              "Text": "Assign a unique id to the canvas so JavaScript can reference and target it.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0374d263-97e6-495e-b194-42fabf658fa6",
+              "Text": "Chart.js automatically scales the chart to fit the canvas dimensions you specify.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "5f5721e3-0ed0-4dff-8804-3de3f597a8e5",
+              "Text": "You can wrap the canvas in a container div to control its layout within the page.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "e3f55500-7b14-4eeb-a843-6af2d4ba1bd7",
+          "TopicId": "6bfe78e4-8f50-4e8f-bf4f-34378cb17fd8",
+          "Title": "JavaScript Data Configuration",
+          "BodyText": "Chart.js charts are defined and configured entirely through a JavaScript object that specifies the chart type, the data to display, and visual options.",
+          "Notes": "The configuration object is passed to the Chart constructor: new Chart(ctx, configObject). The data property holds labels and datasets, while the options property controls appearance and behavior.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:42:11.0588503-04:00",
+          "ModifiedDate": "2026-06-26T21:42:11.0588503-04:00",
+          "Items": [
+            {
+              "Id": "5e7549e5-d4f7-429d-aa12-33e890200de5",
+              "Text": "Use new Chart(ctx, { type, data, options }) to instantiate a chart, where ctx is the canvas context obtained via getElementById and getContext(\u00272d\u0027).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "04901651-c757-4cd5-bafd-0cd573e64c85",
+              "Text": "The data object contains a labels array for axis or slice labels and a datasets array holding the actual data values.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "86fdd859-e504-4d9b-9d53-7819f204a0b8",
+              "Text": "Each dataset object includes a data array of numbers, a label string, and styling properties such as backgroundColor and borderColor.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "de47fd97-6856-4316-a7ec-c9ee31afe732",
+              "Text": "The options object allows customization of titles, legends, tooltips, animations, and axis scales.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "dd68bc15-b840-42fb-9a1c-d75470c84e37",
+          "TopicId": "6bfe78e4-8f50-4e8f-bf4f-34378cb17fd8",
+          "Title": "Creating a Bar Chart",
+          "BodyText": "A bar chart is one of the most common chart types and is ideal for comparing discrete categories of data side by side.",
+          "Notes": "Set type: \u0027bar\u0027 in the configuration object. Horizontal bar charts can be created with type: \u0027horizontalBar\u0027 in older versions or by setting indexAxis: \u0027y\u0027 in Chart.js v3\u002B.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:42:11.0588503-04:00",
+          "ModifiedDate": "2026-06-26T21:42:11.0588503-04:00",
+          "Items": [
+            {
+              "Id": "ed2f9a82-2ed0-48f4-9712-7c8bff9ac162",
+              "Text": "Set the type property to \u0027bar\u0027 in the Chart.js configuration object to render a bar chart.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b097f3e5-0921-4ede-929e-74c72dddbe37",
+              "Text": "Provide category names in the labels array and corresponding numeric values in the datasets data array.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bc4b2f72-da0f-4eb7-b3bb-2ee8b1b875ae",
+              "Text": "Use backgroundColor to assign colors to each bar, either as a single color or an array of colors per bar.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "aca57cf7-26c8-472c-8e67-c9116b3cc5c9",
+              "Text": "Bar charts are effective for showing comparisons across a small to medium number of categories.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "26298977-cf49-4b3b-a2c5-bfaef029d172",
+          "TopicId": "6bfe78e4-8f50-4e8f-bf4f-34378cb17fd8",
+          "Title": "Creating Line and Pie Charts",
+          "BodyText": "Chart.js makes it straightforward to switch between chart types by changing a single property, allowing the same data configuration pattern to produce line or pie charts.",
+          "Notes": "Line charts are suited for showing trends over time, while pie charts communicate proportional relationships between parts of a whole.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:42:11.0588503-04:00",
+          "ModifiedDate": "2026-06-26T21:42:11.0588503-04:00",
+          "Items": [
+            {
+              "Id": "6b83555e-7568-4f59-b205-2f853ef6d22c",
+              "Text": "Set type: \u0027line\u0027 to render a line chart; the labels array typically represents time intervals or sequential categories.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8c7211e6-248e-489d-a573-c2f237811210",
+              "Text": "Line datasets support properties such as borderColor, fill, and tension to control the line\u0027s appearance and curvature.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ebd8c198-9fe7-40f8-95ef-df5c85e26cbd",
+              "Text": "Set type: \u0027pie\u0027 to render a pie chart where each value in the data array becomes a proportional slice.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "32e628f7-070c-4ee2-8d1b-aba634de638c",
+              "Text": "Pie charts use an array of backgroundColor values \u2014 one per slice \u2014 to visually distinguish each segment.",
+              "SortOrder": 3
+            },
+            {
+              "Id": "5c57e290-cf50-4342-b986-27ab205d217f",
+              "Text": "Both chart types share the same fundamental data structure, making it easy to experiment by switching the type value.",
+              "SortOrder": 4
+            }
+          ]
+        },
+        {
+          "Id": "239ed6e9-a0eb-456c-91eb-f0fa88200b98",
+          "TopicId": "6bfe78e4-8f50-4e8f-bf4f-34378cb17fd8",
+          "Title": "Customizing and Enhancing Charts",
+          "BodyText": "Chart.js provides an extensive options API that lets you tailor the appearance, interactivity, and responsiveness of any chart to suit your project\u0027s needs.",
+          "Notes": "Responsiveness is enabled by default in Chart.js, meaning charts resize automatically when the browser window changes size.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:42:11.0588503-04:00",
+          "ModifiedDate": "2026-06-26T21:42:11.0588503-04:00",
+          "Items": [
+            {
+              "Id": "57db60e6-c4b4-4a93-b92a-24d63bfb070a",
+              "Text": "Set options.plugins.title to display a descriptive title above the chart.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ee1b5975-6803-4d81-96a5-f00d3e8906eb",
+              "Text": "Configure options.plugins.legend to show, hide, or reposition the chart legend.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "dcf8ca1f-8e5b-4b81-a0c2-aba82f811dd0",
+              "Text": "Use options.scales to customize axis labels, grid lines, min/max values, and tick formatting for bar and line charts.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "62940d40-7b93-49dc-94e3-b3d6cc2bc2ec",
+              "Text": "Chart.js animations are enabled by default and can be adjusted or disabled through the options.animation property.",
+              "SortOrder": 3
+            },
+            {
+              "Id": "7d98bd60-7108-498e-b064-f887ac440d84",
+              "Text": "Tooltips can be customized with callback functions to format the displayed text when a user hovers over data points.",
+              "SortOrder": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "29193686-7607-409c-9e73-d2c843614497",
+      "Title": "Combining Libraries in a Complete Web Project",
+      "Summary": "Demonstrates how jQuery, Bootstrap, and Chart.js can be used together within a single cohesive web page to deliver layout, interactivity, and data visualization. Highlights best practices for managing multiple external dependencies without conflicts.",
+      "SortOrder": 6,
+      "CreatedDate": "2026-06-26T21:39:24.8329732-04:00",
+      "ModifiedDate": "2026-06-26T21:39:24.8329732-04:00",
+      "Elements": [
+        {
+          "Id": "67fdbd0a-e8f9-408a-89c1-ded7732f6062",
+          "TopicId": "29193686-7607-409c-9e73-d2c843614497",
+          "Title": "Planning the Project Structure",
+          "BodyText": "Before writing any code, a well-organized project structure ensures that HTML, CSS, and JavaScript concerns are separated and that all external libraries are accounted for.",
+          "Notes": "A typical single-page project might include one HTML file, a custom CSS file, a custom JS file, and CDN links for jQuery, Bootstrap, and Chart.js declared in the correct order.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:42:40.3086316-04:00",
+          "ModifiedDate": "2026-06-26T21:42:40.3086316-04:00",
+          "Items": [
+            {
+              "Id": "e1993698-a5fd-4ac5-8f60-d7ed5aeaa617",
+              "Text": "Define which libraries are needed and what role each will play: Bootstrap for layout, jQuery for interactivity, and Chart.js for visualization.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c800e472-69b1-4e36-a48b-34b9ff5960d8",
+              "Text": "Sketch the page layout in advance to identify which Bootstrap grid columns, jQuery-driven interactions, and chart containers are required.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ddf87d41-c852-48a5-9070-0167e8ec0f0b",
+              "Text": "Keeping custom code in separate files (e.g., main.js, styles.css) prevents inline clutter and makes debugging easier.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "68a6743a-d834-49ae-82c7-89037810fc9b",
+          "TopicId": "29193686-7607-409c-9e73-d2c843614497",
+          "Title": "Loading External Libraries in the Correct Order",
+          "BodyText": "The sequence in which CDN links appear in an HTML document determines whether each library is available when scripts that depend on it execute.",
+          "Notes": "Bootstrap\u0027s JavaScript components rely on jQuery (in older Bootstrap 4), so jQuery must be loaded first. Chart.js is independent and can be loaded after Bootstrap.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:42:40.3086316-04:00",
+          "ModifiedDate": "2026-06-26T21:42:40.3086316-04:00",
+          "Items": [
+            {
+              "Id": "d4258bf7-9f62-46f0-9ddc-c15912fb7572",
+              "Text": "Place Bootstrap\u0027s CSS CDN link in the \u003Chead\u003E so styles apply before the page renders.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "81f9335f-c94f-4267-8e0e-8b425226943d",
+              "Text": "Load jQuery\u0027s CDN \u003Cscript\u003E tag before Bootstrap\u0027s JavaScript bundle to satisfy any dependency chain.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ae1223a7-7a22-4cc1-9ca0-933413c31a7f",
+              "Text": "Load Chart.js after Bootstrap\u0027s scripts, then load your own custom script last so all libraries are ready when your code runs.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "e93f3542-f1fd-40aa-979f-568971e730ef",
+          "TopicId": "29193686-7607-409c-9e73-d2c843614497",
+          "Title": "Building the Responsive Layout with Bootstrap",
+          "BodyText": "Bootstrap\u0027s grid system and utility classes provide the scaffolding for the page, dividing it into regions for navigation, controls, and the chart display area.",
+          "Notes": "For example, a two-column layout could place user controls (buttons, dropdowns) in a col-md-4 column and the chart canvas in a col-md-8 column, collapsing to full-width on mobile.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:42:40.3086316-04:00",
+          "ModifiedDate": "2026-06-26T21:42:40.3086316-04:00",
+          "Items": [
+            {
+              "Id": "f0288162-f5f1-4a3c-8527-57558669ece9",
+              "Text": "Use Bootstrap\u0027s container, row, and col classes to create a responsive grid that adapts to different screen sizes.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d10d11ac-a25a-4dc3-a7c4-2b8b4ed3bedc",
+              "Text": "Bootstrap navbar and card components can frame the chart and control panels without requiring custom CSS.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "95c871d7-039f-405e-9f3b-56888efb28b2",
+              "Text": "Reserve a clearly identified \u003Ccanvas\u003E element inside its Bootstrap column for Chart.js to target.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "5b26b1ec-3376-4ad1-b8c4-fd1630e569d0",
+          "TopicId": "29193686-7607-409c-9e73-d2c843614497",
+          "Title": "Adding Interactivity with jQuery",
+          "BodyText": "jQuery event handlers respond to user actions\u2014such as button clicks or dropdown selections\u2014and update the page or trigger chart changes dynamically.",
+          "Notes": "For instance, clicking a \u0027Update Chart\u0027 button can gather input values with jQuery\u0027s .val() method and pass them to a Chart.js update function without reloading the page.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:42:40.3086316-04:00",
+          "ModifiedDate": "2026-06-26T21:42:40.3086316-04:00",
+          "Items": [
+            {
+              "Id": "4cae809a-3c49-4465-8ddf-1797b9a883bf",
+              "Text": "Use $(document).ready() to ensure all DOM elements are available before attaching jQuery event listeners.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "35834c7f-bc7f-4b94-96ac-6ae454f94499",
+              "Text": "jQuery\u0027s .on() method can listen for click or change events on Bootstrap form controls to capture user input.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "accddb60-d146-4267-8b09-ac65136ad21d",
+              "Text": "jQuery can also show or hide Bootstrap components (e.g., alerts, spinners) to give visual feedback while data is processed.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "74ce21fe-b187-4354-b69f-eda216ef7ff1",
+          "TopicId": "29193686-7607-409c-9e73-d2c843614497",
+          "Title": "Rendering and Updating Charts with Chart.js",
+          "BodyText": "Chart.js uses a \u003Ccanvas\u003E element and a JavaScript configuration object to render charts, and its API allows datasets to be updated in place when driven by user interaction.",
+          "Notes": "Calling chart.data.datasets[0].data = newArray followed by chart.update() smoothly re-renders the chart without destroying and recreating it, which preserves animations.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:42:40.3086316-04:00",
+          "ModifiedDate": "2026-06-26T21:42:40.3086316-04:00",
+          "Items": [
+            {
+              "Id": "38a8a7e7-db8f-4b0a-af4e-7f516a0b56cf",
+              "Text": "Initialize a Chart.js instance once on page load, providing the canvas context, chart type, and initial data.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e04ff809-c371-4be4-93e9-1c75474d76e0",
+              "Text": "Store the chart instance in a variable so jQuery event handlers can reference it later to push new data.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "fbecd34a-3ec9-466d-8658-3c309dc8067e",
+              "Text": "Use Chart.js built-in options such as responsive: true and maintainAspectRatio: false to make charts fit naturally inside Bootstrap columns.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "847fa4db-f7e9-497a-a7f7-9bb836a2e34f",
+          "TopicId": "29193686-7607-409c-9e73-d2c843614497",
+          "Title": "Avoiding Library Conflicts",
+          "BodyText": "Multiple libraries operating on the same page can collide through shared global variables, CSS class names, or conflicting plugin behavior, so proactive conflict management is essential.",
+          "Notes": "The most common conflict is Bootstrap 4 expecting a global jQuery object; if jQuery is deferred or loaded as a module without a global, Bootstrap components will silently fail.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:42:40.3086316-04:00",
+          "ModifiedDate": "2026-06-26T21:42:40.3086316-04:00",
+          "Items": [
+            {
+              "Id": "4b012f49-e47c-4d4f-ba1e-5a084830d910",
+              "Text": "Use jQuery\u0027s jQuery.noConflict() method if another library also uses the $ shorthand to prevent variable collisions.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5f603bc1-cb6f-4951-bd5a-92ed727856b7",
+              "Text": "Scope custom CSS class names with a project-specific prefix to avoid unintentional overrides of Bootstrap utility classes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c8b76667-06f1-4d52-8718-b21345e69364",
+              "Text": "Test each library in isolation before combining them, and use the browser console to catch undefined-variable or missing-dependency errors early.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "16b684f7-dbfd-4708-815d-3693acf4212b",
+          "TopicId": "29193686-7607-409c-9e73-d2c843614497",
+          "Title": "Best Practices for Managing Dependencies",
+          "BodyText": "Consistently following dependency management best practices keeps the project maintainable, performant, and easier to update as library versions change.",
+          "Notes": "Pinning CDN URLs to specific version numbers (e.g., jquery@3.7.1) rather than \u0027latest\u0027 prevents unexpected breaking changes when libraries release updates.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:42:40.3086316-04:00",
+          "ModifiedDate": "2026-06-26T21:42:40.3086316-04:00",
+          "Items": [
+            {
+              "Id": "65e3988f-0a4d-45f3-be5f-f41808398ab9",
+              "Text": "Document every external library, its version, and its CDN URL in a comment block at the top of the HTML file or in a README.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a4768d25-5cb0-4f50-8ebb-bf64ccc5aef2",
+              "Text": "Minimize the number of external libraries to only those that provide clear value, reducing page load time and the surface area for conflicts.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d1f46a16-7af2-472d-81dd-5d58f78434ad",
+              "Text": "Periodically review library changelogs and test the project after upgrading versions to catch deprecations or API changes before they reach production.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 47
+}

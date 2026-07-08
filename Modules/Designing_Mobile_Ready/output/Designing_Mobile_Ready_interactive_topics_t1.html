@@ -1,0 +1,197 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to Responsive Web Design</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Introduction to Responsive Web Design</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to Responsive Web Design</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The web is no longer a medium consumed exclusively on desktop computers sitting at a desk. People browse the internet from the palm of their hand while commuting, from a tablet propped on a kitchen counter, and from a large widescreen monitor at the office — sometimes switching between all three in the same day. <strong>Responsive web design</strong> is the practice of building websites so that a single codebase gracefully adapts its layout, typography, and imagery to fit whatever screen size or device is being used at any given moment. Rather than creating a separate "mobile site" at a different URL, a responsive site detects the available space and reflows its content accordingly, providing an optimal reading and interaction experience across the full spectrum of modern devices.</p>
+
+<p>Understanding responsive design begins with recognizing why it became necessary in the first place, and then learning the specific technical pillars that make it work. This topic introduces all of those ideas in sequence, starting with the problem of the multi-device landscape, moving through the core techniques, and concluding with the practical and business reasons why responsive design is now the expected standard for professional web development.</p>
+
+<p><strong>What Is Responsive Web Design?</strong></p>
+
+<p>The term was popularized by designer and developer Ethan Marcotte in a 2010 article for <em>A List Apart</em>, where he described a system in which a website's layout responds to its environment rather than being fixed at a specific pixel width. The key insight is that a web page should behave more like a liquid than a solid — flowing naturally into whatever container it occupies, whether that container is 320 pixels wide on a small smartphone or 2560 pixels wide on a high-resolution desktop display.</p>
+
+<p>Before responsive design became mainstream, the common approaches were to build a single fixed-width layout (typically 960 or 1024 pixels wide, centered on the screen) or to build and maintain two entirely separate websites — one for desktop and one for mobile — and then use server-side logic to detect the device type and redirect users accordingly. Both approaches have serious drawbacks. A fixed-width layout forces mobile users to zoom in and scroll horizontally, which is frustrating and degrades usability. Maintaining separate sites doubles the content management workload and introduces the risk of the two versions drifting out of sync.</p>
+
+<p>Responsive design solves these problems because the layout reflows and resizes <em>automatically</em> based on the dimensions of the user's viewport — the visible area of the browser window. There is one URL, one HTML document, one set of content; only the presentation changes depending on the screen's available width and height.</p>
+
+<p><strong>The Multi-Device Landscape</strong></p>
+
+<p>To appreciate why responsive design is necessary, it helps to survey the extraordinary variety of devices people actually use to access the web. Screen sizes range from tiny smartwatch displays (around 320×320 pixels or smaller) to compact smartphones (360–414 pixels wide in portrait orientation), to mid-size tablets (768–1024 pixels wide), to standard laptop and desktop monitors (1280–1920 pixels), to ultra-wide and 4K desktop displays (2560 pixels and beyond). Connected televisions and gaming consoles add yet another category, often viewed from across a room with a very different interaction model.</p>
+
+<p>Input methods vary just as dramatically. A desktop user navigates with a precise mouse cursor, making small click targets acceptable. A smartphone user taps with a fingertip, which is much less precise — Apple's Human Interface Guidelines historically recommended a minimum touch target of 44×44 points for this reason. A keyboard user navigating by tab order has different needs still. A responsive design must account not just for screen dimensions but also for these interaction differences.</p>
+
+<p>Consider a concrete example. Suppose a company builds a marketing page with a three-column grid of product cards, each column exactly 300 pixels wide with 30-pixel gutters between them, totaling 960 pixels. On a 1200-pixel desktop monitor this looks polished. On a 375-pixel iPhone screen, the entire layout is compressed or overflows, forcing the user to scroll horizontally and pinch-to-zoom just to read the product descriptions. The experience feels broken and untrustworthy. A responsive version of the same page would stack those three columns into a single column on small screens, presenting exactly the same content in a far more usable format.</p>
+
+<p><strong>Core Pillars of Responsive Design</strong></p>
+
+<p>Marcotte's original framework identified three interlocking technical techniques that together enable responsive layouts. They remain the foundational building blocks today.</p>
+
+<p>The first pillar is the <strong>fluid grid</strong>. A traditional fixed layout assigns pixel values to columns: a sidebar might be 240px wide, a main content area 720px wide. A fluid grid instead assigns <em>proportional</em> values using percentages. If the overall container is 100% of the viewport width, a sidebar might occupy 25% and the main content 75%. As the viewport narrows or widens, both elements resize proportionally, so the layout always fills the available space without overflow or wasted whitespace. The classic formula for converting a target pixel value to a percentage is:</p>
+
+<pre><code>result = target ÷ context × 100</code></pre>
+
+<p>So if a column should be 720px wide inside a 960px container, its percentage equivalent is <code>720 ÷ 960 × 100 = 75%</code>. Modern CSS layout systems like Flexbox and CSS Grid have made fluid grids far easier to implement directly without manual percentage arithmetic, but the underlying principle — using relative rather than absolute units — is the same.</p>
+
+<p>The second pillar is <strong>flexible images and media</strong>. Images and video iframes have intrinsic dimensions; a photograph might be 1200 pixels wide. If it is placed inside a fluid container that shrinks below 1200 pixels, the image will overflow unless it is constrained. The canonical CSS rule is simple but powerful:</p>
+
+<pre><code>img {
+  max-width: 100%;
+  height: auto;
+}</code></pre>
+
+<p><code>max-width: 100%</code> means the image will never exceed the width of its containing element. <code>height: auto</code> preserves the image's original aspect ratio as it scales. Together, these two declarations ensure that images scale down gracefully on small screens while still displaying at their full natural size on large ones. The same technique applies to embedded videos and iframes, though those sometimes require an additional wrapper element with a padding-based aspect ratio trick or the modern <code>aspect-ratio</code> CSS property to maintain their proportions.</p>
+
+<p>The third pillar is <strong>CSS media queries</strong>. While fluid grids and flexible images handle gradual resizing elegantly, some layout changes are not merely proportional — they are structural. On a small phone it may make more sense to hide a sidebar entirely, stack navigation items vertically, or increase the base font size for readability. Media queries allow a stylesheet to apply specific CSS rules only when certain conditions are met, most commonly when the viewport width crosses a particular threshold called a <strong>breakpoint</strong>.</p>
+
+<pre><code>/* Default styles for all screen sizes */
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Styles applied only when viewport is 768px or wider */
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row;
+  }
+}</code></pre>
+
+<p>In this example, content stacks vertically by default (appropriate for narrow mobile screens) and switches to a horizontal row layout once the viewport is at least 768 pixels wide. Media queries can also target other characteristics beyond width, including <code>height</code>, <code>orientation</code> (portrait or landscape), <code>resolution</code> (for serving high-DPI images), and <code>prefers-color-scheme</code> (for dark mode support), but viewport width remains the most commonly used condition.</p>
+
+<p><strong>The Mobile-First Design Philosophy</strong></p>
+
+<p>There are two possible approaches to writing responsive CSS. The first, historically common, approach is <em>desktop-first</em>: write full desktop styles as the baseline, then use media queries with <code>max-width</code> conditions to progressively strip away or simplify styles for smaller screens. The second — now widely recommended — approach is <em>mobile-first</em>: write the simplest, most minimal styles as the baseline (which work well on small screens), then use media queries with <code>min-width</code> conditions to progressively <em>add</em> layout complexity as more screen space becomes available.</p>
+
+<p>The mobile-first approach offers several meaningful advantages. First, it enforces content prioritization. When designing for a 375-pixel screen, there is simply no room to include decorative elements, redundant navigation links, or large banner images just because "there's space for it." Every piece of content must justify its presence. This constraint leads to cleaner, more focused user experiences that benefit users on all devices.</p>
+
+<p>Second, mobile-first aligns with <strong>progressive enhancement</strong>, a development philosophy that starts with a solid, functional baseline and layers improvements on top for environments that can support them. In CSS terms, the mobile stylesheet loads first and is always applied; the enhanced desktop styles are additive and only activate at wider breakpoints. Browsers that do not support media queries (an increasingly theoretical concern, but still relevant for accessibility) receive the clean mobile baseline rather than a broken attempt at a complex layout.</p>
+
+<p>Third, mobile-first generally produces leaner, faster code. The base styles tend to be simpler, and there is no need to "undo" desktop properties when targeting small screens — a common source of specificity headaches in desktop-first stylesheets. Performance is especially important on mobile devices, where network connections are often slower and CPU resources more constrained than on a desktop.</p>
+
+<p>A practical illustration: a navigation menu might be implemented as a vertically stacked list of links in the mobile baseline (no JavaScript required, always visible and functional). At a wider breakpoint, CSS transforms it into a horizontal navigation bar. At an even wider breakpoint, perhaps a mega-menu with dropdown panels is revealed. Each layer adds functionality; the core is always accessible.</p>
+
+<p><strong>Viewport Configuration</strong></p>
+
+<p>Before any of the CSS techniques described above can work correctly, the browser must be told how to interpret the page's dimensions. By default, most mobile browsers assume they are rendering a desktop-width page (typically 980 pixels) and then scale the entire result down to fit the phone's physical screen. This was a pragmatic workaround in the early days of the mobile web, when sites were not designed to be viewed on phones at all — scaling preserved legibility better than rendering a 980px-wide page at full size on a 320px screen. But it completely defeats responsive design, because the browser is no longer reporting the device's true width to CSS.</p>
+
+<p>The solution is the <strong>viewport meta tag</strong>, placed inside the <code>&lt;head&gt;</code> element of every HTML page:</p>
+
+<pre><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></pre>
+
+<p>This single line communicates two critical instructions. <code>width=device-width</code> tells the browser to set the viewport width equal to the device's actual screen width in CSS pixels, rather than using the default 980-pixel assumption. <code>initial-scale=1</code> tells the browser not to apply any initial zoom level — the page renders at a 1:1 ratio between CSS pixels and device-independent pixels. Together, these settings ensure that when a media query asks "is the viewport at least 768px wide?", the answer accurately reflects the physical device rather than some artificial scaled-down representation of a desktop layout.</p>
+
+<p>It is worth understanding the distinction between <em>CSS pixels</em> and <em>physical device pixels</em>. Modern high-DPI (also called "Retina") screens have very high physical pixel densities — an iPhone might have a pixel ratio of 3, meaning 3 physical pixels per 1 CSS pixel. This is why a phone with a 1125×2436 physical resolution reports a viewport width of only 375 CSS pixels. CSS and media queries operate in CSS pixels, which is the right abstraction for layout purposes. The physical pixel density matters when choosing image resolutions (discussed in more advanced responsive imaging topics), but not for basic layout breakpoints.</p>
+
+<p>Some older guidance recommended adding <code>maximum-scale=1, user-scalable=no</code> to the viewport meta tag to prevent users from zooming. This is now strongly discouraged because it is an accessibility barrier — users with low vision rely on the ability to zoom in to read content. A well-designed responsive layout does not need to suppress zooming because text is already legible and content is already laid out appropriately.</p>
+
+<p><strong>Why Responsive Design Matters</strong></p>
+
+<p>Beyond the technical elegance of a single adaptive codebase, responsive design has concrete practical and business implications worth understanding in full.</p>
+
+<p>From a <strong>maintenance and development efficiency</strong> standpoint, a single responsive site means that when a product description is updated, a bug is fixed, or a new section is added, the change is made once and immediately reflects across all devices. With separate desktop and mobile sites, every change must be duplicated, and teams must constantly verify that both versions remain consistent. This overhead is not merely inconvenient — it creates real risk of the two versions drifting apart, confusing users and creating inconsistent brand experiences.</p>
+
+<p>From an <strong>accessibility</strong> perspective, responsive design and inclusive design share many of the same goals. Ensuring that content reflows properly on small screens also benefits users with cognitive disabilities who increase their browser's text size, and users who rely on screen magnification software. The Web Content Accessibility Guidelines (WCAG) 2.1 includes a specific success criterion — <strong>1.4.10 Reflow</strong> — requiring that content can be presented without loss of information or functionality when the viewport is narrowed to 320 CSS pixels wide, without requiring horizontal scrolling. This is essentially a requirement for responsive design at the level of accessibility law in many jurisdictions.</p>
+
+<p>From a <strong>search engine optimization (SEO)</strong> perspective, Google has used mobile-first indexing as its default since 2019, meaning it primarily uses the mobile version of a site's content for ranking and indexing. A responsive site ensures that the mobile experience Google's crawler sees is the full, content-rich version of the site, not a stripped-down mobile redirect with missing content. A separate mobile site that omits content for brevity may inadvertently hurt search rankings.</p>
+
+<p>From a <strong>user experience and business metrics</strong> perspective, the evidence is clear: users who encounter a poor mobile experience abandon the site quickly. A high bounce rate signals disengagement and erodes conversions, whether conversions mean purchases, sign-ups, or simply reading an article. Meeting users on their preferred device — serving a fast, readable, well-laid-out experience regardless of screen size — builds trust, increases time on site, and directly improves the metrics that matter to any organization with an online presence.</p>
+
+<p>The table below summarizes the three core technical pillars of responsive design alongside the problem each one solves and a representative CSS example:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pillar</th>
+      <th>Problem It Solves</th>
+      <th>Representative CSS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Fluid Grid</td>
+      <td>Fixed-width layouts overflow or leave dead space at different viewport sizes</td>
+      <td><code>width: 75%; max-width: 1200px;</code></td>
+    </tr>
+    <tr>
+      <td>Flexible Images</td>
+      <td>Images with intrinsic widths overflow their fluid containers</td>
+      <td><code>img { max-width: 100%; height: auto; }</code></td>
+    </tr>
+    <tr>
+      <td>Media Queries</td>
+      <td>Some layout changes must be structural, not just proportional</td>
+      <td><code>@media (min-width: 768px) { ... }</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Responsive web design is not a single feature or a CSS trick — it is a holistic design and development philosophy that treats the fluidity of the web as a feature rather than a problem to be solved with a fixed grid. Every topic that follows in this module builds on the concepts introduced here: the viewport, fluid proportions, media queries, and the mobile-first mindset. Mastering them gives you a complete toolkit for building websites that serve every user well, on every device, now and as new devices continue to emerge.</p>
+        <div class="notes"><strong>Notes</strong>Foundational topic — ensure students understand the viewport meta tag is a prerequisite before any CSS responsive techniques will behave correctly on real devices. The Ethan Marcotte attribution and the WCAG 1.4.10 Reflow criterion are useful for students who want to explore primary sources. Encourage students to test a non-responsive page on browser devtools device emulation to viscerally understand the problem before studying the solutions.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

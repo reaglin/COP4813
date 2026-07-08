@@ -1,0 +1,415 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jQuery Fundamentals and DOM Manipulation</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>jQuery Fundamentals and DOM Manipulation</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>jQuery Fundamentals and DOM Manipulation</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>jQuery is a fast, small, and feature-rich JavaScript library that fundamentally changed how developers interact with web pages when it was released in 2006. At its core, jQuery wraps the browser's native DOM API into a unified, cross-browser-compatible interface, letting you accomplish in one or two lines what might otherwise require ten or twenty lines of vanilla JavaScript. Even as modern JavaScript (ES6+) and browser APIs have closed the gap, jQuery remains deeply embedded in the web ecosystem. Millions of websites, WordPress themes, and enterprise applications still depend on it, making jQuery knowledge essential for any developer working with the web in a professional context.</p>
+
+<p>Understanding jQuery means understanding three interconnected ideas: selecting elements from the page, manipulating those elements, and responding to user interactions — all with a concise, readable syntax that prioritizes developer productivity.</p>
+
+<p><strong>What is jQuery and Why Use It?</strong></p>
+
+<p>jQuery's philosophy is captured in its official motto: <em>"write less, do more."</em> To appreciate what this means in practice, compare the two approaches to hiding all paragraph elements on a page:</p>
+
+<pre><code>// Vanilla JavaScript
+var paragraphs = document.querySelectorAll("p");
+for (var i = 0; i &lt; paragraphs.length; i++) {
+  paragraphs[i].style.display = "none";
+}
+
+// jQuery equivalent
+$("p").hide();
+</code></pre>
+
+<p>Both snippets produce the same result, but the jQuery version is dramatically shorter. This kind of compression pays dividends across an entire codebase — form validation, AJAX calls, animations, and event handling all benefit from jQuery's simplified API.</p>
+
+<p>Beyond brevity, jQuery solves a historically painful problem: <strong>browser inconsistency</strong>. Older versions of Internet Explorer implemented many DOM and event APIs differently from Firefox, Chrome, and Safari. jQuery's internals handle those differences transparently, so your code behaves consistently everywhere without conditional branches for each browser.</p>
+
+<p>Today, jQuery is less necessary for brand-new projects because modern browsers are far more consistent and ES6 introduced conveniences like <code>querySelector</code>, <code>fetch</code>, arrow functions, and template literals. Nevertheless, jQuery is still the right tool when:</p>
+
+<ul>
+  <li>You are maintaining or extending a legacy codebase already built with jQuery.</li>
+  <li>You are working with a CMS like WordPress, which ships jQuery as a core dependency.</li>
+  <li>You need rapid prototyping without setting up a full modern build pipeline.</li>
+  <li>Third-party plugins your project requires are built on jQuery.</li>
+</ul>
+
+<p><strong>Including jQuery via CDN</strong></p>
+
+<p>A Content Delivery Network (CDN) hosts jQuery on geographically distributed servers so that browsers can download it quickly from a nearby location. Using a CDN also means visitors who have already loaded jQuery from the same CDN on another site may have the file cached, resulting in zero download time for your page.</p>
+
+<p>To include jQuery in any HTML file, add a <code>&lt;script&gt;</code> tag that points to the CDN-hosted file. This tag must appear <em>before</em> any of your own script tags that use jQuery, because the browser parses HTML from top to bottom and your code cannot call <code>$</code> until the library is loaded.</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;My jQuery Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;p&gt;Hello, world!&lt;/p&gt;
+
+  &lt;!-- 1. Load jQuery first --&gt;
+  &lt;script src="https://code.jquery.com/jquery-3.7.1.min.js"&gt;&lt;/script&gt;
+
+  &lt;!-- 2. Then load your own script --&gt;
+  &lt;script src="app.js"&gt;&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>Notice the filename ends with <code>.min.js</code>. The <strong>minified</strong> version has had all whitespace, comments, and long variable names removed by an automated tool, shrinking the file from roughly 280 KB to about 87 KB. For production sites, always use the minified version. During development you might prefer the unminified version so that stack traces point to readable source lines, but this is optional.</p>
+
+<p>Popular CDN options include the official jQuery CDN (<code>code.jquery.com</code>), Google Hosted Libraries, and jsDelivr. All are reliable; the choice rarely matters in practice.</p>
+
+<p><strong>Core jQuery Syntax: The $ Function</strong></p>
+
+<p>Everything in jQuery flows through a single entry point: the <code>$</code> function (or equivalently <code>jQuery</code> — <code>$</code> is simply an alias). When you write <code>$("p")</code>, jQuery searches the entire document for all <code>&lt;p&gt;</code> elements and returns a special <strong>jQuery object</strong> wrapping those elements. That object exposes hundreds of methods for reading, modifying, animating, and listening to those elements.</p>
+
+<pre><code>// Selecting by tag name
+$("p")
+
+// Selecting by ID (like CSS #id)
+$("#main-title")
+
+// Selecting by class (like CSS .class)
+$(".highlight")
+
+// Selecting with compound CSS selectors
+$("ul.menu &gt; li.active")
+</code></pre>
+
+<p>A critical concern when using jQuery is ensuring the DOM is fully parsed before your code tries to manipulate it. If a script runs while the browser is still building the page, elements you reference may not exist yet. The classic solution is <code>$(document).ready()</code>:</p>
+
+<pre><code>$(document).ready(function() {
+  // Safe to use jQuery here — DOM is fully built
+  $("p").text("The DOM is ready!");
+});
+</code></pre>
+
+<p>The shorthand form, passing a function directly to <code>$</code>, is functionally identical and is the style most developers prefer:</p>
+
+<pre><code>$(function() {
+  $("p").text("The DOM is ready!");
+});
+</code></pre>
+
+<p>One of jQuery's most elegant features is <strong>method chaining</strong>. Because most jQuery methods return the same jQuery object they were called on, you can attach multiple operations in a single expression without storing intermediate results:</p>
+
+<pre><code>$("p")
+  .addClass("intro")      // adds class
+  .css("color", "navy")   // sets color
+  .hide()                 // hides element
+  .fadeIn(800);           // fades it back in over 800ms
+</code></pre>
+
+<p>Each method in the chain executes in order on the same matched set of elements, making the code read almost like a sentence describing the sequence of operations.</p>
+
+<p><strong>Selecting and Traversing DOM Elements</strong></p>
+
+<p>jQuery selectors accept any valid CSS selector string, so everything you know about CSS targeting applies directly. Beyond that, jQuery provides traversal methods that let you navigate the DOM tree relative to an already-selected element rather than writing a fresh selector from scratch.</p>
+
+<p>Here is a quick reference of the most commonly used selectors and traversal methods:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Selector / Method</th>
+      <th>What It Targets</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>$("tag")</code></td>
+      <td>All elements of that tag type</td>
+      <td><code>$("li")</code></td>
+    </tr>
+    <tr>
+      <td><code>$("#id")</code></td>
+      <td>The single element with that ID</td>
+      <td><code>$("#header")</code></td>
+    </tr>
+    <tr>
+      <td><code>$(".class")</code></td>
+      <td>All elements with that class</td>
+      <td><code>$(".card")</code></td>
+    </tr>
+    <tr>
+      <td><code>.parent()</code></td>
+      <td>Immediate parent of each matched element</td>
+      <td><code>$("span").parent()</code></td>
+    </tr>
+    <tr>
+      <td><code>.children()</code></td>
+      <td>Direct children of each matched element</td>
+      <td><code>$("ul").children()</code></td>
+    </tr>
+    <tr>
+      <td><code>.siblings()</code></td>
+      <td>All siblings of each matched element</td>
+      <td><code>$("li.active").siblings()</code></td>
+    </tr>
+    <tr>
+      <td><code>.find(selector)</code></td>
+      <td>Descendants matching a selector</td>
+      <td><code>$("div").find("p")</code></td>
+    </tr>
+    <tr>
+      <td><code>.first()</code></td>
+      <td>Only the first matched element</td>
+      <td><code>$("li").first()</code></td>
+    </tr>
+    <tr>
+      <td><code>.last()</code></td>
+      <td>Only the last matched element</td>
+      <td><code>$("li").last()</code></td>
+    </tr>
+    <tr>
+      <td><code>.eq(n)</code></td>
+      <td>Element at zero-based index n</td>
+      <td><code>$("li").eq(2)</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A practical traversal example: suppose you have a table and the user clicks a delete button inside a row. You want to remove that entire row. Using <code>$(this)</code> inside the click handler to reference the button, you can traverse up to the row:</p>
+
+<pre><code>$(".delete-btn").click(function() {
+  $(this).closest("tr").remove();
+});
+</code></pre>
+
+<p><code>.closest()</code> walks up the DOM tree and returns the first ancestor matching the given selector — a convenient complement to <code>.find()</code>, which searches downward.</p>
+
+<p><strong>Modifying Content and Attributes</strong></p>
+
+<p>jQuery provides several methods for reading and writing the content and attributes of DOM elements. Most of these methods are <strong>getter/setter</strong> hybrids: called with no argument, they read; called with an argument, they write.</p>
+
+<p>The <code>.text()</code> method works with plain text content. When reading, it returns a concatenation of all text nodes inside the matched elements, stripping any HTML tags. When writing, it replaces the element's content with the given string (HTML characters are escaped, preventing XSS):</p>
+
+<pre><code>// HTML: &lt;p id="greeting"&gt;&lt;strong&gt;Hello&lt;/strong&gt;, world!&lt;/p&gt;
+
+console.log($("#greeting").text()); // "Hello, world!" (tags stripped)
+$("#greeting").text("Goodbye!");    // replaces content with plain text
+</code></pre>
+
+<p>The <code>.html()</code> method is the innerHTML equivalent. It preserves and injects actual HTML markup:</p>
+
+<pre><code>$("#greeting").html("&lt;em&gt;Welcome back!&lt;/em&gt;");
+// The element now contains an &lt;em&gt; tag, not escaped text
+</code></pre>
+
+<p><em>Important:</em> never pass user-supplied data directly to <code>.html()</code> without sanitization — doing so opens your page to cross-site scripting attacks. Use <code>.text()</code> for untrusted content.</p>
+
+<p>The <code>.attr()</code> method reads and writes any HTML attribute by name:</p>
+
+<pre><code>// Read the href of a link
+var url = $("a#home-link").attr("href");
+console.log(url); // e.g., "https://example.com"
+
+// Update the src of an image
+$("img#avatar").attr("src", "images/new-avatar.png");
+
+// Set a data attribute
+$("div#panel").attr("data-state", "open");
+</code></pre>
+
+<p>For form elements, <code>.val()</code> is the appropriate method for reading and setting the current value, because form inputs store user-entered text in a <code>value</code> property, not in their text content:</p>
+
+<pre><code>// Read what the user typed
+var username = $("#username-input").val();
+
+// Pre-fill a field
+$("#search-box").val("Type here to search...");
+
+// Clear a field
+$("input[type='text']").val("");
+</code></pre>
+
+<p><strong>Handling Events with jQuery</strong></p>
+
+<p>Event handling is one of jQuery's strongest areas. The library provides shorthand methods for common events, a flexible general-purpose <code>.on()</code> method, and built-in support for event delegation.</p>
+
+<p>Shorthand methods exist for events like <code>click</code>, <code>submit</code>, <code>keyup</code>, <code>mouseover</code>, and more. They accept a callback function that runs when the event fires:</p>
+
+<pre><code>// Shorthand click handler
+$("#submit-btn").click(function() {
+  alert("Form submitted!");
+});
+
+// Shorthand keyup handler
+$("#search-box").keyup(function() {
+  console.log("You typed: " + $(this).val());
+});
+</code></pre>
+
+<p>Inside any event handler, <code><strong>$(this)</strong></code> is a jQuery-wrapped reference to the specific element that triggered the event. This is especially useful when the same handler is attached to multiple elements:</p>
+
+<pre><code>$(".card").click(function() {
+  $(this).addClass("selected"); // highlights only the clicked card
+});
+</code></pre>
+
+<p>The <strong><code>.on()</code></strong> method is the modern, preferred approach because it is more explicit and supports multiple event types in one call:</p>
+
+<pre><code>// Attach a single event
+$("#submit-btn").on("click", function() {
+  alert("Clicked!");
+});
+
+// Attach multiple events with one call
+$("#search-box").on("focus blur", function(event) {
+  if (event.type === "focus") {
+    $(this).css("border-color", "blue");
+  } else {
+    $(this).css("border-color", "");
+  }
+});
+</code></pre>
+
+<p>A particularly powerful feature of <code>.on()</code> is <strong>event delegation</strong>. When elements are added to the DOM dynamically — for example, rows added to a table after the page loads — standard handlers attached at page load won't recognize them because they didn't exist when the handler was registered. Delegation solves this by listening on a stable ancestor element and filtering events by a selector:</p>
+
+<pre><code>// Without delegation — won't work for dynamically added rows
+$(".delete-btn").click(function() { ... });
+
+// With delegation — works for all current AND future .delete-btn elements
+$("#results-table").on("click", ".delete-btn", function() {
+  $(this).closest("tr").remove();
+});
+</code></pre>
+
+<p>The second argument to <code>.on()</code> is the delegate selector. jQuery listens for clicks anywhere inside <code>#results-table</code>, then checks whether the clicked element matches <code>.delete-btn</code>, running the callback only if it does.</p>
+
+<p><strong>Manipulating CSS and Visibility</strong></p>
+
+<p>jQuery provides several complementary tools for controlling how elements look and whether they appear on screen. The right tool depends on whether you want to apply styles inline, toggle predefined classes, or animate transitions.</p>
+
+<p>The <code>.css()</code> method reads and writes inline CSS properties directly on elements. Property names can be written in camelCase or with quotes in CSS hyphenated form:</p>
+
+<pre><code>// Read a property
+var currentColor = $("h1").css("color");
+
+// Set a single property
+$("h1").css("font-size", "2rem");
+
+// Set multiple properties at once using an object
+$(".alert").css({
+  "background-color": "#ffcccc",
+  "border": "1px solid red",
+  "padding": "10px"
+});
+</code></pre>
+
+<p>While <code>.css()</code> is convenient, it mixes style logic into JavaScript, which can make maintenance harder. A cleaner pattern is to define your styles in a CSS class and use jQuery only to toggle that class:</p>
+
+<pre><code>// CSS (in your stylesheet)
+// .highlighted { background-color: yellow; font-weight: bold; }
+
+// JavaScript — no style details here
+$("td").addClass("highlighted");
+$("td").removeClass("highlighted");
+$("td").toggleClass("highlighted"); // adds if absent, removes if present
+</code></pre>
+
+<p>For controlling whether elements appear at all, <code>.hide()</code> sets <code>display: none</code>, <code>.show()</code> restores the previous display value, and <code>.toggle()</code> switches between the two states based on the current visibility:</p>
+
+<pre><code>$("#details-panel").hide();   // instantly hides
+$("#details-panel").show();   // instantly shows
+$("#details-panel").toggle(); // hides if visible, shows if hidden
+</code></pre>
+
+<p>jQuery goes a step further with animated visibility methods that produce smooth transitions automatically, without any CSS animation code:</p>
+
+<pre><code>// Fade effects
+$(".notification").fadeIn(400);    // fade in over 400ms
+$(".notification").fadeOut(600);   // fade out over 600ms
+$(".notification").fadeToggle();   // toggle with fade
+
+// Slide effects
+$("#accordion-section").slideDown(300);   // expand downward
+$("#accordion-section").slideUp(300);     // collapse upward
+$("#accordion-section").slideToggle(400); // toggle with slide
+</code></pre>
+
+<p>The numeric argument is the duration in milliseconds. You can also pass the string <code>"slow"</code> (600ms) or <code>"fast"</code> (200ms). All animated methods also accept a callback function that fires after the animation completes, enabling you to chain behaviors:</p>
+
+<pre><code>$(".success-message")
+  .fadeIn(300)
+  .delay(2000)        // wait 2 seconds
+  .fadeOut(500, function() {
+    $(this).remove(); // remove from DOM after fade completes
+  });
+</code></pre>
+
+<p>Bringing all of these concepts together, a typical jQuery workflow looks like this: wait for the DOM, select elements with meaningful selectors, listen for user events with <code>.on()</code>, and respond by traversing the DOM, reading or writing content and attributes, and applying CSS or animated visibility changes — all in a compact, readable chain of method calls that express intent clearly and concisely.</p>
+        <div class="notes"><strong>Notes</strong>Introduces jQuery as a JavaScript library that simplifies HTML document traversal, event handling, and DOM manipulation. Demonstrates core jQuery syntax and practical examples for selecting and modifying page elements.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

@@ -1,0 +1,349 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas Drawing for Games</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Canvas Drawing for Games</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Canvas Drawing for Games</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The HTML5 Canvas API is the cornerstone of browser-based game development. It gives you a blank rectangular drawing surface directly inside a web page, and a rich JavaScript interface to paint pixels, shapes, images, and animations onto that surface in real time. Unlike static HTML elements, the canvas is entirely code-driven — every dot, rectangle, and sprite you see is the result of explicit drawing commands executed by your game loop. Understanding how to set up the canvas, organize your drawing calls, and cycle through clear-and-redraw frames is the foundation upon which every game mechanic you add will rest.</p>
+
+<p>Before writing a single line of JavaScript, you need to place the canvas element in your HTML document. The <code>&lt;canvas&gt;</code> tag is an ordinary inline element, but it requires two critical attributes: <strong>width</strong> and <strong>height</strong>. These attributes define the internal resolution of the drawing surface — the actual number of pixels available for drawing — and they are completely separate from any CSS sizing you might apply. Always set them directly on the element rather than relying solely on CSS, because CSS stretches or shrinks the canvas after the fact, which can distort your graphics.</p>
+
+<pre><code>&lt;!-- index.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;My Canvas Game&lt;/title&gt;
+  &lt;style&gt;
+    body { margin: 0; background: #111; display: flex; justify-content: center; }
+    canvas { display: block; border: 2px solid #444; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;canvas id="gameCanvas" width="800" height="400"&gt;&lt;/canvas&gt;
+  &lt;script src="game.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<p>Here the canvas is 800 pixels wide and 400 pixels tall. The <code>id</code> attribute lets JavaScript locate it easily. Now, inside <code>game.js</code>, you retrieve the element and obtain its <strong>2D rendering context</strong>. The context object is your drawing toolkit — it holds every method and property needed to paint onto the canvas.</p>
+
+<pre><code>// game.js
+
+// 1. Grab the canvas element from the DOM
+const canvas = document.getElementById('gameCanvas');
+
+// 2. Get the 2D drawing context
+const ctx = canvas.getContext('2d');
+
+// ctx is now ready for drawing commands
+console.log(canvas.width, canvas.height); // 800 400</code></pre>
+
+<p><code>getContext('2d')</code> returns a <code>CanvasRenderingContext2D</code> object. Storing it in a variable called <code>ctx</code> is a widely adopted convention — you will see this name throughout tutorials, documentation, and production game code. Every drawing instruction you write from this point forward will be a method call or property assignment on <code>ctx</code>.</p>
+
+<p>With the context in hand, the first visual task is painting a <strong>background layer</strong>. In a game, the background sits behind every other element — the sky, floor, a dungeon wall, or simply a solid color. The most straightforward approach uses two properties and one method:</p>
+
+<ul>
+  <li><strong>ctx.fillStyle</strong> — sets the current fill color. Accepts any CSS color string: <code>'#1a1a2e'</code>, <code>'skyblue'</code>, <code>'rgb(30, 90, 180)'</code>, or even gradients and patterns.</li>
+  <li><strong>ctx.fillRect(x, y, width, height)</strong> — draws a filled rectangle. Passing <code>0, 0, canvas.width, canvas.height</code> fills the entire canvas.</li>
+</ul>
+
+<pre><code>// Paint a solid dark-blue background
+ctx.fillStyle = '#1a1a2e';
+ctx.fillRect(0, 0, canvas.width, canvas.height);</code></pre>
+
+<p>For a more atmospheric background you can use a <strong>linear gradient</strong>. A gradient transitions smoothly between two or more colors and can simulate a sky that fades from deep blue at the top to lighter blue at the horizon.</p>
+
+<pre><code>// Sky gradient background
+const skyGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+skyGradient.addColorStop(0, '#0d0d2b');   // dark at top
+skyGradient.addColorStop(1, '#1a6ea8');   // lighter blue at bottom
+
+ctx.fillStyle = skyGradient;
+ctx.fillRect(0, 0, canvas.width, canvas.height);</code></pre>
+
+<p>For tiling textures — like a repeating brick or grass pattern — <code>ctx.createPattern(image, 'repeat')</code> builds a fill that tiles the source image across the rectangle. You would load the image first, wait for it to finish loading, then create and apply the pattern:</p>
+
+<pre><code>const tileImg = new Image();
+tileImg.src = 'grass.png';
+tileImg.onload = () => {
+  const pattern = ctx.createPattern(tileImg, 'repeat');
+  ctx.fillStyle = pattern;
+  ctx.fillRect(0, canvas.height - 80, canvas.width, 80); // ground strip
+};</code></pre>
+
+<p>A crucial rule: <strong>always draw background elements before everything else</strong>. The canvas paints layers in the order you call drawing commands — later calls paint over earlier ones. Your background must come first so that characters, obstacles, and UI elements appear on top of it.</p>
+
+<p>Next come <strong>characters and sprites</strong>. For a quick prototype, simple geometric shapes work perfectly. Rectangles are drawn with <code>ctx.fillRect()</code>, and circles (or partial arcs) are drawn using the path system: <code>ctx.beginPath()</code>, <code>ctx.arc()</code>, then <code>ctx.fill()</code>.</p>
+
+<pre><code>// --- Simple rectangle player ---
+let player = { x: 100, y: 300, width: 40, height: 60, color: '#e94560' };
+
+function drawPlayer() {
+  ctx.fillStyle = player.color;
+  ctx.fillRect(player.x, player.y, player.width, player.height);
+}
+
+// --- Circular alternative ---
+function drawCirclePlayer() {
+  ctx.beginPath();
+  ctx.arc(player.x, player.y, 20, 0, Math.PI * 2); // cx, cy, radius, startAngle, endAngle
+  ctx.fillStyle = '#e94560';
+  ctx.fill();
+  ctx.closePath();
+}</code></pre>
+
+<p>Storing the character's position in <code>x</code> and <code>y</code> variables is essential. When the player presses a key, you increment or decrement those variables, and on the next frame the character is drawn at the new position — creating movement. Never hard-code coordinates directly into drawing calls if you want the object to move.</p>
+
+<p>For production-quality visuals, load a <strong>sprite image</strong> using the built-in <code>Image</code> constructor, then render it with <code>ctx.drawImage()</code>:</p>
+
+<pre><code>const playerSprite = new Image();
+playerSprite.src = 'hero.png';
+
+function drawPlayer() {
+  // ctx.drawImage(image, destX, destY, destWidth, destHeight)
+  ctx.drawImage(playerSprite, player.x, player.y, player.width, player.height);
+}
+
+// For sprite sheet animation, use the extended 9-argument form:
+// ctx.drawImage(image, srcX, srcY, srcWidth, srcHeight, destX, destY, destWidth, destHeight)
+// This crops a specific frame from a sprite sheet before drawing it.</code></pre>
+
+<p><strong>Always wait for images to fully load before drawing them.</strong> Wrapping your game initialisation inside an <code>onload</code> callback, or using a loading-state counter for multiple assets, prevents blank or broken sprites on the first frame.</p>
+
+<p>Obstacles and other game objects follow exactly the same drawing principles. The key difference is that you typically manage them in an <strong>array</strong>, giving each object its own property bundle, and iterate over that array every frame:</p>
+
+<pre><code>// Array of obstacle objects
+let obstacles = [
+  { x: 400, y: 340, width: 50, height: 60, color: '#f0a500' },
+  { x: 600, y: 320, width: 70, height: 80, color: '#f0a500' },
+  { x: 750, y: 350, width: 40, height: 50, color: '#f05a00' }
+];
+
+function drawObstacles() {
+  obstacles.forEach(obs => {
+    ctx.fillStyle = obs.color;
+    ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
+
+    // Optional: add a dark border to distinguish obstacles from the background
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(obs.x, obs.y, obs.width, obs.height);
+  });
+}</code></pre>
+
+<p>Iterating over an array is the correct pattern — not twenty separate hard-coded <code>fillRect</code> calls. It scales from two obstacles to two hundred without changing the drawing function at all. Each obstacle object's <code>x</code>, <code>y</code>, <code>width</code>, and <code>height</code> properties serve double duty: they drive the drawing commands <em>and</em> they are the same values used for collision detection later on.</p>
+
+<p>The heartbeat of any canvas game is the <strong>clear-then-draw cycle</strong>. The canvas is not a scene graph — it does not remember what objects exist. It is just a grid of pixels. If you draw a rectangle at x=100 and then on the next frame draw it at x=105, both rectangles will be visible unless you erase the old frame first. The solution is to clear the entire canvas at the very start of every frame update:</p>
+
+<pre><code>ctx.clearRect(0, 0, canvas.width, canvas.height);</code></pre>
+
+<p><code>clearRect</code> resets every pixel in the specified rectangle to fully transparent black, effectively wiping the slate clean. After clearing, you redraw everything from scratch in the correct order for that frame. Here is a complete game loop skeleton illustrating the pattern:</p>
+
+<pre><code>function gameLoop() {
+  // 1. Clear the canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // 2. Draw background (bottommost layer)
+  ctx.fillStyle = '#1a1a2e';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // 3. Draw ground
+  ctx.fillStyle = '#4a7c59';
+  ctx.fillRect(0, canvas.height - 60, canvas.width, 60);
+
+  // 4. Draw obstacles (behind player)
+  drawObstacles();
+
+  // 5. Draw player (on top of obstacles visually, or swap if needed)
+  drawPlayer();
+
+  // 6. Draw HUD / score (topmost layer)
+  drawScore();
+
+  // 7. Schedule the next frame (~60 fps)
+  requestAnimationFrame(gameLoop);
+}
+
+// Kick off the loop
+requestAnimationFrame(gameLoop);</code></pre>
+
+<p><code>requestAnimationFrame</code> asks the browser to call your function before the next screen repaint, typically 60 times per second. This produces smooth animation and is far preferable to <code>setInterval</code> for games. The loop runs recursively: each call schedules the next one, creating a continuous cycle of clear → update state → redraw.</p>
+
+<p>Understanding the <strong>canvas coordinate system</strong> is non-negotiable for placing objects correctly. The canvas grid works like this:</p>
+
+<ul>
+  <li>The <strong>origin (0, 0)</strong> is the <em>top-left corner</em>.</li>
+  <li>The <strong>x-axis</strong> increases going <em>left to right</em>.</li>
+  <li>The <strong>y-axis</strong> increases going <em>top to bottom</em> — the opposite of a standard mathematical graph.</li>
+  <li>A point at <code>(canvas.width, canvas.height)</code> is the <em>bottom-right corner</em>.</li>
+</ul>
+
+<p>This coordinate system is visualised in the table below for an 800×400 canvas:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Canvas Location</th>
+      <th>x value</th>
+      <th>y value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Top-left corner</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Top-right corner</td>
+      <td>800</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Bottom-left corner</td>
+      <td>0</td>
+      <td>400</td>
+    </tr>
+    <tr>
+      <td>Bottom-right corner</td>
+      <td>800</td>
+      <td>400</td>
+    </tr>
+    <tr>
+      <td>Dead centre</td>
+      <td>400</td>
+      <td>200</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>When you position an element with <code>ctx.fillRect(x, y, width, height)</code>, the <code>x</code> and <code>y</code> refer to its <strong>top-left corner</strong>. So a 40×60 player rectangle at <code>(100, 300)</code> occupies x from 100 to 140, and y from 300 to 360. Knowing this, you can compute the right edge as <code>x + width</code> and the bottom edge as <code>y + height</code> — exactly the values needed for boundary checks and collision detection.</p>
+
+<p>To keep a character within the canvas, compare its position against <code>canvas.width</code> and <code>canvas.height</code>:</p>
+
+<pre><code>// Prevent the player from leaving the canvas
+function clampPlayer() {
+  // Left boundary
+  if (player.x < 0) player.x = 0;
+
+  // Right boundary (right edge of player must not exceed canvas width)
+  if (player.x + player.width > canvas.width) {
+    player.x = canvas.width - player.width;
+  }
+
+  // Top boundary
+  if (player.y < 0) player.y = 0;
+
+  // Bottom boundary
+  if (player.y + player.height > canvas.height) {
+    player.y = canvas.height - player.height;
+  }
+}</code></pre>
+
+<p>Putting all these concepts together, here is a minimal but complete working example — a coloured rectangle that moves right each frame, bounces off both walls, and is redrawn smoothly at 60 fps:</p>
+
+<pre><code>const canvas = document.getElementById('gameCanvas');
+const ctx    = canvas.getContext('2d');
+
+const player = { x: 50, y: 170, width: 40, height: 60, speed: 3, dir: 1 };
+
+function update() {
+  player.x += player.speed * player.dir;
+  if (player.x + player.width >= canvas.width || player.x <= 0) {
+    player.dir *= -1; // reverse direction at both walls
+  }
+}
+
+function draw() {
+  // Clear
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Background
+  ctx.fillStyle = '#1a1a2e';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Ground
+  ctx.fillStyle = '#4a7c59';
+  ctx.fillRect(0, canvas.height - 40, canvas.width, 40);
+
+  // Player
+  ctx.fillStyle = '#e94560';
+  ctx.fillRect(player.x, player.y, player.width, player.height);
+}
+
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+requestAnimationFrame(gameLoop);</code></pre>
+
+<p>This small example encapsulates every principle covered: canvas setup, context retrieval, layered drawing (background → ground → player), coordinate-based positioning, boundary detection using <code>canvas.width</code>, and the clear-then-redraw animation loop. Every game you build on the canvas — no matter how complex — extends and elaborates on exactly these fundamentals.</p>
+        <div class="notes"><strong>Notes</strong>Students should test their canvas setup in the browser immediately after writing it, using the browser&#39;s developer tools to confirm the canvas dimensions and that `ctx` is not null. Common early mistakes include forgetting `width`/`height` attributes (giving a 300&#215;150 default canvas), calling drawing methods before the DOM is ready (wrap in `DOMContentLoaded` or place the script before `&lt;/body&gt;`), and drawing images before they have loaded. Emphasise that `requestAnimationFrame` is always preferred over `setInterval` for game loops due to its synchronisation with the display refresh rate and automatic pausing when the browser tab is hidden.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

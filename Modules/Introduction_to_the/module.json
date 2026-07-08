@@ -1,0 +1,9 @@
+{
+  "Id": "c28f8cf0-e43c-4fa2-a58d-16a081e08215",
+  "Name": "4 - Introduction to the Document Object Model (DOM)",
+  "Description": "This lesson introduces the DOM tree structure and explains how browsers parse HTML into a programmable object model, covering basic DOM selection and manipulation using vanilla JavaScript.",
+  "CreatedBy": "Ron Eaglin",
+  "CreatedDate": "2026-06-26T21:24:50.0153533-04:00",
+  "LastModifiedDate": "2026-07-07T15:27:41.8553953-04:00",
+  "Actions": []
+}

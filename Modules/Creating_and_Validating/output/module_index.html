@@ -1,0 +1,388 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 5 – Creating and Validating HTML Forms | COP4813</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f6f9;
+      color: #2c3340;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Page Shell ── */
+    .page-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+
+    /* ── Header Banner ── */
+    .module-header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
+      color: #ffffff;
+      border-radius: 10px;
+      padding: 2.5rem 2rem 2rem;
+      margin-bottom: 2.25rem;
+      box-shadow: 0 4px 18px rgba(37, 99, 168, 0.22);
+    }
+
+    .module-header .course-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.18);
+      color: #ddeeff;
+      border-radius: 4px;
+      padding: 0.2rem 0.65rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .module-header h1 {
+      font-size: clamp(1.45rem, 3vw, 2rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.85rem;
+    }
+
+    .module-header p {
+      font-size: 0.97rem;
+      color: #cce0f5;
+      max-width: 72ch;
+    }
+
+    /* ── Section heading ── */
+    .section-heading {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #5a6478;
+      margin-bottom: 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid #dde3ed;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.25rem;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: #ffffff;
+      border: 1px solid #dde3ed;
+      border-radius: 8px;
+      padding: 1.35rem 1.4rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.055);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 20px rgba(37, 99, 168, 0.13);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card Top Row: badges ── */
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      padding: 0.18rem 0.55rem;
+      white-space: nowrap;
+    }
+
+    .badge-type {
+      background: #e8f0fb;
+      color: #1c4f9c;
+      border: 1px solid #c4d6f5;
+    }
+
+    .badge-filetype {
+      background: #eef6ee;
+      color: #2a6e2a;
+      border: 1px solid #b8ddb8;
+    }
+
+    /* ── Card Title Row ── */
+    .card-title-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a2b44;
+      line-height: 1.3;
+    }
+
+    .card-title a {
+      color: #1a5cb8;
+      text-decoration: none;
+    }
+
+    .card-title a:hover,
+    .card-title a:focus {
+      text-decoration: underline;
+      color: #0e3f85;
+    }
+
+    .source-link {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #6b7a99;
+      text-decoration: none;
+      border: 1px solid #c4cde0;
+      border-radius: 4px;
+      padding: 0.15rem 0.45rem;
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background: #f0f3fa;
+      color: #1a3a6c;
+      border-color: #9aabd0;
+    }
+
+    /* ── Card Description ── */
+    .card-description {
+      font-size: 0.875rem;
+      color: #4a5568;
+      line-height: 1.55;
+      flex-grow: 1;
+    }
+
+    /* ── Footer ── */
+    .page-footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #8a93a8;
+    }
+
+    /* ── Responsive tweaks ── */
+    @media (max-width: 480px) {
+      .module-header { padding: 1.75rem 1.25rem 1.5rem; }
+      .card { padding: 1.1rem 1.1rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <!-- ── Header ── -->
+    <header class="module-header" role="banner">
+      <span class="course-label">COP4813</span>
+      <h1>Module 5 – Creating and Validating HTML Forms</h1>
+      <p>
+        This module covers the full lifecycle of HTML form development: structuring forms with semantic elements,
+        choosing the right input types, making forms accessible with labels and fieldsets, controlling form
+        submission, and enforcing data quality through both built-in HTML5 validation attributes and custom
+        JavaScript logic. Use the artifacts below to navigate readings and resources for each topic.
+      </p>
+    </header>
+
+    <!-- ── Artifact Grid ── -->
+    <main>
+      <h2 class="section-heading">Module Artifacts</h2>
+      <div class="card-grid" role="list">
+
+        <!-- Card 1 -->
+        <article class="card" role="listitem">
+          <div class="card-meta">
+            <span class="badge badge-type">Module Topics</span>
+            <span class="badge badge-filetype">.json</span>
+          </div>
+          <div class="card-title-row">
+            <span class="card-title">
+              <a href="module_topics.html">Module Topics</a>
+            </span>
+            <a class="source-link" href="../hierarchy.json">source file</a>
+          </div>
+          <p class="card-description">
+            Outlines the full scope of the module by listing all topics covered—including HTML form structure,
+            input types, accessibility with labels and fieldsets, and form submission—serving as a navigation
+            guide for learners and a planning reference for instructors.
+          </p>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card" role="listitem">
+          <div class="card-meta">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <div class="card-title-row">
+            <span class="card-title">
+              <a href="Creating_and_Validating_interactive_topics_t1.html">Introduction to HTML Forms</a>
+            </span>
+          </div>
+          <p class="card-description">
+            A foundational reading that explains what HTML forms are, why they matter, and how the core form
+            element structures user input and data submission, intended for learners to read before studying
+            specific form components.
+          </p>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card" role="listitem">
+          <div class="card-meta">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <div class="card-title-row">
+            <span class="card-title">
+              <a href="Creating_and_Validating_interactive_topics_t2.html">Form Input Types and Elements</a>
+            </span>
+          </div>
+          <p class="card-description">
+            A reading that surveys the full range of HTML input types and form elements (text, email, checkbox,
+            select, etc.), helping learners understand which element to choose based on the kind of data being
+            collected.
+          </p>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="card" role="listitem">
+          <div class="card-meta">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <div class="card-title-row">
+            <span class="card-title">
+              <a href="Creating_and_Validating_interactive_topics_t3.html">Labels, Fieldsets, and Form Accessibility</a>
+            </span>
+          </div>
+          <p class="card-description">
+            A reading covering how to use label elements, fieldsets, and legends to make forms accessible to all
+            users, including those using assistive technologies, so learners can build inclusive form interfaces.
+          </p>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="card" role="listitem">
+          <div class="card-meta">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <div class="card-title-row">
+            <span class="card-title">
+              <a href="Creating_and_Validating_interactive_topics_t4.html">Form Submission and Action Attributes</a>
+            </span>
+          </div>
+          <p class="card-description">
+            A reading explaining the action, method, and enctype attributes on the form element that control
+            where and how submitted data is sent, helping learners understand the mechanics of form submission.
+          </p>
+        </article>
+
+        <!-- Card 6 -->
+        <article class="card" role="listitem">
+          <div class="card-meta">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <div class="card-title-row">
+            <span class="card-title">
+              <a href="Creating_and_Validating_interactive_topics_t5.html">Built-in HTML5 Validation Attributes</a>
+            </span>
+          </div>
+          <p class="card-description">
+            A reading that introduces HTML5's built-in validation attributes (required, pattern, min, max,
+            minlength, etc.) and explains how to enforce input rules directly in markup without JavaScript.
+          </p>
+        </article>
+
+        <!-- Card 7 -->
+        <article class="card" role="listitem">
+          <div class="card-meta">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <div class="card-title-row">
+            <span class="card-title">
+              <a href="Creating_and_Validating_interactive_topics_t6.html">Custom JavaScript Form Validation</a>
+            </span>
+          </div>
+          <p class="card-description">
+            A reading that goes beyond HTML5 built-in validation to cover writing custom JavaScript validation
+            logic, including cross-field comparisons and dynamic error handling for real-world form requirements.
+          </p>
+        </article>
+
+        <!-- Card 8 -->
+        <article class="card" role="listitem">
+          <div class="card-meta">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <div class="card-title-row">
+            <span class="card-title">
+              <a href="Creating_and_Validating_interactive_topics_t7.html">Validation Feedback and User Experience</a>
+            </span>
+          </div>
+          <p class="card-description">
+            A reading focused on best practices for presenting validation error messages and feedback in ways
+            that are clear, timely, and user-friendly, helping learners design forms that guide users to
+            successful submission.
+          </p>
+        </article>
+
+        <!-- Card 9 -->
+        <article class="card" role="listitem">
+          <div class="card-meta">
+            <span class="badge badge-type">Text Content</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <div class="card-title-row">
+            <span class="card-title">
+              <a href="Creating_and_Validating_interactive.html">Validation Feedback and User Experience</a>
+            </span>
+          </div>
+          <p class="card-description">
+            A reading focused on best practices for presenting validation error messages and feedback in ways
+            that are clear, timely, and user-friendly, helping learners design forms that guide users to
+            successful submission.
+          </p>
+        </article>
+
+      </div>
+    </main>
+
+    <!-- ── Footer ── -->
+    <footer class="page-footer" role="contentinfo">
+      <p>COP4813 &mdash; Module 5: Creating and Validating HTML Forms</p>
+    </footer>
+
+  </div>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

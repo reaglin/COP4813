@@ -1,0 +1,1318 @@
+{
+  "ModuleFolderName": "Building_a_Full",
+  "CourseName": "COP4813",
+  "GeneratedDate": "2026-06-26T21:27:34.0690683-04:00",
+  "ModifiedDate": "2026-06-26T21:30:20.9838948-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "e60b3ab5-b211-4128-8208-8e894e1668bd",
+      "Title": "Introduction to Multi-Page Website Structure",
+      "Summary": "Overview of how a full website is organized across multiple pages and the role HTML plays in defining that structure. Establishes the foundational concepts learners will build upon throughout the module.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-06-26T21:27:34.0690683-04:00",
+      "ModifiedDate": "2026-06-26T21:27:34.0690683-04:00",
+      "Elements": [
+        {
+          "Id": "0abbd262-6a17-40b7-893d-aead0190c369",
+          "TopicId": "e60b3ab5-b211-4128-8208-8e894e1668bd",
+          "Title": "What Is a Multi-Page Website?",
+          "BodyText": "A multi-page website is a collection of individual HTML files that work together to form a cohesive online presence.",
+          "Notes": "Think of a simple website with a Home page, an About page, and a Contact page \u2014 each is a separate .html file, but they feel like one unified site through consistent design and navigation links.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:27:55.7947745-04:00",
+          "ModifiedDate": "2026-06-26T21:27:55.7947745-04:00",
+          "Items": [
+            {
+              "Id": "d80371a5-391d-4fd9-92f3-7f93727c7871",
+              "Text": "Each page in a multi-page site is typically its own HTML file, such as index.html, about.html, and contact.html.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "03679f09-f73b-45b8-80bf-0e56a068b35b",
+              "Text": "All pages share a common purpose and are connected to one another through hyperlinks.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "629e9ec3-a02d-4f38-801b-4d62c53075d4",
+              "Text": "Organizing content across multiple pages keeps each page focused and easier for visitors to navigate.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "d5e19daf-156f-4851-a3ff-15cf90ffe89b",
+          "TopicId": "e60b3ab5-b211-4128-8208-8e894e1668bd",
+          "Title": "The Role of HTML in Defining Structure",
+          "BodyText": "HTML is the foundational language that defines the structure and content of every page within a website.",
+          "Notes": "HTML does not control visual styling (that is CSS) or behavior (that is JavaScript) \u2014 it purely defines what content exists and how it is organized semantically.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:27:55.7947745-04:00",
+          "ModifiedDate": "2026-06-26T21:27:55.7947745-04:00",
+          "Items": [
+            {
+              "Id": "b285f827-f9aa-4d61-b88d-f5af0bf20c23",
+              "Text": "HTML uses a system of tags and elements to mark up text, images, links, and other content so browsers can render them correctly.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "52cc2de9-2041-4358-bb89-f23299e3ebd2",
+              "Text": "Every page in a multi-page site is built on an HTML document that the browser interprets and displays.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "15701b90-e49d-4399-bf5c-af03861ec2ae",
+              "Text": "The structure HTML provides forms the skeleton upon which styling and interactivity are later added.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "8ae1cdd6-bd08-495f-8b5d-b294dca11b36",
+          "TopicId": "e60b3ab5-b211-4128-8208-8e894e1668bd",
+          "Title": "Core Components of an HTML Page",
+          "BodyText": "Every HTML page shares a standard set of components that give it a valid, well-formed structure.",
+          "Notes": "Omitting structural elements like the doctype or the head section can cause browsers to render pages unpredictably.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:27:55.7947745-04:00",
+          "ModifiedDate": "2026-06-26T21:27:55.7947745-04:00",
+          "Items": [
+            {
+              "Id": "3365e1dd-2b56-4fb1-b8b0-36b5a6f7dc46",
+              "Text": "The DOCTYPE declaration at the top of a file tells the browser which version of HTML is being used.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7fe4f789-a849-4205-93be-b7345c48a2c7",
+              "Text": "The \u003Chtml\u003E element wraps the entire document, while \u003Chead\u003E contains metadata and \u003Cbody\u003E contains visible content.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "036f45c0-e390-4d0f-bc87-297ba6e58011",
+              "Text": "A consistent page template across all files in a site ensures uniform structure and makes maintenance easier.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "0ddb9a84-4437-48ee-a008-16b5577768f8",
+          "TopicId": "e60b3ab5-b211-4128-8208-8e894e1668bd",
+          "Title": "Semantic Markup and Its Importance",
+          "BodyText": "Semantic HTML uses meaningful tags that describe the role of content rather than just its appearance.",
+          "Notes": "Examples of semantic elements include \u003Cheader\u003E, \u003Cnav\u003E, \u003Cmain\u003E, \u003Carticle\u003E, \u003Csection\u003E, and \u003Cfooter\u003E. Using these correctly improves accessibility for screen readers and helps search engines understand page content.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:27:55.7947745-04:00",
+          "ModifiedDate": "2026-06-26T21:27:55.7947745-04:00",
+          "Items": [
+            {
+              "Id": "8a8dd813-8cbe-49b6-92a8-c098c6093ad3",
+              "Text": "Semantic tags communicate the purpose of content to both browsers and developers, making code easier to read and maintain.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ee1f4b5a-54e2-44d1-ae66-70d71e4f18ce",
+              "Text": "Using proper semantic markup is a best practice that supports accessibility standards and search engine optimization.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ab47f33b-5de5-4a28-a621-da800c3bc785",
+              "Text": "Applying semantic structure consistently across all pages reinforces the logical organization of the entire website.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ade62343-d4f2-4996-9bbe-480820ad770e",
+          "TopicId": "e60b3ab5-b211-4128-8208-8e894e1668bd",
+          "Title": "How Pages Connect: The Concept of Internal Linking",
+          "BodyText": "Internal links are the mechanism that ties individual HTML pages together into a navigable website.",
+          "Notes": "A simple navigation bar built with an unordered list and anchor tags is the most common way to connect pages in a small multi-page site.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:27:55.7947745-04:00",
+          "ModifiedDate": "2026-06-26T21:27:55.7947745-04:00",
+          "Items": [
+            {
+              "Id": "5d78b1c7-c250-4218-806a-75fdbf1408c5",
+              "Text": "An internal link uses an anchor tag (\u003Ca\u003E) with an href attribute pointing to another HTML file within the same site.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b804f6f4-77ad-43a4-b4c7-1d30814ad581",
+              "Text": "Without internal links, visitors would have no way to move between pages, making the site effectively unusable.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "833051d3-2a74-47b9-821a-16a5e151a3e3",
+              "Text": "Planning the linking structure before building pages helps ensure every page is reachable and the site flows logically.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "72d9532a-bf65-40e5-b864-aca6f871b5e2",
+          "TopicId": "e60b3ab5-b211-4128-8208-8e894e1668bd",
+          "Title": "Planning a Website Before Writing Code",
+          "BodyText": "Before creating any HTML files, outlining the site\u0027s pages and how they relate to each other saves time and prevents structural problems.",
+          "Notes": "A simple hand-drawn diagram or list showing page names and arrows indicating links between them is enough to serve as an effective site plan.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:27:55.7947745-04:00",
+          "ModifiedDate": "2026-06-26T21:27:55.7947745-04:00",
+          "Items": [
+            {
+              "Id": "7b4a02de-36d4-4186-b233-07ac2718873b",
+              "Text": "Identifying the pages a site needs and the content each page will contain helps determine the required HTML files and folder structure.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b116daea-83d8-497d-9021-aeb18904ba0f",
+              "Text": "Deciding on a consistent file-naming convention (e.g., lowercase with hyphens) early prevents broken links later.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "af0ac182-22e3-461f-9bdf-52a24c9550ee",
+              "Text": "A clear plan ensures that images, links, and pages all work together as a unified whole from the start of development.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "051f6df1-f210-40c1-90b4-05bf73d23069",
+      "Title": "Semantic HTML Markup",
+      "Summary": "Explores the use of semantic HTML elements such as header, nav, main, section, article, and footer to create meaningful, accessible page structure. Explains why semantic markup matters for readability and search engines.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-06-26T21:27:34.0690683-04:00",
+      "ModifiedDate": "2026-06-26T21:27:34.0690683-04:00",
+      "Elements": [
+        {
+          "Id": "1591cb36-179b-4181-a724-600f040537f6",
+          "TopicId": "051f6df1-f210-40c1-90b4-05bf73d23069",
+          "Title": "What Is Semantic HTML?",
+          "BodyText": "Semantic HTML uses elements whose names clearly describe their purpose and the type of content they contain, rather than using generic containers like div or span for everything.",
+          "Notes": "For example, using \u003Carticle\u003E tells both the browser and a developer that the content inside is a self-contained piece of writing, whereas a \u003Cdiv\u003E provides no such meaning.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:28:22.9837978-04:00",
+          "ModifiedDate": "2026-06-26T21:28:22.9837978-04:00",
+          "Items": [
+            {
+              "Id": "4bed6dd8-f0b9-440b-81ef-e5089359d266",
+              "Text": "Semantic elements communicate the role of content to browsers, developers, and assistive technologies.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3101f492-b8b8-4de3-859f-43ba559530d1",
+              "Text": "Non-semantic elements like \u003Cdiv\u003E and \u003Cspan\u003E carry no inherent meaning about the content they wrap.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3f471fac-b417-4dfe-b247-72c17b91fbcd",
+              "Text": "Adopting semantic markup is considered a professional best practice in modern web development.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "d9c351ad-cbaa-4859-8ea0-723b9970a098",
+          "TopicId": "051f6df1-f210-40c1-90b4-05bf73d23069",
+          "Title": "The \u003Cheader\u003E and \u003Cnav\u003E Elements",
+          "BodyText": "The \u003Cheader\u003E element represents introductory content at the top of a page or section, while \u003Cnav\u003E marks a block of navigation links.",
+          "Notes": "A page can have multiple \u003Cheader\u003E elements \u2014 one for the site and one inside an \u003Carticle\u003E, for instance \u2014 but \u003Cnav\u003E should be reserved for primary navigation menus, not every group of links.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:28:22.9837978-04:00",
+          "ModifiedDate": "2026-06-26T21:28:22.9837978-04:00",
+          "Items": [
+            {
+              "Id": "b707caf2-6fcb-4700-8436-33aad8e9cbde",
+              "Text": "\u003Cheader\u003E typically contains the site logo, page title, or introductory headings.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "157a03ac-12ff-4ccc-ba77-18846bdcd878",
+              "Text": "\u003Cnav\u003E wraps the main menu links, making it easy for screen readers to locate and skip navigation.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "33c3953d-64fe-42bf-9396-7a42563d372d",
+              "Text": "Placing links inside \u003Cnav\u003E rather than a plain \u003Cdiv\u003E helps assistive technologies announce \u0027navigation landmark\u0027 to users.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "0926d351-5900-4746-839e-353bbd3619fb",
+          "TopicId": "051f6df1-f210-40c1-90b4-05bf73d23069",
+          "Title": "The \u003Cmain\u003E, \u003Csection\u003E, and \u003Carticle\u003E Elements",
+          "BodyText": "These three elements organize the primary body content of a page into meaningful regions, from the overall main area down to individual standalone pieces of content.",
+          "Notes": "\u003Carticle\u003E is ideal for blog posts, news stories, or any content that could stand alone if redistributed. \u003Csection\u003E is better for thematically grouped content that is part of a larger whole.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:28:22.9837978-04:00",
+          "ModifiedDate": "2026-06-26T21:28:22.9837978-04:00",
+          "Items": [
+            {
+              "Id": "a38126b5-80ed-4f52-ab63-4e485dfb6457",
+              "Text": "\u003Cmain\u003E wraps the dominant content of the page and should appear only once per page.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "eadc7673-e68e-49dc-bd12-736040158c41",
+              "Text": "\u003Csection\u003E groups related content under a common theme and typically includes its own heading.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "377a13a2-e694-4d57-8596-4c5a584b3cfe",
+              "Text": "\u003Carticle\u003E represents a self-contained composition that makes sense on its own, such as a blog post or product card.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f65762bb-76c3-47f5-a9dd-e0f76797541e",
+              "Text": "Nesting \u003Carticle\u003E inside \u003Csection\u003E \u2014 or vice versa \u2014 is valid when the content structure calls for it.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "ab175204-1be2-4d0e-9090-053d45fab46c",
+          "TopicId": "051f6df1-f210-40c1-90b4-05bf73d23069",
+          "Title": "The \u003Cfooter\u003E Element",
+          "BodyText": "The \u003Cfooter\u003E element contains closing information for its nearest sectioning ancestor, such as copyright notices, contact details, or secondary navigation.",
+          "Notes": "Like \u003Cheader\u003E, \u003Cfooter\u003E can appear inside \u003Carticle\u003E or \u003Csection\u003E elements to provide closing information for that specific block of content, not just at the page level.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:28:22.9837978-04:00",
+          "ModifiedDate": "2026-06-26T21:28:22.9837978-04:00",
+          "Items": [
+            {
+              "Id": "8514dce4-72dc-4773-8173-e8415d1d6967",
+              "Text": "A page-level \u003Cfooter\u003E typically holds copyright text, legal links, and site-wide contact information.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "01e7e6b0-92fd-4fde-811e-42b50a0cebe6",
+              "Text": "Using \u003Cfooter\u003E instead of a generic \u003Cdiv\u003E signals to search engines and screen readers that this content is supplementary.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "de78707b-fe2e-4234-a90f-2f11452044f9",
+              "Text": "Footers inside \u003Carticle\u003E elements can credit the author or show publication dates for that specific piece.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "612a8c31-779c-4d68-96d4-579ea43ec118",
+          "TopicId": "051f6df1-f210-40c1-90b4-05bf73d23069",
+          "Title": "Semantic Markup and Accessibility",
+          "BodyText": "Screen readers and other assistive technologies rely on semantic elements to create landmark regions, allowing users with disabilities to navigate a page efficiently.",
+          "Notes": "ARIA landmark roles such as \u0027banner\u0027, \u0027navigation\u0027, \u0027main\u0027, and \u0027contentinfo\u0027 are automatically implied by \u003Cheader\u003E, \u003Cnav\u003E, \u003Cmain\u003E, and \u003Cfooter\u003E, reducing the need for explicit ARIA attributes.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:28:22.9837978-04:00",
+          "ModifiedDate": "2026-06-26T21:28:22.9837978-04:00",
+          "Items": [
+            {
+              "Id": "76da80a2-503b-4b0d-a428-bb94cc2f6db0",
+              "Text": "Assistive technologies map semantic elements to landmark roles, letting users jump directly to navigation, main content, or the footer.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "81f0cd3a-4933-4487-bbf2-ef3d59843fb4",
+              "Text": "Proper semantic structure means users do not have to read through every element to find relevant content.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c6fe14ef-5e4b-4d7c-acd4-e765fe18b627",
+              "Text": "Well-structured semantic HTML is the first step toward meeting WCAG (Web Content Accessibility Guidelines) standards.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "58e3f492-e3eb-468b-9b03-bc240fb9e9cd",
+          "TopicId": "051f6df1-f210-40c1-90b4-05bf73d23069",
+          "Title": "Semantic Markup and Search Engine Optimization (SEO)",
+          "BodyText": "Search engine crawlers parse HTML to understand a page\u0027s content hierarchy, and semantic elements provide clear signals about which content is most important.",
+          "Notes": "Content placed inside \u003Cmain\u003E and \u003Carticle\u003E is generally weighted more heavily by search engines than content in generic containers, because the semantic context signals relevance.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:28:22.9837978-04:00",
+          "ModifiedDate": "2026-06-26T21:28:22.9837978-04:00",
+          "Items": [
+            {
+              "Id": "2ff631a8-78a2-4c24-8e13-77057358c284",
+              "Text": "Search engines use semantic landmarks to distinguish primary content from navigation and footer boilerplate.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9a2ea85a-244e-41d5-a864-7d7f9ab2650d",
+              "Text": "Using \u003Carticle\u003E and \u003Csection\u003E with descriptive headings helps crawlers index content more accurately.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4d255b96-e160-429d-b5dc-4ad77733fe02",
+              "Text": "Semantic structure can contribute to better search rankings by making page intent clearer to indexing algorithms.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "d4fdaf98-2bd7-4042-9c98-89dbf6f77516",
+          "TopicId": "051f6df1-f210-40c1-90b4-05bf73d23069",
+          "Title": "Structuring a Full Page with Semantic Elements",
+          "BodyText": "Combining all semantic elements into a coherent page layout results in a document that is readable, maintainable, and accessible from the very first line of HTML.",
+          "Notes": "A common page pattern is: \u003Cheader\u003E at the top, \u003Cnav\u003E for the menu, \u003Cmain\u003E containing one or more \u003Csection\u003E or \u003Carticle\u003E blocks, and \u003Cfooter\u003E at the bottom \u2014 all without a single layout \u003Cdiv\u003E.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:28:22.9837978-04:00",
+          "ModifiedDate": "2026-06-26T21:28:22.9837978-04:00",
+          "Items": [
+            {
+              "Id": "3d4fdbbb-b097-4410-b912-9f4e3992ea36",
+              "Text": "A logical semantic outline mirrors the visual layout, making the codebase easier for teams to read and maintain.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6d76dfda-c4e7-4a0c-bf6f-4edfe7f787b2",
+              "Text": "Replacing generic \u003Cdiv\u003E containers with appropriate semantic elements requires no additional CSS or JavaScript.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a8db9484-75d2-4409-ae56-36e8f660c406",
+              "Text": "Consistent use of semantic elements across multiple pages creates a uniform structure that benefits both users and search engines.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "dfb9db32-0c13-47b6-a6d4-b025a4f5d878",
+              "Text": "Reviewing the heading hierarchy alongside semantic landmarks ensures the document outline is clear and logical.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "a1e66440-1dbd-4057-b841-cc6b5349e826",
+      "Title": "Embedding Images in HTML",
+      "Summary": "Covers how to use the img element to embed images into web pages, including setting source paths, alt text, and sizing attributes. Addresses best practices for image formats and accessibility.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-06-26T21:27:34.0690683-04:00",
+      "ModifiedDate": "2026-06-26T21:27:34.0690683-04:00",
+      "Elements": [
+        {
+          "Id": "1aaadb4d-5b9b-42ba-abe3-88aea92e825f",
+          "TopicId": "a1e66440-1dbd-4057-b841-cc6b5349e826",
+          "Title": "The img Element",
+          "BodyText": "The HTML \u0060\u003Cimg\u003E\u0060 element is used to embed images directly into a web page. It is a self-closing (void) element, meaning it does not require a closing tag.",
+          "Notes": "Example: \u0060\u003Cimg src=\u0022photo.jpg\u0022 alt=\u0022A scenic mountain view\u0022\u003E\u0060 \u2014 the tag stands alone with no corresponding \u0060\u003C/img\u003E\u0060.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:28:45.5109402-04:00",
+          "ModifiedDate": "2026-06-26T21:28:45.5109402-04:00",
+          "Items": [
+            {
+              "Id": "4f2bee27-aec8-4b43-820a-ce38c751a830",
+              "Text": "The \u0060\u003Cimg\u003E\u0060 tag is placed inline within the HTML document wherever the image should appear.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7439fd4e-2a88-44d8-9b90-e8f17729da09",
+              "Text": "Because it is a void element, all necessary information is provided through attributes rather than content between tags.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3ba619a7-3157-44b0-a6d9-c8474b4a93fa",
+              "Text": "It is one of the most commonly used elements for adding visual content to web pages.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "e722fcbc-7fd9-47d9-994e-512dd61ae2da",
+          "TopicId": "a1e66440-1dbd-4057-b841-cc6b5349e826",
+          "Title": "Setting the Source Path with src",
+          "BodyText": "The \u0060src\u0060 attribute tells the browser where to find the image file, accepting either a relative or an absolute URL as its value.",
+          "Notes": "Relative path example: \u0060src=\u0022images/logo.png\u0022\u0060 \u2014 points to a file in a subfolder. Absolute path example: \u0060src=\u0022https://example.com/images/logo.png\u0022\u0060 \u2014 points to an external resource.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:28:45.5109402-04:00",
+          "ModifiedDate": "2026-06-26T21:28:45.5109402-04:00",
+          "Items": [
+            {
+              "Id": "4e65b386-7103-436e-a9c0-18494f5900c7",
+              "Text": "A relative path references an image file in relation to the current HTML file\u0027s location, making it ideal for locally hosted assets.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "bd992d9b-80ed-488f-b9ab-62c8a4b087ce",
+              "Text": "An absolute URL points to an image hosted on an external server and must include the full web address.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "410cfc74-7fa2-4cdf-9f26-f958a96cbcd3",
+              "Text": "If the \u0060src\u0060 path is incorrect or the file is missing, the browser will display a broken image icon instead of the image.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "3215b27a-26e3-4d7b-b05e-31bde4664351",
+          "TopicId": "a1e66440-1dbd-4057-b841-cc6b5349e826",
+          "Title": "Providing Alt Text for Accessibility",
+          "BodyText": "The \u0060alt\u0060 attribute supplies alternative text that describes an image, which is displayed when the image cannot load and read aloud by screen readers.",
+          "Notes": "For decorative images that add no informational value, use an empty alt attribute (\u0060alt=\u0022\u0022\u0060) so screen readers skip over them entirely.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:28:45.5109402-04:00",
+          "ModifiedDate": "2026-06-26T21:28:45.5109402-04:00",
+          "Items": [
+            {
+              "Id": "ba91626c-d96d-4931-9a14-bbdc798da7e8",
+              "Text": "Descriptive alt text is essential for users who rely on assistive technologies such as screen readers.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "03b24de5-4431-4d6c-8010-4c0ad3f842e4",
+              "Text": "Alt text also improves search engine optimization (SEO) by helping search engines understand image content.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a5b60f3a-2979-45ee-8238-5dfc4caf1d3d",
+              "Text": "Alt text should be concise and accurately describe the purpose or content of the image, not simply its appearance.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "cf794d87-e2f3-458c-bb8a-25070c10feef",
+          "TopicId": "a1e66440-1dbd-4057-b841-cc6b5349e826",
+          "Title": "Controlling Image Size with width and height",
+          "BodyText": "The \u0060width\u0060 and \u0060height\u0060 attributes can be added to the \u0060\u003Cimg\u003E\u0060 element to specify the display dimensions of an image in pixels.",
+          "Notes": "Example: \u0060\u003Cimg src=\u0022banner.jpg\u0022 alt=\u0022Site banner\u0022 width=\u0022800\u0022 height=\u0022200\u0022\u003E\u0060. Setting both attributes also reduces layout shift while the page loads.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:28:45.5109402-04:00",
+          "ModifiedDate": "2026-06-26T21:28:45.5109402-04:00",
+          "Items": [
+            {
+              "Id": "e38ed7a2-0118-4ed0-ac74-979928a75ba4",
+              "Text": "Specifying width and height in HTML reserves space for the image before it fully downloads, preventing content from jumping around on the page.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9cdd1728-06b7-4434-9ad9-bc5b7b139649",
+              "Text": "Values are expressed as plain numbers representing pixels; do not include the \u0060px\u0060 unit inside the HTML attribute.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "da8bc7c1-16ab-45e9-b8fe-836ab5dff81d",
+              "Text": "For responsive designs, width and height can also be controlled through CSS, giving more flexibility across different screen sizes.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "0ec9b8a5-0c84-407d-811e-9c033caebb0f",
+          "TopicId": "a1e66440-1dbd-4057-b841-cc6b5349e826",
+          "Title": "Choosing the Right Image Format",
+          "BodyText": "Selecting an appropriate image format is critical for balancing visual quality, file size, and browser compatibility.",
+          "Notes": "A general guideline: use JPEG for photographs, PNG for graphics needing transparency, SVG for scalable icons and logos, and WebP as a modern alternative offering superior compression.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:28:45.5109402-04:00",
+          "ModifiedDate": "2026-06-26T21:28:45.5109402-04:00",
+          "Items": [
+            {
+              "Id": "c5c754a4-d525-4c94-a1f9-ba9bd39c23fe",
+              "Text": "JPEG is best suited for photographs and complex images because it achieves good compression with acceptable quality loss.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "70728e8d-f716-450a-9810-c0803c4c9b5c",
+              "Text": "PNG supports transparent backgrounds and is preferred for logos, icons, and images requiring sharp edges.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a360231b-b73a-4787-b9dd-fb6be2c0a6a9",
+              "Text": "WebP is a modern format supported by most current browsers that provides smaller file sizes than JPEG or PNG at comparable quality.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a84cd700-c904-42d7-aab4-e8cad574215f",
+              "Text": "SVG (Scalable Vector Graphics) is ideal for icons and illustrations because it scales perfectly to any size without quality loss.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "f59689b9-f63a-4c34-959e-6f0a4c3ab0c3",
+          "TopicId": "a1e66440-1dbd-4057-b841-cc6b5349e826",
+          "Title": "Image Accessibility Best Practices",
+          "BodyText": "Beyond alt text, several additional practices ensure that images are accessible and inclusive for all users.",
+          "Notes": "Tools like the WAVE accessibility checker or browser developer tools can help identify missing or inadequate alt text on a page.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:28:45.5109402-04:00",
+          "ModifiedDate": "2026-06-26T21:28:45.5109402-04:00",
+          "Items": [
+            {
+              "Id": "7b6b1e59-afa8-4dd4-8588-fb94bd8a2cd4",
+              "Text": "Every informational image must have meaningful alt text; purely decorative images should use \u0060alt=\u0022\u0022\u0060 to be ignored by assistive technologies.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "32df07b0-23e7-4c81-a415-e0ddd5c06c99",
+              "Text": "Avoid embedding important text inside images, as screen readers cannot read text that is part of an image file.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "865a01ef-7087-4059-8095-46cd40dcfec2",
+              "Text": "Ensure sufficient color contrast in images that convey meaning, so content remains distinguishable for users with visual impairments.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a0c94d99-9289-4c49-8b98-05d06b9c53e1",
+              "Text": "Use the \u0060\u003Cfigure\u003E\u0060 and \u0060\u003Cfigcaption\u003E\u0060 elements to associate a visible caption with an image when additional context is helpful.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "035ac3e6-2c56-4795-b6db-2d10dcc0c7b3",
+      "Title": "Creating Hyperlinks",
+      "Summary": "Introduces the anchor element and its attributes for building both internal and external hyperlinks. Explains how linking connects pages and resources to form a cohesive website experience.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-06-26T21:27:34.0690683-04:00",
+      "ModifiedDate": "2026-06-26T21:27:34.0690683-04:00",
+      "Elements": [
+        {
+          "Id": "137a40e9-086a-490d-a1c5-29fcdaee8cda",
+          "TopicId": "035ac3e6-2c56-4795-b6db-2d10dcc0c7b3",
+          "Title": "The Anchor Element",
+          "BodyText": "The anchor element, written as \u003Ca\u003E, is the fundamental HTML tag used to create hyperlinks that connect pages and resources.",
+          "Notes": "The anchor element can wrap around text, images, or other inline elements to make them clickable.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:29:05.6650095-04:00",
+          "ModifiedDate": "2026-06-26T21:29:05.6650095-04:00",
+          "Items": [
+            {
+              "Id": "b3f1e599-434a-4b3b-bec8-89fafc9506e3",
+              "Text": "The \u003Ca\u003E tag defines a clickable link and must include a destination to be functional.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "56c71f37-80d2-4138-afa2-ae7cca1da9d5",
+              "Text": "Any content placed between the opening \u003Ca\u003E and closing \u003C/a\u003E tags becomes the clickable link.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ea2ad4c5-190d-4a86-8972-b7931119f211",
+              "Text": "Without additional attributes, an anchor element has no destination and will not navigate anywhere.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "16294cf7-f781-44ac-9e48-102d99e74daf",
+          "TopicId": "035ac3e6-2c56-4795-b6db-2d10dcc0c7b3",
+          "Title": "The href Attribute",
+          "BodyText": "The href (hypertext reference) attribute is placed inside the opening \u003Ca\u003E tag to specify the destination URL or file path of the link.",
+          "Notes": "Example: \u003Ca href=\u0022https://www.example.com\u0022\u003EVisit Example\u003C/a\u003E creates a link to an external website.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:29:05.6650095-04:00",
+          "ModifiedDate": "2026-06-26T21:29:05.6650095-04:00",
+          "Items": [
+            {
+              "Id": "32814e5c-2e9d-476d-9832-a15079efae47",
+              "Text": "The href value can be an absolute URL (full web address) for external resources or a relative path for internal pages.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "eada1a39-6993-4b53-9fa4-5c7934d8bcdf",
+              "Text": "Omitting the href attribute results in an anchor that looks like a link but does not navigate.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4b001385-7241-4566-8f33-e902dfa0839d",
+              "Text": "The href attribute accepts a wide range of values, including web URLs, file paths, email addresses (using mailto:), and page anchors.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "71413076-b59a-4c14-81f5-cb8c1a2b964c",
+          "TopicId": "035ac3e6-2c56-4795-b6db-2d10dcc0c7b3",
+          "Title": "External Hyperlinks",
+          "BodyText": "External hyperlinks point to pages or resources hosted on other websites, using a full absolute URL as the href value.",
+          "Notes": "It is common practice to open external links in a new browser tab using the target attribute set to _blank, so users do not leave your site entirely.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:29:05.6650095-04:00",
+          "ModifiedDate": "2026-06-26T21:29:05.6650095-04:00",
+          "Items": [
+            {
+              "Id": "42c2e6c7-6b1d-4dcf-9747-af390118a173",
+              "Text": "Absolute URLs begin with a protocol such as https:// followed by the domain name and path.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "70181680-7cb0-4f6a-ad78-74db728a7847",
+              "Text": "Linking to external resources connects your site to the broader web and provides users with additional context or references.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e88aec5e-2e5d-4d9b-b2a3-51936bd117aa",
+              "Text": "Always ensure external URLs are accurate and active to avoid broken links on your site.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "15d479bb-9461-4dd5-8b8e-5943de3ec0c9",
+          "TopicId": "035ac3e6-2c56-4795-b6db-2d10dcc0c7b3",
+          "Title": "Internal Hyperlinks",
+          "BodyText": "Internal hyperlinks connect pages within the same website using relative file paths, allowing users to navigate between your own HTML files.",
+          "Notes": "Example: \u003Ca href=\u0022about.html\u0022\u003EAbout Us\u003C/a\u003E links to a file named about.html stored in the same directory as the current page.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:29:05.6650095-04:00",
+          "ModifiedDate": "2026-06-26T21:29:05.6650095-04:00",
+          "Items": [
+            {
+              "Id": "7f8245fe-8b1e-48b9-b976-b74c776d6f26",
+              "Text": "Relative paths describe the location of the target file in relation to the current file, rather than specifying a full URL.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1f13d00d-bfa5-4c3e-9119-76468cf32d42",
+              "Text": "Using internal links is what transforms a collection of separate HTML files into a unified, navigable website.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ebb6c3fe-aa64-4dda-a5a8-d4fa960d9f09",
+              "Text": "If files are organized into folders, the relative path must reflect the folder structure, such as pages/contact.html.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "70680c0e-4f44-406f-bdac-7e97c1e08895",
+          "TopicId": "035ac3e6-2c56-4795-b6db-2d10dcc0c7b3",
+          "Title": "The target Attribute",
+          "BodyText": "The target attribute controls where the linked page or resource opens when the user clicks the hyperlink.",
+          "Notes": "Use target=\u0022_blank\u0022 with caution for external links; it is generally not recommended for internal links since it can disrupt the browsing experience.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:29:05.6650095-04:00",
+          "ModifiedDate": "2026-06-26T21:29:05.6650095-04:00",
+          "Items": [
+            {
+              "Id": "bfbeb96f-4e6d-429a-8ed0-b0790e96cbd9",
+              "Text": "Setting target=\u0022_blank\u0022 opens the linked resource in a new browser tab or window.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2ff3c4a2-dd0c-4265-94e5-9f416bff7e68",
+              "Text": "The default behavior (no target attribute) opens the link in the same tab, replacing the current page.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "079ea347-bbd1-4912-ba94-436ebbfb650e",
+              "Text": "For security best practices, combine target=\u0022_blank\u0022 with rel=\u0022noopener noreferrer\u0022 to protect against potential vulnerabilities.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "46f5914d-540f-4783-bea7-3fe77527e29a",
+          "TopicId": "035ac3e6-2c56-4795-b6db-2d10dcc0c7b3",
+          "Title": "Linking as the Foundation of Website Structure",
+          "BodyText": "Hyperlinks are what bind individual HTML pages and resources together, creating the interconnected structure that defines a website.",
+          "Notes": "A multi-page website relies entirely on well-organized internal links to guide users through its content in a logical and intuitive way.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:29:05.6650095-04:00",
+          "ModifiedDate": "2026-06-26T21:29:05.6650095-04:00",
+          "Items": [
+            {
+              "Id": "01da4ea4-719f-400c-a388-f22c2c63ed24",
+              "Text": "A navigation menu built with anchor elements gives users a consistent way to move between major sections of a site.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "19122549-6827-4538-a915-cdd2fde441a2",
+              "Text": "Links to images, documents, and other media files extend the anchor element\u0027s usefulness beyond simple page navigation.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "102ea763-ddd4-4989-bb3a-f2b6d8a3e224",
+              "Text": "Consistent and descriptive link text improves both usability and accessibility for all visitors, including those using screen readers.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "a662e923-9d24-4b28-bc0c-d660a9cac0ba",
+      "Title": "Internal Navigation and Site Linking",
+      "Summary": "Focuses on constructing internal links that connect multiple pages within the same website, including relative file paths and navigation menus. Demonstrates how to build a consistent navigation structure across pages.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-06-26T21:27:34.0690683-04:00",
+      "ModifiedDate": "2026-06-26T21:27:34.0690683-04:00",
+      "Elements": [
+        {
+          "Id": "f6ef715c-9d24-4fd3-93ac-6cf439b1b48b",
+          "TopicId": "a662e923-9d24-4b28-bc0c-d660a9cac0ba",
+          "Title": "Understanding Relative File Paths",
+          "BodyText": "Relative file paths define the location of a linked page in relation to the current HTML file, making them the foundation of internal site navigation.",
+          "Notes": "For example, if index.html and about.html are in the same folder, the link href is simply \u0027about.html\u0027. If about.html is in a subfolder called \u0027pages\u0027, the href becomes \u0027pages/about.html\u0027.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:29:31.3504893-04:00",
+          "ModifiedDate": "2026-06-26T21:29:31.3504893-04:00",
+          "Items": [
+            {
+              "Id": "0d952e0f-4dbf-4186-b63b-3d9a921c6025",
+              "Text": "A relative path does not include the full domain or protocol, only the file location relative to the current document.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "95823e28-9c81-4ff2-91e8-4a24550af1ee",
+              "Text": "Use \u0027../\u0027 to move up one directory level when linking to a file in a parent folder.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7b97780c-b57e-454c-b756-67fe439f6763",
+              "Text": "Keeping all site files in a well-organized folder structure makes relative paths easier to write and maintain.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "4b020253-b878-499a-8718-86c84358d2d4",
+              "Text": "Relative paths are preferred for internal links because they keep the site portable across different servers and domains.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "14dd4664-784c-4702-9f2c-aaa76127a6d9",
+          "TopicId": "a662e923-9d24-4b28-bc0c-d660a9cac0ba",
+          "Title": "Creating Basic Internal Links with the Anchor Tag",
+          "BodyText": "The HTML anchor element \u003Ca\u003E with an href attribute pointing to a relative path is the core mechanism for linking pages within the same website.",
+          "Notes": "Example: \u003Ca href=\u0027about.html\u0027\u003EAbout Us\u003C/a\u003E creates a clickable link from the current page to about.html located in the same directory.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:29:31.3504893-04:00",
+          "ModifiedDate": "2026-06-26T21:29:31.3504893-04:00",
+          "Items": [
+            {
+              "Id": "b9e19620-5ed6-44f4-ba15-2842953558ad",
+              "Text": "The href attribute value for an internal link contains the relative file path to the destination page.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7db67e62-21da-465c-ad83-69632fa18bde",
+              "Text": "The visible link text placed between the opening and closing \u003Ca\u003E tags should clearly describe the destination page.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "31b4e52d-b299-4203-ab2c-eb275105f6c2",
+              "Text": "Internal links allow visitors to move between pages without leaving the website or triggering a full external navigation.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "7e3601e6-858b-4fdf-9e48-1f0a5585ade8",
+          "TopicId": "a662e923-9d24-4b28-bc0c-d660a9cac0ba",
+          "Title": "Building a Navigation Menu Structure",
+          "BodyText": "A navigation menu groups multiple internal links together, typically using an unordered list inside a \u003Cnav\u003E element to create a clear, accessible site menu.",
+          "Notes": "A typical nav structure uses \u003Cnav\u003E\u003Cul\u003E\u003Cli\u003E\u003Ca href=\u0027index.html\u0027\u003EHome\u003C/a\u003E\u003C/li\u003E\u003Cli\u003E\u003Ca href=\u0027about.html\u0027\u003EAbout\u003C/a\u003E\u003C/li\u003E\u003C/ul\u003E\u003C/nav\u003E, providing both semantic meaning and visual organization.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:29:31.3504893-04:00",
+          "ModifiedDate": "2026-06-26T21:29:31.3504893-04:00",
+          "Items": [
+            {
+              "Id": "8d0d6313-b294-4bec-a101-f4b2e0b681eb",
+              "Text": "The semantic \u003Cnav\u003E element signals to browsers and assistive technologies that the enclosed links form a site navigation block.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8a7b54a1-fa69-4bd7-9c27-5168ee270c9f",
+              "Text": "Wrapping links in \u003Cul\u003E and \u003Cli\u003E elements provides a logical list structure that can be styled with CSS.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4b5e03d0-150c-48fc-90d4-bcd03f9bbf80",
+              "Text": "Each list item contains one anchor tag linking to a different page of the website.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "3436eb7e-9184-42f2-b165-46b7a01cf66a",
+              "Text": "Navigation menus should include links to all primary pages so users can reach any section from any page.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "2b754776-4aaa-40ae-9bb0-55820a353455",
+          "TopicId": "a662e923-9d24-4b28-bc0c-d660a9cac0ba",
+          "Title": "Maintaining Consistent Navigation Across Pages",
+          "BodyText": "Placing the same navigation menu HTML on every page of the site ensures users always have access to the same links regardless of which page they are viewing.",
+          "Notes": "Consistency in navigation reduces user confusion and is a core principle of good web usability. While HTML alone requires copying the nav block manually, the structure and content should remain identical on every page.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:29:31.3504893-04:00",
+          "ModifiedDate": "2026-06-26T21:29:31.3504893-04:00",
+          "Items": [
+            {
+              "Id": "fe9032a9-4ec3-49ae-bc4a-f2f738c24dec",
+              "Text": "Copy the complete \u003Cnav\u003E block into the header section of each HTML page in the site.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d6b84088-2c53-4608-98ec-598676be445e",
+              "Text": "Consistent navigation gives the website a unified feel and helps users build a mental model of the site structure.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "906b8e0d-ffb1-4f42-9cbc-ab0c68970649",
+              "Text": "Any change to the navigation menu must be replicated across all pages when working with plain HTML files.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "63c42584-4389-493c-97d5-d2e1901b300b",
+              "Text": "Highlighting the current page\u0027s link visually (for example, with a different style or class) helps users know where they are within the site.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "e4d7299c-2e55-458e-8ea8-4b0feaea0a67",
+          "TopicId": "a662e923-9d24-4b28-bc0c-d660a9cac0ba",
+          "Title": "Organizing Multi-Page Site File Structure",
+          "BodyText": "A logical file and folder organization is essential for internal linking to work correctly and for the site to remain manageable as it grows.",
+          "Notes": "A common beginner structure places index.html at the root alongside other top-level pages, with a separate folder for assets like images. This keeps relative paths short and predictable.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:29:31.3504893-04:00",
+          "ModifiedDate": "2026-06-26T21:29:31.3504893-04:00",
+          "Items": [
+            {
+              "Id": "a2f34c3a-04cd-4d6d-a5b1-a7d9ab0b2bf1",
+              "Text": "Store all HTML page files at the root level or in clearly named subfolders that reflect the site\u0027s content sections.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ef84d5b7-47a7-40fa-a1ee-76bcd4bae976",
+              "Text": "Use a dedicated folder (such as \u0027images\u0027 or \u0027assets\u0027) for media files and reference them with relative paths in both \u003Cimg\u003E and \u003Ca\u003E tags.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "aac07956-830e-458b-a36b-47bf4932d374",
+              "Text": "Consistent naming conventions for files and folders prevent broken links caused by capitalization or spacing differences.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "fe4af946-b567-4337-8fda-4d4112649113",
+              "Text": "A well-planned file structure makes it straightforward to add new pages and update navigation menus over time.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "8ced1bb6-66b7-490b-a984-2b894874b48c",
+          "TopicId": "a662e923-9d24-4b28-bc0c-d660a9cac0ba",
+          "Title": "Linking to Page Sections with Fragment Identifiers",
+          "BodyText": "Fragment identifiers allow an internal link to navigate directly to a specific section within a page by targeting an element\u0027s id attribute.",
+          "Notes": "For example, \u003Ca href=\u0027index.html#contact\u0027\u003EContact\u003C/a\u003E will load index.html and scroll directly to the element with id=\u0027contact\u0027. Within the same page, the href can be just \u0027#contact\u0027.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:29:31.3504893-04:00",
+          "ModifiedDate": "2026-06-26T21:29:31.3504893-04:00",
+          "Items": [
+            {
+              "Id": "e6eab995-ba4a-4d42-b003-1c9842dc1a3a",
+              "Text": "Assign a unique id attribute to any HTML element you want to link to directly, such as \u003Csection id=\u0027contact\u0027\u003E.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8360c2bf-19a7-4d2d-8294-e2a4f244613b",
+              "Text": "A fragment link uses a hash symbol followed by the target element\u0027s id value as the href, either alone or after a file path.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "91ead010-bf5e-4f05-b410-478ef147efa8",
+              "Text": "Fragment identifiers are especially useful for long pages, allowing navigation menus to jump users to specific sections without loading a new page.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "2bbf47ac-1a4c-4141-8400-24baab6a834e",
+              "Text": "They can also be combined with relative file paths to deep-link into a specific section of another page in the same site.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "017d4d93-4104-44c6-b32e-337b1bd587ac",
+      "Title": "External Links and Web Resources",
+      "Summary": "Explains how to link to external websites and online resources using absolute URLs and appropriate anchor attributes such as target and rel. Covers security and user experience considerations for external linking.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-06-26T21:27:34.0690683-04:00",
+      "ModifiedDate": "2026-06-26T21:27:34.0690683-04:00",
+      "Elements": [
+        {
+          "Id": "f483cfda-b5a5-4360-8ac2-27992c62e65b",
+          "TopicId": "017d4d93-4104-44c6-b32e-337b1bd587ac",
+          "Title": "Absolute URLs for External Links",
+          "BodyText": "External links point to resources on other websites and require a complete, absolute URL including the protocol, domain, and path.",
+          "Notes": "Example: \u003Ca href=\u0022https://www.example.com/page\u0022\u003EVisit Example\u003C/a\u003E. Unlike internal links that use relative paths, external links must always begin with https:// or http://.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:29:55.5015433-04:00",
+          "ModifiedDate": "2026-06-26T21:29:55.5015433-04:00",
+          "Items": [
+            {
+              "Id": "a78bcce4-0b76-4042-8b72-c9c917d47819",
+              "Text": "An absolute URL includes the full address: protocol (https://), domain name, and any specific path to the resource.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8e4d4d7a-baaf-4689-9a34-20f069c51dd9",
+              "Text": "Always use https:// over http:// when available, as it indicates a secure, encrypted connection.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "fc84eadf-60cd-4bee-a9ee-ad6fbe84f781",
+              "Text": "Omitting the protocol or using only a domain name will cause the browser to treat the link as a relative path, breaking the link.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "e663fb3e-00f1-4c48-81e7-1f6b509b48ba",
+          "TopicId": "017d4d93-4104-44c6-b32e-337b1bd587ac",
+          "Title": "Opening Links in a New Tab with target",
+          "BodyText": "The target attribute on an anchor element controls where the linked resource opens when a user clicks the link.",
+          "Notes": "Using target=\u0022_blank\u0022 is a common pattern for external links so users are not navigated away from your site entirely. Other target values include _self (default), _parent, and _top.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:29:55.5015433-04:00",
+          "ModifiedDate": "2026-06-26T21:29:55.5015433-04:00",
+          "Items": [
+            {
+              "Id": "29891001-2843-40f0-aa18-f67a9c495380",
+              "Text": "Setting target=\u0022_blank\u0022 instructs the browser to open the linked page in a new tab or window.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5636956c-642b-4e11-94ca-678931be099c",
+              "Text": "This keeps your own website open in the original tab, improving user experience by not disrupting the visitor\u0027s current session.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0f719564-f428-471f-9a59-1204f782d480",
+              "Text": "Overusing new-tab behavior can be disorienting for users, so reserve it primarily for external destinations or downloadable files.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "1388165b-0575-444e-9588-d60ff04a2e47",
+          "TopicId": "017d4d93-4104-44c6-b32e-337b1bd587ac",
+          "Title": "Security Risks of target=\u0022_blank\u0022 and the rel Attribute",
+          "BodyText": "Opening external links in a new tab with target=\u0022_blank\u0022 introduces a security vulnerability known as reverse tabnapping, which can be mitigated using the rel attribute.",
+          "Notes": "Without rel=\u0022noopener\u0022, the newly opened page can access your page\u0027s window object via window.opener, potentially redirecting your original page to a malicious site.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:29:55.5015433-04:00",
+          "ModifiedDate": "2026-06-26T21:29:55.5015433-04:00",
+          "Items": [
+            {
+              "Id": "e7518d6d-ddbf-4869-bab3-ddf3adbdf75d",
+              "Text": "Adding rel=\u0022noopener\u0022 prevents the new tab from gaining access to the linking page\u0027s browsing context through window.opener.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e18c1ec5-d1bd-437b-8baf-88060b1f097d",
+              "Text": "rel=\u0022noreferrer\u0022 provides the same protection as noopener and additionally prevents the browser from sending the HTTP Referer header to the destination site.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ba6454aa-b751-45ec-85c5-58b3ad9a2c1f",
+              "Text": "Best practice is to combine both values: rel=\u0022noopener noreferrer\u0022 whenever using target=\u0022_blank\u0022 on external links.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "4f8b677b-3370-48d9-a051-eee467433851",
+          "TopicId": "017d4d93-4104-44c6-b32e-337b1bd587ac",
+          "Title": "Communicating Link Destination to Users",
+          "BodyText": "Good user experience requires that visitors know before clicking whether a link will take them to an external site or open a new tab.",
+          "Notes": "Visual cues such as an external link icon (\u2197) or supplementary text like \u0027(opens in a new tab)\u0027 are common accessibility and UX patterns used by major websites and recommended by WCAG guidelines.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:29:55.5015433-04:00",
+          "ModifiedDate": "2026-06-26T21:29:55.5015433-04:00",
+          "Items": [
+            {
+              "Id": "32cd79d7-667d-43e0-aa80-db73e126031a",
+              "Text": "Provide a visible indicator \u2014 such as an icon or parenthetical text \u2014 when a link opens in a new tab, so users can anticipate the behavior.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "57b8ca5c-e328-42ff-bdc2-3c72f0927300",
+              "Text": "Including a title attribute or descriptive link text helps screen reader users understand where the link leads before activating it.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "fb92d121-34d6-4aa6-8e70-9d7b21717a11",
+              "Text": "Avoid using generic phrases like \u0027click here\u0027 as link text; descriptive text such as \u0027Read the MDN HTML documentation\u0027 is more informative and accessible.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "9f3825e2-24b6-4a1d-939b-a1261cdadbe0",
+          "TopicId": "017d4d93-4104-44c6-b32e-337b1bd587ac",
+          "Title": "Linking to Specific Online Resources",
+          "BodyText": "External links can point to a wide variety of online resources, including other web pages, documents, images, and media hosted on different domains.",
+          "Notes": "When linking to third-party resources, consider whether the resource is stable and maintained. Broken external links (404 errors) harm user experience and site credibility.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:29:55.5015433-04:00",
+          "ModifiedDate": "2026-06-26T21:29:55.5015433-04:00",
+          "Items": [
+            {
+              "Id": "434f7023-1a36-4798-a44e-ec2fa9f63698",
+              "Text": "You can link directly to PDFs, images, or other file types hosted on external servers using their full absolute URL.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "920b0ea0-10da-46ef-a22f-348ed3169c57",
+              "Text": "Be mindful of hotlinking \u2014 directly embedding or linking to assets hosted on another server \u2014 as it consumes that server\u0027s bandwidth and may be prohibited.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9cd41d5b-19fc-45bf-99b5-bc26de4ebc5c",
+              "Text": "Periodically audit your external links to ensure they remain valid, since external pages and resources can move or be removed over time.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "c5d07fec-7416-46e2-bcea-b0281589f626",
+          "TopicId": "017d4d93-4104-44c6-b32e-337b1bd587ac",
+          "Title": "The rel Attribute for Link Relationships",
+          "BodyText": "The rel attribute describes the relationship between the current page and the linked resource, providing semantic meaning for browsers and search engines.",
+          "Notes": "Search engines use rel values such as nofollow to determine whether to pass ranking signals to linked pages, making this attribute important for SEO as well as security.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:29:55.5015433-04:00",
+          "ModifiedDate": "2026-06-26T21:29:55.5015433-04:00",
+          "Items": [
+            {
+              "Id": "b3ff3d18-c9c5-49e9-bc05-98601cb98284",
+              "Text": "rel=\u0022nofollow\u0022 signals to search engine crawlers that they should not associate your site\u0027s authority with the linked destination, useful for user-generated or untrusted content.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "388d1f0c-2ad1-4e02-842a-2abd18884bae",
+              "Text": "rel=\u0022sponsored\u0022 and rel=\u0022ugc\u0022 are additional values that inform search engines whether a link is paid (sponsored) or user-generated content.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d80849ed-18e4-421a-9506-441c101e8636",
+              "Text": "Multiple relationship values can be combined in a single rel attribute, separated by spaces, such as rel=\u0022noopener noreferrer nofollow\u0022.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "4681713e-cd05-41ba-a276-35c007e825e2",
+      "Title": "Bringing It All Together: Building a Complete Website",
+      "Summary": "Guides learners through assembling all module concepts into a cohesive, functional multi-page website using semantic markup, images, and links. Reinforces skills through a practical, end-to-end project exercise.",
+      "SortOrder": 6,
+      "CreatedDate": "2026-06-26T21:27:34.0690683-04:00",
+      "ModifiedDate": "2026-06-26T21:27:34.0690683-04:00",
+      "Elements": [
+        {
+          "Id": "ff20f3d0-1bdd-4e58-9527-3fab1517e4d9",
+          "TopicId": "4681713e-cd05-41ba-a276-35c007e825e2",
+          "Title": "Planning Your Multi-Page Website Structure",
+          "BodyText": "Before writing a single line of code, successful websites begin with a clear plan that maps out pages, content, and navigation flow.",
+          "Notes": "A simple site map drawn on paper or a whiteboard can save significant time during development by clarifying relationships between pages early.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:30:20.9838291-04:00",
+          "ModifiedDate": "2026-06-26T21:30:20.9838291-04:00",
+          "Items": [
+            {
+              "Id": "0aeaf1da-1388-4e54-bb79-7a31cb079928",
+              "Text": "Identify the core pages your site needs, such as a Home page, About page, and Contact page.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a653a251-4260-4aca-895f-86f7cc3e705c",
+              "Text": "Sketch a site map showing how pages link to one another to guide your navigation design.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5f5dfc03-0b98-4495-9088-5e8c14075ea6",
+              "Text": "Decide which images and media assets will be needed and organize them into a dedicated folder before coding begins.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "1d02ae07-7c98-4f38-993d-8d76f0159f53",
+          "TopicId": "4681713e-cd05-41ba-a276-35c007e825e2",
+          "Title": "Setting Up a Consistent File and Folder Organization",
+          "BodyText": "A well-organized project folder ensures that HTML files, images, and other assets are easy to locate and reference with correct relative paths.",
+          "Notes": "A common convention is to place all HTML files in the root folder, images in an /images subfolder, and stylesheets in a /css subfolder.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:30:20.9838291-04:00",
+          "ModifiedDate": "2026-06-26T21:30:20.9838291-04:00",
+          "Items": [
+            {
+              "Id": "f97ea0a5-2efe-4a1c-a591-c1c036ae6f7f",
+              "Text": "Store all HTML page files (e.g., index.html, about.html) at the project root level for straightforward linking.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b27ab559-84c0-4166-9454-af0516bcb5b5",
+              "Text": "Place all image files inside a dedicated subfolder such as /images to keep the project tidy and paths predictable.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "71995043-f78e-4706-b75b-88d6c4f8ed6d",
+              "Text": "Use lowercase, hyphenated filenames consistently to avoid broken links caused by case-sensitivity differences across operating systems.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "54460d18-b468-464b-b63b-46a9fdaeea84",
+          "TopicId": "4681713e-cd05-41ba-a276-35c007e825e2",
+          "Title": "Applying Semantic Markup Across Every Page",
+          "BodyText": "Semantic HTML elements give meaning to page content, improving accessibility, SEO, and code readability throughout your entire site.",
+          "Notes": "Using the same semantic structure on every page creates a consistent experience for both users and assistive technologies.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:30:20.9838291-04:00",
+          "ModifiedDate": "2026-06-26T21:30:20.9838291-04:00",
+          "Items": [
+            {
+              "Id": "c7dd2e26-34c0-42d2-ad50-c8999675920e",
+              "Text": "Use \u003Cheader\u003E, \u003Cnav\u003E, \u003Cmain\u003E, \u003Cfooter\u003E, and \u003Csection\u003E elements to define the layout structure on each page.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9d80346a-7ea3-4484-a9bd-f518d16efc1c",
+              "Text": "Place your site-wide navigation links inside a \u003Cnav\u003E element so screen readers and search engines recognize it as the primary navigation.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3a819121-afee-4326-a311-77ccd3d3fe2c",
+              "Text": "Wrap the core content of each page in a \u003Cmain\u003E element to clearly distinguish it from repeated header and footer content.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "e99dde62-08ef-4a6e-81bc-d190c2316fd1",
+          "TopicId": "4681713e-cd05-41ba-a276-35c007e825e2",
+          "Title": "Embedding Images with Descriptive Alt Text",
+          "BodyText": "Images enhance visual appeal and communication, and every image must include an alt attribute that accurately describes its content for accessibility.",
+          "Notes": "For decorative images that add no informational value, use an empty alt attribute (alt=\u0022\u0022) so screen readers skip over them.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:30:20.9838291-04:00",
+          "ModifiedDate": "2026-06-26T21:30:20.9838291-04:00",
+          "Items": [
+            {
+              "Id": "df9da0ae-c9bc-4f74-b880-3df6ae3ad334",
+              "Text": "Use the \u003Cimg\u003E element with a src attribute pointing to the correct relative path within your /images folder.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b8421d10-fa70-488e-a34f-e5942b5dc6b6",
+              "Text": "Write meaningful alt text that describes what the image shows, not just its filename or generic labels like \u0027image\u0027.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "522993e8-0039-421f-97f5-faf46fbb385c",
+              "Text": "Specify width and height attributes or use CSS to control image dimensions and prevent layout shifts during page load.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "1574f9fa-6ac9-4e8a-afad-d2e25f687bed",
+          "TopicId": "4681713e-cd05-41ba-a276-35c007e825e2",
+          "Title": "Creating Internal Links Between Pages",
+          "BodyText": "Internal hyperlinks connect your site\u0027s pages together, forming the navigation system that allows visitors to move through your website.",
+          "Notes": "A shared navigation bar coded into each page\u0027s \u003Cnav\u003E section is the most reliable way to give users access to all pages from any location on the site.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:30:20.9838291-04:00",
+          "ModifiedDate": "2026-06-26T21:30:20.9838291-04:00",
+          "Items": [
+            {
+              "Id": "cf6224b8-6f78-4a69-9deb-605d4e8de099",
+              "Text": "Use the \u003Ca href=\u0022about.html\u0022\u003E syntax with relative paths to link between pages stored in the same project folder.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6d85516c-18f3-4336-bf0e-19701c931a09",
+              "Text": "Build a consistent navigation menu on every page so visitors always have a clear way to move to any section of the site.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "49ae962c-3368-49db-ae6a-0aafb3cd1ed6",
+              "Text": "Highlight the currently active page link visually so users always know which page they are viewing.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "c43f8f65-d886-4994-9903-07ab9b824ea2",
+          "TopicId": "4681713e-cd05-41ba-a276-35c007e825e2",
+          "Title": "Adding External Links and Best Practices",
+          "BodyText": "External links direct users to resources on other websites and should be implemented with care to maintain a good user experience and site credibility.",
+          "Notes": "Always verify that external URLs are accurate and reputable before publishing, as broken or misleading external links harm user trust.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:30:20.9838291-04:00",
+          "ModifiedDate": "2026-06-26T21:30:20.9838291-04:00",
+          "Items": [
+            {
+              "Id": "fadd9c0d-b300-42bb-b484-f4d6040d2a8c",
+              "Text": "Use the full absolute URL (e.g., https://www.example.com) as the href value for all external hyperlinks.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0e6c293e-1ff2-4639-a014-d487c187f041",
+              "Text": "Add the target=\u0022_blank\u0022 attribute to open external links in a new browser tab, keeping your site open for the user.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "76f2ebc2-21c3-4aec-9e90-38b74015d8fa",
+              "Text": "Pair target=\u0022_blank\u0022 with rel=\u0022noopener noreferrer\u0022 to prevent security vulnerabilities associated with opening pages in new tabs.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "09fc6f92-259c-438b-a568-ff8b5aef5774",
+          "TopicId": "4681713e-cd05-41ba-a276-35c007e825e2",
+          "Title": "Reviewing and Testing Your Complete Website",
+          "BodyText": "Thorough testing is the final step before considering a project complete, ensuring all pages, links, and images work correctly together as a cohesive whole.",
+          "Notes": "Testing in multiple browsers such as Chrome, Firefox, and Safari helps catch rendering differences that might affect user experience.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:30:20.9838291-04:00",
+          "ModifiedDate": "2026-06-26T21:30:20.9838291-04:00",
+          "Items": [
+            {
+              "Id": "9af582f9-d7a4-44a3-8c8b-258c401d52e0",
+              "Text": "Open every page in a browser and click every navigation link to confirm that internal links resolve to the correct destination.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b78dcacc-d26f-4180-83d3-673c7846def0",
+              "Text": "Check that all images load properly, with no broken image icons, and that alt text is accurate and descriptive.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e4541bbf-718b-4a85-9c75-498a0ca914e6",
+              "Text": "Validate your HTML using a tool such as the W3C Markup Validation Service to catch structural errors or missing attributes.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "b212c79c-fb2d-4415-a8bc-7baa468b98dc",
+              "Text": "Review the site on both desktop and mobile screen sizes to ensure the layout and content remain readable and usable.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 44
+}

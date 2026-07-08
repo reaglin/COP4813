@@ -1,0 +1,269 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Submission and Action Attributes</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Form Submission and Action Attributes</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Form Submission and Action Attributes</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Every HTML form exists for one fundamental purpose: to collect information from a user and deliver that information somewhere useful. The mechanics of that delivery are controlled by a small set of attributes placed directly on the <code>&lt;form&gt;</code> element itself. Understanding these attributes — <code>action</code>, <code>method</code>, and <code>enctype</code> — is essential because they determine <em>where</em> the data goes, <em>how</em> it travels, and <em>in what format</em> it is packaged before it leaves the browser. Getting any one of these wrong can mean data that never arrives, data that is corrupted, or — most seriously — sensitive information exposed to the world.</p>
+
+<p>The <strong>action attribute</strong> tells the browser the destination URL for the submitted form data. Its value must be either a fully qualified URL (such as <code>https://example.com/process.php</code>) or a relative path (such as <code>/submit</code> or <code>../handler</code>) that resolves to a server-side script or API endpoint capable of receiving and processing the incoming data. When the form is submitted, the browser navigates to that address and delivers the form's contents according to the rules set by <code>method</code> and <code>enctype</code>.</p>
+
+<p>A subtle but important behavior: if you omit the <code>action</code> attribute entirely, the browser resubmits the form to the <em>current page's URL</em>. This is sometimes intentional — for example, in a simple PHP page that both renders and processes its own form, or in a single-page application where JavaScript intercepts the submission before it reaches the network. In those cases the omission is deliberate, but in most production contexts you should always provide an explicit <code>action</code> value to make the intended destination unambiguous.</p>
+
+<pre><code>&lt;!-- Submits to an absolute URL --&gt;
+&lt;form action="https://api.example.com/register" method="post"&gt;
+
+&lt;!-- Submits to a relative path on the same server --&gt;
+&lt;form action="/contact/send" method="post"&gt;
+
+&lt;!-- Omitting action reloads the current page --&gt;
+&lt;form method="post"&gt;
+</code></pre>
+
+<p>The <strong>method attribute</strong> specifies the HTTP verb the browser uses when it delivers the data. HTML forms natively support only two values: <code>get</code> and <code>post</code>. Other HTTP verbs such as PUT, PATCH, or DELETE are not natively supported by HTML forms and require JavaScript (for example, using the <code>fetch</code> API or <code>XMLHttpRequest</code>) or a server-side convention such as a hidden field named <code>_method</code>. When <code>method</code> is omitted, virtually all browsers default to <code>GET</code>, so the default is rarely desirable for forms that change data on the server.</p>
+
+<p>The <strong>GET method</strong> appends the form's name-value pairs directly onto the URL as a query string. When you submit a search form, for instance, the browser constructs a URL like <code>https://example.com/search?query=html+forms&amp;page=1</code> and navigates there. Because the data lives in the URL, GET submissions are bookmarkable and shareable — a major advantage for search results or filtered lists. They are also <em>idempotent</em>, meaning that making the same request multiple times has no additional side effects beyond the first request. Searching for something twice does not create two records; it simply returns the same results.</p>
+
+<p>However, GET carries serious constraints. Because data is encoded directly in the URL, it is visible in the browser's address bar, stored in browser history, captured in server access logs, and potentially leaked via the HTTP Referer header. This makes GET wholly inappropriate for passwords, credit card numbers, social security numbers, or any other sensitive information. Additionally, URLs have length limits — browsers and web servers impose practical ceilings, historically around 2,000 characters for maximum compatibility, though modern browsers allow more. This limits how much data a GET form can realistically carry.</p>
+
+<pre><code>&lt;!-- GET appends data to the URL --&gt;
+&lt;form action="/search" method="get"&gt;
+  &lt;input type="text" name="query" value="HTML forms"&gt;
+  &lt;input type="text" name="page"  value="1"&gt;
+  &lt;button type="submit"&gt;Search&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;!-- Resulting URL after submission: --&gt;
+&lt;!-- /search?query=HTML+forms&amp;page=1 --&gt;
+</code></pre>
+
+<p>The <strong>POST method</strong> sends the form data in the HTTP request <em>body</em> rather than in the URL. The address bar shows only the action URL — none of the form values appear there. This has several important implications. First, POST is far more appropriate for sensitive data: passwords and personal details are not stored in browser history or server access logs in the same way. Second, because the request body is not subject to URL length limits, POST can carry arbitrarily large amounts of data, including entire file uploads. Third, POST requests are <em>not idempotent</em> — submitting the same form twice may create two database records, process two payments, or send two emails. This is why browsers show a warning dialog ("Resend form data?") when a user tries to refresh a page that was reached via a POST submission.</p>
+
+<pre><code>&lt;!-- POST sends data in the request body --&gt;
+&lt;form action="/login" method="post"&gt;
+  &lt;input type="text"     name="username"&gt;
+  &lt;input type="password" name="password"&gt;
+  &lt;button type="submit"&gt;Log In&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;!-- The URL after submission remains simply: /login --&gt;
+&lt;!-- Credentials travel invisibly in the HTTP body   --&gt;
+</code></pre>
+
+<p>A useful side-by-side comparison of the two methods:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Characteristic</th>
+      <th>GET</th>
+      <th>POST</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Data location</td>
+      <td>URL query string</td>
+      <td>HTTP request body</td>
+    </tr>
+    <tr>
+      <td>Visibility</td>
+      <td>Visible in address bar, history, logs</td>
+      <td>Not visible in URL</td>
+    </tr>
+    <tr>
+      <td>Bookmarkable</td>
+      <td>Yes</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Data size limit</td>
+      <td>Limited by URL length (~2,000 chars practical)</td>
+      <td>No practical limit</td>
+    </tr>
+    <tr>
+      <td>Idempotent</td>
+      <td>Yes</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Suitable for sensitive data</td>
+      <td>No</td>
+      <td>Yes (with HTTPS)</td>
+    </tr>
+    <tr>
+      <td>File uploads</td>
+      <td>No</td>
+      <td>Yes (with multipart/form-data)</td>
+    </tr>
+    <tr>
+      <td>Typical use cases</td>
+      <td>Search, filtering, navigation</td>
+      <td>Login, registration, data creation</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Before the browser can send data anywhere, it must first <strong>decide which form controls to include</strong>. Two rules govern this. First, only controls that have a <code>name</code> attribute are serialized; a field without a <code>name</code> is silently omitted from the submission, no matter what value it holds. Second, any field with the <code>disabled</code> attribute is also excluded from the submitted data. This second rule is particularly important to remember: disabling a field does not just prevent the user from changing it — it actively prevents the value from being submitted at all. If you want to display a read-only value that <em>does</em> get submitted, use the <code>readonly</code> attribute instead.</p>
+
+<pre><code>&lt;form action="/profile" method="post"&gt;
+
+  &lt;!-- Submitted: name="username" is present --&gt;
+  &lt;input type="text" name="username" value="alice"&gt;
+
+  &lt;!-- NOT submitted: no name attribute --&gt;
+  &lt;input type="text" value="this is ignored"&gt;
+
+  &lt;!-- NOT submitted: field is disabled --&gt;
+  &lt;input type="text" name="role" value="admin" disabled&gt;
+
+  &lt;!-- Submitted and uneditable: readonly keeps the value --&gt;
+  &lt;input type="text" name="account_id" value="42" readonly&gt;
+
+  &lt;button type="submit"&gt;Save&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+
+<p>After determining which fields to include, the browser <strong>serializes</strong> the data — converts it into a specific text format — using rules determined by the <code>enctype</code> attribute. The <strong>enctype attribute</strong> on the <code>&lt;form&gt;</code> element specifies that encoding format, and it accepts three values.</p>
+
+<p>The default value, <strong><code>application/x-www-form-urlencoded</code></strong>, is appropriate for virtually all text-based forms. In this encoding, field names and values are URL-encoded: spaces become <code>+</code> signs, and special characters become percent-encoded sequences (for example, <code>&amp;</code> becomes <code>%26</code>). Each pair is joined with <code>=</code>, and pairs are separated by <code>&amp;</code>. This is the same format you see in a GET query string, but when used with POST, it travels in the request body instead.</p>
+
+<pre><code>&lt;!-- Default enctype — suitable for text fields --&gt;
+&lt;form action="/register" method="post"
+      enctype="application/x-www-form-urlencoded"&gt;
+  &lt;input type="text"  name="first_name" value="Jane"&gt;
+  &lt;input type="email" name="email"      value="jane@example.com"&gt;
+  &lt;button type="submit"&gt;Register&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;!-- Request body sent to server: --&gt;
+&lt;!-- first_name=Jane&amp;email=jane%40example.com --&gt;
+</code></pre>
+
+<p>The second value, <strong><code>multipart/form-data</code></strong>, is <em>mandatory</em> whenever your form includes a file input (<code>&lt;input type="file"&gt;</code>). This encoding divides the request body into separate "parts," each with its own headers, separated by a randomly generated boundary string. Binary file data is transmitted within its own part without any URL encoding that would corrupt it. If you use a file input but forget to set <code>enctype="multipart/form-data"</code>, the browser will submit only the filename as a string — the actual file content will never reach the server.</p>
+
+<pre><code>&lt;!-- multipart/form-data required for file uploads --&gt;
+&lt;form action="/upload" method="post"
+      enctype="multipart/form-data"&gt;
+  &lt;input type="text" name="title"&gt;
+  &lt;input type="file" name="avatar"&gt;
+  &lt;button type="submit"&gt;Upload&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;!-- Simplified view of the HTTP request body: --&gt;
+&lt;!--
+--boundary123
+Content-Disposition: form-data; name="title"
+
+My Profile Photo
+--boundary123
+Content-Disposition: form-data; name="avatar"; filename="photo.jpg"
+Content-Type: image/jpeg
+
+[binary file data here]
+--boundary123--
+--&gt;
+</code></pre>
+
+<p>The third value, <strong><code>text/plain</code></strong>, sends data as plain, unencoded text with each name-value pair on its own line and no special escaping of characters. It was introduced as a debugging aid and is essentially never used in real applications. Because no encoding is applied, the server cannot reliably parse the data — a value containing a newline character could break the format entirely. Avoid it in any production context.</p>
+
+<pre><code>&lt;!-- text/plain — avoid in production --&gt;
+&lt;form action="/debug" method="post" enctype="text/plain"&gt;
+  &lt;input type="text" name="note" value="line1&#10;line2"&gt;
+  &lt;button type="submit"&gt;Send&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;!-- Request body (unencoded, unpredictable with special chars): --&gt;
+&lt;!-- note=line1                                                   --&gt;
+&lt;!-- line2                                                        --&gt;
+</code></pre>
+
+<p>Putting all three attributes together, a well-constructed form for a user registration page with a profile picture upload would look like this:</p>
+
+<pre><code>&lt;form action="/api/users/create"
+      method="post"
+      enctype="multipart/form-data"&gt;
+
+  &lt;input type="text"     name="username"   required&gt;
+  &lt;input type="email"    name="email"      required&gt;
+  &lt;input type="password" name="password"   required&gt;
+  &lt;input type="file"     name="avatar"     accept="image/*"&gt;
+
+  &lt;!-- This field has no name — it will NOT be submitted --&gt;
+  &lt;input type="text" placeholder="Search (UI only)"&gt;
+
+  &lt;!-- This field is disabled — it will NOT be submitted --&gt;
+  &lt;input type="text" name="referral_code" value="PROMO50" disabled&gt;
+
+  &lt;button type="submit"&gt;Create Account&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+
+<p>The relationship between these three attributes can be summarized simply: <code>action</code> answers <em>where to send the data</em>, <code>method</code> answers <em>how to send it</em> (appended to the URL vs. in the body), and <code>enctype</code> answers <em>in what format to package it</em> before sending. Choosing them correctly — POST with HTTPS for anything sensitive, <code>multipart/form-data</code> whenever files are involved, and GET only for idempotent read-only queries — is one of the most fundamental skills in building reliable, secure web forms.</p>
+        <div class="notes"><strong>Notes</strong>Consider pairing this topic with a live demonstration using browser DevTools (Network tab) to show students the actual HTTP request headers and body for both GET and POST submissions, with each enctype. Seeing the raw network traffic makes the abstract descriptions of URL encoding and multipart boundaries concrete and memorable.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

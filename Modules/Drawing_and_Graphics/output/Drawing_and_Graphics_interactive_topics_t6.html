@@ -1,0 +1,368 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drawing and Manipulating Images</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Drawing and Manipulating Images</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Drawing and Manipulating Images</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>One of the most powerful capabilities of the HTML5 Canvas API is the ability to draw, scale, and crop raster images directly onto the canvas surface. Whether you are building a photo editor, a sprite-based game, an image carousel, or a data visualization tool that overlays graphics on photographs, understanding how to work with images on the canvas is fundamental. This topic covers every stage of that process: loading images safely, drawing them at their natural size, resizing them to fit specific dimensions, cropping out regions of interest, and combining cropping with scaling for advanced effects like sprite sheets and thumbnail generation. Along the way we will also address practical concerns like cross-origin restrictions, animation performance, and the timing problem that catches nearly every beginner off guard.</p>
+
+<p><strong>Loading an Image for Canvas Use</strong></p>
+
+<p>Before any image can be drawn onto a canvas, the browser must fully download and decode that image file. The standard way to manage this in JavaScript is to create an <code>Image</code> object programmatically, assign its source, and then defer all drawing code until the image's <code>onload</code> event fires.</p>
+
+<pre><code>const canvas = document.getElementById('myCanvas');
+const ctx = canvas.getContext('2d');
+
+const img = new Image();
+img.onload = function () {
+    // Safe to draw — the image is fully loaded
+    ctx.drawImage(img, 0, 0);
+};
+img.src = 'photo.jpg'; // Setting src AFTER onload is assigned
+</code></pre>
+
+<p>It is critically important to attach the <code>onload</code> handler <em>before</em> setting the <code>src</code> property. If you set <code>src</code> first, the browser may begin fetching the image immediately, and if it is already cached or loads extremely fast, the <code>onload</code> event can fire before your handler is even registered — meaning your drawing code will never execute. By wiring up the handler first, you guarantee that no matter how quickly the image arrives, your code will run.</p>
+
+<p>Attempting to call <code>ctx.drawImage()</code> before the image has loaded is one of the most common beginner mistakes. The result is that nothing appears on the canvas, or in some browsers an error is thrown. The image object exists in JavaScript memory, but its pixel data has not yet been decoded, so the canvas has nothing to paint. The <code>onload</code> callback solves this completely by acting as a gate: drawing logic simply cannot run until the image is ready.</p>
+
+<p>Modern code often uses the equivalent <code>Promise</code>-based pattern, which integrates well with <code>async/await</code>:</p>
+
+<pre><code>function loadImage(src) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error(`Failed to load image: ${src}`));
+        img.src = src;
+    });
+}
+
+async function main() {
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+    const img = await loadImage('photo.jpg');
+    ctx.drawImage(img, 0, 0);
+}
+
+main();
+</code></pre>
+
+<p>This pattern is especially useful when you need to load multiple images before beginning to draw, since you can use <code>Promise.all()</code> to wait for all of them simultaneously.</p>
+
+<p><strong>Basic drawImage Usage</strong></p>
+
+<p>Once an image is loaded, the simplest way to place it on the canvas is the two-coordinate form of <code>drawImage</code>:</p>
+
+<pre><code>ctx.drawImage(img, x, y);
+</code></pre>
+
+<p>This draws the image at position <code>(x, y)</code>, where <code>x</code> is the horizontal offset from the left edge of the canvas and <code>y</code> is the vertical offset from the top edge. The image is rendered at its <em>natural</em> size — that is, the actual pixel dimensions of the image file itself. If your image file is 800 × 600 pixels and you draw it at <code>(0, 0)</code>, it will occupy the top-left 800 × 600 pixels of the canvas.</p>
+
+<pre><code>img.onload = function () {
+    // Draw the image starting at the top-left corner of the canvas
+    ctx.drawImage(img, 0, 0);
+
+    // Draw the same image offset 50px right and 30px down
+    ctx.drawImage(img, 50, 30);
+};
+</code></pre>
+
+<p>The canvas coordinate system always places the origin <code>(0, 0)</code> at the <strong>top-left corner</strong>, with the x-axis increasing to the right and the y-axis increasing downward. This is the same convention used throughout the 2D Canvas API for shapes, text, and paths. Parts of the image that extend beyond the canvas boundaries are simply clipped and not rendered — the canvas never expands to accommodate content drawn outside its bounds.</p>
+
+<p>The <code>ctx</code> variable is the 2D rendering context, obtained once from the canvas element:</p>
+
+<pre><code>const ctx = canvas.getContext('2d');
+</code></pre>
+
+<p>This context object is the gateway to all drawing operations. It maintains state such as the current transformation matrix, fill and stroke styles, global opacity, and composite operations — all of which affect how images are drawn.</p>
+
+<p><strong>Scaling Images with drawImage</strong></p>
+
+<p>To draw an image at a size different from its natural dimensions, use the five-argument form of <code>drawImage</code>:</p>
+
+<pre><code>ctx.drawImage(img, x, y, width, height);
+</code></pre>
+
+<p>Here, <code>width</code> and <code>height</code> specify the exact pixel dimensions the image should occupy on the canvas. The browser scales the image to fit those dimensions, stretching or shrinking as necessary.</p>
+
+<pre><code>img.onload = function () {
+    // Draw the image at half its natural size
+    ctx.drawImage(img, 0, 0, img.naturalWidth / 2, img.naturalHeight / 2);
+
+    // Draw the image at a fixed 200x150 box, ignoring natural proportions
+    ctx.drawImage(img, 0, 0, 200, 150);
+
+    // Draw the image stretched to fill the entire canvas
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+};
+</code></pre>
+
+<p>A key point: the canvas API does <em>not</em> automatically preserve the aspect ratio. If you supply a width and height that differ from the original proportions, the image will appear distorted — squashed or stretched. To maintain the aspect ratio, you must calculate the proportional dimension yourself:</p>
+
+<pre><code>const targetWidth = 300;
+const aspectRatio = img.naturalWidth / img.naturalHeight;
+const targetHeight = targetWidth / aspectRatio;
+
+ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
+</code></pre>
+
+<p>Alternatively, to fit an image within a bounding box while preserving its aspect ratio (letterboxing), you can use the following approach:</p>
+
+<pre><code>function drawImageContained(ctx, img, x, y, boxWidth, boxHeight) {
+    const scale = Math.min(boxWidth / img.naturalWidth, boxHeight / img.naturalHeight);
+    const scaledWidth = img.naturalWidth * scale;
+    const scaledHeight = img.naturalHeight * scale;
+    // Center the image within the box
+    const offsetX = x + (boxWidth - scaledWidth) / 2;
+    const offsetY = y + (boxHeight - scaledHeight) / 2;
+    ctx.drawImage(img, offsetX, offsetY, scaledWidth, scaledHeight);
+}
+</code></pre>
+
+<p><strong>Cropping Images with drawImage</strong></p>
+
+<p>The most powerful and complete form of <code>drawImage</code> takes nine arguments:</p>
+
+<pre><code>ctx.drawImage(img, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+</code></pre>
+
+<p>This form allows you to extract a rectangular region from the source image and paint it into a rectangular region on the canvas. The parameters divide into two groups:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>sx</code></td>
+      <td>X coordinate of the top-left corner of the crop region within the source image (in source pixels)</td>
+    </tr>
+    <tr>
+      <td><code>sy</code></td>
+      <td>Y coordinate of the top-left corner of the crop region within the source image (in source pixels)</td>
+    </tr>
+    <tr>
+      <td><code>sWidth</code></td>
+      <td>Width of the crop region within the source image (in source pixels)</td>
+    </tr>
+    <tr>
+      <td><code>sHeight</code></td>
+      <td>Height of the crop region within the source image (in source pixels)</td>
+    </tr>
+    <tr>
+      <td><code>dx</code></td>
+      <td>X coordinate on the canvas where the cropped region will be placed</td>
+    </tr>
+    <tr>
+      <td><code>dy</code></td>
+      <td>Y coordinate on the canvas where the cropped region will be placed</td>
+    </tr>
+    <tr>
+      <td><code>dWidth</code></td>
+      <td>Width of the destination rectangle on the canvas</td>
+    </tr>
+    <tr>
+      <td><code>dHeight</code></td>
+      <td>Height of the destination rectangle on the canvas</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Consider a concrete example: you have a 1200 × 800 pixel photograph, and you want to display only the right half of the image (starting at x=600) in a 300 × 200 area at the top-left corner of your canvas:</p>
+
+<pre><code>img.onload = function () {
+    ctx.drawImage(
+        img,
+        600, 0,    // sx, sy — start 600px in from the left of the source
+        600, 800,  // sWidth, sHeight — the crop region is 600x800 px in the source
+        0, 0,      // dx, dy — place it at the canvas origin
+        300, 200   // dWidth, dHeight — scale it down to 300x200 on the canvas
+    );
+};
+</code></pre>
+
+<p>The source coordinates <code>sx</code>, <code>sy</code>, <code>sWidth</code>, and <code>sHeight</code> are always measured in the image's own pixel coordinate space, not the canvas coordinate space. If the image has been scaled using CSS or if the canvas has a device pixel ratio other than 1, this distinction matters — you always reference the image's intrinsic pixels for the source rectangle.</p>
+
+<p><strong>Combining Cropping and Scaling</strong></p>
+
+<p>The real utility of the nine-argument form emerges when you deliberately mismatch the source and destination sizes. This is the mechanism that powers sprite sheets, image zoom effects, and thumbnail generation.</p>
+
+<p><em>Magnifying a region (zoom effect):</em> Pick a small source crop and map it to a large destination rectangle.</p>
+
+<pre><code>img.onload = function () {
+    // Zoom into a 100x100 pixel region of the source image
+    // and display it at 400x400 on the canvas
+    ctx.drawImage(
+        img,
+        200, 150,  // crop starts at (200, 150) in the source
+        100, 100,  // crop is 100x100 px in the source
+        0, 0,      // place at canvas origin
+        400, 400   // stretch to 400x400 — 4× magnification
+    );
+};
+</code></pre>
+
+<p><em>Miniaturizing a region (thumbnail effect):</em> Pick a large source crop and map it to a small destination rectangle.</p>
+
+<pre><code>img.onload = function () {
+    // Compress the entire image into a 80x60 thumbnail in the top-left
+    ctx.drawImage(
+        img,
+        0, 0,
+        img.naturalWidth, img.naturalHeight,
+        0, 0,
+        80, 60
+    );
+};
+</code></pre>
+
+<p><em>Sprite sheet animation:</em> A sprite sheet is a single image file that contains multiple animation frames arranged in a grid. By changing the source crop coordinates each frame, you cycle through different poses without loading multiple image files. Suppose each frame is 64 × 64 pixels and there are 8 frames arranged horizontally:</p>
+
+<pre><code>const FRAME_WIDTH = 64;
+const FRAME_HEIGHT = 64;
+let currentFrame = 0;
+
+function drawFrame() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.drawImage(
+        spriteSheet,
+        currentFrame * FRAME_WIDTH, 0,  // move horizontally through the sheet
+        FRAME_WIDTH, FRAME_HEIGHT,
+        100, 100,  // draw at (100, 100) on the canvas
+        FRAME_WIDTH, FRAME_HEIGHT
+    );
+
+    currentFrame = (currentFrame + 1) % 8;
+    requestAnimationFrame(drawFrame);
+}
+
+spriteSheet.onload = drawFrame;
+spriteSheet.src = 'character.png';
+</code></pre>
+
+<p>This technique dramatically reduces HTTP requests compared to loading individual frame images and is the standard approach in 2D browser game development.</p>
+
+<p><strong>Practical Considerations for Image Drawing</strong></p>
+
+<p><em>Cross-Origin Resource Sharing (CORS):</em> When you draw an image from a different domain onto a canvas, the canvas becomes <em>tainted</em>. A tainted canvas blocks methods that read pixel data back out of the canvas, such as <code>toDataURL()</code>, <code>toBlob()</code>, and <code>getImageData()</code>. This is a deliberate browser security measure to prevent scripts from reading pixel data from cross-origin images without the server's permission.</p>
+
+<p>To resolve CORS restrictions, two conditions must be met: the image server must include the header <code>Access-Control-Allow-Origin: *</code> (or a specific origin), and you must set the <code>crossOrigin</code> property on the <code>Image</code> object before assigning its <code>src</code>:</p>
+
+<pre><code>const img = new Image();
+img.crossOrigin = 'anonymous'; // Must be set BEFORE src
+img.onload = function () {
+    ctx.drawImage(img, 0, 0);
+    // Now toDataURL() and getImageData() will work
+    const dataURL = canvas.toDataURL();
+};
+img.src = 'https://example-cdn.com/photo.jpg';
+</code></pre>
+
+<p>If the server does not include the appropriate CORS header, setting <code>crossOrigin</code> will actually cause the request to fail, because the browser will make a CORS preflight request that the server is not prepared to satisfy. Images served from the same origin never have this problem.</p>
+
+<p><em>Clearing the canvas before redrawing:</em> In animation loops and interactive applications, images are typically redrawn many times per second. If you draw a new image frame on top of a previous one without first clearing the canvas, old frames bleed through — an artifact known as <em>ghosting</em>. Always clear the relevant portion of the canvas before drawing a new frame:</p>
+
+<pre><code>function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Wipe everything
+    ctx.drawImage(img, playerX, playerY);
+    requestAnimationFrame(animate);
+}
+</code></pre>
+
+<p><code>clearRect(x, y, width, height)</code> fills the specified rectangle with fully transparent pixels, effectively erasing it. You can clear the entire canvas by passing <code>0, 0, canvas.width, canvas.height</code>, or you can clear only the region that changed for a minor performance optimization in complex scenes.</p>
+
+<p><em>Caching the Image object:</em> Creating a new <code>Image</code> object and setting its <code>src</code> inside a render loop is a serious performance mistake. Each time you assign a new <code>src</code>, the browser must initiate a network request (even if cached, this involves cache lookup overhead), decode the image file, and allocate memory. Instead, create and load the image once — outside the loop — and simply reference the already-decoded object on every frame:</p>
+
+<pre><code>// WRONG — creates a new Image every frame
+function badAnimate() {
+    const img = new Image();
+    img.src = 'sprite.png'; // New request every frame!
+    img.onload = () => ctx.drawImage(img, x, y);
+    requestAnimationFrame(badAnimate);
+}
+
+// CORRECT — image loaded once, reused on every frame
+const img = new Image();
+img.onload = function () {
+    requestAnimationFrame(goodAnimate); // Start loop only after load
+};
+img.src = 'sprite.png';
+
+function goodAnimate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, x, y); // Uses already-decoded image data
+    requestAnimationFrame(goodAnimate);
+}
+</code></pre>
+
+<p>Keeping in mind these fundamentals — proper load sequencing, the three forms of <code>drawImage</code>, the mechanics of cropping and scaling, and the practical pitfalls around CORS, clearing, and caching — gives you a complete and robust foundation for all image-related canvas work, from simple photo display to complex frame-by-frame sprite animation.</p>
+        <div class="notes"><strong>Notes</strong>The topic consolidates all three overloads of drawImage into a single coherent progression. The sprite sheet animation example under &quot;Combining Cropping and Scaling&quot; is an extension beyond the listed subtopics but directly fulfills the note that this combination &quot;is essential for sprite-based animations.&quot; The CORS crossOrigin property usage and the bad/good animation caching contrast are practical expansions that strengthen understanding of the listed considerations.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

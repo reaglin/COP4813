@@ -1,0 +1,417 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animation Performance and Best Practices</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Animation Performance and Best Practices</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Animation Performance and Best Practices</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Creating animations that feel smooth and responsive is one of the most demanding challenges in front-end development. A user perceives animation as fluid when the browser consistently delivers new frames at 60 frames per second — meaning every single frame must be fully calculated, painted, and composited within roughly 16 milliseconds. Miss that budget even occasionally and the result is <em>jank</em>: a visible stutter or hitch that immediately degrades the user experience. Achieving consistent performance requires understanding exactly what the browser does to turn your CSS properties and JavaScript instructions into pixels on screen, and then deliberately structuring your code to avoid the most expensive parts of that process.</p>
+
+<p>This topic examines the full stack of animation performance concerns: the browser's internal rendering pipeline, how the GPU fits into that picture, the trap of layout thrashing, the trade-offs between CSS and JavaScript animation approaches, the correct use of <code>requestAnimationFrame</code>, and how to use browser tooling to measure and confirm real improvements.</p>
+
+<p><strong>Understanding the Browser Rendering Pipeline</strong></p>
+
+<p>Every time the browser needs to update what is shown on screen it walks through a sequence of stages. Not every frame requires every stage, and understanding which stages your animation triggers — and which it skips — is the foundation of animation performance work.</p>
+
+<p>The full pipeline runs in this order: <strong>JavaScript → Style → Layout → Paint → Composite</strong>. Your animation code runs in the JavaScript stage, modifying styles or the DOM. The browser then recalculates which CSS rules apply (Style), figures out the size and position of every affected element (Layout), draws the visual appearance of those elements into bitmaps (Paint), and finally assembles all the bitmaps together on the screen (Composite). Each stage builds on the previous one, which means triggering an early stage forces every later stage to run as well.</p>
+
+<p><strong>Layout</strong> is the most expensive stage to trigger repeatedly. It is caused by any change to a property that affects the geometry of the page — <code>width</code>, <code>height</code>, <code>margin</code>, <code>padding</code>, <code>top</code>, <code>left</code>, <code>font-size</code>, and many others. When you animate an element's <code>width</code> from 100 px to 200 px, the browser must recalculate the position and size of every element that might be affected by that change — potentially the entire document. This is called a <em>reflow</em>.</p>
+
+<p><strong>Paint</strong> is triggered when the visual appearance of an element changes in a way that doesn't affect geometry — changing <code>color</code>, <code>background-color</code>, <code>border-color</code>, <code>box-shadow</code>, and similar properties. The browser must re-rasterize the pixels in the affected region, writing new colour values into the bitmap for that layer. Paint is cheaper than layout but still requires the CPU to do meaningful work on every frame it fires.</p>
+
+<p><strong>Compositing</strong> is the final and cheapest stage. The browser takes pre-painted bitmaps (stored as GPU textures after layer promotion) and combines them on the GPU using fast matrix mathematics. Moving, scaling, rotating, or fading a GPU layer requires only compositing — no geometry recalculation, no pixel rasterization. This is why compositing-only animations are the target: the GPU handles the work in a fraction of a millisecond, leaving the CPU almost entirely free. Keeping every frame of an animation in the composite stage alone is the single most important technique for reaching consistent 60 fps.</p>
+
+<p>The table below summarises which pipeline stages each category of property triggers:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Property category</th>
+      <th>Example properties</th>
+      <th>Triggers Layout</th>
+      <th>Triggers Paint</th>
+      <th>Triggers Composite</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Geometry</td>
+      <td><code>width</code>, <code>height</code>, <code>margin</code>, <code>top</code>, <code>left</code></td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Visual appearance</td>
+      <td><code>color</code>, <code>background</code>, <code>box-shadow</code></td>
+      <td>No</td>
+      <td>Yes</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Composited only</td>
+      <td><code>transform</code>, <code>opacity</code></td>
+      <td>No</td>
+      <td>No</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>GPU Acceleration and Composited Properties</strong></p>
+
+<p>Only two CSS properties are guaranteed to animate without triggering layout or paint on modern browsers: <code>transform</code> and <code>opacity</code>. This makes them the cornerstones of high-performance animation.</p>
+
+<p><code>transform</code> covers a wide range of visual effects through its functional notation: <code>translate()</code> moves an element, <code>scale()</code> resizes it, <code>rotate()</code> spins it, <code>skew()</code> shears it, and <code>matrix()</code> combines arbitrary transformations. Crucially, all of these operations are applied <em>after</em> layout — the browser already knows the element's size and position; the transform is just a mathematical operation applied to the GPU texture. A translated element does not push other elements around, and the browser never needs to reflow the document.</p>
+
+<p>When the browser determines that an element needs to be composited independently — because it has a CSS animation on <code>transform</code> or <code>opacity</code>, uses <code>position: fixed</code>, has <code>will-change</code> set, or meets several other criteria — it <em>promotes</em> that element to its own <strong>compositor layer</strong>. The element is rasterized into a GPU texture once, and from that point forward the GPU can manipulate it at very low cost.</p>
+
+<p>You can give the browser an early hint to promote an element before the animation starts using the <code>will-change</code> property:</p>
+
+<pre><code>/* Tell the browser this element will animate its transform */
+.animated-card {
+  will-change: transform;
+}
+
+/* Or hint for opacity changes */
+.fade-element {
+  will-change: opacity;
+}</code></pre>
+
+<p>Without <code>will-change</code>, the browser may delay promotion until the first frame of the animation, causing a visible hitch on that initial frame as it rasterizes the element into a GPU texture. With <code>will-change</code> declared in advance (for example, on hover of a parent element before the child animates), the browser can perform that promotion during an idle moment.</p>
+
+<p>However, <code>will-change</code> carries a real cost: each promoted layer consumes GPU memory. A promoted element's bitmap must live on the GPU for as long as the promotion is active. On desktop hardware with gigabytes of VRAM this is rarely a problem, but on mobile devices with shared and constrained memory it can cause the browser to evict other textures, slow compositing, and even crash low-memory tabs. The correct pattern is to apply <code>will-change</code> just before animation begins and remove it as soon as the animation ends:</p>
+
+<pre><code>const card = document.querySelector('.card');
+
+card.addEventListener('mouseenter', () => {
+  card.style.willChange = 'transform';
+});
+
+card.addEventListener('mouseleave', () => {
+  // Remove hint once animation has settled
+  card.style.willChange = 'auto';
+});</code></pre>
+
+<p>A practical rule: never apply <code>will-change</code> globally to large numbers of elements or as a blanket "performance fix." Measure first; apply selectively only to elements that demonstrably benefit.</p>
+
+<p><strong>Avoiding Layout Thrashing</strong></p>
+
+<p>Layout thrashing is a particularly insidious performance problem. It occurs when JavaScript alternately writes to the DOM and then immediately reads a layout-dependent property, forcing the browser to perform a <em>synchronous reflow</em> — abandoning deferred work to answer the read right now. Each forced reflow can take several milliseconds, and if you do this inside a loop over many elements you can easily spend 100 ms or more on layout alone within a single frame.</p>
+
+<p>Consider this example of accidental layout thrashing:</p>
+
+<pre><code>// BAD: reads and writes are interleaved
+const boxes = document.querySelectorAll('.box');
+
+boxes.forEach(box => {
+  const width = box.offsetWidth;       // READ — forces synchronous reflow
+  box.style.width = (width * 1.1) + 'px'; // WRITE — invalidates layout
+  // On the next iteration, the READ forces another reflow
+});</code></pre>
+
+<p>Because each <code>offsetWidth</code> read follows a <code>style.width</code> write, the browser cannot batch the layout work. It must perform a full reflow before returning the value of <code>offsetWidth</code>, then another reflow on the next iteration. With 20 boxes this produces 20 synchronous reflows in a single frame.</p>
+
+<p>The fix is to batch all reads before all writes:</p>
+
+<pre><code>// GOOD: reads are batched first, then writes
+const boxes = document.querySelectorAll('.box');
+const widths = [];
+
+// Phase 1: read all values (only one reflow needed, or possibly none)
+boxes.forEach(box => {
+  widths.push(box.offsetWidth);
+});
+
+// Phase 2: write all values (layout is invalidated once, deferred to next frame)
+boxes.forEach((box, i) => {
+  box.style.width = (widths[i] * 1.1) + 'px';
+});</code></pre>
+
+<p>Layout-triggering properties you should be aware of include: <code>offsetWidth</code>, <code>offsetHeight</code>, <code>offsetTop</code>, <code>offsetLeft</code>, <code>clientWidth</code>, <code>clientHeight</code>, <code>scrollTop</code>, <code>scrollLeft</code>, <code>getBoundingClientRect()</code>, <code>getComputedStyle()</code>, and others. Any of these, read after a style mutation, will force a synchronous reflow.</p>
+
+<p>Inside a <code>requestAnimationFrame</code> callback, the recommended pattern is to perform all reads at the very top of the callback — before any mutations — and all writes afterward. This respects the browser's frame lifecycle and prevents forced synchronous reflows:</p>
+
+<pre><code>requestAnimationFrame(timestamp => {
+  // READS first
+  const rect = element.getBoundingClientRect();
+  const scrollY = window.scrollY;
+
+  // WRITES after
+  element.style.transform = `translateY(${scrollY * 0.5}px)`;
+});</code></pre>
+
+<p>A deeper issue is animating geometry properties at all. Animating <code>top</code> or <code>left</code> via JavaScript — for example incrementing them by a pixel count each frame — triggers layout on every frame by definition. The correct approach is to use <code>transform: translate()</code> instead. Both produce identical visual movement, but the transform version never triggers layout:</p>
+
+<pre><code>// BAD: triggers layout every frame
+let pos = 0;
+function animate() {
+  pos += 2;
+  element.style.left = pos + 'px'; // layout!
+  requestAnimationFrame(animate);
+}
+
+// GOOD: compositor-only, no layout
+let pos = 0;
+function animate() {
+  pos += 2;
+  element.style.transform = `translateX(${pos}px)`; // composite only
+  requestAnimationFrame(animate);
+}</code></pre>
+
+<p><strong>Choosing Between CSS and JavaScript Animations</strong></p>
+
+<p>The choice between CSS animations/transitions and JavaScript-driven animations is not purely stylistic; it has performance, architectural, and capability implications.</p>
+
+<p><strong>CSS transitions and animations</strong> are declarative. You describe the start state, end state, and the timing function, and the browser handles everything in between. When the animated properties are <code>transform</code> and <code>opacity</code>, the browser can hand the entire animation to the compositor thread, which runs independently of the main JavaScript thread. This means your animation can continue smoothly even if the main thread is busy parsing JavaScript, handling events, or executing application logic. CSS animations are the right choice for UI micro-interactions: hover effects, modal entrance/exit transitions, loading spinners, button state changes.</p>
+
+<pre><code>/* CSS transition — compositor-thread eligible */
+.modal {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.modal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}</code></pre>
+
+<p><strong>JavaScript animations with <code>requestAnimationFrame</code></strong> give you frame-by-frame control. This is essential when the animation depends on runtime values — physics simulations, scroll position, pointer coordinates, audio levels, game state — that CSS cannot express declaratively. The downside is that the animation logic runs on the main thread, so heavy computation in the same frame as the animation can cause jank. JavaScript animations are appropriate for parallax scroll effects, physics-based spring simulations, particle systems, canvas-based games, and anything where the target value is calculated dynamically.</p>
+
+<p><strong>The Web Animations API (WAAPI)</strong> offers a middle ground. It is a JavaScript API that drives animations with the same engine as CSS animations, meaning it retains compositor-thread eligibility for <code>transform</code> and <code>opacity</code> while giving JavaScript control over playback, timing, and dynamic values:</p>
+
+<pre><code>const animation = element.animate(
+  [
+    { transform: 'translateX(0px)', opacity: 1 },
+    { transform: 'translateX(300px)', opacity: 0 }
+  ],
+  {
+    duration: 500,
+    easing: 'ease-in-out',
+    fill: 'forwards'
+  }
+);
+
+// JavaScript control over playback
+animation.pause();
+animation.currentTime = 250; // seek to midpoint
+animation.play();</code></pre>
+
+<p>The following table summarises the trade-offs:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Approach</th>
+      <th>Compositor thread eligible</th>
+      <th>Dynamic / runtime values</th>
+      <th>Best use case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CSS transitions / animations</td>
+      <td>Yes (transform &amp; opacity)</td>
+      <td>No — values set at author time</td>
+      <td>UI state transitions, micro-interactions</td>
+    </tr>
+    <tr>
+      <td>requestAnimationFrame (JS)</td>
+      <td>Only with composited properties</td>
+      <td>Yes — full runtime flexibility</td>
+      <td>Physics, scroll effects, games, data-driven animation</td>
+    </tr>
+    <tr>
+      <td>Web Animations API</td>
+      <td>Yes (transform &amp; opacity)</td>
+      <td>Partially — keyframes can be generated at runtime</td>
+      <td>Programmatic UI animations requiring playback control</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Using requestAnimationFrame Correctly</strong></p>
+
+<p><code>requestAnimationFrame</code> (rAF) is the correct mechanism for driving JavaScript animation loops. Unlike <code>setTimeout</code> or <code>setInterval</code>, which fire on arbitrary timer intervals that have no relationship to the display's refresh cycle, rAF schedules your callback to run just before the browser paints the next frame. This synchronisation with the rendering pipeline means your changes are always incorporated into the upcoming frame rather than arriving mid-frame or being delayed to the frame after.</p>
+
+<p>A minimal correct animation loop looks like this:</p>
+
+<pre><code>let rafId = null;
+let startTime = null;
+const duration = 1000; // 1 second
+
+function animate(timestamp) {
+  if (startTime === null) startTime = timestamp;
+  const elapsed = timestamp - startTime;
+  const progress = Math.min(elapsed / duration, 1); // 0 → 1
+
+  // Apply easing (ease-in-out cubic)
+  const ease = progress < 0.5
+    ? 4 * progress ** 3
+    : 1 - (-2 * progress + 2) ** 3 / 2;
+
+  element.style.transform = `translateX(${ease * 300}px)`;
+
+  if (progress < 1) {
+    rafId = requestAnimationFrame(animate);
+  } else {
+    rafId = null; // animation complete
+  }
+}
+
+rafId = requestAnimationFrame(animate);</code></pre>
+
+<p>Several important points are illustrated here:</p>
+
+<ul>
+  <li><strong>The timestamp argument</strong> is a <code>DOMHighResTimeStamp</code> provided by the browser, measured in milliseconds with sub-millisecond precision. Always use this timestamp — never <code>Date.now()</code> — to calculate elapsed time and progress. This ensures the animation plays at the correct speed regardless of whether it is running at 30, 60, or 120 Hz.</li>
+  <li><strong>Delta-time calculation</strong> (the <code>elapsed</code> variable above) decouples animation progress from frame rate. If a frame is delayed — because the user switched tabs, the device throttled the CPU, or an event handler ran long — the animation will jump forward appropriately rather than falling behind or losing frames silently.</li>
+  <li><strong>Cancelling the loop</strong> with <code>cancelAnimationFrame(rafId)</code> is essential when an animation completes, when the animated element is removed from the DOM, or when the containing component unmounts (in a framework context). Failing to cancel a loop leaves it running indefinitely, wasting CPU time and potentially causing memory leaks if the callback holds references to removed DOM nodes.</li>
+</ul>
+
+<pre><code>// Cancel the loop on user action or cleanup
+document.querySelector('#stop').addEventListener('click', () => {
+  if (rafId !== null) {
+    cancelAnimationFrame(rafId);
+    rafId = null;
+  }
+});</code></pre>
+
+<ul>
+  <li><strong>Avoid heavy computation inside rAF callbacks.</strong> You have roughly 16 ms for the entire frame, shared with style calculation, layout, paint, and compositing. If your callback spends 10 ms sorting an array or traversing a large data structure, you have already consumed most of the budget before any rendering work begins. Move expensive computation outside the animation loop or spread it across idle periods using <code>requestIdleCallback</code>.</li>
+</ul>
+
+<p><strong>Measuring and Profiling Animation Performance</strong></p>
+
+<p>Optimising animation performance without measurement is guesswork. The browser's built-in tooling provides precise, actionable data about exactly what is happening on each frame.</p>
+
+<p><strong>The Performance panel in Chrome DevTools</strong> is the primary tool. To use it: open DevTools, navigate to the Performance tab, click Record, perform the animation, then stop recording. The resulting flame chart shows every activity on the main thread and compositor thread across time. Each horizontal band represents a different stage of the pipeline. Key things to look for:</p>
+
+<ul>
+  <li><strong>Long frames</strong>: frames taller than the 16 ms line in the frame timeline are immediately visible. Clicking them reveals what caused the delay.</li>
+  <li><strong>Purple "Recalculate Style" blocks</strong>: indicate CSS rule matching is being performed repeatedly, often caused by class toggling inside a loop.</li>
+  <li><strong>Green "Layout" blocks</strong>: indicate a reflow occurred. If these appear every frame, your animation is triggering layout. The Details pane shows the JavaScript call that caused the forced reflow.</li>
+  <li><strong>Green "Paint" blocks</strong>: indicate rasterization is occurring. Ideally, these should appear only once at the start of an animation (to create the GPU texture) and not on every frame.</li>
+</ul>
+
+<p><strong>The Rendering tab overlays</strong> (accessible via DevTools Menu → More tools → Rendering) provide real-time visual feedback:</p>
+
+<ul>
+  <li><strong>FPS Meter</strong>: displays a live frames-per-second counter and a graph of recent frame times in the corner of the page, making dropped frames immediately visible.</li>
+  <li><strong>Paint Flashing</strong>: overlays a green highlight on any region that is being repainted. If your composited animation is constantly flashing green, something in or near the animated element is triggering paint unnecessarily — often a <code>box-shadow</code> or <code>border-radius</code> change alongside the transform.</li>
+  <li><strong>Layer Borders</strong>: draws outlines around each compositor layer, helping you see how many layers have been promoted and whether unexpected elements have been pulled into their own layers.</li>
+</ul>
+
+<p><strong>Frame time targets</strong> depend on the display:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Display refresh rate</th>
+      <th>Target frame time</th>
+      <th>Frames per second</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>60 Hz (standard)</td>
+      <td>&lt; 16 ms</td>
+      <td>60 fps</td>
+    </tr>
+    <tr>
+      <td>90 Hz (mid-range mobile)</td>
+      <td>&lt; 11 ms</td>
+      <td>90 fps</td>
+    </tr>
+    <tr>
+      <td>120 Hz (ProMotion / high-end)</td>
+      <td>&lt; 8 ms</td>
+      <td>120 fps</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>When profiling, always test on target hardware. An animation that profiles at 60 fps on a developer laptop may deliver only 30 fps on an entry-level Android phone. Chrome DevTools' CPU throttling feature (in the Performance panel) allows you to simulate 4× or 6× slowdown, giving a rough approximation of less powerful devices without leaving your desk.</p>
+
+<p><strong>Animation Best Practices Summary</strong></p>
+
+<p>The following principles consolidate everything covered above into a concise working checklist:</p>
+
+<ul>
+  <li><strong>Animate only <code>transform</code> and <code>opacity</code>.</strong> These are the only two properties that stay entirely in the compositor stage. Every other property either triggers paint or layout. If you need to move something, use <code>translateX</code>/<code>translateY</code> instead of <code>left</code>/<code>top</code>. If you need to resize something visually, use <code>scale()</code> instead of <code>width</code>/<code>height</code>.</li>
+  <li><strong>Use <code>will-change</code> selectively and temporarily.</strong> Apply it just before an animation begins and remove it with <code>will-change: auto</code> as soon as the animation ends. Never apply it to dozens of elements as a blanket optimisation; the GPU memory cost will outweigh any benefit.</li>
+  <li><strong>Drive animation loops with <code>requestAnimationFrame</code>, not timers.</strong> Use the provided timestamp to compute delta time, keeping animation speed consistent across different refresh rates. Always call <code>cancelAnimationFrame</code> when the animation finishes or the component is torn down.</li>
+  <li><strong>Separate DOM reads from DOM writes.</strong> Batch all layout reads at the beginning of your frame logic, then perform all writes. Never interleave reads and writes inside a loop. This pattern prevents forced synchronous reflows.</li>
+  <li><strong>Choose CSS for simple state transitions; JavaScript (or WAAPI) for dynamic animations.</strong> CSS animations running on the compositor thread are immune to main-thread jank. Use them wherever the animation parameters can be expressed in static CSS. Reserve JavaScript animation for cases requiring runtime-computed values.</li>
+  <li><strong>Limit the number of simultaneously promoted layers.</strong> Each promoted element consumes GPU memory. Animations involving dozens of promoted elements simultaneously — especially on mobile — can exhaust GPU memory budgets, causing the browser to de-promote layers mid-animation and triggering paint storms. Profile layer counts in DevTools' Layers panel when working on complex animations.</li>
+  <li><strong>Measure before and after every optimisation.</strong> The Performance panel gives you objective frame-time data. Record a baseline, make one change, record again, and compare. This prevents wasted effort on changes that have no measurable impact and ensures real improvements are confirmed rather than assumed.</li>
+</ul>
+
+<p>Taken together, these principles form a discipline: design animations to live entirely in the compositor, write JavaScript that respects the browser's rendering lifecycle, and let measurement — not intuition — guide every optimisation decision.</p>
+        <div class="notes"><strong>Notes</strong>Covers the full pipeline from layout through compositing, GPU layer promotion via will-change, layout thrashing patterns and fixes, CSS vs JS vs WAAPI trade-offs, correct requestAnimationFrame usage including delta-time and cancellation, and DevTools profiling workflow. Tables included for pipeline stages, property costs, API trade-offs, and frame-time targets.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

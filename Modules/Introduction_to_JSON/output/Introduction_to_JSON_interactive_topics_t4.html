@@ -1,0 +1,333 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stringifying JavaScript Objects to JSON</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Stringifying JavaScript Objects to JSON</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Stringifying JavaScript Objects to JSON</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When JavaScript applications need to send data over a network, save it to storage, or share it with an external system, the data must be converted from its native in-memory form into a portable text format. JSON (JavaScript Object Notation) is the standard for this, and <code>JSON.stringify()</code> is the built-in method that performs this conversion. Understanding it thoroughly — including its edge cases, its optional parameters, and the contexts where it is required — is essential for any web developer working with APIs, local storage, or data serialization.</p>
+
+<p><strong>What Is JSON.stringify()?</strong></p>
+<p><code>JSON.stringify()</code> takes a JavaScript value and converts it into a JSON-formatted string. That output is always a plain string of text, not a JavaScript object, not a special data structure — just characters. This makes it universally transferable: it can be sent over HTTP, written to a file, stored in a database, or saved in the browser's local storage, all without any special handling on the receiving end beyond reading text.</p>
+<p>The method is available globally in all modern browsers and in Node.js without any import or require statement. You can call it anywhere in your JavaScript code immediately:</p>
+<pre><code>const result = JSON.stringify({ name: "Alice", age: 30 });
+console.log(result);       // '{"name":"Alice","age":30}'
+console.log(typeof result); // "string"
+</code></pre>
+<p>It is important to understand that <code>JSON.stringify()</code> is the <em>inverse</em> of <code>JSON.parse()</code>. Where <code>JSON.parse()</code> takes a JSON string and reconstructs a JavaScript object from it, <code>JSON.stringify()</code> does the opposite — it takes a JavaScript value and produces a JSON string. The two methods are complementary and are routinely used together in a round-trip pattern: stringify before storing or sending, parse after retrieving or receiving.</p>
+<pre><code>const original = { city: "Paris", population: 2161000 };
+const jsonString = JSON.stringify(original);   // Converts to string
+const restored = JSON.parse(jsonString);       // Converts back to object
+
+console.log(jsonString);           // '{"city":"Paris","population":2161000}'
+console.log(restored.city);        // "Paris"
+console.log(restored === original); // false — it is a new object
+</code></pre>
+
+<p><strong>Basic Syntax and Parameters</strong></p>
+<p>The full signature of <code>JSON.stringify()</code> accepts three arguments:</p>
+<pre><code>JSON.stringify(value, replacer, space)
+</code></pre>
+<p>Only the first argument is required. The second and third are optional but powerful when you need fine-grained control over the output.</p>
+<ul>
+  <li><strong>value</strong> — The JavaScript value to serialize. This can be an object, array, string, number, boolean, or <code>null</code>. This is the only required argument.</li>
+  <li><strong>replacer</strong> — An optional filter or transformer. It can be either an array of strings (an allowlist of property names to include) or a function that is called for each key-value pair and controls what appears in the output. Passing <code>null</code> or omitting this argument applies no filtering.</li>
+  <li><strong>space</strong> — An optional formatting hint. A number specifies how many spaces to use per indentation level; a string specifies the literal characters to use. When omitted, the output is compact with no extra whitespace.</li>
+</ul>
+<p>Here are examples showing each parameter in isolation:</p>
+<pre><code>const user = { id: 1, name: "Bob", role: "admin" };
+
+// First argument only — compact output
+JSON.stringify(user);
+// '{"id":1,"name":"Bob","role":"admin"}'
+
+// With replacer array — allowlist of keys
+JSON.stringify(user, ["id", "name"]);
+// '{"id":1,"name":"Bob"}'
+
+// With space number — indented output
+JSON.stringify(user, null, 2);
+// '{
+//   "id": 1,
+//   "name": "Bob",
+//   "role": "admin"
+// }'
+</code></pre>
+
+<p><strong>When Stringification Is Needed in Web Development</strong></p>
+<p>There are three recurring scenarios where <code>JSON.stringify()</code> is not just convenient but strictly necessary.</p>
+<p>The first and most common is <strong>sending data with the Fetch API</strong>. The HTTP protocol transfers bytes of text. When you use <code>fetch()</code> to make a POST or PUT request, the <code>body</code> option must be a string (or a <code>Blob</code>, <code>FormData</code>, etc. — but for JSON payloads, always a string). Passing a raw JavaScript object directly to <code>body</code> will cause it to be coerced using <code>.toString()</code>, producing the useless string <code>"[object Object]"</code>. You must call <code>JSON.stringify()</code> explicitly:</p>
+<pre><code>const payload = { username: "alice", score: 42 };
+
+fetch("https://api.example.com/scores", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(payload)  // Required — body must be a string
+});
+</code></pre>
+<p>The <code>Content-Type: application/json</code> header tells the server what format the body is in; <code>JSON.stringify()</code> ensures the body actually <em>is</em> that format.</p>
+<p>The second scenario is <strong>working with browser storage</strong>. Both <code>localStorage</code> and <code>sessionStorage</code> are key-value stores that only accept strings. Attempting to store an object directly results in the string <code>"[object Object]"</code>, losing all structure. The correct approach is to stringify before saving and parse after retrieving:</p>
+<pre><code>const settings = { theme: "dark", fontSize: 16, notifications: true };
+
+// Saving — must stringify
+localStorage.setItem("userSettings", JSON.stringify(settings));
+
+// Retrieving — must parse
+const saved = JSON.parse(localStorage.getItem("userSettings"));
+console.log(saved.theme); // "dark"
+</code></pre>
+<p>The third scenario is <strong>communicating with any JSON-based API or service</strong>. REST APIs, GraphQL endpoints, WebSocket servers, and many message queues all expect JSON payloads: properly formatted text where property names are double-quoted, values follow JSON syntax rules, and the whole thing is a single string. A raw JavaScript object satisfies none of those constraints until it passes through <code>JSON.stringify()</code>.</p>
+
+<p><strong>How JSON.stringify() Handles Different Data Types</strong></p>
+<p>Not every JavaScript value can be represented in JSON, because JSON is a subset of JavaScript syntax with specific rules. Understanding how <code>JSON.stringify()</code> handles each type prevents hard-to-diagnose bugs where data silently disappears or changes shape.</p>
+<p>The following table summarizes behavior by type:</p>
+<table>
+  <thead>
+    <tr>
+      <th>JavaScript Value</th>
+      <th>JSON Output</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>String</code></td>
+      <td>Quoted string</td>
+      <td>Serialized as-is with double quotes</td>
+    </tr>
+    <tr>
+      <td><code>Number</code> (finite)</td>
+      <td>Number literal</td>
+      <td>Serialized as-is</td>
+    </tr>
+    <tr>
+      <td><code>Boolean</code></td>
+      <td><code>true</code> / <code>false</code></td>
+      <td>Serialized as-is</td>
+    </tr>
+    <tr>
+      <td><code>null</code></td>
+      <td><code>null</code></td>
+      <td>Serialized as-is</td>
+    </tr>
+    <tr>
+      <td>Plain <code>Object</code></td>
+      <td>JSON object <code>{}</code></td>
+      <td>Own enumerable properties are included</td>
+    </tr>
+    <tr>
+      <td><code>Array</code></td>
+      <td>JSON array <code>[]</code></td>
+      <td>All elements included; unsupported element types become <code>null</code></td>
+    </tr>
+    <tr>
+      <td><code>undefined</code></td>
+      <td>Omitted (in objects) / <code>null</code> (in arrays)</td>
+      <td>Object properties with <code>undefined</code> values are dropped entirely</td>
+    </tr>
+    <tr>
+      <td><code>Function</code></td>
+      <td>Omitted (in objects) / <code>null</code> (in arrays)</td>
+      <td>Functions cannot be represented in JSON</td>
+    </tr>
+    <tr>
+      <td><code>Symbol</code></td>
+      <td>Omitted</td>
+      <td>Symbol-keyed and Symbol-valued properties are silently dropped</td>
+    </tr>
+    <tr>
+      <td><code>NaN</code></td>
+      <td><code>null</code></td>
+      <td>Not a valid JSON number</td>
+    </tr>
+    <tr>
+      <td><code>Infinity</code> / <code>-Infinity</code></td>
+      <td><code>null</code></td>
+      <td>Not a valid JSON number</td>
+    </tr>
+    <tr>
+      <td><code>Date</code></td>
+      <td>ISO 8601 string</td>
+      <td>Calls <code>.toISOString()</code> automatically</td>
+    </tr>
+  </tbody>
+</table>
+<p>Observe the silent omission of <code>undefined</code> and functions in an object context:</p>
+<pre><code>const data = {
+  name: "Carol",
+  age: undefined,        // omitted
+  greet: function() {},  // omitted
+  score: NaN,            // becomes null
+  total: Infinity        // becomes null
+};
+
+JSON.stringify(data);
+// '{"name":"Carol","score":null,"total":null}'
+</code></pre>
+<p>This silent omission is a common source of bugs. If you expect a property to be present in the output and it has an <code>undefined</code> value or holds a function, it will simply not appear in the JSON string with no error or warning. Always verify what the stringified output actually looks like during development.</p>
+<p>In arrays, the behavior is slightly different — unsupported values are replaced with <code>null</code> rather than omitted, so array indices are preserved:</p>
+<pre><code>const arr = [1, undefined, function() {}, "hello", NaN];
+JSON.stringify(arr);
+// '[1,null,null,"hello",null]'
+</code></pre>
+
+<p><strong>Using the Replacer to Control Output</strong></p>
+<p>The replacer argument gives you programmatic control over what ends up in the JSON string. There are two forms: an array allowlist and a function transformer.</p>
+<p><strong>Replacer as an array</strong> — When you pass an array of strings, only properties whose names appear in that array are included in the output. This is the simplest way to whittle down a large object to only the fields you want to expose:</p>
+<pre><code>const product = {
+  id: 101,
+  name: "Laptop",
+  price: 999.99,
+  internalCost: 450.00,  // should not leave the system
+  supplierId: "S-42"     // should not leave the system
+};
+
+JSON.stringify(product, ["id", "name", "price"]);
+// '{"id":101,"name":"Laptop","price":999.99}'
+</code></pre>
+<p>The array replacer does not apply recursively in a configurable way — it filters all objects at all nesting levels by the same list of property names.</p>
+<p><strong>Replacer as a function</strong> — The function form is more powerful. It is called once for each key-value pair (and once initially with an empty-string key and the entire value as the root). It receives the key and value, and whatever it returns becomes the serialized value. Returning <code>undefined</code> excludes the property entirely:</p>
+<pre><code>const config = {
+  host: "db.example.com",
+  port: 5432,
+  username: "admin",
+  password: "s3cr3t",   // must not be serialized
+  token: "abc123xyz"    // must not be serialized
+};
+
+const safeConfig = JSON.stringify(config, (key, value) => {
+  if (key === "password" || key === "token") {
+    return undefined; // exclude this property
+  }
+  return value; // include everything else unchanged
+});
+
+console.log(safeConfig);
+// '{"host":"db.example.com","port":5432,"username":"admin"}'
+</code></pre>
+<p>You can also use the function to <em>transform</em> values rather than merely exclude them:</p>
+<pre><code>const order = {
+  item: "Widget",
+  quantity: 5,
+  unitPrice: 4.5,
+  discount: 0.1
+};
+
+JSON.stringify(order, (key, value) => {
+  if (key === "discount") {
+    return `${(value * 100).toFixed(0)}%`; // transform number to percentage string
+  }
+  return value;
+});
+// '{"item":"Widget","quantity":5,"unitPrice":4.5,"discount":"10%"}'
+</code></pre>
+<p>This sanitization use case is particularly important when logging objects for debugging or sending telemetry data — sensitive credentials should never be serialized into a log line or a network request body without being explicitly removed or masked.</p>
+
+<p><strong>Pretty-Printing JSON with the Space Argument</strong></p>
+<p>By default, <code>JSON.stringify()</code> produces a compact string with no extra whitespace. This is ideal for network transmission because it minimizes payload size. However, compact JSON is difficult to read, making it unsuitable for debugging or logging.</p>
+<p>The third argument, <code>space</code>, controls indentation. Passing a <em>number</em> inserts that many space characters per level of nesting:</p>
+<pre><code>const profile = {
+  user: { name: "Dana", age: 28 },
+  hobbies: ["reading", "cycling"],
+  active: true
+};
+
+console.log(JSON.stringify(profile, null, 2));
+</code></pre>
+<pre><code>{
+  "user": {
+    "name": "Dana",
+    "age": 28
+  },
+  "hobbies": [
+    "reading",
+    "cycling"
+  ],
+  "active": true
+}
+</code></pre>
+<p>Passing a <em>string</em> uses that string as the indent unit. A common choice is <code>"\t"</code> for a tab character, which some developers prefer for readability in log files:</p>
+<pre><code>JSON.stringify(profile, null, "\t");
+// Produces output indented with tab characters instead of spaces
+</code></pre>
+<p>If the string is longer than 10 characters, only the first 10 are used — this is an enforced limit in the specification.</p>
+<p>You can also use a custom string like <code>"--"</code> for unconventional visual formatting, though this is rarely practical:</p>
+<pre><code>JSON.stringify({ a: 1, b: 2 }, null, "--");
+// '{
+// --"a": 1,
+// --"b": 2
+// }'
+</code></pre>
+<p>A useful rule of thumb: use a <code>space</code> value of <code>2</code> during development and debugging, and omit it (or pass <code>0</code> or <code>null</code>) in production code that transmits data over a network. Even for small payloads, unnecessary whitespace adds bytes; at scale, this matters. For logging to the console during development, pretty-printing makes JSON immediately scannable rather than requiring you to mentally parse a dense one-liner.</p>
+<pre><code>// Development — easy to read in the console
+console.log(JSON.stringify(responseData, null, 2));
+
+// Production — minimal size in a network request
+fetch(endpoint, { method: "POST", body: JSON.stringify(payload) });
+</code></pre>
+        <div class="notes"><strong>Notes</strong>How to convert JavaScript objects into JSON strings using JSON.stringify(), and when this operation is needed in web development.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

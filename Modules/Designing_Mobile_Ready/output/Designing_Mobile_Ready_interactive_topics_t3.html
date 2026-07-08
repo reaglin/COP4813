@@ -1,0 +1,312 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flexible Images and Media</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Flexible Images and Media</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Flexible Images and Media</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>One of the most fundamental challenges in responsive web design is ensuring that images, videos, and other embedded media adapt gracefully to screens of every size. A layout that looks pristine on a 1440-pixel-wide desktop monitor can completely break on a 375-pixel-wide phone if the media inside it is fixed in size. Unlike text, which naturally reflows as its container narrows, images and video by default render at their intrinsic pixel dimensions — meaning a 900-pixel-wide photo will simply overflow its container on smaller screens unless specific techniques are applied. This topic covers the full toolkit for making media fluid, from the simplest one-line CSS fix all the way through art direction, embedded iframes, responsive background images, and performance best practices.</p>
+
+<p><strong>The max-width Technique for Images</strong></p>
+
+<p>The most foundational and widely used technique for responsive images requires just two lines of CSS. By setting <code>max-width: 100%</code> on an image, you instruct the browser that the image should never exceed the width of its parent container. If the container is 600px wide and the image's natural size is 900px, the browser will cap the rendered width at 600px. If the container is wider than 900px, the image will simply display at its natural size — it will not stretch beyond its intrinsic dimensions, which would cause ugly pixelation.</p>
+
+<p>Pairing <code>max-width: 100%</code> with <code>height: auto</code> is equally important. Without it, the browser keeps the original height while scaling down the width, squashing the image and distorting its aspect ratio. With <code>height: auto</code>, the height adjusts proportionally as the width changes, preserving the image's original look at every size.</p>
+
+<pre><code>img {
+  max-width: 100%;
+  height: auto;
+}</code></pre>
+
+<p>Many developers apply this rule globally to all images at the top of their stylesheet as a baseline reset. This technique requires no JavaScript, works in every modern browser, and is considered the <em>minimum acceptable baseline</em> for any responsive project. It does not, however, solve the problem of sending a 2 MB hero image to a device that only needs a 300px thumbnail — for that, more advanced approaches are necessary.</p>
+
+<p><strong>Responsive Images with the srcset Attribute</strong></p>
+
+<p>The <code>srcset</code> attribute on the <code>&lt;img&gt;</code> element allows you to provide a list of candidate image files so the browser can select the most appropriate one based on the device's screen resolution and viewport width. This is a native HTML feature — no JavaScript or server-side logic is required.</p>
+
+<p>There are two descriptor types you can use inside <code>srcset</code>:</p>
+
+<ul>
+  <li><strong>Width descriptors (<code>w</code>):</strong> You declare the actual pixel width of each image file. The browser uses this information, combined with the <code>sizes</code> attribute, to calculate which file is the best match. This is the recommended approach in most scenarios.</li>
+  <li><strong>Pixel density descriptors (<code>x</code>):</strong> You declare how many device pixels correspond to one CSS pixel. For example, <code>2x</code> targets high-DPI (Retina) displays. This is simpler to write but gives the browser less information to work with.</li>
+</ul>
+
+<p>Here is a practical example using width descriptors alongside the <code>sizes</code> attribute:</p>
+
+<pre><code>&lt;img
+  src="hero-800.jpg"
+  srcset="hero-400.jpg 400w,
+          hero-800.jpg 800w,
+          hero-1200.jpg 1200w"
+  sizes="(max-width: 600px) 100vw,
+         (max-width: 1024px) 80vw,
+         60vw"
+  alt="A scenic mountain landscape"
+&gt;</code></pre>
+
+<p>The <code>sizes</code> attribute tells the browser how wide the image will be rendered at each viewport breakpoint — expressed as a CSS length value. In the example above, on viewports up to 600px wide the image will occupy the full viewport width (<code>100vw</code>); between 601px and 1024px it will take up 80% of the viewport; and on larger screens it will be 60% of the viewport. Armed with that layout information and the pixel widths declared in <code>srcset</code>, the browser picks the smallest file that will still look sharp. On a 375px-wide phone screen, for instance, it will download <code>hero-400.jpg</code> instead of the full <code>hero-1200.jpg</code>, dramatically reducing data transfer. On a Retina display it might step up one size to ensure crispness.</p>
+
+<p>The <code>src</code> attribute must always be present as a fallback for browsers that do not support <code>srcset</code>, though such browsers are extremely rare today. The key benefit of this approach is that the browser — not the developer — makes the final selection, and it can factor in connection speed, user preferences, and cached assets in ways that are impossible to predict with server-side logic alone.</p>
+
+<p><strong>Using the picture Element for Art Direction</strong></p>
+
+<p>The <code>srcset</code> technique works well when you want to serve the same image at different sizes. But sometimes a simple scale-down is not enough. Consider a wide landscape photo used as a hero banner: at full width it shows a mountain range with a small person in the center. Scaled down to a phone-sized 375px slot, that person becomes invisible and the image loses its intended impact. In this scenario you want to show a <em>different crop or composition</em> at different breakpoints — perhaps a tightly framed portrait of just the person at small sizes. This is called <strong>art direction</strong>, and it is solved with the <code>&lt;picture&gt;</code> element.</p>
+
+<pre><code>&lt;picture&gt;
+  &lt;source
+    media="(max-width: 480px)"
+    srcset="hero-portrait-480.jpg"
+  &gt;
+  &lt;source
+    media="(max-width: 1024px)"
+    srcset="hero-landscape-1024.jpg"
+  &gt;
+  &lt;img
+    src="hero-landscape-full.jpg"
+    alt="A climber summiting a snow-capped peak"
+  &gt;
+&lt;/picture&gt;</code></pre>
+
+<p>The browser evaluates each <code>&lt;source&gt;</code> element in order from top to bottom and uses the first one whose <code>media</code> condition matches the current environment. If none match — or if the browser does not support <code>&lt;picture&gt;</code> at all — it falls back to the <code>&lt;img&gt;</code> element, which must always be present as the last child. This fallback ensures backward compatibility with older browsers while still delivering the best experience to modern ones.</p>
+
+<p>Each <code>&lt;source&gt;</code> can also include its own <code>srcset</code> and <code>sizes</code> attributes, combining art direction with resolution switching for even finer control. The <code>type</code> attribute can additionally be used to specify image formats, allowing you to offer a WebP version to browsers that support it and a JPEG to those that do not:</p>
+
+<pre><code>&lt;picture&gt;
+  &lt;source
+    type="image/webp"
+    srcset="hero.webp 1x, hero@2x.webp 2x"
+  &gt;
+  &lt;img
+    src="hero.jpg"
+    srcset="hero.jpg 1x, hero@2x.jpg 2x"
+    alt="Hero image"
+  &gt;
+&lt;/picture&gt;</code></pre>
+
+<p>Art direction with <code>&lt;picture&gt;</code> gives designers precise control over which visual story is told at each screen size, going far beyond simple resizing and making it an essential technique for professional responsive design.</p>
+
+<p><strong>Fluid Video and Embedded Media</strong></p>
+
+<p>Native HTML5 <code>&lt;video&gt;</code> elements respond to the same CSS technique used for images. Remove any fixed <code>width</code> and <code>height</code> attributes from the element itself and apply <code>width: 100%</code> and <code>height: auto</code> via CSS:</p>
+
+<pre><code>video {
+  width: 100%;
+  height: auto;
+}</code></pre>
+
+<p>For even more precise control, the modern CSS <code>aspect-ratio</code> property lets you lock a specific ratio without needing extra wrapper elements:</p>
+
+<pre><code>video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}</code></pre>
+
+<p>This tells the browser to always render the video at exactly a 16:9 ratio regardless of how wide or narrow the container is, eliminating any risk of distortion.</p>
+
+<p>Embedded third-party media — such as YouTube or Vimeo iframes — is significantly more challenging because an <code>&lt;iframe&gt;</code> does not behave like a native media element. Historically, the most reliable solution was the <strong>padding-bottom hack</strong>, also called the intrinsic ratio technique:</p>
+
+<pre><code>.video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 9 ÷ 16 = 0.5625 = 56.25% */
+  height: 0;
+  overflow: hidden;
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}</code></pre>
+
+<pre><code>&lt;div class="video-wrapper"&gt;
+  &lt;iframe
+    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+    frameborder="0"
+    allowfullscreen
+  &gt;&lt;/iframe&gt;
+&lt;/div&gt;</code></pre>
+
+<p>The trick works because <code>padding-bottom</code> expressed as a percentage is calculated relative to the element's <em>width</em>, not its height. By setting it to 56.25% (which equals 9 divided by 16), the wrapper's height always equals 56.25% of its own width, locking it to a 16:9 ratio. The iframe is then absolutely positioned to fill the wrapper completely. In modern browsers you can instead use <code>aspect-ratio: 16 / 9</code> directly on the wrapper and skip the padding hack entirely.</p>
+
+<p>One important caveat: always test embedded third-party iframes thoroughly. External services sometimes inject their own inline width and height styles via JavaScript, which can override your CSS. In such cases, using <code>!important</code> or replacing the default embed code with a facade (a clickable thumbnail that loads the iframe on demand) may be necessary.</p>
+
+<p><strong>CSS background-size for Responsive Background Images</strong></p>
+
+<p>When an image is applied as a CSS background rather than an <code>&lt;img&gt;</code> element, its responsiveness is controlled through the <code>background-size</code> property. There are two primary keyword values:</p>
+
+<ul>
+  <li><strong><code>background-size: cover</code></strong> — Scales the image as large as necessary so that the background area is completely filled. The image's aspect ratio is preserved, and any portion that extends beyond the container is clipped. This is ideal for hero sections and full-bleed banners where covering the entire area matters more than showing the complete image.</li>
+  <li><strong><code>background-size: contain</code></strong> — Scales the image to the largest size at which both its width and height fit inside the container. The entire image is always visible, but it may leave empty space (letterboxing) if the container's aspect ratio differs from the image's. This is suited for logos, icons, or cases where showing the whole image is essential.</li>
+</ul>
+
+<pre><code>.hero {
+  background-image: url('hero.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  height: 60vh;
+}</code></pre>
+
+<p>The <code>background-position</code> property determines which part of the image stays in frame when <code>cover</code> clips it. <code>center center</code> is the most common choice, keeping the focal point of the image visible at all sizes. If your image has an important subject in the upper-left corner, you might use <code>background-position: top left</code> instead.</p>
+
+<p>A powerful complement to CSS background images is combining them with <strong>media queries</strong> to swap out the image source entirely at different breakpoints:</p>
+
+<pre><code>.hero {
+  background-image: url('hero-small.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    background-image: url('hero-medium.jpg');
+  }
+}
+
+@media (min-width: 1200px) {
+  .hero {
+    background-image: url('hero-large.jpg');
+  }
+}</code></pre>
+
+<p>This ensures that a mobile device does not download a massive 3000-pixel-wide hero image it will never fully display. Note that unlike <code>srcset</code>, the browser has no way to intelligently select the best CSS background image — it will always load whichever one the matching media query points to — so thoughtful breakpoint planning is essential.</p>
+
+<p><strong>Performance Considerations for Responsive Media</strong></p>
+
+<p>Flexible layout techniques alone are not sufficient if the underlying media files are poorly optimized. A 4 MB JPEG that scales gracefully to fit any screen still forces every visitor to download 4 MB of data. Performance and responsiveness must be considered together.</p>
+
+<p>The following table summarizes key modern image formats and their characteristics:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Format</th>
+      <th>Typical Use Case</th>
+      <th>Compression Type</th>
+      <th>Browser Support</th>
+      <th>Relative File Size vs. JPEG</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>JPEG</td>
+      <td>Photographs, complex images</td>
+      <td>Lossy</td>
+      <td>Universal</td>
+      <td>Baseline (1×)</td>
+    </tr>
+    <tr>
+      <td>PNG</td>
+      <td>Images requiring transparency</td>
+      <td>Lossless</td>
+      <td>Universal</td>
+      <td>Often larger than JPEG</td>
+    </tr>
+    <tr>
+      <td>WebP</td>
+      <td>Photographs and graphics with/without transparency</td>
+      <td>Lossy and lossless</td>
+      <td>All modern browsers</td>
+      <td>~25–35% smaller than JPEG</td>
+    </tr>
+    <tr>
+      <td>AVIF</td>
+      <td>High-quality photographs, HDR content</td>
+      <td>Lossy and lossless</td>
+      <td>Chrome, Firefox, Safari 16+</td>
+      <td>~50% smaller than JPEG</td>
+    </tr>
+    <tr>
+      <td>SVG</td>
+      <td>Icons, logos, illustrations</td>
+      <td>Vector (resolution-independent)</td>
+      <td>Universal</td>
+      <td>Tiny for simple graphics</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Lazy loading</strong> is another critical performance tool. By adding the <code>loading="lazy"</code> attribute to an <code>&lt;img&gt;</code> or <code>&lt;iframe&gt;</code> element, you instruct the browser to defer downloading that resource until it is close to entering the viewport. This dramatically reduces initial page load time and data usage for pages with many images:</p>
+
+<pre><code>&lt;img
+  src="photo.webp"
+  loading="lazy"
+  alt="A descriptive alt text"
+  width="800"
+  height="600"
+&gt;</code></pre>
+
+<p>Note that <code>width</code> and <code>height</code> attributes are included alongside lazy loading. Even though CSS controls the displayed size, these attributes tell the browser the image's intrinsic dimensions before it is downloaded, enabling it to reserve the correct amount of space in the layout and avoid <em>cumulative layout shift</em> (CLS) — a key Core Web Vitals metric.</p>
+
+<p>A principle that is easy to overlook: <strong>never rely on CSS alone to make a large image appear smaller</strong>. If you have a 3000-pixel-wide image and use CSS to display it at 300px, the browser still downloads every byte of that 3000-pixel file. Always generate and serve a source file that is appropriately dimensioned for its actual use. The ideal workflow is to produce multiple resized exports at image creation time and reference them in <code>srcset</code>, so the browser can download only what it needs.</p>
+
+<p>Finally, pairing responsive images with a <strong>Content Delivery Network (CDN)</strong> compounds the performance benefits. A CDN caches your image files on servers distributed around the world and serves each request from the node geographically closest to the user, reducing network latency on top of the file-size savings already achieved through proper formatting and sizing. Many modern CDNs also support on-the-fly image transformation, allowing you to request a resized or reformatted version of an image simply by adjusting query parameters in the URL — eliminating the need to manually generate and store multiple copies of every asset.</p>
+        <div class="notes"><strong>Notes</strong>Discover techniques for making images and other media elements resize and adapt fluidly within responsive layouts without breaking the design.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

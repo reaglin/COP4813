@@ -1,0 +1,415 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manipulating DOM Elements</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Manipulating DOM Elements</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Manipulating DOM Elements</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Once you have selected elements from the DOM, the real work begins: reading what those elements contain and dynamically changing their content, appearance, and behavior. JavaScript exposes a rich set of properties and methods directly on every element object, giving you fine-grained control over text, markup, attributes, CSS classes, inline styles, computed styles, and element-specific properties like form values. Understanding exactly which tool to reach for — and why — is essential to writing correct, secure, and performant DOM code.</p>
+
+<p><strong>Reading and Writing Text Content</strong></p>
+
+<p>Every element in the DOM has several ways to read and write the text or markup it contains. The three most commonly used are <code>textContent</code>, <code>innerHTML</code>, and <code>innerText</code>, and they differ in important ways.</p>
+
+<p><strong>textContent</strong> is the simplest and most performant option when you only care about plain text. It returns a string containing the concatenated text of an element and all its descendants, with all HTML tags stripped away. When you <em>set</em> <code>textContent</code>, any existing child nodes are replaced by a single text node, and any characters that would normally be interpreted as HTML (such as <code>&lt;</code> and <code>&gt;</code>) are automatically escaped, making it safe against injection attacks.</p>
+
+<pre><code>const heading = document.querySelector('h1');
+
+// Reading text
+console.log(heading.textContent); // "Welcome to the Site"
+
+// Writing text — any HTML tags are escaped, not rendered
+heading.textContent = 'Hello, &lt;World&gt;!';
+// The browser displays the literal string: Hello, <World>!
+</code></pre>
+
+<p><strong>innerHTML</strong> is more powerful but also more dangerous. It gets or sets the full HTML markup inside an element. When you read it, you receive a string of HTML; when you set it, the browser parses and renders the string as actual HTML, creating real child nodes.</p>
+
+<pre><code>const container = document.querySelector('#message');
+
+// Reading markup
+console.log(container.innerHTML); // "&lt;strong&gt;Bold text&lt;/strong&gt;"
+
+// Writing markup — tags are parsed and rendered
+container.innerHTML = '&lt;em&gt;Italic content&lt;/em&gt; with a &lt;a href="#"&gt;link&lt;/a&gt;';
+</code></pre>
+
+<p>The critical danger with <code>innerHTML</code> arises when you insert user-supplied data. A malicious user could craft a string containing executable script tags or event handler attributes, leading to cross-site scripting (XSS). <strong>Never insert raw, unsanitized user input using innerHTML.</strong> Use a dedicated sanitization library such as DOMPurify, or prefer <code>textContent</code> when you only need to display text.</p>
+
+<pre><code>// DANGEROUS — never do this with user input:
+const userInput = '&lt;img src="x" onerror="stealCookies()"&gt;';
+container.innerHTML = userInput; // executes attacker code
+
+// SAFE alternative for plain text:
+container.textContent = userInput; // displays the raw string literally
+</code></pre>
+
+<p><strong>innerText</strong> behaves similarly to <code>textContent</code> but with two important differences. First, it is <em>layout-aware</em>: it respects CSS rules such as <code>display: none</code> and <code>visibility: hidden</code>, omitting text from hidden elements. Second, it triggers a browser layout (reflow) to calculate what is actually visible, making it noticeably slower. Use <code>innerText</code> when you specifically need to match what a user would see if they selected and copied text from the page; use <code>textContent</code> in all other cases.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Parses/Renders HTML</th>
+      <th>Respects CSS Visibility</th>
+      <th>XSS Safe when Setting</th>
+      <th>Performance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>textContent</code></td>
+      <td>No</td>
+      <td>No</td>
+      <td>Yes</td>
+      <td>Fast</td>
+    </tr>
+    <tr>
+      <td><code>innerHTML</code></td>
+      <td>Yes</td>
+      <td>No</td>
+      <td>No (requires sanitization)</td>
+      <td>Moderate</td>
+    </tr>
+    <tr>
+      <td><code>innerText</code></td>
+      <td>No</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Slow (triggers reflow)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Modifying HTML Attributes</strong></p>
+
+<p>HTML attributes are the name-value pairs declared in your markup, such as <code>id</code>, <code>class</code>, <code>href</code>, <code>src</code>, or <code>disabled</code>. JavaScript provides three dedicated methods for working with them that treat everything as a string and operate directly on the element's attribute list.</p>
+
+<p><strong>getAttribute</strong> retrieves the current string value of the named attribute. If the attribute does not exist on the element, it returns <code>null</code>.</p>
+
+<pre><code>const link = document.querySelector('a');
+
+console.log(link.getAttribute('href')); // "/about" (relative, as written in HTML)
+console.log(link.getAttribute('data-id')); // "42"
+console.log(link.getAttribute('nonexistent')); // null
+</code></pre>
+
+<p><strong>setAttribute</strong> adds a new attribute or replaces the value of an existing one. Both arguments must be strings (or will be coerced to strings).</p>
+
+<pre><code>const img = document.querySelector('img');
+
+img.setAttribute('alt', 'A golden retriever playing fetch');
+img.setAttribute('width', '300'); // coerced to the string "300"
+</code></pre>
+
+<p><strong>removeAttribute</strong> deletes the attribute entirely from the element, as if it were never written in the HTML. This is especially important for boolean attributes.</p>
+
+<pre><code>const btn = document.querySelector('button');
+
+btn.setAttribute('disabled', '');    // disables the button
+btn.removeAttribute('disabled');     // re-enables it — setting to '' alone won't enable it
+</code></pre>
+
+<p>Boolean attributes like <code>disabled</code>, <code>checked</code>, <code>readonly</code>, and <code>hidden</code> are special: their <em>presence</em> in the markup activates the behavior, regardless of value. Use <code>setAttribute('disabled', '')</code> to activate and <code>removeAttribute('disabled')</code> to deactivate. Do not try to set <code>setAttribute('disabled', 'false')</code> — the attribute still exists with the string <code>"false"</code>, and the button remains disabled.</p>
+
+<p><strong>Working with the classList API</strong></p>
+
+<p>Directly manipulating the <code>className</code> string is error-prone when multiple classes are involved. The <code>classList</code> API provides a clean, dedicated interface for adding, removing, toggling, and checking individual CSS classes without affecting any others on the element.</p>
+
+<p><strong>classList.add</strong> appends one or more class names. If a class already exists, it is not duplicated.</p>
+
+<pre><code>const card = document.querySelector('.card');
+
+card.classList.add('highlighted');
+card.classList.add('featured', 'active'); // multiple classes at once
+</code></pre>
+
+<p><strong>classList.remove</strong> removes the specified class. If the class is not present, no error is thrown.</p>
+
+<pre><code>card.classList.remove('highlighted');
+card.classList.remove('featured', 'active'); // remove multiple at once
+</code></pre>
+
+<p><strong>classList.toggle</strong> is especially useful for interactive UI. It adds the class if it is absent, or removes it if it is present. An optional second boolean argument forces the behavior: pass <code>true</code> to always add, <code>false</code> to always remove.</p>
+
+<pre><code>const menuBtn = document.querySelector('#menu-btn');
+const nav = document.querySelector('nav');
+
+menuBtn.addEventListener('click', () =&gt; {
+  nav.classList.toggle('open'); // open ↔ closed on each click
+});
+
+// Force a specific state:
+nav.classList.toggle('open', true);  // always adds 'open'
+nav.classList.toggle('open', false); // always removes 'open'
+</code></pre>
+
+<p><strong>classList.contains</strong> returns <code>true</code> if the element currently has the class, or <code>false</code> otherwise. This is useful for conditional logic.</p>
+
+<pre><code>if (card.classList.contains('active')) {
+  console.log('Card is active');
+} else {
+  console.log('Card is inactive');
+}
+</code></pre>
+
+<p><strong>Directly Modifying Inline Styles</strong></p>
+
+<p>Every element exposes a <code>style</code> property that is a <code>CSSStyleDeclaration</code> object representing the element's inline styles — the styles written directly in its <code>style</code> attribute. You can read and write individual CSS properties through this object.</p>
+
+<p>Because JavaScript identifiers cannot contain hyphens, CSS property names in kebab-case are converted to camelCase: <code>background-color</code> becomes <code>backgroundColor</code>, <code>font-size</code> becomes <code>fontSize</code>, <code>border-top-width</code> becomes <code>borderTopWidth</code>, and so on.</p>
+
+<pre><code>const box = document.querySelector('.box');
+
+box.style.backgroundColor = '#4a90e2';
+box.style.fontSize = '18px';
+box.style.marginTop = '2rem';
+box.style.display = 'flex';
+</code></pre>
+
+<p>Setting a style property to an <strong>empty string</strong> removes that inline style declaration from the element, allowing any stylesheet rules to take effect again.</p>
+
+<pre><code>// Override with inline style
+box.style.color = 'red';
+
+// Later, remove the override — the CSS cascade takes over
+box.style.color = '';
+</code></pre>
+
+<p>One crucial limitation: reading <code>element.style.someProperty</code> only reflects styles set <em>inline</em> on the element itself. If a style is applied through a stylesheet rule or inherited from a parent, <code>element.style</code> will return an empty string for that property. For example:</p>
+
+<pre><code>// stylesheet: .box { font-size: 16px; }
+const box = document.querySelector('.box');
+console.log(box.style.fontSize); // "" — empty, even though 16px is applied via stylesheet
+</code></pre>
+
+<p><strong>Reading Computed Styles</strong></p>
+
+<p>To read the actual, final styles applied to an element — accounting for stylesheets, inheritance, the cascade, and browser defaults — you must use <code>window.getComputedStyle()</code>. It returns a read-only <code>CSSStyleDeclaration</code> object containing all resolved style values for the element.</p>
+
+<pre><code>const box = document.querySelector('.box');
+const computed = window.getComputedStyle(box);
+
+console.log(computed.fontSize);       // "16px" — resolved absolute value
+console.log(computed.display);        // "flex"
+console.log(computed.backgroundColor); // "rgb(74, 144, 226)"
+</code></pre>
+
+<p>You can also access values using <code>getPropertyValue()</code>, which accepts the kebab-case CSS property name as a string. This is useful when the property name is dynamic or contains vendor prefixes.</p>
+
+<pre><code>const fontSize = computed.getPropertyValue('font-size');    // "16px"
+const bgColor  = computed.getPropertyValue('background-color'); // "rgb(74, 144, 226)"
+</code></pre>
+
+<p>An important behavioral detail: computed values are always expressed in absolute units. Even if the stylesheet uses <code>em</code>, <code>rem</code>, <code>vw</code>, or percentages, <code>getComputedStyle</code> resolves them to pixel values. This makes it reliable for measurements but means you cannot retrieve the original authored unit.</p>
+
+<pre><code>// stylesheet: h1 { font-size: 2rem; }
+const h1 = document.querySelector('h1');
+const styles = window.getComputedStyle(h1);
+console.log(styles.fontSize); // "32px" — resolved from 2rem, not "2rem"
+</code></pre>
+
+<p>You can also pass an optional second argument (a pseudo-element string such as <code>'::before'</code>) to read the computed styles of a CSS pseudo-element.</p>
+
+<pre><code>const before = window.getComputedStyle(box, '::before');
+console.log(before.content); // e.g., '"★"'
+</code></pre>
+
+<p><strong>Getting and Setting Element Properties</strong></p>
+
+<p>Beyond generic attribute methods, DOM elements expose many of their attributes as direct JavaScript <em>properties</em> on the element object. These are live, typed JavaScript values rather than raw strings, and they often provide richer or more convenient behavior.</p>
+
+<p>Common identity properties include <code>id</code>, <code>tagName</code>, and <code>className</code>. Reading <code>tagName</code> returns the element's tag in uppercase (e.g., <code>"DIV"</code>, <code>"BUTTON"</code>), and you can freely get and set <code>id</code> and <code>className</code> as strings.</p>
+
+<pre><code>const el = document.querySelector('.card');
+
+console.log(el.id);       // "card-01"
+console.log(el.tagName);  // "DIV"
+console.log(el.className); // "card featured"
+
+el.id = 'card-new';
+el.className = 'card archived'; // replaces ALL classes at once
+</code></pre>
+
+<p>For form elements, the <strong>value</strong> property is the primary way to read and write the current content of an <code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code>, or <code>&lt;select&gt;</code>. Unlike the <code>value</code> attribute (which reflects the <em>initial</em> value set in HTML), the property reflects what the user has currently typed or what you have set programmatically.</p>
+
+<pre><code>const nameInput = document.querySelector('#name');
+
+// Read what the user typed
+console.log(nameInput.value); // "Alice"
+
+// Programmatically set the field's value
+nameInput.value = 'Bob';
+
+// Clear the field
+nameInput.value = '';
+</code></pre>
+
+<p>Checkbox and radio inputs expose a <strong>checked</strong> boolean property. It returns <code>true</code> if the input is currently selected and <code>false</code> otherwise, and you can set it programmatically without triggering a <code>change</code> event.</p>
+
+<pre><code>const checkbox = document.querySelector('#agree');
+
+console.log(checkbox.checked); // true or false
+
+// Programmatically check it
+checkbox.checked = true;
+
+// Uncheck it
+checkbox.checked = false;
+</code></pre>
+
+<p>For anchor and image elements, there is a meaningful distinction between the <strong>attribute</strong> and the <strong>property</strong> for <code>href</code> and <code>src</code>. The attribute stores whatever string was written in the HTML (which may be a relative path), while the property returns the fully resolved absolute URL.</p>
+
+<pre><code>const link = document.querySelector('a');
+
+// Suppose the HTML is: &lt;a href="/about"&gt;About&lt;/a&gt;
+console.log(link.getAttribute('href')); // "/about"      — relative, as authored
+console.log(link.href);                 // "https://example.com/about" — fully resolved
+
+const img = document.querySelector('img');
+// Suppose: &lt;img src="images/photo.jpg"&gt;
+console.log(img.getAttribute('src')); // "images/photo.jpg"
+console.log(img.src);                 // "https://example.com/images/photo.jpg"
+</code></pre>
+
+<p>This distinction matters when you need to compare or process URLs: use the property (<code>link.href</code>) when you need the absolute URL, and use <code>getAttribute('href')</code> when you need the raw, as-authored value for tasks like serialization or relative-path logic.</p>
+
+<p>The following table summarizes the key DOM manipulation tools covered in this topic:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tool</th>
+      <th>Purpose</th>
+      <th>Key Consideration</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>textContent</code></td>
+      <td>Read/write plain text of an element</td>
+      <td>Escapes HTML; safe; fast</td>
+    </tr>
+    <tr>
+      <td><code>innerHTML</code></td>
+      <td>Read/write HTML markup inside an element</td>
+      <td>Parses HTML; XSS risk with user data</td>
+    </tr>
+    <tr>
+      <td><code>innerText</code></td>
+      <td>Read/write visible text (CSS-aware)</td>
+      <td>Triggers reflow; slower</td>
+    </tr>
+    <tr>
+      <td><code>getAttribute</code></td>
+      <td>Read an attribute as a string</td>
+      <td>Returns <code>null</code> if absent</td>
+    </tr>
+    <tr>
+      <td><code>setAttribute</code></td>
+      <td>Add or update an attribute</td>
+      <td>Values coerced to string</td>
+    </tr>
+    <tr>
+      <td><code>removeAttribute</code></td>
+      <td>Delete an attribute entirely</td>
+      <td>Required to deactivate boolean attributes</td>
+    </tr>
+    <tr>
+      <td><code>classList.add/remove/toggle/contains</code></td>
+      <td>Manage individual CSS classes</td>
+      <td>Does not clobber other classes</td>
+    </tr>
+    <tr>
+      <td><code>element.style.property</code></td>
+      <td>Read/write inline styles</td>
+      <td>Only reflects inline styles; camelCase names</td>
+    </tr>
+    <tr>
+      <td><code>getComputedStyle()</code></td>
+      <td>Read all resolved styles from cascade</td>
+      <td>Read-only; values in absolute units</td>
+    </tr>
+    <tr>
+      <td><code>element.value</code></td>
+      <td>Current value of form fields</td>
+      <td>Reflects live user input, not HTML default</td>
+    </tr>
+    <tr>
+      <td><code>element.checked</code></td>
+      <td>Boolean state of checkbox/radio</td>
+      <td>Can be set programmatically</td>
+    </tr>
+    <tr>
+      <td><code>element.href / element.src</code></td>
+      <td>Resolved absolute URL of link/image</td>
+      <td>Use <code>getAttribute</code> for the raw authored path</td>
+    </tr>
+  </tbody>
+</table>
+        <div class="notes"><strong>Notes</strong>Covers all listed subtopics in depth with code examples for each property and method. The XSS risk of innerHTML is explicitly addressed with a code example. Comparison tables are provided for text content properties and for the overall summary of tools. The attribute vs. property distinction for href/src is illustrated with concrete examples.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

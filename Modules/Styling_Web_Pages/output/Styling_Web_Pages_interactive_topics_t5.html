@@ -1,0 +1,455 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Layout Techniques</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>CSS Layout Techniques</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>CSS Layout Techniques</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>CSS layout is the foundation of every visual design on the web. Before any framework or design tool can help you arrange content beautifully, you need to understand how browsers naturally place elements on the page — and how to override that natural behavior when your design demands it. Modern CSS gives developers a rich set of tools to go far beyond the browser's defaults, and mastering them means you can build everything from a simple centered card to a complex multi-column editorial layout with confidence.</p>
+
+<p>To work effectively with CSS layout, you first need a clear mental model of how the browser handles elements before you apply any special styling. This is called the <strong>normal document flow</strong>, and it governs two fundamental categories of elements: block-level and inline.</p>
+
+<p><strong>Block-level elements</strong> — such as <code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;h1&gt;</code> through <code>&lt;h6&gt;</code>, <code>&lt;section&gt;</code>, and <code>&lt;article&gt;</code> — behave like horizontal slabs stacked vertically. Each one stretches to fill the full width of its parent container and then forces the next element down onto a new line. Think of them as paragraphs in a book: they never sit side by side unless you explicitly instruct them to.</p>
+
+<p><strong>Inline elements</strong> — such as <code>&lt;span&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;strong&gt;</code>, and <code>&lt;em&gt;</code> — behave more like words in a sentence. They flow horizontally, sitting next to one another until they run out of horizontal room, at which point they wrap onto the next line. Inline elements respect only horizontal margins and padding; vertical spacing behaves differently and is often unintuitive.</p>
+
+<p>Here is a simple illustration of how these two categories differ in practice:</p>
+
+<pre><code>&lt;!-- Block elements stack vertically --&gt;
+&lt;div style="background: lightblue;"&gt;First block&lt;/div&gt;
+&lt;div style="background: lightcoral;"&gt;Second block&lt;/div&gt;
+
+&lt;!-- Inline elements flow horizontally --&gt;
+&lt;span style="background: lightgreen;"&gt;First span&lt;/span&gt;
+&lt;span style="background: lightyellow;"&gt;Second span&lt;/span&gt;</code></pre>
+
+<p>The two <code>&lt;div&gt;</code> elements will appear one above the other, each spanning the full available width. The two <code>&lt;span&gt;</code> elements will sit side by side on the same line. Understanding this difference is not just academic — nearly every layout decision you make will involve working with, or working around, this default behavior.</p>
+
+<p>Normal flow works well for simple text documents, but real web pages are rarely simple. Menus need to sit horizontally. Sidebars need to run beside article content. Cards need to tile in a grid. This is exactly where <strong>layout tools like Flexbox and CSS positioning</strong> step in, giving you precise control over where elements appear regardless of their natural flow behavior.</p>
+
+<p>Flexbox — short for the <strong>Flexible Box Layout Module</strong> — is one of the most practical and widely used layout tools in modern CSS. You activate it on a <strong>parent container</strong> (often called a flex container) by writing:</p>
+
+<pre><code>.container {
+  display: flex;
+}</code></pre>
+
+<p>That single declaration transforms the container's direct children into <strong>flex items</strong>. The browser now treats those children as participants in a flexible layout system rather than as ordinary block or inline elements. By default, flex items are arranged side by side in a horizontal row, which is already enough to solve many common layout problems — like placing navigation links in a header next to each other.</p>
+
+<p>The <strong><code>flex-direction</code></strong> property lets you control the axis along which those items are arranged:</p>
+
+<pre><code>.container {
+  display: flex;
+  flex-direction: row;        /* default — items go left to right */
+}
+
+.container-column {
+  display: flex;
+  flex-direction: column;    /* items stack top to bottom */
+}
+
+.container-reverse {
+  display: flex;
+  flex-direction: row-reverse; /* items go right to left */
+}</code></pre>
+
+<p>Choosing <code>row</code> makes Flexbox behave like a horizontal toolbar. Choosing <code>column</code> makes it behave more like stacking blocks vertically — but with the added bonus of Flexbox's powerful alignment controls, which you do not get with plain block flow.</p>
+
+<p>One of Flexbox's most celebrated strengths is its ability to handle <strong>varying content sizes gracefully</strong>. Imagine three navigation buttons whose labels differ in length — "Home," "About," and "Contact Us." Without Flexbox you might need to set fixed widths or use awkward float hacks to make them line up neatly. With Flexbox, the container automatically distributes available space and keeps items aligned, regardless of how much text is inside each one.</p>
+
+<p>Once you have a flex container, <strong>alignment</strong> is where Flexbox truly shines. Two properties do most of the heavy lifting: <code>justify-content</code> and <code>align-items</code>.</p>
+
+<p><strong><code>justify-content</code></strong> controls how flex items are positioned along the <em>main axis</em> — the direction defined by <code>flex-direction</code>. If your direction is <code>row</code>, the main axis runs horizontally. Here are the most important values and what they do:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Effect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>flex-start</code></td>
+      <td>Items cluster at the beginning of the container (left for row, top for column). This is the default.</td>
+    </tr>
+    <tr>
+      <td><code>flex-end</code></td>
+      <td>Items cluster at the end of the container (right for row, bottom for column).</td>
+    </tr>
+    <tr>
+      <td><code>center</code></td>
+      <td>Items are centered along the main axis with equal empty space on both sides.</td>
+    </tr>
+    <tr>
+      <td><code>space-between</code></td>
+      <td>The first item is flush with the start, the last item is flush with the end, and remaining space is divided equally between items.</td>
+    </tr>
+    <tr>
+      <td><code>space-around</code></td>
+      <td>Each item gets equal space on both sides of it, so the gaps between items are twice the size of the gaps at the edges.</td>
+    </tr>
+    <tr>
+      <td><code>space-evenly</code></td>
+      <td>All gaps — between items and at both edges — are exactly equal.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong><code>align-items</code></strong> controls how flex items are positioned along the <em>cross axis</em> — perpendicular to the main axis. For a <code>row</code> direction, the cross axis runs vertically. Common values include:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Effect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>stretch</code></td>
+      <td>Items expand to fill the full height (or width) of the container along the cross axis. This is the default.</td>
+    </tr>
+    <tr>
+      <td><code>flex-start</code></td>
+      <td>Items align at the top (or left) of the container on the cross axis.</td>
+    </tr>
+    <tr>
+      <td><code>flex-end</code></td>
+      <td>Items align at the bottom (or right) of the container on the cross axis.</td>
+    </tr>
+    <tr>
+      <td><code>center</code></td>
+      <td>Items are centered on the cross axis — this is the easiest way to vertically center an element in CSS.</td>
+    </tr>
+    <tr>
+      <td><code>baseline</code></td>
+      <td>Items align so that the baselines of their text content line up with one another.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The real power comes from combining the two. For example, centering a single card both horizontally and vertically inside a full-screen container becomes trivially easy:</p>
+
+<pre><code>.full-screen {
+  display: flex;
+  justify-content: center;   /* horizontal centering */
+  align-items: center;       /* vertical centering */
+  height: 100vh;
+}
+
+.card {
+  width: 300px;
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+}</code></pre>
+
+<p>Without Flexbox, achieving true vertical centering historically required a combination of absolute positioning, negative margins, or table-cell tricks. With <code>justify-content: center</code> and <code>align-items: center</code> on the parent, it takes just two lines.</p>
+
+<p>Beyond container-level alignment, you can also control how <strong>individual flex items</strong> behave. Three properties are especially important: <code>flex-grow</code>, <code>flex-shrink</code>, and <code>align-self</code>.</p>
+
+<p><strong><code>flex-grow</code></strong> defines how much of the <em>remaining free space</em> in the container an item should absorb. It accepts a unitless number that acts as a ratio. If all items have <code>flex-grow: 1</code>, they share the remaining space equally. If one item has <code>flex-grow: 2</code> and the others have <code>flex-grow: 1</code>, the item with 2 will grow twice as much as each of the others.</p>
+
+<pre><code>.sidebar {
+  flex-grow: 1;   /* takes up 1 share of remaining space */
+}
+
+.main-content {
+  flex-grow: 3;   /* takes up 3 shares — three times as wide as sidebar */
+}</code></pre>
+
+<p>This is a clean, readable way to create proportional layouts without calculating pixel widths manually.</p>
+
+<p><strong><code>flex-shrink</code></strong> is the counterpart to <code>flex-grow</code>. When the container is <em>too small</em> to fit all its items at their natural or declared sizes, <code>flex-shrink</code> determines how much each item gives up. A value of <code>1</code> (the default) means all items shrink proportionally. Setting <code>flex-shrink: 0</code> on an item prevents it from shrinking at all — useful for elements like icons or logos that should always stay at their intended size.</p>
+
+<pre><code>.logo {
+  width: 120px;
+  flex-shrink: 0;   /* never compress the logo */
+}
+
+.nav-links {
+  flex-shrink: 1;   /* allowed to compress if needed */
+}</code></pre>
+
+<p><strong><code>align-self</code></strong> lets a single flex item override the container's <code>align-items</code> setting. All other items follow the container rule, but this one item positions itself according to its own <code>align-self</code> value. It accepts the same values as <code>align-items</code>: <code>flex-start</code>, <code>flex-end</code>, <code>center</code>, <code>stretch</code>, and <code>baseline</code>.</p>
+
+<pre><code>.container {
+  display: flex;
+  align-items: center;   /* all items vertically centered by default */
+}
+
+.special-item {
+  align-self: flex-end;  /* this one item sits at the bottom */
+}</code></pre>
+
+<p>This is particularly useful in navigation bars where most links are centered but a call-to-action button needs to be aligned differently, or in card layouts where one card should stretch to fill the full height while others wrap to their content.</p>
+
+<p>Flexbox handles most layout problems elegantly, but sometimes you need to position an element relative to its surroundings or pin it to a fixed point on the screen. That is where <strong>CSS positioning</strong> comes in. The <code>position</code> property changes how an element is placed in or removed from the document flow, and it works hand in hand with the offset properties: <code>top</code>, <code>right</code>, <code>bottom</code>, and <code>left</code>.</p>
+
+<p><strong><code>position: relative</code></strong> moves an element from where it would naturally appear, using the offset properties, <em>without removing it from the document flow</em>. The space the element originally occupied is preserved — neighboring elements behave as if the element is still in its original place — but visually the element shifts.</p>
+
+<pre><code>.shifted {
+  position: relative;
+  top: 20px;    /* moves 20px down from its natural position */
+  left: 10px;   /* moves 10px right from its natural position */
+}</code></pre>
+
+<p>Relative positioning is also commonly used to establish a <strong>positioning context</strong> for absolutely positioned children, which leads us to the next value.</p>
+
+<p><strong><code>position: absolute</code></strong> fully removes an element from the normal document flow. Other elements on the page behave as though the absolutely positioned element does not exist. The element then places itself relative to its <em>nearest ancestor that has a non-static position</em> (i.e., any ancestor with <code>position: relative</code>, <code>absolute</code>, or <code>fixed</code>). If no such ancestor exists, the element positions itself relative to the initial containing block — effectively the page itself.</p>
+
+<pre><code>.card {
+  position: relative;   /* establishes a positioning context */
+  width: 300px;
+  height: 200px;
+}
+
+.badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;   /* pinned to the top-right corner of .card */
+  background: red;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+}</code></pre>
+
+<p>In this example, the <code>.badge</code> element sits in the top-right corner of <code>.card</code>, not the top-right corner of the entire page, because <code>.card</code> has <code>position: relative</code>. This parent-relative anchoring pattern is extremely common for notification badges, overlay labels, and decorative UI elements.</p>
+
+<p><strong><code>position: fixed</code></strong> removes an element from the document flow and places it relative to the <strong>viewport</strong> — the visible area of the browser window — rather than any parent element. A fixed element stays in exactly the same place on the screen as the user scrolls. This makes it ideal for persistent navigation bars, floating action buttons, cookie banners, and live chat widgets.</p>
+
+<pre><code>.top-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #333;
+  color: white;
+  padding: 1rem;
+  z-index: 100;   /* ensures it appears above other content */
+}</code></pre>
+
+<p>Note the use of <code>z-index: 100</code>. When elements are removed from normal flow via positioning, they can overlap other elements. The <code>z-index</code> property controls the stacking order: higher values appear in front of lower values. Always assign a high enough <code>z-index</code> to fixed navigation bars so they are not obscured by other content.</p>
+
+<p>There is also <strong><code>position: sticky</code></strong>, a hybrid worth knowing. A sticky element behaves like a relative element in the flow until it reaches a specified scroll offset, at which point it behaves like a fixed element and sticks in place. It is commonly used for table headers that stay visible as users scroll through long data tables, or for section labels in long pages.</p>
+
+<pre><code>.section-header {
+  position: sticky;
+  top: 60px;   /* sticks 60px from the top of the viewport when scrolled */
+  background: white;
+  padding: 0.5rem;
+}</code></pre>
+
+<p>Now that you understand the individual tools, the real skill lies in <strong>combining them to build complete, multi-section page layouts</strong>. A typical web page contains a header, a main content area (which might have a sidebar beside it), and a footer. Flexbox makes this surprisingly straightforward.</p>
+
+<p>The outermost wrapper is often set to <code>display: flex; flex-direction: column;</code> so the header, main, and footer stack vertically and fill the available height:</p>
+
+<pre><code>body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;   /* ensures the page fills the full viewport height */
+  margin: 0;
+}
+
+header {
+  background: #2c3e50;
+  color: white;
+  padding: 1rem 2rem;
+}
+
+main {
+  flex-grow: 1;   /* main content expands to fill all remaining vertical space */
+  display: flex;  /* nested flex container for sidebar + article */
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+footer {
+  background: #2c3e50;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}</code></pre>
+
+<p>Inside <code>&lt;main&gt;</code>, a nested flex container creates the side-by-side sidebar and article layout. Because <code>main</code> itself is a flex container with the default <code>flex-direction: row</code>, its direct children — a <code>&lt;aside&gt;</code> for the sidebar and an <code>&lt;article&gt;</code> for the main content — will sit next to each other horizontally.</p>
+
+<pre><code>aside {
+  width: 240px;
+  flex-shrink: 0;    /* sidebar keeps its fixed width even on smaller screens */
+  background: #ecf0f1;
+  padding: 1rem;
+  border-radius: 6px;
+}
+
+article {
+  flex-grow: 1;      /* article takes all remaining horizontal space */
+  background: white;
+  padding: 1.5rem;
+  border-radius: 6px;
+}</code></pre>
+
+<p>The <code>gap</code> property on the <code>main</code> container automatically adds consistent spacing between the sidebar and the article, between rows of cards, or between any flex items — without you needing to add margin to individual elements and worry about double-margins at the edges. It is the cleanest way to maintain uniform spacing in modern CSS layouts.</p>
+
+<p>Here is a complete example bringing all of these ideas together:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Page Layout Demo&lt;/title&gt;
+  &lt;style&gt;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      font-family: sans-serif;
+    }
+
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      color: white;
+      margin-left: 1.5rem;
+      text-decoration: none;
+    }
+
+    main {
+      display: flex;
+      flex-grow: 1;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      background: #f4f4f4;
+    }
+
+    aside {
+      width: 220px;
+      flex-shrink: 0;
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+
+    article {
+      flex-grow: 1;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+    }
+
+    footer {
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;span&gt;My Site&lt;/span&gt;
+    &lt;nav&gt;
+      &lt;a href="#"&gt;Home&lt;/a&gt;
+      &lt;a href="#"&gt;About&lt;/a&gt;
+      &lt;a href="#"&gt;Contact&lt;/a&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;aside&gt;
+      &lt;p&gt;&lt;strong&gt;Sidebar&lt;/strong&gt;&lt;/p&gt;
+      &lt;ul&gt;
+        &lt;li&gt;Category A&lt;/li&gt;
+        &lt;li&gt;Category B&lt;/li&gt;
+        &lt;li&gt;Category C&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/aside&gt;
+    &lt;article&gt;
+      &lt;p&gt;Main content area. This grows to fill available space.&lt;/p&gt;
+    &lt;/article&gt;
+  &lt;/main&gt;
+
+  &lt;footer&gt;
+    &lt;p&gt;&amp;copy; 2024 My Site&lt;/p&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<p>This example demonstrates all the concepts covered: normal flow overridden by Flexbox, a column-direction outer layout ensuring the footer stays at the bottom, a row-direction nested layout creating the sidebar-plus-content structure, <code>flex-grow</code> and <code>flex-shrink</code> controlling how sections resize, <code>justify-content</code> and <code>align-items</code> centering and spacing the header navigation, and the <code>gap</code> property keeping spacing clean throughout.</p>
+
+<p>Understanding these fundamentals — normal flow, Flexbox alignment, individual item control, and CSS positioning — gives you a versatile, dependable toolkit for building virtually any layout a design calls for. As you practice combining these properties, the logic becomes intuitive: think in terms of containers and their children, choose the right axis for your layout, and let Flexbox handle the proportional math so you can focus on the design.</p>
+        <div class="notes"><strong>Notes</strong>Students should practice building the full-page layout example from scratch without copying the code. Encourage them to experiment by changing flex-direction, swapping justify-content values, and toggling flex-grow on the article and sidebar to observe how the layout responds. A useful exercise is to add a second nested flex container inside the article to display a row of three equal-width cards using flex-grow: 1 on each card.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

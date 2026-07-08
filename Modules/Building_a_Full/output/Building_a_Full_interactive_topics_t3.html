@@ -1,0 +1,245 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Embedding Images in HTML</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Embedding Images in HTML</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Embedding Images in HTML</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Images are among the most powerful tools for communication on the web. They can convey emotion, illustrate concepts, guide users through interfaces, and make content far more engaging than text alone. Understanding how to embed images correctly in HTML is therefore a foundational skill — not just for getting pictures to appear on screen, but for doing so in a way that is accessible, performant, and semantically meaningful. This topic covers everything you need to know: the element itself, how to point it at the right file, how to describe it for users who cannot see it, how to control its dimensions, which file format to choose, and how to follow accessibility best practices throughout.</p>
+
+<p>The element used to embed images in HTML is <code>&lt;img&gt;</code>. Unlike most HTML elements, it is a <strong>void element</strong>, meaning it has no closing tag and no content placed between tags. All the information the browser needs — where to find the image, how to describe it, how large to display it — is supplied entirely through <strong>attributes</strong> written inside the opening tag. A minimal, correct image element looks like this:</p>
+
+<pre><code>&lt;img src="photos/sunset.jpg" alt="A warm orange and pink sunset over the ocean"&gt;</code></pre>
+
+<p>Because <code>&lt;img&gt;</code> is an <strong>inline element</strong>, it sits within the normal flow of text and other inline content. You place it exactly where you want the image to appear in the document, and the browser renders it at that position. It is one of the most frequently used elements in everyday HTML, appearing in everything from simple blog posts to complex web applications.</p>
+
+<p><strong>Setting the Source Path with <code>src</code></strong></p>
+
+<p>The <code>src</code> (source) attribute is mandatory — without it, there is no image to display. Its value is a URL or file path that tells the browser where to retrieve the image file. There are two fundamental ways to write this path: as a <strong>relative path</strong> or as an <strong>absolute URL</strong>.</p>
+
+<p>A <strong>relative path</strong> describes the location of the image file relative to the HTML document that contains the <code>&lt;img&gt;</code> tag. This approach is ideal for images that are part of your own project and hosted on the same server. For example, if your HTML file lives at <code>mysite/index.html</code> and your image lives at <code>mysite/images/logo.png</code>, you would write:</p>
+
+<pre><code>&lt;img src="images/logo.png" alt="Company logo"&gt;</code></pre>
+
+<p>If the image were in the same folder as the HTML file, you would simply write the filename:</p>
+
+<pre><code>&lt;img src="logo.png" alt="Company logo"&gt;</code></pre>
+
+<p>To navigate <em>up</em> a directory level, use <code>../</code>. For instance, if your HTML file is inside a <code>pages/</code> subfolder but the image is back in the root, you would write:</p>
+
+<pre><code>&lt;img src="../images/logo.png" alt="Company logo"&gt;</code></pre>
+
+<p>An <strong>absolute URL</strong> provides the full web address of an image, including the protocol. Use this when linking to an image hosted on an external server:</p>
+
+<pre><code>&lt;img src="https://www.example.com/images/banner.jpg" alt="A promotional banner"&gt;</code></pre>
+
+<p>Be aware that relying on images hosted on someone else's server (a practice called <em>hotlinking</em>) is generally discouraged — the other server's owner may remove the image, change its URL, or block external requests, all of which will break your page.</p>
+
+<p>When the <code>src</code> path is wrong — due to a typo, a missing file, or a restructured directory — the browser cannot retrieve the image and displays a <strong>broken image icon</strong> in its place, often accompanied by the alt text. Keeping file paths accurate and consistent is therefore important for maintaining a working page.</p>
+
+<p><strong>Providing Alt Text for Accessibility</strong></p>
+
+<p>The <code>alt</code> attribute provides a <strong>text alternative</strong> for the image. It is not optional for informational images — omitting it entirely creates a poor experience for users who depend on assistive technologies and can even harm SEO. The value of <code>alt</code> should be a concise, accurate description of what the image <em>means</em> in context, not necessarily a literal catalogue of every visual detail.</p>
+
+<p>Consider the difference between these two descriptions for a photo of a dog catching a frisbee in a park:</p>
+
+<ul>
+  <li><em>Poor alt text:</em> <code>alt="image"</code> — tells the user nothing meaningful.</li>
+  <li><em>Acceptable alt text:</em> <code>alt="A brown Labrador catching a red frisbee"</code> — describes appearance.</li>
+  <li><em>Better alt text (context-aware):</em> <code>alt="Max, our office dog, playing fetch during the team picnic"</code> — describes purpose and meaning.</li>
+</ul>
+
+<p><strong>Screen readers</strong> — software used by people who are blind or have low vision — read the alt text aloud when they encounter an image. If the alt text is absent or unhelpful, those users miss the information the image was meant to convey. Here is a correctly written example:</p>
+
+<pre><code>&lt;img src="team-photo.jpg" alt="The five-person development team standing together in front of the company headquarters"&gt;</code></pre>
+
+<p>Alt text also matters for <strong>search engine optimization (SEO)</strong>. Search engine crawlers cannot "see" images the way humans do; they rely on alt text, filenames, and surrounding content to understand what an image depicts. Meaningful alt text therefore helps your images appear in image search results and contributes to the overall relevance signals for your page.</p>
+
+<p>A practical guideline: write alt text by imagining you are describing the image to someone over the phone. Include only what is relevant to the purpose the image serves on that particular page.</p>
+
+<p><strong>Controlling Image Size with <code>width</code> and <code>height</code></strong></p>
+
+<p>The <code>width</code> and <code>height</code> attributes specify the displayed dimensions of the image in <strong>pixels</strong>. Crucially, the values are plain integers — do <em>not</em> include the <code>px</code> unit or any other unit inside the HTML attribute:</p>
+
+<pre><code>&lt;!-- Correct --&gt;
+&lt;img src="banner.jpg" alt="A promotional banner" width="800" height="400"&gt;
+
+&lt;!-- Incorrect — do not include 'px' in HTML attributes --&gt;
+&lt;img src="banner.jpg" alt="A promotional banner" width="800px" height="400px"&gt;</code></pre>
+
+<p>One important reason to always specify both <code>width</code> and <code>height</code> — even when you plan to resize the image with CSS — is <strong>layout stability</strong>. When the browser encounters an <code>&lt;img&gt;</code> element, it begins rendering the page without necessarily having received the image file yet. If the dimensions are not declared, the browser cannot reserve the right amount of space, and when the image finally loads, surrounding text and elements jump to accommodate it. This undesirable behaviour is measured by a web performance metric called <strong>Cumulative Layout Shift (CLS)</strong>. By providing <code>width</code> and <code>height</code>, you allow the browser to calculate and hold the correct space from the very beginning.</p>
+
+<p>If you need to override these values visually — for example, to make images fluid in a responsive layout — use CSS:</p>
+
+<pre><code>img {
+  max-width: 100%;
+  height: auto;
+}</code></pre>
+
+<p>The HTML attributes still serve their layout-reservation purpose, while CSS controls how the image actually scales on different screens. The <code>height: auto</code> rule ensures the image maintains its original aspect ratio when the width changes.</p>
+
+<p><strong>Choosing the Right Image Format</strong></p>
+
+<p>Not all image formats are equal. Each format has strengths and weaknesses that make it more or less suitable for different kinds of visual content. Choosing the wrong format can result in unnecessarily large files, poor image quality, or missing features like transparency. The four formats you will most commonly encounter on the web are JPEG, PNG, WebP, and SVG.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Format</th>
+      <th>Best For</th>
+      <th>Compression</th>
+      <th>Transparency</th>
+      <th>Scalability</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>JPEG (.jpg / .jpeg)</td>
+      <td>Photographs, complex scenes with gradients</td>
+      <td>Lossy — small file size, slight quality loss</td>
+      <td>No</td>
+      <td>Pixel-based; quality degrades when enlarged</td>
+    </tr>
+    <tr>
+      <td>PNG (.png)</td>
+      <td>Logos, icons, screenshots, images needing transparency</td>
+      <td>Lossless — larger files but no quality loss</td>
+      <td>Yes (alpha channel)</td>
+      <td>Pixel-based; quality degrades when enlarged</td>
+    </tr>
+    <tr>
+      <td>WebP (.webp)</td>
+      <td>Photos and graphics where small file size matters</td>
+      <td>Lossy or lossless — typically 25–35% smaller than JPEG/PNG</td>
+      <td>Yes</td>
+      <td>Pixel-based; quality degrades when enlarged</td>
+    </tr>
+    <tr>
+      <td>SVG (.svg)</td>
+      <td>Icons, logos, illustrations, diagrams</td>
+      <td>Vector-based — file size depends on complexity</td>
+      <td>Yes</td>
+      <td>Perfect at any size — no quality loss</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>JPEG</strong> (Joint Photographic Experts Group) uses <em>lossy compression</em>, discarding some image data to achieve smaller file sizes. For photographs with millions of colours and smooth gradients — a landscape, a portrait, a product shot — this trade-off is almost invisible to the human eye at normal quality settings. JPEG does not support transparency, so it is unsuitable for logos that need to sit on top of differently coloured backgrounds.</p>
+
+<p><strong>PNG</strong> (Portable Network Graphics) uses lossless compression, preserving every pixel exactly. This makes it ideal for images with sharp edges, flat areas of colour, or text — scenarios where JPEG's compression artefacts would be distractingly visible. Its support for an <em>alpha channel</em> means pixels can be fully transparent, semi-transparent, or fully opaque, which is essential for overlaid graphics.</p>
+
+<p><strong>WebP</strong> is a modern format developed by Google that can operate in both lossy and lossless modes while achieving significantly smaller file sizes than JPEG or PNG at equivalent visual quality. It also supports transparency. Browser support is now excellent across all major current browsers, making WebP a strong default choice for new projects. The main consideration is that very old browsers (Internet Explorer, for instance) do not support it — if you must support those environments, provide a JPEG or PNG fallback using the <code>&lt;picture&gt;</code> element.</p>
+
+<p><strong>SVG</strong> (Scalable Vector Graphics) is fundamentally different from the others: it describes images using mathematical paths and shapes defined in XML rather than storing a grid of pixels. This means an SVG icon looks identically crisp on a small mobile screen and a 4K monitor, because it is redrawn at whatever size is needed. SVGs are perfect for logos, icons, charts, and illustrations. They can also be styled and animated with CSS and JavaScript. For photographs or highly detailed illustrations, however, SVG files can become extremely large and complex, so raster formats remain the better choice there.</p>
+
+<p><strong>Image Accessibility Best Practices</strong></p>
+
+<p>Writing a technically correct <code>&lt;img&gt;</code> element is only part of using images responsibly. Truly accessible image use requires thinking carefully about purpose, context, and the experience of every user — including those who cannot see the image at all.</p>
+
+<p>The most important distinction is between <strong>informational images</strong> and <strong>decorative images</strong>. An informational image conveys meaning that is not provided elsewhere in the surrounding text — it adds something to the user's understanding. A decorative image is purely aesthetic; it enhances the visual design but conveys no unique information. These two categories are handled differently:</p>
+
+<ul>
+  <li><strong>Informational images</strong> must have meaningful <code>alt</code> text that conveys the same information a sighted user would gain from seeing the image.</li>
+  <li><strong>Decorative images</strong> should use an empty <code>alt</code> attribute — <code>alt=""</code> — so that screen readers skip over them entirely, avoiding unnecessary noise for the user.</li>
+</ul>
+
+<pre><code>&lt;!-- Informational image: describe its meaning --&gt;
+&lt;img src="error-icon.png" alt="Error: your form could not be submitted"&gt;
+
+&lt;!-- Decorative image: empty alt tells screen readers to ignore it --&gt;
+&lt;img src="decorative-swirl.png" alt=""&gt;</code></pre>
+
+<p>Never omit the <code>alt</code> attribute entirely on a decorative image. When <code>alt</code> is absent, some screen readers will announce the image filename instead — which is far worse than silence.</p>
+
+<p>Another critical practice is to <strong>avoid placing important text inside image files</strong>. Text that exists only as pixels — baked into a photograph or designed as a graphic — cannot be read by screen readers, cannot be selected or copied by users, cannot be translated by browser translation tools, and will appear blurry if the image is scaled up. If a heading, a call-to-action, or any other important message is part of your design, it should be real HTML text, potentially positioned over the image with CSS.</p>
+
+<p>When displaying images with a visible caption — a labelled diagram, a photograph with a credit line, a chart with a title — the correct semantic approach is to use the <code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code> elements. This pair creates an explicit association between the image and its caption that both browsers and assistive technologies can understand:</p>
+
+<pre><code>&lt;figure&gt;
+  &lt;img src="annual-revenue-chart.png" alt="Bar chart showing annual revenue growth from 2020 to 2024"&gt;
+  &lt;figcaption&gt;Figure 1: Annual revenue increased by 42% over the four-year period.&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+
+<p>When using <code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code>, the alt text and the caption serve different purposes. The alt text replaces the image for users who cannot see it; the caption supplements the image for all users. The alt text should therefore not simply duplicate the caption word for word.</p>
+
+<p>Finally, consider <strong>colour contrast</strong> in images that convey meaning through colour — for example, a chart that uses red and green to distinguish data series. Users with colour blindness may not be able to tell those apart. Supplement colour with patterns, labels, or shapes so the information remains accessible regardless of how the colour is perceived. This principle applies not just to images you create, but to any images you choose to include in your content.</p>
+
+<p>Bringing all of these practices together, here is a complete, well-formed image element that demonstrates best practices in a real-world context:</p>
+
+<pre><code>&lt;figure&gt;
+  &lt;img
+    src="images/team-workshop.webp"
+    alt="Eight team members collaborating around a whiteboard covered in sticky notes during a product planning workshop"
+    width="960"
+    height="640"
+  &gt;
+  &lt;figcaption&gt;The product team during the Q3 planning workshop, July 2024.&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+
+<p>This single element chooses an efficient modern format (WebP), declares dimensions to prevent layout shift, provides meaningful alt text that conveys the scene's purpose, and wraps the whole thing in semantic markup that connects the image to its visible caption. Every decision reinforces the others, resulting in an image that is fast, accessible, and correctly integrated into the document.</p>
+        <div class="notes"><strong>Notes</strong>Covers the full lifecycle of embedding an image in HTML: the void element syntax, relative vs absolute src paths, meaningful alt text authoring, width/height attributes for layout stability, a comparison of JPEG/PNG/WebP/SVG formats, and the informational vs decorative image accessibility distinction including figure/figcaption usage.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

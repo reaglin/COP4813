@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creating Hyperlinks</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Creating Hyperlinks</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Creating Hyperlinks</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Hyperlinks are the connective tissue of the web. Without them, every HTML page would be an isolated island — readable on its own but entirely disconnected from every other page, resource, or site in existence. The ability to click a piece of text or an image and instantly travel to another location is so fundamental to how the web works that it is easy to take for granted. Understanding how to create hyperlinks correctly, and understanding all the options available to you, is one of the most important foundational skills in HTML.</p>
+
+<p>At the heart of every hyperlink is the <strong>anchor element</strong>, written as <code>&lt;a&gt;</code>. Like most HTML elements, it has an opening tag and a closing tag, and whatever you place between them becomes the clickable part of the link. That content can be plain text, an image, a button, or even a whole block of styled content. The browser will typically render linked text in blue with an underline by default, signalling to the user that it is interactive, though this appearance can be changed entirely with CSS.</p>
+
+<p>Here is the simplest possible anchor element:</p>
+
+<pre><code>&lt;a&gt;Click here&lt;/a&gt;</code></pre>
+
+<p>This renders the words "Click here" as what appears to be a link, but it does nothing when clicked. That is because the anchor element, on its own, has no destination. To make a link actually navigate somewhere, you must add the <strong>href attribute</strong> — short for <em>Hypertext Reference</em>. The href attribute tells the browser where to go when the link is activated.</p>
+
+<pre><code>&lt;a href="https://www.example.com"&gt;Visit Example&lt;/a&gt;</code></pre>
+
+<p>Now the anchor has both a visible label ("Visit Example") and a destination (the URL in the href attribute). The browser knows what to show and where to go. Everything between the opening <code>&lt;a href="..."&gt;</code> and the closing <code>&lt;/a&gt;</code> is clickable.</p>
+
+<p>The href attribute is remarkably versatile. It does not only accept web addresses. It accepts a wide range of values that serve different purposes:</p>
+
+<ul>
+  <li><strong>Absolute URLs</strong> — full web addresses for external pages and resources.</li>
+  <li><strong>Relative paths</strong> — file paths relative to the current file, used for internal navigation.</li>
+  <li><strong>mailto: links</strong> — open the user's email client with a pre-filled recipient address.</li>
+  <li><strong>Page anchors (fragment identifiers)</strong> — jump to a specific section within the same page using an element's <code>id</code>.</li>
+  <li><strong>File paths</strong> — link directly to downloadable files such as PDFs, images, or ZIP archives.</li>
+</ul>
+
+<p>Each of these is explored in depth below.</p>
+
+<p><strong>External hyperlinks</strong> use <em>absolute URLs</em> as their href value. An absolute URL is a complete, self-contained web address that specifies everything the browser needs to locate a resource anywhere on the internet. It always starts with a protocol — most commonly <code>https://</code> (the secure version of HTTP) or <code>http://</code> — followed by the domain name, and then optionally a path to a specific page or file.</p>
+
+<pre><code>&lt;a href="https://www.wikipedia.org/wiki/HTML"&gt;Read about HTML on Wikipedia&lt;/a&gt;</code></pre>
+
+<p>Breaking this URL down: <code>https://</code> is the protocol, <code>www.wikipedia.org</code> is the domain, and <code>/wiki/HTML</code> is the path to the specific article. The browser uses all three parts together to find the exact resource. An absolute URL works from any file, in any folder, on any server, because it describes the destination completely rather than relative to anything else.</p>
+
+<p>When linking to external resources, always verify that the URL is accurate and that the destination page still exists. A broken external link frustrates users and can harm your site's credibility. It is also good practice to use descriptive link text rather than generic phrases. Compare these two examples:</p>
+
+<ul>
+  <li><strong>Poor:</strong> <code>&lt;a href="https://www.example.com/report.pdf"&gt;Click here&lt;/a&gt;</code></li>
+  <li><strong>Better:</strong> <code>&lt;a href="https://www.example.com/report.pdf"&gt;Download the 2024 Annual Report (PDF)&lt;/a&gt;</code></li>
+</ul>
+
+<p>The second version tells the user — and any screen reader — exactly what they will get before they click. This matters enormously for accessibility and for users who scan pages without reading every word.</p>
+
+<p><strong>Internal hyperlinks</strong> connect pages within your own website. Instead of a full URL, they use a <em>relative path</em> — a file path described relative to the location of the current HTML file. Relative paths are shorter, easier to maintain, and continue working even if you move your entire site to a different domain.</p>
+
+<p>Imagine a simple website with the following file structure:</p>
+
+<pre><code>my-website/
+├── index.html
+├── about.html
+└── pages/
+    └── contact.html</code></pre>
+
+<p>From <code>index.html</code>, you can link to <code>about.html</code> like this, since both files sit in the same folder:</p>
+
+<pre><code>&lt;a href="about.html"&gt;About Us&lt;/a&gt;</code></pre>
+
+<p>To link from <code>index.html</code> to <code>contact.html</code>, which is inside the <code>pages</code> subfolder, the path must reflect that folder structure:</p>
+
+<pre><code>&lt;a href="pages/contact.html"&gt;Contact Us&lt;/a&gt;</code></pre>
+
+<p>Conversely, if you were writing a link inside <code>contact.html</code> that needed to point back up to <code>index.html</code>, you would use <code>../</code> to navigate one level up in the folder hierarchy:</p>
+
+<pre><code>&lt;a href="../index.html"&gt;Back to Home&lt;/a&gt;</code></pre>
+
+<p>Each <code>../</code> moves one folder level upward. This system of relative paths is what transforms a set of disconnected HTML files into a coherent, navigable website. Every navigation menu you have ever used on a website is built from anchor elements with internal links exactly like these.</p>
+
+<p>The <strong>target attribute</strong> controls where the linked resource opens. By default, when a user clicks a link, the destination replaces the current page in the same browser tab. This is the expected, standard behavior for most navigation. However, sometimes — particularly when linking to an external site — you may want the destination to open in a new tab so that the user does not leave your site entirely.</p>
+
+<pre><code>&lt;a href="https://www.example.com" target="_blank"&gt;Open in a new tab&lt;/a&gt;</code></pre>
+
+<p>Setting <code>target="_blank"</code> instructs the browser to open the link in a new tab or window. While useful, this comes with a subtle but important security consideration. Without additional protection, the newly opened page has the ability to access and manipulate the originating page through the <code>window.opener</code> JavaScript property — a vulnerability known as <em>reverse tabnapping</em>. To prevent this, always pair <code>target="_blank"</code> with the <code>rel</code> attribute set to <code>"noopener noreferrer"</code>:</p>
+
+<pre><code>&lt;a href="https://www.example.com" target="_blank" rel="noopener noreferrer"&gt;
+  Visit Example (opens in new tab)
+&lt;/a&gt;</code></pre>
+
+<ul>
+  <li><strong>noopener</strong> — prevents the new page from accessing the <code>window.opener</code> reference, closing the security vulnerability.</li>
+  <li><strong>noreferrer</strong> — additionally prevents the browser from sending the referring page's URL to the destination site, which also implies noopener behavior in modern browsers.</li>
+</ul>
+
+<p>Using both together is the accepted best practice whenever you use <code>target="_blank"</code>.</p>
+
+<p>Beyond navigating between pages, anchor elements play a broader structural role in web development. A <strong>navigation menu</strong> is simply a list of anchor elements, typically wrapped in a <code>&lt;nav&gt;</code> element and styled with CSS to look like a horizontal bar or dropdown. Every item in that menu is an <code>&lt;a&gt;</code> tag pointing to a different section of the site.</p>
+
+<pre><code>&lt;nav&gt;
+  &lt;a href="index.html"&gt;Home&lt;/a&gt;
+  &lt;a href="about.html"&gt;About&lt;/a&gt;
+  &lt;a href="pages/contact.html"&gt;Contact&lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+
+<p>Anchor elements can also link to non-HTML resources. You can link directly to a PDF, an image file, a ZIP archive, or any other file type. If the browser can display the file type, it will; otherwise it will typically prompt the user to download it:</p>
+
+<pre><code>&lt;a href="files/brochure.pdf"&gt;Download our brochure (PDF)&lt;/a&gt;</code></pre>
+
+<p>You can also use <code>mailto:</code> links to open the user's default email client with a pre-filled address:</p>
+
+<pre><code>&lt;a href="mailto:hello@example.com"&gt;Email us at hello@example.com&lt;/a&gt;</code></pre>
+
+<p>The following table summarises the most common href values and their purposes:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>href Value Type</th>
+      <th>Example</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Absolute URL</td>
+      <td><code>https://www.example.com/page.html</code></td>
+      <td>Links to an external website or resource</td>
+    </tr>
+    <tr>
+      <td>Relative path (same folder)</td>
+      <td><code>about.html</code></td>
+      <td>Links to a page in the same directory</td>
+    </tr>
+    <tr>
+      <td>Relative path (subfolder)</td>
+      <td><code>pages/contact.html</code></td>
+      <td>Links to a page inside a subfolder</td>
+    </tr>
+    <tr>
+      <td>Relative path (parent folder)</td>
+      <td><code>../index.html</code></td>
+      <td>Links to a page one folder level up</td>
+    </tr>
+    <tr>
+      <td>Fragment identifier</td>
+      <td><code>#section-2</code></td>
+      <td>Jumps to an element with a matching id on the same page</td>
+    </tr>
+    <tr>
+      <td>mailto:</td>
+      <td><code>mailto:hello@example.com</code></td>
+      <td>Opens the user's email client</td>
+    </tr>
+    <tr>
+      <td>File path</td>
+      <td><code>files/report.pdf</code></td>
+      <td>Links to a downloadable or viewable file</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Ultimately, the anchor element and its href attribute are the building blocks of the entire interconnected web. Used thoughtfully — with descriptive link text, correct paths, appropriate use of <code>target</code> and <code>rel</code>, and a clear understanding of absolute versus relative URLs — they give users a reliable and accessible way to navigate your site and explore the wider web.</p>
+        <div class="notes"><strong>Notes</strong>The mailto: and fragment identifier href types are mentioned as part of the broader &quot;href accepts a wide range of values&quot; subtopic. Fragment identifiers (#id) are included in the summary table for completeness but are not the focus of this topic. Instructors may wish to cover fragment identifiers and the id attribute as a follow-on topic.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

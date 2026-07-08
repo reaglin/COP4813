@@ -1,0 +1,309 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bootstrap Layout and the Responsive Grid System</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Bootstrap Layout and the Responsive Grid System</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Bootstrap Layout and the Responsive Grid System</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Bootstrap's grid system is one of the most powerful tools in modern front-end development. It gives developers a structured, predictable way to build page layouts that look great on any device — from a small smartphone screen to a large desktop monitor. Rather than writing custom CSS for every layout scenario, Bootstrap provides a vocabulary of classes you apply directly in your HTML to control how content is arranged, sized, and stacked at different screen widths. Understanding this system deeply means understanding how containers, rows, columns, breakpoints, offsets, and nesting all work together as a unified whole.</p>
+
+<p><strong>What Is the Bootstrap Grid System?</strong></p>
+
+<p>At its core, Bootstrap's grid system is a 12-column layout framework built on top of <strong>CSS Flexbox</strong>. Every layout begins inside a container, and within that container you create rows. Each row acts as a horizontal band that holds up to 12 column units worth of content. Those 12 units are the fundamental currency of the grid — you decide how to divide them among the children of each row.</p>
+
+<p>This 12-unit model is intentionally flexible. Twelve is divisible by 1, 2, 3, 4, 6, and 12, which means you can create evenly divided layouts like two equal halves (<code>col-6 col-6</code>), three equal thirds (<code>col-4 col-4 col-4</code>), four equal quarters (<code>col-3 col-3 col-3 col-3</code>), or any asymmetric combination that adds up to 12, such as a sidebar and main content area (<code>col-3 col-9</code>).</p>
+
+<p>Because the grid is Flexbox-powered, each column in a row automatically stretches to equal height by default, and the browser handles the alignment math. You do not need to write any custom Flexbox rules yourself — Bootstrap's classes generate those rules for you.</p>
+
+<p>Consider this basic example of a three-column layout:</p>
+
+<pre><code>&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col-4"&gt;Column One&lt;/div&gt;
+    &lt;div class="col-4"&gt;Column Two&lt;/div&gt;
+    &lt;div class="col-4"&gt;Column Three&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+<p>Each <code>col-4</code> claims four of the twelve available units, so all three columns share the row equally. If you tried to add a fourth <code>col-4</code> element, it would push past the 12-unit boundary, and Bootstrap's Flexbox rules would automatically <strong>wrap it onto a new line</strong>. This wrapping behavior is intentional and useful — it means you can build grid layouts that adapt naturally without writing extra CSS, simply by understanding the 12-column budget.</p>
+
+<p><strong>Mobile-First Design Philosophy</strong></p>
+
+<p>Bootstrap follows a <strong>mobile-first</strong> strategy, which is a foundational principle worth understanding thoroughly before working with breakpoints. Mobile-first means that the base styles you write apply to the <em>smallest</em> possible screen, and you then layer on additional styles for progressively larger screens using breakpoint prefix classes. You think small first, then scale up.</p>
+
+<p>This approach contrasts with older "desktop-first" thinking, where developers would design for large screens and then use media queries to shrink things down for mobile. Mobile-first is considered better practice because mobile traffic dominates the web, and it encourages simpler, more focused default layouts that get enhanced — rather than complex desktop layouts that get stripped apart.</p>
+
+<p>In practical terms, a class like <code>col-6</code> with <em>no breakpoint prefix</em> means: "make this column six units wide at <strong>every</strong> screen size." The rule applies universally, from the tiniest phone to the widest monitor.</p>
+
+<p>Adding a breakpoint prefix changes the behavior entirely. A class like <code>col-md-6</code> means: "make this column six units wide on medium screens and larger — but on anything smaller than medium, treat it as a full-width block." This is the mobile-first default: unless you tell Bootstrap otherwise, columns on small screens stack vertically and occupy the full available width. The breakpoint class <em>upgrades</em> the layout for larger screens.</p>
+
+<p>Here is a practical illustration. Imagine a card row that should show two cards side by side on tablets and desktops, but stack them vertically on phones:</p>
+
+<pre><code>&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col-md-6"&gt;Card One&lt;/div&gt;
+    &lt;div class="col-md-6"&gt;Card Two&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+<p>On a phone (below 768px), both cards become full-width blocks stacked on top of each other — the mobile default. On a tablet or desktop (768px and above), the <code>col-md-6</code> rule kicks in and places them side by side. No custom media queries needed.</p>
+
+<p><strong>Containers: The Foundation of Layout</strong></p>
+
+<p>Every Bootstrap grid layout must start with a <strong>container</strong>. The container serves two essential purposes: it adds horizontal padding on the left and right sides so content is not flush against the viewport edges, and it centers the layout block horizontally on the page.</p>
+
+<p>Bootstrap offers two primary container variants, each suited to different design goals:</p>
+
+<ul>
+  <li><strong><code>container</code></strong> — Creates a fixed-width wrapper. At each breakpoint tier, the container snaps to a predefined maximum width. On very small screens it behaves as full-width, but on medium and larger screens it constrains the layout to a comfortable readable width. This is the most common choice for standard page layouts.</li>
+  <li><strong><code>container-fluid</code></strong> — Stretches edge-to-edge across the full viewport width at every screen size, with no maximum-width constraint. This is ideal for full-bleed layouts like dashboards, image galleries, or hero banners where you want content to span the entire screen.</li>
+</ul>
+
+<p>The fixed widths that <code>container</code> uses at each breakpoint are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Breakpoint</th>
+      <th>Screen Width</th>
+      <th>Container Max-Width</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>xs (Extra Small)</td>
+      <td>Below 576px</td>
+      <td>100% (no fixed width)</td>
+    </tr>
+    <tr>
+      <td>sm (Small)</td>
+      <td>≥ 576px</td>
+      <td>540px</td>
+    </tr>
+    <tr>
+      <td>md (Medium)</td>
+      <td>≥ 768px</td>
+      <td>720px</td>
+    </tr>
+    <tr>
+      <td>lg (Large)</td>
+      <td>≥ 992px</td>
+      <td>960px</td>
+    </tr>
+    <tr>
+      <td>xl (Extra Large)</td>
+      <td>≥ 1200px</td>
+      <td>1140px</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>One critical rule: <strong>do not nest containers inside other containers</strong>. Each container adds horizontal padding, so nesting them compounds that padding — your content ends up indented twice, columns fall out of alignment, and layouts break in subtle, hard-to-debug ways. If you need nested structure, nest rows and columns inside columns, not containers inside containers.</p>
+
+<p><strong>Rows and Columns Structure</strong></p>
+
+<p>Inside a container, the structural pattern is always the same: <strong>rows contain columns, and columns contain content</strong>. This hierarchy is not optional — skipping a row and placing columns directly inside a container breaks the negative-margin system that Bootstrap uses to keep gutters consistent.</p>
+
+<p>The <strong><code>row</code></strong> class does two things under the hood. First, it sets <code>display: flex</code> and <code>flex-wrap: wrap</code>, enabling Flexbox layout for its children. Second, it applies a small negative left and right margin that exactly cancels out the padding Bootstrap adds to each column. This negative margin trick is how Bootstrap creates equal gutters between columns without adding extra space at the outer edges of the row.</p>
+
+<p>Columns are defined using classes in the <code>col-*</code> family. There are several ways to specify a column:</p>
+
+<ul>
+  <li><strong><code>col</code></strong> (no number) — The column automatically expands to fill an equal share of available space. If there are three <code>col</code> elements in a row, each takes up one-third. Bootstrap calculates the width dynamically.</li>
+  <li><strong><code>col-4</code></strong> (with a number) — The column is exactly 4 of the 12 units wide (33.33%). The number can be 1 through 12.</li>
+  <li><strong><code>col-md-8</code></strong> (with a breakpoint prefix) — The column is 8 units wide at the medium breakpoint and above; it falls back to full-width on smaller screens.</li>
+</ul>
+
+<p>You can also mix fixed-width and auto-width columns in the same row. For example, a sidebar of fixed width with a main content area that fills the rest:</p>
+
+<pre><code>&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col-3"&gt;Sidebar (fixed at 3 units)&lt;/div&gt;
+    &lt;div class="col"&gt;Main Content (fills remaining 9 units)&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+<p>The auto-width <code>col</code> stretches to consume all space not claimed by the fixed <code>col-3</code>, giving you a flexible main area without doing any arithmetic yourself.</p>
+
+<p><strong>Breakpoint Classes and Screen Size Tiers</strong></p>
+
+<p>Bootstrap defines five screen-size tiers, each with an associated infix (prefix) you use inside class names. These tiers are based on CSS media queries — each breakpoint activates its associated styles at the listed minimum width and maintains them for all larger screens, following the mobile-first cascade.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tier</th>
+      <th>Infix</th>
+      <th>Minimum Width</th>
+      <th>Typical Target Device</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Extra Small</td>
+      <td><em>none</em></td>
+      <td>0px (all sizes)</td>
+      <td>Portrait phones</td>
+    </tr>
+    <tr>
+      <td>Small</td>
+      <td><code>sm</code></td>
+      <td>576px</td>
+      <td>Landscape phones</td>
+    </tr>
+    <tr>
+      <td>Medium</td>
+      <td><code>md</code></td>
+      <td>768px</td>
+      <td>Tablets</td>
+    </tr>
+    <tr>
+      <td>Large</td>
+      <td><code>lg</code></td>
+      <td>992px</td>
+      <td>Desktops</td>
+    </tr>
+    <tr>
+      <td>Extra Large</td>
+      <td><code>xl</code></td>
+      <td>1200px</td>
+      <td>Large desktops / wide monitors</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The real power of the breakpoint system becomes apparent when you <strong>stack multiple breakpoint classes on a single element</strong>. Each class governs a different tier, and they work together to define a complete responsive behavior profile for that element. Consider this example:</p>
+
+<pre><code>&lt;div class="col-12 col-md-6 col-lg-4"&gt;
+  Content Block
+&lt;/div&gt;</code></pre>
+
+<p>Reading this from smallest to largest: on extra-small and small screens (phones), this column occupies all 12 units — the full row width, stacking vertically. On medium screens (tablets), it takes 6 units — two columns share the row. On large screens and above (desktops), it narrows to 4 units — three columns fit per row. This single element has three completely different layout behaviors, all defined with three simple classes and no custom CSS.</p>
+
+<p>This stacking pattern is the standard way Bootstrap developers build adaptive layouts. You think about how content should look at each tier and write the appropriate class for each one.</p>
+
+<p><strong>Offsetting and Ordering Columns</strong></p>
+
+<p>Sometimes you need to push a column away from the left edge of the row without filling the empty space with another column. Bootstrap's <strong>offset classes</strong> handle this by adding a left margin equal to a specified number of column widths.</p>
+
+<p>The class <code>offset-md-2</code>, for instance, pushes the element two column units to the right on medium screens and above. You can think of it as "inserting" two invisible empty columns before the element. This is useful for centering a narrow column, creating visual indentation, or achieving asymmetric layouts:</p>
+
+<pre><code>&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col-md-4 offset-md-4"&gt;
+      Centered column (4 units wide, pushed 4 units from the left)
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+<p>Here, <code>offset-md-4</code> pushes the 4-unit-wide column into the horizontal center of a 12-unit row (4 offset + 4 content + 4 empty right = 12). The result is a centered content block without needing flexbox alignment utilities.</p>
+
+<p>Bootstrap's <strong>order classes</strong> let you rearrange the visual sequence of columns without changing the HTML source order. This is particularly valuable for accessibility and SEO — you might want the main content to appear first in the HTML for screen readers and search engines, but visually place a sidebar before it on larger screens.</p>
+
+<p>Order values range from 1 to 12, and Bootstrap also provides the keywords <code>order-first</code> (equivalent to order: -1) and <code>order-last</code> (equivalent to order: 13) for moving elements to the absolute beginning or end of the row:</p>
+
+<pre><code>&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col-md-8 order-md-2"&gt;Main Content (second in HTML, first visually on desktop)&lt;/div&gt;
+    &lt;div class="col-md-4 order-md-1"&gt;Sidebar (first in HTML, second visually on desktop)&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+<p>On mobile, the columns stack in HTML order: main content first, sidebar second. On medium screens and above, the order classes reverse their visual positions. Like all responsive classes, offset and order classes accept breakpoint infixes — <code>offset-lg-3</code>, <code>order-sm-2</code> — so you can apply them selectively at different tiers.</p>
+
+<p><strong>Nesting Grids for Complex Layouts</strong></p>
+
+<p>For more intricate page structures, Bootstrap allows you to <strong>nest grids</strong> — placing a new row-and-column structure inside an existing column. This technique is essential when a section of your page needs its own internal grid arrangement independent of the outer layout.</p>
+
+<p>The mechanics are straightforward: inside any column element, you add a new <code>row</code> div, and then place <code>col-*</code> elements inside that inner row. Crucially, the nested row operates on its own <strong>12-column scale relative to the width of its parent column</strong>, not the full page width. So if the parent column is <code>col-6</code> (half the page), a <code>col-6</code> inside a nested row takes up half of that parent column — one quarter of the total page width.</p>
+
+<pre><code>&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+
+    &lt;!-- Outer column: takes up 8 of 12 page units --&gt;
+    &lt;div class="col-8"&gt;
+      Main Section
+      &lt;!-- Nested row inside the outer column --&gt;
+      &lt;div class="row"&gt;
+        &lt;div class="col-6"&gt;Inner Left (4 page units wide)&lt;/div&gt;
+        &lt;div class="col-6"&gt;Inner Right (4 page units wide)&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Outer column: takes up 4 of 12 page units --&gt;
+    &lt;div class="col-4"&gt;Sidebar&lt;/div&gt;
+
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+<p>In this example, the outer layout divides the page into an 8-unit main section and a 4-unit sidebar. Inside the main section, a nested row divides that 8-unit space into two equal halves. Each inner <code>col-6</code> is half of 8 units, which equals 4 page units each — but you never have to calculate that yourself. Bootstrap handles the proportional math because the nested row always treats its parent as a 12-column container.</p>
+
+<p>While nesting is powerful, it should be used with restraint. Each additional level of nesting increases HTML depth, makes the document harder to read and maintain, and can create subtle responsive quirks where column widths behave unexpectedly across breakpoints. A good rule of thumb is to limit nesting to one or two levels deep. If you find yourself going deeper, consider whether the layout can be restructured or whether a CSS utility class might solve the problem more cleanly.</p>
+
+<p>Taken together, Bootstrap's grid system — containers, rows, columns, breakpoint tiers, offsets, ordering, and nesting — forms a complete toolkit for building virtually any responsive page layout. The key is understanding the 12-column budget, the mobile-first cascade of breakpoint classes, and the hierarchy of container → row → column that must be maintained for the system to work correctly. Once those principles are internalized, responsive layouts become a matter of applying the right class combinations rather than wrestling with custom CSS.</p>
+        <div class="notes"><strong>Notes</strong>Bootstrap 4 is the version assumed in this content based on the breakpoint widths listed (xl at 1200px). Bootstrap 5 introduces an additional xxl breakpoint at 1400px and renames some utility classes, but the core grid concepts are identical. Instructors may wish to note which version students are using.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

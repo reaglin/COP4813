@@ -1,0 +1,294 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetching JSON Data with XMLHttpRequest</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Fetching JSON Data with XMLHttpRequest</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Fetching JSON Data with XMLHttpRequest</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Long before the modern <strong>Fetch API</strong> arrived, browsers provided a built-in mechanism for making HTTP requests from JavaScript without reloading the page. That mechanism is <strong>XMLHttpRequest</strong>, commonly abbreviated as <strong>XHR</strong>. It was the engine behind the original wave of dynamic, "Web 2.0" applications, and it remains deeply embedded in a vast number of production codebases written before ES6 became widespread. Understanding XHR thoroughly means you can read, debug, and maintain that legacy code confidently — and you gain a deeper appreciation of what the Fetch API later improved upon.</p>
+
+<p><strong>XMLHttpRequest</strong> is a browser-native API, meaning it is available as a global constructor in every major browser, including browsers as old as Internet Explorer 7. Despite its name, XHR is not limited to XML at all. It can transfer any text-based or binary data format: plain text, HTML fragments, XML documents, and — most commonly today — <strong>JSON</strong>. The name is simply a historical artifact from the era when XML was the dominant data interchange format on the web.</p>
+
+<p>Because XHR predates Promises and the <code>async/await</code> syntax, it operates through <strong>event-based callbacks</strong>. You create an object, attach handlers to its events, configure the request, and then send it. The browser calls your handlers when things happen — a response arrives, an error occurs, or upload progress is made. This callback-driven style is important to recognise when you encounter it in older code.</p>
+
+<p>The overall lifecycle of an XHR request follows a clear sequence of steps:</p>
+<ul>
+  <li>Instantiate a new <code>XMLHttpRequest</code> object.</li>
+  <li>Call <code>open()</code> to configure the HTTP method, URL, and synchronous/asynchronous mode.</li>
+  <li>Attach event handlers such as <code>onload</code> and <code>onerror</code>.</li>
+  <li>Call <code>send()</code> to dispatch the request to the server.</li>
+  <li>Inside the handlers, inspect the response and process the data.</li>
+</ul>
+
+<p>Let's walk through each of these stages in depth.</p>
+
+<p><strong>Creating and Opening an XHR Request</strong></p>
+
+<p>Creating an XHR object is straightforward — you call the constructor with <code>new</code>:</p>
+
+<pre><code>const xhr = new XMLHttpRequest();</code></pre>
+
+<p>This gives you a fresh request object. Nothing has happened on the network yet; you simply have a configured object sitting in memory. The next step is calling <code>open()</code>, which sets up the parameters for the request:</p>
+
+<pre><code>xhr.open('GET', 'https://api.example.com/data/users.json', true);</code></pre>
+
+<p>The <code>open()</code> method accepts three important arguments:</p>
+<ul>
+  <li><strong>HTTP method</strong> — a string such as <code>'GET'</code>, <code>'POST'</code>, <code>'PUT'</code>, or <code>'DELETE'</code>. For simply retrieving JSON data you will almost always use <code>'GET'</code>.</li>
+  <li><strong>URL</strong> — the full or relative URL of the resource you want to fetch.</li>
+  <li><strong>Asynchronous flag</strong> — a boolean. Passing <code>true</code> (the default and strongly recommended value) makes the request <em>asynchronous</em>, meaning the browser sends the request in the background and continues executing your script. Passing <code>false</code> makes it synchronous, which blocks the entire browser tab until the response arrives — a behaviour that is now deprecated in many contexts because it causes the UI to freeze and makes for a terrible user experience.</li>
+</ul>
+
+<p>It is crucial to understand that calling <code>open()</code> does <strong>not</strong> send the request. It only prepares the request configuration internally. Think of it like addressing and stamping an envelope — you haven't dropped it in the mailbox yet.</p>
+
+<p><strong>Sending the Request and Handling the Response</strong></p>
+
+<p>Before sending, you should register your event handlers. The most important handler for a successful data retrieval is <code>onload</code>, which fires when the browser has fully received a response from the server:</p>
+
+<pre><code>xhr.onload = function () {
+  if (xhr.status === 200) {
+    const data = JSON.parse(xhr.responseText);
+    console.log(data);
+  } else {
+    console.error('Request failed. Status:', xhr.status);
+  }
+};
+</code></pre>
+
+<p>Only after attaching your handlers do you call <code>send()</code>:</p>
+
+<pre><code>xhr.send();</code></pre>
+
+<p>The reason for this ordering matters: although it is technically unlikely in practice, attaching handlers <em>before</em> calling <code>send()</code> guarantees that your callbacks are in place before any response could theoretically be processed. It is a safe, consistent habit.</p>
+
+<p>Inside the <code>onload</code> handler, two properties on the XHR object are essential:</p>
+<ul>
+  <li><code>xhr.status</code> — the HTTP status code returned by the server (e.g., <code>200</code> for OK, <code>404</code> for Not Found, <code>500</code> for Internal Server Error). A critical point: <code>onload</code> fires for <em>any completed response</em>, including error responses like 404. It only means the network transaction finished — not that the server gave you what you asked for. This is why checking <code>xhr.status === 200</code> (or more broadly, <code>xhr.status >= 200 && xhr.status < 300</code>) before processing data is mandatory.</li>
+  <li><code>xhr.responseText</code> — the raw body of the response as a plain <strong>string</strong>. When the server returns JSON, this is the JSON-formatted text. You must parse it yourself before you can work with it as a JavaScript object.</li>
+</ul>
+
+<p><strong>Parsing JSON from the XHR Response</strong></p>
+
+<p>The raw text in <code>xhr.responseText</code> is not yet usable as a JavaScript data structure. To convert it, you call <code>JSON.parse()</code>:</p>
+
+<pre><code>xhr.onload = function () {
+  if (xhr.status === 200) {
+    try {
+      const users = JSON.parse(xhr.responseText);
+      users.forEach(function (user) {
+        console.log(user.name, user.email);
+      });
+    } catch (e) {
+      console.error('Failed to parse JSON:', e.message);
+    }
+  }
+};
+</code></pre>
+
+<p><code>JSON.parse()</code> takes a valid JSON string and returns the corresponding JavaScript value — an object, an array, a number, a string, a boolean, or <code>null</code>. If the string is malformed or is not valid JSON (for example, the server returned an HTML error page instead of JSON), <code>JSON.parse()</code> throws a <strong>SyntaxError</strong>. Wrapping the call in a <code>try/catch</code> block is therefore good practice, especially when dealing with APIs you do not fully control.</p>
+
+<p>A convenient alternative is to set the <code>responseType</code> property on the XHR object <em>before</em> calling <code>send()</code>:</p>
+
+<pre><code>xhr.responseType = 'json';</code></pre>
+
+<p>When <code>responseType</code> is set to <code>'json'</code>, the browser automatically parses the response body for you. Instead of reading <code>xhr.responseText</code>, you read <code>xhr.response</code>, which will already be the parsed JavaScript object:</p>
+
+<pre><code>const xhr = new XMLHttpRequest();
+xhr.open('GET', 'https://api.example.com/data/users.json', true);
+xhr.responseType = 'json';
+
+xhr.onload = function () {
+  if (xhr.status === 200) {
+    const users = xhr.response; // already parsed — no JSON.parse() needed
+    console.log(users);
+  }
+};
+
+xhr.onerror = function () {
+  console.error('Network error occurred.');
+};
+
+xhr.send();
+</code></pre>
+
+<p>This approach is cleaner and eliminates the risk of a <code>SyntaxError</code> crashing your handler, since the parsing is handled internally. However, <code>responseType = 'json'</code> has slightly less universal browser support than <code>responseText</code> with manual parsing, which is why you will still see the manual approach in many older codebases.</p>
+
+<p><strong>Error Handling with XMLHttpRequest</strong></p>
+
+<p>Robust XHR code must handle two completely different categories of failure, and each requires a different approach.</p>
+
+<p>The first category is a <strong>network-level failure</strong> — for example, the user is offline, the DNS lookup fails, or a firewall blocks the connection entirely. In these cases, no HTTP response is ever received. XHR surfaces these situations through the <code>onerror</code> event handler:</p>
+
+<pre><code>xhr.onerror = function () {
+  console.error('The request could not be completed due to a network error.');
+};
+</code></pre>
+
+<p>The second category is an <strong>HTTP-level failure</strong> — the server was reached successfully but returned a status code indicating a problem, such as <code>404 Not Found</code> or <code>500 Internal Server Error</code>. Here is the critical subtlety that catches many developers off guard: <strong><code>onerror</code> does not fire for 4xx or 5xx responses</strong>. From XHR's perspective, receiving a 404 is a perfectly successful network transaction — a response arrived. The <code>onload</code> handler fires, but the <code>xhr.status</code> is not 200. This is why status code checking inside <code>onload</code> is not optional:</p>
+
+<pre><code>xhr.onload = function () {
+  if (xhr.status >= 200 && xhr.status < 300) {
+    // Success path
+    const data = JSON.parse(xhr.responseText);
+    processData(data);
+  } else if (xhr.status === 404) {
+    console.error('Resource not found (404).');
+  } else if (xhr.status === 500) {
+    console.error('Server error (500).');
+  } else {
+    console.error('Unexpected status code:', xhr.status);
+  }
+};
+</code></pre>
+
+<p>A complete, defensive XHR implementation that handles all scenarios looks like this:</p>
+
+<pre><code>function fetchUsers(url, onSuccess, onFailure) {
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.responseType = 'json';
+
+  xhr.onload = function () {
+    if (xhr.status >= 200 && xhr.status < 300) {
+      onSuccess(xhr.response);
+    } else {
+      onFailure(new Error('HTTP error: ' + xhr.status));
+    }
+  };
+
+  xhr.onerror = function () {
+    onFailure(new Error('Network error: request could not be sent.'));
+  };
+
+  xhr.send();
+}
+
+fetchUsers(
+  'https://api.example.com/users.json',
+  function (data) { console.log('Users loaded:', data); },
+  function (err) { console.error('Failed to load users:', err.message); }
+);
+</code></pre>
+
+<p>This pattern — wrapping XHR in a utility function that accepts success and failure callbacks — was extremely common in pre-Promise JavaScript. You will encounter it frequently when working with older codebases or libraries like early versions of jQuery, which built its own AJAX utilities on top of XHR.</p>
+
+<p><strong>XHR vs. the Fetch API: Context and Legacy Use</strong></p>
+
+<p>It is worth placing XHR in historical context to understand why the Fetch API was created and why XHR still matters. The following table compares the two approaches across several key dimensions:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>XMLHttpRequest</th>
+      <th>Fetch API</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Syntax style</td>
+      <td>Callback-based (event handlers)</td>
+      <td>Promise-based (<code>.then()</code> / <code>async/await</code>)</td>
+    </tr>
+    <tr>
+      <td>Browser compatibility</td>
+      <td>All browsers, including IE7+</td>
+      <td>Modern browsers (IE not supported without a polyfill)</td>
+    </tr>
+    <tr>
+      <td>Automatic JSON parsing</td>
+      <td>Optional via <code>responseType = 'json'</code></td>
+      <td>Via <code>response.json()</code> returning a Promise</td>
+    </tr>
+    <tr>
+      <td>HTTP error handling</td>
+      <td>Must check <code>xhr.status</code> manually in <code>onload</code></td>
+      <td>Must also check <code>response.ok</code> manually — same caveat applies</td>
+    </tr>
+    <tr>
+      <td>Upload progress tracking</td>
+      <td>Supported via <code>xhr.upload.onprogress</code></td>
+      <td>Not natively supported (as of widespread adoption)</td>
+    </tr>
+    <tr>
+      <td>Abort support</td>
+      <td>Via <code>xhr.abort()</code></td>
+      <td>Via <code>AbortController</code></td>
+    </tr>
+    <tr>
+      <td>Code readability</td>
+      <td>Verbose; prone to "callback hell" when chained</td>
+      <td>Cleaner; composes naturally with <code>async/await</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>One area where XHR historically held a genuine advantage was <strong>upload progress tracking</strong>. The <code>xhr.upload</code> object exposes a <code>progress</code> event that fires repeatedly as data is being uploaded to the server, making it possible to build accurate upload progress bars. This capability was not available in early versions of the Fetch API, which is why some file-upload libraries continued using XHR long after Fetch became mainstream.</p>
+
+<p>Today, new code overwhelmingly favours the Fetch API for its cleaner syntax and natural integration with Promises. However, encountering XHR in a real project is not at all unusual. Legacy enterprise applications, third-party widgets, and older open-source libraries all contain XHR. Understanding how it works at a mechanical level — the event flow, the status-checking requirement, the manual JSON parsing — means you can read that code accurately, extend it safely, and refactor it toward modern patterns when the time is right.</p>
+        <div class="notes"><strong>Notes</strong>Covers full XHR lifecycle for JSON fetching, defensive error handling patterns, the responseType=&#39;json&#39; shorthand, and a side-by-side comparison table with the Fetch API for contextual understanding.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

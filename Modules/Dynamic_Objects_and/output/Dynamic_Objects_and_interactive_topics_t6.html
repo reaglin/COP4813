@@ -1,0 +1,585 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building Interactive UI Controls with JavaScript</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Building Interactive UI Controls with JavaScript</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Building Interactive UI Controls with JavaScript</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Building interactive UI controls entirely through JavaScript is one of the most practical and demanding skills in front-end development. Rather than relying on a framework or library, writing controls by hand gives you precise command over every element, every event, and every state transition. This approach demands that you think simultaneously about structure, behavior, appearance, and accessibility — and that you keep all four dimensions consistent at all times. The reward is a deep understanding of the browser's programming model and the ability to craft lightweight, dependency-free components that can be dropped into any project.</p>
+
+<p>An "interactive UI control" can be almost anything: a custom dropdown select, an accordion panel, a modal dialog, a date picker, a tag input field, a color swatch chooser, or a multi-step wizard. What every one of these shares is a predictable anatomy — a hierarchy of DOM elements, a set of discrete states, a collection of user interactions that trigger transitions between those states, and a visual representation that always reflects the current state. When you understand that anatomy, you can build any control, no matter how complex.</p>
+
+<p>The sections below walk through that anatomy stage by stage, from the first pencil sketch all the way to a reusable, accessible, self-cleaning component.</p>
+
+<p><strong>Planning the UI Control Structure</strong></p>
+
+<p>Experienced developers resist the urge to open a code editor the moment they receive a design. A few minutes of deliberate planning eliminates hours of refactoring later. Planning a UI control means answering four concrete questions: What does the element tree look like? Which nodes already exist in the HTML and which must be created programmatically? What states can the control be in? And what user gestures cause it to move between those states?</p>
+
+<p>Start by sketching — even on paper — the element hierarchy the control requires. Consider a custom dropdown list. Its hierarchy might look like this:</p>
+
+<pre><code>div.dropdown                  ← outer wrapper, positioning context
+  button.dropdown__trigger    ← the visible "selected value" button
+  ul.dropdown__list           ← the panel that appears on open
+    li.dropdown__item         ← one per option
+    li.dropdown__item
+    ...</code></pre>
+
+<p>Knowing this hierarchy before writing a single line of code tells you exactly how many <code>createElement</code> calls you need, what class names and ARIA roles to assign, and which element will be the event delegation target.</p>
+
+<p>Next, decide which elements are <strong>dynamic</strong> versus <strong>anchored</strong>. An anchored element already exists in the HTML — perhaps a <code>&lt;div id="dropdown-mount"&gt;</code> placed by a server-rendered template. A dynamic element is one you create entirely in JavaScript. In the dropdown example the outer wrapper and all internal nodes are dynamic; only the mount point is anchored. Knowing the boundary prevents you from accidentally overwriting existing content or duplicating structure.</p>
+
+<p>State definition is the most intellectually demanding part of the plan. Write out every distinct condition the control can be in as a list of named states or a set of state variables:</p>
+
+<ul>
+  <li><strong>open / closed</strong> — is the list panel visible?</li>
+  <li><strong>selectedIndex</strong> — which item (if any) is currently chosen?</li>
+  <li><strong>focusedIndex</strong> — which item is highlighted by keyboard navigation?</li>
+  <li><strong>disabled</strong> — is the whole control inert?</li>
+</ul>
+
+<p>Finally, map user interactions to state changes. This is essentially a transition table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>User Action</th>
+      <th>Current State Condition</th>
+      <th>Resulting State Change</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Click trigger button</td>
+      <td>closed</td>
+      <td>open = true</td>
+    </tr>
+    <tr>
+      <td>Click trigger button</td>
+      <td>open</td>
+      <td>open = false</td>
+    </tr>
+    <tr>
+      <td>Click list item</td>
+      <td>open</td>
+      <td>selectedIndex = clicked index, open = false</td>
+    </tr>
+    <tr>
+      <td>Press Escape</td>
+      <td>open</td>
+      <td>open = false, focus returns to trigger</td>
+    </tr>
+    <tr>
+      <td>Press ArrowDown</td>
+      <td>open</td>
+      <td>focusedIndex increments</td>
+    </tr>
+    <tr>
+      <td>Press Enter on item</td>
+      <td>open</td>
+      <td>selectedIndex = focusedIndex, open = false</td>
+    </tr>
+    <tr>
+      <td>Click outside control</td>
+      <td>open</td>
+      <td>open = false</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>With this table in hand, writing event handlers becomes mechanical rather than speculative. You will never discover a missing edge case mid-demo.</p>
+
+<p><strong>Constructing Control Elements with JavaScript</strong></p>
+
+<p><code>document.createElement(tagName)</code> is the foundation of programmatic DOM construction. It creates a new element node in memory — detached from the document — so you can configure it fully before it ever touches the live page. Inserting a fully configured subtree in one operation is both cleaner and, for large trees, more performant than inserting a bare element and then modifying it while it is already in the DOM.</p>
+
+<p>Here is how the dropdown's element tree is built in code:</p>
+
+<pre><code>function buildDropdown(options) {
+  // Outer wrapper
+  const wrapper = document.createElement('div');
+  wrapper.className = 'dropdown';
+
+  // Trigger button
+  const trigger = document.createElement('button');
+  trigger.type = 'button';
+  trigger.className = 'dropdown__trigger';
+  trigger.setAttribute('aria-haspopup', 'listbox');
+  trigger.setAttribute('aria-expanded', 'false');
+  trigger.textContent = options[0].label;   // default label
+
+  // List panel
+  const list = document.createElement('ul');
+  list.className = 'dropdown__list';
+  list.setAttribute('role', 'listbox');
+  list.setAttribute('tabindex', '-1');
+  list.hidden = true;
+
+  // One item per option
+  options.forEach((opt, index) => {
+    const item = document.createElement('li');
+    item.className = 'dropdown__item';
+    item.setAttribute('role', 'option');
+    item.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
+    item.dataset.value = opt.value;
+    item.dataset.index = index;
+    item.textContent = opt.label;
+    list.appendChild(item);
+  });
+
+  wrapper.appendChild(trigger);
+  wrapper.appendChild(list);
+
+  return wrapper;
+}</code></pre>
+
+<p>Several practices in this snippet deserve emphasis. <code>trigger.type = 'button'</code> prevents the browser from treating the button as a form submit control — a common and silent bug. Setting <code>aria-haspopup="listbox"</code> immediately tells assistive technologies what kind of panel this button controls, before the panel even exists in the DOM. Using <code>list.hidden = true</code> is preferable to toggling a CSS class initially because it is semantically meaningful: the element is genuinely not present for users or assistive technology until it is unhidden.</p>
+
+<p>The <code>dataset</code> property provides a clean way to embed data values — like an option's underlying value and its positional index — directly in the markup. This means event handlers can read the data from the element itself rather than from a separate data structure, which simplifies coordination.</p>
+
+<p>Once the tree is assembled, inject it into the live document:</p>
+
+<pre><code>const mountPoint = document.getElementById('dropdown-mount');
+mountPoint.appendChild(wrapper);</code></pre>
+
+<p>This single <code>appendChild</code> call triggers exactly one reflow. If you had instead inserted <code>wrapper</code> bare and then called <code>appendChild</code> for <code>trigger</code> and then <code>list</code>, you would trigger three separate reflows. For small controls the difference is imperceptible, but the habit of building first, inserting once, scales well to large trees.</p>
+
+<p>When insertion order matters — for example, inserting a new control before an existing sibling rather than at the end of the container — use <code>insertBefore(newNode, referenceNode)</code> or the more expressive <code>insertAdjacentElement(position, element)</code>, where position can be <code>'beforebegin'</code>, <code>'afterbegin'</code>, <code>'beforeend'</code>, or <code>'afterend'</code>.</p>
+
+<p><strong>Attaching Event Listeners to Control Components</strong></p>
+
+<p>With elements in the DOM, the control is visible but inert. Event listeners give it life. The guiding principle is to attach the minimum number of listeners necessary to handle all interactions, and to attach them in a way that allows clean removal later.</p>
+
+<p>For the dropdown, three listeners cover nearly everything: one on the trigger for click, one on the list for click (delegation), and one on the document for a "click outside" dismissal.</p>
+
+<pre><code>function attachListeners(state, elements) {
+  const { wrapper, trigger, list } = elements;
+
+  function onTriggerClick(e) {
+    e.stopPropagation();   // prevent document click from immediately closing
+    toggleOpen(state, elements);
+  }
+
+  function onListClick(e) {
+    const item = e.target.closest('.dropdown__item');
+    if (!item) return;
+    selectItem(state, elements, parseInt(item.dataset.index, 10));
+  }
+
+  function onDocumentClick() {
+    if (state.open) {
+      closeDropdown(state, elements);
+    }
+  }
+
+  function onKeyDown(e) {
+    handleKeyboard(e, state, elements);
+  }
+
+  trigger.addEventListener('click', onTriggerClick);
+  list.addEventListener('click', onListClick);
+  document.addEventListener('click', onDocumentClick);
+  wrapper.addEventListener('keydown', onKeyDown);
+
+  // Return a cleanup function that references the exact same handler instances
+  return function detach() {
+    trigger.removeEventListener('click', onTriggerClick);
+    list.removeEventListener('click', onListClick);
+    document.removeEventListener('click', onDocumentClick);
+    wrapper.removeEventListener('keydown', onKeyDown);
+  };
+}</code></pre>
+
+<p>Notice that each handler is a <strong>named function expression</strong> stored in a local variable. This is essential for <code>removeEventListener</code> to work. <code>removeEventListener</code> identifies a listener by reference equality — if you pass an anonymous function to <code>addEventListener</code>, you can never pass the same reference to <code>removeEventListener</code>, so the listener can never be removed, leading to a memory leak and potentially duplicate behavior if the control is ever re-initialized.</p>
+
+<p><strong>Event delegation</strong> on <code>list</code> is the mechanism behind <code>onListClick</code>. Rather than attaching a click listener to every <code>&lt;li&gt;</code> element — and having to re-attach when options are added or removed — a single listener on the parent <code>&lt;ul&gt;</code> catches all clicks that bubble up from any child. The line <code>e.target.closest('.dropdown__item')</code> walks up the DOM from the actual clicked element until it finds a matching ancestor (or returns <code>null</code> if the click was on the list background). This pattern handles scenarios where list items themselves contain child elements (like icons or badges) without any extra code.</p>
+
+<p><code>e.stopPropagation()</code> on the trigger click is an important detail. Without it, the click event would bubble to the <code>document</code>, firing <code>onDocumentClick</code> in the same synchronous tick and immediately closing the dropdown that was just opened. <code>e.preventDefault()</code> serves a different purpose: it cancels the browser's native behavior for the event (for example, preventing a link from navigating, or preventing a form from submitting). You rarely need both together, and overusing them makes debugging harder — apply each only where genuinely needed.</p>
+
+<p><strong>Managing Control State Dynamically</strong></p>
+
+<p>State management is the heart of an interactive control. Without a single, authoritative source of truth for the control's condition, the visual representation and the logical state inevitably drift apart, producing mysterious bugs.</p>
+
+<p>The simplest approach is a plain JavaScript object that holds all state variables:</p>
+
+<pre><code>const state = {
+  open: false,
+  selectedIndex: 0,
+  focusedIndex: -1,
+  disabled: false
+};</code></pre>
+
+<p>Every function that changes the control accepts this object and mutates it, then calls a <code>render</code>-style function to synchronize the DOM with the new state values. This separation — "change state, then reflect state" — is the same conceptual model used by React, Vue, and every other modern UI framework, just without the framework machinery.</p>
+
+<pre><code>function applyState(state, elements) {
+  const { trigger, list, items } = elements;
+
+  // Reflect open/closed
+  list.hidden = !state.open;
+  trigger.setAttribute('aria-expanded', state.open ? 'true' : 'false');
+
+  // Reflect selected item in trigger label
+  trigger.textContent = items[state.selectedIndex].textContent;
+
+  // Reflect aria-selected on all items
+  items.forEach((item, i) => {
+    item.setAttribute('aria-selected', i === state.selectedIndex ? 'true' : 'false');
+    item.classList.toggle('dropdown__item--focused', i === state.focusedIndex);
+  });
+
+  // Reflect disabled state
+  trigger.disabled = state.disabled;
+  wrapper.classList.toggle('dropdown--disabled', state.disabled);
+}</code></pre>
+
+<p>By centralizing all DOM mutations in <code>applyState</code>, you guarantee that the visual and the logical are always synchronized. You never have a situation where <code>aria-expanded</code> says <code>"true"</code> but the list is actually hidden, because both are driven by the same <code>state.open</code> variable in the same function call.</p>
+
+<p><strong>Data attributes</strong> on DOM elements serve as a secondary, convenient place to store state that is tightly coupled to a specific element. In the dropdown, <code>item.dataset.index = index</code> was set during construction. In <code>onListClick</code>, the handler reads <code>item.dataset.index</code> to know which item was clicked, without needing to search through a separate array. This is not a replacement for the central state object — it is a lightweight tag for element-specific identity.</p>
+
+<p>The principle of <strong>atomic updates</strong> means: do not update half the state and then do something slow in the middle. Update all related state variables and then call <code>applyState</code> once:</p>
+
+<pre><code>function selectItem(state, elements, index) {
+  // Atomic: update all related state at once
+  state.selectedIndex = index;
+  state.focusedIndex = index;
+  state.open = false;
+
+  // Then reflect the complete new state in one pass
+  applyState(state, elements);
+
+  // Then handle side effects
+  elements.trigger.focus();
+}</code></pre>
+
+<p>If you updated <code>state.open</code> first, then called some function that triggered a repaint, then updated <code>state.selectedIndex</code>, the user might see a flash of inconsistent UI. Grouping all mutations before any rendering call prevents that entirely.</p>
+
+<p><strong>Modifying and Updating Control Elements at Runtime</strong></p>
+
+<p>Controls often need to change their structure after initial construction — loading options from an API, adding items to a list, removing an entry after the user deletes it. JavaScript's DOM manipulation methods handle all of these scenarios.</p>
+
+<p>To <strong>add</strong> a new option to the dropdown at runtime:</p>
+
+<pre><code>function addOption(state, elements, option) {
+  const { list, items } = elements;
+  const index = items.length;
+
+  const item = document.createElement('li');
+  item.className = 'dropdown__item';
+  item.setAttribute('role', 'option');
+  item.setAttribute('aria-selected', 'false');
+  item.dataset.value = option.value;
+  item.dataset.index = index;
+  item.textContent = option.label;
+
+  list.appendChild(item);
+  items.push(item);   // keep the elements.items array in sync
+  // No need to re-attach listeners — event delegation on 'list' covers new items
+}</code></pre>
+
+<p>Because click handling uses delegation on the parent <code>&lt;ul&gt;</code>, new items are automatically covered without any additional <code>addEventListener</code> calls. This is a major ergonomic and performance advantage of delegation for dynamic content.</p>
+
+<p>To <strong>update</strong> an item's label:</p>
+
+<pre><code>function updateOptionLabel(elements, index, newLabel) {
+  const item = elements.items[index];
+  item.textContent = newLabel;
+  // If this item is currently selected, update the trigger label too
+  if (index === state.selectedIndex) {
+    elements.trigger.textContent = newLabel;
+  }
+}</code></pre>
+
+<p>Prefer <code>textContent</code> over <code>innerHTML</code> for inserting plain text. <code>innerHTML</code> parses its argument as HTML, which is both slower and a potential XSS vector if the string ever comes from user input. Use <code>innerHTML</code> only when you intentionally need to insert markup, and sanitize the input first.</p>
+
+<p>To <strong>remove</strong> an option:</p>
+
+<pre><code>function removeOption(state, elements, index) {
+  const item = elements.items[index];
+  item.remove();   // modern, clean equivalent of item.parentNode.removeChild(item)
+  elements.items.splice(index, 1);
+
+  // Rebuild data-index attributes after removal to keep them accurate
+  elements.items.forEach((el, i) => {
+    el.dataset.index = i;
+  });
+
+  // Adjust selectedIndex if needed
+  if (state.selectedIndex >= elements.items.length) {
+    state.selectedIndex = elements.items.length - 1;
+  }
+  applyState(state, elements);
+}</code></pre>
+
+<p>When elements are <strong>fully replaced</strong> rather than modified (for example, clearing the list and rebuilding it from scratch), you must be careful about event listeners attached directly to the removed elements. With delegation, this is a non-issue — the parent listener survives. But if any removed element had direct listeners, those listeners are garbage-collected along with the element as long as no other reference to the element exists. If you hold a reference to those elements in a variable (like <code>elements.items</code>), the elements will not be garbage-collected and the listeners will leak. Always clear your reference arrays when rebuilding.</p>
+
+<p><strong>Ensuring Accessibility in JavaScript-Built Controls</strong></p>
+
+<p>A control built entirely in JavaScript with <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code> elements is, by default, invisible to users of screen readers and keyboard-only navigation. Accessibility is not a finishing touch — it is a structural requirement that must be woven in from the planning stage.</p>
+
+<p>The Web Accessibility Initiative's ARIA specification (WAI-ARIA) provides a vocabulary of roles, properties, and states that can be applied to any HTML element to communicate its semantics to assistive technology. For a custom dropdown acting as a listbox, the correct roles are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Element</th>
+      <th>ARIA Role / Attribute</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Trigger <code>&lt;button&gt;</code></td>
+      <td><code>aria-haspopup="listbox"</code></td>
+      <td>Tells screen readers a listbox popup is associated</td>
+    </tr>
+    <tr>
+      <td>Trigger <code>&lt;button&gt;</code></td>
+      <td><code>aria-expanded="true|false"</code></td>
+      <td>Communicates whether the popup is currently open</td>
+    </tr>
+    <tr>
+      <td>Trigger <code>&lt;button&gt;</code></td>
+      <td><code>aria-controls="list-id"</code></td>
+      <td>Links the trigger to the element it controls</td>
+    </tr>
+    <tr>
+      <td>List <code>&lt;ul&gt;</code></td>
+      <td><code>role="listbox"</code></td>
+      <td>Identifies the element as a list of selectable options</td>
+    </tr>
+    <tr>
+      <td>Each item <code>&lt;li&gt;</code></td>
+      <td><code>role="option"</code></td>
+      <td>Identifies each child as a selectable option</td>
+    </tr>
+    <tr>
+      <td>Each item <code>&lt;li&gt;</code></td>
+      <td><code>aria-selected="true|false"</code></td>
+      <td>Communicates selection state to screen readers</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Critically, ARIA state attributes must be kept in sync with JavaScript state. If <code>state.open</code> becomes <code>true</code>, <code>trigger.setAttribute('aria-expanded', 'true')</code> must happen in the same <code>applyState</code> call. Screen readers monitor these attribute changes through the browser's accessibility tree; a stale ARIA attribute is actively misleading.</p>
+
+<p>Keyboard navigation is the other pillar of accessibility. The ARIA Authoring Practices Guide (APG) specifies keyboard interaction patterns for every ARIA widget type. For a listbox, the expected behaviors are:</p>
+
+<ul>
+  <li><strong>Enter / Space</strong> on the trigger: open the list</li>
+  <li><strong>ArrowDown</strong>: move focus to the next option</li>
+  <li><strong>ArrowUp</strong>: move focus to the previous option</li>
+  <li><strong>Enter</strong> on a focused option: select it and close</li>
+  <li><strong>Escape</strong>: close without selecting, return focus to trigger</li>
+  <li><strong>Tab</strong>: close the list and move focus to the next focusable element</li>
+</ul>
+
+<pre><code>function handleKeyboard(e, state, elements) {
+  if (state.disabled) return;
+
+  switch (e.key) {
+    case 'ArrowDown':
+      e.preventDefault();  // prevent page scroll
+      if (!state.open) {
+        openDropdown(state, elements);
+      } else {
+        state.focusedIndex = Math.min(
+          state.focusedIndex + 1,
+          elements.items.length - 1
+        );
+        applyState(state, elements);
+        elements.items[state.focusedIndex].focus();
+      }
+      break;
+
+    case 'ArrowUp':
+      e.preventDefault();
+      state.focusedIndex = Math.max(state.focusedIndex - 1, 0);
+      applyState(state, elements);
+      elements.items[state.focusedIndex].focus();
+      break;
+
+    case 'Enter':
+      if (state.open && state.focusedIndex >= 0) {
+        selectItem(state, elements, state.focusedIndex);
+      }
+      break;
+
+    case 'Escape':
+      closeDropdown(state, elements);
+      elements.trigger.focus();
+      break;
+
+    case 'Tab':
+      if (state.open) closeDropdown(state, elements);
+      break;
+  }
+}</code></pre>
+
+<p><code>e.preventDefault()</code> on arrow keys is essential — without it, pressing ArrowDown also scrolls the page, which is disorienting. <code>element.focus()</code> programmatically moves the browser's focus indicator to the target element, guiding keyboard users through the control in a predictable sequence. For list items to be focusable, they need either <code>tabindex="0"</code> (participates in normal tab order) or <code>tabindex="-1"</code> (focusable via script but not reachable by Tab key). Items in a listbox typically use <code>tabindex="-1"</code> so that Tab exits the widget rather than cycling through every option.</p>
+
+<p><strong>Encapsulating Controls for Reusability</strong></p>
+
+<p>A control written as scattered functions and global variables works once, in one place. A control written as a self-contained unit can be instantiated multiple times, on any page, by any developer, with confidence that instances will not interfere with each other. Encapsulation achieves this by making each instance own its own state, its own element references, and its own event listeners.</p>
+
+<p>The two most common encapsulation patterns are the <strong>factory function</strong> and the <strong>class</strong>. Both are valid; the factory function is slightly simpler and avoids the subtleties of <code>this</code> binding:</p>
+
+<pre><code>function createDropdown(mountElement, options = [], config = {}) {
+  // --- Private state ---
+  const state = {
+    open: false,
+    selectedIndex: config.defaultIndex ?? 0,
+    focusedIndex: -1,
+    disabled: config.disabled ?? false
+  };
+
+  // --- Build DOM ---
+  const elements = buildElements(options);
+  mountElement.appendChild(elements.wrapper);
+
+  // --- Attach listeners, get cleanup function ---
+  const detach = attachListeners(state, elements);
+
+  // --- Initialize visual state ---
+  applyState(state, elements);
+
+  // --- Public API ---
+  return {
+    open()    { openDropdown(state, elements); },
+    close()   { closeDropdown(state, elements); },
+    select(i) { selectItem(state, elements, i); },
+    enable()  { state.disabled = false; applyState(state, elements); },
+    disable() { state.disabled = true;  applyState(state, elements); },
+    getValue() { return options[state.selectedIndex].value; },
+
+    destroy() {
+      detach();                         // remove all event listeners
+      elements.wrapper.remove();        // remove DOM from page
+      // Nullify references to allow GC
+      Object.keys(elements).forEach(k => { elements[k] = null; });
+    }
+  };
+}</code></pre>
+
+<p>Usage becomes as simple as:</p>
+
+<pre><code>const colourPicker = createDropdown(
+  document.getElementById('colour-mount'),
+  [
+    { value: 'red',   label: 'Red' },
+    { value: 'green', label: 'Green' },
+    { value: 'blue',  label: 'Blue' }
+  ],
+  { defaultIndex: 1 }
+);
+
+// Later, programmatically open it:
+colourPicker.open();
+
+// Read the current value:
+console.log(colourPicker.getValue());  // 'green'
+
+// When the surrounding component unmounts:
+colourPicker.destroy();</code></pre>
+
+<p>Each call to <code>createDropdown</code> creates a fresh closure with its own <code>state</code> object and its own <code>elements</code> object. Ten dropdowns on the same page will each have ten completely independent closures. Because <code>state</code> and <code>elements</code> are never exposed on the returned object, consumers cannot accidentally corrupt the control's internal state — they can only call the documented public methods.</p>
+
+<p>The <code>destroy</code> method is not optional for long-lived applications. Single-page applications that mount and unmount components frequently will leak memory if listeners and DOM nodes from destroyed components persist. Calling <code>detach()</code> — the cleanup function returned by <code>attachListeners</code> — removes every listener that was added, including the document-level click listener that would otherwise persist indefinitely. Calling <code>elements.wrapper.remove()</code> detaches the DOM subtree. Nullifying the <code>elements</code> references removes the last obstacle to garbage collection.</p>
+
+<p>The same pattern scales naturally to a class-based approach for developers who prefer that syntax:</p>
+
+<pre><code>class Dropdown {
+  #state;
+  #elements;
+  #detach;
+
+  constructor(mountElement, options = [], config = {}) {
+    this.#state = {
+      open: false,
+      selectedIndex: config.defaultIndex ?? 0,
+      focusedIndex: -1,
+      disabled: config.disabled ?? false
+    };
+    this.#elements = buildElements(options);
+    mountElement.appendChild(this.#elements.wrapper);
+    this.#detach = attachListeners(this.#state, this.#elements);
+    applyState(this.#state, this.#elements);
+  }
+
+  open()    { openDropdown(this.#state, this.#elements); }
+  close()   { closeDropdown(this.#state, this.#elements); }
+  getValue() { return options[this.#state.selectedIndex].value; }
+
+  destroy() {
+    this.#detach();
+    this.#elements.wrapper.remove();
+  }
+}</code></pre>
+
+<p>The <code>#</code> prefix (private class fields, supported in all modern browsers) enforces the same privacy guarantee as the factory function closure. Internal state is inaccessible from outside the class, preventing accidental interference from consumer code.</p>
+
+<p>Whether you use a factory function or a class, the discipline is the same: build the full element tree before inserting it, keep a single authoritative state object, reflect that state through one <code>applyState</code> function, use event delegation wherever possible, keep ARIA attributes synchronized with JavaScript state, and provide a <code>destroy</code> method that leaves no listeners or orphaned nodes behind. These principles, applied consistently, produce controls that are efficient, accessible, predictable, and ready for production.</p>
+        <div class="notes"><strong>Notes</strong>This topic is the capstone of DOM creation, modification, and event handling. The dropdown is used as a concrete running example throughout, but instructors should note that every pattern shown — the state object, applyState, event delegation, the factory function, and destroy — transfers directly to any other control type (accordion, modal, tabs, etc.). Consider having learners build a second control type from scratch after reading to reinforce the generalization.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

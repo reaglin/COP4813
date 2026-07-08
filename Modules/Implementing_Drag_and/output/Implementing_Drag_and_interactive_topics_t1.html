@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to HTML5 Drag and Drop</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Introduction to HTML5 Drag and Drop</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to HTML5 Drag and Drop</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Drag and drop is one of the most intuitive interaction patterns in modern computing. Users understand instinctively that they can pick something up and move it somewhere else. The HTML5 Drag and Drop API brings this natural metaphor directly into the browser, giving web developers a standardized, built-in mechanism for implementing drag-and-drop interactions without relying on third-party libraries or complex mouse-event workarounds. Understanding this API — its events, its data model, and its browser behavior — is the foundation for building rich, interactive web interfaces that feel native and responsive.</p>
+
+<p>The HTML5 Drag and Drop API is a set of events, attributes, and interfaces defined in the HTML Living Standard that enables elements on a web page to be dragged by the user and dropped onto designated targets. Unlike older approaches that simulated drag and drop by manually tracking <code>mousedown</code>, <code>mousemove</code>, and <code>mouseup</code> events, the native API delegates much of the low-level interaction handling to the browser itself. The browser manages cursor changes, drag ghost images, and the sequencing of events, while the developer focuses on defining behavior through event listeners and data transfer logic.</p>
+
+<p>At its core, the API operates on a well-defined <strong>drag-and-drop data model</strong> composed of three conceptual parts:</p>
+
+<ul>
+  <li><strong>The drag source</strong> — the element the user begins dragging. It must have the <code>draggable="true"</code> attribute set, and it participates in the drag lifecycle through events like <code>dragstart</code> and <code>dragend</code>.</li>
+  <li><strong>The data store</strong> — a transient, in-memory store managed by the <code>DataTransfer</code> object that holds the data being transferred during the drag operation. This data is set by the source and read by the target.</li>
+  <li><strong>The drop zone (drop target)</strong> — one or more elements that are configured to accept dropped items. A drop target listens for events like <code>dragover</code> and <code>drop</code>, and must explicitly signal acceptance to receive the drop.</li>
+</ul>
+
+<p>This separation of concerns — source, data, and target — makes the API composable and flexible. The drag source does not need to know anything about the drop target, and vice versa, as long as both agree on the format of the data being exchanged through the <code>DataTransfer</code> object.</p>
+
+<p><strong>Browser support</strong> for the HTML5 Drag and Drop API is broad across desktop environments. Chrome, Firefox, Safari, and Microsoft Edge all implement the core specification with largely consistent behavior. Developers can rely on the fundamental events (<code>dragstart</code>, <code>dragover</code>, <code>drop</code>, <code>dragend</code>) working predictably across these browsers without needing feature detection or polyfills for the vast majority of use cases.</p>
+
+<p>Internet Explorer 11 offered partial support for the API — it implemented the basic events and the <code>DataTransfer</code> object, but had quirks such as requiring <code>setData</code> to use only the <code>'text'</code> format string rather than the MIME-type-style <code>'text/plain'</code>. Developers who needed to support IE11 had to write conditional logic around these differences. Today, with IE11 officially end-of-life, this is rarely a concern for new projects, but it remains relevant when maintaining legacy codebases.</p>
+
+<p>The more significant compatibility gap exists on <strong>mobile browsers</strong>. Touch-based devices do not fire the standard drag-and-drop events because the API was designed around mouse interactions. On iOS Safari and Android Chrome, a user touching and dragging an element will not trigger <code>dragstart</code> or <code>drop</code>. Developers who need drag-and-drop on touch devices have a few options:</p>
+
+<ul>
+  <li>Use the <code>touch-action</code> CSS property to control how the browser handles touch input on specific elements, though this alone does not bridge the gap to drag events.</li>
+  <li>Implement a touch-event polyfill that translates <code>touchstart</code>, <code>touchmove</code>, and <code>touchend</code> events into synthetic drag-and-drop events.</li>
+  <li>Use a JavaScript library such as SortableJS or interact.js that unifies mouse and touch drag behavior under a single API.</li>
+</ul>
+
+<p>Understanding where the native API ends and where supplemental solutions become necessary helps developers make informed architectural decisions early in a project.</p>
+
+<p>The native HTML5 Drag and Drop API is well-suited to a wide range of <strong>practical use cases</strong>. Some of the most common include:</p>
+
+<ul>
+  <li><strong>Reordering list items</strong> — A classic example is a task management board where the user can drag a card from one position in a list to another, or move it between columns. This pattern appears in tools like Trello, Jira, and GitHub Projects.</li>
+  <li><strong>File uploads</strong> — Browsers expose files dragged from the operating system desktop into a browser window through the <code>DataTransfer.files</code> property. This enables drag-to-upload interfaces where users drop files directly onto a designated upload zone, which then reads the files using the <code>FileReader</code> API or uploads them via <code>fetch</code> or <code>XMLHttpRequest</code>.</li>
+  <li><strong>Moving UI components between containers</strong> — Dashboard applications often allow users to rearrange widgets by dragging them from one panel to another. Kanban boards similarly allow moving cards between columns representing different workflow stages.</li>
+  <li><strong>Visual design and canvas tools</strong> — Applications like flowchart builders, slide editors, or diagramming tools allow users to drag shapes, images, icons, or text blocks from a palette onto a canvas, positioning them visually to construct a layout or diagram.</li>
+</ul>
+
+<p>Each of these use cases relies on the same underlying API primitives, but applies them differently depending on the interaction model. Understanding the building blocks makes it straightforward to adapt the API to new scenarios.</p>
+
+<p>The first practical step in using the API is <strong>making an element draggable</strong>. This is done by adding the <code>draggable="true"</code> attribute to any HTML element:</p>
+
+<pre><code>&lt;div draggable="true" id="drag-source"&gt;Drag me!&lt;/div&gt;</code></pre>
+
+<p>It is important to understand that the <code>draggable</code> attribute is purely declarative — it tells the browser that the element <em>can</em> participate in a drag operation, but it does not define what happens when it is dragged. Without event listeners, the drag will begin, a ghost image will appear, but nothing meaningful will occur. The behavior must be wired up through JavaScript.</p>
+
+<p>A few elements have special defaults worth knowing. Anchor tags (<code>&lt;a&gt;</code>) with an <code>href</code> attribute and images (<code>&lt;img&gt;</code>) are draggable by default — the browser allows the user to drag them to copy the URL or image. Text that the user has selected within a text input, textarea, or <code>contenteditable</code> element is also draggable by default, and dragging it produces a text transfer that can be dropped into other inputs or applications.</p>
+
+<p>The <strong><code>DataTransfer</code> object</strong> is the mechanism by which data is passed from the drag source to the drop target. It is available as a property of the drag event object (<code>event.dataTransfer</code>) inside any drag-related event handler. Two methods are central to its use:</p>
+
+<ul>
+  <li><strong><code>setData(format, data)</code></strong> — Called in the <code>dragstart</code> handler on the source element. The <code>format</code> argument is typically a MIME type string such as <code>'text/plain'</code> or <code>'text/html'</code>, and <code>data</code> is the string value to store. For example, you might store the ID of the dragged element so the drop handler can look it up in the DOM.</li>
+  <li><strong><code>getData(format)</code></strong> — Called in the <code>drop</code> handler on the target element. It retrieves the value previously stored under the given format key.</li>
+</ul>
+
+<pre><code>// On the drag source
+sourceElement.addEventListener('dragstart', (event) =&gt; {
+  event.dataTransfer.setData('text/plain', event.target.id);
+});
+
+// On the drop target
+dropZone.addEventListener('drop', (event) =&gt; {
+  event.preventDefault();
+  const draggedId = event.dataTransfer.getData('text/plain');
+  const draggedElement = document.getElementById(draggedId);
+  dropZone.appendChild(draggedElement);
+});</code></pre>
+
+<p>The <code>DataTransfer</code> object also exposes two properties that control the visual cursor feedback shown to the user during the drag:</p>
+
+<ul>
+  <li><strong><code>effectAllowed</code></strong> — Set on the drag source in the <code>dragstart</code> handler. It specifies what kinds of operations are permitted: <code>'copy'</code>, <code>'move'</code>, <code>'link'</code>, or combinations like <code>'copyMove'</code>. Setting it to <code>'move'</code> signals that the dragged element should be relocated rather than duplicated.</li>
+  <li><strong><code>dropEffect</code></strong> — Set on the drop target in the <code>dragover</code> handler. It specifies what operation will actually occur when the item is dropped, and it must be compatible with <code>effectAllowed</code> or the drop will be rejected. The browser uses this value to display an appropriate cursor icon (e.g., a plus sign for copy, an arrow for move).</li>
+</ul>
+
+<p>The <strong>core drag-and-drop events</strong> form a lifecycle that spans the entire interaction from pickup to release. Understanding each event — when it fires, on which element it fires, and what the developer is expected to do inside it — is essential for building reliable drag-and-drop behavior.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Event</th>
+      <th>Fires On</th>
+      <th>When It Fires</th>
+      <th>Primary Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>dragstart</code></td>
+      <td>Drag source</td>
+      <td>When the user begins dragging the element</td>
+      <td>Call <code>setData()</code> to populate the data store; set <code>effectAllowed</code></td>
+    </tr>
+    <tr>
+      <td><code>drag</code></td>
+      <td>Drag source</td>
+      <td>Continuously while the element is being dragged</td>
+      <td>Rarely used; can update source element appearance during drag</td>
+    </tr>
+    <tr>
+      <td><code>dragenter</code></td>
+      <td>Drop target</td>
+      <td>When the dragged item first enters the target's boundaries</td>
+      <td>Add visual highlight to indicate the target is active</td>
+    </tr>
+    <tr>
+      <td><code>dragover</code></td>
+      <td>Drop target</td>
+      <td>Continuously while the dragged item is over the target</td>
+      <td>Must call <code>event.preventDefault()</code> to allow the drop; set <code>dropEffect</code></td>
+    </tr>
+    <tr>
+      <td><code>dragleave</code></td>
+      <td>Drop target</td>
+      <td>When the dragged item leaves the target's boundaries</td>
+      <td>Remove visual highlight added during <code>dragenter</code></td>
+    </tr>
+    <tr>
+      <td><code>drop</code></td>
+      <td>Drop target</td>
+      <td>When the user releases the dragged item over the target</td>
+      <td>Call <code>getData()</code> and perform the actual DOM manipulation or data handling</td>
+    </tr>
+    <tr>
+      <td><code>dragend</code></td>
+      <td>Drag source</td>
+      <td>After the drag operation ends, regardless of success or cancellation</td>
+      <td>Clean up any styles applied to the source element during dragging</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>One critical rule that surprises many developers encountering this API for the first time: <strong>dropping is not allowed by default</strong>. The browser prevents drop operations on all elements unless the <code>dragover</code> event handler explicitly calls <code>event.preventDefault()</code>. This is by design — it prevents accidental drops on arbitrary page content. Forgetting to call <code>preventDefault()</code> inside <code>dragover</code> is one of the most common reasons why a <code>drop</code> event never fires.</p>
+
+<p>The additional events — <code>dragenter</code>, <code>dragleave</code>, and <code>dragend</code> — are especially valuable for providing visual feedback. For example, highlighting a drop zone in blue when the dragged element hovers over it (<code>dragenter</code>), removing that highlight when the element leaves (<code>dragleave</code>), and restoring the source element's normal appearance when the drag concludes (<code>dragend</code>) all contribute to a polished, intuitive user experience. Without these events, the interaction can feel mechanical and confusing to end users.</p>
+
+<p>Taken together, these concepts — the draggable attribute, the DataTransfer object, and the event lifecycle — form a cohesive system. Each piece has a specific role, and they work together to enable the full range of drag-and-drop interactions that users have come to expect from modern web applications. The following topics in this module will explore each of these pieces in depth, with complete code examples and real-world patterns.</p>
+        <div class="notes"><strong>Notes</strong>Overview of the native HTML5 drag-and-drop API and its role in building interactive web interfaces. Covers browser support, use cases, and the foundational concepts behind draggable elements.</div>
+      </div>
+    </details>
+  </main>
+</body></html>
