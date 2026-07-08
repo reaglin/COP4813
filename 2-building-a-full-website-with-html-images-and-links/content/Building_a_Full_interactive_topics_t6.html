@@ -1,0 +1,272 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>External Links and Web Resources</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 2 -Building a Full Website with HTML, Images, and Links</a></div>
+  <header>
+    <h1>External Links and Web Resources</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>External Links and Web Resources</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Linking to external websites and online resources is one of the most fundamental tasks in HTML authoring, yet it involves a surprising amount of nuance. Beyond simply wrapping text in an anchor tag, you must choose the correct form of URL, decide whether the link should open in a new tab, protect your users from security vulnerabilities introduced by that behavior, communicate clearly to all users — including those using assistive technology — where the link leads, and understand how search engines interpret the relationships you declare between your page and the destination. Each of these concerns is explored in depth below.</p>
+
+<p><strong>Absolute URLs for External Links</strong></p>
+
+<p>Every hyperlink in HTML is created with the <code>&lt;a&gt;</code> element and its <code>href</code> attribute. When you link to a page or resource on a <em>different</em> website, you must supply an <strong>absolute URL</strong> — a complete, self-contained address that the browser can resolve without any additional context. An absolute URL has three essential parts: the <strong>protocol</strong>, the <strong>domain name</strong>, and optionally a <strong>path</strong> to a specific resource.</p>
+
+<pre><code>&lt;!-- A well-formed absolute URL linking to an external page --&gt;
+&lt;a href="https://developer.mozilla.org/en-US/docs/Web/HTML"&gt;
+  MDN HTML Documentation
+&lt;/a&gt;</code></pre>
+
+<p>Breaking this down: <code>https://</code> is the protocol, <code>developer.mozilla.org</code> is the domain, and <code>/en-US/docs/Web/HTML</code> is the path to the specific article. All three pieces together make the URL absolute — the browser knows exactly where to go without referencing the current page's location at all.</p>
+
+<p>Always prefer <code>https://</code> over <code>http://</code> whenever the destination supports it, which the vast majority of modern websites do. The <code>s</code> stands for "secure" and indicates that the connection is encrypted using TLS (Transport Layer Security). Linking to an <code>http://</code> resource from an <code>https://</code> page triggers a <em>mixed content</em> warning in many browsers and may be blocked entirely, degrading both security and user experience.</p>
+
+<p>A critical mistake to avoid is omitting the protocol entirely or supplying only a domain name:</p>
+
+<pre><code>&lt;!-- WRONG: browser treats this as a relative path --&gt;
+&lt;a href="developer.mozilla.org/en-US/docs/Web/HTML"&gt;MDN&lt;/a&gt;
+
+&lt;!-- WRONG: still treated as a relative path --&gt;
+&lt;a href="www.example.com"&gt;Example&lt;/a&gt;</code></pre>
+
+<p>Without <code>https://</code>, the browser interprets the value as a path relative to the current document. If your page lives at <code>https://mysite.com/articles/</code>, the first broken example would resolve to <code>https://mysite.com/articles/developer.mozilla.org/en-US/docs/Web/HTML</code> — a URL that almost certainly returns a 404 error. Always include the full protocol.</p>
+
+<p><strong>Opening Links in a New Tab with <code>target</code></strong></p>
+
+<p>The <code>target</code> attribute on an anchor element controls <em>where</em> the linked document is displayed. Setting <code>target="_blank"</code> instructs the browser to open the destination in a new tab (or a new window, depending on the browser and user settings).</p>
+
+<pre><code>&lt;a href="https://www.example.com" target="_blank"&gt;
+  Visit Example.com
+&lt;/a&gt;</code></pre>
+
+<p>The primary benefit is that your own website remains open in the original tab. This is particularly valuable when you want the user to consult an external reference without losing their place in your content — for instance, linking to official documentation from a tutorial, or linking to a PDF that supplements the current page.</p>
+
+<p>However, <code>target="_blank"</code> should be used with restraint. Automatically opening new tabs for every external link removes the user's ability to decide how they want links to open, which is considered a violation of user autonomy in web accessibility guidelines. Many power users consciously choose to open links in new tabs themselves using middle-click or keyboard shortcuts, and having the browser do it automatically can multiply tabs unexpectedly. Reserve <code>target="_blank"</code> for situations where leaving the current page would genuinely cause a problem — external websites, downloadable files, or interactive tools that would break a multi-step workflow if the user navigated away.</p>
+
+<p><strong>Security Risks of <code>target="_blank"</code> and the <code>rel</code> Attribute</strong></p>
+
+<p>Opening a link in a new tab introduces a non-obvious but serious security vulnerability known as <strong>reverse tabnapping</strong>. When a page is opened via <code>target="_blank"</code>, the newly opened page gains access to the <em>opener's browsing context</em> through the JavaScript property <code>window.opener</code>. A malicious destination page can exploit this to execute:</p>
+
+<pre><code>// Malicious code on the destination page
+window.opener.location = "https://phishing-site.com/fake-login";</code></pre>
+
+<p>This silently redirects the <em>original tab</em> — the one with your website open — to a phishing page while the user is looking at the newly opened tab. The user returns to what they think is your site and may enter credentials into a convincing fake.</p>
+
+<p>The solution is the <code>rel</code> attribute with specific values:</p>
+
+<ul>
+  <li><strong><code>rel="noopener"</code></strong> — Instructs the browser to open the new tab without giving it access to <code>window.opener</code>. The opened page cannot reference or manipulate the originating page's context. Modern browsers also apply a separate process to the new tab when this is present, which improves performance.</li>
+  <li><strong><code>rel="noreferrer"</code></strong> — Provides all the protections of <code>noopener</code> and additionally suppresses the HTTP <code>Referer</code> header that browsers normally send to the destination server. Without the referrer header, the destination site cannot determine which page sent the user there, which has privacy advantages.</li>
+</ul>
+
+<p>Best practice is to combine both values every time you use <code>target="_blank"</code>:</p>
+
+<pre><code>&lt;a href="https://www.example.com" target="_blank" rel="noopener noreferrer"&gt;
+  Visit Example.com
+&lt;/a&gt;</code></pre>
+
+<p>Multiple values in the <code>rel</code> attribute are separated by spaces, not commas. This single combination addresses both the tabnapping vulnerability and referrer leakage. While modern browsers have partially addressed <code>window.opener</code> access by defaulting to <code>noopener</code> behavior for cross-origin <code>target="_blank"</code> links, explicitly declaring <code>rel="noopener noreferrer"</code> ensures consistent, secure behavior across all browsers including older ones.</p>
+
+<p><strong>Communicating Link Destination to Users</strong></p>
+
+<p>Opening a link in a new tab without warning users — especially keyboard and screen reader users — is a well-documented accessibility failure. The Web Content Accessibility Guidelines (WCAG) recommend that users be informed of behaviors that change their context. There are several practical techniques:</p>
+
+<ul>
+  <li><strong>Visible icon with accessible text</strong> — A common pattern is to display a small "external link" icon next to the anchor. When using an image or SVG for this, include an <code>aria-label</code> or visually hidden text so screen readers announce it.</li>
+  <li><strong>Parenthetical text in the link</strong> — You can add a short note directly in the link text, though this can feel verbose if overused.</li>
+  <li><strong>The <code>title</code> attribute</strong> — Adds a tooltip visible on hover and announced by some screen readers, though it is not reliably surfaced by all assistive technologies and should not be your only warning mechanism.</li>
+</ul>
+
+<pre><code>&lt;!-- Parenthetical approach --&gt;
+&lt;a href="https://www.example.com" target="_blank" rel="noopener noreferrer"&gt;
+  Visit Example.com (opens in new tab)
+&lt;/a&gt;
+
+&lt;!-- title attribute as supplementary hint --&gt;
+&lt;a href="https://developer.mozilla.org/en-US/docs/Web/HTML"
+   target="_blank"
+   rel="noopener noreferrer"
+   title="Opens MDN HTML documentation in a new tab"&gt;
+  MDN HTML Documentation
+&lt;/a&gt;</code></pre>
+
+<p>Equally important is the quality of the link text itself. Search engines and screen readers both rely on anchor text to understand a link's purpose. Generic phrases like "click here," "read more," or "this page" give no information when encountered out of context — for example, when a screen reader user navigates through a list of all links on the page.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Poor Link Text</th>
+      <th>Descriptive Link Text</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Click here</td>
+      <td>Read the MDN HTML documentation</td>
+    </tr>
+    <tr>
+      <td>More info</td>
+      <td>Learn more about TLS encryption on Wikipedia</td>
+    </tr>
+    <tr>
+      <td>Download</td>
+      <td>Download the 2024 Annual Report (PDF)</td>
+    </tr>
+    <tr>
+      <td>This article</td>
+      <td>WCAG 2.1 Success Criterion 2.4.4 – Link Purpose</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Descriptive link text improves usability for all users, helps search engines understand page relationships, and is a requirement for WCAG 2.1 Level A compliance (Success Criterion 2.4.4).</p>
+
+<p><strong>Linking to Specific Online Resources</strong></p>
+
+<p>Absolute URLs are not limited to HTML pages. You can link directly to any publicly accessible resource on the web: PDFs, images, audio files, spreadsheets, or any other file type. The browser will either display the file inline (if it can render it, as with images or PDFs in modern browsers) or prompt the user to download it.</p>
+
+<pre><code>&lt;!-- Linking directly to a PDF hosted on an external server --&gt;
+&lt;a href="https://www.w3.org/WAI/WCAG21/wcag21.pdf"
+   target="_blank"
+   rel="noopener noreferrer"&gt;
+  Download WCAG 2.1 Guidelines (PDF, opens in new tab)
+&lt;/a&gt;</code></pre>
+
+<p>One important practice to avoid is <strong>hotlinking</strong> — embedding or linking directly to assets (images, videos, stylesheets) stored on a third party's server without permission. When you hotlink an image, every time a visitor loads your page, their browser makes a request to the other server to fetch that image. This consumes the other server's bandwidth at no cost to you, which many hosting providers prohibit. Some servers actively block hotlinking by checking the HTTP <code>Referer</code> header and serving a substitute image (sometimes an embarrassing one) when the referrer is not their own domain. The correct approach is to download the asset (if licensing allows), host it yourself, and link to your own copy.</p>
+
+<p>External links also require ongoing maintenance. Unlike your own pages, external resources can disappear, move to a new URL, or be replaced with unrelated content at any time — a phenomenon sometimes called <em>link rot</em>. It is good practice to periodically audit your external links using automated tools (such as a link checker script or browser extension) to identify and fix broken or redirected URLs before users encounter dead ends.</p>
+
+<p><strong>The <code>rel</code> Attribute for Link Relationships</strong></p>
+
+<p>Beyond the security-focused <code>noopener</code> and <code>noreferrer</code> values, the <code>rel</code> attribute communicates the <em>semantic relationship</em> between your page and the linked destination, primarily for the benefit of search engine crawlers.</p>
+
+<ul>
+  <li><strong><code>rel="nofollow"</code></strong> — Tells search engine crawlers not to follow this link for the purposes of PageRank or authority passing. This does not hide the link from users; it only signals to crawlers that your site is not endorsing the destination. Originally intended for any untrusted external link, it remains useful when you must link to content you cannot vouch for.</li>
+  <li><strong><code>rel="sponsored"</code></strong> — Introduced by Google to specifically identify links that exist as part of paid arrangements: advertisements, affiliate links, or sponsored content. Using this value instead of <code>nofollow</code> for paid links provides more precise information to search engines and aligns with Google's webmaster guidelines.</li>
+  <li><strong><code>rel="ugc"</code></strong> — Short for "user-generated content," this value is appropriate for links appearing inside comments, forum posts, or other user-submitted content where you cannot curate or vouch for every URL a user might post.</li>
+</ul>
+
+<p>Because multiple <code>rel</code> values can be combined in a single attribute (space-separated), you can address both security and SEO concerns simultaneously:</p>
+
+<pre><code>&lt;!-- External affiliate link: new tab + security + SEO relationship --&gt;
+&lt;a href="https://www.affiliate-store.com/product/123"
+   target="_blank"
+   rel="noopener noreferrer sponsored"&gt;
+  Buy the recommended camera (affiliate link)
+&lt;/a&gt;
+
+&lt;!-- User comment link: security + ugc signal --&gt;
+&lt;a href="https://some-user-posted-url.com"
+   target="_blank"
+   rel="noopener noreferrer ugc nofollow"&gt;
+  User's linked resource
+&lt;/a&gt;</code></pre>
+
+<p>The following table summarizes the most commonly used <code>rel</code> values for external links, their purposes, and their primary audiences:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Primary Audience</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>noopener</code></td>
+      <td>Browser</td>
+      <td>Prevents new tab from accessing <code>window.opener</code>; mitigates tabnapping</td>
+    </tr>
+    <tr>
+      <td><code>noreferrer</code></td>
+      <td>Browser</td>
+      <td>Suppresses HTTP Referer header; implies <code>noopener</code></td>
+    </tr>
+    <tr>
+      <td><code>nofollow</code></td>
+      <td>Search engine crawlers</td>
+      <td>Prevents passing authority/PageRank to destination; general untrusted links</td>
+    </tr>
+    <tr>
+      <td><code>sponsored</code></td>
+      <td>Search engine crawlers</td>
+      <td>Identifies paid or affiliate links</td>
+    </tr>
+    <tr>
+      <td><code>ugc</code></td>
+      <td>Search engine crawlers</td>
+      <td>Identifies links within user-generated content</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Understanding and correctly applying these attributes makes your external links safer for users, respectful of other servers' resources, compliant with search engine guidelines, and accessible to all visitors regardless of how they interact with the web.</p>
+        <div class="notes"><strong>Notes</strong>Covers absolute URLs, target=&quot;_blank&quot; usage and overuse caution, reverse tabnapping security vulnerability with noopener/noreferrer mitigations, accessible and descriptive link text, hotlinking concerns, link rot, and rel values for SEO (nofollow, sponsored, ugc). Includes illustrative code examples and two summary tables.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

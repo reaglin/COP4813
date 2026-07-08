@@ -1,0 +1,301 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript-Driven Animation with requestAnimationFrame</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 10 - Animation Techniques in the Browser</a></div>
+  <header>
+    <h1>JavaScript-Driven Animation with requestAnimationFrame</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>JavaScript-Driven Animation with requestAnimationFrame</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Smooth, performant animation on the web requires more than simply changing element properties over time — it demands precise coordination with the browser's own rendering engine. The <strong>requestAnimationFrame</strong> API (commonly abbreviated <strong>rAF</strong>) is the modern, browser-native mechanism for achieving exactly that. Before rAF existed, developers relied on <code>setTimeout</code> or <code>setInterval</code> to drive animation loops. Those timer-based approaches fired callbacks on a fixed JavaScript interval that had no relationship to when the browser was actually ready to repaint the screen. The result was often <em>jank</em> — stuttering, tearing, or wasted computation — because DOM updates could land at arbitrary moments within or between frames. <code>requestAnimationFrame</code> solves this fundamental timing problem by letting the browser itself decide the optimal moment to invoke your animation callback, always aligning it with a pending repaint.</p>
+
+<p><strong>What is requestAnimationFrame?</strong></p>
+<p><code>requestAnimationFrame</code> is a global browser API that accepts a single argument: a callback function. When you call it, you are telling the browser, "Before you repaint the screen next time, please call this function." The browser then invokes that callback once, just before the next frame is rendered. On a typical 60 Hz display, this happens roughly every 16.67 milliseconds, giving you up to 60 callbacks per second. On high-refresh-rate displays such as 90 Hz or 120 Hz gaming monitors, rAF automatically adapts and fires more frequently — you do not need any special configuration. The API returns a numeric handle that uniquely identifies the scheduled callback; you can pass this handle to <code>cancelAnimationFrame</code> if you need to cancel the pending call before it fires.</p>
+
+<pre><code>// A minimal requestAnimationFrame call
+const handle = requestAnimationFrame(function myCallback(timestamp) {
+  // 'timestamp' is a DOMHighResTimeStamp in milliseconds
+  console.log('Frame fired at:', timestamp);
+});
+
+// Cancel it before it fires (if needed)
+cancelAnimationFrame(handle);
+</code></pre>
+
+<p>One of rAF's most valuable built-in behaviors is <strong>automatic suspension</strong> when the browser tab is hidden or minimized. Because an invisible tab does not need to render, the browser withholds rAF callbacks, effectively pausing your animation loop at zero CPU cost. When the user returns to the tab, callbacks resume seamlessly. <code>setTimeout</code> and <code>setInterval</code>, by contrast, continue firing even in background tabs, draining CPU cycles and battery for work that will never appear on screen.</p>
+
+<p><strong>Synchronization with the Browser's Rendering Cycle</strong></p>
+<p>Modern browsers use a structured internal pipeline to produce each frame: JavaScript runs, style is recalculated, layout is computed, the page is painted, and then composited output is sent to the display. <code>requestAnimationFrame</code> callbacks are deliberately scheduled at the very beginning of this pipeline — after the previous frame's compositing is finished but before the new frame's style, layout, and paint phases begin. This placement has two critical consequences.</p>
+<p>First, it eliminates <em>visual tearing</em>. Because your JavaScript runs before the browser processes styles and layout for the new frame, every DOM change you make during a rAF callback is incorporated into a single, complete frame. There is no scenario where the browser paints half of your update in one frame and the other half in the next. Second, it eliminates <em>wasted computation</em>. Any DOM mutation you apply will actually be reflected on screen; you are never writing to the DOM only to have those values overwritten by another callback fired moments later. Together, these guarantees make rAF the correct foundation for any animation that touches the DOM or a canvas.</p>
+<p>The adaptation to high-refresh-rate displays deserves emphasis. If you drive an animation with <code>setInterval(fn, 16)</code> on a 120 Hz monitor, your updates still only arrive at ~60 Hz — you leave half the available frames unused. With <code>requestAnimationFrame</code>, the browser calls your callback 120 times per second on that monitor automatically, producing visibly smoother motion with no extra effort from you.</p>
+
+<p><strong>Building a Basic Animation Loop</strong></p>
+<p>Because <code>requestAnimationFrame</code> schedules only a <em>single</em> callback — not a recurring one like <code>setInterval</code> — creating a continuous animation loop requires a self-referencing pattern: at the end of each callback, you call <code>requestAnimationFrame</code> again, passing the same function. This re-queues the callback for the next frame. The loop continues until you stop re-scheduling.</p>
+
+<pre><code>let positionX = 0;
+
+function animate() {
+  // Update the animation state
+  positionX += 2;
+
+  // Apply the state to the DOM
+  const box = document.getElementById('box');
+  box.style.transform = `translateX(${positionX}px)`;
+
+  // Schedule the next frame — this keeps the loop running
+  requestAnimationFrame(animate);
+}
+
+// Kick off the loop with a single initial call
+requestAnimationFrame(animate);
+</code></pre>
+
+<p>The loop starts with one explicit call outside the function. From that point forward, each invocation of <code>animate</code> reschedules itself. This self-perpetuating pattern gives you complete control: the loop runs as long as each callback re-registers itself, and it stops the moment a callback does not re-register. Notice that the function is named (<code>animate</code>) rather than anonymous — a named function is necessary here because the callback needs to reference itself by name.</p>
+
+<p><strong>Using the Timestamp Parameter</strong></p>
+<p>The callback function receives one argument automatically: a <strong>DOMHighResTimeStamp</strong> representing the time (in milliseconds, with sub-millisecond precision) at which the current frame began. This timestamp is the key to writing animations that behave consistently on all devices and under all load conditions.</p>
+<p>Consider the naive loop above that increments <code>positionX</code> by 2 every frame. On a 60 Hz display, the element moves at 120 pixels per second (2 px × 60 frames). On a 120 Hz display, it moves at 240 pixels per second — <em>twice as fast</em>. Under heavy CPU load where frames are skipped, it moves slower. This coupling between frame rate and animation speed is a fundamental flaw of frame-counting approaches.</p>
+<p>The solution is <strong>delta-time animation</strong>. Instead of advancing the animation by a fixed amount per frame, you advance it by an amount proportional to how much real time has elapsed since the previous frame. You store the timestamp from the last frame, subtract it from the current timestamp to get a delta (Δt), then multiply your velocity (in units per millisecond) by that delta.</p>
+
+<pre><code>let positionX = 0;
+let lastTimestamp = null;
+const speedPxPerMs = 0.15; // 150 pixels per second
+
+function animate(timestamp) {
+  // On the very first frame, initialize lastTimestamp
+  if (lastTimestamp === null) {
+    lastTimestamp = timestamp;
+  }
+
+  // Calculate elapsed time since the last frame
+  const delta = timestamp - lastTimestamp;
+  lastTimestamp = timestamp;
+
+  // Advance position by speed × elapsed time
+  positionX += speedPxPerMs * delta;
+
+  const box = document.getElementById('box');
+  box.style.transform = `translateX(${positionX}px)`;
+
+  requestAnimationFrame(animate);
+}
+
+requestAnimationFrame(animate);
+</code></pre>
+
+<p>Now the element moves at exactly 150 pixels per second on every device, whether the display runs at 60 Hz, 120 Hz, or drops frames under load. The delta value absorbs any frame-rate variability. On a 60 Hz screen, delta is roughly 16.67 ms each frame, so the element advances about 2.5 px per frame. On a 120 Hz screen, delta is roughly 8.33 ms, so the element advances about 1.25 px per frame — but over one second, both accumulate to the same 150 px. This is the professional standard for game loops and high-quality web animations alike.</p>
+
+<p>It is also good practice to <strong>clamp delta</strong> to a maximum value. If the browser tab is backgrounded and then foregrounded, the first resumed frame might have a delta of several seconds, which would cause a huge positional jump. Clamping prevents this:</p>
+
+<pre><code>const delta = Math.min(timestamp - lastTimestamp, 100); // cap at 100 ms
+</code></pre>
+
+<p><strong>Updating DOM or Canvas Properties Each Frame</strong></p>
+<p>Each rAF callback is your opportunity to read the current state of the animation, compute the next state, and write it to the document. Two broad targets exist: <strong>DOM elements</strong> (HTML elements styled with CSS) and <strong>canvas</strong> elements (pixel-based drawing surfaces).</p>
+<p>When animating DOM elements, the most performant properties to modify are those that trigger only <em>compositing</em> rather than full layout or paint. CSS <code>transform</code> and <code>opacity</code> are composited on the GPU in most browsers, meaning changes to them bypass layout and paint entirely. Modifying <code>left</code>, <code>top</code>, <code>width</code>, or <code>height</code> forces the browser to recalculate layout, which is far more expensive. Prefer <code>transform: translateX()</code> over <code>left</code> whenever moving elements.</p>
+<p>A critical performance pitfall is <strong>layout thrashing</strong> (also called forced synchronous layout). This occurs when you interleave DOM reads with DOM writes within a single frame. Reading a layout property like <code>element.offsetWidth</code> after writing a style forces the browser to flush and recalculate layout immediately, blocking the JavaScript thread. The fix is to batch all reads first, then perform all writes:</p>
+
+<pre><code>// BAD — reads and writes interleaved, causes layout thrashing
+function animateBad() {
+  const width = box1.offsetWidth;      // read — forces layout
+  box1.style.width = width + 1 + 'px'; // write
+  const height = box2.offsetHeight;    // read — forces layout AGAIN
+  box2.style.height = height + 1 + 'px'; // write
+  requestAnimationFrame(animateBad);
+}
+
+// GOOD — all reads first, then all writes
+function animateGood() {
+  const width = box1.offsetWidth;      // read
+  const height = box2.offsetHeight;    // read (no layout forced yet)
+  box1.style.width = width + 1 + 'px'; // write
+  box2.style.height = height + 1 + 'px'; // write
+  requestAnimationFrame(animateGood);
+}
+</code></pre>
+
+<p>For <strong>canvas-based animation</strong>, the approach is different. Canvas is an immediate-mode drawing surface; rather than mutating persistent objects, you redraw the entire scene each frame. The typical pattern is: clear the canvas, then draw everything at its new position.</p>
+
+<pre><code>const canvas = document.getElementById('myCanvas');
+const ctx = canvas.getContext('2d');
+let circleX = 50;
+
+function drawFrame(timestamp) {
+  // Clear the entire canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Draw the circle at its current position
+  ctx.beginPath();
+  ctx.arc(circleX, 100, 30, 0, Math.PI * 2);
+  ctx.fillStyle = '#3498db';
+  ctx.fill();
+
+  // Advance position
+  circleX += 1;
+  if (circleX > canvas.width + 30) circleX = -30;
+
+  requestAnimationFrame(drawFrame);
+}
+
+requestAnimationFrame(drawFrame);
+</code></pre>
+
+<p>Because the entire canvas is redrawn every frame inside a rAF loop, the output is always in a consistent, predictable state — there is no risk of stale pixels from a previous frame bleeding into the current one, provided you clear before drawing.</p>
+
+<p><strong>Stopping and Controlling the Animation Loop</strong></p>
+<p>A continuously running rAF loop that is never stopped is a resource leak. In single-page applications, a component might be destroyed while its animation loop keeps running in the background, consuming CPU indefinitely. There are two clean approaches to stopping a loop.</p>
+<p>The first and most direct approach is <code>cancelAnimationFrame</code>. You store the return value of each <code>requestAnimationFrame</code> call in a variable, then pass that handle to <code>cancelAnimationFrame</code> when you want to stop:</p>
+
+<pre><code>let animationHandle = null;
+
+function animate(timestamp) {
+  // ... animation logic ...
+  animationHandle = requestAnimationFrame(animate);
+}
+
+// Start
+animationHandle = requestAnimationFrame(animate);
+
+// Stop (e.g., when a button is clicked or a component unmounts)
+cancelAnimationFrame(animationHandle);
+animationHandle = null;
+</code></pre>
+
+<p>The second approach uses a <strong>boolean flag</strong>. When the flag is set to <code>false</code>, the callback simply does not re-schedule itself, and the loop ends naturally after the current frame completes:</p>
+
+<pre><code>let running = true;
+
+function animate(timestamp) {
+  // ... animation logic ...
+
+  if (running) {
+    requestAnimationFrame(animate);
+  }
+}
+
+requestAnimationFrame(animate);
+
+// Stop the loop
+function stopAnimation() {
+  running = false;
+}
+</code></pre>
+
+<p>The flag approach is slightly simpler to reason about in complex scenarios, since you do not need to track the return handle. However, <code>cancelAnimationFrame</code> is more immediate — it prevents even the current pending callback from firing, whereas the flag approach always allows the currently-scheduled callback to execute once more before stopping.</p>
+<p>Both patterns can be extended to support <em>pausing and resuming</em> by toggling the flag or by re-calling <code>requestAnimationFrame</code> after a pause. When resuming, it is important to reset <code>lastTimestamp</code> to <code>null</code> so that the delta calculation starts fresh and does not try to account for the entire duration of the pause as elapsed animation time.</p>
+
+<p><strong>Performance Advantages Over Timer-Based Animation</strong></p>
+<p>To fully appreciate why rAF is the correct tool, it helps to understand specifically where <code>setTimeout</code> and <code>setInterval</code> fall short for animation. The following table summarizes the key differences:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Characteristic</th>
+      <th>setTimeout / setInterval</th>
+      <th>requestAnimationFrame</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Timing reference</td>
+      <td>JavaScript event loop tick; no relationship to screen refresh</td>
+      <td>Synchronized with the browser's actual repaint cycle</td>
+    </tr>
+    <tr>
+      <td>Frame rate adaptation</td>
+      <td>Fixed interval; does not adjust for screen Hz</td>
+      <td>Automatically matches display refresh rate (60, 90, 120 Hz, etc.)</td>
+    </tr>
+    <tr>
+      <td>Background tab behavior</td>
+      <td>Continues firing (browsers may throttle to ~1 Hz, but callbacks still run)</td>
+      <td>Paused entirely; no CPU usage when tab is hidden</td>
+    </tr>
+    <tr>
+      <td>Drift over time</td>
+      <td>Accumulates scheduling drift; animation can fall out of sync</td>
+      <td>Each callback is tied to an actual frame moment; no drift</td>
+    </tr>
+    <tr>
+      <td>Compositor integration</td>
+      <td>None; updates may arrive mid-paint pipeline</td>
+      <td>Coalesced with compositor pipeline; changes applied atomically per frame</td>
+    </tr>
+    <tr>
+      <td>Battery / CPU impact</td>
+      <td>Higher; computation proceeds even when invisible</td>
+      <td>Lower; browser optimizes and suspends when not needed</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>Timer drift</em> is a subtle but real problem with setInterval-based animations. Each call to <code>setInterval(fn, 16)</code> fires approximately every 16 ms, but "approximately" accumulates. After thousands of frames, the cumulative error can be noticeable. Moreover, if the JavaScript thread is busy when a timer fires, the callback is queued and runs late — but <code>setInterval</code> does not adjust future intervals to compensate, so the animation effectively skips time. rAF, by contrast, is always anchored to an actual render moment, and the timestamp argument provides an accurate accounting of exactly when that moment occurred.</p>
+<p>Browsers also apply a further optimization: rAF callbacks from multiple sources on the same page are <em>coalesced</em> into a single pass through the rendering pipeline. If ten different scripts each register a rAF callback, all ten run together before the single repaint, rather than each triggering its own style recalculation and layout pass. This makes rAF not just better for individual animations, but for the overall page rendering architecture in complex applications.</p>
+<p>In summary, <code>requestAnimationFrame</code> is the correct, performant, and battery-friendly foundation for all JavaScript-driven animation. By combining it with delta-time calculations, careful batching of DOM reads and writes, and disciplined loop management, you can produce animations that are smooth, efficient, and well-behaved across every device and display type.</p>
+        <div class="notes"><strong>Notes</strong>Demonstrates both DOM-based and canvas-based animation patterns. The layout-thrashing example provides a concrete illustration of the read/write batching principle. The comparison table consolidates the performance discussion for quick reference.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

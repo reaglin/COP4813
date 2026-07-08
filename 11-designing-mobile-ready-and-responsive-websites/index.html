@@ -1,0 +1,408 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 11 – Designing Mobile-Ready and Responsive Websites | COP4813</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f9;
+      color: #2c3e50;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2d6a9f 100%);
+      color: #ffffff;
+      padding: 2.5rem 1.5rem 2rem;
+      border-bottom: 4px solid #f0a500;
+    }
+
+    header .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header .course-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #aecde8;
+      margin-bottom: 0.5rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.4rem, 3vw, 2.1rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 1rem;
+    }
+
+    header h1 .module-number {
+      display: inline-block;
+      background-color: #f0a500;
+      color: #1a3a5c;
+      font-size: 0.75em;
+      font-weight: 700;
+      padding: 0.15em 0.55em;
+      border-radius: 4px;
+      margin-right: 0.5rem;
+      vertical-align: middle;
+      letter-spacing: 0.05em;
+    }
+
+    header p.intro {
+      max-width: 780px;
+      font-size: 1rem;
+      color: #d6e8f7;
+      line-height: 1.7;
+    }
+
+    /* ── Main Content ── */
+    main {
+      max-width: 1100px;
+      margin: 2.5rem auto;
+      padding: 0 1.25rem 3rem;
+    }
+
+    .section-heading {
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #5a7a9a;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid #dde4ed;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: #ffffff;
+      border: 1px solid #dde4ed;
+      border-radius: 8px;
+      padding: 1.35rem 1.4rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      position: relative;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 18px rgba(30, 80, 140, 0.12);
+      transform: translateY(-2px);
+    }
+
+    /* Type badge */
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 0.2em 0.6em;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+
+    .badge-type {
+      background-color: #e8f0fb;
+      color: #2d6a9f;
+      border: 1px solid #c3d7f0;
+    }
+
+    .badge-filetype {
+      background-color: #f3f6f9;
+      color: #5a7a9a;
+      border: 1px solid #dde4ed;
+      font-weight: 600;
+    }
+
+    /* Card title row */
+    .card-title-row {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem 0.75rem;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      line-height: 1.3;
+    }
+
+    .card-title a {
+      color: #1a5fa8;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .card-title a:hover,
+    .card-title a:focus {
+      color: #0d3d70;
+      border-bottom-color: #f0a500;
+      outline: none;
+    }
+
+    /* Source link */
+    .source-link {
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: #5a7a9a;
+      text-decoration: none;
+      white-space: nowrap;
+      border: 1px solid #c3d7f0;
+      border-radius: 3px;
+      padding: 0.15em 0.5em;
+      transition: background 0.15s, color 0.15s;
+      flex-shrink: 0;
+      align-self: flex-start;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background: #e8f0fb;
+      color: #1a5fa8;
+      outline: none;
+    }
+
+    .source-link::before {
+      content: '⬡ ';
+      font-size: 0.65em;
+      opacity: 0.7;
+    }
+
+    /* Description */
+    .card-description {
+      font-size: 0.875rem;
+      color: #4a5f72;
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #8fa8bf;
+      padding: 1.5rem 1rem 2rem;
+      border-top: 1px solid #dde4ed;
+      background: #f4f6f9;
+    }
+
+    /* ── Responsive tweaks ── */
+    @media (max-width: 480px) {
+      header { padding: 2rem 1rem 1.5rem; }
+      .card { padding: 1.1rem 1rem; }
+      .card-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ COP4813</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
+
+  <header>
+    <div class="header-inner">
+      <p class="course-label">COP4813 &mdash; Web Application Programming</p>
+      <h1>
+        <span class="module-number">Module 11</span>
+        Designing Mobile-Ready and Responsive Websites
+      </h1>
+      <p class="intro">
+        This module explores the principles and techniques behind responsive web design,
+        equipping learners with the knowledge to build websites that adapt seamlessly across
+        smartphones, tablets, and desktops. Topics span fluid grids, flexible media, CSS media
+        queries, mobile-first philosophy, and viewport configuration, laying a solid foundation
+        for modern, device-agnostic development.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <p class="section-heading">Module Artifacts</p>
+
+    <div class="card-grid">
+
+      <!-- Artifact 1: Module Topics -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="content/module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="source/hierarchy.json">source file</a>
+        </div>
+        <p class="card-description">
+          Outlines the full scope of the module's content—covering responsive web design
+          fundamentals, fluid grids, flexible images, media queries, mobile-first development,
+          and related frameworks—serving as a navigational overview for learners and instructors
+          to understand what topics will be taught and in what sequence.
+        </p>
+      </div>
+
+      <!-- Artifact 2: Introduction to Responsive Web Design -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="content/Designing_Mobile_Ready_interactive_topics_t1.html">Introduction to Responsive Web Design</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading that introduces responsive web design by explaining what it is, why it matters
+          in a multi-device world, and how it enables websites to adapt across smartphones, tablets,
+          and desktops, giving learners the conceptual foundation for the module.
+        </p>
+      </div>
+
+      <!-- Artifact 3: Fluid Grids and Flexible Layouts -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="content/Designing_Mobile_Ready_interactive_topics_t2.html">Fluid Grids and Flexible Layouts</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading that explains how fluid grids and flexible layouts work using proportional units
+          instead of fixed pixels, enabling page elements to resize proportionally across screen sizes,
+          which learners study to understand the structural basis of responsive design.
+        </p>
+      </div>
+
+      <!-- Artifact 4: Flexible Images and Media -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="content/Designing_Mobile_Ready_interactive_topics_t3.html">Flexible Images and Media</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading that covers techniques for making images, videos, and embedded media scale
+          gracefully across different screen sizes, addressing common layout-breaking problems
+          caused by fixed-dimension media, which learners use to apply responsive media practices.
+        </p>
+      </div>
+
+      <!-- Artifact 5: CSS Media Queries -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="content/Designing_Mobile_Ready_interactive_topics_t4.html">CSS Media Queries</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading that explains CSS media queries — how they apply conditional style rules based
+          on device characteristics such as screen width — so learners can write breakpoint-driven
+          CSS that adapts layouts to different devices.
+        </p>
+      </div>
+
+      <!-- Artifact 6: Mobile-First Design Philosophy -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="content/Designing_Mobile_Ready_interactive_topics_t5.html">Mobile-First Design Philosophy</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading that describes the mobile-first design philosophy, explaining why designers begin
+          with small-screen constraints and progressively enhance for larger screens, helping learners
+          understand this workflow and its performance and usability benefits.
+        </p>
+      </div>
+
+      <!-- Artifact 7: Viewport Configuration (Topic Detail) -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="content/Designing_Mobile_Ready_interactive_topics_t6.html">Viewport Configuration and Screen Sizes</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading that explains how the viewport meta tag controls how mobile browsers render and
+          scale web pages, covering viewport configuration options and common screen size considerations
+          so learners can prevent default desktop-scaling behavior on mobile devices.
+        </p>
+      </div>
+
+      <!-- Artifact 8: Viewport Configuration (Text Content) -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="content/Designing_Mobile_Ready_interactive.html">Viewport Configuration and Screen Sizes</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading that explains how the viewport meta tag controls how mobile browsers render and
+          scale web pages, covering viewport configuration options and common screen size considerations
+          so learners can prevent default desktop-scaling behavior on mobile devices.
+        </p>
+      </div>
+
+    </div><!-- /.card-grid -->
+  </main>
+
+  <footer>
+    <p>COP4813 &mdash; Web Application Programming &nbsp;|&nbsp; Module 11: Designing Mobile-Ready and Responsive Websites</p>
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+</html>

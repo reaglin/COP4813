@@ -1,0 +1,449 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adding and Removing DOM Nodes</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 4 - Introduction to the Document Object Model (DOM)</a></div>
+  <header>
+    <h1>Adding and Removing DOM Nodes</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Adding and Removing DOM Nodes</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>One of the most powerful capabilities JavaScript gives you in the browser is the ability to <strong>dynamically modify the structure of a web page</strong> while it is running. Rather than delivering a static HTML document and leaving it unchanged, you can create brand-new elements on the fly, insert them anywhere in the page, move them around, replace them, clone them, and remove them — all without ever reloading the document. This is the foundation of interactive UIs, single-page applications, and dynamic content rendering. Understanding how to add and remove DOM nodes precisely and efficiently is therefore one of the most essential skills in client-side JavaScript development.</p>
+
+<p>The DOM (Document Object Model) represents your HTML document as a <strong>tree of nodes</strong>. Every HTML tag is an element node, every piece of visible text is a text node, and these nodes are connected through parent–child and sibling relationships. When you manipulate the DOM programmatically, you are modifying this live tree, and the browser immediately reflects your changes in the rendered page. The techniques covered below walk through every major step of that process: creation, configuration, insertion, cloning, replacement, and removal.</p>
+
+<p><strong>Creating New Elements with createElement()</strong></p>
+
+<p>The entry point for building new DOM content is <code>document.createElement()</code>. You call it on the global <code>document</code> object and pass a <strong>valid HTML tag name</strong> as a string. The method returns a fully formed element object of the corresponding type, ready for configuration.</p>
+
+<pre><code>// Create a paragraph element
+const para = document.createElement('p');
+
+// Create a list item
+const item = document.createElement('li');
+
+// Create a section
+const section = document.createElement('section');
+
+// Create an image element
+const img = document.createElement('img');
+</code></pre>
+
+<p>The string you pass must be a recognised HTML tag name. If you pass an unrecognised string, the browser creates an <code>HTMLUnknownElement</code>, which is valid JavaScript but will not render with any built-in browser semantics. Capitalisation does not matter for HTML documents — <code>'P'</code> and <code>'p'</code> both produce a paragraph — but lowercase is the universal convention.</p>
+
+<p>A critically important point is that <strong>creating an element does not attach it to the document</strong>. The returned node exists only in memory, completely disconnected from the visible page. Until you explicitly insert it into the DOM tree using one of the insertion methods described later, it has no effect on what the user sees. This separation between creation and insertion is intentional and useful: it lets you fully configure an element before it ever touches the live DOM.</p>
+
+<p><strong>Setting Content and Attributes on New Nodes</strong></p>
+
+<p>Once you have a new element in memory, the next step is to give it content and any necessary attributes. Doing this <em>before</em> insertion is a performance best practice, because every change you make to an element that is already in the live DOM can trigger the browser to recalculate layout (a <strong>reflow</strong>) or repaint pixels (a <strong>repaint</strong>). Building the element fully in memory and inserting it only once minimises that overhead.</p>
+
+<p>To add text content, set the <code>textContent</code> property. This is the safest approach because it treats the value as a <strong>plain string</strong> — any characters that look like HTML tags are escaped and displayed literally, preventing accidental injection of markup.</p>
+
+<pre><code>const para = document.createElement('p');
+para.textContent = 'Hello, world! This is a new paragraph.';
+</code></pre>
+
+<p>If you intentionally want to embed HTML markup inside the new element, use <code>innerHTML</code> instead. Be careful: if any part of the string comes from user input or an untrusted source, setting <code>innerHTML</code> can open your page to <strong>cross-site scripting (XSS) attacks</strong>.</p>
+
+<pre><code>const container = document.createElement('div');
+container.innerHTML = '&lt;strong&gt;Bold text&lt;/strong&gt; followed by normal text.';
+</code></pre>
+
+<p>To set attributes, you have two equivalent options. The <code>setAttribute()</code> method works for any attribute, including custom data attributes and ARIA attributes, and accepts the attribute name and value as two string arguments.</p>
+
+<pre><code>const link = document.createElement('a');
+link.setAttribute('href', 'https://example.com');
+link.setAttribute('target', '_blank');
+link.setAttribute('rel', 'noopener noreferrer');
+link.textContent = 'Visit Example';
+</code></pre>
+
+<p>Direct property assignment is often more convenient for standard HTML attributes that map cleanly onto JavaScript element properties:</p>
+
+<pre><code>const img = document.createElement('img');
+img.src = 'photo.jpg';       // same as setAttribute('src', 'photo.jpg')
+img.alt = 'A scenic photo';
+img.id = 'hero-image';
+img.className = 'responsive-img featured';
+</code></pre>
+
+<p>Note that <code>class</code> is a reserved word in JavaScript, so the DOM property is named <code>className</code>. Similarly, <code>for</code> (used on <code>&lt;label&gt;</code> elements) maps to the property <code>htmlFor</code>. For all other attributes the property name matches the HTML attribute name.</p>
+
+<p>You can also manipulate the <code>classList</code> API for more surgical class management:</p>
+
+<pre><code>const card = document.createElement('div');
+card.classList.add('card', 'card--featured');
+card.classList.remove('card--featured');
+card.classList.toggle('is-visible');
+</code></pre>
+
+<p><strong>Inserting Nodes with appendChild() and append()</strong></p>
+
+<p>With your element configured, the next step is to attach it to a parent node in the live DOM. The two most common methods for this are <code>appendChild()</code> and <code>append()</code>.</p>
+
+<p><code>parentElement.appendChild(newNode)</code> attaches <code>newNode</code> as the <strong>last child</strong> of <code>parentElement</code>. It accepts exactly one node argument and returns the appended node.</p>
+
+<pre><code>const list = document.getElementById('my-list');
+
+const item = document.createElement('li');
+item.textContent = 'New list item';
+
+list.appendChild(item); // item is now the last child of list
+</code></pre>
+
+<p>An important and often surprising behaviour: if you pass <code>appendChild()</code> a node that is <em>already in the DOM</em>, it does not duplicate it — it <strong>moves</strong> it to the new position. The node is automatically removed from its current location before being re-inserted.</p>
+
+<p>The <code>append()</code> method is a more modern and flexible alternative. It can accept <strong>multiple arguments</strong> and also accepts <strong>plain strings</strong>, which it automatically wraps in text nodes — so you do not need to call <code>document.createTextNode()</code> explicitly.</p>
+
+<pre><code>const section = document.querySelector('#content');
+
+const heading = document.createElement('h2');
+heading.textContent = 'Section Title';
+
+const para = document.createElement('p');
+para.textContent = 'First paragraph.';
+
+// Append multiple nodes and a raw string in one call
+section.append(heading, para, 'Some trailing plain text.');
+</code></pre>
+
+<p>Both methods trigger an immediate live update to the rendered page. The browser reflows and repaints the affected region right after the JavaScript call completes. For bulk inserts involving many nodes, it is more efficient to build the nodes into a <code>DocumentFragment</code> first and then insert the fragment in a single operation:</p>
+
+<pre><code>const fragment = document.createDocumentFragment();
+
+for (let i = 1; i <= 5; i++) {
+  const li = document.createElement('li');
+  li.textContent = `Item ${i}`;
+  fragment.appendChild(li);
+}
+
+// Only one DOM insertion, one reflow
+document.getElementById('my-list').appendChild(fragment);
+</code></pre>
+
+<p><strong>Inserting Nodes at Specific Positions with insertBefore() and insertAdjacentElement()</strong></p>
+
+<p>Sometimes you need to place a new node somewhere other than the end of a parent's children. <code>insertBefore()</code> and <code>insertAdjacentElement()</code> give you that precision.</p>
+
+<p><code>parentElement.insertBefore(newNode, referenceNode)</code> inserts <code>newNode</code> directly <strong>before</strong> <code>referenceNode</code> in the parent's child list. Both the new node and the reference node must share the same parent.</p>
+
+<pre><code>const list = document.getElementById('my-list');
+const secondItem = list.children[1]; // the second &lt;li&gt;
+
+const newItem = document.createElement('li');
+newItem.textContent = 'Inserted before second item';
+
+list.insertBefore(newItem, secondItem);
+// newItem is now between the first and second original items
+</code></pre>
+
+<p>If <code>referenceNode</code> is <code>null</code>, <code>insertBefore</code> behaves exactly like <code>appendChild</code> and places the new node at the end.</p>
+
+<p><code>insertAdjacentElement(position, element)</code> is called on an existing target element and offers four positional keywords that give you full control over where the new node lands relative to the target:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Position keyword</th>
+      <th>Where the new node is inserted</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>'beforebegin'</code></td>
+      <td>Immediately before the target element itself (as a preceding sibling)</td>
+    </tr>
+    <tr>
+      <td><code>'afterbegin'</code></td>
+      <td>Inside the target element, before its first child</td>
+    </tr>
+    <tr>
+      <td><code>'beforeend'</code></td>
+      <td>Inside the target element, after its last child (equivalent to <code>append()</code>)</td>
+    </tr>
+    <tr>
+      <td><code>'afterend'</code></td>
+      <td>Immediately after the target element itself (as a following sibling)</td>
+    </tr>
+  </tbody>
+</table>
+
+<pre><code>const card = document.querySelector('.card');
+
+const badge = document.createElement('span');
+badge.textContent = 'NEW';
+badge.className = 'badge';
+
+// Place the badge as the very first child inside the card
+card.insertAdjacentElement('afterbegin', badge);
+
+const footer = document.createElement('footer');
+footer.textContent = 'Card footer';
+
+// Place a footer immediately after the card in the DOM
+card.insertAdjacentElement('afterend', footer);
+</code></pre>
+
+<p>The sibling-level positions (<code>'beforebegin'</code> and <code>'afterend'</code>) only work when the target element has a parent; calling them on a detached node or on <code>document.body</code> at the top level may produce <code>null</code>. A related method, <code>insertAdjacentHTML()</code>, does the same thing but accepts an HTML string instead of a node — convenient, but again requires caution with untrusted input.</p>
+
+<p><strong>Removing Nodes with removeChild() and remove()</strong></p>
+
+<p>To detach a node from the DOM entirely, JavaScript provides two complementary methods: the older <code>removeChild()</code> and the newer, more convenient <code>remove()</code>.</p>
+
+<p><code>parentElement.removeChild(targetNode)</code> requires you to call the method on the <strong>parent</strong> of the node you want to remove, and pass the target node as the argument. It returns the removed node, which remains in memory.</p>
+
+<pre><code>const list = document.getElementById('my-list');
+const itemToRemove = document.getElementById('item-3');
+
+// Classic pattern: navigate to parent first
+list.removeChild(itemToRemove);
+
+// Or navigate to parent dynamically
+const staleAlert = document.getElementById('warning-banner');
+staleAlert.parentNode.removeChild(staleAlert);
+</code></pre>
+
+<p>The modern <code>element.remove()</code> method is called <strong>directly on the node itself</strong>, with no need to reference or navigate to its parent. This makes the code much more concise.</p>
+
+<pre><code>const banner = document.getElementById('cookie-banner');
+banner.remove(); // removes itself from the DOM
+</code></pre>
+
+<p>A subtlety that trips up many developers: <strong>removed nodes are not automatically garbage-collected</strong>. If a JavaScript variable still holds a reference to the removed node, the node object stays alive in memory. To allow the browser to reclaim that memory, you must explicitly clear the reference:</p>
+
+<pre><code>let tempNode = document.createElement('div');
+document.body.appendChild(tempNode);
+
+// Later, remove it from the DOM
+tempNode.remove();
+
+// The node still exists in memory because tempNode references it.
+// Clear the reference to allow garbage collection:
+tempNode = null;
+</code></pre>
+
+<p>Conversely, you can intentionally keep a reference to a removed node if you plan to re-insert it later — the node retains all its properties, content, and event listeners while held in memory.</p>
+
+<p><strong>Cloning Nodes with cloneNode()</strong></p>
+
+<p>Rather than rebuilding a complex element structure from scratch every time you need a repeated UI component — like a product card, a notification toast, or a table row — you can <strong>clone an existing node</strong> using <code>cloneNode()</code>.</p>
+
+<p>The method accepts a single boolean argument:</p>
+
+<ul>
+  <li><code>element.cloneNode(true)</code> — performs a <strong>deep clone</strong>: the element itself, all of its descendant elements, all text nodes, and all attributes are duplicated.</li>
+  <li><code>element.cloneNode(false)</code> — performs a <strong>shallow clone</strong>: only the element's own tag and its attributes are copied; child nodes are not included.</li>
+</ul>
+
+<pre><code>// Original card in the DOM
+const originalCard = document.querySelector('.card');
+
+// Deep clone — copies everything inside the card too
+const cardCopy = originalCard.cloneNode(true);
+
+// Modify the clone before inserting (to avoid duplicate IDs, etc.)
+cardCopy.querySelector('.card__title').textContent = 'Second Card';
+cardCopy.id = 'card-2';
+
+// Insert the clone into the page
+document.querySelector('#card-grid').appendChild(cardCopy);
+</code></pre>
+
+<pre><code>// Shallow clone — only the &lt;ul&gt; tag itself, no &lt;li&gt; children
+const emptyList = document.querySelector('ul').cloneNode(false);
+emptyList.id = 'new-empty-list';
+document.body.appendChild(emptyList);
+</code></pre>
+
+<p>Important caveats with cloning:</p>
+<ul>
+  <li><strong>IDs are duplicated.</strong> If the original element has an <code>id</code>, the clone will have the same <code>id</code>, which violates the rule that IDs must be unique in a document. Always update or remove IDs on clones before inserting them.</li>
+  <li><strong>Event listeners attached via <code>addEventListener()</code> are not cloned.</strong> The clone gets a copy of the element's HTML attributes (including inline <code>onclick</code> handlers) but not listeners registered through JavaScript. You must re-attach those listeners to the clone manually.</li>
+  <li>Like all newly created nodes, a clone must be <strong>explicitly inserted</strong> into the DOM with one of the insertion methods before it appears on the page.</li>
+</ul>
+
+<p><strong>Replacing Nodes with replaceChild() and replaceWith()</strong></p>
+
+<p>Sometimes you need to swap one node in the DOM for another. This is common when updating a UI component, swapping an image, or replacing placeholder content with real data. JavaScript provides two methods for this purpose.</p>
+
+<p><code>parentElement.replaceChild(newNode, oldNode)</code> is the classic approach. It is called on the <strong>parent</strong> of the node being replaced, and requires explicit references to both the incoming node and the node being swapped out. It returns the removed (old) node.</p>
+
+<pre><code>const container = document.getElementById('profile');
+const oldAvatar = document.getElementById('avatar-placeholder');
+
+const newAvatar = document.createElement('img');
+newAvatar.src = 'user-photo.jpg';
+newAvatar.alt = 'User profile photo';
+newAvatar.id = 'avatar-photo';
+
+// Replace the placeholder with the real image
+container.replaceChild(newAvatar, oldAvatar);
+// oldAvatar is detached from the DOM but still in memory
+</code></pre>
+
+<p>The modern <code>element.replaceWith(...nodes)</code> method is called <strong>directly on the node being replaced</strong> and is significantly more flexible. It accepts any number of node arguments or plain strings, replacing the target with all of them in sequence.</p>
+
+<pre><code>const oldHeading = document.querySelector('h1');
+
+const newHeading = document.createElement('h1');
+newHeading.textContent = 'Updated Page Title';
+
+// Replace the old h1 with the new one
+oldHeading.replaceWith(newHeading);
+</code></pre>
+
+<pre><code>// replaceWith can insert multiple nodes at once
+const placeholder = document.getElementById('content-placeholder');
+
+const title = document.createElement('h2');
+title.textContent = 'Article Title';
+
+const body = document.createElement('p');
+body.textContent = 'Article body text goes here.';
+
+// Replace the single placeholder with two new nodes
+placeholder.replaceWith(title, body);
+</code></pre>
+
+<p>In both cases, the replaced (old) node is removed from the DOM but <strong>remains in memory</strong> if a JavaScript variable still holds a reference to it. This means you can store the old node before replacing it and re-insert it later if needed — a pattern useful for toggling between different views without rebuilding nodes from scratch each time.</p>
+
+<p>Here is a consolidated reference comparing all the key methods covered in this topic:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Called on</th>
+      <th>Purpose</th>
+      <th>Returns</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>document.createElement(tag)</code></td>
+      <td><code>document</code></td>
+      <td>Creates a new element node in memory</td>
+      <td>The new element</td>
+    </tr>
+    <tr>
+      <td><code>parent.appendChild(node)</code></td>
+      <td>Parent element</td>
+      <td>Inserts node as last child</td>
+      <td>The appended node</td>
+    </tr>
+    <tr>
+      <td><code>parent.append(...nodes)</code></td>
+      <td>Parent element</td>
+      <td>Inserts multiple nodes/strings as last children</td>
+      <td><code>undefined</code></td>
+    </tr>
+    <tr>
+      <td><code>parent.insertBefore(new, ref)</code></td>
+      <td>Parent element</td>
+      <td>Inserts new node before reference child</td>
+      <td>The inserted node</td>
+    </tr>
+    <tr>
+      <td><code>target.insertAdjacentElement(pos, el)</code></td>
+      <td>Target element</td>
+      <td>Inserts el at a named position relative to target</td>
+      <td>The inserted element</td>
+    </tr>
+    <tr>
+      <td><code>parent.removeChild(node)</code></td>
+      <td>Parent element</td>
+      <td>Removes a specific child node</td>
+      <td>The removed node</td>
+    </tr>
+    <tr>
+      <td><code>node.remove()</code></td>
+      <td>The node itself</td>
+      <td>Removes the node from its parent</td>
+      <td><code>undefined</code></td>
+    </tr>
+    <tr>
+      <td><code>node.cloneNode(deep)</code></td>
+      <td>The node itself</td>
+      <td>Creates a deep or shallow copy of the node</td>
+      <td>The cloned node</td>
+    </tr>
+    <tr>
+      <td><code>parent.replaceChild(new, old)</code></td>
+      <td>Parent element</td>
+      <td>Swaps old child for new node</td>
+      <td>The removed (old) node</td>
+    </tr>
+    <tr>
+      <td><code>node.replaceWith(...nodes)</code></td>
+      <td>The node itself</td>
+      <td>Replaces the node with one or more nodes/strings</td>
+      <td><code>undefined</code></td>
+    </tr>
+  </tbody>
+</table>
+        <div class="notes"><strong>Notes</strong>Consider pairing this content with live code exercises where learners build a dynamic list (add, remove, reorder items) to reinforce all methods in a single practical context. The DocumentFragment optimisation for bulk inserts is worth emphasising in any performance-focused follow-up discussion.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

@@ -1,0 +1,419 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Box Model</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 3 -Styling Web Pages with CSS</a></div>
+  <header>
+    <h1>The Box Model</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>The Box Model</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Every element you place on a web page — a paragraph, an image, a navigation link, a simple <code>&lt;div&gt;</code> — is treated by the browser as a rectangular box. This fundamental idea is called the <strong>CSS Box Model</strong>, and it is the single most important concept for understanding how browsers calculate spacing, size, and layout. Once you internalize the box model, you gain precise, predictable control over how every element looks and where it sits on the page.</p>
+
+<p>The box model describes four distinct layers that surround every HTML element, arranged from the innermost layer outward: <strong>content</strong>, <strong>padding</strong>, <strong>border</strong>, and <strong>margin</strong>. The browser adds the measurements of all four layers together to determine the total space an element occupies on the page. Misunderstanding even one of these layers is often the source of frustrating layout bugs — elements that are slightly too wide, gaps that seem to appear from nowhere, or elements that inexplicably overlap their neighbors. A thorough understanding of each layer eliminates that confusion entirely.</p>
+
+<p>The four layers can be visualized as nested rectangles. At the very center sits the content. Wrapping around that is the padding. Around the padding sits the border. And surrounding everything is the margin, which creates invisible breathing room between the element and its neighbors.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Layer</th>
+      <th>Position</th>
+      <th>Affected by Background?</th>
+      <th>Can Be Negative?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Content</td>
+      <td>Innermost</td>
+      <td>Yes</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Padding</td>
+      <td>Between content and border</td>
+      <td>Yes</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Border</td>
+      <td>Between padding and margin</td>
+      <td>No (has its own color)</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Margin</td>
+      <td>Outermost</td>
+      <td>No (always transparent)</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The sections below explore each layer in depth, then cover the critical <code>box-sizing</code> property that changes how the browser interprets width and height, and finally explain how to use browser DevTools to inspect and experiment with the box model live on any page.</p>
+
+<p><strong>The Content Area</strong></p>
+
+<p>The content area is the innermost rectangle of the box model — the region that actually holds the element's text, images, or child elements. It is the raw payload of the element, stripped of any surrounding space. By default, when you set CSS <code>width</code> and <code>height</code> properties on an element, those values define <em>only</em> the content area. Padding, border, and margin are layered on top of those dimensions, which means the element can end up larger on screen than the numbers you typed suggest.</p>
+
+<p>For example, if you write:</p>
+
+<pre><code>div {
+  width: 300px;
+  height: 150px;
+  background-color: steelblue;
+}</code></pre>
+
+<p>The content area of that <code>div</code> will be exactly 300 × 150 pixels. The background color fills this area completely. As we will see shortly, any padding you add will also be filled with that same background color, making the padding appear as a natural extension of the content zone rather than a separate region.</p>
+
+<p>One important behavior of the content area is <strong>overflow</strong>. If the content inside an element — say, a long paragraph or a large image — is bigger than the defined <code>width</code> and <code>height</code>, the content will spill outside the box by default. CSS provides the <code>overflow</code> property to control this behavior:</p>
+
+<pre><code>div {
+  width: 200px;
+  height: 100px;
+  overflow: hidden;   /* clips content that exceeds the box */
+}
+
+div {
+  overflow: scroll;  /* adds scrollbars so the user can read all the content */
+}
+
+div {
+  overflow: visible; /* default — content spills outside the box boundary */
+}</code></pre>
+
+<p>Choosing the right overflow behavior is especially important for fixed-size containers like sidebars, cards, or modal windows where dynamic content could otherwise break a layout.</p>
+
+<p><strong>Padding</strong></p>
+
+<p>Padding is the space between the content area and the border. Think of it as cushioning — it keeps the content from pressing directly against the border, making text easier to read and interfaces more visually comfortable. Because the element's background color or background image extends through the padding area, padding feels like a visual part of the content zone to the eye, even though structurally it is a separate layer.</p>
+
+<p>You can set padding on all four sides at once using the shorthand property, or target individual sides:</p>
+
+<pre><code>/* Shorthand — all four sides get 20px */
+p {
+  padding: 20px;
+}
+
+/* Shorthand — vertical (top/bottom) 10px, horizontal (left/right) 20px */
+p {
+  padding: 10px 20px;
+}
+
+/* Shorthand — top 5px, horizontal 15px, bottom 25px */
+p {
+  padding: 5px 15px 25px;
+}
+
+/* Shorthand — top 5px, right 10px, bottom 15px, left 20px (clockwise) */
+p {
+  padding: 5px 10px 15px 20px;
+}
+
+/* Individual side properties */
+p {
+  padding-top: 10px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+}</code></pre>
+
+<p>A practical example: a button without padding looks cramped and is hard to click. Adding padding immediately makes it more usable:</p>
+
+<pre><code>button {
+  padding: 12px 24px;
+  background-color: royalblue;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}</code></pre>
+
+<p>That <code>12px 24px</code> gives the button 12 pixels of breathing room above and below the label text, and 24 pixels on the left and right sides — a comfortable, clickable target.</p>
+
+<p>One key constraint: <strong>padding cannot be set to a negative value</strong>. Attempting <code>padding: -10px</code> will simply be ignored by the browser. If you need to pull content closer or create overlap, that is what negative margins are for, as discussed in the margin section below.</p>
+
+<p><strong>Border</strong></p>
+
+<p>The border layer sits between the padding and the margin, forming a visible (or invisible) edge around the element. Borders are defined using three sub-properties — <code>border-width</code>, <code>border-style</code>, and <code>border-color</code> — which are most commonly combined into the <code>border</code> shorthand:</p>
+
+<pre><code>/* Shorthand: width | style | color */
+div {
+  border: 2px solid navy;
+}
+
+/* Dashed border in red */
+div {
+  border: 1px dashed red;
+}
+
+/* Dotted border using a hex color */
+div {
+  border: 3px dotted #333333;
+}</code></pre>
+
+<p>The single most important rule about borders is that <strong>the style must be explicitly set</strong>. If you define a width and color but omit the style, or leave <code>border-style</code> at its default value of <code>none</code>, no border will be rendered — the width and color are simply ignored. Always include a style value such as <code>solid</code>, <code>dashed</code>, <code>dotted</code>, <code>double</code>, <code>groove</code>, <code>ridge</code>, <code>inset</code>, or <code>outset</code>.</p>
+
+<p>Just like padding, you can target individual sides of the border:</p>
+
+<pre><code>/* Only a bottom border — a common underline effect for headings */
+h2 {
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 8px;
+}
+
+/* Different borders on different sides */
+div {
+  border-top: 4px solid teal;
+  border-right: 1px solid gray;
+  border-bottom: 4px solid teal;
+  border-left: 1px solid gray;
+}</code></pre>
+
+<p>The <strong><code>border-radius</code></strong> property deserves special mention. It rounds the corners of the border box, unlocking a wide range of shapes without any images:</p>
+
+<pre><code>/* Slightly rounded corners on a card */
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+/* A perfect circle (element must have equal width and height) */
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+/* Pill shape — fully rounded ends on a wide element */
+.badge {
+  border-radius: 9999px;
+  padding: 4px 16px;
+}</code></pre>
+
+<p>Because border width adds to the total rendered size of an element (under the default <code>box-sizing</code> model), changing a border width can unexpectedly shift nearby elements. This is one of the motivations for using <code>box-sizing: border-box</code>, described later.</p>
+
+<p><strong>Margin</strong></p>
+
+<p>Margin is the outermost layer of the box model. While padding pushes content away from the border <em>inside</em> the element, margin pushes the element away from its neighboring elements and from the edges of its containing block, from the <em>outside</em>. Margins are always transparent — they never display a background color or image. The result is empty, invisible space that creates separation between elements.</p>
+
+<p>Margin syntax mirrors padding exactly, with the same shorthand rules:</p>
+
+<pre><code>/* All sides */
+p {
+  margin: 16px;
+}
+
+/* Vertical | Horizontal */
+p {
+  margin: 8px 0;
+}
+
+/* Individual sides */
+p {
+  margin-top: 24px;
+  margin-right: 0;
+  margin-bottom: 24px;
+  margin-left: 0;
+}</code></pre>
+
+<p>Unlike padding, <strong>margins can be negative</strong>. Negative margins pull an element in the specified direction, potentially overlapping adjacent elements or their containers. This is a powerful technique but should be used deliberately:</p>
+
+<pre><code>/* Pull this element 10px upward, overlapping whatever is above it */
+.overlay {
+  margin-top: -10px;
+}</code></pre>
+
+<p>One of the most useful margin techniques is <strong>horizontal centering</strong> of block elements. By setting left and right margins to <code>auto</code>, the browser distributes the remaining horizontal space equally on both sides:</p>
+
+<pre><code>.container {
+  width: 960px;
+  margin: 0 auto; /* 0 top/bottom, auto left/right */
+}</code></pre>
+
+<p>This only works on <em>block-level</em> elements with an explicit <code>width</code> (or <code>max-width</code>). If no width is set, the element already stretches to fill its container, leaving no space to distribute.</p>
+
+<p>A notable quirk of margins is <strong>margin collapsing</strong>. When two block elements are stacked vertically, the bottom margin of the first element and the top margin of the second element do not add together — instead, they collapse into a single margin equal to the larger of the two values. For example:</p>
+
+<pre><code>h1 { margin-bottom: 32px; }
+p  { margin-top: 16px; }</code></pre>
+
+<p>You might expect 48px of space between the heading and the paragraph, but the browser actually renders only 32px — the larger value wins and the smaller one is absorbed. Margin collapsing applies only to vertical margins between block elements in normal flow; it does not occur with horizontal margins, flexbox children, or grid items.</p>
+
+<p><strong>The box-sizing Property</strong></p>
+
+<p>Understanding <code>box-sizing</code> is critical for avoiding one of the most common CSS layout frustrations. By default, browsers use <code>box-sizing: content-box</code>, which means the <code>width</code> and <code>height</code> you specify in CSS apply <em>only to the content area</em>. Padding and border are then added on top of those dimensions, making the rendered element larger than the numbers you wrote.</p>
+
+<p>Consider this example under the default <code>content-box</code> model:</p>
+
+<pre><code>.box {
+  width: 300px;
+  padding: 20px;
+  border: 5px solid black;
+  box-sizing: content-box; /* this is the default */
+}</code></pre>
+
+<p>The total rendered width of <code>.box</code> on screen is:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Left border</td>
+      <td>5px</td>
+    </tr>
+    <tr>
+      <td>Left padding</td>
+      <td>20px</td>
+    </tr>
+    <tr>
+      <td>Content width</td>
+      <td>300px</td>
+    </tr>
+    <tr>
+      <td>Right padding</td>
+      <td>20px</td>
+    </tr>
+    <tr>
+      <td>Right border</td>
+      <td>5px</td>
+    </tr>
+    <tr>
+      <td><strong>Total</strong></td>
+      <td><strong>350px</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The element renders at <strong>350px wide</strong>, not 300px. If you were trying to fit this element inside a 300px container, it would overflow — a classic and confusing bug.</p>
+
+<p>Switching to <code>box-sizing: border-box</code> solves this elegantly. With <code>border-box</code>, the <code>width</code> and <code>height</code> values <em>include</em> the content, padding, and border all together. The browser automatically adjusts the content area inward to make everything fit within the specified dimensions:</p>
+
+<pre><code>.box {
+  width: 300px;
+  padding: 20px;
+  border: 5px solid black;
+  box-sizing: border-box;
+}</code></pre>
+
+<p>Now the element renders at exactly <strong>300px wide</strong>. The content area shrinks to 250px (300 − 20 − 20 − 5 − 5) to accommodate the padding and border. This is far more intuitive for building layouts, because the dimensions you set are the dimensions you get.</p>
+
+<p>Because <code>border-box</code> is so much more predictable, the modern standard practice is to apply it globally to every element on the page using this snippet, which is almost universally included in professional CSS resets and stylesheets:</p>
+
+<pre><code>*, *::before, *::after {
+  box-sizing: border-box;
+}</code></pre>
+
+<p>This ensures that no matter what element you style, adding padding or a border will never cause it to overflow its container unexpectedly.</p>
+
+<p><strong>Inspecting the Box Model with DevTools</strong></p>
+
+<p>Modern browsers ship with powerful built-in developer tools (DevTools) that make the box model tangible and interactive. Rather than writing CSS, switching to a browser, refreshing, and guessing at what changed, you can inspect and experiment directly on a live page — changes appear instantly, with no refresh required.</p>
+
+<p>To open DevTools, right-click any element on a webpage and select <strong>Inspect</strong> (or <em>Inspect Element</em>). You can also press <strong>F12</strong> on Windows/Linux or <strong>Cmd + Option + I</strong> on macOS. This opens a panel typically split into the HTML structure on one side and CSS styles on the other.</p>
+
+<p>In the <strong>Computed</strong> tab (or sometimes within the Styles panel itself), you will find a visual box model diagram — a set of nested rectangles labeled with the exact pixel values of the margin, border, padding, and content area for the currently selected element. The color coding is consistent across browsers:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Layer</th>
+      <th>Highlight Color in DevTools</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Margin</td>
+      <td>Orange</td>
+    </tr>
+    <tr>
+      <td>Border</td>
+      <td>Yellow</td>
+    </tr>
+    <tr>
+      <td>Padding</td>
+      <td>Green</td>
+    </tr>
+    <tr>
+      <td>Content</td>
+      <td>Blue</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>When you hover over an element in the DevTools HTML panel, these colored regions are overlaid directly on the page, letting you see at a glance how much space each layer occupies. This is invaluable for diagnosing layout problems — for example, an unexpected gap between two elements can immediately be identified as a margin or padding issue when you see the orange or green overlay extending further than expected.</p>
+
+<p>You can also click on any CSS value in the Styles panel and type a new value to see the effect immediately. Try changing <code>padding</code> from <code>0</code> to <code>20px</code>, or toggling <code>box-sizing</code> from <code>content-box</code> to <code>border-box</code>, and watch the box model diagram update in real time. This iterative, visual workflow accelerates learning dramatically — you build an intuition for how the layers interact by experimenting freely without touching your actual code files. Once you find values you like, you can then transfer them to your stylesheet.</p>
+
+<p>Making DevTools part of your regular workflow from the beginning — even while learning — transforms the box model from an abstract concept into something you can see, touch, and manipulate at will.</p>
+        <div class="notes"><strong>Notes</strong>A foundational concept explaining how every HTML element is treated as a rectangular box with content, padding, border, and margin areas. Students learn how to manipulate these properties to control spacing and sizing of elements on a page.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

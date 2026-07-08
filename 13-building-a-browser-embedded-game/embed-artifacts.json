@@ -1,0 +1,52 @@
+﻿[
+  {
+    "title": "13 - Building a Browser-Embedded Game \u2014 Topics \u0026 Learning Outcomes",
+    "href": "topics-outcomes.html",
+    "type": "Page"
+  },
+  {
+    "title": "13 - Building a Browser-Embedded Game \u2014 Module Topics",
+    "href": "topics.html",
+    "type": "Page"
+  },
+  {
+    "title": "Integrating and Assembling the Complete Game",
+    "href": "content/Building_a_Browser_interactive.html",
+    "type": "Content"
+  },
+  {
+    "title": "Game Design Fundamentals",
+    "href": "content/Building_a_Browser_interactive_topics_t1.html",
+    "type": "Content"
+  },
+  {
+    "title": "Canvas Drawing for Games",
+    "href": "content/Building_a_Browser_interactive_topics_t2.html",
+    "type": "Content"
+  },
+  {
+    "title": "Animation and the Game Loop",
+    "href": "content/Building_a_Browser_interactive_topics_t3.html",
+    "type": "Content"
+  },
+  {
+    "title": "Event Handling and Player Input",
+    "href": "content/Building_a_Browser_interactive_topics_t4.html",
+    "type": "Content"
+  },
+  {
+    "title": "Game Logic and State Management",
+    "href": "content/Building_a_Browser_interactive_topics_t5.html",
+    "type": "Content"
+  },
+  {
+    "title": "Integrating and Assembling the Complete Game",
+    "href": "content/Building_a_Browser_interactive_topics_t6.html",
+    "type": "Content"
+  },
+  {
+    "title": "13 - Building a Browser-Embedded Game \u2014 Module Topics",
+    "href": "content/module_topics.html",
+    "type": "Content"
+  }
+]

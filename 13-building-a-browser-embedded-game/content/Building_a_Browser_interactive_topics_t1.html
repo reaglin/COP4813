@@ -1,0 +1,311 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Design Fundamentals</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 13 - Building a Browser-Embedded Game</a></div>
+  <header>
+    <h1>Game Design Fundamentals</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Game Design Fundamentals</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Before a single line of code is written, every successful browser game begins as an idea that has been carefully thought through and documented. Game design fundamentals are the principles that transform a vague concept — "I want to make a game where you dodge things" — into a concrete blueprint that guides every coding decision that follows. Skipping this stage is one of the most common mistakes new developers make; they dive straight into drawing on a canvas or handling keyboard events, only to discover midway through that they aren't sure what winning looks like, or that their rules contradict each other, or that the project has grown far beyond what they can finish. Investing time in design before coding is not a delay — it is the fastest path to a working, enjoyable game.</p>
+
+<p>This topic walks through six interconnected design steps. Each step builds on the previous one, and together they produce a lightweight design document you can refer to throughout development. The examples used throughout this topic center on a classic arcade-style game — a player-controlled spaceship that shoots incoming asteroids — because it is simple enough to illustrate every concept clearly while being complex enough to be realistic.</p>
+
+<p><strong>Defining the Game Objective</strong></p>
+
+<p>The objective is the single most important design decision you will make. It answers the question: <em>what is the player trying to do?</em> A well-formed objective is short, unambiguous, and immediately communicates what success and failure look like. The discipline of forcing yourself to express it in one sentence is not an arbitrary rule — it is a diagnostic tool. If you cannot say it in one sentence, you do not yet understand your own game well enough to build it.</p>
+
+<p>Consider the difference between these two statements:</p>
+
+<ul>
+  <li><em>Vague:</em> "The player flies a spaceship around and does stuff with asteroids and maybe collects power-ups and tries to get a high score or survive."</li>
+  <li><em>Clear:</em> "The player controls a spaceship and must destroy incoming asteroids by shooting them before any asteroid reaches the bottom of the screen."</li>
+</ul>
+
+<p>The second version immediately tells you what the player controls (a spaceship), what the challenge is (asteroids moving toward the bottom), what the action is (shooting), and what the failure condition is (an asteroid reaches the bottom). From this one sentence you can already infer the entities you need, the win/loss logic, and the primary interaction. That is the power of a precise objective.</p>
+
+<p>A clear objective also acts as a filter throughout development. Every time you think of a new feature — a shield mechanic, a boss enemy, a level system — you ask: <em>does this directly support the objective?</em> If the answer is no, the feature belongs in a "nice-to-have" list, not in your initial build. This prevents scope creep, which is the gradual, unplanned expansion of a project that causes it to never reach a finished state.</p>
+
+<p><strong>Establishing the Rules</strong></p>
+
+<p>Once you know the objective, you define the rules — the specific conditions and constraints that govern how play unfolds. Think of rules as the contract between the game and the player. When rules are consistent and predictable, players can experiment, learn cause and effect, and deliberately form strategies. When rules are inconsistent or unclear, players feel cheated rather than challenged.</p>
+
+<p>Each rule should do one of two things: <em>support</em> the objective (make it achievable) or <em>protect</em> the objective (prevent it from being trivially easy). For the asteroid game, a minimal ruleset might look like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rule</th>
+      <th>Type</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Asteroids spawn at the top of the screen at random horizontal positions.</td>
+      <td>Support</td>
+      <td>Creates the challenge the player must respond to.</td>
+    </tr>
+    <tr>
+      <td>Asteroids move downward at a constant speed that increases over time.</td>
+      <td>Protect</td>
+      <td>Prevents the player from simply waiting and shooting slowly.</td>
+    </tr>
+    <tr>
+      <td>A bullet that hits an asteroid destroys both the bullet and the asteroid and awards 10 points.</td>
+      <td>Support</td>
+      <td>Defines the reward mechanism and the core interaction.</td>
+    </tr>
+    <tr>
+      <td>If an asteroid reaches the bottom edge of the canvas, the game ends.</td>
+      <td>Protect</td>
+      <td>Defines the failure condition tied directly to the objective.</td>
+    </tr>
+    <tr>
+      <td>The player can fire one bullet at a time; a new bullet cannot be fired until the previous one leaves the screen or hits an asteroid.</td>
+      <td>Protect</td>
+      <td>Prevents the player from spamming bullets and trivializing the challenge.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Notice that this ruleset is small — five rules — and every single rule connects back to the one-sentence objective. A small, focused ruleset has two major advantages: it is faster to implement in code because each rule translates to a relatively isolated block of logic, and it is faster for players to internalize because they do not have to memorize an instruction manual before they can enjoy the game.</p>
+
+<p>When writing rules, watch for contradictions. For example, if one rule says "the game ends when the player is hit by an asteroid" and another says "the player is invincible for three seconds after spawning," you need to make sure these rules do not conflict during the first three seconds of play. Spotting contradictions in plain English is far easier than finding them buried inside hundreds of lines of JavaScript.</p>
+
+<p><strong>Identifying Game Entities</strong></p>
+
+<p>Entities are the distinct objects that exist and act within your game world. Identifying them at the design stage is critical because each entity will later become a JavaScript object or class in your code. The clearer you define an entity's role, properties, and interactions now, the faster and more confidently you can implement it.</p>
+
+<p>For each entity, ask three questions: <em>What does it look like?</em> (its visual representation on the canvas), <em>What does it do?</em> (its behavior over time), and <em>How does it interact with other entities?</em> (the events it triggers when it meets another entity). Here is a breakdown of entities for the asteroid game:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Entity</th>
+      <th>Role</th>
+      <th>Key Properties</th>
+      <th>Interactions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Player (Spaceship)</td>
+      <td>Controlled by the player; fires bullets</td>
+      <td>x, y position; width; height; speed</td>
+      <td>Moves left/right; spawns bullets; game ends if hit by asteroid</td>
+    </tr>
+    <tr>
+      <td>Asteroid</td>
+      <td>Enemy; causes game over if it reaches the bottom</td>
+      <td>x, y position; radius; speed</td>
+      <td>Moves downward; destroyed by bullet; triggers game over if it exits canvas</td>
+    </tr>
+    <tr>
+      <td>Bullet</td>
+      <td>Projectile fired by player; destroys asteroids</td>
+      <td>x, y position; speed; active (boolean)</td>
+      <td>Moves upward; destroyed on contact with asteroid; removed when off-screen</td>
+    </tr>
+    <tr>
+      <td>Score Display</td>
+      <td>UI element showing the current score</td>
+      <td>currentScore (integer)</td>
+      <td>Updated when an asteroid is destroyed; rendered each frame</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A subtle but important insight in this step: entities that <em>cause the player to lose</em> (asteroids reaching the bottom) and entities that <em>increase the score</em> (asteroids being destroyed by bullets) need particularly careful definition because they directly encode the objective into interactive objects. When you later write collision detection code, you will be translating the interaction column of this table almost word-for-word into conditional logic.</p>
+
+<p>Identifying entities also reveals dependencies. The bullet entity depends on the player entity to know where to spawn. The score display depends on the asteroid entity to know when to increment. Seeing these dependencies before coding helps you organize your code so that data flows in a sensible direction rather than creating tangled, hard-to-debug references.</p>
+
+<p><strong>Sketching the Game Structure</strong></p>
+
+<p>A game is not a single continuous experience — it is a sequence of distinct <em>states</em>, and the structure of your game is the map of those states and how the player moves between them. Most simple browser games share a common set of states:</p>
+
+<ul>
+  <li><strong>Start / Title Screen:</strong> The game is loaded but has not yet begun. The player sees a title, instructions, or a prompt to begin.</li>
+  <li><strong>Playing:</strong> The main gameplay loop is active. Entities are moving, input is being processed, and the score is updating.</li>
+  <li><strong>Paused:</strong> The game loop is suspended temporarily. Entities freeze in place and input processing is limited to "unpause."</li>
+  <li><strong>Game Over:</strong> A failure condition has been met. The game loop stops, and the player is shown their final score and an option to restart.</li>
+</ul>
+
+<p>Beyond naming the states, you must explicitly map the <em>transitions</em> — the specific events or conditions that move the game from one state to another. Leaving transitions vague leads to bugs where the game enters an ambiguous in-between state, such as the game loop still running after the game-over screen appears. Here is a transition map for the asteroid game:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>From State</th>
+      <th>Trigger</th>
+      <th>To State</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Start</td>
+      <td>Player presses the Enter key</td>
+      <td>Playing</td>
+    </tr>
+    <tr>
+      <td>Playing</td>
+      <td>Player presses the P key</td>
+      <td>Paused</td>
+    </tr>
+    <tr>
+      <td>Paused</td>
+      <td>Player presses the P key again</td>
+      <td>Playing</td>
+    </tr>
+    <tr>
+      <td>Playing</td>
+      <td>An asteroid reaches the bottom of the canvas</td>
+      <td>Game Over</td>
+    </tr>
+    <tr>
+      <td>Game Over</td>
+      <td>Player presses the R key</td>
+      <td>Start (entities reset)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In code, the current game state is typically stored in a single variable — often a string like <code>"playing"</code> or an integer constant — and checked at the top of the game loop and inside event handlers. When you design the state structure explicitly before coding, you know in advance exactly how many branches your event handler needs and what conditions your game loop must check each frame. This makes the code dramatically easier to organize and debug.</p>
+
+<p><strong>Scoping the Project Appropriately</strong></p>
+
+<p>Scope is the boundary around your project that defines what is in and what is out. Proper scoping is the difference between finishing a game and abandoning a half-built prototype. The key principle is to identify the <em>minimum viable game</em> — the smallest set of features that makes the game genuinely playable and enjoyable — and commit to building only that in the first version.</p>
+
+<p>A practical technique is to categorize every feature you can think of into two lists before writing any code:</p>
+
+<ul>
+  <li><strong>Must-Have:</strong> Features without which the game does not function or is not recognizable as the intended experience. For the asteroid game: player movement, bullet firing, asteroid spawning and movement, collision detection, score tracking, and game-over detection.</li>
+  <li><strong>Nice-to-Have:</strong> Features that enhance the experience but are not required for a playable game. For the asteroid game: multiple asteroid sizes, explosion animations, a high-score leaderboard, background music, power-ups, and difficulty levels.</li>
+</ul>
+
+<p>All nice-to-have features go on a backlog list. They are not forgotten — they are deferred. This matters for student developers in particular because the skills being applied — canvas drawing, animation via <code>requestAnimationFrame</code>, and event handling — each introduce their own complexity. A scoped design ensures that the complexity of the game logic and the complexity of the new technical skills do not compound each other into an unmanageable situation. Finish the must-haves first, have a working game, and then selectively pull items from the backlog.</p>
+
+<p>Scope creep most often happens gradually and innocuously. You are coding the bullet mechanism and you think, "it would be really cool if bullets could split into three when they hit a large asteroid." This is a nice-to-have idea, but acting on it immediately means leaving the bullet mechanism half-finished while you design a new splitting mechanic. Write the idea in your backlog and return to the current task. This discipline is a professional habit, not a beginner's constraint.</p>
+
+<p><strong>Planning the Player Interaction Model</strong></p>
+
+<p>The interaction model defines how the player communicates intent to the game — specifically, which physical input events (key presses, mouse clicks, mouse movements) trigger which in-game actions. Designing this explicitly before coding your event listeners prevents a scattered, inconsistent control scheme and ensures that the controls feel natural for the type of game you are making.</p>
+
+<p>The first decision is the choice of input method. This should follow from the objective. A game where precise positioning matters (like a spaceship that moves horizontally) is naturally suited to keyboard arrow keys or <code>A</code>/<code>D</code> keys. A game where the player aims at a target is naturally suited to mouse position. A game where timing a single action matters (like jumping in a platformer) is naturally suited to a single key like the spacebar. Mismatching the input method and the objective creates friction — a mouse-controlled game that requires pixel-perfect quick reactions, for example, will feel clunky regardless of how well the code is written.</p>
+
+<p>Once the input method is chosen, document each specific control and its effect in a control map:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Input Event</th>
+      <th>Game State Required</th>
+      <th>In-Game Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ArrowLeft key held down</td>
+      <td>Playing</td>
+      <td>Move spaceship left at defined speed</td>
+    </tr>
+    <tr>
+      <td>ArrowRight key held down</td>
+      <td>Playing</td>
+      <td>Move spaceship right at defined speed</td>
+    </tr>
+    <tr>
+      <td>Spacebar key pressed</td>
+      <td>Playing</td>
+      <td>Fire a bullet from the spaceship's position (if no active bullet)</td>
+    </tr>
+    <tr>
+      <td>Enter key pressed</td>
+      <td>Start</td>
+      <td>Transition game state to Playing</td>
+    </tr>
+    <tr>
+      <td>P key pressed</td>
+      <td>Playing or Paused</td>
+      <td>Toggle between Playing and Paused states</td>
+    </tr>
+    <tr>
+      <td>R key pressed</td>
+      <td>Game Over</td>
+      <td>Reset all entities and transition to Start state</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Notice that the "Game State Required" column connects directly to the state structure designed in the previous step. A key press means different things in different states — pressing <code>R</code> during gameplay should do nothing, but pressing it on the game-over screen restarts the game. Without this distinction documented, you will likely discover the ambiguity as a bug rather than designing around it from the start.</p>
+
+<p>Keeping the control scheme simple also has an often-overlooked benefit: it makes your event-handling code cleaner. Every action in the control map becomes a branch in your <code>keydown</code> or <code>keyup</code> event listener. Fewer actions mean fewer branches, which means less code to write, test, and debug. Simple controls are not a sign of an unambitious game — they are a sign of a well-designed one.</p>
+
+<p>Taken together, these six design steps — defining the objective, establishing the rules, identifying entities, sketching the game structure, scoping the project, and planning the interaction model — form a lightweight but powerful design document. You do not need specialized software or formal notation to create it; a plain text file or a few pages of notes is sufficient. What matters is that every major question about your game is answered in plain language <em>before</em> you open a code editor. When you do start coding, you will not be guessing at what to build — you will be translating a clear design into working software, which is a far more manageable and satisfying process.</p>
+        <div class="notes"><strong>Notes</strong>Students should be encouraged to produce their own one-page design document covering all six areas before beginning any coding exercise in this module. Reviewing and discussing these documents in class or in peer pairs helps surface ambiguities early.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

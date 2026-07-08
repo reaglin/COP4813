@@ -1,0 +1,1232 @@
+{
+  "ModuleFolderName": "Introduction_to_JSON",
+  "CourseName": "COP4813",
+  "GeneratedDate": "2026-06-26T21:45:57.8011992-04:00",
+  "ModifiedDate": "2026-06-26T21:48:25.4294859-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "f6e1117b-d0db-4ede-bda9-c5ce74be6e3d",
+      "Title": "What is JSON?",
+      "Summary": "An introduction to the JSON (JavaScript Object Notation) data format, its purpose, and why it is widely used for data interchange on the web.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-06-26T21:45:57.8011992-04:00",
+      "ModifiedDate": "2026-06-26T21:45:57.8011992-04:00",
+      "Elements": [
+        {
+          "Id": "aef1840c-4ebe-4c03-9a3b-dc9bf0d1453e",
+          "TopicId": "f6e1117b-d0db-4ede-bda9-c5ce74be6e3d",
+          "Title": "Definition of JSON",
+          "BodyText": "JSON stands for JavaScript Object Notation, a lightweight text-based format for representing structured data.",
+          "Notes": "Although JSON originated from JavaScript syntax, it is language-independent and can be read and written by virtually any modern programming language.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:46:17.1650865-04:00",
+          "ModifiedDate": "2026-06-26T21:46:17.1650865-04:00",
+          "Items": [
+            {
+              "Id": "37268ad5-f4c0-4e3e-b778-1b801ad30a12",
+              "Text": "JSON is a plain-text format, making it human-readable and easy to inspect without special tools.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ab86f865-940f-48bf-ae90-caeaaffe56a4",
+              "Text": "Its syntax is derived from JavaScript object literals, using key-value pairs enclosed in curly braces.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c727e059-f198-49c8-823f-ccafcc40d0ac",
+              "Text": "Despite its JavaScript origins, JSON parsers and generators exist for Python, Java, C#, Ruby, PHP, and many other languages.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "d483b824-2ad0-4629-97cf-44353b0b4f4d",
+          "TopicId": "f6e1117b-d0db-4ede-bda9-c5ce74be6e3d",
+          "Title": "Purpose of JSON",
+          "BodyText": "JSON is designed primarily to serve as a data interchange format, allowing different systems and applications to exchange information in a common structure.",
+          "Notes": "Think of JSON as a universal \u0027envelope\u0027 that packages data so a client (browser) and a server can understand each other regardless of the technologies each uses.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:46:17.1650865-04:00",
+          "ModifiedDate": "2026-06-26T21:46:17.1650865-04:00",
+          "Items": [
+            {
+              "Id": "10e5eee5-d195-4386-adc1-024324465642",
+              "Text": "JSON enables a server written in one language to send structured data to a browser or another server written in a different language.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "bcf1c020-c17d-4cde-a8c4-f2cf61638a80",
+              "Text": "It replaces older, more verbose formats like XML in many web scenarios because of its simplicity and smaller file size.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d24eaf7d-6be9-4e9c-8b4f-81f24c979a53",
+              "Text": "APIs across the web\u2014from social media platforms to payment gateways\u2014return responses formatted as JSON.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "d85c71c4-8db9-4482-b82c-0c2e87e78b35",
+          "TopicId": "f6e1117b-d0db-4ede-bda9-c5ce74be6e3d",
+          "Title": "JSON Structure and Syntax",
+          "BodyText": "JSON data is organized as key-value pairs (objects) or ordered lists (arrays), following a strict but simple set of syntax rules.",
+          "Notes": "Example object: {\u0022name\u0022: \u0022Alice\u0022, \u0022age\u0022: 30}. Example array: [1, 2, 3]. Keys must always be double-quoted strings.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:46:17.1650865-04:00",
+          "ModifiedDate": "2026-06-26T21:46:17.1650865-04:00",
+          "Items": [
+            {
+              "Id": "a1dcd305-8376-4bc7-8953-4ef9f6df3202",
+              "Text": "A JSON object is wrapped in curly braces { } and contains comma-separated key-value pairs where each key is a double-quoted string.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8fd8ec07-21ec-401d-b811-273c8b29337b",
+              "Text": "A JSON array is wrapped in square brackets [ ] and contains an ordered list of values separated by commas.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "845f1ca7-f267-4f8b-8e8d-6870ecf7fee3",
+              "Text": "Values in JSON can be strings, numbers, booleans (true/false), null, nested objects, or arrays.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9aa85e67-d9f3-4e08-a1ab-331fd4fc7e16",
+              "Text": "JSON does not support comments, trailing commas, or single-quoted strings \u2014 these are common syntax errors to avoid.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "9ca41111-f5cd-47d5-a80f-a15a56fbf08a",
+          "TopicId": "f6e1117b-d0db-4ede-bda9-c5ce74be6e3d",
+          "Title": "Why JSON is Widely Used on the Web",
+          "BodyText": "JSON has become the dominant data format for web APIs and browser-server communication due to its simplicity, readability, and native compatibility with JavaScript.",
+          "Notes": "Most modern REST APIs default to returning JSON, and browser developer tools include built-in JSON viewers to help developers inspect API responses.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:46:17.1650865-04:00",
+          "ModifiedDate": "2026-06-26T21:46:17.1650865-04:00",
+          "Items": [
+            {
+              "Id": "23405ea4-9e7c-4d92-9b0e-291266cddef1",
+              "Text": "JSON is natively understood by JavaScript, meaning browsers can parse it directly without additional libraries.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "55a2d3d7-0e21-4a20-87ff-aeb4f21db8ff",
+              "Text": "Its lightweight nature reduces the amount of data transmitted over the network compared to heavier formats like XML.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d6bef066-9d08-4462-b66f-45e9d3c2d878",
+              "Text": "The format is easy for both humans to read and machines to parse, speeding up development and debugging.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "21a20871-538b-48e4-bca7-9a6fc53a6dfc",
+              "Text": "Widespread tooling support \u2014 including formatters, validators, and schema libraries \u2014 makes working with JSON straightforward across the entire web development ecosystem.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "c4486f4b-323e-4a09-94bd-758abcf28cb4",
+          "TopicId": "f6e1117b-d0db-4ede-bda9-c5ce74be6e3d",
+          "Title": "JSON vs. JavaScript Objects",
+          "BodyText": "While JSON looks very similar to a JavaScript object literal, the two are distinct: JSON is a text string, whereas a JavaScript object is a live, in-memory data structure.",
+          "Notes": "A common source of confusion for beginners is treating a JSON string as if it were already a usable JavaScript object. Parsing is required to convert one to the other.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:46:17.1650865-04:00",
+          "ModifiedDate": "2026-06-26T21:46:17.1650865-04:00",
+          "Items": [
+            {
+              "Id": "68dc767c-4706-4cf0-8727-d590a0323eac",
+              "Text": "A JavaScript object can have methods (functions) and use single or double quotes for keys; JSON cannot contain functions and requires double-quoted string keys.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7cc923f1-421e-4a65-b3f3-3125cbc0eb75",
+              "Text": "JSON must be parsed into a JavaScript object before its properties can be accessed programmatically in the browser.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a9a960e0-c167-4a30-b4ae-24a9c746fe8b",
+              "Text": "Conversely, a JavaScript object must be stringified (serialized) into a JSON string before it can be sent over a network.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "31bd3c1a-cf6a-4673-bd15-0c9ae709b040",
+      "Title": "JSON Syntax and Structure",
+      "Summary": "An exploration of the rules and structure of valid JSON, including data types, objects, arrays, and formatting conventions.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-06-26T21:45:57.8011992-04:00",
+      "ModifiedDate": "2026-06-26T21:45:57.8011992-04:00",
+      "Elements": [
+        {
+          "Id": "c4dd5e3f-6bc8-41ba-b6b3-49b0fe77ebdc",
+          "TopicId": "31bd3c1a-cf6a-4673-bd15-0c9ae709b040",
+          "Title": "What Is JSON?",
+          "BodyText": "JSON (JavaScript Object Notation) is a lightweight, text-based data format used to represent structured data.",
+          "Notes": "Although JSON originated from JavaScript syntax, it is language-independent and is used across many programming languages and platforms.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:46:37.4011699-04:00",
+          "ModifiedDate": "2026-06-26T21:46:37.4011699-04:00",
+          "Items": [
+            {
+              "Id": "10aff85f-dfec-486b-b2bc-64133275a5a5",
+              "Text": "JSON is written as plain text, making it easy to read and write for both humans and machines.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3b5ace2f-b6d1-485d-b6a7-3b0af9a8be14",
+              "Text": "It is commonly used to transmit data between a server and a web application.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4644b089-4f04-40d2-bc3d-6219d5caabf8",
+              "Text": "Despite its name, JSON is not the same as a JavaScript object \u2014 it is a string representation of structured data.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "322ca95c-69fc-4299-82a5-3567767c610f",
+          "TopicId": "31bd3c1a-cf6a-4673-bd15-0c9ae709b040",
+          "Title": "JSON Data Types",
+          "BodyText": "JSON supports a limited but versatile set of data types that can be used as values within a JSON structure.",
+          "Notes": "For example, a string value must always use double quotes: \u0022hello\u0022, not \u0027hello\u0027. A number can be integer or floating-point: 42 or 3.14.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:46:37.4011699-04:00",
+          "ModifiedDate": "2026-06-26T21:46:37.4011699-04:00",
+          "Items": [
+            {
+              "Id": "1094edc9-024f-4a4b-9333-4aae89d45489",
+              "Text": "Strings must be enclosed in double quotes, e.g., \u0022name\u0022: \u0022Alice\u0022.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0190f2c0-27bd-4626-ae7d-237b791b5c43",
+              "Text": "Numbers are written without quotes and can be integers or decimals, e.g., \u0022age\u0022: 30.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "cd45fe8c-cb1d-41a4-ab0c-5e1d78cbbcd2",
+              "Text": "Booleans are represented as the literal values true or false (lowercase, no quotes).",
+              "SortOrder": 2
+            },
+            {
+              "Id": "656b3427-81ba-4ef5-8d7c-0b44efb51fc7",
+              "Text": "The null type represents an intentional absence of a value and is written as null.",
+              "SortOrder": 3
+            },
+            {
+              "Id": "09951965-8e15-4cec-aa57-f3bf0884e140",
+              "Text": "Objects and arrays are also valid value types, enabling nested and complex structures.",
+              "SortOrder": 4
+            }
+          ]
+        },
+        {
+          "Id": "6ef3ae2e-7222-4456-82d3-e13ffd18a83d",
+          "TopicId": "31bd3c1a-cf6a-4673-bd15-0c9ae709b040",
+          "Title": "JSON Objects",
+          "BodyText": "A JSON object is an unordered collection of key-value pairs enclosed in curly braces {}.",
+          "Notes": "Example: { \u0022name\u0022: \u0022Alice\u0022, \u0022age\u0022: 30, \u0022isStudent\u0022: false }. Each key-value pair is separated by a comma.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:46:37.4011699-04:00",
+          "ModifiedDate": "2026-06-26T21:46:37.4011699-04:00",
+          "Items": [
+            {
+              "Id": "21b8efab-4eb0-414b-bc7a-1debfd9855a0",
+              "Text": "Keys must always be strings enclosed in double quotes.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4be349c1-3cca-4708-a731-1cfbc19f3946",
+              "Text": "Each key is followed by a colon, and then its associated value.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "239d3f2b-dd3c-4bfb-ac5c-45470a991947",
+              "Text": "Multiple key-value pairs are separated by commas, with no trailing comma after the last pair.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e30cce60-2536-42af-b7f0-855f96c747bb",
+              "Text": "JSON objects can be nested, meaning a value can itself be another JSON object.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "6d057141-a895-4b47-8aa5-d6f32d8936c6",
+          "TopicId": "31bd3c1a-cf6a-4673-bd15-0c9ae709b040",
+          "Title": "JSON Arrays",
+          "BodyText": "A JSON array is an ordered list of values enclosed in square brackets [].",
+          "Notes": "Example: { \u0022colors\u0022: [\u0022red\u0022, \u0022green\u0022, \u0022blue\u0022] }. Arrays can contain mixed types, though in practice they typically hold values of the same type.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:46:37.4011699-04:00",
+          "ModifiedDate": "2026-06-26T21:46:37.4011699-04:00",
+          "Items": [
+            {
+              "Id": "4f6991d4-bef9-425d-a8e4-4b6ed0c81b7b",
+              "Text": "Array elements are separated by commas and can be any valid JSON data type.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "00b9affc-7a44-414f-82a1-20bbc7ee1af2",
+              "Text": "Arrays preserve order, meaning the sequence of elements is significant.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "237b7bef-7d93-46aa-a3fb-b707141173b2",
+              "Text": "Arrays can contain objects, enabling lists of structured records such as a list of users.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "49a84921-a5e5-4d5a-8d10-37c354340d56",
+              "Text": "Like objects, arrays can be nested within other arrays or objects.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "cb41cd84-343d-4c93-a0f2-eeb2e312e4b8",
+          "TopicId": "31bd3c1a-cf6a-4673-bd15-0c9ae709b040",
+          "Title": "JSON Formatting Conventions",
+          "BodyText": "Valid JSON must follow strict formatting rules that differ from relaxed JavaScript object syntax.",
+          "Notes": "A common mistake is using single quotes instead of double quotes for strings or keys, or leaving a trailing comma after the last item \u2014 both of which make JSON invalid.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:46:37.4011699-04:00",
+          "ModifiedDate": "2026-06-26T21:46:37.4011699-04:00",
+          "Items": [
+            {
+              "Id": "4b1d1c0b-d041-45f6-8869-d693f8403126",
+              "Text": "All string keys and string values must use double quotes, not single quotes.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b803972b-777d-4337-b09c-d91d833a1b05",
+              "Text": "Trailing commas after the last element in an object or array are not allowed.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "54ba32ad-747a-4820-a5a4-6f2b572afb24",
+              "Text": "JSON does not support comments; any comment syntax will make the JSON invalid.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e813213d-2a48-4129-9e60-1198984e2c48",
+              "Text": "Whitespace such as spaces, tabs, and newlines is allowed for readability but has no semantic meaning.",
+              "SortOrder": 3
+            },
+            {
+              "Id": "743cb452-9e31-4819-af37-dc66b7b10e2b",
+              "Text": "A valid JSON document must have a single root element, which can be either an object or an array.",
+              "SortOrder": 4
+            }
+          ]
+        },
+        {
+          "Id": "0223848b-b2d3-4c76-a82f-130a2c0e3652",
+          "TopicId": "31bd3c1a-cf6a-4673-bd15-0c9ae709b040",
+          "Title": "Nested Structures in JSON",
+          "BodyText": "JSON\u0027s true power lies in its ability to represent complex, hierarchical data through nesting of objects and arrays.",
+          "Notes": "Example: a user object may contain an address object, which in turn contains street, city, and zip fields, all within a single JSON structure.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:46:37.4011699-04:00",
+          "ModifiedDate": "2026-06-26T21:46:37.4011699-04:00",
+          "Items": [
+            {
+              "Id": "e3f585ed-17c4-4711-a2c5-ddedb35f6e1e",
+              "Text": "Objects can contain arrays as values, and arrays can contain objects as elements, creating rich data hierarchies.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e8e32e59-fb70-446c-89d6-fa33f6814b08",
+              "Text": "Nesting can go multiple levels deep, though deeply nested structures can become harder to read and maintain.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e79c615f-ee15-4a14-bf01-c240f53bec02",
+              "Text": "Each nested level still follows the same JSON syntax rules as the top-level structure.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "740fc907-fddb-42d9-90e9-d43f2b88cbb0",
+      "Title": "Parsing JSON in JavaScript",
+      "Summary": "How to convert a JSON string into a usable JavaScript object using JSON.parse(), including handling common errors.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-06-26T21:45:57.8011992-04:00",
+      "ModifiedDate": "2026-06-26T21:45:57.8011992-04:00",
+      "Elements": [
+        {
+          "Id": "ab77dfc9-5632-4de8-ab52-2f8aca7b9141",
+          "TopicId": "740fc907-fddb-42d9-90e9-d43f2b88cbb0",
+          "Title": "What Is JSON Parsing?",
+          "BodyText": "Parsing JSON means converting a JSON-formatted string into a native JavaScript object that your code can work with directly.",
+          "Notes": "When data arrives from a server or is read from storage, it is typically a raw string. Parsing transforms that string into structured data.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:46:58.0311881-04:00",
+          "ModifiedDate": "2026-06-26T21:46:58.0311881-04:00",
+          "Items": [
+            {
+              "Id": "f3a99c17-7d50-43f5-a555-7387de257307",
+              "Text": "A JSON string looks like \u0027{\u0022name\u0022:\u0022Alice\u0022,\u0022age\u0022:30}\u0027 \u2014 it is plain text, not a live JavaScript object.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2e9ce5a3-51e5-49d8-8126-5304582e230b",
+              "Text": "After parsing, you can access properties using dot notation or bracket notation, just like any JavaScript object.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c8bba947-cf16-48c1-912b-5fa522f03387",
+              "Text": "Without parsing, attempting to access properties on the raw string will return undefined or cause errors.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "79350665-28b4-4ad7-a640-b370a4810d80",
+          "TopicId": "740fc907-fddb-42d9-90e9-d43f2b88cbb0",
+          "Title": "Using JSON.parse()",
+          "BodyText": "The built-in JSON.parse() method is the standard way to convert a valid JSON string into a JavaScript object or array.",
+          "Notes": "Example: const obj = JSON.parse(\u0027{\u0022city\u0022:\u0022Paris\u0022}\u0027); \u2014 after this line, obj.city equals \u0027Paris\u0027.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:46:58.0311881-04:00",
+          "ModifiedDate": "2026-06-26T21:46:58.0311881-04:00",
+          "Items": [
+            {
+              "Id": "64c30cc1-430b-4dca-8f3e-c9070207cf2c",
+              "Text": "JSON.parse() accepts a single argument: the JSON string to be parsed.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5ede28b3-8027-4773-b025-1cd1bb84b3de",
+              "Text": "It returns the corresponding JavaScript value, which can be an object, array, string, number, boolean, or null.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "22f51957-a0ec-442d-9162-567fbcdb4320",
+              "Text": "Nested structures are fully parsed, so deeply nested objects and arrays become accessible immediately after the call.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "917759f9-752c-4eee-b508-f1e9518a3a04",
+          "TopicId": "740fc907-fddb-42d9-90e9-d43f2b88cbb0",
+          "Title": "Valid JSON Requirements Before Parsing",
+          "BodyText": "JSON.parse() will only succeed if the input string is strictly valid JSON, which follows slightly different rules than JavaScript object literals.",
+          "Notes": "A common mistake is passing a JavaScript object literal with single quotes or trailing commas, both of which are invalid in JSON.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:46:58.0311881-04:00",
+          "ModifiedDate": "2026-06-26T21:46:58.0311881-04:00",
+          "Items": [
+            {
+              "Id": "33739e1b-e699-4d51-a381-6f1ce3e783fa",
+              "Text": "All string keys and string values must be wrapped in double quotes, not single quotes.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1f85657f-a07d-43e5-93ee-5f80fb3d9d3c",
+              "Text": "Trailing commas after the last property or array element are not permitted in JSON.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "20b9018f-0b8d-416f-abd0-4148c435f436",
+              "Text": "Values must be one of the allowed JSON types: string, number, object, array, boolean, or null \u2014 functions and undefined are not valid.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "7d33581f-ed71-4789-976e-548f0240146e",
+          "TopicId": "740fc907-fddb-42d9-90e9-d43f2b88cbb0",
+          "Title": "Handling Errors with try...catch",
+          "BodyText": "If JSON.parse() receives an invalid JSON string, it throws a SyntaxError, so wrapping it in a try...catch block is essential for robust code.",
+          "Notes": "Example: try { const data = JSON.parse(rawString); } catch (e) { console.error(\u0027Invalid JSON:\u0027, e.message); }",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:46:58.0311881-04:00",
+          "ModifiedDate": "2026-06-26T21:46:58.0311881-04:00",
+          "Items": [
+            {
+              "Id": "ae9d934a-f7e4-48cf-ae06-cb1a0e15f87c",
+              "Text": "Malformed JSON \u2014 such as a missing closing brace or an unquoted key \u2014 will cause JSON.parse() to throw immediately.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ac68dee0-bf21-45eb-923e-d54de382d73a",
+              "Text": "A catch block lets you log the error, show a user-friendly message, or fall back to a default value instead of crashing the application.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "01fdf566-56bf-4b89-b229-4e4cd5f35b58",
+              "Text": "Always validate or sanitize external data before parsing to reduce the likelihood of hitting a SyntaxError in production.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "a17bbb50-d001-4b5f-a166-2464e306c615",
+          "TopicId": "740fc907-fddb-42d9-90e9-d43f2b88cbb0",
+          "Title": "Parsing JSON Arrays",
+          "BodyText": "JSON strings can represent arrays at the top level, and JSON.parse() handles these just as naturally as it handles objects.",
+          "Notes": "Example: JSON.parse(\u0027[1,2,3]\u0027) returns the JavaScript array [1, 2, 3], which you can immediately iterate with forEach or map.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:46:58.0311881-04:00",
+          "ModifiedDate": "2026-06-26T21:46:58.0311881-04:00",
+          "Items": [
+            {
+              "Id": "9ecbded0-6346-4ed1-8479-db63fcc9c9c8",
+              "Text": "When the top-level JSON value is an array, JSON.parse() returns a JavaScript array, not an object.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d7e2b913-11bf-44c2-9fd6-f2b86e89ed52",
+              "Text": "Array elements can themselves be objects, numbers, strings, or other arrays, all of which are fully parsed.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "473fa955-5967-4fcf-b7ae-31cf3f00f364",
+              "Text": "After parsing, standard array methods such as map(), filter(), and forEach() work normally on the result.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "e6550683-be7d-4475-bd84-0fd22f9a24bb",
+          "TopicId": "740fc907-fddb-42d9-90e9-d43f2b88cbb0",
+          "Title": "Using the Reviver Function",
+          "BodyText": "JSON.parse() accepts an optional second argument called a reviver function, which lets you transform parsed values as they are being built.",
+          "Notes": "A common use case is converting date strings into actual JavaScript Date objects during parsing rather than doing it in a separate step afterward.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:46:58.0311881-04:00",
+          "ModifiedDate": "2026-06-26T21:46:58.0311881-04:00",
+          "Items": [
+            {
+              "Id": "ae88cad6-27e6-4458-b234-6185bef042b3",
+              "Text": "The reviver is called for each key-value pair in the parsed result, receiving the key and value as arguments.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3b2cbf00-b2ac-4637-988e-ff8a1df99c76",
+              "Text": "Returning a modified value from the reviver replaces the original parsed value; returning undefined removes the key entirely.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "fb4da4f5-afe4-4403-ae15-b41bc57bb42c",
+              "Text": "Reviver functions are optional but powerful for data normalization, type coercion, or filtering unwanted fields on the fly.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "f917afdb-5322-470e-8a59-114d43491a68",
+      "Title": "Stringifying JavaScript Objects to JSON",
+      "Summary": "How to convert JavaScript objects into JSON strings using JSON.stringify(), and when this operation is needed in web development.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-06-26T21:45:57.8011992-04:00",
+      "ModifiedDate": "2026-06-26T21:45:57.8011992-04:00",
+      "Elements": [
+        {
+          "Id": "90f59bc0-d7dc-4341-a960-9ffee300eebe",
+          "TopicId": "f917afdb-5322-470e-8a59-114d43491a68",
+          "Title": "What Is JSON.stringify()?",
+          "BodyText": "JSON.stringify() is a built-in JavaScript method that converts a JavaScript object or value into a JSON-formatted string.",
+          "Notes": "For example, JSON.stringify({ name: \u0027Alice\u0027, age: 30 }) produces the string \u0027{\u0022name\u0022:\u0022Alice\u0022,\u0022age\u0022:30}\u0027.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:47:18.7031103-04:00",
+          "ModifiedDate": "2026-06-26T21:47:18.7031103-04:00",
+          "Items": [
+            {
+              "Id": "1b77aa33-e506-4960-9f33-3b6a0f18009b",
+              "Text": "The method is available globally in all modern browsers and Node.js environments without any imports.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "49ea43f3-7fba-46fa-a6a1-6edc43b00280",
+              "Text": "The output is always a string \u2014 a plain text representation of the original JavaScript data structure.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "27f2417e-c348-473d-bc3d-51eadb028558",
+              "Text": "This is the inverse operation of JSON.parse(), which converts a JSON string back into a JavaScript object.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "d48635ca-e6e2-409f-89a5-55b2fc5f601b",
+          "TopicId": "f917afdb-5322-470e-8a59-114d43491a68",
+          "Title": "Basic Syntax and Parameters",
+          "BodyText": "JSON.stringify() accepts up to three arguments: the value to convert, an optional replacer, and an optional space parameter for formatting.",
+          "Notes": "Example: JSON.stringify(myObject, null, 2) produces a human-readable, indented JSON string with 2-space indentation.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:47:18.7031103-04:00",
+          "ModifiedDate": "2026-06-26T21:47:18.7031103-04:00",
+          "Items": [
+            {
+              "Id": "f08ef299-3d4b-4ad8-a354-92968b0259ec",
+              "Text": "The first argument is the JavaScript value (object, array, string, number, boolean, or null) to be stringified.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "48176edb-5e69-40ca-a79f-94330a959966",
+              "Text": "The second argument (replacer) can be a function or array to filter or transform which properties are included in the output.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "cc7b29fb-2e0d-42eb-8d5a-28c40f14d53a",
+              "Text": "The third argument (space) accepts a number or string to add whitespace for readability, which is especially useful during debugging.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "87dde2fb-8686-4030-b2d0-b9043673f436",
+          "TopicId": "f917afdb-5322-470e-8a59-114d43491a68",
+          "Title": "When Stringification Is Needed in Web Development",
+          "BodyText": "Stringifying JavaScript objects is required whenever you need to send data from the browser to a server or store structured data as text.",
+          "Notes": "Common scenarios include sending POST request bodies with the Fetch API and saving user preferences to localStorage.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:47:18.7031103-04:00",
+          "ModifiedDate": "2026-06-26T21:47:18.7031103-04:00",
+          "Items": [
+            {
+              "Id": "346b3a78-6849-479d-b170-8630e831478b",
+              "Text": "When using fetch() to POST data, the request body must be a string, so you must call JSON.stringify() on your JavaScript object before sending.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fb57daf1-377d-46bb-94ee-07aa51296f97",
+              "Text": "localStorage and sessionStorage can only store strings, so objects must be stringified before being saved and parsed when retrieved.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2f352b58-52a2-4f4d-b9ba-34e976f7d841",
+              "Text": "Any API or service that expects a JSON payload requires the data to be a properly formatted JSON string rather than a raw JavaScript object.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "279d1dc3-fde9-4310-875d-576cfef88892",
+          "TopicId": "f917afdb-5322-470e-8a59-114d43491a68",
+          "Title": "How JSON.stringify() Handles Different Data Types",
+          "BodyText": "Not all JavaScript values are represented the same way \u2014 or at all \u2014 when converted to a JSON string.",
+          "Notes": "Running JSON.stringify({ fn: function(){}, val: undefined, num: NaN }) produces \u0027{\u0022num\u0022:null}\u0027, demonstrating that unsupported values are dropped or transformed.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:47:18.7031103-04:00",
+          "ModifiedDate": "2026-06-26T21:47:18.7031103-04:00",
+          "Items": [
+            {
+              "Id": "828a7ac3-0372-4436-bc68-c3a234a4570c",
+              "Text": "Strings, numbers, booleans, arrays, plain objects, and null are fully supported and serialized as expected.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "024ab9a5-5270-4729-9c32-70f98b4eb6a2",
+              "Text": "Functions, undefined values, and Symbol properties are omitted entirely from the resulting JSON string.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "24ff849b-cfc8-4d07-909d-dd930316aa6a",
+              "Text": "Special numeric values such as NaN and Infinity are converted to null in the JSON output.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "3532c5f4-9241-4eb7-be9f-4dc60c57a077",
+          "TopicId": "f917afdb-5322-470e-8a59-114d43491a68",
+          "Title": "Using the Replacer to Control Output",
+          "BodyText": "The replacer parameter gives you fine-grained control over which properties are included when stringifying an object.",
+          "Notes": "Passing an array like JSON.stringify(user, [\u0027name\u0027, \u0027email\u0027]) will include only the \u0027name\u0027 and \u0027email\u0027 properties in the output, omitting all others.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:47:18.7031103-04:00",
+          "ModifiedDate": "2026-06-26T21:47:18.7031103-04:00",
+          "Items": [
+            {
+              "Id": "4ed83b34-276f-4bed-8acc-00e79874a2d5",
+              "Text": "When passed as an array of strings, the replacer acts as an allowlist, including only the specified property names.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a6056981-5b98-4f5f-a4dc-de9275db6470",
+              "Text": "When passed as a function, the replacer receives each key-value pair and can return a transformed value or undefined to exclude the property.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d4cbba0e-79f9-422b-9c35-6245f7f6d12f",
+              "Text": "This is useful for sanitizing sensitive data \u2014 such as passwords or tokens \u2014 before sending an object to a server or logging it.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "2cb64320-297b-4ce1-9fb0-041234fdc41c",
+          "TopicId": "f917afdb-5322-470e-8a59-114d43491a68",
+          "Title": "Pretty-Printing JSON with the Space Argument",
+          "BodyText": "The optional third argument to JSON.stringify() formats the output with indentation, making it human-readable.",
+          "Notes": "JSON.stringify(data, null, 4) produces a JSON string with 4-space indentation, while JSON.stringify(data, null, \u0027\\t\u0027) uses tab characters instead.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:47:18.7031103-04:00",
+          "ModifiedDate": "2026-06-26T21:47:18.7031103-04:00",
+          "Items": [
+            {
+              "Id": "35bbf4a2-a02b-4bcc-9ae0-47d70a729069",
+              "Text": "Passing a number sets the number of spaces used for each level of indentation in the output.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "80277c87-8e46-49c3-9ace-0c028cc7c7a1",
+              "Text": "Passing a string (up to 10 characters) uses that string as the indent unit, allowing tab-based or custom formatting.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "61c75bd1-39d9-429e-919d-c8801a282f77",
+              "Text": "Pretty-printed JSON is useful for debugging and logging but should typically be avoided in production network requests to minimize payload size.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "708b38be-f9e1-46a2-9d4d-a7d9775b8246",
+      "Title": "Fetching JSON Data with the Fetch API",
+      "Summary": "How to use the modern Fetch API to retrieve JSON data from a server or external source and process the response in the browser.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-06-26T21:45:57.8011992-04:00",
+      "ModifiedDate": "2026-06-26T21:45:57.8011992-04:00",
+      "Elements": [
+        {
+          "Id": "e40df26d-5a8c-43d2-9e1d-793bd1d72f6c",
+          "TopicId": "708b38be-f9e1-46a2-9d4d-a7d9775b8246",
+          "Title": "Introduction to the Fetch API",
+          "BodyText": "The Fetch API is a modern, promise-based interface built into browsers that allows JavaScript to make HTTP requests to servers or external URLs.",
+          "Notes": "The Fetch API replaces the older XMLHttpRequest approach with cleaner, more readable syntax. It is supported in all modern browsers.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:47:39.4395257-04:00",
+          "ModifiedDate": "2026-06-26T21:47:39.4395257-04:00",
+          "Items": [
+            {
+              "Id": "17c97eb6-4248-4f1f-862f-81270f5e5ca3",
+              "Text": "The Fetch API uses the global fetch() function, which accepts a URL as its primary argument.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c712422d-5d0b-43dd-91f3-1829db3625e2",
+              "Text": "It returns a Promise that resolves to a Response object representing the server\u0027s reply.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2671f98a-f62f-4679-8322-bf71b3a7346a",
+              "Text": "Because it is promise-based, it integrates naturally with .then() chaining or async/await syntax.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ae704b9b-f97c-40a7-a357-429992106b18",
+          "TopicId": "708b38be-f9e1-46a2-9d4d-a7d9775b8246",
+          "Title": "Making a Basic Fetch Request",
+          "BodyText": "Calling fetch() with a URL initiates an HTTP GET request and returns a Promise that you must handle to access the response data.",
+          "Notes": "Example: fetch(\u0027https://api.example.com/data.json\u0027) starts the request. The returned Promise resolves once the response headers have been received, not when the full body has been downloaded.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:47:39.4395257-04:00",
+          "ModifiedDate": "2026-06-26T21:47:39.4395257-04:00",
+          "Items": [
+            {
+              "Id": "54b5b93d-7ea1-4df5-9e23-68d2f7f8e871",
+              "Text": "Pass the target URL string directly to fetch() as the first argument.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b28c9e96-e328-48fa-a8f8-a10dfe3947b7",
+              "Text": "Chain a .then() callback onto the returned Promise to receive the Response object.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "84da89c5-14f0-4b1a-a93b-82f5c2c58444",
+              "Text": "A resolved Promise does not guarantee a successful HTTP status; you must check response.ok or response.status separately.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "6840c761-7e1a-4dea-b3b7-eff57688aa4d",
+          "TopicId": "708b38be-f9e1-46a2-9d4d-a7d9775b8246",
+          "Title": "Parsing the JSON Response",
+          "BodyText": "The Response object returned by fetch() provides a .json() method that reads the response body and parses it as JSON, returning another Promise.",
+          "Notes": "Example flow: fetch(url).then(response =\u003E response.json()).then(data =\u003E console.log(data)). The second .then() receives the fully parsed JavaScript object or array.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:47:39.4395257-04:00",
+          "ModifiedDate": "2026-06-26T21:47:39.4395257-04:00",
+          "Items": [
+            {
+              "Id": "bb4c7525-2b04-406f-960b-1a9c4ca13084",
+              "Text": "Call response.json() inside the first .then() to initiate body reading and JSON parsing.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4b8104bf-5c35-4c84-b6c2-161791b968dc",
+              "Text": "response.json() itself returns a Promise, so you must chain another .then() to work with the parsed data.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "022b6d63-3c75-460e-af53-f834facc394e",
+              "Text": "The resulting value is a native JavaScript object or array, ready to use without any additional JSON.parse() call.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "db4674c4-0364-458c-a82c-6e5eb1835762",
+          "TopicId": "708b38be-f9e1-46a2-9d4d-a7d9775b8246",
+          "Title": "Using async/await with Fetch",
+          "BodyText": "The async/await syntax provides a cleaner, more synchronous-looking way to write fetch requests and handle JSON responses.",
+          "Notes": "Using async/await makes multi-step asynchronous code easier to read and debug compared to deeply nested .then() chains.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:47:39.4395257-04:00",
+          "ModifiedDate": "2026-06-26T21:47:39.4395257-04:00",
+          "Items": [
+            {
+              "Id": "3b8ac617-bbd9-4a5d-b608-64896989a391",
+              "Text": "Declare an async function and use the await keyword before fetch() to pause execution until the Promise resolves.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9a720b5a-a3ad-44ad-8106-7416c419d1ab",
+              "Text": "Await the response.json() call on the next line to parse the body before continuing.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9531fc54-f4ed-4254-8545-a0a607a46f94",
+              "Text": "Wrap the logic in a try/catch block to handle both network errors and JSON parsing failures cleanly.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "b829b211-6a70-4d01-99d3-dd512bd2dfec",
+          "TopicId": "708b38be-f9e1-46a2-9d4d-a7d9775b8246",
+          "Title": "Handling Errors in Fetch Requests",
+          "BodyText": "The Fetch API only rejects its Promise for network-level failures; HTTP error statuses like 404 or 500 must be checked manually.",
+          "Notes": "A common mistake is assuming a rejected Promise means a bad HTTP status. Always inspect response.ok or response.status before calling response.json().",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:47:39.4395257-04:00",
+          "ModifiedDate": "2026-06-26T21:47:39.4395257-04:00",
+          "Items": [
+            {
+              "Id": "85a68bd5-3763-43ac-a2fa-b8daf5e2e8e4",
+              "Text": "Check the response.ok boolean property, which is true only for HTTP status codes in the 200\u2013299 range.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e80ca5e9-89e2-49ba-b57f-827f2a76f1c6",
+              "Text": "Throw a custom error if response.ok is false so that downstream catch handlers can respond appropriately.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d812cfe3-c1b8-451f-a7c9-e332a208605a",
+              "Text": "Use .catch() or a try/catch block to handle genuine network failures, such as a missing internet connection or an unreachable server.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "f80b7a99-b261-48d8-9e86-c0412130b0b2",
+          "TopicId": "708b38be-f9e1-46a2-9d4d-a7d9775b8246",
+          "Title": "Displaying Fetched JSON Data in the Browser",
+          "BodyText": "Once the JSON response is parsed into a JavaScript object, you can use DOM manipulation methods to render the data dynamically on the web page.",
+          "Notes": "For example, if the fetched data is an array of users, you can loop through it and create list items or table rows for each entry using document.createElement() or innerHTML.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:47:39.4395257-04:00",
+          "ModifiedDate": "2026-06-26T21:47:39.4395257-04:00",
+          "Items": [
+            {
+              "Id": "86278db9-1993-4d6d-9317-49a2582aea2f",
+              "Text": "Access individual properties of the parsed object using standard dot or bracket notation.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e7bc3e6d-cc70-482f-ad46-45bb6fb1aa7c",
+              "Text": "Use DOM methods such as document.getElementById() or querySelector() to target the container element where data should appear.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e4a4d6b1-8eee-431d-a496-ed7dbe3d683d",
+              "Text": "Set the textContent or innerHTML of elements, or dynamically create and append new child elements to display each piece of data.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "77f98852-187f-4f18-ba8b-20a244729b9d",
+      "Title": "Fetching JSON Data with XMLHttpRequest",
+      "Summary": "How to use the older XMLHttpRequest method to retrieve JSON data, providing context for legacy codebases and browser compatibility.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-06-26T21:45:57.8011992-04:00",
+      "ModifiedDate": "2026-06-26T21:45:57.8011992-04:00",
+      "Elements": [
+        {
+          "Id": "a77371ba-8978-4203-9241-84c72407aeb6",
+          "TopicId": "77f98852-187f-4f18-ba8b-20a244729b9d",
+          "Title": "What is XMLHttpRequest?",
+          "BodyText": "XMLHttpRequest (XHR) is a built-in browser object that allows JavaScript to make HTTP requests to servers without reloading the page.",
+          "Notes": "XHR was the original mechanism for AJAX (Asynchronous JavaScript and XML) before modern alternatives like the Fetch API were introduced. It remains widely used in legacy codebases.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:48:01.9563653-04:00",
+          "ModifiedDate": "2026-06-26T21:48:01.9563653-04:00",
+          "Items": [
+            {
+              "Id": "fb64746d-5a5b-4d09-ae36-e120cb6fecfa",
+              "Text": "XMLHttpRequest is available in all browsers, including very old ones, making it a reliable choice for maximum compatibility.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "27e44a54-29ca-48f7-92d2-a9b073d9fba0",
+              "Text": "Despite its name, XHR can handle any data format, including JSON, not just XML.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9def08c5-84d3-4a23-8a80-faa4ab1202ba",
+              "Text": "Understanding XHR provides important context when maintaining or reading older JavaScript codebases.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "2db4d6f8-ff15-4f13-b205-fdcd8025e01a",
+          "TopicId": "77f98852-187f-4f18-ba8b-20a244729b9d",
+          "Title": "Creating and Opening an XHR Request",
+          "BodyText": "To use XMLHttpRequest, you first create a new instance of the object and then call its open() method to configure the request type and target URL.",
+          "Notes": "Example: const xhr = new XMLHttpRequest(); xhr.open(\u0027GET\u0027, \u0027data.json\u0027, true); \u2014 The third argument \u0027true\u0027 specifies that the request should be asynchronous.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:48:01.9563653-04:00",
+          "ModifiedDate": "2026-06-26T21:48:01.9563653-04:00",
+          "Items": [
+            {
+              "Id": "ffe9bb8f-5d10-4e9d-86a7-ef7c52d2252f",
+              "Text": "The open() method accepts the HTTP method (e.g., \u0027GET\u0027), the URL of the resource, and an optional boolean for asynchronous mode.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1fd6d6fa-290b-407a-8d34-b5ba523d2622",
+              "Text": "Passing \u0027true\u0027 as the third argument ensures the request is asynchronous, preventing the browser from freezing while waiting for a response.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d55ba2d5-facd-4308-8406-3f45c74b440a",
+              "Text": "No network request is actually sent at this stage; open() only configures the request parameters.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "a2fe1bc8-4ed3-4ba2-956a-eae4db7aeb49",
+          "TopicId": "77f98852-187f-4f18-ba8b-20a244729b9d",
+          "Title": "Sending the Request and Handling the Response",
+          "BodyText": "After configuring the request with open(), you call the send() method to dispatch it, and use the onload event handler to process the server\u0027s response.",
+          "Notes": "Example: xhr.onload = function() { if (xhr.status === 200) { const data = JSON.parse(xhr.responseText); } }; xhr.send();",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:48:01.9563653-04:00",
+          "ModifiedDate": "2026-06-26T21:48:01.9563653-04:00",
+          "Items": [
+            {
+              "Id": "3741f998-155c-46fd-a96a-663a207a6743",
+              "Text": "The onload callback fires when the request completes successfully and a response has been received.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "97c7fe4b-a9df-4374-952a-4b3f80e92f21",
+              "Text": "The raw response body is available as a string via xhr.responseText, which must be parsed with JSON.parse() to convert it into a usable JavaScript object.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "370c16a0-1af5-4504-974a-813700359211",
+              "Text": "Always check xhr.status === 200 before processing the response to confirm the request was successful.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "ff919c8f-d088-4602-89b4-a7c6177be3c5",
+              "Text": "Calling send() after setting up event handlers ensures the callback is registered before any response could arrive.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "447cd604-e9fc-4398-b54d-8e1b429391d6",
+          "TopicId": "77f98852-187f-4f18-ba8b-20a244729b9d",
+          "Title": "Parsing JSON from the XHR Response",
+          "BodyText": "Because XHR returns the response as a plain string, you must explicitly use JSON.parse() to convert the JSON text into a JavaScript object or array.",
+          "Notes": "Alternatively, setting xhr.responseType = \u0027json\u0027 before sending the request instructs the browser to parse the response automatically, making the parsed object available via xhr.response instead of xhr.responseText.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:48:01.9563653-04:00",
+          "ModifiedDate": "2026-06-26T21:48:01.9563653-04:00",
+          "Items": [
+            {
+              "Id": "63553cce-5323-4825-97bd-5a94341bd3d1",
+              "Text": "JSON.parse(xhr.responseText) transforms the raw JSON string into native JavaScript data structures like objects and arrays.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "05c20b56-d8e8-4a52-a2b8-8b9d302a6655",
+              "Text": "Setting xhr.responseType to \u0027json\u0027 is a convenient shorthand that removes the need to manually call JSON.parse().",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4039d42e-c31d-4db7-b08e-5e0bc0c6760d",
+              "Text": "If the response is not valid JSON, JSON.parse() will throw a SyntaxError, so wrapping it in a try/catch block is good practice.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "8c952184-0a52-4eb5-ad27-99b3d94279e4",
+          "TopicId": "77f98852-187f-4f18-ba8b-20a244729b9d",
+          "Title": "Error Handling with XMLHttpRequest",
+          "BodyText": "XMLHttpRequest provides the onerror event handler to catch network-level failures, and status code checks to detect server-side errors.",
+          "Notes": "Network errors (e.g., no internet connection) trigger onerror, while HTTP errors like 404 or 500 still trigger onload but with a non-200 status code.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:48:01.9563653-04:00",
+          "ModifiedDate": "2026-06-26T21:48:01.9563653-04:00",
+          "Items": [
+            {
+              "Id": "8759bda2-ade4-495e-9b85-486094f08708",
+              "Text": "Assign a function to xhr.onerror to handle situations where the request could not be completed due to a network issue.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "363afe6f-e16c-40ec-ac59-27b282d05e26",
+              "Text": "HTTP error responses such as 404 (Not Found) do not trigger onerror; you must check xhr.status inside onload to catch them.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3712f4db-36af-4eb7-a010-c239f5197f06",
+              "Text": "Robust XHR code handles both network failures via onerror and HTTP error statuses via status code checks inside onload.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "2b18a99b-f31b-4878-835b-84a044696c3d",
+          "TopicId": "77f98852-187f-4f18-ba8b-20a244729b9d",
+          "Title": "XHR vs. the Fetch API: Context and Legacy Use",
+          "BodyText": "While the Fetch API is the modern standard for making HTTP requests in the browser, understanding XMLHttpRequest is essential for working with legacy code and older browser environments.",
+          "Notes": "Many enterprise applications, older libraries, and frameworks such as early versions of jQuery still use XHR under the hood.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:48:01.9563653-04:00",
+          "ModifiedDate": "2026-06-26T21:48:01.9563653-04:00",
+          "Items": [
+            {
+              "Id": "c91d7f12-bf25-4a7c-9fe0-c7ca15d81b57",
+              "Text": "The Fetch API offers a cleaner, promise-based syntax, but XHR is still encountered frequently in production codebases written before ES6.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "cfb0d0e3-bd14-4b00-bc87-066523e23f3c",
+              "Text": "XHR supports features like upload progress tracking via xhr.upload, which historically gave it an advantage in certain use cases.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "50a043f5-0532-4c47-9b32-fd03e276b64c",
+              "Text": "Knowing how XHR works helps developers debug legacy applications and understand the evolution of asynchronous JavaScript.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "0e56efab-1e35-44ff-a304-cf331bfd7623",
+      "Title": "Displaying JSON Data in a Web Page",
+      "Summary": "Techniques for dynamically rendering fetched JSON data in the browser by manipulating the DOM to present information to users.",
+      "SortOrder": 6,
+      "CreatedDate": "2026-06-26T21:45:57.8011992-04:00",
+      "ModifiedDate": "2026-06-26T21:45:57.8011992-04:00",
+      "Elements": [
+        {
+          "Id": "ccd44c10-3865-43e5-b816-16aefda64069",
+          "TopicId": "0e56efab-1e35-44ff-a304-cf331bfd7623",
+          "Title": "Selecting DOM Elements as Render Targets",
+          "BodyText": "Before injecting JSON data into a page, you must identify and select the HTML elements that will serve as containers for the rendered content.",
+          "Notes": "Common targets include \u003Cdiv\u003E, \u003Cul\u003E, or \u003Ctable\u003E elements designated by id or class attributes, selected with document.getElementById() or document.querySelector().",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:48:25.4293607-04:00",
+          "ModifiedDate": "2026-06-26T21:48:25.4293607-04:00",
+          "Items": [
+            {
+              "Id": "50746a48-2e25-44ba-aef5-a43e8a9dc4f7",
+              "Text": "Use document.getElementById(\u0027container\u0027) or document.querySelector(\u0027.results\u0027) to obtain a reference to the target element.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "67c09290-8b13-4d5b-8b80-d93180675209",
+              "Text": "Store the reference in a variable so it can be reused when building and inserting content.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "79d462a7-be1e-4a89-8cf2-bd3efe51d92e",
+              "Text": "Choosing semantic HTML containers (e.g., \u003Cul\u003E for lists, \u003Ctable\u003E for tabular data) improves accessibility and readability.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "fa520211-55e7-400d-baac-e1d0410f4481",
+          "TopicId": "0e56efab-1e35-44ff-a304-cf331bfd7623",
+          "Title": "Parsing Fetched JSON into a JavaScript Object",
+          "BodyText": "Raw JSON received from a server is a string and must be converted into a JavaScript object before its properties can be accessed for rendering.",
+          "Notes": "When using the Fetch API, calling response.json() handles parsing automatically. With XMLHttpRequest, you typically use JSON.parse(xhr.responseText).",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:48:25.4293607-04:00",
+          "ModifiedDate": "2026-06-26T21:48:25.4293607-04:00",
+          "Items": [
+            {
+              "Id": "4e5a8439-4339-4f54-b25f-d06abe632c9d",
+              "Text": "response.json() returns a Promise that resolves to the parsed JavaScript value, making it convenient inside an async/await or .then() chain.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e41b11ae-91d4-4032-bc89-444639ec445e",
+              "Text": "JSON.parse() can throw a SyntaxError if the string is malformed, so wrapping it in a try/catch block is a best practice.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1416e893-cb7b-4db7-861b-112d002876dc",
+              "Text": "Once parsed, properties are accessed with standard dot notation (data.name) or bracket notation (data[\u0027name\u0027]).",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "f306401f-6b48-4854-8ddb-9e0ba69eb192",
+          "TopicId": "0e56efab-1e35-44ff-a304-cf331bfd7623",
+          "Title": "Building HTML Strings from JSON Data",
+          "BodyText": "One straightforward technique for rendering JSON data is constructing an HTML string dynamically and assigning it to an element\u0027s innerHTML property.",
+          "Notes": "Template literals (backtick strings) make it easy to embed variable values directly inside HTML markup, improving readability over string concatenation.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:48:25.4293607-04:00",
+          "ModifiedDate": "2026-06-26T21:48:25.4293607-04:00",
+          "Items": [
+            {
+              "Id": "ad3f9fee-6afd-4d78-9e5e-a1c49627b110",
+              "Text": "Iterate over an array of JSON objects using Array.map() or a for loop, producing an HTML fragment for each item.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1782de09-46ff-409b-9db9-0b7b75ef5aa3",
+              "Text": "Concatenate or join the resulting fragments into a single string, then assign it to element.innerHTML.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "dc0c6780-670c-452c-9541-03c186fabd43",
+              "Text": "Be cautious with innerHTML and untrusted data; sanitize any user-supplied values to prevent cross-site scripting (XSS) vulnerabilities.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "79c5d28a-576d-4f82-a14f-a757ebd12388",
+          "TopicId": "0e56efab-1e35-44ff-a304-cf331bfd7623",
+          "Title": "Creating and Appending DOM Nodes Programmatically",
+          "BodyText": "A safer alternative to innerHTML is to create individual DOM nodes with JavaScript and append them to the document, avoiding direct HTML string injection.",
+          "Notes": "This approach gives finer control over element attributes and event listeners and eliminates the XSS risk associated with innerHTML when handling untrusted content.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:48:25.4293607-04:00",
+          "ModifiedDate": "2026-06-26T21:48:25.4293607-04:00",
+          "Items": [
+            {
+              "Id": "a0f1db7f-5457-4158-86eb-04668cb58d41",
+              "Text": "Use document.createElement(\u0027li\u0027) (or any tag) to create a new element, then set its textContent to a JSON property value.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e390bfe5-4393-4030-9897-920dcd14e707",
+              "Text": "Attach additional attributes with element.setAttribute() or by setting properties such as element.className directly.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "15ad115f-e9f2-4c72-a310-95f48736b491",
+              "Text": "Append each created node to the target container using parentElement.appendChild(newElement) or parentElement.append().",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "239665d3-da37-473a-840b-dda9ae2c9807",
+          "TopicId": "0e56efab-1e35-44ff-a304-cf331bfd7623",
+          "Title": "Iterating Over JSON Arrays to Generate Repeated Elements",
+          "BodyText": "JSON responses often contain arrays of objects; looping over these arrays allows you to generate a corresponding set of HTML elements for each record.",
+          "Notes": "For example, a JSON array of product objects can be mapped to a list of \u003Cli\u003E elements or a set of card \u003Cdiv\u003E elements, one per product.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:48:25.4293607-04:00",
+          "ModifiedDate": "2026-06-26T21:48:25.4293607-04:00",
+          "Items": [
+            {
+              "Id": "5dbd7113-6c74-4f95-864f-56286834a243",
+              "Text": "Use forEach, for...of, or map() to iterate over the parsed array and process each object individually.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6682457a-e044-4048-a100-fa262c957b85",
+              "Text": "Inside the loop, extract the relevant properties (e.g., item.title, item.price) and use them to populate newly created or templated elements.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "abc21ee1-3396-4998-8c97-4ef82e582073",
+              "Text": "After the loop, insert all generated elements into the DOM in a single operation using a DocumentFragment to minimize reflows and improve performance.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "e5b5c7cb-4e15-4513-b7f7-ec4d63c69712",
+          "TopicId": "0e56efab-1e35-44ff-a304-cf331bfd7623",
+          "Title": "Updating the DOM Dynamically After Data Changes",
+          "BodyText": "When JSON data is refreshed or filtered, the existing rendered content must be cleared and replaced to keep the UI in sync with the current data.",
+          "Notes": "This pattern is common in search results pages or dashboards that re-fetch data based on user input without a full page reload.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:48:25.4293607-04:00",
+          "ModifiedDate": "2026-06-26T21:48:25.4293607-04:00",
+          "Items": [
+            {
+              "Id": "9cb92fab-5063-4f9f-acf9-b756d5187fab",
+              "Text": "Clear previous content by setting the container\u0027s innerHTML to an empty string or using a while loop to remove child nodes before re-rendering.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "02bee405-4ce5-466b-aa36-deb31e7fbc9b",
+              "Text": "Re-run the rendering logic with the new parsed JSON each time fresh data arrives from the server.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "24101b4b-d731-421c-b9b8-f9aa0aab88f1",
+              "Text": "Consider providing a loading indicator while the fetch is in progress and an error message in the DOM if the request fails, giving users clear feedback.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 41
+}

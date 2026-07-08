@@ -1,0 +1,382 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 4 – Introduction to the DOM | COP4813</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f6f9;
+      color: #1e2533;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── Page Shell ── */
+    .page-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+
+    /* ── Course Label ── */
+    .course-label {
+      display: inline-block;
+      background: #1a4f8a;
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border-radius: 3px;
+      margin-bottom: 0.85rem;
+    }
+
+    /* ── Header ── */
+    header {
+      border-left: 5px solid #1a4f8a;
+      padding-left: 1.1rem;
+      margin-bottom: 2.25rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.45rem, 3.5vw, 2rem);
+      font-weight: 800;
+      color: #0d2b52;
+      line-height: 1.25;
+      margin-bottom: 0.6rem;
+    }
+
+    header p {
+      max-width: 72ch;
+      color: #45536b;
+      font-size: 0.97rem;
+    }
+
+    /* ── Section heading ── */
+    .artifacts-heading {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #7b8aa0;
+      margin-bottom: 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid #dde3ed;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #dde3ed;
+      border-radius: 8px;
+      padding: 1.25rem 1.3rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 22px rgba(26, 79, 138, 0.12);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card: Meta row ── */
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .badge {
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.22rem 0.55rem;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .badge-type {
+      background: #e8f0fb;
+      color: #1a4f8a;
+    }
+
+    .badge-filetype {
+      background: #eef6ee;
+      color: #2e6b30;
+    }
+
+    /* ── Card: Name / Title row ── */
+    .card-title-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.55rem;
+    }
+
+    .card-name {
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: #0d2b52;
+      line-height: 1.3;
+    }
+
+    .card-name a {
+      color: #1a4f8a;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .card-name a:hover,
+    .card-name a:focus {
+      color: #0d2b52;
+      border-bottom-color: #1a4f8a;
+      outline: none;
+    }
+
+    .source-link {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #5a7fa8;
+      text-decoration: none;
+      white-space: nowrap;
+      padding: 0.15rem 0.45rem;
+      border: 1px solid #b0c8e4;
+      border-radius: 4px;
+      background: #f0f6ff;
+      transition: background 0.15s, color 0.15s;
+      align-self: center;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background: #1a4f8a;
+      color: #fff;
+      border-color: #1a4f8a;
+      outline: none;
+    }
+
+    /* ── Card: Description ── */
+    .card-desc {
+      font-size: 0.875rem;
+      color: #4a5568;
+      flex-grow: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 0.78rem;
+      color: #9aa5b8;
+    }
+
+    /* ── Responsive tweak ── */
+    @media (max-width: 480px) {
+      header h1 { font-size: 1.3rem; }
+      .card { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ COP4813</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
+  <div class="page-wrapper">
+
+    <!-- ── Header ── -->
+    <span class="course-label">COP4813</span>
+    <header>
+      <h1>Module 4 &mdash; Introduction to the Document Object Model (DOM)</h1>
+      <p>
+        This module introduces the Document Object Model (DOM) — the in-memory
+        tree structure browsers build from raw HTML. You will learn how browsers
+        parse HTML, how the DOM is organized, and how JavaScript can select,
+        manipulate, add, and remove nodes to create dynamic web pages.
+      </p>
+    </header>
+
+    <!-- ── Artifact Grid ── -->
+    <p class="artifacts-heading">Module Artifacts &mdash; 8 items</p>
+    <div class="card-grid">
+
+      <!-- Card 1: Module Topics -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="source/hierarchy.json">source file</a>
+        </div>
+        <p class="card-desc">
+          Outlines the lecture topics for the DOM module&mdash;covering what the
+          DOM is, how browsers parse HTML into a DOM tree, the tree's node
+          structure, and methods for selecting elements&mdash;serving as a
+          navigational overview for learners and instructors to see what the
+          module teaches.
+        </p>
+      </div>
+
+      <!-- Card 2: What is the DOM? -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Introduction_to_the_interactive_topics_t1.html">What is the DOM?</a>
+          </span>
+        </div>
+        <p class="card-desc">
+          A reading that introduces the Document Object Model, explaining what it
+          is, why browsers create it from raw HTML, and how it serves as the
+          in-memory, structured representation that JavaScript interacts with,
+          intended for learners beginning the module.
+        </p>
+      </div>
+
+      <!-- Card 3: How Browsers Parse HTML into the DOM -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Introduction_to_the_interactive_topics_t2.html">How Browsers Parse HTML into the DOM</a>
+          </span>
+        </div>
+        <p class="card-desc">
+          A reading that walks learners through the step-by-step process browsers
+          use to parse raw HTML text and construct the DOM, covering tokenization,
+          tree construction, and how the resulting structure enables JavaScript
+          manipulation and rendering.
+        </p>
+      </div>
+
+      <!-- Card 4: The DOM Tree Structure -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Introduction_to_the_interactive_topics_t3.html">The DOM Tree Structure</a>
+          </span>
+        </div>
+        <p class="card-desc">
+          A reading that explains the hierarchical tree structure of the DOM
+          &mdash; including nodes, parent-child-sibling relationships, and how
+          HTML elements map to interconnected objects in memory &mdash; to help
+          learners understand how the DOM is organized before working with it
+          programmatically.
+        </p>
+      </div>
+
+      <!-- Card 5: Selecting DOM Elements -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Introduction_to_the_interactive_topics_t4.html">Selecting DOM Elements</a>
+          </span>
+        </div>
+        <p class="card-desc">
+          A reading that covers how to locate specific elements or groups of
+          elements in the DOM using JavaScript selection methods such as
+          <code>getElementById</code>, <code>querySelector</code>, and
+          <code>querySelectorAll</code>, serving as a prerequisite skill before
+          learners attempt to read or modify page content.
+        </p>
+      </div>
+
+      <!-- Card 6: Manipulating DOM Elements -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Introduction_to_the_interactive_topics_t5.html">Manipulating DOM Elements</a>
+          </span>
+        </div>
+        <p class="card-desc">
+          A reading that covers how to read and dynamically change DOM elements
+          using JavaScript, including modifying text content, inner HTML,
+          attributes, CSS classes, and inline styles, intended for learners who
+          have already learned how to select elements.
+        </p>
+      </div>
+
+      <!-- Card 7: Adding and Removing DOM Nodes (Topic Detail) -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Introduction_to_the_interactive_topics_t6.html">Adding and Removing DOM Nodes</a>
+          </span>
+        </div>
+        <p class="card-desc">
+          A reading that explains how to dynamically modify a page's structure at
+          runtime using JavaScript, covering creating new elements, inserting,
+          moving, replacing, cloning, and removing nodes from the DOM.
+        </p>
+      </div>
+
+      <!-- Card 8: Adding and Removing DOM Nodes (Text Content) -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Introduction_to_the_interactive.html">Adding and Removing DOM Nodes</a>
+          </span>
+        </div>
+        <p class="card-desc">
+          A reading that explains how to dynamically modify a page's structure at
+          runtime using JavaScript, covering creating new elements, inserting,
+          moving, replacing, cloning, and removing nodes from the DOM.
+        </p>
+      </div>
+
+    </div><!-- /.card-grid -->
+
+    <footer>
+      <p>COP4813 &mdash; Module 4 &mdash; Introduction to the Document Object Model (DOM)</p>
+    </footer>
+
+  </div><!-- /.page-wrapper -->
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+</html>

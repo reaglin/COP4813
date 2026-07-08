@@ -1,0 +1,371 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 13 – Building a Browser-Embedded Game | COP4813</title>
+  <style>
+    /* ── Reset & base ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: #f4f6f9;
+      color: #1e2535;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Page shell ───────────────────────────────────────────────── */
+    .page-wrapper {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+
+    /* ── Header ───────────────────────────────────────────────────── */
+    .page-header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
+      color: #fff;
+      border-radius: 10px;
+      padding: 2.25rem 2.5rem;
+      margin-bottom: 2.25rem;
+    }
+
+    .course-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.75;
+      margin-bottom: 0.5rem;
+    }
+
+    .page-header h1 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 0.85rem;
+      line-height: 1.25;
+    }
+
+    .page-header p {
+      font-size: 0.97rem;
+      opacity: 0.88;
+      max-width: 70ch;
+    }
+
+    /* ── Section heading ──────────────────────────────────────────── */
+    .section-heading {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #4b5a72;
+      margin-bottom: 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid #dde3ed;
+    }
+
+    /* ── Card grid ────────────────────────────────────────────────── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.15rem;
+    }
+
+    /* ── Individual card ──────────────────────────────────────────── */
+    .card {
+      background: #ffffff;
+      border: 1px solid #dde3ed;
+      border-radius: 8px;
+      padding: 1.35rem 1.4rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 18px rgba(37, 99, 168, 0.12);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card top row: badges ─────────────────────────────────────── */
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 0.2em 0.65em;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .badge-type {
+      background: #e8edf7;
+      color: #2563a8;
+    }
+
+    .badge-filetype {
+      background: #edf7ee;
+      color: #1a6b2b;
+    }
+
+    /* ── Card title row ───────────────────────────────────────────── */
+    .card-title-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .card-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1e2535;
+      line-height: 1.3;
+    }
+
+    .card-name a {
+      color: #1a5ea8;
+      text-decoration: none;
+    }
+
+    .card-name a:hover,
+    .card-name a:focus {
+      text-decoration: underline;
+      color: #0f3d78;
+    }
+
+    .source-link {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #5a6f8a;
+      text-decoration: none;
+      white-space: nowrap;
+      border: 1px solid #b5c4d8;
+      border-radius: 4px;
+      padding: 0.15em 0.5em;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background: #e8edf7;
+      color: #1a3a5c;
+      text-decoration: none;
+    }
+
+    /* ── Card description ─────────────────────────────────────────── */
+    .card-desc {
+      font-size: 0.875rem;
+      color: #3f4f66;
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    /* ── Footer ───────────────────────────────────────────────────── */
+    .page-footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.78rem;
+      color: #8a96a8;
+    }
+
+    /* ── Responsive tweaks ────────────────────────────────────────── */
+    @media (max-width: 480px) {
+      .page-header { padding: 1.5rem 1.25rem; }
+      .card { padding: 1.1rem 1.1rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ COP4813</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
+  <div class="page-wrapper">
+
+    <!-- ── Header ─────────────────────────────────────────────────── -->
+    <header class="page-header">
+      <div class="course-label">COP4813 &mdash; Module 13</div>
+      <h1>Building a Browser-Embedded Game</h1>
+      <p>
+        This module walks you through every layer of creating a fully functional, browser-based game using
+        vanilla JavaScript and the HTML5 Canvas API. Starting from design fundamentals, you will progress
+        through drawing, animation, player input, state management, and final assembly into a complete,
+        playable project.
+      </p>
+    </header>
+
+    <!-- ── Artifact grid ──────────────────────────────────────────── -->
+    <h2 class="section-heading">Module Artifacts</h2>
+
+    <div class="card-grid">
+
+      <!-- Card 1: Module Topics -->
+      <article class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="source/hierarchy.json">source file</a>
+        </div>
+        <p class="card-desc">
+          A structured outline of the module's core topics — game design fundamentals, canvas drawing,
+          animation loops, and event handling — used by learners to preview what will be covered and by
+          instructors to organize lesson sequencing.
+        </p>
+      </article>
+
+      <!-- Card 2: Game Design Fundamentals -->
+      <article class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Building_a_Browser_interactive_topics_t1.html">Game Design Fundamentals</a>
+          </span>
+        </div>
+        <p class="card-desc">
+          A reading that introduces the core principles of planning a browser game before coding, covering
+          how to define objectives, establish rules, and create a game blueprint; learners read it to
+          understand the design process that guides all subsequent coding decisions.
+        </p>
+      </article>
+
+      <!-- Card 3: Canvas Drawing for Games -->
+      <article class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Building_a_Browser_interactive_topics_t2.html">Canvas Drawing for Games</a>
+          </span>
+        </div>
+        <p class="card-desc">
+          A reading that explains the HTML5 Canvas API for browser game development, covering how to set
+          up the canvas element, use the JavaScript drawing interface to render shapes and sprites, and
+          update the display in real time; learners use it to gain the foundational drawing skills needed
+          for game graphics.
+        </p>
+      </article>
+
+      <!-- Card 4: Animation and the Game Loop -->
+      <article class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Building_a_Browser_interactive_topics_t3.html">Animation and the Game Loop</a>
+          </span>
+        </div>
+        <p class="card-desc">
+          A reading that explains the concept and implementation of the game loop in browser-based games,
+          covering how <code>requestAnimationFrame</code> drives continuous frame updates, movement,
+          collision checks, and score changes; learners use it to understand how to make a canvas game
+          run and animate smoothly.
+        </p>
+      </article>
+
+      <!-- Card 5: Event Handling and Player Input -->
+      <article class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Building_a_Browser_interactive_topics_t4.html">Event Handling and Player Input</a>
+          </span>
+        </div>
+        <p class="card-desc">
+          A reading that covers JavaScript event handling for player input, explaining how to capture and
+          respond to keyboard, mouse, and touch events to connect physical player actions to in-game
+          behavior; learners use it to implement responsive controls in their browser games.
+        </p>
+      </article>
+
+      <!-- Card 6: Game Logic and State Management -->
+      <article class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Building_a_Browser_interactive_topics_t5.html">Game Logic and State Management</a>
+          </span>
+        </div>
+        <p class="card-desc">
+          A reading that covers game logic and state management, explaining how to track and update game
+          variables such as score, lives, and win/loss conditions over time so the game reacts correctly
+          to player actions; learners use it to structure the rules and data flow of their games.
+        </p>
+      </article>
+
+      <!-- Card 7: Integrating and Assembling (Topic Detail) -->
+      <article class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Building_a_Browser_interactive_topics_t6.html">Integrating and Assembling the Complete Game</a>
+          </span>
+        </div>
+        <p class="card-desc">
+          A reading that guides learners through combining all previously learned skills — canvas drawing,
+          animation loops, input handling, and game logic — into a single cohesive, playable browser game
+          project; learners use it as a capstone walkthrough for assembling a complete game.
+        </p>
+      </article>
+
+      <!-- Card 8: Integrating and Assembling (Text Content) -->
+      <article class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Building_a_Browser_interactive.html">Integrating and Assembling the Complete Game</a>
+          </span>
+        </div>
+        <p class="card-desc">
+          A reading that guides learners through combining all previously learned skills — canvas drawing,
+          animation loops, input handling, and game logic — into a single cohesive, playable browser game
+          project; learners use it as a capstone walkthrough for assembling a complete game.
+        </p>
+      </article>
+
+    </div>
+    <!-- /.card-grid -->
+
+    <!-- ── Footer ─────────────────────────────────────────────────── -->
+    <footer class="page-footer">
+      <p>COP4813 &mdash; Module 13: Building a Browser-Embedded Game</p>
+    </footer>
+
+  </div>
+  <!-- /.page-wrapper -->
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+</html>

@@ -1,0 +1,306 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Handling the drop Event</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 9 - Implementing Drag and Drop Interactions</a></div>
+  <header>
+    <h1>Handling the drop Event</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Handling the drop Event</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The <strong>drop event</strong> is the culmination of every drag-and-drop interaction. After the user releases the mouse button over a valid drop target, the browser fires this event, giving you the opportunity to collect the data that was packaged at drag-start, identify the element that was being dragged, and make whatever DOM changes are needed to reflect the completed action. Understanding exactly how to set up the drop handler, what prerequisites must be met before it ever fires, and how to manage both data retrieval and visual cleanup is essential to building a polished, robust drag-and-drop experience.</p>
+
+<p>Before diving into the individual responsibilities of the drop handler, it helps to appreciate the full sequence of events that leads to it. When a drag begins, <code>dragstart</code> fires and you store data. As the dragged element moves over a potential target, <code>dragover</code> fires repeatedly. Only when <code>dragover</code>'s default behavior is suppressed does the browser consider that target a valid drop zone. When the user finally releases the mouse, <code>drop</code> fires — but only because of that earlier permission granted in <code>dragover</code>. Miss any step in this chain and the drop event simply never arrives.</p>
+
+<p><strong>Listening for the drop Event</strong></p>
+
+<p>You attach a drop listener to the element you want to act as a drop target using <code>addEventListener</code>. The handler receives a <code>DragEvent</code> object that carries, among other things, the <code>dataTransfer</code> object populated during <code>dragstart</code>.</p>
+
+<pre><code>const dropZone = document.getElementById('drop-zone');
+
+dropZone.addEventListener('drop', handleDrop);
+
+function handleDrop(event) {
+  // handler logic goes here
+}
+</code></pre>
+
+<p>A critical point: the <code>drop</code> event will <em>never fire</em> unless a <code>dragover</code> handler on the same element (or an ancestor) has already called <code>event.preventDefault()</code>. The browser's built-in default for <code>dragover</code> is to signal "this is not a valid drop target." Overriding that default is what opens the door for <code>drop</code>. A minimal, correctly paired setup looks like this:</p>
+
+<pre><code>dropZone.addEventListener('dragover', (event) => {
+  event.preventDefault(); // Required — without this, drop never fires
+});
+
+dropZone.addEventListener('drop', handleDrop);
+</code></pre>
+
+<p>If you omit the <code>dragover</code> listener (or forget <code>preventDefault()</code> inside it), the browser will show a "no-drop" cursor and swallow the release without ever dispatching a <code>drop</code> event to your JavaScript. This is one of the most common sources of confusion for developers first implementing drag-and-drop.</p>
+
+<p><strong>Preventing Default Browser Behavior on Drop</strong></p>
+
+<p>Even once the <code>drop</code> event arrives, the browser still has its own ideas about what to do with dropped content. If the transferred data is a URL, the browser may navigate to it. If it is a file, the browser may try to open or display it. These built-in behaviors are almost always unwanted when you are implementing a custom drag-and-drop interface, so <strong>the very first line of every drop handler should be <code>event.preventDefault()</code></strong>.</p>
+
+<pre><code>function handleDrop(event) {
+  event.preventDefault(); // Stop browser from navigating, opening files, etc.
+  // ... rest of your logic
+}
+</code></pre>
+
+<p>Additionally, if your page has nested drop zones or parent elements with their own <code>drop</code> listeners, the event will bubble upward after your handler runs. Calling <code>event.stopPropagation()</code> immediately after <code>preventDefault()</code> prevents that bubbling and ensures only the intended target processes the drop. This is especially important in complex UIs where containers within containers each act as drop targets.</p>
+
+<pre><code>function handleDrop(event) {
+  event.preventDefault();
+  event.stopPropagation(); // Prevent parent drop handlers from also firing
+  // ... rest of your logic
+}
+</code></pre>
+
+<p><strong>Retrieving Transferred Data with dataTransfer.getData()</strong></p>
+
+<p>The <code>dataTransfer</code> object is the messenger between the drag source and the drop target. During <code>dragstart</code> you called <code>setData(type, value)</code> to store information. In the drop handler you call <code>getData(type)</code> to retrieve it. The MIME-type string you pass to <code>getData()</code> must match <em>exactly</em> — including case — the type you used in <code>setData()</code>. A mismatch silently returns an empty string, which is another common debugging headache.</p>
+
+<pre><code>// During dragstart (set)
+element.addEventListener('dragstart', (event) => {
+  event.dataTransfer.setData('text/plain', element.id);
+});
+
+// During drop (get)
+function handleDrop(event) {
+  event.preventDefault();
+  const transferredData = event.dataTransfer.getData('text/plain');
+  console.log(transferredData); // logs the id stored at dragstart
+}
+</code></pre>
+
+<p><code>getData()</code> always returns a <strong>string</strong>, regardless of what you originally stored. If you stored a number, a boolean, or a complex object, you must convert it back to the appropriate type in the drop handler. The cleanest way to transfer structured data is to serialize it as JSON during <code>dragstart</code> and parse it during <code>drop</code>:</p>
+
+<pre><code>// dragstart — serialize an object
+element.addEventListener('dragstart', (event) => {
+  const payload = { id: element.id, category: 'task', priority: 2 };
+  event.dataTransfer.setData('application/json', JSON.stringify(payload));
+});
+
+// drop — deserialize back to an object
+function handleDrop(event) {
+  event.preventDefault();
+  const raw = event.dataTransfer.getData('application/json');
+  const payload = JSON.parse(raw); // { id: '...', category: 'task', priority: 2 }
+  console.log(payload.priority); // 2 (number, not string)
+}
+</code></pre>
+
+<p>Using a custom MIME type like <code>'application/json'</code> has the added benefit of making the data invisible to handlers that only look for <code>'text/plain'</code>, which can prevent interference in complex pages.</p>
+
+<p><strong>Identifying the Dragged Element from Retrieved Data</strong></p>
+
+<p>The most common pattern for moving DOM elements through drag-and-drop is to store the dragged element's <code>id</code> attribute in the data transfer during <code>dragstart</code>, then look that element up again in the drop handler. This approach cleanly separates the drag source from the drop target — the target does not need to hold a direct reference to the source element; it only needs the ID.</p>
+
+<pre><code>// dragstart — store the element's id
+draggable.addEventListener('dragstart', (event) => {
+  event.dataTransfer.setData('text/plain', event.target.id);
+  event.dataTransfer.effectAllowed = 'move';
+});
+
+// drop — look the element up by its stored id
+function handleDrop(event) {
+  event.preventDefault();
+  const draggedId = event.dataTransfer.getData('text/plain');
+  const draggedElement = document.getElementById(draggedId);
+  // draggedElement is now a live reference to the element being moved
+}
+</code></pre>
+
+<p>This pattern scales naturally. The draggable item could start life in a left-side list, a grid, a sidebar, or any other container. As long as it has a unique <code>id</code>, the drop handler on any valid drop zone can locate it with <code>getElementById</code> and act on it — without any tight coupling between the two regions of the page.</p>
+
+<p>For the pattern to work reliably, every draggable element <strong>must have a unique, non-empty <code>id</code></strong>. If elements are generated dynamically, assign IDs programmatically (for example, using a counter or a UUID library) at creation time.</p>
+
+<p><strong>Updating the DOM After a Successful Drop</strong></p>
+
+<p>Once you hold a reference to the dragged element and to the drop target, you apply the actual DOM change. In most cases the goal is to <em>move</em> the element — remove it from wherever it currently lives and place it inside the drop target. <code>appendChild()</code> handles both steps atomically: calling it on a node that already exists in the document automatically detaches it from its current parent before attaching it to the new one. No separate <code>removeChild()</code> call is needed.</p>
+
+<pre><code>function handleDrop(event) {
+  event.preventDefault();
+
+  const draggedId = event.dataTransfer.getData('text/plain');
+  const draggedElement = document.getElementById(draggedId);
+  const dropTarget = event.currentTarget; // the element with the listener
+
+  dropTarget.appendChild(draggedElement);
+}
+</code></pre>
+
+<p>Prefer <code>event.currentTarget</code> over <code>event.target</code> when referencing the drop zone. <code>event.target</code> is the exact element the mouse was over when the drop occurred — which might be a child element inside your drop zone, not the zone itself. <code>event.currentTarget</code> is always the element to which the listener was attached, which is typically what you want.</p>
+
+<p>If the drop target already contains children and you need to control where the new element is inserted — for example, placing it before an existing sibling — use <code>insertBefore()</code> instead of <code>appendChild()</code>:</p>
+
+<pre><code>// Insert draggedElement before the first existing child of dropTarget
+const referenceNode = dropTarget.firstElementChild;
+dropTarget.insertBefore(draggedElement, referenceNode);
+
+// Insert draggedElement before a specific sibling
+const specificChild = dropTarget.querySelector('.placeholder');
+dropTarget.insertBefore(draggedElement, specificChild);
+</code></pre>
+
+<p>A complete, working drop handler that combines all the steps discussed so far looks like this:</p>
+
+<pre><code>function handleDrop(event) {
+  event.preventDefault();
+  event.stopPropagation();
+
+  // Retrieve the dragged element's id
+  const draggedId = event.dataTransfer.getData('text/plain');
+  const draggedElement = document.getElementById(draggedId);
+
+  // Identify the drop target (the element with the listener)
+  const dropTarget = event.currentTarget;
+
+  if (draggedElement && dropTarget && draggedElement !== dropTarget) {
+    dropTarget.appendChild(draggedElement);
+  }
+}
+</code></pre>
+
+<p>The guard condition — checking that both elements exist and are not the same node — prevents errors in edge cases where the ID lookup fails or the user somehow drops an element onto itself.</p>
+
+<p><strong>Cleaning Up Visual Feedback After the Drop</strong></p>
+
+<p>During the drag-over phase you likely applied visual feedback to the drop target: a highlighted border, a background colour change, a CSS class like <code>.drag-over</code>, or a scale transform. Once the drop completes — or the dragged item leaves the zone — that visual state must be removed promptly. Failing to clean up can leave the UI permanently stuck in its "highlighted" appearance, which confuses users and signals poor quality.</p>
+
+<p>The safest approach is to remove the feedback class at the very beginning of the drop handler, before anything else happens (after <code>preventDefault</code>), so it is always cleaned up regardless of whether subsequent logic succeeds or fails:</p>
+
+<pre><code>function handleDrop(event) {
+  event.preventDefault();
+  event.stopPropagation();
+
+  // Clean up visual feedback immediately
+  event.currentTarget.classList.remove('drag-over');
+
+  const draggedId = event.dataTransfer.getData('text/plain');
+  const draggedElement = document.getElementById(draggedId);
+
+  if (draggedElement) {
+    event.currentTarget.appendChild(draggedElement);
+  }
+}
+</code></pre>
+
+<p>You must also clean up in your <code>dragleave</code> handler, because <code>drop</code> only fires when the user releases over the target — if they drag away without dropping, <code>dragleave</code> is the only chance to reset the appearance:</p>
+
+<pre><code>dropZone.addEventListener('dragleave', (event) => {
+  event.currentTarget.classList.remove('drag-over');
+});
+</code></pre>
+
+<p>The following table summarises the event sequence, which handler owns each responsibility, and what each handler must do:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Event</th>
+      <th>Fires on</th>
+      <th>Key Responsibility</th>
+      <th>Required Call</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>dragstart</code></td>
+      <td>Dragged element</td>
+      <td>Store element ID (or other data) in <code>dataTransfer</code></td>
+      <td><code>setData(type, value)</code></td>
+    </tr>
+    <tr>
+      <td><code>dragover</code></td>
+      <td>Drop target</td>
+      <td>Signal that the target accepts drops; add visual feedback</td>
+      <td><code>event.preventDefault()</code></td>
+    </tr>
+    <tr>
+      <td><code>dragleave</code></td>
+      <td>Drop target</td>
+      <td>Remove visual feedback when drag leaves without dropping</td>
+      <td><code>classList.remove('drag-over')</code></td>
+    </tr>
+    <tr>
+      <td><code>drop</code></td>
+      <td>Drop target</td>
+      <td>Prevent browser default; retrieve data; move element; clean up</td>
+      <td><code>event.preventDefault()</code>, <code>getData()</code>, <code>appendChild()</code></td>
+    </tr>
+    <tr>
+      <td><code>dragend</code></td>
+      <td>Dragged element</td>
+      <td>Final cleanup on the source element (e.g., remove drag styles)</td>
+      <td>Optional — remove source-side classes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Putting the complete interaction together with consistent cleanup in every relevant handler ensures the UI is always in a predictable, clean visual state — whether the user drops successfully, drags away, or cancels mid-drag with the Escape key.</p>
+        <div class="notes"><strong>Notes</strong>Examines the drop event and how to retrieve transferred data to complete a drag-and-drop interaction. Covers updating the DOM appropriately when an element is successfully dropped onto a target.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

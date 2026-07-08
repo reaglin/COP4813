@@ -1,0 +1,481 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typography and Colors</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 3 -Styling Web Pages with CSS</a></div>
+  <header>
+    <h1>Typography and Colors</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Typography and Colors</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Typography and color are two of the most powerful tools in a web designer's toolkit. Long before a visitor reads a single word, the visual weight of your text and the palette of your page communicate tone, hierarchy, and trustworthiness. CSS provides a rich set of properties that let you control every aspect of how text appears — its shape, size, spacing, and color — and how color is applied to any element on the page. Mastering these properties means you can make content easier to read, guide the eye to what matters most, and ensure your designs look consistent and professional across all devices and screen sizes.</p>
+
+<p><strong>Font Family</strong></p>
+
+<p>The <code>font-family</code> property tells the browser which typeface to use when rendering text. Because not every font is installed on every device, CSS uses the concept of a <em>font stack</em> — an ordered, comma-separated list of font names that the browser works through from left to right until it finds one that is available on the user's system. If the first font is not found, the browser tries the second, then the third, and so on. The last entry in any font stack should always be a <em>generic family name</em> so that the browser is guaranteed to find something usable even in the worst case.</p>
+
+<p>The standard generic family names are:</p>
+<ul>
+  <li><strong>serif</strong> — fonts with small decorative strokes at the ends of letterforms (e.g., Times New Roman, Georgia)</li>
+  <li><strong>sans-serif</strong> — fonts without those strokes, giving a cleaner, more modern look (e.g., Arial, Helvetica)</li>
+  <li><strong>monospace</strong> — fonts in which every character occupies the same width, ideal for code (e.g., Courier New, Consolas)</li>
+  <li><strong>cursive</strong> — fonts that mimic handwriting</li>
+  <li><strong>fantasy</strong> — decorative or display fonts</li>
+</ul>
+
+<p><em>Web-safe fonts</em> are typefaces that are pre-installed on the vast majority of operating systems — Windows, macOS, iOS, and Android alike. Common examples include Arial, Verdana, Georgia, and Courier New. Using them means your page will look essentially the same for almost every visitor without requiring any extra downloads. The trade-off is limited variety.</p>
+
+<p>When you need a typeface beyond the web-safe set, you have two main options. <strong>Google Fonts</strong> is a free hosted library of hundreds of open-source typefaces. You link to a stylesheet in your HTML <code>&lt;head&gt;</code> and then reference the font by name in your CSS. The <strong><code>@font-face</code></strong> rule is the lower-level alternative: you host the font files yourself and declare them in CSS, giving you full control over loading, subsetting, and licensing.</p>
+
+<pre><code>/* A well-constructed font stack */
+body {
+  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+/* Loading a Google Font — add this link in your HTML head:
+   &lt;link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"&gt;
+*/
+h1 {
+  font-family: "Roboto", Arial, sans-serif;
+}
+
+/* Self-hosted font with @font-face */
+@font-face {
+  font-family: "MyBrandFont";
+  src: url("fonts/mybrandfont.woff2") format("woff2"),
+       url("fonts/mybrandfont.woff")  format("woff");
+}
+p {
+  font-family: "MyBrandFont", Georgia, serif;
+}</code></pre>
+
+<p>Notice that every declaration above ends with a generic family. If <code>"Segoe UI"</code> is unavailable and <code>Helvetica</code> is also missing, the browser will at least fall back to <code>Arial</code>, and if that too is absent it will use whatever the system's default sans-serif font happens to be. Never omit that safety net.</p>
+
+<p><strong>Font Size and Weight</strong></p>
+
+<p>The <code>font-size</code> property controls how large or small characters appear. CSS offers both <em>absolute</em> and <em>relative</em> units:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Unit</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>px</code></td>
+      <td>Absolute</td>
+      <td>Device pixels — predictable but does not scale with user preferences</td>
+      <td><code>font-size: 16px;</code></td>
+    </tr>
+    <tr>
+      <td><code>pt</code></td>
+      <td>Absolute</td>
+      <td>Points (1pt = 1/72 inch) — common in print; less useful on screen</td>
+      <td><code>font-size: 12pt;</code></td>
+    </tr>
+    <tr>
+      <td><code>em</code></td>
+      <td>Relative</td>
+      <td>Relative to the font size of the <em>parent</em> element — can compound when nested</td>
+      <td><code>font-size: 1.25em;</code></td>
+    </tr>
+    <tr>
+      <td><code>rem</code></td>
+      <td>Relative</td>
+      <td>Relative to the font size of the <em>root</em> (<code>&lt;html&gt;</code>) element — consistent and predictable</td>
+      <td><code>font-size: 1.5rem;</code></td>
+    </tr>
+    <tr>
+      <td><code>%</code></td>
+      <td>Relative</td>
+      <td>Percentage of the parent element's font size</td>
+      <td><code>font-size: 120%;</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The <code>rem</code> unit is particularly valuable for building scalable layouts. By setting a base size on the <code>html</code> element — commonly <code>16px</code> — every <code>rem</code> value across the entire page is calculated relative to that single root. If you later decide the overall text should be slightly larger, you change just one value and every element that uses <code>rem</code> scales proportionally.</p>
+
+<pre><code>html {
+  font-size: 16px; /* 1rem = 16px throughout the page */
+}
+
+body {
+  font-size: 1rem;    /* 16px */
+}
+
+h1 {
+  font-size: 2.5rem;  /* 40px */
+}
+
+h2 {
+  font-size: 1.75rem; /* 28px */
+}
+
+small {
+  font-size: 0.75rem; /* 12px */
+}</code></pre>
+
+<p>The <code>font-weight</code> property controls the thickness (boldness) of characters. It accepts descriptive keywords or numeric values in steps of 100:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Keyword Equivalent</th>
+      <th>Typical Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>100</code></td>
+      <td>Thin</td>
+      <td>Very light display text</td>
+    </tr>
+    <tr>
+      <td><code>300</code></td>
+      <td>Light</td>
+      <td>Elegant body text in certain designs</td>
+    </tr>
+    <tr>
+      <td><code>400</code></td>
+      <td><code>normal</code></td>
+      <td>Default body text</td>
+    </tr>
+    <tr>
+      <td><code>700</code></td>
+      <td><code>bold</code></td>
+      <td>Headings, labels, call-to-action text</td>
+    </tr>
+    <tr>
+      <td><code>900</code></td>
+      <td>Black / Extra Bold</td>
+      <td>Heavy display headings</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Numeric weights only render as visually distinct steps if the loaded font actually provides a corresponding weight variant. If a font only ships with Regular (400) and Bold (700), the browser will synthesize intermediate weights, which often looks less refined than a true variable or multi-weight font.</p>
+
+<pre><code>h1 {
+  font-size: 2rem;
+  font-weight: 700; /* same as bold */
+}
+
+p {
+  font-size: 1rem;
+  font-weight: 400; /* same as normal */
+}
+
+.label {
+  font-weight: 600; /* semi-bold, if the font supports it */
+}</code></pre>
+
+<p><strong>Line Height and Text Alignment</strong></p>
+
+<p>The <code>line-height</code> property sets the vertical distance from the baseline of one line of text to the baseline of the next — effectively the breathing room between lines. It is one of the most impactful typographic settings for readability. When text is too tightly packed (<code>line-height: 1</code> or less), readers struggle to track from the end of one line to the start of the next. When lines are too spread apart, the text loses visual cohesion.</p>
+
+<p>The recommended approach is to use a <em>unitless</em> value, such as <code>1.5</code> or <code>1.6</code>. A unitless value is a multiplier applied to the element's current font size — meaning if the font size changes anywhere in the inheritance chain, the line height adjusts automatically. If you instead wrote <code>line-height: 24px</code> on a paragraph and later increased the font size to 20px, the lines would overlap. Unitless values prevent that problem.</p>
+
+<pre><code>/* Recommended: unitless */
+p {
+  font-size: 1rem;
+  line-height: 1.6; /* 1.6 × 16px = 25.6px of line height */
+}
+
+/* Acceptable: em-relative */
+p {
+  font-size: 1rem;
+  line-height: 1.6em;
+}
+
+/* Risky: fixed pixels that won't adapt if font-size changes */
+p {
+  font-size: 1rem;
+  line-height: 24px;
+}</code></pre>
+
+<p>General guidance: body text reads most comfortably with a <code>line-height</code> between <code>1.4</code> and <code>1.8</code>. Short UI labels or headings at large sizes can often use values closer to <code>1.1</code> or <code>1.2</code>.</p>
+
+<p>The <code>text-align</code> property controls how inline content (text and inline elements) is distributed horizontally within its block container. The four most common values are:</p>
+
+<ul>
+  <li><strong>left</strong> — text is aligned to the left edge (the default for left-to-right languages). Each line ends wherever the last word ends, creating a ragged right edge. This is the most readable alignment for long paragraphs.</li>
+  <li><strong>right</strong> — text is aligned to the right edge. Useful for table cells containing numbers, captions beside left-floated images, or RTL (right-to-left) language support.</li>
+  <li><strong>center</strong> — each line is centered within the container. Appropriate for short headings, pull quotes, or call-to-action text, but uncomfortable for multi-line body copy.</li>
+  <li><strong>justify</strong> — text is spaced so that both the left and right edges are flush. Produces a clean, book-like appearance, but can create irregular "rivers" of white space running through paragraphs, especially on narrow columns. Use with caution and consider pairing with the <code>hyphens: auto</code> property to reduce awkward gaps.</li>
+</ul>
+
+<pre><code>h2 {
+  text-align: center;
+}
+
+p {
+  text-align: left;   /* safest for long-form reading */
+  line-height: 1.6;
+}
+
+.price-cell {
+  text-align: right;  /* numbers align cleanly on the decimal */
+}
+
+.magazine-column {
+  text-align: justify;
+  hyphens: auto;      /* helps reduce awkward spacing */
+}</code></pre>
+
+<p><strong>Applying Colors with Named Values and Hex Codes</strong></p>
+
+<p>CSS supports several notations for specifying color. The simplest are <em>named colors</em> — plain English words that map to predefined color values. CSS defines 140+ named colors, from obvious ones like <code>red</code>, <code>blue</code>, and <code>white</code> to more descriptive ones like <code>coral</code>, <code>teal</code>, <code>slategray</code>, and <code>lavender</code>. Named colors are immediately readable in code and require no mental conversion, but they are limited to those 140+ options and rarely match a brand's precise color requirements.</p>
+
+<pre><code>h1 {
+  color: navy;
+}
+
+header {
+  background-color: whitesmoke;
+}
+
+.alert {
+  background-color: crimson;
+  color: white;
+}</code></pre>
+
+<p><em>Hex codes</em> are the most widely used color notation in professional web development. A hex code is a six-character string prefixed with <code>#</code>, written in <em>hexadecimal</em> (base 16, using digits 0–9 and letters A–F). The six characters form three pairs, each representing a color channel:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pair position</th>
+      <th>Channel</th>
+      <th>Range (hex)</th>
+      <th>Range (decimal)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Characters 1–2</td>
+      <td>Red</td>
+      <td>00 – FF</td>
+      <td>0 – 255</td>
+    </tr>
+    <tr>
+      <td>Characters 3–4</td>
+      <td>Green</td>
+      <td>00 – FF</td>
+      <td>0 – 255</td>
+    </tr>
+    <tr>
+      <td>Characters 5–6</td>
+      <td>Blue</td>
+      <td>00 – FF</td>
+      <td>0 – 255</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For example, <code>#FF5733</code> has a red channel of <code>FF</code> (255 — maximum red), a green channel of <code>57</code> (87), and a blue channel of <code>33</code> (51), producing a vivid reddish-orange. Pure white is <code>#FFFFFF</code> (all channels at maximum), and pure black is <code>#000000</code> (all channels at zero).</p>
+
+<p>When both characters in each pair are identical, you can use the <em>shorthand</em> three-character form. The browser simply doubles each character internally:</p>
+
+<ul>
+  <li><code>#ffffff</code> → <code>#fff</code></li>
+  <li><code>#000000</code> → <code>#000</code></li>
+  <li><code>#aabbcc</code> → <code>#abc</code></li>
+  <li><code>#ff3300</code> → <code>#f30</code></li>
+</ul>
+
+<p>Hex codes are the standard output of virtually every design tool — Figma, Adobe XD, Photoshop, Sketch — making them the most practical notation for implementing a designer's color palette faithfully.</p>
+
+<pre><code>/* Full hex */
+h2 {
+  color: #2C3E50;          /* a dark blue-gray */
+}
+
+button.primary {
+  background-color: #3498DB; /* a medium blue */
+  color: #FFFFFF;
+}
+
+/* Shorthand hex */
+footer {
+  background-color: #222;    /* same as #222222 — very dark gray */
+  color: #fff;               /* same as #ffffff — white */
+}</code></pre>
+
+<p><strong>Applying Colors with RGB Notation</strong></p>
+
+<p>The <code>rgb()</code> function expresses color using the same three-channel model as hex codes, but with decimal integers in the range 0–255 rather than hexadecimal pairs. Many developers find decimal values more intuitive because the numbers map directly to human-readable intensities:</p>
+
+<ul>
+  <li><code>rgb(255, 0, 0)</code> — pure red (red channel maxed, others at zero)</li>
+  <li><code>rgb(0, 255, 0)</code> — pure green</li>
+  <li><code>rgb(0, 0, 255)</code> — pure blue</li>
+  <li><code>rgb(255, 255, 255)</code> — white (all channels maximum)</li>
+  <li><code>rgb(0, 0, 0)</code> — black (all channels zero)</li>
+  <li><code>rgb(128, 128, 128)</code> — medium gray (equal channels at mid-point)</li>
+</ul>
+
+<p>Understanding RGB mixing helps you intuit color. Want a warm orange? You need high red, moderate green, and very little blue — something like <code>rgb(255, 140, 0)</code>. Want a muted purple? Mix high red, low green, and high blue — <code>rgb(150, 50, 180)</code>.</p>
+
+<p>The <code>rgba()</code> function extends <code>rgb()</code> by adding a fourth argument: the <em>alpha channel</em>, which controls opacity. The alpha value is a decimal between <code>0</code> (fully transparent) and <code>1</code> (fully opaque). Fractional values like <code>0.5</code> produce 50% transparency. This is invaluable for effects such as semi-transparent overlays on hero images, frosted-glass UI panels, and subtle colored shadows.</p>
+
+<pre><code>/* Solid color with rgb() */
+p {
+  color: rgb(44, 62, 80);       /* dark blue-gray body text */
+}
+
+.card {
+  background-color: rgb(236, 240, 241); /* very light gray */
+}
+
+/* Semi-transparent overlay with rgba() */
+.hero-overlay {
+  background-color: rgba(0, 0, 0, 0.5); /* black at 50% opacity */
+}
+
+.tooltip {
+  background-color: rgba(44, 62, 80, 0.9); /* almost opaque dark panel */
+  color: rgb(255, 255, 255);
+}
+
+.highlight {
+  background-color: rgba(255, 235, 59, 0.4); /* translucent yellow */
+}</code></pre>
+
+<p>RGB and RGBA notation shine in scenarios where color values need to be generated or manipulated programmatically. A JavaScript function can compute a color at runtime — for instance, adjusting a chart bar's color based on a data value — and write it directly into a style attribute using the <code>rgb()</code> syntax, something that is far harder to do with hex strings.</p>
+
+<p><strong>Styling Text Color and Background Color</strong></p>
+
+<p>Two CSS properties work in direct partnership to establish the visual foundation of almost every element on a page: <code>color</code> and <code>background-color</code>.</p>
+
+<p>The <code>color</code> property sets the foreground color — the color of rendered text and text decorations (underlines, strikethroughs) within the element. It is inherited, meaning child elements automatically receive the parent's text color unless they override it. This makes it efficient to set a base text color on the <code>body</code> and override only where needed.</p>
+
+<p>The <code>background-color</code> property fills the background area of an element's box model — everything inside the border (including the padding area). By default, background color is <code>transparent</code>, which lets the parent's background show through. You can apply any valid color value: named, hex, <code>rgb()</code>, or <code>rgba()</code>.</p>
+
+<pre><code>/* Global base colors */
+body {
+  color: #333333;              /* dark gray text — easier on the eyes than pure black */
+  background-color: #f9f9f9;   /* off-white page background */
+}
+
+/* Component-level overrides */
+header {
+  background-color: #1a1a2e;   /* deep navy */
+  color: #e0e0e0;              /* light gray text on dark background */
+}
+
+.card {
+  background-color: #ffffff;
+  color: #222222;
+}
+
+.badge-success {
+  background-color: #27ae60;   /* green */
+  color: #ffffff;
+}
+
+.badge-warning {
+  background-color: #f39c12;   /* amber */
+  color: #1a1a1a;
+}
+
+/* Using rgba for a glassy sidebar */
+.sidebar {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}</code></pre>
+
+<p>A critical consideration when pairing text and background colors is <em>contrast</em>. The Web Content Accessibility Guidelines (WCAG) define minimum contrast ratios to ensure that text is legible for users with low vision or color blindness. The standard recommendation is a contrast ratio of at least <strong>4.5:1</strong> for normal text and <strong>3:1</strong> for large text (roughly 18pt or 14pt bold). Tools such as the WebAIM Contrast Checker or built-in browser developer tools can measure the ratio between any two colors automatically.</p>
+
+<p>As a practical rule: very dark text on a very light background, or very light text on a very dark background, almost always satisfies contrast requirements. Medium-value colors on similarly medium backgrounds — like light gray text on a white background — frequently fail. Always verify your choices rather than relying on intuition alone, because what looks fine on a bright monitor in a dark room may be completely unreadable on a phone in sunlight.</p>
+
+<pre><code>/* Good contrast — passes WCAG AA */
+.readable {
+  color: #1a1a1a;          /* near-black */
+  background-color: #ffffff; /* white */
+}
+
+/* Poor contrast — likely to fail WCAG checks */
+.hard-to-read {
+  color: #aaaaaa;            /* medium gray */
+  background-color: #ffffff; /* white — ratio roughly 2.3:1 — fails */
+}
+
+/* Good contrast on dark background */
+.dark-theme {
+  color: #f0f0f0;            /* near-white */
+  background-color: #121212; /* near-black */
+}</code></pre>
+
+<p>By thoughtfully combining <code>font-family</code>, <code>font-size</code>, <code>font-weight</code>, <code>line-height</code>, <code>text-align</code>, <code>color</code>, and <code>background-color</code>, you have everything you need to create typography that is not only attractive but genuinely accessible and easy to read. These properties are the vocabulary of visual communication on the web, and understanding them in depth pays dividends in every project you build.</p>
+        <div class="notes"><strong>Notes</strong>Students should be encouraged to use browser developer tools to inspect computed font sizes and color contrast ratios in real time. A practical exercise pairing these properties — building a styled article or card component — reinforces all six subtopic areas simultaneously.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

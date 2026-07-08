@@ -1,0 +1,610 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom JavaScript Form Validation</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 5 - Creating and Validating HTML Forms</a></div>
+  <header>
+    <h1>Custom JavaScript Form Validation</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Custom JavaScript Form Validation</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Client-side form validation is one of the most important pieces of interactive web development. While HTML5 provides a useful set of built-in validation attributes — <code>required</code>, <code>type</code>, <code>pattern</code>, <code>minlength</code>, <code>min</code>, <code>max</code>, and others — real-world forms quickly outgrow what those attributes can express. Cross-field comparisons (such as confirming a password), conditional rules (validating a field only when another has a certain value), format checks more nuanced than a single regular expression, and fully custom error messages all require JavaScript. Custom validation done well also means the browser's native submission-prevention mechanism still works, errors are displayed inline next to their fields, assistive technologies are kept informed, and the code is organized so that adding or changing a rule is a surgical, localized change rather than a hunt through scattered event handlers. The sections below build up every layer of that picture.</p>
+
+<p><strong>The Constraint Validation API</strong></p>
+<p>Modern browsers expose the <em>Constraint Validation API</em> on every form control element (<code>input</code>, <code>textarea</code>, <code>select</code>, and so on). This API is the bridge between your custom JavaScript logic and the browser's own validation machinery. Understanding it is the foundation of everything else.</p>
+
+<p>Every form control has a <strong><code>validity</code></strong> property that returns a live <code>ValidityState</code> object. This object contains a set of boolean flags, each describing a specific category of validation failure. When a flag is <code>true</code>, that particular constraint has been violated.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Flag</th>
+      <th>Set to <code>true</code> when…</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>valueMissing</code></td>
+      <td>The field has the <code>required</code> attribute and its value is empty.</td>
+    </tr>
+    <tr>
+      <td><code>typeMismatch</code></td>
+      <td>The value does not match the format implied by the <code>type</code> attribute (e.g., a non-email value in <code>type="email"</code>).</td>
+    </tr>
+    <tr>
+      <td><code>patternMismatch</code></td>
+      <td>The value does not match the regular expression in the <code>pattern</code> attribute.</td>
+    </tr>
+    <tr>
+      <td><code>tooShort</code></td>
+      <td>The value length is less than <code>minlength</code>.</td>
+    </tr>
+    <tr>
+      <td><code>tooLong</code></td>
+      <td>The value length exceeds <code>maxlength</code>.</td>
+    </tr>
+    <tr>
+      <td><code>rangeUnderflow</code></td>
+      <td>The numeric value is less than the <code>min</code> attribute.</td>
+    </tr>
+    <tr>
+      <td><code>rangeOverflow</code></td>
+      <td>The numeric value exceeds the <code>max</code> attribute.</td>
+    </tr>
+    <tr>
+      <td><code>stepMismatch</code></td>
+      <td>The value does not conform to the <code>step</code> attribute increment.</td>
+    </tr>
+    <tr>
+      <td><code>customError</code></td>
+      <td>A custom error has been set via <code>setCustomValidity()</code>.</td>
+    </tr>
+    <tr>
+      <td><code>valid</code></td>
+      <td>All constraints pass — no flags above are <code>true</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The <strong><code>checkValidity()</code></strong> method evaluates all constraints on a field and returns <code>true</code> if the field is valid or <code>false</code> if any constraint is violated. Crucially, when it returns <code>false</code> it also fires an <code>invalid</code> event on that element. You can listen for that event to coordinate your UI updates. Calling <code>form.checkValidity()</code> runs the check on every field in the form and returns <code>false</code> if any single field fails.</p>
+
+<p>The most powerful method for custom logic is <strong><code>setCustomValidity(message)</code></strong>. Passing a non-empty string marks the field as invalid and sets the <code>validity.customError</code> flag to <code>true</code>. The browser will use this string as the validation message in its native tooltip and will prevent form submission. Passing an <em>empty string</em> clears the custom error, setting <code>validity.customError</code> back to <code>false</code> — but only if no other built-in constraint is also failing. This is vital: you must call <code>setCustomValidity('')</code> every time you re-evaluate a field, otherwise a stale custom error will block submission even after the user has corrected the input.</p>
+
+<pre><code>const emailInput = document.getElementById('email');
+
+function validateEmail() {
+  const value = emailInput.value.trim();
+
+  // Always clear first so a previously set custom error does not persist
+  emailInput.setCustomValidity('');
+
+  if (value === '') {
+    emailInput.setCustomValidity('Please enter your email address.');
+  } else if (!value.includes('@')) {
+    emailInput.setCustomValidity('That does not look like a valid email.');
+  }
+  // If neither condition fires, the field remains valid
+}
+
+emailInput.addEventListener('blur', validateEmail);
+</code></pre>
+
+<p>Using the Constraint Validation API keeps your custom logic wired directly into the browser's submission-prevention mechanism. You do not need to manually track an "is the form valid" boolean — as long as any field reports invalid (whether through a built-in constraint or a custom one), the browser will refuse to submit the form natively and will fire the <code>invalid</code> event on each failing field.</p>
+
+<p><strong>Intercepting Form Submission with Event Listeners</strong></p>
+<p>Even when you use the Constraint Validation API, it is standard practice to attach a <code>submit</code> event listener to the form itself. This gives you a single, central location where you can run a final pass of all validation logic, assemble error state, and decide whether to allow or block submission. It is also the place where you would serialize form data and send it via <code>fetch</code> if you are handling the submission with AJAX rather than a traditional page reload.</p>
+
+<p>Select the form using <code>document.querySelector()</code> or <code>document.getElementById()</code>, then register the handler:</p>
+
+<pre><code>const form = document.querySelector('#registration-form');
+
+form.addEventListener('submit', handleSubmit);
+
+function handleSubmit(event) {
+  // Prevent the browser from submitting immediately
+  event.preventDefault();
+
+  // Run all custom validation (details in later sections)
+  const isValid = validateForm(form);
+
+  if (isValid) {
+    // All checks passed — submit programmatically or via fetch
+    form.submit(); // native submission
+    // — or —
+    // submitViaFetch(new FormData(form));
+  }
+  // If not valid, errors are already displayed; do nothing further here
+}
+</code></pre>
+
+<p>Calling <code>event.preventDefault()</code> at the very top of the handler — before any validation logic — is the safe approach. It ensures the form will never submit until your code explicitly decides it should. After validation, you re-allow submission either by calling <code>form.submit()</code> programmatically (which bypasses the <code>submit</code> event and therefore does not re-trigger your listener) or by sending the data yourself via the Fetch API. An alternative pattern is to let the browser's own Constraint Validation API handle prevention: only call <code>event.preventDefault()</code> when your custom logic finds errors. Either approach works; the explicit prevention pattern is more predictable when mixing built-in and custom checks.</p>
+
+<p><strong>Writing Custom Validation Functions</strong></p>
+<p>A key principle of maintainable validation is <em>separating the validation rules from the DOM interaction</em>. Each rule should live in its own small function that receives a value (or values) and returns either <code>null</code> (or <code>true</code>) for a valid result, or an error message string for an invalid result. These functions know nothing about the DOM — they are pure functions of their inputs, which makes them trivial to unit-test and reuse across different forms.</p>
+
+<pre><code>// Single-field validators — pure functions, no DOM access
+function isRequired(value) {
+  return value.trim().length > 0 ? null : 'This field is required.';
+}
+
+function minLength(min) {
+  return function(value) {
+    return value.trim().length >= min
+      ? null
+      : `Must be at least ${min} characters.`;
+  };
+}
+
+function isValidEmail(value) {
+  // A more thorough check than type="email" alone
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  return emailPattern.test(value.trim())
+    ? null
+    : 'Please enter a valid email address (e.g., user@example.com).';
+}
+
+function isStrongPassword(value) {
+  const hasUpper  = /[A-Z]/.test(value);
+  const hasLower  = /[a-z]/.test(value);
+  const hasDigit  = /\d/.test(value);
+  const hasSymbol = /[!@#$%^&*]/.test(value);
+  const longEnough = value.length >= 8;
+
+  if (!longEnough) return 'Password must be at least 8 characters.';
+  if (!hasUpper)   return 'Password must include at least one uppercase letter.';
+  if (!hasLower)   return 'Password must include at least one lowercase letter.';
+  if (!hasDigit)   return 'Password must include at least one number.';
+  if (!hasSymbol)  return 'Password must include at least one symbol (!@#$%^&*).';
+  return null;
+}
+</code></pre>
+
+<p><strong>Cross-field validation</strong> is where custom JavaScript genuinely surpasses what HTML attributes can do. A cross-field rule reads values from two or more inputs and compares them. The validator function can receive the entire form or a collection of values:</p>
+
+<pre><code>function passwordsMatch(password, confirmPassword) {
+  return password === confirmPassword
+    ? null
+    : 'Passwords do not match. Please re-enter your password.';
+}
+
+// Called during form validation:
+const error = passwordsMatch(
+  document.getElementById('password').value,
+  document.getElementById('confirm-password').value
+);
+</code></pre>
+
+<p>Format checks that go beyond a single <code>pattern</code> attribute are another strong use case. Consider a US phone number that should accept several formats:</p>
+
+<pre><code>function isValidPhone(value) {
+  // Accept (555) 867-5309, 555-867-5309, 5558675309, +15558675309
+  const cleaned = value.replace(/\D/g, '');
+  if (cleaned.length === 10) return null;
+  if (cleaned.length === 11 && cleaned[0] === '1') return null;
+  return 'Enter a 10-digit US phone number (e.g., 555-867-5309).';
+}
+</code></pre>
+
+<p>Range and relationship validation is also common — for example, ensuring an end date is after a start date:</p>
+
+<pre><code>function endDateAfterStart(startValue, endValue) {
+  if (!startValue || !endValue) return null; // let required checks handle emptiness
+  return new Date(endValue) > new Date(startValue)
+    ? null
+    : 'End date must be later than the start date.';
+}
+</code></pre>
+
+<p>Keeping each function small and single-purpose (the <em>single responsibility principle</em>) means a failing rule is immediately traceable to one function, and adding a new constraint is as simple as writing one new function and registering it in the rules configuration.</p>
+
+<p><strong>Displaying Inline Error Messages</strong></p>
+<p>The browser's native validation tooltip (the yellow popup) is accessible in some browsers but visually inconsistent, cannot be styled to match your design, and disappears on the first interaction. Inline error messages — text displayed directly below (or near) each field — are far superior in both usability and visual control.</p>
+
+<p>Reserve a container element in the HTML markup for each field's error message. Using a <code>&lt;span&gt;</code> with a descriptive class and an <code>aria-live</code> attribute is the standard approach:</p>
+
+<pre><code>&lt;div class="form-group"&gt;
+  &lt;label for="username"&gt;Username&lt;/label&gt;
+  &lt;input type="text" id="username" name="username" required minlength="3" /&gt;
+  &lt;span class="error-msg" id="username-error" aria-live="polite"&gt;&lt;/span&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>In JavaScript, write two small helper functions — one to display an error and one to clear it:</p>
+
+<pre><code>function showError(input, message) {
+  const errorEl = document.getElementById(`${input.id}-error`);
+  if (errorEl) {
+    errorEl.textContent = message;
+  }
+  input.classList.add('input--error');
+  input.setAttribute('aria-invalid', 'true');
+}
+
+function clearError(input) {
+  const errorEl = document.getElementById(`${input.id}-error`);
+  if (errorEl) {
+    errorEl.textContent = '';
+  }
+  input.classList.remove('input--error');
+  input.setAttribute('aria-invalid', 'false');
+}
+</code></pre>
+
+<p>The corresponding CSS makes the error state visible:</p>
+
+<pre><code>.error-msg {
+  display: block;
+  color: #d32f2f;
+  font-size: 0.85rem;
+  margin-top: 4px;
+  min-height: 1.2em; /* reserves space so layout does not jump */
+}
+
+.input--error {
+  border: 2px solid #d32f2f;
+  background-color: #fff5f5;
+}
+</code></pre>
+
+<p>Notice that <code>textContent</code> is used instead of <code>innerHTML</code>. This is both a security best practice (no risk of injecting markup from error strings) and a performance detail (no HTML parsing required). Always clear the error container (<code>textContent = ''</code>) when validation passes; leaving a stale message in place is a common bug that confuses users.</p>
+
+<p><strong>Real-Time Validation with Input and Blur Events</strong></p>
+<p>Timing is everything in form validation UX. Displaying errors while a user is mid-keystroke — before they have had a chance to finish typing — is one of the most common and frustrating validation mistakes. The solution is to choose the right event for each scenario.</p>
+
+<p>The <strong><code>blur</code></strong> event fires when a field loses focus. This is the right moment for most validation: the user has finished entering their value and moved on. Validate on blur to show the first error message without being intrusive:</p>
+
+<pre><code>const usernameInput = document.getElementById('username');
+
+usernameInput.addEventListener('blur', function() {
+  const error = isRequired(this.value) || minLength(3)(this.value);
+  if (error) {
+    showError(this, error);
+  } else {
+    clearError(this);
+  }
+});
+</code></pre>
+
+<p>The <strong><code>input</code></strong> event fires on every change to the value — every keystroke, paste, cut, or autofill. Use this for live feedback where the benefit outweighs the noise: password strength meters, character counters, and clearing existing errors as the user corrects them are all appropriate uses:</p>
+
+<pre><code>const passwordInput = document.getElementById('password');
+const strengthIndicator = document.getElementById('password-strength');
+
+passwordInput.addEventListener('input', function() {
+  // Clear a previously shown error immediately as the user types
+  clearError(this);
+
+  // Live strength feedback (not a hard error, just guidance)
+  const strength = measurePasswordStrength(this.value);
+  strengthIndicator.textContent = `Strength: ${strength}`;
+  strengthIndicator.className = `strength strength--${strength.toLowerCase()}`;
+});
+</code></pre>
+
+<p>The <strong>combination strategy</strong> — validate (show errors) on blur, and clear errors in real time on input — gives the best of both worlds. Here is the full pattern applied to a single field:</p>
+
+<pre><code>function attachValidation(input, validators) {
+  // Show error only after the user leaves the field
+  input.addEventListener('blur', function() {
+    runValidation(input, validators);
+  });
+
+  // Clear the error immediately as the user starts correcting
+  input.addEventListener('input', function() {
+    // Only clear; do not re-show errors mid-typing
+    if (input.classList.contains('input--error')) {
+      clearError(input);
+    }
+  });
+}
+
+function runValidation(input, validators) {
+  for (const validate of validators) {
+    const error = validate(input.value);
+    if (error) {
+      showError(input, error);
+      input.setCustomValidity(error);
+      return;
+    }
+  }
+  clearError(input);
+  input.setCustomValidity('');
+}
+</code></pre>
+
+<p>For expensive checks — such as querying a server to see whether a username is already taken — never call them on every keystroke. Use <strong>debouncing</strong> to delay the call until the user has paused typing, and restrict the absolute final check to the <code>blur</code> event or the form <code>submit</code> handler:</p>
+
+<pre><code>function debounce(fn, delay) {
+  let timer;
+  return function(...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn.apply(this, args), delay);
+  };
+}
+
+const checkUsernameAvailability = debounce(async function(value) {
+  if (value.length < 3) return;
+  const response = await fetch(`/api/check-username?name=${encodeURIComponent(value)}`);
+  const { available } = await response.json();
+  if (!available) {
+    showError(usernameInput, 'That username is already taken. Please choose another.');
+    usernameInput.setCustomValidity('Username taken.');
+  } else {
+    clearError(usernameInput);
+    usernameInput.setCustomValidity('');
+  }
+}, 400);
+
+usernameInput.addEventListener('input', function() {
+  checkUsernameAvailability(this.value);
+});
+</code></pre>
+
+<p><strong>Accessibility Considerations in Custom Validation</strong></p>
+<p>A visually obvious red border and error text means nothing to a user who relies on a screen reader unless the DOM communicates that information programmatically. Accessibility is not a finishing touch — it must be built into the validation pattern from the start.</p>
+
+<p><strong><code>aria-describedby</code></strong> links an input to one or more elements whose content describes it. Screen readers will read the linked element's content when the field is focused. Set it in the HTML (not in JavaScript) so the association exists even before any error occurs:</p>
+
+<pre><code>&lt;input
+  type="email"
+  id="email"
+  name="email"
+  required
+  aria-describedby="email-error email-hint"
+/&gt;
+&lt;span id="email-hint" class="hint"&gt;We will never share your email address.&lt;/span&gt;
+&lt;span id="email-error" class="error-msg" aria-live="polite"&gt;&lt;/span&gt;
+</code></pre>
+
+<p>When the screen reader focuses the email field, it will announce both the hint and, if present, any error message. Multiple IDs in <code>aria-describedby</code> are space-separated.</p>
+
+<p><strong><code>aria-invalid</code></strong> explicitly communicates that a field's current value fails validation. Set it to <code>"true"</code> when showing an error and <code>"false"</code> (or remove it entirely) when clearing the error. Screen readers typically announce something like "invalid entry" when the user lands on a field with <code>aria-invalid="true"</code>:</p>
+
+<pre><code>// In showError:
+input.setAttribute('aria-invalid', 'true');
+
+// In clearError:
+input.setAttribute('aria-invalid', 'false');
+</code></pre>
+
+<p><strong><code>aria-live</code></strong> on the error container tells the browser to announce changes to that element's content without requiring the user to move focus to it. <code>aria-live="polite"</code> waits for the user to finish their current activity before announcing; <code>aria-live="assertive"</code> interrupts immediately. Polite is almost always the right choice for form validation errors — assertive should be reserved for critical, time-sensitive announcements.</p>
+
+<p>Beyond ARIA attributes, the <em>content</em> of error messages matters for accessibility. A screen reader user who hears "Invalid input" has no actionable information. Every error message should name the field (if not obvious from context), describe what is wrong, and say how to fix it:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Poor message</th>
+      <th>Better message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Invalid input</td>
+      <td>Please enter a valid email address (e.g., user@example.com).</td>
+    </tr>
+    <tr>
+      <td>Error</td>
+      <td>Password must be at least 8 characters and include a number.</td>
+    </tr>
+    <tr>
+      <td>Required</td>
+      <td>Full name is required.</td>
+    </tr>
+    <tr>
+      <td>Passwords don't match</td>
+      <td>Passwords do not match. Please re-enter your password in the confirmation field.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Additionally, when the form fails validation on submit, consider moving focus programmatically to the first invalid field. This allows keyboard and screen reader users to immediately begin correcting errors rather than having to navigate back up to them:</p>
+
+<pre><code>function focusFirstError(form) {
+  const firstInvalid = form.querySelector('[aria-invalid="true"]');
+  if (firstInvalid) {
+    firstInvalid.focus();
+  }
+}
+</code></pre>
+
+<p><strong>Structuring a Reusable Validation Module</strong></p>
+<p>Ad hoc validation — dozens of <code>if</code> statements scattered across multiple event handlers — becomes unmanageable as forms grow. A structured, configuration-driven approach centralizes all rules into one place and separates the <em>what</em> (which rules apply to which fields) from the <em>how</em> (the loop that applies them).</p>
+
+<p>Start with a <strong>rules configuration object</strong> that maps field IDs to an ordered array of validator functions. The validators are the pure functions written earlier:</p>
+
+<pre><code>const formRules = {
+  username: [
+    isRequired,
+    minLength(3),
+    maxLength(20),
+  ],
+  email: [
+    isRequired,
+    isValidEmail,
+  ],
+  password: [
+    isRequired,
+    isStrongPassword,
+  ],
+  'confirm-password': [
+    isRequired,
+    // Cross-field rule — a closure that reads the password field
+    (value) => passwordsMatch(
+      document.getElementById('password').value,
+      value
+    ),
+  ],
+};
+</code></pre>
+
+<p>Write a generic <strong><code>validate(fieldId, rules)</code></strong> function that iterates over the rules for that field and returns the first error message it finds, or <code>null</code> if all rules pass. Returning on the first failure (short-circuit evaluation) is deliberate: showing one error at a time per field is less overwhelming than showing all failures simultaneously:</p>
+
+<pre><code>function validate(fieldId, rules) {
+  const input = document.getElementById(fieldId);
+  if (!input) return null;
+
+  for (const rule of rules) {
+    const error = rule(input.value);
+    if (error) return error;
+  }
+  return null;
+}
+</code></pre>
+
+<p>Write a <strong><code>validateForm()</code></strong> function that loops over all entries in the rules configuration, calls <code>validate()</code> for each, and updates the UI. It returns <code>true</code> only if every field passes:</p>
+
+<pre><code>function validateForm() {
+  let isValid = true;
+
+  for (const [fieldId, rules] of Object.entries(formRules)) {
+    const input = document.getElementById(fieldId);
+    const error = validate(fieldId, rules);
+
+    if (error) {
+      showError(input, error);
+      input.setCustomValidity(error);
+      isValid = false;
+    } else {
+      clearError(input);
+      input.setCustomValidity('');
+    }
+  }
+
+  if (!isValid) {
+    focusFirstError(document.getElementById('registration-form'));
+  }
+
+  return isValid;
+}
+</code></pre>
+
+<p>Wire everything together in the <code>submit</code> handler and by attaching real-time listeners to each field using the same rules map:</p>
+
+<pre><code>const form = document.getElementById('registration-form');
+
+// Attach blur/input listeners to every configured field
+for (const [fieldId, rules] of Object.entries(formRules)) {
+  const input = document.getElementById(fieldId);
+  if (!input) continue;
+
+  input.addEventListener('blur', () => {
+    const error = validate(fieldId, rules);
+    if (error) {
+      showError(input, error);
+      input.setCustomValidity(error);
+    } else {
+      clearError(input);
+      input.setCustomValidity('');
+    }
+  });
+
+  input.addEventListener('input', () => {
+    if (input.classList.contains('input--error')) {
+      clearError(input);
+      input.setCustomValidity('');
+    }
+  });
+}
+
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+  if (validateForm()) {
+    form.submit();
+  }
+});
+</code></pre>
+
+<p>This architecture has several concrete benefits. Adding a new rule to an existing field is a one-line change in <code>formRules</code>. Adding validation to a new field means adding one entry to <code>formRules</code> and the corresponding HTML. Removing a rule is equally surgical. And because each validator is a pure function, unit testing is straightforward with any test framework — no DOM or browser required:</p>
+
+<pre><code>// Example unit tests (Jest-style pseudocode)
+test('isRequired returns null for non-empty string', () => {
+  expect(isRequired('hello')).toBeNull();
+});
+
+test('isRequired returns error message for empty string', () => {
+  expect(isRequired('')).toBe('This field is required.');
+});
+
+test('isValidEmail rejects missing TLD', () => {
+  expect(isValidEmail('user@example')).not.toBeNull();
+});
+
+test('passwordsMatch returns null when values are equal', () => {
+  expect(passwordsMatch('Secret1!', 'Secret1!')).toBeNull();
+});
+
+test('passwordsMatch returns error when values differ', () => {
+  expect(passwordsMatch('Secret1!', 'Different1!')).toBe(
+    'Passwords do not match. Please re-enter your password.'
+  );
+});
+</code></pre>
+
+<p>Taken together, the Constraint Validation API, a disciplined event-handling strategy, pure validator functions, semantic error display, accessible ARIA attributes, and a configuration-driven module give you a validation system that is robust, maintainable, and genuinely inclusive for all users.</p>
+        <div class="notes"><strong>Notes</strong>Covers all listed subtopics in depth. Includes practical code examples for every major concept: ValidityState flags (tabulated), setCustomValidity usage, submit interception, pure validator functions, cross-field and format validation, showError/clearError helpers, blur+input event strategy, debouncing, aria-describedby/aria-invalid/aria-live, accessible error message wording (tabulated), and the full reusable module pattern with unit test examples.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

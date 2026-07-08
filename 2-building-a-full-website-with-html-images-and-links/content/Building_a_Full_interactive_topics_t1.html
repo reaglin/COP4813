@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to Multi-Page Website Structure</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 2 -Building a Full Website with HTML, Images, and Links</a></div>
+  <header>
+    <h1>Introduction to Multi-Page Website Structure</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to Multi-Page Website Structure</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When you visit most websites, you are not looking at a single, endless page of content. Instead, you are navigating through a collection of interconnected pages — a <strong>multi-page website</strong>. Understanding how these sites are organized, how each page is built, and how they link together is the essential foundation for any web developer. This topic introduces the core concepts behind multi-page website structure, the role HTML plays in defining that structure, and the planning habits that make development smoother and more professional from the very beginning.</p>
+
+<p>A multi-page website is, at its most straightforward level, a collection of individual HTML files that share a common purpose and are connected to one another through hyperlinks. Think about a small business website: there might be a home page welcoming visitors, an about page describing the company, a services page listing what the business offers, and a contact page with a form or phone number. Each of these is typically its own HTML file — <code>index.html</code>, <code>about.html</code>, <code>services.html</code>, and <code>contact.html</code> — stored in the same project folder or in an organized set of subfolders.</p>
+
+<p>The key characteristic of a multi-page site is that <strong>content is distributed across pages intentionally</strong>. Rather than dumping everything onto a single document, each page is focused on a specific topic or task. This focus benefits visitors enormously: they can go directly to the information they need without scrolling through irrelevant content. It also benefits developers, because smaller, focused files are easier to write, read, and update than one enormous document trying to do everything at once.</p>
+
+<p>All pages in a multi-page site are connected to one another through hyperlinks, which means a visitor can always find their way from one page to another. Without those connections, separate HTML files would just be isolated documents — a site requires not only the files themselves but the linking structure that ties them together into a navigable whole.</p>
+
+<p><strong>HTML — HyperText Markup Language</strong> — is the language that gives every web page its structure. It works through a system of <em>tags</em> and <em>elements</em> that mark up content, telling the browser what each piece of content is and how it relates to the surrounding content. A browser reads an HTML document from top to bottom, interprets the tags, and renders the result as the visual page a user sees. Every page in a multi-page site, no matter how different its content, is built on this same foundation.</p>
+
+<p>It helps to think of HTML as a skeleton. Just as a skeleton gives a body its shape and holds everything in place, HTML gives a web page its underlying structure. The text, images, links, forms, and every other piece of content are all organized and given meaning by HTML. Later, CSS (Cascading Style Sheets) is added to control visual appearance — colors, fonts, layout — and JavaScript adds interactivity. But none of that works without the HTML structure beneath it. This is why understanding HTML structure is the first and most critical step in web development.</p>
+
+<p>Every HTML document follows the same fundamental pattern. At the very top of the file is the <strong>DOCTYPE declaration</strong>, which looks like this:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;</code></pre>
+
+<p>This single line is not a tag in the traditional sense; it is an instruction to the browser declaring that this document uses <strong>HTML5</strong>, the current standard version of HTML. Without it, browsers may fall into "quirks mode," a legacy compatibility behavior that can cause pages to render in unexpected ways. Always include the DOCTYPE declaration as the very first line of every HTML file.</p>
+
+<p>Following the DOCTYPE, the entire document is wrapped in the <code>&lt;html&gt;</code> element. Inside that, the document is divided into two major sections:</p>
+
+<ul>
+  <li><strong>The <code>&lt;head&gt;</code> element</strong> — contains metadata about the page: the document's title (shown in the browser tab), links to CSS stylesheets, character encoding declarations, and other information that is important for the browser and search engines but is not directly displayed to the visitor.</li>
+  <li><strong>The <code>&lt;body&gt;</code> element</strong> — contains all of the content that is actually visible and interactive on the page: headings, paragraphs, images, links, forms, and everything else the user sees and interacts with.</li>
+</ul>
+
+<p>A minimal, complete HTML page looks like this:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;About Us&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;Welcome to our About page.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<p>Notice how this structure is consistent regardless of what content the page contains. The DOCTYPE, the <code>&lt;html&gt;</code> wrapper, the <code>&lt;head&gt;</code>, and the <code>&lt;body&gt;</code> are always present. In a multi-page website, this same template is used as the starting point for every HTML file — <code>index.html</code>, <code>about.html</code>, <code>contact.html</code>, and so on. Using a <strong>consistent page template</strong> across all files is not just a matter of convenience; it ensures that every page behaves predictably and makes future maintenance much easier. If you decide to update the character encoding declaration or add a new stylesheet link, you know exactly where to find it in every file.</p>
+
+<p>As HTML has evolved, it has developed a set of <strong>semantic elements</strong> — tags whose names describe the <em>meaning</em> or <em>purpose</em> of the content they contain, rather than just how that content should look. Compare these two approaches to marking up a navigation bar:</p>
+
+<pre><code>&lt;!-- Non-semantic approach --&gt;
+&lt;div id="nav"&gt;
+  &lt;div&gt;&lt;a href="index.html"&gt;Home&lt;/a&gt;&lt;/div&gt;
+  &lt;div&gt;&lt;a href="about.html"&gt;About&lt;/a&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Semantic approach --&gt;
+&lt;nav&gt;
+  &lt;a href="index.html"&gt;Home&lt;/a&gt;
+  &lt;a href="about.html"&gt;About&lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+
+<p>Both approaches produce a navigation area, but the second example uses the <code>&lt;nav&gt;</code> element, which explicitly tells the browser, assistive technologies like screen readers, and any developer reading the code that this section contains navigation links. This is the essence of semantic markup: <strong>the tag communicates purpose, not just appearance</strong>.</p>
+
+<p>Some of the most important semantic elements used in multi-page websites include:</p>
+
+<ul>
+  <li><strong><code>&lt;header&gt;</code></strong> — Represents the introductory content of a page or section, often containing the site logo, site title, and navigation.</li>
+  <li><strong><code>&lt;nav&gt;</code></strong> — Contains the primary navigation links of the site.</li>
+  <li><strong><code>&lt;main&gt;</code></strong> — Wraps the dominant, unique content of a page. There should only be one <code>&lt;main&gt;</code> per page.</li>
+  <li><strong><code>&lt;article&gt;</code></strong> — Represents a self-contained piece of content that could stand alone, such as a blog post or news story.</li>
+  <li><strong><code>&lt;section&gt;</code></strong> — Groups related content together within a page, typically with its own heading.</li>
+  <li><strong><code>&lt;aside&gt;</code></strong> — Contains content that is tangentially related to the main content, such as a sidebar.</li>
+  <li><strong><code>&lt;footer&gt;</code></strong> — Represents the closing content of a page or section, commonly containing copyright information, links, or contact details.</li>
+</ul>
+
+<p>Semantic markup matters for three important reasons. First, it improves <strong>accessibility</strong>: screen readers used by visually impaired users rely on semantic structure to navigate pages. A screen reader user can jump directly to the <code>&lt;main&gt;</code> content or skip to the <code>&lt;nav&gt;</code> links because those elements communicate their role clearly. Second, it supports <strong>search engine optimization (SEO)</strong>: search engine crawlers analyze HTML structure to understand what a page is about, and semantically correct markup helps search engines index content more accurately. Third, it improves <strong>code readability and maintainability</strong>: when another developer (or your future self) opens an HTML file, semantic tags make the structure self-documenting.</p>
+
+<p>Applying semantic structure consistently across <em>every</em> page of a multi-page site is especially important. If some pages use <code>&lt;nav&gt;</code> for navigation and others use a <code>&lt;div&gt;</code>, the site becomes inconsistent and harder to maintain. A uniform semantic structure across all pages reinforces the logical organization of the entire website.</p>
+
+<p>The mechanism that transforms a collection of separate HTML files into a navigable website is the <strong>hyperlink</strong>, created with the anchor tag <code>&lt;a&gt;</code>. Every link has an <code>href</code> attribute (short for "hypertext reference") that specifies the destination. For links between pages within the same site — called <strong>internal links</strong> — the <code>href</code> points to another HTML file in the project:</p>
+
+<pre><code>&lt;a href="about.html"&gt;About Us&lt;/a&gt;
+&lt;a href="contact.html"&gt;Contact&lt;/a&gt;
+&lt;a href="index.html"&gt;Home&lt;/a&gt;</code></pre>
+
+<p>When a visitor clicks one of these links, the browser loads the specified HTML file and displays it. If the linked file is in a subfolder, the path reflects that:</p>
+
+<pre><code>&lt;a href="pages/services.html"&gt;Our Services&lt;/a&gt;</code></pre>
+
+<p>Without internal links, each HTML file is an island. A visitor who lands on the home page would have no way to reach the about page or contact page. The site would be effectively unusable as a website, existing only as isolated documents. Navigation menus — placed in the <code>&lt;header&gt;</code> or <code>&lt;nav&gt;</code> element and repeated consistently across every page — are how multi-page sites expose their internal linking structure to visitors in a predictable, easy-to-use way.</p>
+
+<p>Planning the linking structure <em>before</em> writing any code is a habit that pays off enormously. Sketch out which pages exist and which pages link to which other pages. This is often called a <strong>site map</strong>. A simple site map for a small business website might look like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Page</th>
+      <th>File Name</th>
+      <th>Links To</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Home</td>
+      <td>index.html</td>
+      <td>about.html, services.html, contact.html</td>
+    </tr>
+    <tr>
+      <td>About</td>
+      <td>about.html</td>
+      <td>index.html, services.html, contact.html</td>
+    </tr>
+    <tr>
+      <td>Services</td>
+      <td>services.html</td>
+      <td>index.html, about.html, contact.html</td>
+    </tr>
+    <tr>
+      <td>Contact</td>
+      <td>contact.html</td>
+      <td>index.html, about.html, services.html</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>With a plan like this, you can verify before writing a single line of code that every page is reachable from every other page and that the site flows logically.</p>
+
+<p>Good planning goes beyond just identifying pages. Before writing code, a thoughtful developer considers several practical matters that prevent problems later:</p>
+
+<ul>
+  <li><strong>File-naming conventions:</strong> Use lowercase letters and hyphens instead of spaces or underscores in file and folder names (e.g., <code>about-us.html</code> rather than <code>About Us.html</code> or <code>About_Us.html</code>). Web servers are often case-sensitive, meaning <code>About.html</code> and <code>about.html</code> may be treated as completely different files. Inconsistent naming is one of the most common causes of broken links.</li>
+  <li><strong>Folder structure:</strong> For small sites, all HTML files can live in the root folder. For larger sites, it makes sense to create subfolders for pages, images, stylesheets, and scripts. Deciding on this structure early means your links and file paths are consistent from the beginning.</li>
+  <li><strong>Shared content:</strong> Identify elements that will appear on every page — the navigation bar, the footer, the site logo — and plan how they will be implemented consistently. Even in plain HTML without any server-side technology, writing this shared structure into a template you copy to each file ensures uniformity.</li>
+  <li><strong>Content inventory:</strong> List what content each page will contain. This helps you understand how much HTML you need to write and whether any pages need to be split further or merged.</li>
+</ul>
+
+<p>A clear upfront plan ensures that images, links, and pages all work together as a unified whole from the very start of development, rather than requiring time-consuming fixes and reorganization later. The discipline of planning — creating a site map, choosing naming conventions, defining a consistent template — is as important a skill as writing the HTML itself.</p>
+
+<p>To bring all of these concepts together, consider a minimal multi-page website project. The folder might look like this:</p>
+
+<pre><code>my-website/
+├── index.html
+├── about.html
+├── contact.html
+└── images/
+    └── logo.png</code></pre>
+
+<p>Every HTML file starts from the same template, uses the same semantic structure, and contains a consistent navigation bar built with internal links. The result is a coherent, navigable website that is easy to maintain, accessible to all users, and structured in a way that search engines can understand. This is the foundation upon which everything else in web development is built.</p>
+        <div class="notes"><strong>Notes</strong>Overview topic establishing multi-page website concepts. Covers: definition of multi-page sites, HTML&#39;s structural role, core HTML document components (DOCTYPE, html, head, body), semantic markup and its benefits, internal linking with anchor tags, and pre-development planning. All subtopics addressed in depth with code examples and a tabular site map illustration.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

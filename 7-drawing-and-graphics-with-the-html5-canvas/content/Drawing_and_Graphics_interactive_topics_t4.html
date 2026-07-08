@@ -1,0 +1,306 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Applying Colors, Styles, and Gradients</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 7 - Drawing and Graphics with the HTML5 Canvas</a></div>
+  <header>
+    <h1>Applying Colors, Styles, and Gradients</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Applying Colors, Styles, and Gradients</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Color and visual style are at the heart of everything drawn on an HTML5 canvas. Whether you are painting a simple rectangle, outlining a complex path, or compositing layered imagery, the Canvas 2D API provides a rich set of tools for controlling exactly how pixels are colored and how shapes blend together. These tools fall into a few broad categories: solid colors (specified in several formats), gradients (both linear and radial), repeating image patterns, and global compositing controls. Understanding how each category works — and how they interact with one another — is essential for producing anything beyond monochrome drawings.</p>
+
+<p>Before diving into specific color formats, it is important to understand the two fundamental style properties that govern almost all drawing on the canvas: <strong>fillStyle</strong> and <strong>strokeStyle</strong>. These two properties live on the rendering context object (conventionally named <code>ctx</code>) and accept any valid color string, gradient object, or pattern object. Setting <code>ctx.fillStyle</code> before calling <code>ctx.fill()</code> determines the interior color of a closed shape. Setting <code>ctx.strokeStyle</code> before calling <code>ctx.stroke()</code> determines the color painted along the outline or path of a shape. Both properties default to solid black (<code>#000000</code>) if you never explicitly assign them, so a freshly created context will draw black fills and black strokes right out of the box.</p>
+
+<p>A critical characteristic of these properties is that they are <em>stateful</em> and <em>persistent</em>. Once you set <code>ctx.fillStyle = 'red'</code>, every subsequent fill operation — no matter how many shapes or paths are drawn — will use red until you change <code>fillStyle</code> again. This means you must pay attention to the order of your property assignments. If you forget to reset a style before drawing a new shape, that new shape will inherit whatever style was set last. A common defensive practice is to save and restore context state using <code>ctx.save()</code> and <code>ctx.restore()</code> when working with complex scenes that require many style changes.</p>
+
+<pre><code>// Default styles — both are black
+const canvas = document.getElementById('myCanvas');
+const ctx = canvas.getContext('2d');
+
+ctx.fillRect(10, 10, 100, 50);   // Black fill (default)
+ctx.strokeRect(10, 70, 100, 50); // Black stroke (default)
+
+// Now change styles — they persist
+ctx.fillStyle = 'steelblue';
+ctx.strokeStyle = 'crimson';
+
+ctx.fillRect(120, 10, 100, 50);   // Blue fill
+ctx.strokeRect(120, 70, 100, 50); // Crimson stroke
+ctx.fillRect(230, 10, 100, 50);   // Still blue — style persists!
+</code></pre>
+
+<p>The simplest way to specify a color is with a <strong>named CSS color</strong> or a <strong>hex code</strong>. The canvas accepts any valid CSS color string, which includes the full set of named colors defined by CSS (such as <code>'red'</code>, <code>'dodgerblue'</code>, <code>'forestgreen'</code>, and more than 140 others) as well as hexadecimal notation like <code>'#ff0000'</code> for pure red or <code>'#3498db'</code> for a specific shade of blue. Three-digit hex shorthand also works: <code>'#f00'</code> is equivalent to <code>'#ff0000'</code>. These formats are concise and easy to read, making them ideal for fixed, well-known colors.</p>
+
+<p>When you need to define a color numerically — for example, when generating colors procedurally in a loop — the <strong>rgb()</strong> function is extremely useful. It takes three integer arguments, each ranging from 0 to 255, representing the red, green, and blue channels respectively. Pure red is <code>'rgb(255, 0, 0)'</code>, a medium grey is <code>'rgb(128, 128, 128)'</code>, and white is <code>'rgb(255, 255, 255)'</code>. This format is especially convenient when you are computing channel values mathematically.</p>
+
+<p>To introduce transparency, use <strong>rgba()</strong> instead. The fourth argument is the alpha channel, a decimal number between 0.0 (fully transparent) and 1.0 (fully opaque). An rgba color with alpha 0.5 will appear semi-transparent, allowing whatever was already drawn on the canvas beneath it to show through. This is a powerful technique for creating overlapping shapes with a sense of depth or for painting soft highlights over imagery.</p>
+
+<pre><code>// Solid red rectangle
+ctx.fillStyle = 'rgb(255, 0, 0)';
+ctx.fillRect(20, 20, 150, 100);
+
+// Semi-transparent blue rectangle overlapping the red one
+ctx.fillStyle = 'rgba(0, 0, 255, 0.5)';
+ctx.fillRect(80, 60, 150, 100);
+</code></pre>
+
+<p>An alternative to RGB is the <strong>hsl()</strong> format, which specifies color using <em>hue</em>, <em>saturation</em>, and <em>lightness</em>. The hue is an angle from 0 to 360 degrees on a color wheel (0/360 is red, 120 is green, 240 is blue). Saturation is a percentage where 0% is grey and 100% is fully saturated. Lightness is also a percentage where 0% is black, 50% is the pure color, and 100% is white. The <strong>hsla()</strong> variant adds an alpha channel just like rgba(). HSL is often more intuitive than RGB when you want to programmatically cycle through colors — for example, generating a rainbow by iterating the hue from 0 to 360 — or when you want to create color families by varying only the lightness or saturation of a fixed hue.</p>
+
+<pre><code>// Generate 12 evenly-spaced hues in a circle
+for (let i = 0; i < 12; i++) {
+  const hue = i * 30; // 0, 30, 60, 90, ... 330
+  ctx.fillStyle = `hsl(${hue}, 80%, 55%)`;
+  ctx.fillRect(10 + i * 40, 20, 35, 80);
+}
+</code></pre>
+
+<p>Beyond solid colors, the canvas API supports <strong>linear gradients</strong>, which blend smoothly between two or more colors along a straight line. You create a linear gradient by calling <code>ctx.createLinearGradient(x0, y0, x1, y1)</code>. The four arguments define the start point <code>(x0, y0)</code> and the end point <code>(x1, y1)</code> of the gradient line in canvas coordinates. The returned gradient object is not a color itself — it is a descriptor that you populate with color stops and then assign to a style property.</p>
+
+<p>Color stops are added with <code>gradient.addColorStop(offset, color)</code>. The <code>offset</code> is a number between 0.0 and 1.0 representing a position along the gradient line, where 0.0 is the start point and 1.0 is the end point. The <code>color</code> is any valid CSS color string. You must add at least two color stops. You may add as many as you like to create multi-color transitions. Colors between stops are smoothly interpolated. Once all stops are defined, assign the gradient object to <code>ctx.fillStyle</code> or <code>ctx.strokeStyle</code> and draw as normal.</p>
+
+<pre><code>// Horizontal gradient: red → yellow → green
+const linearGrad = ctx.createLinearGradient(0, 0, 400, 0);
+linearGrad.addColorStop(0.0, 'red');
+linearGrad.addColorStop(0.5, 'yellow');
+linearGrad.addColorStop(1.0, 'green');
+
+ctx.fillStyle = linearGrad;
+ctx.fillRect(0, 0, 400, 150);
+
+// Diagonal gradient: navy → skyblue
+const diagGrad = ctx.createLinearGradient(0, 0, 300, 200);
+diagGrad.addColorStop(0, '#001f5b');
+diagGrad.addColorStop(1, '#87ceeb');
+
+ctx.fillStyle = diagGrad;
+ctx.fillRect(0, 160, 300, 200);
+</code></pre>
+
+<p>It is important to understand that the gradient's coordinate space is fixed to the canvas, not to the shape being filled. If you create a gradient from x=0 to x=400 and then fill a rectangle that starts at x=200, only the right half of the gradient will be visible within that rectangle. This behavior gives you fine control over how colors span across multiple shapes if you want them all to participate in the same gradient sweep.</p>
+
+<p><strong>Radial gradients</strong> work similarly but radiate outward from a point rather than along a line, producing circular or oval color transitions that are ideal for glows, spotlights, and spherical shading. They are created with <code>ctx.createRadialGradient(x0, y0, r0, x1, y1, r1)</code>. This function takes two circles: an <em>inner circle</em> defined by center <code>(x0, y0)</code> and radius <code>r0</code>, and an <em>outer circle</em> defined by center <code>(x1, y1)</code> and radius <code>r1</code>. Color stop offset 0.0 maps to the inner circle's edge and 1.0 maps to the outer circle's edge.</p>
+
+<p>When both circles share the same center, the result is a perfectly concentric radial gradient — the classic "glow" effect. When the inner circle's center is offset from the outer circle's center, the gradient shifts to one side, producing effects that resemble a lens flare, a highlight on a sphere, or light coming from an oblique angle. This asymmetric configuration is a powerful technique for adding realism to otherwise flat circular shapes.</p>
+
+<pre><code>// Concentric radial gradient: bright white center fading to deep blue
+const radialGrad = ctx.createRadialGradient(200, 200, 10, 200, 200, 150);
+radialGrad.addColorStop(0.0, 'white');
+radialGrad.addColorStop(0.4, 'rgba(100, 160, 255, 0.9)');
+radialGrad.addColorStop(1.0, '#001030');
+
+ctx.fillStyle = radialGrad;
+ctx.beginPath();
+ctx.arc(200, 200, 150, 0, Math.PI * 2);
+ctx.fill();
+
+// Off-center radial gradient: simulates a highlight on a sphere
+const sphereGrad = ctx.createRadialGradient(160, 160, 5, 200, 200, 120);
+sphereGrad.addColorStop(0, 'rgba(255,255,255,0.9)');
+sphereGrad.addColorStop(1, 'rgba(30, 80, 160, 1.0)');
+
+ctx.fillStyle = sphereGrad;
+ctx.beginPath();
+ctx.arc(200, 200, 120, 0, Math.PI * 2);
+ctx.fill();
+</code></pre>
+
+<p>In addition to colors and gradients, the canvas supports <strong>patterns</strong> — repeating image tiles that can be used as fills or strokes. Patterns are created with <code>ctx.createPattern(image, repetition)</code>. The <code>image</code> argument can be any of several source types: an <strong>HTMLImageElement</strong> (a loaded <code>&lt;img&gt;</code> tag or a programmatically created <code>Image</code> object), an <strong>HTMLCanvasElement</strong> (another canvas, enabling you to use procedurally generated graphics as a tile), or an <strong>HTMLVideoElement</strong> (using a video frame as the tile source). The <code>repetition</code> argument is a string that controls how the image tiles:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Repetition Value</th>
+      <th>Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>'repeat'</code></td>
+      <td>Tiles the image in both the horizontal and vertical directions (default behavior).</td>
+    </tr>
+    <tr>
+      <td><code>'repeat-x'</code></td>
+      <td>Tiles the image only horizontally; no tiling in the vertical direction.</td>
+    </tr>
+    <tr>
+      <td><code>'repeat-y'</code></td>
+      <td>Tiles the image only vertically; no tiling in the horizontal direction.</td>
+    </tr>
+    <tr>
+      <td><code>'no-repeat'</code></td>
+      <td>The image appears exactly once, at the pattern origin. Areas beyond the image are transparent.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Once created, the pattern object is assigned to <code>ctx.fillStyle</code> or <code>ctx.strokeStyle</code> just like any color or gradient, and then shapes are drawn normally. The pattern tiles relative to the canvas origin (0, 0), not relative to the top-left corner of the shape being filled. This means that if your shape starts at x=50 and your tile is 40 pixels wide, the visible portion of the tile at the left edge of your shape will be whatever part of the 40-pixel cycle falls at x=50. To align the pattern's origin with your shape, you can use <code>ctx.translate()</code> to shift the canvas transform before drawing.</p>
+
+<pre><code>const img = new Image();
+img.src = 'tile.png';
+img.onload = function () {
+  const pattern = ctx.createPattern(img, 'repeat');
+  ctx.fillStyle = pattern;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+};
+
+// Using another canvas as a pattern source
+const offscreen = document.createElement('canvas');
+offscreen.width = 20;
+offscreen.height = 20;
+const offCtx = offscreen.getContext('2d');
+offCtx.fillStyle = '#e0e0e0';
+offCtx.fillRect(0, 0, 20, 20);
+offCtx.fillStyle = '#ffffff';
+offCtx.fillRect(0, 0, 10, 10);
+offCtx.fillRect(10, 10, 10, 10);
+
+const checkerPattern = ctx.createPattern(offscreen, 'repeat');
+ctx.fillStyle = checkerPattern;
+ctx.fillRect(0, 0, 400, 300);
+</code></pre>
+
+<p>The final layer of color control operates at the context level rather than at the individual style level: <strong>globalAlpha</strong> and <strong>globalCompositeOperation</strong>. The <code>ctx.globalAlpha</code> property accepts a value between 0.0 and 1.0 and multiplies the opacity of <em>every</em> drawing operation — fills, strokes, images, and text — simultaneously. This is different from using rgba() or hsla() transparency, which only affects the specific fill or stroke color it is embedded in. Setting <code>ctx.globalAlpha = 0.5</code> and then drawing a complex scene causes all elements of that scene to be rendered at half opacity, which is far more convenient than specifying an alpha value for every individual style.</p>
+
+<p>The <code>ctx.globalCompositeOperation</code> property controls how newly drawn pixels are blended with the pixels already present on the canvas. The default value, <code>'source-over'</code>, is standard painter's algorithm compositing: new pixels are drawn on top, with the new shape's transparency determining how much of the background shows through. Other values produce dramatically different visual effects:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Composite Operation</th>
+      <th>Effect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>'source-over'</code></td>
+      <td>Default. New shape is drawn on top of existing content.</td>
+    </tr>
+    <tr>
+      <td><code>'destination-over'</code></td>
+      <td>New shape is drawn <em>behind</em> existing content.</td>
+    </tr>
+    <tr>
+      <td><code>'source-in'</code></td>
+      <td>Only the part of the new shape that overlaps existing opaque pixels is drawn; everything else becomes transparent.</td>
+    </tr>
+    <tr>
+      <td><code>'destination-out'</code></td>
+      <td>The new shape erases existing pixels where it overlaps — useful for creating cutout effects.</td>
+    </tr>
+    <tr>
+      <td><code>'multiply'</code></td>
+      <td>Pixel values are multiplied together, darkening the result. Used for shadow and burn effects.</td>
+    </tr>
+    <tr>
+      <td><code>'screen'</code></td>
+      <td>Inverse of multiply; brightens the result. Used for glow and light effects.</td>
+    </tr>
+    <tr>
+      <td><code>'overlay'</code></td>
+      <td>Combines multiply and screen depending on the base color; increases contrast.</td>
+    </tr>
+    <tr>
+      <td><code>'lighten'</code></td>
+      <td>Keeps whichever pixel is lighter at each position.</td>
+    </tr>
+    <tr>
+      <td><code>'darken'</code></td>
+      <td>Keeps whichever pixel is darker at each position.</td>
+    </tr>
+    <tr>
+      <td><code>'xor'</code></td>
+      <td>Overlapping areas become transparent; non-overlapping areas are drawn normally.</td>
+    </tr>
+  </tbody>
+</table>
+
+<pre><code>// Draw a background shape
+ctx.fillStyle = 'royalblue';
+ctx.fillRect(50, 50, 200, 150);
+
+// Apply a global opacity and a composite operation before drawing more
+ctx.globalAlpha = 0.7;
+ctx.globalCompositeOperation = 'multiply';
+
+ctx.fillStyle = 'orange';
+ctx.fillRect(100, 80, 200, 150); // Blends multiplicatively with the blue rectangle
+
+// Reset to defaults to restore normal drawing behavior
+ctx.globalAlpha = 1.0;
+ctx.globalCompositeOperation = 'source-over';
+
+// This rectangle is drawn normally again
+ctx.fillStyle = 'green';
+ctx.fillRect(300, 50, 80, 80);
+</code></pre>
+
+<p>Always remember to reset <code>globalAlpha</code> to <code>1.0</code> and <code>globalCompositeOperation</code> to <code>'source-over'</code> when you are done with special compositing. Because these are context-wide settings, forgetting to reset them is one of the most common sources of hard-to-diagnose visual bugs in canvas applications. Using <code>ctx.save()</code> before applying special composite settings and <code>ctx.restore()</code> afterward is the safest approach, as it automatically rolls back all context state — including globalAlpha and globalCompositeOperation — to their previous values.</p>
+
+<p>Taken together, these tools — solid colors in multiple formats, linear and radial gradients with arbitrary color stops, image-based repeating patterns, global opacity, and compositing operations — form a comprehensive system for controlling the visual appearance of everything drawn on a canvas. By combining them thoughtfully, it is possible to produce sophisticated visual effects ranging from subtle transparency and shading all the way to complex multi-layer composited imagery, entirely within the browser with no external graphics software required.</p>
+        <div class="notes"><strong>Notes</strong>Instructors may wish to provide a live demo canvas where students can experiment with changing fillStyle, strokeStyle, globalAlpha, and globalCompositeOperation values in real time to observe the visual effects. A side-by-side comparison of all globalCompositeOperation modes drawn over the same background can be especially illuminating.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

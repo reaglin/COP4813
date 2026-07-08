@@ -1,0 +1,1136 @@
+{
+  "ModuleFolderName": "Introduction_to_the",
+  "CourseName": "COP4813",
+  "GeneratedDate": "2026-06-26T21:33:17.4648605-04:00",
+  "ModifiedDate": "2026-06-26T21:35:40.1535498-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "32e228a2-321f-4f3f-8fc4-056904974de6",
+      "Title": "What is the DOM?",
+      "Summary": "Introduces the Document Object Model as a concept, explaining what it is and why it exists as a bridge between HTML documents and JavaScript programming.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-06-26T21:33:17.4648605-04:00",
+      "ModifiedDate": "2026-06-26T21:33:17.4648605-04:00",
+      "Elements": [
+        {
+          "Id": "1228a10c-e59b-4288-8859-af862f3efc23",
+          "TopicId": "32e228a2-321f-4f3f-8fc4-056904974de6",
+          "Title": "Defining the DOM",
+          "BodyText": "The Document Object Model (DOM) is a programming interface that represents an HTML document as a structured, programmable object.",
+          "Notes": "The acronym DOM stands for Document Object Model. It is a standard defined by the W3C (World Wide Web Consortium) and is implemented by all modern browsers.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:33:35.0754097-04:00",
+          "ModifiedDate": "2026-06-26T21:33:35.0754097-04:00",
+          "Items": [
+            {
+              "Id": "6be4e786-0f16-48cf-9237-829cddf6b0ff",
+              "Text": "The DOM treats every part of an HTML document \u2014 elements, attributes, and text \u2014 as an object that can be accessed and manipulated.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f4035c55-e646-4b0d-900a-b89546bdb1d2",
+              "Text": "It provides a language-neutral interface, though in web development it is most commonly used with JavaScript.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3cad5102-1198-4549-9058-fa6d0db50238",
+              "Text": "Without the DOM, JavaScript would have no standardized way to read or change anything on a web page.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ff3254d0-61de-4aa0-b081-2ecb3ef817e6",
+          "TopicId": "32e228a2-321f-4f3f-8fc4-056904974de6",
+          "Title": "Why the DOM Exists",
+          "BodyText": "The DOM exists to bridge the gap between a static HTML document and dynamic programming languages like JavaScript.",
+          "Notes": "HTML on its own is a markup language with no built-in ability to respond to user actions or update content after a page loads. The DOM solves this by giving programs a live, structured view of the document.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:33:35.0754097-04:00",
+          "ModifiedDate": "2026-06-26T21:33:35.0754097-04:00",
+          "Items": [
+            {
+              "Id": "bac45257-9805-4614-80a4-1aba185e346e",
+              "Text": "HTML documents are plain text files; browsers need a way to expose their content to scripts in an organized, accessible form.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fbfd2878-596c-497b-8a80-f67087056256",
+              "Text": "The DOM allows JavaScript to read content, respond to user events, and update the page without requiring a full reload.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "274274fd-de49-4226-a0fc-121f368d7741",
+              "Text": "This separation of concerns keeps HTML responsible for structure while JavaScript handles behavior through the DOM.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "4d3d8f4c-918c-4080-9a55-7040e5b2b0be",
+          "TopicId": "32e228a2-321f-4f3f-8fc4-056904974de6",
+          "Title": "How Browsers Create the DOM",
+          "BodyText": "When a browser loads an HTML page, it parses the markup and builds the DOM in memory as a structured object model.",
+          "Notes": "Parsing happens automatically and nearly instantly. The resulting DOM is a live representation, meaning changes made via JavaScript are immediately reflected in the browser\u0027s rendered output.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:33:35.0754097-04:00",
+          "ModifiedDate": "2026-06-26T21:33:35.0754097-04:00",
+          "Items": [
+            {
+              "Id": "1b4b4614-d035-4fe6-87a9-b3af4ac264a7",
+              "Text": "The browser reads the HTML file from top to bottom, converting each tag, attribute, and piece of text into a corresponding object.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7ea878c3-f13f-4cb4-ba08-0e42fced173c",
+              "Text": "The finished structure is held in the browser\u0027s memory and is accessible to JavaScript through the global \u0027document\u0027 object.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ac832f87-93c7-4ad2-9b31-3161ebb02ad2",
+              "Text": "Because the DOM is live, any JavaScript modification to it immediately affects what the user sees on screen.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "6b88f886-16ee-4f51-9e74-d21a247a5bd6",
+          "TopicId": "32e228a2-321f-4f3f-8fc4-056904974de6",
+          "Title": "The DOM as a Tree Structure",
+          "BodyText": "The DOM organizes the objects created from an HTML document into a hierarchical tree, reflecting the nested nature of HTML markup.",
+          "Notes": "This tree structure is the foundation of all DOM selection and manipulation techniques covered later in the module.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:33:35.0754097-04:00",
+          "ModifiedDate": "2026-06-26T21:33:35.0754097-04:00",
+          "Items": [
+            {
+              "Id": "2e4b2943-1f95-4989-9ace-94d8d1d51fef",
+              "Text": "The topmost object in the tree is the \u0027document\u0027 node, which represents the entire HTML page.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f31c139e-a64c-4a3b-9f55-5ce34354de57",
+              "Text": "Every HTML element becomes a node in the tree, with parent, child, and sibling relationships that mirror the original HTML nesting.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c250083f-85ef-4dc3-bb35-d542534c2789",
+              "Text": "Understanding the tree structure is essential for navigating and selecting specific parts of a document with JavaScript.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "2093f9b6-554e-47fe-88ae-9e2f1cf67ec5",
+          "TopicId": "32e228a2-321f-4f3f-8fc4-056904974de6",
+          "Title": "The DOM as an Interface Between HTML and JavaScript",
+          "BodyText": "The DOM acts as the critical interface \u2014 or bridge \u2014 that allows JavaScript code to interact with the content and structure of an HTML document.",
+          "Notes": "Think of the HTML file as a blueprint and the DOM as the constructed building. JavaScript works with the building (the DOM), not the blueprint (the raw HTML text).",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:33:35.0754097-04:00",
+          "ModifiedDate": "2026-06-26T21:33:35.0754097-04:00",
+          "Items": [
+            {
+              "Id": "6bd5c7de-f4ba-4863-9ed2-0ba1a289be68",
+              "Text": "JavaScript cannot directly read or modify the raw HTML text file; it can only interact with the DOM objects the browser has built from it.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a89ce5ac-4637-4d52-bd42-3c759ba8e4ed",
+              "Text": "Through the DOM, JavaScript can select elements, change their content or styling, add or remove elements, and listen for user interactions.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a0d3f932-e158-495a-93cc-3e9ecb5dc8b3",
+              "Text": "This relationship makes the DOM the foundation of all dynamic, interactive behavior in web applications.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "846438da-d386-4412-a4df-60bf8dd6ef3d",
+      "Title": "How Browsers Parse HTML into the DOM",
+      "Summary": "Explains the process browsers use to read HTML markup and construct the DOM tree, including how the parsing sequence affects script execution and page rendering.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-06-26T21:33:17.4648605-04:00",
+      "ModifiedDate": "2026-06-26T21:33:17.4648605-04:00",
+      "Elements": [
+        {
+          "Id": "625a27cc-9925-492e-84f0-106799f6a4ff",
+          "TopicId": "846438da-d386-4412-a4df-60bf8dd6ef3d",
+          "Title": "What Happens When a Browser Receives HTML",
+          "BodyText": "When a browser receives an HTML file from a server, it begins reading the raw markup text and converting it into a structured, in-memory representation called the DOM.",
+          "Notes": "This process happens automatically and incrementally \u2014 the browser does not wait for the entire file to download before it starts parsing.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:34:02.1164847-04:00",
+          "ModifiedDate": "2026-06-26T21:34:02.1164847-04:00",
+          "Items": [
+            {
+              "Id": "c5747a35-dca6-437d-aa31-c33f040b6d4e",
+              "Text": "The browser reads the HTML document as a stream of characters from top to bottom.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5156ab82-a790-4142-abb7-6c5f67da10a3",
+              "Text": "Each recognized tag, attribute, and text node is translated into a corresponding DOM object.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "804d7823-89cd-436c-9f7d-4629e734e72e",
+              "Text": "The result is a tree of objects that the browser uses to render the page and that JavaScript can later interact with.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "6dc0a26f-798b-4cfb-99a0-ac66446c52f0",
+          "TopicId": "846438da-d386-4412-a4df-60bf8dd6ef3d",
+          "Title": "Tokenization: Breaking HTML into Meaningful Pieces",
+          "BodyText": "The first stage of parsing is tokenization, where the browser\u0027s HTML parser scans the character stream and groups characters into discrete tokens such as opening tags, closing tags, and text content.",
+          "Notes": "For example, the string \u0027\u003Cp class=\u0022intro\u0022\u003EHello\u003C/p\u003E\u0027 produces an opening-tag token, a text token, and a closing-tag token.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:34:02.1164847-04:00",
+          "ModifiedDate": "2026-06-26T21:34:02.1164847-04:00",
+          "Items": [
+            {
+              "Id": "c9ca5148-fe00-457b-84ea-9c3539166015",
+              "Text": "Tokens represent the smallest meaningful units in an HTML document, such as a start tag, an end tag, or a string of text.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "676c5ff8-0cd7-47ed-84f5-7b4caf3ef344",
+              "Text": "Attributes found inside a tag are captured as part of that tag\u0027s token.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "55d34ea8-7ed1-4ec1-b04c-32336c360b6b",
+              "Text": "Tokenization follows the HTML5 parsing specification, allowing browsers to handle even malformed markup in a predictable way.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "401d0bb2-856b-40e8-9bc9-4e7544fca5da",
+          "TopicId": "846438da-d386-4412-a4df-60bf8dd6ef3d",
+          "Title": "Building the DOM Tree from Tokens",
+          "BodyText": "Once tokens are produced, the browser\u0027s tree construction algorithm arranges them into a hierarchy of parent and child nodes, forming the DOM tree.",
+          "Notes": "The document node sits at the root, the \u003Chtml\u003E element becomes its child, and every subsequent element is nested according to the markup structure.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:34:02.1164847-04:00",
+          "ModifiedDate": "2026-06-26T21:34:02.1164847-04:00",
+          "Items": [
+            {
+              "Id": "9f186e5b-58c3-48ee-9ef1-5e943f1bda11",
+              "Text": "Opening tags cause the parser to create a new element node and push it onto a stack of open elements.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ba4533a8-77e3-4ff6-8c38-ad52aee5f07a",
+              "Text": "Text content between tags becomes a text node attached to the current parent element.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "13fa0056-bf07-4e92-b592-c9c35bdcb214",
+              "Text": "Closing tags pop the corresponding element off the stack, finalizing that branch of the tree.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a170de02-89c5-4c51-9ebf-d863e9cd4b82",
+              "Text": "The finished structure mirrors the nesting of the original HTML markup.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "3c7fffea-74ca-4b63-867e-839eb620365f",
+          "TopicId": "846438da-d386-4412-a4df-60bf8dd6ef3d",
+          "Title": "How Parser-Blocking Scripts Affect Parsing",
+          "BodyText": "When the parser encounters a \u003Cscript\u003E tag without special attributes, it pauses HTML parsing, downloads the script if needed, executes it, and only then continues building the DOM.",
+          "Notes": "This behavior exists because JavaScript can modify the DOM mid-parse using APIs like document.write(), so the browser must finish executing the script before safely proceeding.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:34:02.1164847-04:00",
+          "ModifiedDate": "2026-06-26T21:34:02.1164847-04:00",
+          "Items": [
+            {
+              "Id": "847bd5b9-9c24-4595-8e21-9115a13fd341",
+              "Text": "A script placed in the \u003Chead\u003E without defer or async will block the parser before any body content is parsed.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8e412385-35a3-4356-93af-70901c77bb10",
+              "Text": "Blocking scripts can delay the appearance of visible page content, which is why placement and loading strategy matter for performance.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3b7b6a32-d78b-4f7b-82fe-20428428dd6a",
+              "Text": "Moving scripts to just before the closing \u003C/body\u003E tag is a common technique to avoid blocking the parsing of the main content.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "41b344d9-aa57-486d-9392-7a84c2514696",
+          "TopicId": "846438da-d386-4412-a4df-60bf8dd6ef3d",
+          "Title": "The defer and async Attributes",
+          "BodyText": "The defer and async attributes on a \u003Cscript\u003E tag instruct the browser to download the script without blocking the HTML parser, though they differ in when the script actually executes.",
+          "Notes": "defer is generally preferred for scripts that need to interact with the fully built DOM, while async suits independent scripts like analytics.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:34:02.1164847-04:00",
+          "ModifiedDate": "2026-06-26T21:34:02.1164847-04:00",
+          "Items": [
+            {
+              "Id": "66875ba9-1c8f-4d9d-9c99-008d33b7132e",
+              "Text": "A script with async downloads in parallel and executes as soon as it is available, potentially before parsing is complete.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fce09c72-c455-4555-8573-35a8affe7bb5",
+              "Text": "A script with defer downloads in parallel but waits to execute until the HTML has been fully parsed.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1ac30376-7ffb-42e5-b294-55fe7ecd2cd1",
+              "Text": "Both attributes allow the parser to continue building the DOM tree during the download phase, improving perceived page speed.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "41ce4d4b-1865-4be7-a37f-e3614145d252",
+          "TopicId": "846438da-d386-4412-a4df-60bf8dd6ef3d",
+          "Title": "The DOMContentLoaded Event and Parse Completion",
+          "BodyText": "Once the browser has finished parsing the HTML and constructing the DOM tree, it fires the DOMContentLoaded event on the document object, signaling that the DOM is ready to be accessed.",
+          "Notes": "DOMContentLoaded fires before external resources like images and stylesheets finish loading, making it faster than the window load event for DOM-dependent code.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:34:02.1164847-04:00",
+          "ModifiedDate": "2026-06-26T21:34:02.1164847-04:00",
+          "Items": [
+            {
+              "Id": "8f6ff1a1-25a4-404e-9e89-3c0e5c85e1ff",
+              "Text": "Listening for DOMContentLoaded ensures that JavaScript attempting to select or manipulate DOM nodes runs only after those nodes exist.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "24abd666-65ca-48b9-918b-9622687c9ba9",
+              "Text": "Deferred scripts execute just before the DOMContentLoaded event fires, guaranteeing a fully parsed DOM.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "243850c4-a58c-47c3-9873-cacdecaafaab",
+              "Text": "The separate window \u0027load\u0027 event fires later, once all dependent resources such as images have also finished loading.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "f24ab136-60a6-4640-846a-d9bfc892bc0e",
+          "TopicId": "846438da-d386-4412-a4df-60bf8dd6ef3d",
+          "Title": "Parsing Order and Its Impact on Page Rendering",
+          "BodyText": "Because the browser parses HTML top to bottom, the order in which elements and resources appear in the markup directly influences how quickly content becomes visible to the user.",
+          "Notes": "Understanding parsing order helps developers make deliberate choices about where to place scripts, stylesheets, and other resources to optimize rendering speed.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:34:02.1164847-04:00",
+          "ModifiedDate": "2026-06-26T21:34:02.1164847-04:00",
+          "Items": [
+            {
+              "Id": "d0493ba4-90bc-4f26-b1ef-4c651255ff2f",
+              "Text": "Content that appears earlier in the HTML is parsed and potentially rendered sooner, so critical visible content should come before heavy scripts or large resources.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f58dc3ad-18d7-4d07-a392-85f51f4e909a",
+              "Text": "Stylesheets in the \u003Chead\u003E block rendering but not parsing, meaning the browser builds the DOM while waiting for CSS before painting pixels.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "648d9749-9bc0-46b2-961b-c09948ce8146",
+              "Text": "Awareness of the parsing sequence is foundational to both debugging DOM-related JavaScript issues and optimizing front-end performance.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "54718ba6-8937-4ad7-913d-6291b469e722",
+      "Title": "The DOM Tree Structure",
+      "Summary": "Describes the hierarchical node-based structure of the DOM, covering the relationships between document, element, text, and attribute nodes.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-06-26T21:33:17.4648605-04:00",
+      "ModifiedDate": "2026-06-26T21:33:17.4648605-04:00",
+      "Elements": [
+        {
+          "Id": "db61ef2d-1482-42ea-8341-c723233ee5c4",
+          "TopicId": "54718ba6-8937-4ad7-913d-6291b469e722",
+          "Title": "What Is the DOM Tree?",
+          "BodyText": "The DOM (Document Object Model) represents an HTML document as a hierarchical, tree-shaped structure that browsers construct when they parse HTML.",
+          "Notes": "Think of the DOM tree like a family tree: each piece of the document has a defined place and relationship to every other piece.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:34:27.5519102-04:00",
+          "ModifiedDate": "2026-06-26T21:34:27.5519102-04:00",
+          "Items": [
+            {
+              "Id": "8d68f064-4c4e-4c70-bbce-dd3a7f39d943",
+              "Text": "When a browser loads an HTML page, it reads the markup and builds an in-memory tree of objects representing every part of the document.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a5fb15cf-ba2f-4781-bad5-25782533b3ba",
+              "Text": "This tree structure makes the document programmable, allowing JavaScript to read and modify content, structure, and styles.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "81fde091-e0c0-4593-918e-8892b36ea05a",
+              "Text": "The tree has a single root from which all other nodes branch outward in a parent-child hierarchy.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "725c8c5f-eb3f-4f4f-964a-0c324ed33952",
+          "TopicId": "54718ba6-8937-4ad7-913d-6291b469e722",
+          "Title": "The Document Node",
+          "BodyText": "The document node sits at the very top of the DOM tree and serves as the entry point to the entire document.",
+          "Notes": "In JavaScript, the document node is accessed via the global \u0060document\u0060 object, e.g., \u0060document.documentElement\u0060 returns the root \u003Chtml\u003E element.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:34:27.5519102-04:00",
+          "ModifiedDate": "2026-06-26T21:34:27.5519102-04:00",
+          "Items": [
+            {
+              "Id": "feb4a869-a6cb-4be7-b79c-53eaed1e00bc",
+              "Text": "There is exactly one document node per page; it is the root ancestor of every other node in the tree.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "52cda963-df74-420d-a638-7c0ee30ffd3e",
+              "Text": "The document node represents the HTML document as a whole, not any specific visible element.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f5be660c-1a74-422b-b470-5b5934f57627",
+              "Text": "All DOM queries and manipulations typically begin by referencing the document node.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "5b7f47fa-68a3-40e2-8076-5ef108f7babe",
+          "TopicId": "54718ba6-8937-4ad7-913d-6291b469e722",
+          "Title": "Element Nodes",
+          "BodyText": "Element nodes correspond directly to HTML tags such as \u003Chtml\u003E, \u003Cbody\u003E, \u003Cp\u003E, and \u003Cdiv\u003E, forming the primary structural building blocks of the DOM tree.",
+          "Notes": "For example, a simple page with \u003Chtml\u003E, \u003Chead\u003E, and \u003Cbody\u003E tags produces at minimum three nested element nodes beneath the document node.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:34:27.5519102-04:00",
+          "ModifiedDate": "2026-06-26T21:34:27.5519102-04:00",
+          "Items": [
+            {
+              "Id": "597a9fe4-298d-456c-8637-35fac18b06f6",
+              "Text": "Every HTML tag in the source markup becomes an element node in the tree.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "17b7a26e-4196-47c8-8942-c28184fcc2fa",
+              "Text": "Element nodes can be parents, children, or siblings relative to other element nodes, reflecting the nesting of tags in the original HTML.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7987563a-5393-4583-b635-00423761f470",
+              "Text": "Element nodes are the most commonly targeted node type when selecting or manipulating the DOM with JavaScript.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "58747e22-2e55-400e-a205-659c4ae34907",
+          "TopicId": "54718ba6-8937-4ad7-913d-6291b469e722",
+          "Title": "Text Nodes",
+          "BodyText": "Text nodes contain the actual textual content found between HTML tags and are always leaf nodes \u2014 they cannot have children of their own.",
+          "Notes": "Even whitespace (spaces, newlines) between tags is represented as a text node in many browsers, which can sometimes surprise developers traversing the tree.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:34:27.5519102-04:00",
+          "ModifiedDate": "2026-06-26T21:34:27.5519102-04:00",
+          "Items": [
+            {
+              "Id": "14b295a6-77fc-4082-9455-321889284df6",
+              "Text": "Any string of characters placed between an opening and closing HTML tag becomes a text node child of the surrounding element node.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7e36e3f4-8bd4-4f64-b297-373c10c4e1c7",
+              "Text": "Because text nodes are leaves, they sit at the outermost edges of the DOM tree.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6a270f6a-6f69-48f7-925a-181e1ae9620b",
+              "Text": "Accessing or changing visible text on a page means reading or writing the content of these text nodes.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "79914a86-1ecf-4039-92c6-37df7044696b",
+          "TopicId": "54718ba6-8937-4ad7-913d-6291b469e722",
+          "Title": "Attribute Nodes",
+          "BodyText": "Attribute nodes represent the attributes defined on HTML elements, such as id, class, href, or src, and are associated with their parent element node.",
+          "Notes": "In modern DOM usage (DOM Level 2\u002B), attributes are more commonly accessed as properties of element objects (e.g., \u0060element.id\u0060) rather than as standalone nodes in the tree traversal.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:34:27.5519102-04:00",
+          "ModifiedDate": "2026-06-26T21:34:27.5519102-04:00",
+          "Items": [
+            {
+              "Id": "61d86ef7-3fa2-4273-8758-62dd8a5ff8d8",
+              "Text": "Each attribute of an HTML element \u2014 for instance, class=\u0022header\u0022 \u2014 is modeled as an attribute node belonging to that element.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f71d0b6f-ea64-47f5-84db-5ab378270fc0",
+              "Text": "Attribute nodes are not considered children of element nodes in the traditional parent-child sense; they are associated properties.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2a6b3300-2cc9-40ba-b57b-ff5fb7109d61",
+              "Text": "JavaScript provides methods like \u0060getAttribute()\u0060 and \u0060setAttribute()\u0060 to read and modify attribute nodes.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "8f360daa-4462-4382-969b-2e86e58629b2",
+          "TopicId": "54718ba6-8937-4ad7-913d-6291b469e722",
+          "Title": "Parent, Child, and Sibling Relationships",
+          "BodyText": "The DOM tree is defined by the relationships between nodes: every node (except the document root) has exactly one parent, may have multiple children, and may have sibling nodes at the same level.",
+          "Notes": "Understanding these relationships is essential for traversing the DOM \u2014 for example, moving from a clicked button up to its containing form, or iterating over all list items inside a \u003Cul\u003E.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:34:27.5519102-04:00",
+          "ModifiedDate": "2026-06-26T21:34:27.5519102-04:00",
+          "Items": [
+            {
+              "Id": "d2b50e50-1ce7-4b39-8f83-0cdf746d8de3",
+              "Text": "A parent node is the node directly above another node in the hierarchy; a child node is directly below its parent.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c963c861-6d09-4328-8860-8d74d125c7dc",
+              "Text": "Sibling nodes share the same parent node and exist at the same level of the tree.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7c47f7c1-bb0a-4866-8829-182d2eb780b3",
+              "Text": "These relationships allow developers to navigate the tree in any direction: upward to ancestors, downward to descendants, or laterally to siblings.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "0daee5de-2256-4957-90bf-324b9ee5eb8e",
+          "TopicId": "54718ba6-8937-4ad7-913d-6291b469e722",
+          "Title": "How Browsers Build the DOM Tree from HTML",
+          "BodyText": "Browsers parse HTML source code top-to-bottom and incrementally construct the DOM tree, translating each tag and piece of text into the appropriate node type.",
+          "Notes": "If the HTML contains errors, browsers apply error-correction rules and still produce a valid DOM tree, which means the DOM may differ slightly from the raw source markup.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:34:27.5519102-04:00",
+          "ModifiedDate": "2026-06-26T21:34:27.5519102-04:00",
+          "Items": [
+            {
+              "Id": "757391cd-e415-46ed-b601-3fd41152ae54",
+              "Text": "Parsing begins with the document node, and as the browser encounters each opening tag it creates a corresponding element node and descends into it.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "89aa2a8f-e76d-46e0-93a8-9242a0bcc0d1",
+              "Text": "When a closing tag is encountered, the parser moves back up to the parent element, correctly reflecting the nested structure.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "52797c4b-26a9-4e79-bbff-342cf45da28c",
+              "Text": "The completed tree is what JavaScript interacts with at runtime \u2014 changes to the DOM are reflected in the browser display but do not alter the original HTML file.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "3f25445a-9be3-4ede-90f5-7bce69013801",
+      "Title": "Selecting DOM Elements",
+      "Summary": "Covers the core vanilla JavaScript methods used to query and retrieve elements from the DOM, such as getElementById, querySelector, and querySelectorAll.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-06-26T21:33:17.4648605-04:00",
+      "ModifiedDate": "2026-06-26T21:33:17.4648605-04:00",
+      "Elements": [
+        {
+          "Id": "5b127bb3-8800-4f26-a34d-bef9286b2992",
+          "TopicId": "3f25445a-9be3-4ede-90f5-7bce69013801",
+          "Title": "What Is DOM Selection?",
+          "BodyText": "DOM selection is the process of using JavaScript to locate and retrieve specific HTML elements from the DOM tree so they can be read or manipulated programmatically.",
+          "Notes": "Think of the DOM as a map of your HTML page. Selection methods are the tools that let you point to any node on that map.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:34:48.9997523-04:00",
+          "ModifiedDate": "2026-06-26T21:34:48.9997523-04:00",
+          "Items": [
+            {
+              "Id": "c37c045e-b6dd-4d8d-b968-b88df3b409cd",
+              "Text": "Selection always begins with the global \u0027document\u0027 object, which represents the entire HTML page.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d3c78f11-5030-4b64-b0be-ebe6d4f08c78",
+              "Text": "The element returned by a selection method is a live JavaScript object whose properties and content can then be changed.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8d1fef05-68f1-4d48-9cc2-8ef364dac5d9",
+              "Text": "Selecting an element does not modify it \u2014 it simply gives your script a reference to work with.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "60816bb5-d3e1-4d9c-98d7-eb33e52dfce6",
+          "TopicId": "3f25445a-9be3-4ede-90f5-7bce69013801",
+          "Title": "getElementById",
+          "BodyText": "getElementById is the most direct selection method, retrieving a single element that carries a specific \u0027id\u0027 attribute value.",
+          "Notes": "Example: document.getElementById(\u0027main-header\u0027) returns the element whose id equals \u0027main-header\u0027. Because IDs must be unique per HTML spec, this method always targets exactly one element.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:34:48.9997523-04:00",
+          "ModifiedDate": "2026-06-26T21:34:48.9997523-04:00",
+          "Items": [
+            {
+              "Id": "5e2c4b64-f002-46c0-a61a-4327611e2d8a",
+              "Text": "Syntax: document.getElementById(\u0027idValue\u0027) \u2014 the id string is passed without a \u0027#\u0027 prefix.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8bd6089d-d0ad-44b1-938d-c15114f397bd",
+              "Text": "Returns the matching Element object, or null if no element with that id exists in the document.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6d03c019-ffea-4ea9-8f7a-62ccf75986f7",
+              "Text": "It is the fastest DOM selection method because browsers index elements by id internally.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "7381b35a-859c-4746-9a2a-435118cd2c8f",
+          "TopicId": "3f25445a-9be3-4ede-90f5-7bce69013801",
+          "Title": "querySelector",
+          "BodyText": "querySelector retrieves the first element in the document that matches a given CSS selector string, offering flexible single-element selection.",
+          "Notes": "Example: document.querySelector(\u0027.card\u0027) returns the first element with the class \u0027card\u0027. You can use any valid CSS selector, including combinators such as \u0027ul \u003E li:first-child\u0027.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:34:48.9997523-04:00",
+          "ModifiedDate": "2026-06-26T21:34:48.9997523-04:00",
+          "Items": [
+            {
+              "Id": "91b3f348-a798-435d-800e-53cec209f54c",
+              "Text": "Syntax: document.querySelector(\u0027cssSelector\u0027) \u2014 the argument follows standard CSS selector syntax, including \u0027#\u0027, \u0027.\u0027, tag names, and attribute selectors.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2626cddb-eb6a-4d88-8cb6-ed182a0961ce",
+              "Text": "Returns only the first matching element in document order, even if multiple matches exist.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "30f73224-1a13-45dc-8f0f-df203d9567f3",
+              "Text": "Returns null if no element in the document matches the provided selector.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "40d00621-25aa-4f5d-ae0b-e5df381d4f7f",
+              "Text": "More versatile than getElementById because it accepts any CSS selector, not just id values.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "934aaf04-61a4-419d-8f6e-99c2604a14ad",
+          "TopicId": "3f25445a-9be3-4ede-90f5-7bce69013801",
+          "Title": "querySelectorAll",
+          "BodyText": "querySelectorAll extends the querySelector approach to return every element in the document that matches the given CSS selector, collected as a NodeList.",
+          "Notes": "Example: document.querySelectorAll(\u0027p.intro\u0027) retrieves all paragraph elements that have the class \u0027intro\u0027. A NodeList looks like an array but is not one \u2014 use Array.from() or the spread operator to access array methods.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:34:48.9997523-04:00",
+          "ModifiedDate": "2026-06-26T21:34:48.9997523-04:00",
+          "Items": [
+            {
+              "Id": "03c6d5c7-c943-432c-a630-4b89aa1717d9",
+              "Text": "Syntax: document.querySelectorAll(\u0027cssSelector\u0027) \u2014 uses the same CSS selector syntax as querySelector.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "efaa142f-8b08-421b-9e4c-6ddcf119c5cc",
+              "Text": "Returns a static NodeList containing all matching elements; the list does not update automatically if the DOM changes after the call.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5e3dcc32-6ab2-47ab-b150-efc557efad8b",
+              "Text": "If no elements match, an empty NodeList is returned rather than null.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "84d9dae4-2459-4ae6-a3bd-a434347eb7aa",
+              "Text": "Iterate over the result with forEach, a for...of loop, or by converting it to an array.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "d319375d-df0f-4086-8328-cb8ab625e949",
+          "TopicId": "3f25445a-9be3-4ede-90f5-7bce69013801",
+          "Title": "Scoped Selection with Element References",
+          "BodyText": "Selection methods can be called on any Element object, not just on \u0027document\u0027, allowing you to search only within a specific part of the DOM tree.",
+          "Notes": "Example: const nav = document.getElementById(\u0027site-nav\u0027); const links = nav.querySelectorAll(\u0027a\u0027); \u2014 this finds only anchor tags inside the navigation element, ignoring all others on the page.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:34:48.9997523-04:00",
+          "ModifiedDate": "2026-06-26T21:34:48.9997523-04:00",
+          "Items": [
+            {
+              "Id": "4a8726a6-27fe-4ed4-855f-c7bba6fccb86",
+              "Text": "Calling querySelector or querySelectorAll on an element reference limits the search to that element\u0027s descendants.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7b883979-e0d0-4b2b-aa4b-91b4249f8509",
+              "Text": "Scoped selection improves performance on large documents and makes code intent clearer.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c942db92-251e-45f3-9100-ed45c5a581e1",
+              "Text": "getElementById is defined only on \u0027document\u0027 and cannot be scoped to a sub-element.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "f98fe8e7-350c-45ff-90f9-258e7e5a3ed3",
+          "TopicId": "3f25445a-9be3-4ede-90f5-7bce69013801",
+          "Title": "Reading and Verifying Selection Results",
+          "BodyText": "After selecting an element, developers should verify the result before operating on it to prevent null-reference errors that crash scripts.",
+          "Notes": "A common pattern is: const el = document.querySelector(\u0027#banner\u0027); if (el) { /* safe to use el here */ }. This guard prevents TypeError exceptions when an expected element is absent.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:34:48.9997523-04:00",
+          "ModifiedDate": "2026-06-26T21:34:48.9997523-04:00",
+          "Items": [
+            {
+              "Id": "0eb46e9d-4eb6-42cc-9bfb-9e05e9f14a62",
+              "Text": "getElementById and querySelector return null when no match is found; always check for null before accessing properties.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "519fa594-eb08-4074-90f5-85a1eccbba7f",
+              "Text": "querySelectorAll never returns null, but iterating an empty NodeList is harmless.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7faeafda-0b6b-4424-a426-ac496814c23f",
+              "Text": "Browser DevTools let you test selectors live \u2014 typing document.querySelector(\u0027...\u0027) in the console instantly shows the matched element.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "057f61fa-8467-4b70-a273-50526d233347",
+      "Title": "Manipulating DOM Elements",
+      "Summary": "Explains how to read and modify element properties, attributes, styles, and text content using JavaScript once elements have been selected.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-06-26T21:33:17.4648605-04:00",
+      "ModifiedDate": "2026-06-26T21:33:17.4648605-04:00",
+      "Elements": [
+        {
+          "Id": "eb0bfd60-6bff-43ca-9b80-aab1404c9893",
+          "TopicId": "057f61fa-8467-4b70-a273-50526d233347",
+          "Title": "Reading and Writing Text Content",
+          "BodyText": "JavaScript provides properties to read and update the visible text inside a DOM element once it has been selected.",
+          "Notes": "Use textContent when you only need plain text; use innerHTML when you need to read or write HTML markup inside an element.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:35:11.7211751-04:00",
+          "ModifiedDate": "2026-06-26T21:35:11.7211751-04:00",
+          "Items": [
+            {
+              "Id": "c7f18734-7a23-4311-8cad-621fa16e8c6b",
+              "Text": "The textContent property gets or sets the plain text content of an element, stripping all HTML tags.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d72f294f-4c99-4541-9924-ccb7fbee1bdd",
+              "Text": "The innerHTML property gets or sets the HTML markup inside an element, allowing embedded tags to be rendered.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ff4cf32b-7bf1-4cb5-ba7e-426bf232d288",
+              "Text": "Setting innerHTML with user-supplied data can introduce security risks such as cross-site scripting (XSS), so always sanitize input.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "81de3355-feb1-41b9-8f8d-2d091e509f50",
+              "Text": "innerText is similar to textContent but respects CSS visibility and is generally slower due to layout recalculation.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "2edc9a17-0fd7-463f-b009-9d6e595782b9",
+          "TopicId": "057f61fa-8467-4b70-a273-50526d233347",
+          "Title": "Modifying HTML Attributes",
+          "BodyText": "Attributes such as href, src, id, and alt can be read and changed programmatically through dedicated DOM methods.",
+          "Notes": "For example, changing the src attribute of an \u003Cimg\u003E element swaps the displayed image without reloading the page.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:35:11.7211751-04:00",
+          "ModifiedDate": "2026-06-26T21:35:11.7211751-04:00",
+          "Items": [
+            {
+              "Id": "ea3c88db-dff1-458f-b7fb-fb4eebb21d5d",
+              "Text": "getAttribute(\u0027name\u0027) returns the current string value of the specified attribute, or null if it does not exist.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a1a1b5d7-f9d1-4261-ba0d-9c505f09945f",
+              "Text": "setAttribute(\u0027name\u0027, \u0027value\u0027) adds a new attribute or updates an existing one on the selected element.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0f3ea3f1-1322-4393-9423-fa4137013311",
+              "Text": "removeAttribute(\u0027name\u0027) deletes the attribute entirely from the element.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "01f9940f-1781-4813-9ce7-864843c2c1e2",
+              "Text": "Boolean attributes such as disabled and checked can also be toggled using setAttribute and removeAttribute.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "b36118ce-145a-4090-99a2-22fc43b3dd8c",
+          "TopicId": "057f61fa-8467-4b70-a273-50526d233347",
+          "Title": "Working with the classList API",
+          "BodyText": "The classList property exposes a set of methods that make adding, removing, and toggling CSS classes straightforward without overwriting existing ones.",
+          "Notes": "Toggling classes is the recommended approach for applying state-based styling, such as showing or hiding elements.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:35:11.7211751-04:00",
+          "ModifiedDate": "2026-06-26T21:35:11.7211751-04:00",
+          "Items": [
+            {
+              "Id": "3bc36c2c-5b9c-46de-b282-600841c860ef",
+              "Text": "classList.add(\u0027className\u0027) appends one or more classes to an element without affecting existing classes.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "956ca2fa-7ecc-40e8-912f-58464a2efeca",
+              "Text": "classList.remove(\u0027className\u0027) removes the specified class from the element\u0027s class list.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "cee1ba19-a58d-430f-9091-15b3bd9bfc39",
+              "Text": "classList.toggle(\u0027className\u0027) adds the class if it is absent or removes it if it is present.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9c560649-dc02-47f7-bd45-07d0f8383f1e",
+              "Text": "classList.contains(\u0027className\u0027) returns a boolean indicating whether the element currently has that class.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "c5836712-d4d0-4ce0-8dde-7f507de36154",
+          "TopicId": "057f61fa-8467-4b70-a273-50526d233347",
+          "Title": "Directly Modifying Inline Styles",
+          "BodyText": "Each DOM element exposes a style property that maps to its inline CSS declarations, allowing individual style rules to be set via JavaScript.",
+          "Notes": "Inline styles set through the style property have high specificity and override most external stylesheet rules, so use them judiciously.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:35:11.7211751-04:00",
+          "ModifiedDate": "2026-06-26T21:35:11.7211751-04:00",
+          "Items": [
+            {
+              "Id": "b2d69e0c-e142-44df-b9ad-22a4367d3e54",
+              "Text": "CSS property names written in kebab-case (e.g., background-color) become camelCase in JavaScript (e.g., element.style.backgroundColor).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a1680671-6a61-42b0-9302-8107edee44c3",
+              "Text": "Assigning a string value such as element.style.fontSize = \u002716px\u0027 sets that specific inline style on the element.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "881afe5e-6493-450f-8055-d91906e25499",
+              "Text": "Setting a style property to an empty string (element.style.color = \u0027\u0027) removes the inline style and falls back to the stylesheet.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "1800e002-8483-4d4f-9fba-b6bfb07dd6ef",
+              "Text": "Reading element.style only reflects inline styles, not computed styles inherited from stylesheets.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "5a843505-863e-4bbc-aabb-6a1ea7349904",
+          "TopicId": "057f61fa-8467-4b70-a273-50526d233347",
+          "Title": "Reading Computed Styles",
+          "BodyText": "To determine the actual rendered style of an element\u2014including styles inherited from stylesheets\u2014use the getComputedStyle method.",
+          "Notes": "getComputedStyle is read-only; you cannot assign values through it. It is most useful for debugging or conditionally applying logic based on current appearance.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:35:11.7211751-04:00",
+          "ModifiedDate": "2026-06-26T21:35:11.7211751-04:00",
+          "Items": [
+            {
+              "Id": "16d3e3a8-88a9-4b72-be31-8c3229c3b023",
+              "Text": "window.getComputedStyle(element) returns a CSSStyleDeclaration object reflecting all final resolved styles applied to the element.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b94de1c5-5959-4885-aa8b-c2b9d4c8e32f",
+              "Text": "Individual property values are accessed with getPropertyValue(\u0027property-name\u0027), using kebab-case notation.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3d37e4c0-39f1-47c2-bac3-df69918c297b",
+              "Text": "Computed values are always resolved to absolute units (e.g., pixels) regardless of how they were originally specified.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "c9f095d3-0691-426d-9969-b4f9f8c20783",
+          "TopicId": "057f61fa-8467-4b70-a273-50526d233347",
+          "Title": "Getting and Setting Element Properties",
+          "BodyText": "Beyond attributes, DOM elements expose a range of JavaScript properties that directly reflect characteristics of the element object itself.",
+          "Notes": "Properties and attributes are related but distinct \u2014 for instance, the value property of an input reflects the current user-entered value, while the value attribute reflects the default value.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:35:11.7211751-04:00",
+          "ModifiedDate": "2026-06-26T21:35:11.7211751-04:00",
+          "Items": [
+            {
+              "Id": "3bdad7ad-1dbf-494b-87a1-7eaccd4197fe",
+              "Text": "Properties like id, tagName, and className can be read and written directly on the element object (e.g., element.id = \u0027newId\u0027).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4b65970a-2572-467c-b7c4-2773de74eaa1",
+              "Text": "The value property on form elements such as \u003Cinput\u003E and \u003Ctextarea\u003E reads or sets the current field content.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c004d74c-7d1f-4274-88e8-47b86df3b9e2",
+              "Text": "The checked property on checkbox and radio inputs returns a boolean and can be set to programmatically check or uncheck them.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "31bf5e84-809d-4e1f-b4d3-f86d7fe10c82",
+              "Text": "The href and src properties on anchor and image elements provide the fully resolved URL, while the corresponding attributes may store relative paths.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "17584516-e861-4f4a-8aa6-1b4f44e074ee",
+      "Title": "Adding and Removing DOM Nodes",
+      "Summary": "Demonstrates how to dynamically create new elements, insert them into the DOM tree, and remove existing nodes using JavaScript methods.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-06-26T21:33:17.4648605-04:00",
+      "ModifiedDate": "2026-06-26T21:33:17.4648605-04:00",
+      "Elements": [
+        {
+          "Id": "82ed6c78-0848-4872-b367-d59598fc889d",
+          "TopicId": "17584516-e861-4f4a-8aa6-1b4f44e074ee",
+          "Title": "Creating New Elements with createElement()",
+          "BodyText": "JavaScript provides the document.createElement() method to dynamically generate new HTML elements in memory before they are added to the page.",
+          "Notes": "For example, document.createElement(\u0027div\u0027) creates a new \u003Cdiv\u003E element that exists in memory but is not yet visible on the page until it is inserted into the DOM tree.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:35:40.1533977-04:00",
+          "ModifiedDate": "2026-06-26T21:35:40.1533977-04:00",
+          "Items": [
+            {
+              "Id": "c0a6d1e3-2616-4832-8e57-2417d7946986",
+              "Text": "Pass a valid HTML tag name as a string argument, such as \u0027p\u0027, \u0027li\u0027, or \u0027section\u0027, to create the corresponding element.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "01d891ca-c7a4-4f42-b9e2-63308390dfa8",
+              "Text": "The newly created element can be configured with properties, attributes, and content before being inserted into the document.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7b36eb43-2652-4537-a09b-345540e50dbb",
+              "Text": "Creating an element does not automatically attach it to the DOM; an explicit insertion step is always required.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "023764a6-8424-4ab6-ad13-9b3121180e8b",
+          "TopicId": "17584516-e861-4f4a-8aa6-1b4f44e074ee",
+          "Title": "Setting Content and Attributes on New Nodes",
+          "BodyText": "Before inserting a newly created element, you typically populate it with text content or set attributes to make it meaningful and functional.",
+          "Notes": "For instance, you might set element.textContent = \u0027Hello World\u0027 to add readable text, or element.setAttribute(\u0027class\u0027, \u0027highlight\u0027) to apply a CSS class before appending the element.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:35:40.1533977-04:00",
+          "ModifiedDate": "2026-06-26T21:35:40.1533977-04:00",
+          "Items": [
+            {
+              "Id": "2fae7f19-c6e9-4ec2-a8ff-cc791973b8b3",
+              "Text": "Use the textContent or innerHTML property to add text or nested HTML markup to a new element.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f5bac910-73b5-42a6-a484-e8774bc50c94",
+              "Text": "Use setAttribute() or direct property assignment (e.g., element.id = \u0027main\u0027) to define attributes on the element.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "dfa29791-c55b-469d-aa82-b5886f58290e",
+              "Text": "Setting content and attributes before insertion keeps DOM manipulation efficient by minimizing reflows and repaints.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "8682e4dd-f6ab-49b0-9020-bb627ba57d78",
+          "TopicId": "17584516-e861-4f4a-8aa6-1b4f44e074ee",
+          "Title": "Inserting Nodes with appendChild() and append()",
+          "BodyText": "Once an element is created, it must be inserted into the existing DOM tree using methods such as appendChild() or the newer append().",
+          "Notes": "appendChild() accepts a single Node object and places it as the last child of the target parent, while append() is more flexible, accepting multiple nodes or plain strings in one call.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:35:40.1533977-04:00",
+          "ModifiedDate": "2026-06-26T21:35:40.1533977-04:00",
+          "Items": [
+            {
+              "Id": "50dd06c4-5974-4f33-8dbd-3d9732706b73",
+              "Text": "Call parentElement.appendChild(newNode) to attach a new node as the final child of a chosen parent element.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5a8d44fc-09fd-4c2e-9c09-3b7a34c50a08",
+              "Text": "The append() method can accept multiple arguments and also supports plain text strings, reducing the need to create separate text nodes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "217a67ef-fbdf-4272-a71a-789d0ee53b69",
+              "Text": "Both methods trigger a live update to the rendered page immediately after execution.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "c7a4ff76-f357-4bd6-8018-54a0a3a62e00",
+          "TopicId": "17584516-e861-4f4a-8aa6-1b4f44e074ee",
+          "Title": "Inserting Nodes at Specific Positions with insertBefore() and insertAdjacentElement()",
+          "BodyText": "When precise placement within a parent is required, JavaScript offers methods to insert nodes at specific positions rather than always at the end.",
+          "Notes": "insertBefore(newNode, referenceNode) inserts newNode immediately before referenceNode within the same parent, while insertAdjacentElement() accepts position keywords such as \u0027beforebegin\u0027, \u0027afterbegin\u0027, \u0027beforeend\u0027, and \u0027afterend\u0027.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:35:40.1533977-04:00",
+          "ModifiedDate": "2026-06-26T21:35:40.1533977-04:00",
+          "Items": [
+            {
+              "Id": "2605d23d-e8dd-42c4-bde7-5cdd90eef051",
+              "Text": "Use parentElement.insertBefore(newNode, referenceNode) to place a new element directly before an existing sibling node.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0d549cee-4f48-4fe8-b568-6a22504b02c0",
+              "Text": "insertAdjacentElement() provides four precise positional keywords, giving fine-grained control over where a node lands relative to a target element.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6b6fe45c-86c2-472d-bfc1-1567090e88e9",
+              "Text": "Choosing the correct insertion method prevents unintended reordering of existing child nodes.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "4dbbc27a-bc2a-403a-bcd4-f335f72d79d3",
+          "TopicId": "17584516-e861-4f4a-8aa6-1b4f44e074ee",
+          "Title": "Removing Nodes with removeChild() and remove()",
+          "BodyText": "JavaScript allows existing DOM nodes to be deleted from the document tree using removeChild() on the parent or the simpler remove() method called directly on the target element.",
+          "Notes": "Historically, removal required a reference to the parent: parent.removeChild(targetNode). The modern remove() method eliminates this requirement, making cleanup code shorter and more readable.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:35:40.1533977-04:00",
+          "ModifiedDate": "2026-06-26T21:35:40.1533977-04:00",
+          "Items": [
+            {
+              "Id": "b540430e-9ada-469c-ae98-0a9bdb5df206",
+              "Text": "Call parentElement.removeChild(targetNode) to detach a specific child node from its parent, removing it from the rendered page.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9b6ba08d-05c9-46d9-b156-864c39693cfb",
+              "Text": "The element.remove() method can be called directly on any node, without needing an explicit reference to its parent.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "02d9d0fa-3745-41c4-8968-69295d3ea11a",
+              "Text": "Removed nodes are not immediately garbage-collected if JavaScript variables still hold references to them; those references must be cleared to fully release memory.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "7a2e921d-a8bf-419f-9622-be3b7e2c9a4f",
+          "TopicId": "17584516-e861-4f4a-8aa6-1b4f44e074ee",
+          "Title": "Cloning Nodes with cloneNode()",
+          "BodyText": "The cloneNode() method creates a copy of an existing DOM node, which can then be inserted elsewhere in the tree without affecting the original element.",
+          "Notes": "Passing true as the argument performs a deep clone, copying the element along with all its descendants and their attributes, while false clones only the element itself with no children.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:35:40.1533977-04:00",
+          "ModifiedDate": "2026-06-26T21:35:40.1533977-04:00",
+          "Items": [
+            {
+              "Id": "dd932564-abe6-4a48-9c9b-cd099bf0dd1c",
+              "Text": "Use element.cloneNode(true) to duplicate an element and its entire subtree, ideal for repeating complex UI components.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6b91ff4c-23ce-4f2f-8882-50f237be372c",
+              "Text": "Use element.cloneNode(false) when only a shallow copy of the element\u0027s tag and attributes is needed, without inner content.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9b54d53c-68f9-454d-a129-97aa72b278f6",
+              "Text": "A cloned node must still be explicitly inserted into the DOM using an insertion method before it becomes visible on the page.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "a6c73678-d3c2-41cd-b640-98f76a831197",
+          "TopicId": "17584516-e861-4f4a-8aa6-1b4f44e074ee",
+          "Title": "Replacing Nodes with replaceChild() and replaceWith()",
+          "BodyText": "Existing nodes can be swapped out for new ones using replaceChild() on the parent element or the modern replaceWith() method called on the node being replaced.",
+          "Notes": "For example, parent.replaceChild(newNode, oldNode) removes oldNode and places newNode in the exact same position, preserving the element\u0027s location within the sibling order.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:35:40.1533977-04:00",
+          "ModifiedDate": "2026-06-26T21:35:40.1533977-04:00",
+          "Items": [
+            {
+              "Id": "b8eb320c-b330-40b5-89b6-7c0005093152",
+              "Text": "replaceChild(newNode, oldNode) is called on the parent and requires references to both the incoming node and the node being replaced.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e3ff9d4b-f74b-417c-baba-6f7c727655aa",
+              "Text": "The replaceWith() method is called directly on the target node and accepts multiple nodes or strings as replacement content.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8e24cfb3-7133-47b6-a90d-06cbd95bf14e",
+              "Text": "After replacement, the removed node is detached from the DOM but remains accessible in memory if a variable still references it.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 38
+}

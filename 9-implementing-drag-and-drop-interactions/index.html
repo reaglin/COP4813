@@ -1,0 +1,396 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 9 – Implementing Drag and Drop Interactions | COP4813</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f4f6f9;
+      color: #1e2535;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── Page Shell ── */
+    .page-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+
+    /* ── Header ── */
+    .page-header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
+      color: #fff;
+      border-radius: 10px;
+      padding: 2.5rem 2.25rem 2rem;
+      margin-bottom: 2.25rem;
+      box-shadow: 0 4px 18px rgba(30, 37, 53, 0.18);
+    }
+
+    .course-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.18);
+      color: #ddeeff;
+      border-radius: 4px;
+      padding: 0.2rem 0.65rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .page-header h1 {
+      font-size: clamp(1.45rem, 3.5vw, 2.1rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.85rem;
+      letter-spacing: -0.01em;
+    }
+
+    .page-header p {
+      font-size: 0.97rem;
+      color: #cce0f5;
+      max-width: 72ch;
+    }
+
+    /* ── Section Label ── */
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #5a7498;
+      margin-bottom: 1rem;
+      padding-left: 0.15rem;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.2rem;
+    }
+
+    /* ── Artifact Card ── */
+    .card {
+      background: #ffffff;
+      border: 1px solid #dde4ef;
+      border-radius: 9px;
+      padding: 1.3rem 1.4rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      box-shadow: 0 2px 8px rgba(30, 37, 53, 0.06);
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 20px rgba(30, 37, 53, 0.11);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card Top Row ── */
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      flex-wrap: wrap;
+    }
+
+    .card-name {
+      font-size: 1rem;
+      font-weight: 650;
+      color: #1a3a5c;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .card-name a {
+      color: #1a5fb4;
+      text-decoration: none;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color 0.15s;
+    }
+
+    .card-name a:hover,
+    .card-name a:focus {
+      border-bottom-color: #1a5fb4;
+      outline: none;
+    }
+
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #5a7498;
+      text-decoration: none;
+      background: #edf2fb;
+      border: 1px solid #c5d4ea;
+      border-radius: 4px;
+      padding: 0.17rem 0.5rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+      transition: background 0.14s, color 0.14s;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background: #d6e4f7;
+      color: #1a3a5c;
+      outline: none;
+    }
+
+    .source-link::before {
+      content: '⬇';
+      font-size: 0.65rem;
+    }
+
+    /* ── Badge Row ── */
+    .card-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      border-radius: 4px;
+      padding: 0.18rem 0.55rem;
+      text-transform: uppercase;
+    }
+
+    .badge-type {
+      background: #e8f0fb;
+      color: #2154a0;
+      border: 1px solid #bcd0f0;
+    }
+
+    .badge-filetype {
+      background: #f0f4f0;
+      color: #2d6a35;
+      border: 1px solid #b6d9bb;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Description ── */
+    .card-desc {
+      font-size: 0.875rem;
+      color: #4a5568;
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    /* ── Footer ── */
+    .page-footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.78rem;
+      color: #8a9bbf;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 520px) {
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+      .page-header {
+        padding: 1.75rem 1.25rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ COP4813</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
+  <div class="page-wrapper">
+
+    <!-- ── Header ── -->
+    <header class="page-header">
+      <span class="course-label">COP4813</span>
+      <h1>Module 9 &mdash; Implementing Drag and Drop Interactions</h1>
+      <p>
+        This module guides you through the HTML5 Drag and Drop API from the ground up — covering browser compatibility,
+        the <code>draggable</code> attribute, the full drag lifecycle (<code>dragstart</code>, <code>dragover</code>,
+        <code>drop</code>, <code>dragend</code>), the <code>DataTransfer</code> object, and the construction of
+        complete, accessible UI components. Use the artifacts below as your roadmap through the material.
+      </p>
+    </header>
+
+    <!-- ── Artifact Grid ── -->
+    <p class="section-label">Module Artifacts &mdash; 7 items</p>
+    <div class="card-grid">
+
+      <!-- Card 1: Module Topics -->
+      <article class="card">
+        <div class="card-top">
+          <span class="card-name">
+            <a href="content/module_topics.html">Module Topics</a>
+            <a class="source-link" href="source/hierarchy.json" aria-label="Source file for Module Topics">source file</a>
+          </span>
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <p class="card-desc">
+          This file outlines the topics covered in the module, progressing from foundational HTML5 Drag and Drop API
+          concepts and browser compatibility through making elements draggable, handling drag lifecycle events
+          (<code>dragstart</code>, <code>dragover</code>, <code>drop</code>, <code>dragend</code>), working with the
+          DataTransfer object, and implementing practical drag-and-drop interactions; instructors use it to structure
+          lesson sequencing and learners use it as a roadmap of what to expect throughout the module.
+        </p>
+      </article>
+
+      <!-- Card 2: Introduction to HTML5 Drag and Drop -->
+      <article class="card">
+        <div class="card-top">
+          <span class="card-name">
+            <a href="content/Implementing_Drag_and_interactive_topics_t1.html">Introduction to HTML5 Drag and Drop</a>
+          </span>
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">
+          A reading that introduces the HTML5 Drag and Drop API, explaining what it is, how browsers support it, and
+          the core concepts behind draggable elements, used by learners to build foundational understanding before
+          writing any code.
+        </p>
+      </article>
+
+      <!-- Card 3: Making Elements Draggable -->
+      <article class="card">
+        <div class="card-top">
+          <span class="card-name">
+            <a href="content/Implementing_Drag_and_interactive_topics_t2.html">Making Elements Draggable</a>
+          </span>
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">
+          A reading that explains how to make HTML elements draggable using the <code>draggable</code> attribute and
+          the native Drag and Drop API, guiding learners through the first practical step of implementing
+          drag-and-drop behaviour in a webpage.
+        </p>
+      </article>
+
+      <!-- Card 4: Handling the dragstart Event -->
+      <article class="card">
+        <div class="card-top">
+          <span class="card-name">
+            <a href="content/Implementing_Drag_and_interactive_topics_t3.html">Handling the dragstart Event</a>
+          </span>
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">
+          A reading that covers the <code>dragstart</code> event in depth — what triggers it, how to use the
+          <code>DataTransfer</code> object to attach data, and how to set visual feedback — teaching learners how to
+          initialise a drag operation correctly.
+        </p>
+      </article>
+
+      <!-- Card 5: Handling the dragover Event -->
+      <article class="card">
+        <div class="card-top">
+          <span class="card-name">
+            <a href="content/Implementing_Drag_and_interactive_topics_t4.html">Handling the dragover Event</a>
+          </span>
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">
+          A reading that explains the <code>dragover</code> event, why calling <code>preventDefault()</code> on it is
+          required to designate a valid drop target, and how to use it as a gatekeeper in drag-and-drop interactions,
+          helping learners enable droppable areas.
+        </p>
+      </article>
+
+      <!-- Card 6: Handling the drop Event -->
+      <article class="card">
+        <div class="card-top">
+          <span class="card-name">
+            <a href="content/Implementing_Drag_and_interactive_topics_t5.html">Handling the drop Event</a>
+          </span>
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">
+          A reading that describes the <code>drop</code> event — how to retrieve <code>DataTransfer</code> data,
+          identify the dragged element, and update the DOM to reflect a completed drop — teaching learners how to
+          finalise a drag-and-drop interaction.
+        </p>
+      </article>
+
+      <!-- Card 7: Building an Interactive UI Component (Topic Detail) -->
+      <article class="card">
+        <div class="card-top">
+          <span class="card-name">
+            <a href="content/Implementing_Drag_and_interactive_topics_t6.html">Building an Interactive UI Component</a>
+          </span>
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">
+          A reading that walks learners through constructing a complete drag-and-drop UI component by combining HTML
+          structure, the native API, JavaScript event handling, data-model management, and accessibility
+          considerations into a cohesive example.
+        </p>
+      </article>
+
+      <!-- Card 8: Building an Interactive UI Component (Text Content) -->
+      <article class="card">
+        <div class="card-top">
+          <span class="card-name">
+            <a href="content/Implementing_Drag_and_interactive.html">Building an Interactive UI Component</a>
+          </span>
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">
+          A reading that walks learners through constructing a complete drag-and-drop UI component by combining HTML
+          structure, the native API, JavaScript event handling, data-model management, and accessibility
+          considerations into a cohesive example.
+        </p>
+      </article>
+
+    </div><!-- /.card-grid -->
+
+    <!-- ── Footer ── -->
+    <footer class="page-footer">
+      <p>COP4813 &mdash; Module 9 &bull; Web Application Development</p>
+    </footer>
+
+  </div><!-- /.page-wrapper -->
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+</html>

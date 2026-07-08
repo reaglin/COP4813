@@ -1,0 +1,316 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Transitions</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 10 - Animation Techniques in the Browser</a></div>
+  <header>
+    <h1>CSS Transitions</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>CSS Transitions</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>CSS transitions are one of the most practical and widely-used features of modern CSS. They allow you to animate the change between two states of a CSS property smoothly, without writing a single line of JavaScript. When a property value changes — whether due to a user hovering over an element, an element receiving focus, or a class being toggled dynamically — the browser doesn't snap instantly to the new value. Instead, it interpolates between the old value and the new value over a defined period of time, producing a smooth, polished visual effect. Understanding CSS transitions deeply means understanding not just the individual properties, but how they interact, when to use them, and how to keep them performant.</p>
+
+<p><strong>What Are CSS Transitions?</strong></p>
+
+<p>At the most fundamental level, a CSS transition is a way of telling the browser: "When this property changes, don't change it immediately — animate it over time." Transitions are <em>triggered</em> by a change in a CSS property's computed value. The most common triggers include pseudo-class selectors like <code>:hover</code> or <code>:focus</code>, but transitions also fire when a class is added or removed via JavaScript, when an attribute changes, or even when a media query applies a different value.</p>
+
+<p>A transition requires two things to be meaningful: a <strong>start state</strong> and an <strong>end state</strong>. The start state is the value the property holds before the trigger, and the end state is the value after the trigger. The browser then calculates all the intermediate values between those two states and renders them across the specified duration. For example, if a button's background color is <code>blue</code> in its resting state and <code>green</code> on hover, the browser will render dozens of intermediate color values between blue and green during the transition.</p>
+
+<p>A critically important and often misunderstood rule is that <strong>transitions must be defined on the element in its default state</strong>, not on the triggering selector. Consider the following correct pattern:</p>
+
+<pre><code>/* Correct: transition defined on the base element */
+.button {
+  background-color: blue;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: green;
+}</code></pre>
+
+<p>If you placed the <code>transition</code> declaration only on <code>.button:hover</code>, the animation would play when the cursor enters the element (as the hover state is applied), but would snap back instantly with no animation when the cursor leaves (because there is no transition defined on the base state that applies on the way back). By placing it on the base element, the transition is always present, animating the property change in both directions.</p>
+
+<p><strong>The transition-property</strong></p>
+
+<p>The <code>transition-property</code> property specifies which CSS property (or properties) should be transitioned. You can target a single property, a list of properties, or use the keyword <code>all</code> to animate every animatable property simultaneously.</p>
+
+<pre><code>/* Single property */
+transition-property: opacity;
+
+/* Multiple properties */
+transition-property: opacity, transform, background-color;
+
+/* All animatable properties — use with caution */
+transition-property: all;</code></pre>
+
+<p>It is important to understand that <strong>not all CSS properties are animatable</strong>. Animatable properties are those whose values can be meaningfully interpolated — that is, the browser can calculate an in-between value. Numeric values like <code>opacity</code>, <code>width</code>, <code>font-size</code>, and color values like <code>background-color</code> or <code>color</code> are all animatable because there is a clear numerical path between any two values. Properties like <code>display</code>, <code>visibility</code> (partially), or <code>font-family</code> cannot be transitioned in a meaningful way because there is no numeric midpoint between, say, <code>display: none</code> and <code>display: block</code>. The browser simply switches them immediately, ignoring any transition instruction.</p>
+
+<p>Using <code>transition-property: all</code> is convenient but risky. It means that any property change — even ones you didn't intend to animate, perhaps triggered by a JavaScript style change — will be animated. This can lead to unexpected visual behavior and unnecessary performance costs. It is almost always better to be explicit about which properties you are transitioning.</p>
+
+<p>The <strong>transition shorthand property</strong> bundles <code>transition-property</code>, <code>transition-duration</code>, <code>transition-timing-function</code>, and <code>transition-delay</code> into a single concise declaration, which is how most developers write transitions in practice:</p>
+
+<pre><code>/* Shorthand */
+transition: background-color 0.3s ease 0s;</code></pre>
+
+<p><strong>Controlling Duration with transition-duration</strong></p>
+
+<p>The <code>transition-duration</code> property determines how long the transition animation takes to complete, from start state to end state. Duration values <strong>must always include a time unit</strong>. The two accepted units are seconds (<code>s</code>) and milliseconds (<code>ms</code>). A value of <code>0.3s</code> and a value of <code>300ms</code> are exactly equivalent — both represent 300 milliseconds. Omitting the unit will cause the declaration to be invalid and ignored by the browser.</p>
+
+<pre><code>/* These are equivalent */
+transition-duration: 0.3s;
+transition-duration: 300ms;</code></pre>
+
+<p>When you are transitioning multiple properties simultaneously using a comma-separated <code>transition-property</code> list, you can supply a corresponding comma-separated list of durations. The browser maps the duration values to the property values by their position in the list. If there are fewer durations than properties, the browser cycles back through the duration list from the beginning.</p>
+
+<pre><code>.card {
+  transition-property: opacity, transform, background-color;
+  transition-duration: 0.2s, 0.4s, 0.6s;
+  /* opacity: 200ms, transform: 400ms, background-color: 600ms */
+}</code></pre>
+
+<p>Choosing the right duration is as much about user experience as it is about technical correctness. For <strong>small UI interactions</strong> like button hover effects or tooltip appearances, durations in the range of <strong>150ms to 300ms</strong> tend to feel snappy and responsive. Durations shorter than 100ms may happen so fast that users don't perceive the animation at all, defeating the purpose. Conversely, durations longer than 400–500ms for simple UI feedback can feel sluggish and frustrating, making the interface feel unresponsive. Longer durations (500ms to 1s) are more appropriate for larger, more deliberate animations such as sliding panels or page-level transitions.</p>
+
+<p><strong>Timing Functions and transition-timing-function</strong></p>
+
+<p>Duration tells the browser <em>how long</em> a transition takes, but the <code>transition-timing-function</code> tells the browser <em>how the property changes over that time</em>. Does it change at a steady pace? Does it start fast and slow down? Does it ease in gently? These questions are all answered by the timing function. The timing function is mathematically represented as a cubic Bézier curve, and CSS provides several named keywords as convenient shortcuts, along with the ability to define a fully custom curve.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Keyword / Function</th>
+      <th>Description</th>
+      <th>Typical Use Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>ease</code></td>
+      <td>Starts slow, accelerates, then decelerates at the end. The browser default.</td>
+      <td>General UI animations, hover effects — feels natural to humans.</td>
+    </tr>
+    <tr>
+      <td><code>linear</code></td>
+      <td>Constant rate of change from start to finish.</td>
+      <td>Progress bars, rotating loaders, anything requiring uniform motion.</td>
+    </tr>
+    <tr>
+      <td><code>ease-in</code></td>
+      <td>Starts slowly, then accelerates toward the end.</td>
+      <td>Elements leaving the screen (the slow start feels intentional, the quick exit feels decisive).</td>
+    </tr>
+    <tr>
+      <td><code>ease-out</code></td>
+      <td>Starts fast, then decelerates at the end.</td>
+      <td>Elements entering the screen (quick appearance, gentle landing).</td>
+    </tr>
+    <tr>
+      <td><code>ease-in-out</code></td>
+      <td>Slow start, fast middle, slow end. Similar to ease but more symmetrical.</td>
+      <td>Elements that move from one position to another within the viewport.</td>
+    </tr>
+    <tr>
+      <td><code>steps(n, direction)</code></td>
+      <td>Divides the animation into <em>n</em> discrete steps rather than a smooth curve.</td>
+      <td>Sprite-sheet animations, typewriter effects, frame-by-frame motion.</td>
+    </tr>
+    <tr>
+      <td><code>cubic-bezier(x1,y1,x2,y2)</code></td>
+      <td>Fully custom easing curve defined by two control points.</td>
+      <td>Any animation requiring a precise, branded, or unconventional feel.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The <code>ease</code> keyword is equivalent to <code>cubic-bezier(0.25, 0.1, 0.25, 1.0)</code> and is the default timing function if none is specified. It mimics the natural acceleration and deceleration of physical objects, which is why it feels intuitively correct for most UI animations.</p>
+
+<p><code>linear</code> is equivalent to <code>cubic-bezier(0, 0, 1, 1)</code>. Because it changes at a perfectly constant rate, it can feel mechanical and unnatural for most animations, but it is exactly right for things like a spinning loading indicator or a progress bar where you want to communicate a steady, predictable process.</p>
+
+<p>The <code>steps()</code> function is unique because it creates a <em>discrete</em> transition rather than a smooth one. <code>steps(4, end)</code>, for instance, divides the animation into exactly four instantaneous jumps, each occurring at the end of each step interval. This is commonly used to animate sprite sheets where a series of individual frames need to be shown one after another:</p>
+
+<pre><code>.sprite {
+  background-position: 0 0;
+  transition: background-position 0.8s steps(8, end);
+}
+.sprite:hover {
+  background-position: -800px 0;
+}</code></pre>
+
+<p>The <code>cubic-bezier()</code> function provides the highest degree of control. It accepts four numbers representing the x and y coordinates of two control points (P1 and P2) on a unit grid. The start point (P0) is always (0,0) and the end point (P3) is always (1,1). Tools like the Chrome DevTools cubic-bezier editor or the website cubic-bezier.com allow you to visually design and copy your custom curve:</p>
+
+<pre><code>/* A custom "bounce-like" feel */
+transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);</code></pre>
+
+<p><strong>Adding a Delay with transition-delay</strong></p>
+
+<p>The <code>transition-delay</code> property specifies how long the browser should wait after the triggering event before beginning the transition animation. Like <code>transition-duration</code>, delay values are expressed in seconds or milliseconds, and you can provide a comma-separated list to assign different delays to each property in a multi-property transition.</p>
+
+<pre><code>.menu-item {
+  transition-property: opacity, transform;
+  transition-duration: 0.3s, 0.3s;
+  transition-delay: 0s, 0.1s;
+  /* opacity starts immediately; transform starts 100ms later */
+}</code></pre>
+
+<p>Staggered delays like the example above are a powerful technique for creating cascading animation effects, where multiple elements or properties animate sequentially rather than all at once, giving a much more polished and dynamic feel to a UI interaction.</p>
+
+<p>One of the more surprising features of <code>transition-delay</code> is that it can accept <strong>negative values</strong>. A negative delay does not mean the transition starts before the trigger — that is impossible. Instead, a negative delay causes the transition to begin immediately but appear as if it has already been playing for the absolute value of the delay. For example, <code>transition-delay: -0.2s</code> on a 0.5s transition means the animation starts immediately but skips the first 200ms of the animation, jumping straight to the 40% mark and playing from there:</p>
+
+<pre><code>.element {
+  transition: transform 0.5s ease -0.2s;
+  /* Starts immediately, but begins at 40% through the animation */
+}</code></pre>
+
+<p>This technique is occasionally useful for fine-tuning the feel of complex sequences or for creating effects where an element appears to be "already in motion" when it appears.</p>
+
+<p><strong>The Transition Shorthand Property</strong></p>
+
+<p>Rather than declaring all four transition sub-properties separately, the <code>transition</code> shorthand allows you to write them in a single line. The canonical order for the shorthand is:</p>
+
+<pre><code>transition: [property] [duration] [timing-function] [delay];</code></pre>
+
+<p>For example:</p>
+
+<pre><code>.button {
+  transition: background-color 0.3s ease 0s;
+}</code></pre>
+
+<p>A key parsing rule to remember is that when two time values are present in a single transition definition, <strong>the first time value is always interpreted as the duration and the second as the delay</strong>. This is because both values share the same syntax (a number followed by a time unit), so the browser uses positional order to distinguish them:</p>
+
+<pre><code>/* Duration: 0.4s, Delay: 0.1s */
+transition: opacity 0.4s ease 0.1s;</code></pre>
+
+<p>If you only specify one time value, it is treated as the duration, and the delay defaults to <code>0s</code>.</p>
+
+<p>Multiple independent transitions can be combined in a single <code>transition</code> declaration by separating each complete transition definition with a comma. This is the most common and readable approach in production CSS:</p>
+
+<pre><code>.card {
+  transition:
+    opacity 0.3s ease,
+    transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    box-shadow 0.3s ease 0.05s;
+}</code></pre>
+
+<p>In this example, <code>opacity</code> and <code>box-shadow</code> animate over 300ms with ease, while <code>transform</code> uses a custom cubic-bezier curve over 400ms, and <code>box-shadow</code> additionally has a 50ms delay before it begins. This level of specificity allows developers to craft genuinely refined animations with a single concise CSS declaration.</p>
+
+<p><strong>Performance Considerations for CSS Transitions</strong></p>
+
+<p>Not all CSS transitions are created equal from a performance standpoint. Understanding how browsers render pages is essential to writing transitions that stay smooth, ideally maintaining a consistent 60 frames per second (fps), which means each frame must be rendered in under approximately 16.67 milliseconds.</p>
+
+<p>The browser rendering pipeline has several stages: <strong>Style</strong> (calculating which CSS rules apply), <strong>Layout</strong> (calculating the size and position of every element), <strong>Paint</strong> (filling in the pixels), and <strong>Composite</strong> (layering the painted results together). When you animate a property that affects the geometry of elements — such as <code>width</code>, <code>height</code>, <code>padding</code>, <code>margin</code>, or <code>top</code>/<code>left</code> — the browser must run through the entire Layout stage on every single frame of the animation. This is called <strong>reflow</strong>, and it is computationally expensive, especially on pages with complex DOM structures where changing one element's layout can cascade through many others.</p>
+
+<p>Similarly, animating properties like <code>background-color</code>, <code>color</code>, or <code>border</code> requires the browser to <strong>repaint</strong> the affected area every frame — also expensive, though generally less so than reflow.</p>
+
+<p>The two properties that can be animated at the <strong>Composite</strong> stage only — completely bypassing Layout and Paint — are <code>transform</code> and <code>opacity</code>. When you move an element using <code>transform: translateX()</code> instead of changing its <code>left</code> property, the browser can hand that work off to the GPU and perform the calculation almost entirely outside the main thread. This is why performance-conscious developers use <code>transform</code> for all movement and scaling animations, and <code>opacity</code> for all fade effects:</p>
+
+<pre><code>/* ❌ Causes reflow on every frame — avoid for animation */
+.box {
+  transition: width 0.3s ease, margin-left 0.3s ease;
+}
+
+/* ✅ Compositor-only — stays smooth at 60fps */
+.box {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}</code></pre>
+
+<p>The <code>will-change</code> property is an additional performance optimization hint that tells the browser to prepare for an upcoming animation before it starts. By declaring <code>will-change: transform</code> or <code>will-change: opacity</code>, the browser can promote the element to its own compositor layer in advance, eliminating the latency of doing so mid-animation:</p>
+
+<pre><code>.animated-element {
+  will-change: transform, opacity;
+}</code></pre>
+
+<p>However, <code>will-change</code> should be used sparingly and deliberately. Promoting every element to its own compositor layer consumes additional GPU memory. Applying it to many elements simultaneously, or applying it globally via a wildcard selector, can actually <em>degrade</em> performance by exhausting available memory. The best practice is to apply <code>will-change</code> only to elements that are genuinely about to be animated — sometimes added and removed via JavaScript just before and after an animation runs — and to specific high-impact elements like modal dialogs, dropdown menus, or image carousels that animate frequently.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Property Animated</th>
+      <th>Pipeline Stage Triggered</th>
+      <th>Performance Impact</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>width</code>, <code>height</code>, <code>margin</code>, <code>padding</code>, <code>top</code>, <code>left</code></td>
+      <td>Layout (Reflow) → Paint → Composite</td>
+      <td>High — avoid for smooth animations</td>
+    </tr>
+    <tr>
+      <td><code>background-color</code>, <code>color</code>, <code>border-color</code>, <code>box-shadow</code></td>
+      <td>Paint → Composite</td>
+      <td>Medium — acceptable for simple effects</td>
+    </tr>
+    <tr>
+      <td><code>transform</code>, <code>opacity</code></td>
+      <td>Composite only</td>
+      <td>Low — preferred for all performance-sensitive animations</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>By combining a solid understanding of the transition sub-properties with thoughtful choices about which properties to animate, developers can create interfaces that feel polished, responsive, and professional — without sacrificing the smooth experience that users expect from modern web applications.</p>
+        <div class="notes"><strong>Notes</strong>Covers all core CSS transition concepts in depth: triggering mechanics, transition-property (including animatable vs non-animatable properties), transition-duration (with timing guidance), transition-timing-function (all named keywords, steps(), and cubic-bezier()), transition-delay (including negative delay behavior), the shorthand syntax and its parsing rules, and performance considerations (reflow vs repaint vs composite, will-change usage and caveats). Includes multiple HTML tables and illustrative code examples throughout.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

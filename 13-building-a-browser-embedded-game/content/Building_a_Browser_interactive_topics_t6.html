@@ -1,0 +1,458 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Integrating and Assembling the Complete Game</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 13 - Building a Browser-Embedded Game</a></div>
+  <header>
+    <h1>Integrating and Assembling the Complete Game</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Integrating and Assembling the Complete Game</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Building a complete, playable browser game means taking every individual skill you have developed — drawing shapes and sprites on a canvas, animating them smoothly, reading keyboard and mouse input, and enforcing game rules — and weaving them into a single, coherent, self-contained project. This final integration step is where everything clicks into place. It is also where subtle problems emerge: a draw call that happens before the canvas is ready, an event listener registered twice after a restart, or a collision check that runs in the wrong order relative to the render pass. Understanding <em>how</em> to structure the whole project from the ground up, and <em>why</em> each structural decision matters, is what separates a working game from a fragile collection of loosely connected pieces.</p>
+
+<p>The sections below walk through every layer of that integration in depth, from the very first lines of your HTML file all the way to publishing and testing the finished product.</p>
+
+<p><strong>Establishing the Project Structure</strong></p>
+
+<p>Every browser game built with the Canvas API needs at least one HTML file to serve as the entry point. Even if you later split JavaScript across multiple files, the HTML document is the shell that the browser loads first, and its structure sets the tone for everything else. The most important element is the <code>&lt;canvas&gt;</code> tag, which becomes the single rendering surface for the entire game.</p>
+
+<p>A minimal but well-structured starting point looks like this:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;My Complete Game&lt;/title&gt;
+  &lt;style&gt;
+    body { margin: 0; background: #111; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    canvas { display: block; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;canvas id="gameCanvas" width="800" height="600"&gt;&lt;/canvas&gt;
+
+  &lt;!-- Scripts go here, at the bottom of body --&gt;
+  &lt;script src="input.js"&gt;&lt;/script&gt;
+  &lt;script src="entities.js"&gt;&lt;/script&gt;
+  &lt;script src="renderer.js"&gt;&lt;/script&gt;
+  &lt;script src="game.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>Placing <code>&lt;script&gt;</code> tags at the very bottom of the <code>&lt;body&gt;</code> — not in the <code>&lt;head&gt;</code> — is critical. When the browser parses HTML top to bottom, a script in the <code>&lt;head&gt;</code> executes before the <code>&lt;canvas&gt;</code> element exists in the DOM. Any attempt to call <code>document.getElementById('gameCanvas')</code> at that point returns <code>null</code>, and every subsequent canvas operation throws an error. Placing scripts at the bottom guarantees the entire DOM has been constructed before a single line of game code runs.</p>
+
+<p>Separating concerns across files (or clearly labeled sections in a single file) makes the project dramatically easier to debug and extend. A sensible division is:</p>
+
+<ul>
+  <li><strong>input.js</strong> — tracks keyboard/mouse state, exposes a shared <code>keys</code> or <code>input</code> object</li>
+  <li><strong>entities.js</strong> — defines player, enemies, bullets, and other game objects with their properties and update methods</li>
+  <li><strong>renderer.js</strong> — contains the <code>render()</code> function and all drawing helpers</li>
+  <li><strong>game.js</strong> — owns the game loop, game state, win/lose logic, and calls into the other modules</li>
+</ul>
+
+<p>Even in a single-file project you can achieve the same clarity with comments like <code>// === INPUT ===</code>, <code>// === ENTITIES ===</code>, and so on. The goal is that any reader — including your future self — can find the relevant code in under ten seconds.</p>
+
+<p><strong>Combining Drawing and Animation Systems</strong></p>
+
+<p>A canvas game does not maintain a scene graph the way a game engine might. Every frame you erase the entire canvas and redraw every visible object from scratch. This might sound wasteful, but it is the standard, performant approach for 2D canvas games and it keeps the rendering model simple: what you draw last appears on top.</p>
+
+<p>The <code>render()</code> function is responsible for exactly one thing — painting the current game state onto the canvas. It should never modify game state; it only reads it. A well-organized render function looks like this:</p>
+
+<pre><code>function render() {
+  // 1. Clear the entire canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // 2. Draw the background (lowest layer)
+  drawBackground();
+
+  // 3. Draw all game entities (middle layer)
+  drawEnemies();
+  drawPlayer();
+  drawBullets();
+  drawParticles();
+
+  // 4. Draw the UI on top (highest layer)
+  drawScore();
+  drawLives();
+  drawGameStateOverlay(); // shows "Game Over" or "You Win" if needed
+}
+</code></pre>
+
+<p>The order of draw calls is your z-order. Anything drawn earlier is painted over by anything drawn later, so backgrounds must come first and HUD elements must come last. A common mistake is drawing the score before the background, causing the score to be hidden on every frame.</p>
+
+<p><code>requestAnimationFrame()</code> is the browser's built-in mechanism for scheduling animation. Unlike <code>setInterval()</code>, it synchronizes with the display's refresh rate (typically 60 Hz), pauses automatically when the tab is in the background to save CPU, and passes a high-resolution timestamp into your callback, which you can use to compute delta time. The pattern is:</p>
+
+<pre><code>function gameLoop(timestamp) {
+  update(timestamp);
+  render();
+  requestAnimationFrame(gameLoop); // schedule the next frame
+}
+
+requestAnimationFrame(gameLoop); // kick off the loop
+</code></pre>
+
+<p>Each call to <code>requestAnimationFrame(gameLoop)</code> schedules exactly one future callback. The loop continues only because each invocation of <code>gameLoop</code> schedules the next one. This means stopping the loop is as simple as not calling <code>requestAnimationFrame</code> again — or storing the return ID and calling <code>cancelAnimationFrame(id)</code>.</p>
+
+<p><strong>Wiring Up Event Handling and Player Input</strong></p>
+
+<p>Keyboard and mouse event listeners should be registered exactly once, during game initialization, before the loop starts. The cleanest approach stores the current input state in a plain object that any part of the game can read:</p>
+
+<pre><code>const keys = {};
+
+function initInput() {
+  window.addEventListener('keydown', (e) => {
+    keys[e.code] = true;
+  });
+  window.addEventListener('keyup', (e) => {
+    keys[e.code] = false;
+  });
+}
+</code></pre>
+
+<p>By writing to <code>keys['ArrowLeft']</code>, <code>keys['Space']</code>, and so on, the <code>update()</code> function can simply check <code>if (keys['ArrowRight'])</code> every frame without needing to track events itself. This polling model is more predictable than reacting to individual events inside the game loop.</p>
+
+<p>A particularly nasty bug appears when a game allows restarting. If your restart logic calls <code>initInput()</code> again without removing the old listeners, you now have two (or more) <code>keydown</code> handlers. Every key press fires all of them. This can cause the player to move twice as fast, bullets to spawn in doubles, or scores to increment multiple times per keypress. The fix is to use named function references so you can call <code>removeEventListener</code>, or — simpler — to call <code>initInput()</code> only once at page load and never again:</p>
+
+<pre><code>// WRONG: called every time the player hits "restart"
+function restartGame() {
+  initInput(); // registers a second set of listeners!
+  resetGameState();
+  requestAnimationFrame(gameLoop);
+}
+
+// RIGHT: separate initialization from reset
+function initGame() {
+  initInput();       // called once
+  resetGameState();  // can be called any time
+  requestAnimationFrame(gameLoop);
+}
+</code></pre>
+
+<p>Mouse input follows the same principle. Register <code>mousemove</code> and <code>click</code> (or <code>mousedown</code>/<code>mouseup</code>) listeners once on the canvas element, store their state, and read that state inside <code>update()</code>.</p>
+
+<p><strong>Implementing the Unified Game Loop</strong></p>
+
+<p>The game loop is the heartbeat of the entire project. Its four-step rhythm — <em>read input → update state → render → schedule next frame</em> — must be preserved every frame without exception. Mixing these responsibilities (for example, modifying a sprite's position inside the render function) creates hard-to-trace bugs where behavior depends on draw order rather than logic order.</p>
+
+<p>Delta time is the key to frame-rate-independent movement. Because <code>requestAnimationFrame</code> does not guarantee a fixed interval between frames (a slow device might deliver only 30 frames per second while a fast one delivers 120), basing movement on raw frame count produces wildly different speeds across hardware. Delta time measures how many milliseconds (or seconds) elapsed since the last frame and scales movement accordingly:</p>
+
+<pre><code>let lastTimestamp = 0;
+
+function gameLoop(timestamp) {
+  const deltaTime = (timestamp - lastTimestamp) / 1000; // convert ms → seconds
+  lastTimestamp = timestamp;
+
+  update(deltaTime);
+  render();
+
+  requestAnimationFrame(gameLoop);
+}
+</code></pre>
+
+<p>Inside <code>update()</code>, movement uses delta time as a multiplier:</p>
+
+<pre><code>function update(dt) {
+  if (keys['ArrowRight']) {
+    player.x += player.speed * dt; // speed is in pixels per second
+  }
+  if (keys['ArrowLeft']) {
+    player.x -= player.speed * dt;
+  }
+  // ... rest of update logic
+}
+</code></pre>
+
+<p>If <code>player.speed</code> is 300 (pixels per second) and <code>dt</code> is 0.016 (one frame at 60 fps), the player moves 4.8 pixels. On a 30 fps device <code>dt</code> is 0.033 and the player moves 9.9 pixels — the same distance per second, just in larger steps. The game feels the same on all devices.</p>
+
+<p>One caution: on the very first frame, <code>lastTimestamp</code> is 0, so <code>deltaTime</code> will be enormous (the current Unix-ish timestamp in milliseconds divided by 1000). Guard against this with a clamp:</p>
+
+<pre><code>const deltaTime = Math.min((timestamp - lastTimestamp) / 1000, 0.05);
+</code></pre>
+
+<p>Clamping to 0.05 seconds (20 fps minimum) prevents objects from teleporting across the screen if the browser tab is switched and then restored, causing a single huge delta spike.</p>
+
+<p><strong>Integrating Game Logic and Win/Lose Conditions</strong></p>
+
+<p>All game logic — collision detection, score increments, spawning new enemies, timer countdowns — belongs inside <code>update()</code>. The render function is kept deliberately ignorant of logic. This separation makes both functions easier to reason about and test independently.</p>
+
+<p>A practical <code>update()</code> for a simple shooter might look like:</p>
+
+<pre><code>function update(dt) {
+  if (gameState !== 'playing') return; // don't update during "game over" or "win"
+
+  movePlayer(dt);
+  moveBullets(dt);
+  moveEnemies(dt);
+  spawnEnemies(dt);
+
+  checkBulletEnemyCollisions();
+  checkPlayerEnemyCollisions();
+
+  updateScore();
+  checkWinCondition();
+  checkLoseCondition();
+}
+</code></pre>
+
+<p>Game state is typically represented by a string variable or an enum-like constant set:</p>
+
+<pre><code>let gameState = 'playing'; // possible values: 'playing', 'won', 'lost'
+</code></pre>
+
+<p>Win and lose checks read the current conditions and transition state:</p>
+
+<pre><code>function checkWinCondition() {
+  if (enemies.length === 0 && score >= targetScore) {
+    gameState = 'won';
+  }
+}
+
+function checkLoseCondition() {
+  if (player.lives <= 0) {
+    gameState = 'lost';
+  }
+}
+</code></pre>
+
+<p>The render function reads <code>gameState</code> and draws the appropriate overlay:</p>
+
+<pre><code>function drawGameStateOverlay() {
+  if (gameState === 'lost') {
+    ctx.fillStyle = 'rgba(0,0,0,0.6)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'red';
+    ctx.font = 'bold 64px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2);
+    ctx.font = '24px sans-serif';
+    ctx.fillStyle = 'white';
+    ctx.fillText('Press R to restart', canvas.width / 2, canvas.height / 2 + 50);
+  } else if (gameState === 'won') {
+    ctx.fillStyle = 'rgba(0,0,0,0.6)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'gold';
+    ctx.font = 'bold 64px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('YOU WIN!', canvas.width / 2, canvas.height / 2);
+  }
+}
+</code></pre>
+
+<p>Because the loop keeps running even after the game ends (the <code>update</code> function exits early but the render still fires), the overlay appears immediately and stays visible until the player restarts.</p>
+
+<p><strong>Testing and Debugging the Complete Project</strong></p>
+
+<p>Integration testing means playing the game as a user would — from launch through every possible end state — not just verifying individual functions in isolation. A useful checklist for a complete playthrough includes:</p>
+
+<ul>
+  <li>Does the game launch and immediately show the correct opening state?</li>
+  <li>Does player input respond correctly from the first frame?</li>
+  <li>Does the lose condition trigger reliably when the losing event occurs?</li>
+  <li>Does the win condition trigger and display correctly?</li>
+  <li>Does restarting fully reset <em>all</em> game state (score, lives, enemy positions, bullet arrays)?</li>
+  <li>Does restarting work multiple times in a row without degrading performance?</li>
+</ul>
+
+<p><code>console.log()</code> placed strategically is your most accessible debugging tool. Rather than logging every frame (which floods the console and slows the game), log at transition points:</p>
+
+<pre><code>function checkLoseCondition() {
+  if (player.lives <= 0) {
+    console.log('Lose condition triggered. Score:', score, 'State:', gameState);
+    gameState = 'lost';
+  }
+}
+</code></pre>
+
+<p>For per-frame inspection, use a temporary display on the canvas itself rather than the console:</p>
+
+<pre><code>function drawDebugInfo() {
+  ctx.fillStyle = 'lime';
+  ctx.font = '14px monospace';
+  ctx.fillText(`State: ${gameState} | Enemies: ${enemies.length} | FPS: ${Math.round(1/dt)}`, 10, 20);
+}
+</code></pre>
+
+<p>Common integration bugs and their causes are worth memorizing:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Bug</th>
+      <th>Likely Cause</th>
+      <th>Fix</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Canvas is <code>null</code> on load</td>
+      <td>Script runs before DOM is parsed (script in <code>&lt;head&gt;</code>)</td>
+      <td>Move <code>&lt;script&gt;</code> tags to bottom of <code>&lt;body&gt;</code></td>
+    </tr>
+    <tr>
+      <td>Player moves twice as fast after restart</td>
+      <td>Event listeners registered multiple times</td>
+      <td>Register listeners once; never re-register on restart</td>
+    </tr>
+    <tr>
+      <td>Objects teleport on tab switch</td>
+      <td>Massive delta time spike after tab was backgrounded</td>
+      <td>Clamp delta time to a maximum (e.g., 0.05 s)</td>
+    </tr>
+    <tr>
+      <td>Score keeps counting after game over</td>
+      <td><code>update()</code> does not check <code>gameState</code> before running logic</td>
+      <td>Add early-return guard at top of <code>update()</code></td>
+    </tr>
+    <tr>
+      <td>Old bullets/enemies persist after restart</td>
+      <td>Arrays not cleared during <code>resetGameState()</code></td>
+      <td>Set arrays to <code>[]</code> and reinitialize all objects in reset function</td>
+    </tr>
+    <tr>
+      <td>Drawing a <code>null</code> or <code>undefined</code> object crashes the game</td>
+      <td>Entity removed from array but still referenced elsewhere</td>
+      <td>Filter arrays after removal; check for existence before drawing</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Embedding and Presenting the Finished Game</strong></p>
+
+<p>A canvas game that works only in one browser or renders blurry on high-DPI screens is not truly finished. Before presenting the game, a few final steps ensure it looks and behaves professionally.</p>
+
+<p>Canvas dimensions must be set in two places. The HTML <code>width</code> and <code>height</code> attributes define the resolution — the number of actual pixels in the drawing buffer. CSS <code>width</code> and <code>height</code> control the displayed size on screen. If you set only the CSS size, the browser stretches a default 300×150 canvas buffer to fill that space, resulting in blurry, pixelated rendering. Setting both keeps the drawing sharp:</p>
+
+<pre><code>&lt;!-- HTML attribute: sets the drawing buffer resolution --&gt;
+&lt;canvas id="gameCanvas" width="800" height="600"&gt;&lt;/canvas&gt;
+</code></pre>
+
+<pre><code>/* CSS: controls how large it appears on screen */
+canvas {
+  width: 800px;
+  height: 600px;
+}
+</code></pre>
+
+<p>For high-DPI (Retina) displays, you can go further by scaling the canvas buffer by <code>devicePixelRatio</code> and then scaling the context back down:</p>
+
+<pre><code>const dpr = window.devicePixelRatio || 1;
+canvas.width = 800 * dpr;
+canvas.height = 600 * dpr;
+canvas.style.width = '800px';
+canvas.style.height = '600px';
+ctx.scale(dpr, dpr);
+</code></pre>
+
+<p>This makes every line and glyph appear crisp on Retina screens while the rest of your game code continues to work in 800×600 logical coordinates.</p>
+
+<p>Cross-browser testing should cover at least Chrome, Firefox, and Safari (or Edge). Open the HTML file directly with <code>File → Open</code> to simulate how users will experience it without a server. Check that sounds play (some browsers require a user gesture before audio starts), that animations are smooth, and that the game over and win screens display correctly in each browser.</p>
+
+<p>A restart mechanism is essential for playability. Do not force the player to refresh the page. A keypress handler is the simplest approach:</p>
+
+<pre><code>window.addEventListener('keydown', (e) => {
+  if (e.code === 'KeyR' && gameState !== 'playing') {
+    resetGameState();
+    gameState = 'playing';
+    // The loop is already running; no need to call requestAnimationFrame again
+  }
+});
+</code></pre>
+
+<p>Notice that the game loop never stopped — it kept running during the game over screen, faithfully rendering the overlay every frame. Restarting just resets the data and changes <code>gameState</code> back to <code>'playing'</code>, so the next frame's <code>update()</code> call no longer returns early and the game resumes. This is simpler and more reliable than stopping and restarting the loop.</p>
+
+<p>For audiences who may not know keyboard shortcuts, a visible on-screen button can complement the keypress:</p>
+
+<pre><code>function drawGameStateOverlay() {
+  if (gameState === 'lost' || gameState === 'won') {
+    // ... overlay drawing ...
+    ctx.fillStyle = 'white';
+    ctx.font = '20px sans-serif';
+    ctx.fillText('Press R to play again', canvas.width / 2, canvas.height / 2 + 60);
+  }
+}
+</code></pre>
+
+<p>Alternatively, a real HTML <code>&lt;button&gt;</code> element positioned over the canvas via CSS absolute positioning gives mobile users a tap target. The button's <code>click</code> listener calls the same reset logic as the key handler.</p>
+
+<p>The complete integration flow, from initialization to a restartable game, can be summarized in the order operations should occur:</p>
+
+<ul>
+  <li><strong>Page loads</strong> → HTML is parsed, canvas and all scripts are available</li>
+  <li><strong>initInput()</strong> → event listeners registered exactly once</li>
+  <li><strong>loadAssets()</strong> → images and sounds loaded (if any); game starts after load completes</li>
+  <li><strong>resetGameState()</strong> → all game variables set to their initial values</li>
+  <li><strong>requestAnimationFrame(gameLoop)</strong> → loop begins</li>
+  <li><strong>Each frame</strong>: update(dt) → render() → requestAnimationFrame(gameLoop)</li>
+  <li><strong>Win/lose triggered</strong>: gameState changes, update() exits early, render() shows overlay</li>
+  <li><strong>Player restarts</strong>: resetGameState() called, gameState = 'playing', loop continues seamlessly</li>
+</ul>
+
+<p>Following this structure from the start — rather than bolting it together at the end — means that adding new features, fixing bugs, and handing the project to another developer all become straightforward tasks. The game is not just functional; it is organized, testable, and ready to grow.</p>
+        <div class="notes"><strong>Notes</strong>Students should be encouraged to build the project incrementally: get the loop running first with a blank canvas, then add a moving player, then enemies, then collision, then win/lose screens, rather than writing everything at once and debugging a fully assembled project. Emphasize that the separation between update() and render() is a professional convention with real practical benefits, not just style preference.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

@@ -1,0 +1,385 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parsing JSON in JavaScript</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 8 - Introduction to JSON and Using It in the Browser</a></div>
+  <header>
+    <h1>Parsing JSON in JavaScript</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Parsing JSON in JavaScript</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When JavaScript applications communicate with servers, read from files, or consume APIs, data almost always arrives as a <strong>JSON string</strong> — a sequence of plain text characters that <em>looks</em> like a JavaScript object but is not one. Before your code can meaningfully work with that data — reading properties, iterating arrays, performing calculations — the string must be converted into a live JavaScript value. That conversion is called <strong>JSON parsing</strong>, and JavaScript provides a built-in tool for it: <code>JSON.parse()</code>.</p>
+
+<p>Understanding parsing deeply means understanding not just the function call itself, but the rules JSON imposes on its text format, the ways parsing can fail, the full range of data structures it can produce, and the advanced customization available through the optional reviver function. Each of these dimensions is explored in detail below.</p>
+
+<p><strong>What Is JSON Parsing?</strong></p>
+
+<p>JSON (JavaScript Object Notation) is a text-based data format. When it travels across a network or sits in a file, it is just a string — a flat sequence of characters. Consider this example:</p>
+
+<pre><code>const jsonString = '{"name":"Alice","age":30}';</code></pre>
+
+<p>At this point, <code>jsonString</code> is nothing more than a JavaScript string primitive. Its contents <em>resemble</em> an object literal, but JavaScript does not treat it as one. If you try to access a property directly on the raw string, the result is not what you expect:</p>
+
+<pre><code>console.log(jsonString.name);  // undefined — strings don't have a .name property
+console.log(jsonString.age);   // undefined</code></pre>
+
+<p>The text inside the string is meaningless to the JavaScript engine until it is <strong>parsed</strong> — read character by character, validated against JSON's grammar rules, and converted into a real JavaScript value with actual properties and prototype chain behaviour. Once parsing is complete, you can use <strong>dot notation</strong> or <strong>bracket notation</strong> exactly as you would with any ordinary object:</p>
+
+<pre><code>const parsed = JSON.parse(jsonString);
+
+console.log(parsed.name);       // "Alice"
+console.log(parsed["age"]);     // 30
+console.log(typeof parsed);     // "object"</code></pre>
+
+<p>The distinction matters enormously in practice. API responses fetched with <code>fetch()</code>, data read from <code>localStorage</code>, and payloads received via WebSockets all begin life as strings. Attempting to treat them as structured objects without parsing first is one of the most common sources of subtle bugs in JavaScript applications.</p>
+
+<p><strong>Using JSON.parse()</strong></p>
+
+<p><code>JSON.parse()</code> is a static method on the built-in <code>JSON</code> object. In its simplest form it accepts a single argument — the JSON string to be parsed — and returns the corresponding JavaScript value:</p>
+
+<pre><code>const result = JSON.parse(text);</code></pre>
+
+<p>The return value is not always an object. The JSON specification allows any of its supported value types at the top level, and <code>JSON.parse()</code> faithfully returns whichever JavaScript type corresponds:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>JSON text passed in</th>
+      <th>JavaScript value returned</th>
+      <th>typeof result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>'{"key":"val"}'</code></td>
+      <td>An object with property <code>key</code></td>
+      <td><code>"object"</code></td>
+    </tr>
+    <tr>
+      <td><code>'[1,2,3]'</code></td>
+      <td>An array <code>[1, 2, 3]</code></td>
+      <td><code>"object"</code></td>
+    </tr>
+    <tr>
+      <td><code>'"hello"'</code></td>
+      <td>The string <code>"hello"</code></td>
+      <td><code>"string"</code></td>
+    </tr>
+    <tr>
+      <td><code>'42'</code></td>
+      <td>The number <code>42</code></td>
+      <td><code>"number"</code></td>
+    </tr>
+    <tr>
+      <td><code>'true'</code></td>
+      <td>The boolean <code>true</code></td>
+      <td><code>"boolean"</code></td>
+    </tr>
+    <tr>
+      <td><code>'null'</code></td>
+      <td>The value <code>null</code></td>
+      <td><code>"object"</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A particularly powerful aspect of <code>JSON.parse()</code> is that it handles <strong>deeply nested structures</strong> in a single call. There is no need to recursively parse inner objects or arrays — the entire tree is converted at once:</p>
+
+<pre><code>const json = '{"user":{"name":"Bob","scores":[95,87,100],"address":{"city":"Austin"}}}';
+const data = JSON.parse(json);
+
+console.log(data.user.name);              // "Bob"
+console.log(data.user.scores[1]);         // 87
+console.log(data.user.address.city);      // "Austin"</code></pre>
+
+<p>Every level of nesting — objects within objects, arrays within objects, objects within arrays — is fully materialised and immediately accessible after the single <code>JSON.parse()</code> call returns.</p>
+
+<p><strong>Valid JSON Requirements Before Parsing</strong></p>
+
+<p>JSON is <em>not</em> JavaScript. Although it was inspired by JavaScript's object literal syntax, JSON is a strict, independent format with its own grammar. Many things that are perfectly legal in a JavaScript object literal are <strong>invalid in JSON</strong> and will cause <code>JSON.parse()</code> to throw a <code>SyntaxError</code>. Understanding these rules before parsing saves significant debugging time.</p>
+
+<ul>
+  <li><strong>Double quotes only.</strong> Both object keys and string values must be enclosed in double quotes. Single quotes are not permitted anywhere in JSON. <code>'{"name":"Alice"}'</code> is valid; <code>"{'name':'Alice'}"</code> is not.</li>
+  <li><strong>No trailing commas.</strong> A trailing comma after the last property in an object or the last element in an array is illegal in JSON, even though modern JavaScript allows it in object and array literals. <code>'{"a":1,"b":2,}'</code> will throw.</li>
+  <li><strong>No comments.</strong> JSON does not support <code>//</code> or <code>/* */</code> comments. Adding them makes the string invalid.</li>
+  <li><strong>Restricted value types.</strong> Only strings, numbers, objects, arrays, <code>true</code>, <code>false</code>, and <code>null</code> are valid JSON values. JavaScript-specific types like <code>undefined</code>, functions, <code>Symbol</code>, <code>BigInt</code>, <code>Date</code> objects, and <code>RegExp</code> objects are not expressible in JSON. A Date, for instance, is typically serialised as a string (<code>"2024-01-15T10:30:00.000Z"</code>) and must be explicitly converted back to a <code>Date</code> object after parsing.</li>
+  <li><strong>Numbers follow specific rules.</strong> JSON numbers cannot have leading zeros (except the zero before a decimal point), cannot be <code>NaN</code>, and cannot be <code>Infinity</code>.</li>
+</ul>
+
+<p>Here is a side-by-side comparison to make these rules concrete:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Text</th>
+      <th>Valid JSON?</th>
+      <th>Reason if invalid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>{"name":"Alice"}</code></td>
+      <td>Yes</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><code>{'name':'Alice'}</code></td>
+      <td>No</td>
+      <td>Single quotes used</td>
+    </tr>
+    <tr>
+      <td><code>{"name":"Alice","age":30,}</code></td>
+      <td>No</td>
+      <td>Trailing comma</td>
+    </tr>
+    <tr>
+      <td><code>{"active":true,"data":null}</code></td>
+      <td>Yes</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><code>{"fn":function(){}}</code></td>
+      <td>No</td>
+      <td>Functions not allowed</td>
+    </tr>
+    <tr>
+      <td><code>{"ratio":NaN}</code></td>
+      <td>No</td>
+      <td>NaN not a valid JSON value</td>
+    </tr>
+    <tr>
+      <td><code>[1,2,3]</code></td>
+      <td>Yes</td>
+      <td>—</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Handling Errors with try...catch</strong></p>
+
+<p>When <code>JSON.parse()</code> receives a string that violates JSON's grammar, it does not return <code>null</code> or an empty object — it <strong>throws a <code>SyntaxError</code> immediately</strong>. If that exception is unhandled, it will propagate up the call stack and, in a browser, may halt execution of your entire script. In a Node.js server it can crash the process. Robust applications must therefore always wrap <code>JSON.parse()</code> calls in a <code>try...catch</code> block when parsing data that comes from an external or untrusted source:</p>
+
+<pre><code>function safeParse(jsonString) {
+  try {
+    const result = JSON.parse(jsonString);
+    return result;
+  } catch (error) {
+    console.error("Failed to parse JSON:", error.message);
+    return null;  // or a sensible default value
+  }
+}
+
+console.log(safeParse('{"name":"Alice"}'));   // { name: 'Alice' }
+console.log(safeParse('{bad json}'));         // logs error, returns null</code></pre>
+
+<p>Inside the <code>catch</code> block, the <code>error</code> object is always a <code>SyntaxError</code> instance when thrown by <code>JSON.parse()</code>. Its <code>message</code> property contains a description of exactly what went wrong, which is useful for logging. You have several options for what to do in the <code>catch</code> block:</p>
+
+<ul>
+  <li><strong>Return a default value</strong> (such as <code>null</code>, <code>{}</code>, or <code>[]</code>) so the rest of the application can continue with a known safe state.</li>
+  <li><strong>Show a user-facing message</strong> informing the user that data could not be loaded.</li>
+  <li><strong>Re-throw a more descriptive error</strong> if you want calling code further up the stack to handle it.</li>
+  <li><strong>Log to a monitoring service</strong> so that unexpected bad input in production is captured and investigated.</li>
+</ul>
+
+<p>A common real-world pattern when working with the Fetch API illustrates why error handling is critical. The <code>response.json()</code> method also parses JSON under the hood and returns a promise that rejects on malformed input:</p>
+
+<pre><code>async function loadUser(id) {
+  try {
+    const response = await fetch(`/api/users/${id}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error: ${response.status}`);
+    }
+    const user = await response.json();  // internally calls JSON.parse()
+    return user;
+  } catch (error) {
+    console.error("Could not load user:", error.message);
+    return null;
+  }
+}</code></pre>
+
+<p>Beyond wrapping the call, it is good practice to <strong>validate or sanitise external data</strong> before passing it to <code>JSON.parse()</code>. For instance, checking that a value is a non-empty string before attempting to parse it avoids a whole class of unnecessary errors:</p>
+
+<pre><code>function parseIfString(value) {
+  if (typeof value !== "string" || value.trim() === "") {
+    return null;
+  }
+  try {
+    return JSON.parse(value);
+  } catch {
+    return null;
+  }
+}</code></pre>
+
+<p><strong>Parsing JSON Arrays</strong></p>
+
+<p>Not every JSON payload represents an object. When a server returns a list of records — search results, product catalogues, user notifications — the top-level JSON value is typically an <strong>array</strong>. <code>JSON.parse()</code> handles this seamlessly: if the JSON text begins with <code>[</code>, the return value is a JavaScript array.</p>
+
+<pre><code>const jsonArray = '[{"id":1,"title":"Learn JSON"},{"id":2,"title":"Master Fetch"}]';
+const courses = JSON.parse(jsonArray);
+
+console.log(Array.isArray(courses));  // true
+console.log(courses.length);          // 2
+console.log(courses[0].title);        // "Learn JSON"</code></pre>
+
+<p>Array elements can be of any valid JSON type, and they are all fully parsed. A JSON array can contain objects, numbers, strings, booleans, null, or even nested arrays, and every element is converted to its JavaScript equivalent in one pass:</p>
+
+<pre><code>const mixed = '[1, "hello", true, null, {"key":"val"}, [10, 20]]';
+const arr = JSON.parse(mixed);
+
+console.log(arr[0]);        // 1
+console.log(arr[1]);        // "hello"
+console.log(arr[2]);        // true
+console.log(arr[3]);        // null
+console.log(arr[4].key);    // "val"
+console.log(arr[5][0]);     // 10</code></pre>
+
+<p>Because the result is a proper JavaScript array, all standard array methods are immediately available. This makes it straightforward to transform, filter, or iterate the parsed data:</p>
+
+<pre><code>const usersJson = '[{"name":"Alice","active":true},{"name":"Bob","active":false},{"name":"Carol","active":true}]';
+const users = JSON.parse(usersJson);
+
+// Get only active users
+const activeUsers = users.filter(u => u.active);
+console.log(activeUsers.map(u => u.name));  // ["Alice", "Carol"]
+
+// Collect all names
+users.forEach(u => console.log(u.name));    // Alice, Bob, Carol</code></pre>
+
+<p><strong>Using the Reviver Function</strong></p>
+
+<p><code>JSON.parse()</code> accepts an optional second argument called the <strong>reviver</strong>. It is a function that gives you precise control over how each parsed value is transformed before being returned. Its signature is:</p>
+
+<pre><code>JSON.parse(text, function reviver(key, value) {
+  // return the value to keep, a modified value to replace it,
+  // or undefined to remove the key entirely
+});</code></pre>
+
+<p>After the JSON string has been syntactically parsed into an initial object tree, the reviver is called <strong>recursively for every key-value pair</strong> in the result, starting from the deepest nested values and working outward toward the root. When processing is complete, the reviver is called one final time with an empty string (<code>""</code>) as the key and the entire root value as the value.</p>
+
+<p><em>Example 1 — Converting date strings back into Date objects:</em></p>
+
+<p>A common problem is that JSON has no date type; dates are serialised as ISO strings. When parsed naively, they remain strings. The reviver lets you detect these strings and convert them automatically:</p>
+
+<pre><code>const json = '{"user":"Alice","createdAt":"2024-03-15T09:00:00.000Z"}';
+
+const data = JSON.parse(json, (key, value) => {
+  // Check if the value looks like an ISO date string
+  if (typeof value === "string" && /^\d{4}-\d{2}-\d{2}T/.test(value)) {
+    return new Date(value);
+  }
+  return value;  // return everything else unchanged
+});
+
+console.log(data.user);                      // "Alice"
+console.log(data.createdAt instanceof Date); // true
+console.log(data.createdAt.getFullYear());   // 2024</code></pre>
+
+<p><em>Example 2 — Removing unwanted keys:</em></p>
+
+<p>Returning <code>undefined</code> from the reviver instructs <code>JSON.parse()</code> to <strong>omit that key entirely</strong> from the result. This is useful for stripping sensitive or irrelevant fields from an API response before the data reaches your application logic:</p>
+
+<pre><code>const json = '{"name":"Alice","password":"s3cr3t","age":30}';
+
+const safe = JSON.parse(json, (key, value) => {
+  if (key === "password") return undefined;  // remove this key
+  return value;
+});
+
+console.log(safe);  // { name: 'Alice', age: 30 }
+// "password" has been completely removed</code></pre>
+
+<p><em>Example 3 — Type coercion and normalisation:</em></p>
+
+<p>APIs sometimes return numbers as strings (a common quirk of certain back-end systems or CSV-to-JSON converters). The reviver can coerce them to proper numbers during the parse phase, so the rest of your code never has to deal with the inconsistency:</p>
+
+<pre><code>const json = '{"productId":"101","price":"29.99","quantity":"5"}';
+
+const order = JSON.parse(json, (key, value) => {
+  // If it looks like a numeric string, convert it
+  if (typeof value === "string" && !isNaN(value) && value.trim() !== "") {
+    return Number(value);
+  }
+  return value;
+});
+
+console.log(order.price + order.quantity);  // 34.99 (numeric addition, not string concat)
+console.log(typeof order.productId);        // "number"</code></pre>
+
+<p>The reviver's traversal order — deepest first, root last — means that by the time a parent object is processed, all of its children have already been transformed. This ordering is important to understand if your reviver logic for a parent depends on the final values of its children.</p>
+
+<p>To summarise the full capability of <code>JSON.parse()</code> including its optional second argument:</p>
+
+<ul>
+  <li>Call <code>JSON.parse(jsonString)</code> to convert any valid JSON text into the corresponding JavaScript value.</li>
+  <li>The return type mirrors the top-level JSON type: object, array, string, number, boolean, or null.</li>
+  <li>Deeply nested structures are fully parsed in a single call — no recursion is needed on your part.</li>
+  <li>Always wrap calls in <code>try...catch</code> when the input comes from an external, user-supplied, or otherwise untrusted source.</li>
+  <li>Ensure the input is well-formed JSON: double-quoted keys and strings, no trailing commas, no comments, no functions or undefined values.</li>
+  <li>Use the optional reviver function to transform, coerce, or filter values at parse time, keeping your downstream code clean and consistent.</li>
+</ul>
+        <div class="notes"><strong>Notes</strong>How to convert a JSON string into a usable JavaScript object using JSON.parse(), including handling common errors.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

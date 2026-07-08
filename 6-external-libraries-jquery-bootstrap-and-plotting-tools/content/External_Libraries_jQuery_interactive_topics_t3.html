@@ -1,0 +1,440 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jQuery Events and Dynamic Interactivity</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 6 - External Libraries: jQuery, Bootstrap, and Plotting Tools</a></div>
+  <header>
+    <h1>jQuery Events and Dynamic Interactivity</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>jQuery Events and Dynamic Interactivity</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>jQuery's event system is one of its most powerful and widely used features. At its core, jQuery allows you to <strong>listen for things the user does</strong> — clicking a button, typing in a field, submitting a form, hovering over an element — and respond with JavaScript code that runs the moment the action occurs. This transforms a static HTML page into a dynamic, interactive experience without requiring a full page reload. Understanding how jQuery handles events means understanding not just the syntax, but also the underlying browser mechanics like event bubbling, the event object, and the difference between elements that exist when your script runs versus elements added later by dynamic code.</p>
+
+<p>Before jQuery, wiring up event handlers meant writing cross-browser-compatible code that was verbose and error-prone. jQuery abstracts all of that away behind a clean, consistent API. The central method in that API is <strong><code>.on()</code></strong>, and virtually everything else in jQuery's event model builds on top of it.</p>
+
+<p><strong>Binding Events with .on()</strong></p>
+
+<p>The <code>.on()</code> method is the standard, recommended way to attach event listeners in jQuery. In its simplest form it takes two arguments: a string naming the event type, and a callback function to execute when that event fires on the matched elements.</p>
+
+<pre><code>// Listen for click events on every button element
+$('button').on('click', function() {
+  alert('A button was clicked!');
+});
+</code></pre>
+
+<p>The event name string mirrors the native browser event names — <code>'click'</code>, <code>'submit'</code>, <code>'keyup'</code>, <code>'keydown'</code>, <code>'focus'</code>, <code>'blur'</code>, <code>'change'</code>, <code>'mouseover'</code>, <code>'mouseout'</code>, and many others. jQuery normalizes these across browsers so the same string works everywhere.</p>
+
+<p>A particularly convenient feature of <code>.on()</code> is that you can <strong>bind multiple event types at once</strong> by space-separating them in the first argument. This eliminates duplicate code when the same handler should fire for several related events.</p>
+
+<pre><code>// Apply the same handler to both focus and blur on all text inputs
+$('input[type="text"]').on('focus blur', function() {
+  $(this).toggleClass('active');
+});
+</code></pre>
+
+<p>You can also pass an object to <code>.on()</code> to map multiple event names to separate handlers in one call:</p>
+
+<pre><code>$('#myForm').on({
+  submit: function(event) { event.preventDefault(); validateForm(); },
+  reset:  function()      { clearErrors(); }
+});
+</code></pre>
+
+<p>The older <strong>shorthand methods</strong> — <code>.click()</code>, <code>.keypress()</code>, <code>.hover()</code>, <code>.focus()</code>, and so on — are convenience wrappers that call <code>.on()</code> internally. They still work and you will encounter them in older codebases, but they are less flexible because they do not support event delegation (explained below) and offer no advantage over <code>.on()</code>. The jQuery team recommends using <code>.on()</code> exclusively in modern code.</p>
+
+<pre><code>// These two lines are equivalent
+$('#btn').click(handler);
+$('#btn').on('click', handler);
+</code></pre>
+
+<p><strong>Handling Click Events</strong></p>
+
+<p>Click events are the most common interaction on the web. When a click handler fires, jQuery passes it an <em>event object</em> and also sets the value of <code>this</code> inside the callback to the <strong>raw DOM element</strong> that was clicked. Wrapping it in <code>$()</code> gives you the full jQuery API for that element.</p>
+
+<pre><code>$('.product-card').on('click', function() {
+  // 'this' is the DOM element; $(this) is the jQuery-wrapped version
+  var productName = $(this).data('name');    // read a data attribute
+  var price       = $(this).data('price');   // read another data attribute
+  $('#cart-info').text('Added: ' + productName + ' — $' + price);
+});
+</code></pre>
+
+<p>One of the most important things a click handler can do is call <strong><code>event.preventDefault()</code></strong>. By default, clicking an <code>&lt;a&gt;</code> tag navigates to its <code>href</code>, and clicking a submit button sends a form to the server. Calling <code>event.preventDefault()</code> stops that native behavior while still allowing your custom code to run and, importantly, still allowing the event to bubble up the DOM.</p>
+
+<pre><code>$('a.smooth-scroll').on('click', function(event) {
+  event.preventDefault();   // do NOT follow the href
+  var target = $(this).attr('href');
+  $('html, body').animate({ scrollTop: $(target).offset().top }, 600);
+});
+</code></pre>
+
+<p>Click handlers become even more powerful when combined with jQuery's DOM manipulation methods. Chaining these calls after identifying which element was clicked creates <strong>immediate visual feedback</strong> — exactly what users expect from a modern interface.</p>
+
+<pre><code>$('#toggle-menu').on('click', function() {
+  $('#nav-menu').slideToggle(300);        // animated show/hide
+  $(this).toggleClass('menu-open');       // update button appearance
+});
+</code></pre>
+
+<p>Reading <code>data-*</code> attributes gives handlers context. A single handler bound to many similar elements can behave differently based on which one was clicked:</p>
+
+<pre><code>&lt;!-- HTML --&gt;
+&lt;button class="color-btn" data-color="red"&gt;Red&lt;/button&gt;
+&lt;button class="color-btn" data-color="blue"&gt;Blue&lt;/button&gt;
+
+&lt;!-- jQuery --&gt;
+$('.color-btn').on('click', function() {
+  var color = $(this).data('color');
+  $('body').css('background-color', color);
+});
+</code></pre>
+
+<p><strong>Form Submission Events</strong></p>
+
+<p>Binding to the <code>'submit'</code> event on a <code>&lt;form&gt;</code> element fires your handler whenever the user submits that form — whether by clicking a submit button, pressing Enter in a text field, or triggering the submission programmatically. This is the correct place to perform <strong>client-side validation</strong> before any data leaves the browser.</p>
+
+<pre><code>$('#signup-form').on('submit', function(event) {
+  event.preventDefault();   // stop the browser from sending the form
+
+  var username = $('#username').val().trim();
+  var email    = $('#email').val().trim();
+
+  if (username === '') {
+    $('#error-msg').text('Username is required.').show();
+    return;   // stop further processing
+  }
+
+  if (email.indexOf('@') === -1) {
+    $('#error-msg').text('Please enter a valid email.').show();
+    return;
+  }
+
+  // All valid — submit programmatically or send via AJAX
+  this.submit();   // 'this' is the raw form DOM element
+});
+</code></pre>
+
+<p>The <code>.val()</code> method is indispensable in form handlers. It works on <code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code>, and <code>&lt;select&gt;</code> elements and returns the current value as a string. For <code>&lt;select multiple&gt;</code> it returns an array. You can also use <code>.val('new value')</code> to set a field's value programmatically.</p>
+
+<pre><code>// Reading values
+var city    = $('#city-select').val();       // e.g., "Chicago"
+var message = $('textarea#comments').val();  // full text of a textarea
+
+// Setting a value
+$('#status').val('pending');
+</code></pre>
+
+<p>When you want to send form data without a full page reload, replace <code>this.submit()</code> with an <strong>AJAX call</strong>. jQuery's <code>$.ajax()</code> (or the shorthand <code>$.post()</code>) sends the data to a server endpoint and lets you update the page with the response:</p>
+
+<pre><code>$('#contact-form').on('submit', function(event) {
+  event.preventDefault();
+  $.ajax({
+    url:    '/send-message',
+    method: 'POST',
+    data:   $(this).serialize(),   // encodes all form fields automatically
+    success: function(response) {
+      $('#form-container').html('&lt;p&gt;Message sent successfully!&lt;/p&gt;');
+    },
+    error: function() {
+      $('#error-msg').text('Something went wrong. Please try again.').show();
+    }
+  });
+});
+</code></pre>
+
+<p><strong>Keyboard Input Events</strong></p>
+
+<p>jQuery exposes three keyboard event types: <code>'keydown'</code> (fires as soon as a key is pressed), <code>'keypress'</code> (deprecated, avoid in new code), and <code>'keyup'</code> (fires after the key is released and the input value has been updated). For reading what the user has typed, <strong><code>'keyup'</code> is almost always the right choice</strong> because by the time it fires, the new character is already in the input's value.</p>
+
+<pre><code>$('#search-input').on('keyup', function() {
+  var query = $(this).val().toLowerCase();
+  $('#results li').each(function() {
+    var text = $(this).text().toLowerCase();
+    $(this).toggle(text.indexOf(query) !== -1);
+  });
+});
+</code></pre>
+
+<p>This classic <strong>live search / filter</strong> pattern hides list items whose text does not contain the current query and shows the ones that do. The user sees results update with every keystroke.</p>
+
+<p>The event object passed to keyboard handlers exposes two important properties for detecting specific keys:</p>
+
+<ul>
+  <li><strong><code>event.key</code></strong> — a human-readable string describing the key pressed, such as <code>'Enter'</code>, <code>'Escape'</code>, <code>'ArrowDown'</code>, or <code>'a'</code>.</li>
+  <li><strong><code>event.code</code></strong> — the physical key on the keyboard, independent of layout (e.g., <code>'KeyA'</code>, <code>'Enter'</code>, <code>'Space'</code>). Useful when you care about position rather than character.</li>
+</ul>
+
+<pre><code>$('#search-input').on('keyup', function(event) {
+  if (event.key === 'Enter') {
+    performSearch($(this).val());
+  }
+  if (event.key === 'Escape') {
+    $(this).val('').trigger('keyup');   // clear and re-run filter
+  }
+});
+</code></pre>
+
+<p>Checking for <code>event.key === 'Enter'</code> is one of the most common keyboard patterns in jQuery. It lets a text input function like a search box without needing a dedicated submit button. The combination of <code>'keyup'</code> + <code>.val()</code> + DOM updates enables entirely reactive UIs:</p>
+
+<pre><code>$('#username-field').on('keyup', function() {
+  var length = $(this).val().length;
+  $('#char-count').text(length + ' characters');
+  $('#submit-btn').prop('disabled', length &lt; 3);
+});
+</code></pre>
+
+<p><strong>Event Delegation for Dynamic Elements</strong></p>
+
+<p>A fundamental limitation of direct event binding is that it only affects elements <em>that already exist in the DOM</em> when <code>.on()</code> is called. If you later add new elements — via AJAX, user interaction, or JavaScript templating — those new elements will <strong>not</strong> have the handler, even if they match the original selector.</p>
+
+<pre><code>// PROBLEM: only binds to &lt;li&gt; elements present RIGHT NOW
+$('li.product').on('click', showDetail);
+
+// Later code adds a new item — it will NOT respond to clicks:
+$('#product-list').append('&lt;li class="product" data-id="42"&gt;New Item&lt;/li&gt;');
+</code></pre>
+
+<p><strong>Event delegation</strong> solves this. The trick is to bind the handler to a <em>stable ancestor</em> — an element that exists when the script runs and will continue to exist — and tell jQuery to only invoke the callback when the event originated from a specific descendant selector. This works because browser events <em>bubble up</em> the DOM tree: a click on a child element travels up through every ancestor until it reaches the document root.</p>
+
+<pre><code>// SOLUTION: bind to the stable parent, delegate to child selector
+$('#product-list').on('click', 'li.product', function() {
+  showDetail($(this).data('id'));
+});
+</code></pre>
+
+<p>Now, regardless of when <code>&lt;li class="product"&gt;</code> elements are added to <code>#product-list</code>, they will all respond to clicks. jQuery intercepts the bubbled event at <code>#product-list</code>, checks whether <code>event.target</code> matches <code>'li.product'</code>, and if so calls the handler with <code>this</code> set to the matching child element.</p>
+
+<p>For truly dynamic pages where even the container may not be present initially, <code>document</code> itself is a safe delegation target:</p>
+
+<pre><code>$(document).on('click', '.modal-close', function() {
+  $(this).closest('.modal').fadeOut(200);
+});
+</code></pre>
+
+<p>Delegation also has a <strong>performance advantage</strong>: instead of attaching hundreds of individual listeners to hundreds of child elements, you attach exactly one listener to their shared ancestor. The browser's memory usage and initialization time both decrease. For tables with thousands of rows, or lists built from API data, this difference is meaningful.</p>
+
+<p><strong>The Event Object and Stopping Propagation</strong></p>
+
+<p>Every jQuery event handler receives a <strong>normalized event object</strong> as its first argument. jQuery irons out browser inconsistencies so you always get the same properties and methods regardless of the browser. The most commonly used capabilities of this object are:</p>
+
+<ul>
+  <li><strong><code>event.preventDefault()</code></strong> — cancels the browser's built-in action for the event (navigation, form submission, checkbox toggling) without stopping the event from bubbling to parent elements.</li>
+  <li><strong><code>event.stopPropagation()</code></strong> — prevents the event from bubbling further up the DOM, so parent handlers do not fire. The default browser action is still performed unless you also call <code>preventDefault()</code>.</li>
+  <li><strong><code>event.stopImmediatePropagation()</code></strong> — both prevents bubbling AND prevents any other handlers bound to the <em>same element</em> from running. Useful when you need guaranteed exclusivity.</li>
+  <li><strong><code>event.target</code></strong> — the actual DOM element that originally triggered the event (the innermost element clicked).</li>
+  <li><strong><code>event.currentTarget</code></strong> — the element the handler is bound to (may differ from <code>event.target</code> in delegation scenarios).</li>
+  <li><strong><code>event.pageX</code> / <code>event.pageY</code></strong> — the mouse cursor's position in pixels relative to the top-left corner of the document at the time of the event.</li>
+</ul>
+
+<pre><code>$('#parent-div').on('click', function(event) {
+  console.log('target:', event.target);           // what was actually clicked
+  console.log('currentTarget:', event.currentTarget); // #parent-div
+  console.log('position:', event.pageX, event.pageY);
+});
+</code></pre>
+
+<p>A classic scenario where <code>stopPropagation()</code> is necessary is a <strong>dropdown menu</strong> that closes when the user clicks anywhere on the page. You bind a click handler to <code>document</code> that closes the dropdown, but clicking <em>inside</em> the dropdown should not close it:</p>
+
+<pre><code>$('#dropdown-toggle').on('click', function(event) {
+  event.stopPropagation();   // prevents the document handler from closing it
+  $('#dropdown-menu').toggleClass('open');
+});
+
+$(document).on('click', function() {
+  $('#dropdown-menu').removeClass('open');   // close on outside click
+});
+</code></pre>
+
+<p>Without <code>stopPropagation()</code> on the toggle click, the event would bubble from the button up to the document, immediately closing the menu the moment it was opened.</p>
+
+<p>The difference between <code>stopPropagation()</code> and <code>stopImmediatePropagation()</code> matters when multiple handlers are bound to the same element. <code>stopPropagation()</code> still lets the remaining same-element handlers run; <code>stopImmediatePropagation()</code> halts all of them.</p>
+
+<pre><code>$('#btn').on('click', function(event) {
+  event.stopImmediatePropagation();
+  console.log('Only this handler runs');
+});
+
+$('#btn').on('click', function() {
+  console.log('This will NEVER run if the first handler called stopImmediatePropagation');
+});
+</code></pre>
+
+<p><strong>Common Interaction Patterns with jQuery</strong></p>
+
+<p>The event tools described above combine into a handful of recurring UI patterns that appear on virtually every interactive website. Understanding these patterns as reusable blueprints makes building complex interfaces much faster.</p>
+
+<p><em>Toggle patterns</em> use a click handler with <code>.toggleClass()</code> or <code>.toggle()</code> to flip an element between two states. This is the foundation of nearly every show/hide interaction:</p>
+
+<pre><code>// Simple class toggle — CSS defines what 'expanded' looks like
+$('.accordion-header').on('click', function() {
+  $(this).next('.accordion-body').toggleClass('expanded');
+});
+
+// .toggle() alternates between visible and hidden
+$('#info-box').toggle();   // if visible, hides; if hidden, shows
+</code></pre>
+
+<p><em>Live search / list filtering</em> binds to <code>'keyup'</code> on a text input and iterates through a list, comparing each item's text to the query. Items that match remain visible; non-matching items are hidden.</p>
+
+<pre><code>$('#filter-input').on('keyup', function() {
+  var query = $(this).val().toLowerCase();
+  $('#employee-list li').each(function() {
+    var name = $(this).text().toLowerCase();
+    $(this).toggle(name.includes(query));
+  });
+});
+</code></pre>
+
+<p><em>Tab interfaces</em> use click handlers on navigation elements to show one content panel at a time. The pattern involves deactivating all tabs and panels, then activating the clicked one:</p>
+
+<pre><code>$('.tab-link').on('click', function(event) {
+  event.preventDefault();
+  var target = $(this).data('target');   // e.g., '#panel-1'
+
+  // Deactivate everything
+  $('.tab-link').removeClass('active');
+  $('.tab-panel').hide();
+
+  // Activate the clicked tab and its panel
+  $(this).addClass('active');
+  $(target).show();
+});
+</code></pre>
+
+<p><em>Accordion components</em> expand one section and collapse the others. The key technique is using jQuery's <strong>sibling selectors</strong> to find other open sections and close them before opening the new one:</p>
+
+<pre><code>$('.accordion-header').on('click', function() {
+  var $body    = $(this).next('.accordion-body');
+  var $others  = $('.accordion-body').not($body);
+
+  $others.slideUp(250);    // close all other sections
+  $body.slideToggle(250);  // open (or close) the clicked one
+});
+</code></pre>
+
+<p>These patterns share a common structure: a selector targets the interactive element, <code>.on()</code> binds the event, the handler reads context (which element, what value), and DOM manipulation methods update the page. The following table summarizes the most frequently used event types and their typical use cases:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Event Name</th>
+      <th>Fires When</th>
+      <th>Typical Use Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>click</code></td>
+      <td>User clicks an element</td>
+      <td>Buttons, links, toggles, modals</td>
+    </tr>
+    <tr>
+      <td><code>submit</code></td>
+      <td>Form is submitted</td>
+      <td>Validation, AJAX form processing</td>
+    </tr>
+    <tr>
+      <td><code>keyup</code></td>
+      <td>Key released (value updated)</td>
+      <td>Live search, character counters</td>
+    </tr>
+    <tr>
+      <td><code>keydown</code></td>
+      <td>Key pressed (before value updates)</td>
+      <td>Intercepting special keys (e.g., Tab, Escape)</td>
+    </tr>
+    <tr>
+      <td><code>focus</code></td>
+      <td>Element receives focus</td>
+      <td>Show helper text, highlight active field</td>
+    </tr>
+    <tr>
+      <td><code>blur</code></td>
+      <td>Element loses focus</td>
+      <td>Inline validation on field exit</td>
+    </tr>
+    <tr>
+      <td><code>change</code></td>
+      <td>Value of input/select changes</td>
+      <td>Conditional form sections, filters</td>
+    </tr>
+    <tr>
+      <td><code>mouseover</code> / <code>mouseout</code></td>
+      <td>Cursor enters or leaves element</td>
+      <td>Tooltips, hover effects without CSS</td>
+    </tr>
+    <tr>
+      <td><code>dblclick</code></td>
+      <td>User double-clicks an element</td>
+      <td>Inline editing, selecting text blocks</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Mastering jQuery's event system is ultimately about understanding the relationship between <em>user actions</em>, <em>event propagation</em>, and <em>DOM updates</em>. When you bind events thoughtfully — using delegation for dynamic content, preventing default behavior only when necessary, and stopping propagation only when isolation is genuinely required — you build interfaces that are both robust and highly responsive.</p>
+        <div class="notes"><strong>Notes</strong>Key emphasis points for instruction: stress that .on() is the preferred modern approach over shorthand methods; ensure students understand why event delegation is necessary for dynamically added elements and how event bubbling makes it work; the preventDefault vs stopPropagation distinction is a common source of confusion and deserves extra attention. The four common patterns (toggle, live search, tabs, accordion) make excellent hands-on lab exercises.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

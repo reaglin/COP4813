@@ -1,0 +1,42 @@
+﻿[
+  {
+    "title": "1 -GitHub, GitHub Pages, and Your First HTML Page \u2014 Topics \u0026 Learning Outcomes",
+    "href": "topics-outcomes.html",
+    "type": "Page"
+  },
+  {
+    "title": "1 -GitHub, GitHub Pages, and Your First HTML Page \u2014 Module Topics",
+    "href": "topics.html",
+    "type": "Page"
+  },
+  {
+    "title": "Introduction to GitHub",
+    "href": "content/GitHub_GitHub_Pages_interactive_topics_t1.html",
+    "type": "Content"
+  },
+  {
+    "title": "Creating Your First Repository",
+    "href": "content/GitHub_GitHub_Pages_interactive_topics_t2.html",
+    "type": "Content"
+  },
+  {
+    "title": "Deploying with GitHub Pages",
+    "href": "content/GitHub_GitHub_Pages_interactive_topics_t3.html",
+    "type": "Content"
+  },
+  {
+    "title": "Writing Your First HTML Document",
+    "href": "content/GitHub_GitHub_Pages_interactive_topics_t4.html",
+    "type": "Content"
+  },
+  {
+    "title": "1 -GitHub, GitHub Pages, and Your First HTML Page \u2014 Module Topics",
+    "href": "content/module_topics.html",
+    "type": "Content"
+  },
+  {
+    "title": "Writing Your First HTML Document",
+    "href": "content/_interactive.html",
+    "type": "Content"
+  }
+]

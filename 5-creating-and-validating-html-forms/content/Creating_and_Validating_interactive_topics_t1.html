@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to HTML Forms</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 5 - Creating and Validating HTML Forms</a></div>
+  <header>
+    <h1>Introduction to HTML Forms</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to HTML Forms</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>HTML forms are one of the most fundamental and powerful features of the web. Almost every meaningful interaction a user has with a website — logging in, signing up, searching, placing an order, submitting a comment — is made possible through a form. Understanding how forms work at a structural level is essential before diving into any specific input type or validation technique. At their core, forms are the bridge between a user sitting at a browser and the server-side logic that processes their input and responds accordingly.</p>
+
+<p>A form is best thought of as a <strong>container for interactive controls</strong>. These controls can take many shapes: a single-line text field for a username, a password field that masks characters, a set of radio buttons for selecting a subscription tier, a file upload field for attaching a résumé, or a large textarea for writing a message. All of these controls live inside the form, and when the user submits it, the browser collects every control's current value and sends that data to a specified destination for processing. Without this mechanism, every page on the web would be purely static — capable only of displaying information, never of receiving it.</p>
+
+<p>Forms therefore occupy a critical position in web architecture. The visible controls are part of the <strong>user interface</strong>, while the processing happens on the <strong>back end</strong> — a server-side script, an API endpoint, or a serverless function. The form itself is the channel through which these two worlds communicate. Designing that channel well means users can provide data cleanly and predictably, which in turn makes back-end processing far more reliable.</p>
+
+<p><strong>The <code>&lt;form&gt;</code> element</strong> is the HTML tag that creates this container. It marks the beginning and the end of the form block, and everything placed between its opening and closing tags is considered part of that form. The browser uses this boundary to know exactly which controls to include when the user triggers a submission. Consider a page that displays two separate forms — perhaps a login form and a newsletter sign-up form. Because each has its own <code>&lt;form&gt;</code> wrapper, submitting the login form does not accidentally include the newsletter email field, and vice versa.</p>
+
+<p>Inside a <code>&lt;form&gt;</code> element you can place virtually any HTML content: paragraphs of instructional text, images, tables for layout, and of course any number of input controls, labels, fieldsets, and buttons. The flexibility is intentional — forms need to fit into diverse page designs. However, the most important point is this: <em>without the <code>&lt;form&gt;</code> wrapper, individual input elements cannot participate in a native browser form submission</em>. An <code>&lt;input&gt;</code> tag sitting alone on a page with no enclosing <code>&lt;form&gt;</code> will render visually, but clicking a submit button will do nothing useful in terms of data collection and transmission. The wrapper is what gives the controls collective meaning and behavior.</p>
+
+<p>A minimal, valid form looks like this:</p>
+
+<pre><code>&lt;form action="/submit" method="post"&gt;
+  &lt;label for="username"&gt;Username:&lt;/label&gt;
+  &lt;input type="text" id="username" name="username"&gt;
+  &lt;button type="submit"&gt;Log In&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+
+<p>This small example already demonstrates the key moving parts: the <code>&lt;form&gt;</code> container with its attributes, a labeled text field, and a submit button. Each piece plays a distinct role, and together they form a complete, functional unit.</p>
+
+<p>The two most important attributes on the <code>&lt;form&gt;</code> element are <strong><code>action</code></strong> and <strong><code>method</code></strong>, and understanding them is fundamental to understanding how form submission works.</p>
+
+<p>The <strong><code>action</code> attribute</strong> tells the browser <em>where</em> to send the form data when the user submits. Its value is a URL — either an absolute URL like <code>https://example.com/process</code> or a relative path like <code>/submit</code> or <code>process.php</code>. That URL typically points to a server-side script or API endpoint that will read the incoming data, validate it, store it in a database, send an email, or perform whatever processing the application requires. If the <code>action</code> attribute is omitted entirely, most browsers default to submitting the form back to the same URL that is currently in the address bar — a behavior that can be intentional in some frameworks but is generally best made explicit.</p>
+
+<p>The <strong><code>method</code> attribute</strong> tells the browser <em>how</em> to send the data — specifically, which HTTP method to use. The two values you will encounter in everyday HTML are <code>GET</code> and <code>POST</code>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>HTTP Method</th>
+      <th>How Data Is Sent</th>
+      <th>Typical Use Cases</th>
+      <th>Key Considerations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>GET</strong></td>
+      <td>Appended to the URL as query parameters (e.g., <code>/search?q=html+forms</code>)</td>
+      <td>Search forms, filters, any request where the data is not sensitive and the result can be bookmarked or shared</td>
+      <td>Data is visible in the URL and in browser history; URL length limits restrict the amount of data; should never be used for passwords or personal information</td>
+    </tr>
+    <tr>
+      <td><strong>POST</strong></td>
+      <td>Sent in the body of the HTTP request, hidden from the URL</td>
+      <td>Login forms, registration, file uploads, any form that changes server state or handles sensitive data</td>
+      <td>No URL length restriction; data does not appear in the browser address bar or history (though it is still visible to network monitoring tools without HTTPS); appropriate for large or sensitive payloads</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>To make this concrete, imagine a simple product search form on an e-commerce site. Using <code>method="get"</code> means the search term appears in the URL: <code>/products?query=running+shoes&amp;size=10</code>. This is actually <em>desirable</em> — the user can bookmark that URL, share it with a friend, or hit the back button and land exactly on the same filtered results. Contrast that with a checkout form containing a credit card number. Using <code>method="get"</code> there would expose the card number in the URL, the browser history, and server access logs — a serious security problem. <code>method="post"</code> is the correct choice, keeping the sensitive data out of the URL entirely (and HTTPS ensures it is encrypted in transit).</p>
+
+<p>Beyond enabling data transmission, forms serve a broader purpose: <strong>collecting dynamic, user-driven data</strong> so that applications can respond meaningfully to individuals rather than serving everyone the same static page. Think about the range of input a single web application might need: a username and password for authentication, a date of birth for age verification, a profile photo for an avatar, a set of checkboxes selecting dietary preferences, a dropdown choosing a country, a rating out of five stars. All of these are accomplished through different types of form controls, yet all of them live inside the same <code>&lt;form&gt;</code> structure and follow the same submission model.</p>
+
+<p>Well-structured forms also enforce <strong>consistency and predictability</strong> in the data they collect. By using the right input types — <code>type="email"</code> for email addresses, <code>type="number"</code> for quantities, <code>type="date"</code> for calendar dates — browsers can provide appropriate keyboards on mobile devices, built-in format validation, and user interface affordances that guide users toward providing data in the expected format. This reduces errors before any server-side validation even runs.</p>
+
+<p>A thoughtfully organized form also makes the difference between an interface that frustrates users and one that feels intuitive. HTML provides several structural elements specifically for this purpose. <strong>Labels</strong>, created with the <code>&lt;label&gt;</code> element, associate a piece of descriptive text with a specific control. This association can be made explicit using the <code>for</code> attribute on the label matched to the <code>id</code> attribute on the input:</p>
+
+<pre><code>&lt;label for="email"&gt;Email Address:&lt;/label&gt;
+&lt;input type="email" id="email" name="email"&gt;</code></pre>
+
+<p>When this association exists, clicking the label text focuses the corresponding input — a small but meaningful usability improvement, especially on mobile. More importantly, screen readers read the label aloud when the input receives focus, which is essential for accessibility. A form with no labels is a form that is effectively unusable for many people with visual impairments.</p>
+
+<p><strong>Fieldsets and legends</strong> take organization a step further by grouping related controls visually and semantically. A <code>&lt;fieldset&gt;</code> draws a border around a group of controls, and the <code>&lt;legend&gt;</code> inside it provides a caption for the group. This is particularly valuable in long forms — for example, a multi-section application form that has distinct blocks for personal information, contact details, and employment history:</p>
+
+<pre><code>&lt;form action="/apply" method="post"&gt;
+
+  &lt;fieldset&gt;
+    &lt;legend&gt;Personal Information&lt;/legend&gt;
+    &lt;label for="fname"&gt;First Name:&lt;/label&gt;
+    &lt;input type="text" id="fname" name="fname"&gt;
+
+    &lt;label for="lname"&gt;Last Name:&lt;/label&gt;
+    &lt;input type="text" id="lname" name="lname"&gt;
+  &lt;/fieldset&gt;
+
+  &lt;fieldset&gt;
+    &lt;legend&gt;Contact Details&lt;/legend&gt;
+    &lt;label for="phone"&gt;Phone Number:&lt;/label&gt;
+    &lt;input type="tel" id="phone" name="phone"&gt;
+
+    &lt;label for="email"&gt;Email Address:&lt;/label&gt;
+    &lt;input type="email" id="email" name="email"&gt;
+  &lt;/fieldset&gt;
+
+  &lt;button type="submit"&gt;Submit Application&lt;/button&gt;
+
+&lt;/form&gt;</code></pre>
+
+<p>The result is a form that is not just a flat list of inputs, but a logically organized document. Users can immediately see which fields belong together, reducing cognitive load and the likelihood of skipping important sections. Assistive technologies announce the legend when entering a fieldset, giving screen reader users the same contextual orientation that sighted users get from the visual grouping.</p>
+
+<p>Putting it all together, a well-constructed HTML form has several layers of structure working simultaneously. The <code>&lt;form&gt;</code> element provides the outer container and defines where and how data is sent. Inside it, <code>&lt;fieldset&gt;</code> and <code>&lt;legend&gt;</code> elements create meaningful sections. Each control is paired with a <code>&lt;label&gt;</code> for accessibility and usability. And the controls themselves — inputs, selects, textareas, buttons — carry the <code>name</code> attributes that determine how each piece of data is identified when it reaches the server. Together, these pieces create a form that is functional, accessible, and maintainable — a solid foundation on which all more advanced form techniques are built.</p>
+        <div class="notes"><strong>Notes</strong>Emphasise to learners that the `name` attribute on input controls (not the `id`) is what the server uses to identify submitted values — `id` is for the DOM and label association only. This is a very common point of confusion for beginners.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

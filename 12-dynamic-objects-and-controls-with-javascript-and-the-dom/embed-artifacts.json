@@ -1,0 +1,47 @@
+﻿[
+  {
+    "title": "12 - Dynamic Objects and Controls with JavaScript and the DOM \u2014 Topics \u0026 Learning Outcomes",
+    "href": "topics-outcomes.html",
+    "type": "Page"
+  },
+  {
+    "title": "12 - Dynamic Objects and Controls with JavaScript and the DOM \u2014 Module Topics",
+    "href": "topics.html",
+    "type": "Page"
+  },
+  {
+    "title": "Building Interactive UI Controls with JavaScript",
+    "href": "content/Dynamic_Objects_and_interactive.html",
+    "type": "Content"
+  },
+  {
+    "title": "Introduction to the DOM and Dynamic Manipulation",
+    "href": "content/Dynamic_Objects_and_interactive_topics_t1.html",
+    "type": "Content"
+  },
+  {
+    "title": "Creating and Inserting HTML Elements Dynamically",
+    "href": "content/Dynamic_Objects_and_interactive_topics_t2.html",
+    "type": "Content"
+  },
+  {
+    "title": "Modifying Existing Elements and Their Properties",
+    "href": "content/Dynamic_Objects_and_interactive_topics_t3.html",
+    "type": "Content"
+  },
+  {
+    "title": "Adding and Managing Event Listeners",
+    "href": "content/Dynamic_Objects_and_interactive_topics_t5.html",
+    "type": "Content"
+  },
+  {
+    "title": "Building Interactive UI Controls with JavaScript",
+    "href": "content/Dynamic_Objects_and_interactive_topics_t6.html",
+    "type": "Content"
+  },
+  {
+    "title": "12 - Dynamic Objects and Controls with JavaScript and the DOM \u2014 Module Topics",
+    "href": "content/module_topics.html",
+    "type": "Content"
+  }
+]

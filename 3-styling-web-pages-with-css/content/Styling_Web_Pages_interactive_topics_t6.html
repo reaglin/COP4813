@@ -1,0 +1,407 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Styling a Complete Web Page</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 3 -Styling Web Pages with CSS</a></div>
+  <header>
+    <h1>Styling a Complete Web Page</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Styling a Complete Web Page</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Bringing a complete web page to life with CSS is the moment when every individual concept you have learned — selectors, the box model, typography, color, and pseudo-classes — stops existing in isolation and starts working together as a unified visual system. Styling an entire page requires not just knowing the rules, but knowing <em>where</em> to write them, <em>how</em> to organize them, and <em>when</em> to step back and review what you have built. This topic walks through that full process from the first line of your stylesheet to the final review pass, treating the stylesheet itself as a professional deliverable that another developer should be able to read and maintain.</p>
+
+<p><strong>Linking Your Stylesheet to Your HTML Page</strong></p>
+
+<p>Before a single CSS rule can affect your page, the browser must know the stylesheet exists. You create that connection with a <code>&lt;link&gt;</code> element placed inside the <code>&lt;head&gt;</code> section of every HTML file on your site. The element has three essential attributes: <code>rel="stylesheet"</code> tells the browser what kind of resource it is, <code>type="text/css"</code> identifies the MIME type (though modern browsers infer this and it is often omitted), and <code>href</code> holds the file path to the CSS file.</p>
+
+<pre><code>&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;My Website&lt;/title&gt;
+  &lt;link rel="stylesheet" href="css/styles.css"&gt;
+&lt;/head&gt;</code></pre>
+
+<p>Using a <strong>single external stylesheet</strong> for your entire website is one of the most important structural decisions you can make. When all styles live in one file, updating the font across twenty pages means editing one line, not twenty. It also means the browser can cache the file after the first visit so subsequent pages load faster. Contrast this with inline styles (written directly on HTML elements with the <code>style</code> attribute) or internal stylesheets (written inside a <code>&lt;style&gt;</code> tag in the HTML file) — both scatter your styles across multiple places and make consistent changes tedious and error-prone.</p>
+
+<p>The <strong>file path in the <code>href</code> attribute</strong> must exactly match the location of your CSS file relative to the HTML file. A common mistake is writing a path that looks correct but has a folder name slightly wrong, or using an absolute path that only works on your machine. If the link is broken, the browser loads the page without any styles at all — it will not show an error on screen, which makes this a silent failure that confuses beginners. The safest habit is to <strong>verify the connection immediately</strong> by adding one unmistakable rule before writing anything else:</p>
+
+<pre><code>body {
+  background-color: lightcoral;
+}</code></pre>
+
+<p>If the page background turns pink-red when you refresh, the link is working. If the background stays white, stop and fix the path before writing any further rules. This single verification step saves significant debugging time.</p>
+
+<p><strong>Organizing Your CSS Stylesheet</strong></p>
+
+<p>A working stylesheet and a <em>well-organized</em> stylesheet are two different things. As a project grows, an unorganized stylesheet becomes increasingly difficult to navigate — rules conflict with each other in unexpected ways, you forget whether you have already styled an element, and making one change breaks something elsewhere. Professional CSS authors treat the stylesheet's structure as deliberately as the styles themselves.</p>
+
+<p>The first principle is <strong>ordering by specificity and scope</strong>. Place the broadest, most universal rules at the very top. This typically means a reset or base style block that removes browser-default inconsistencies and establishes global defaults before any component-specific rules are written:</p>
+
+<pre><code>/* === BASE RESET === */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  color: #333333;
+  background-color: #ffffff;
+  line-height: 1.6;
+}</code></pre>
+
+<p>After the base reset, use <strong>CSS comments as section headers</strong> to divide the stylesheet into named blocks. Comments in CSS are written between <code>/*</code> and <code>*/</code> and are completely ignored by the browser — they exist purely to communicate intent to any human reading the file:</p>
+
+<pre><code>/* === TYPOGRAPHY === */
+
+/* === NAVIGATION === */
+
+/* === HERO SECTION === */
+
+/* === CONTENT CARDS === */
+
+/* === FOOTER === */</code></pre>
+
+<p>This structure means that when you need to adjust the footer, you scroll directly to the footer section rather than hunting through hundreds of lines. <strong>Grouping rules that apply to the same part of the page</strong> together in one block reinforces this. Do not write half your header styles at line 20 and the other half at line 180. Everything that styles a component should live in that component's section.</p>
+
+<p>Finally, <strong>consistent indentation and spacing</strong> inside the file dramatically improve readability. Each declaration inside a rule block should be indented by two or four spaces, with a blank line between separate rule blocks:</p>
+
+<pre><code>/* Good: easy to scan */
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #16213e;
+}
+
+/* Poor: hard to distinguish where one rule ends and another begins */
+h1{font-size:2.5rem;font-weight:700;color:#1a1a2e;}
+h2{font-size:1.75rem;font-weight:600;color:#16213e;}</code></pre>
+
+<p><strong>Applying Typography Across the Page</strong></p>
+
+<p>Typography is the foundation of readability. Most text on a web page is inherited from ancestor elements, which means setting styles on the <code>body</code> selector creates a universal baseline that every paragraph, list, and span benefits from automatically:</p>
+
+<pre><code>body {
+  font-family: 'Georgia', serif;
+  font-size: 16px;
+  color: #2c2c2c;
+  line-height: 1.7;
+}</code></pre>
+
+<p>With this rule alone, every text element on the page that does not have its own explicit font rules will render in Georgia at 16px with generous line spacing. This is the power of inheritance — define once, benefit everywhere.</p>
+
+<p>Headings should form a <strong>clear visual hierarchy</strong>, meaning a reader can glance at the page and immediately understand the structure of the content. This is achieved by giving each heading level a distinct combination of size, weight, and sometimes color:</p>
+
+<pre><code>h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 0.5em;
+}
+
+h2 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 0.4em;
+}
+
+h3 {
+  font-size: 1.375rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 0.3em;
+}</code></pre>
+
+<p><strong>Line-height</strong> controls the vertical space between lines of text within a paragraph. A value between 1.5 and 1.8 is generally ideal for body text because tightly-spaced lines force the eye to work harder to track back to the start of the next line. <strong>Letter-spacing</strong> adjusts the horizontal space between individual characters. For body text it should be left at its default (0) or increased very slightly. For headings set in all-caps, a small positive value (e.g., <code>0.05em</code>) can improve legibility significantly:</p>
+
+<pre><code>p {
+  line-height: 1.75;
+  letter-spacing: 0.01em;
+  margin-bottom: 1.2em;
+}
+
+.eyebrow-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+}</code></pre>
+
+<p>Limiting the page to <strong>two fonts</strong> — one for headings, one for body text — is a practical and aesthetic constraint. Every additional typeface adds an HTTP request (when loading from a web font service like Google Fonts) and increases visual complexity. A heading font is typically chosen for personality and impact, while a body font is chosen for neutrality and sustained readability:</p>
+
+<pre><code>&lt;link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"&gt;</code></pre>
+
+<pre><code>body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+}</code></pre>
+
+<p><strong>Using Color Cohesively</strong></p>
+
+<p>Color choices made without a system produce pages that feel random and unprofessional. A disciplined approach starts by defining a small palette of three roles: a <strong>primary color</strong> (the dominant brand color used for major interactive elements and accents), a <strong>secondary color</strong> (a complementary shade used for supporting elements), and a <strong>neutral color</strong> (grays or off-whites used for backgrounds and body text).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Role</th>
+      <th>Example Value</th>
+      <th>Typical Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Primary</td>
+      <td>#0d6efd</td>
+      <td>Buttons, active links, hero accents</td>
+    </tr>
+    <tr>
+      <td>Secondary</td>
+      <td>#6610f2</td>
+      <td>Hover states, badges, section dividers</td>
+    </tr>
+    <tr>
+      <td>Neutral Dark</td>
+      <td>#212529</td>
+      <td>Body text, headings</td>
+    </tr>
+    <tr>
+      <td>Neutral Light</td>
+      <td>#f8f9fa</td>
+      <td>Page background, card backgrounds</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Contrast</strong> between text and its background is not merely an aesthetic concern — it is an accessibility requirement. The Web Content Accessibility Guidelines (WCAG) specify that normal body text should have a contrast ratio of at least 4.5:1 against its background. Dark gray text (<code>#333333</code>) on a white background comfortably meets this standard, while light gray text on a white background often fails it and makes the page feel washed-out and unreadable to users with low vision.</p>
+
+<p>Applying the same <strong>accent color consistently to all interactive elements</strong> — links, buttons, form borders on focus — gives users a reliable visual language. When they see that color, they know they can interact with it. Mixing three different blues and a green for links versus buttons breaks that visual language.</p>
+
+<p>A common beginner mistake is repeating raw color hex values throughout the stylesheet. If your primary color is <code>#0d6efd</code> and it appears in forty rules, changing the brand color later means forty find-and-replace operations. CSS custom properties (CSS variables) solve this elegantly by defining each color once and referencing the variable name everywhere:</p>
+
+<pre><code>:root {
+  --color-primary: #0d6efd;
+  --color-secondary: #6610f2;
+  --color-text: #212529;
+  --color-background: #f8f9fa;
+  --color-white: #ffffff;
+}
+
+a {
+  color: var(--color-primary);
+}
+
+button {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.highlight {
+  background-color: var(--color-secondary);
+}</code></pre>
+
+<p>With this approach, a complete rebrand is a change to six lines at the top of the stylesheet, not a search-and-replace across hundreds of lines.</p>
+
+<p><strong>Styling Layout and Spacing with the Box Model</strong></p>
+
+<p>Every element on a web page is a rectangular box. The CSS box model describes how that box is constructed: the content area in the center is surrounded by <code>padding</code>, then a <code>border</code>, then <code>margin</code>. Understanding the difference between padding and margin is essential to controlling spacing correctly.</p>
+
+<p><strong>Padding</strong> is space <em>inside</em> the element, between the content and the border. It is part of the element itself — its background color fills the padding area. Use padding to give breathing room to elements whose background should extend around their content, such as buttons, navigation links, cards, and content sections:</p>
+
+<pre><code>.card {
+  background-color: var(--color-white);
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+nav a {
+  padding: 0.75rem 1.25rem;
+  display: inline-block;
+}
+
+.hero-section {
+  padding: 5rem 2rem;
+  background-color: var(--color-primary);
+}</code></pre>
+
+<p><strong>Margin</strong> is space <em>outside</em> the element, separating it from neighboring elements. Use margin to create gaps between distinct page sections, between a heading and the paragraph that follows it, or between a series of cards laid out in a row:</p>
+
+<pre><code>section {
+  margin-bottom: 4rem;
+}
+
+h2 {
+  margin-bottom: 1.5rem;
+}
+
+.card + .card {
+  margin-left: 1.5rem;
+}</code></pre>
+
+<p>One of the most universally useful CSS patterns is constraining the width of a main content container and centering it horizontally. Without a <code>max-width</code>, a paragraph of text on a 2560px-wide monitor stretches across the entire screen — lines of text that long are extremely difficult to read because the eye has to travel too far to find the next line. The standard solution is:</p>
+
+<pre><code>.container {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}</code></pre>
+
+<p>The <code>max-width</code> prevents the container from growing beyond 1100px. The <code>margin: 0 auto</code> shorthand (or setting both left and right margin to <code>auto</code>) distributes the remaining horizontal space equally on both sides, perfectly centering the block. The horizontal padding ensures content does not press against the edges of the viewport on narrow screens where the container fills 100% of the width.</p>
+
+<p>Spacing should be reviewed <strong>incrementally in the browser</strong>. Add a rule, save the file, refresh the browser, and evaluate the proportion. Trying to write all spacing values upfront without checking the result typically produces a page that feels either suffocatingly cramped or vast and empty. Visual balance is iterative.</p>
+
+<p><strong>Styling Navigation and Interactive Elements</strong></p>
+
+<p>Navigation is often the first element a user encounters and the one they interact with most across the entire site, making it a high-priority styling target. Browsers apply their own default styles to anchor tags — blue text, underlines, and distinct colors for visited links — which clash with custom designs. The first step is resetting these defaults and applying your own scheme:</p>
+
+<pre><code>a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:visited {
+  color: var(--color-secondary);
+}</code></pre>
+
+<p>Removing the underline globally is common, but it is worth considering accessibility: in running body text, underlines provide an important visual cue that text is clickable for users who cannot distinguish colors easily. A good compromise is to remove underlines in the navigation (where context makes links obvious) but keep them in body text.</p>
+
+<p>The <strong><code>:hover</code> pseudo-class</strong> is what gives interactive elements life. Without it, nothing changes when a user moves their cursor over a link or button, which removes an important affordance — the visual confirmation that "yes, this is clickable." A well-styled hover state is immediate, subtle, and consistent:</p>
+
+<pre><code>a:hover {
+  color: var(--color-secondary);
+  text-decoration: underline;
+}
+
+.btn {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+  background-color: var(--color-secondary);
+}</code></pre>
+
+<p>The <code>transition</code> property smooths the change between the default and hover state over 0.2 seconds, making the interaction feel polished rather than abrupt.</p>
+
+<p>The navigation bar itself should be styled to be visually distinct from the page body so users always know where the navigation is:</p>
+
+<pre><code>nav {
+  background-color: var(--color-text);
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+nav a {
+  color: var(--color-white);
+  padding: 1rem 1.25rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-white);
+}</code></pre>
+
+<p>Regarding <strong>clickable target size</strong>: small links and buttons are frustrating on touchscreen devices where a fingertip is far less precise than a mouse cursor. A general best practice is to ensure interactive elements have a minimum tappable area of roughly 44×44 pixels. Generous padding on navigation links and buttons usually achieves this naturally without making them look oversized on desktop.</p>
+
+<p><strong>Reviewing and Refining the Finished Stylesheet</strong></p>
+
+<p>Writing the stylesheet is only part of the work. A professional review pass before submission treats the stylesheet as a document to be critically evaluated, not just a file to be saved.</p>
+
+<p>Start by reading through the <strong>entire stylesheet from top to bottom</strong> looking for rules that duplicate each other. It is easy to write a rule for <code>h2</code> in the typography section and then write another <code>h2</code> rule in the hero section that partially overrides it, creating confusion about which value is actually in effect. Merge or delete duplicate rules.</p>
+
+<p>Also look for rules whose selectors no longer match any element in the HTML. If you renamed a class from <code>.hero-btn</code> to <code>.cta-button</code> in the HTML but forgot to update the CSS, the original rule is now dead code — it consumes space in the file and misleads anyone reading it.</p>
+
+<p>Next, <strong>check every page section in the browser</strong> at a range of window sizes. Resize the browser window from very narrow (around 320px) to very wide (1600px+) and look for content that overflows its container, text that becomes uncomfortably wide, or sections that collapse awkwardly. Note every issue and address them before considering the work complete.</p>
+
+<p><strong>Selector specificity</strong> deserves careful review. It can be tempting to write highly specific selectors when trying to override a stubborn style, such as <code>nav ul li a.active</code> instead of simply <code>.active</code>. Overly specific selectors create technical debt — they are harder to override when you need to extend the design later, and they make the cascade unpredictable. As a rule of thumb, use the least specific selector that correctly targets the elements you intend to style and no others.</p>
+
+<p>Finally, have a peer view the finished page and give honest feedback. As the author of the page, you have been staring at it for hours and can no longer see it with fresh eyes. A classmate viewing it for the first time will immediately notice if a color combination feels off, if a section looks out of place, or if text is difficult to read — observations that are invisible to you precisely because you have become too familiar with the work. Incorporate that feedback before submitting, treating it as a routine part of the professional process rather than a criticism.</p>
+        <div class="notes"><strong>Notes</strong>Students are applying all CSS concepts learned throughout the module to produce a cohesive, complete stylesheet for their existing HTML page. Emphasize that the review and refinement phase is not optional polish — it is how professional-quality work is distinguished from merely functional work. Encourage students to use browser DevTools to inspect which rules are actually being applied and to identify any that are being overridden unexpectedly.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

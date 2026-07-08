@@ -1,0 +1,355 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Selectors</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 3 -Styling Web Pages with CSS</a></div>
+  <header>
+    <h1>CSS Selectors</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>CSS Selectors</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>CSS selectors are the mechanism by which stylesheets identify which HTML elements should receive a given set of style rules. Every CSS rule begins with a selector — a pattern that the browser evaluates against the document tree to find matching elements. Understanding selectors deeply is essential because they control not only <em>what</em> gets styled, but also <em>how confidently</em> a rule wins when multiple rules compete for the same element. This topic covers the main selector types, the ways they can be combined, and the twin concepts of specificity and the cascade that govern how conflicts are resolved.</p>
+
+<p><strong>Element selectors</strong> are the most fundamental building block of CSS. They are written simply as the name of an HTML tag with no prefix, and they match every instance of that element anywhere in the document.</p>
+
+<pre><code>p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+a {
+  color: steelblue;
+}</code></pre>
+
+<p>In the example above, every <code>&lt;p&gt;</code> element on the page receives a font size of 1rem and a line height of 1.6. Every <code>&lt;h1&gt;</code> receives its own sizing, and every anchor tag is coloured steelblue. Because element selectors cast such a wide net, they are ideal for establishing sensible global defaults — the baseline appearance that everything else builds on. The trade-off is that this breadth means they are easy to accidentally override; element selectors sit at the <em>lowest rung of specificity</em> among the principal selector categories. Any class rule or ID rule targeting the same element will beat them.</p>
+
+<p>A practical pattern is to use element selectors for typographic and layout resets at the top of a stylesheet, then layer more targeted rules on top:</p>
+
+<pre><code>/* Base reset with element selectors */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f9f9f9;
+}</code></pre>
+
+<p><strong>Class selectors</strong> are written in CSS with a leading period (<code>.</code>) followed by the class name, and they match any HTML element whose <code>class</code> attribute includes that name. Unlike element selectors, class selectors are opt-in — an element receives the style only when you deliberately add the class to its markup.</p>
+
+<pre><code>/* CSS */
+.highlight {
+  background-color: yellow;
+  font-weight: bold;
+}
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}</code></pre>
+
+<pre><code>&lt;!-- HTML --&gt;
+&lt;p class="highlight"&gt;This paragraph is highlighted.&lt;/p&gt;
+&lt;div class="card"&gt;This div looks like a card.&lt;/div&gt;
+&lt;span class="highlight"&gt;This span is also highlighted.&lt;/span&gt;</code></pre>
+
+<p>Notice that <code>.highlight</code> is applied to both a <code>&lt;p&gt;</code> and a <code>&lt;span&gt;</code>. This <strong>reusability across different element types</strong> is one of the defining strengths of class selectors — the same visual treatment can be applied consistently regardless of which tag is involved.</p>
+
+<p>An HTML element can carry <em>multiple classes at once</em>, separated by spaces in the <code>class</code> attribute. Each class contributes its own block of declarations, and they stack together:</p>
+
+<pre><code>&lt;div class="card highlight"&gt;
+  This div gets card styles AND highlight styles.
+&lt;/div&gt;</code></pre>
+
+<p>This composable nature makes class selectors the backbone of most modern CSS methodologies such as BEM (Block Element Modifier) and utility-first frameworks like Tailwind CSS, where dozens of small, single-purpose classes are combined to produce complex visual results.</p>
+
+<p><strong>ID selectors</strong> are written with a leading hash (<code>#</code>) followed by the identifier, and they target the element whose <code>id</code> attribute matches that value. The critical rule of HTML is that every <code>id</code> must be <em>unique within a document</em> — no two elements should share the same ID. This means an ID selector will match at most one element on the page at any given time.</p>
+
+<pre><code>/* CSS */
+#main-header {
+  background-color: #222;
+  color: #fff;
+  padding: 1rem 2rem;
+}
+
+#submit-btn {
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+}</code></pre>
+
+<pre><code>&lt;!-- HTML --&gt;
+&lt;header id="main-header"&gt;My Website&lt;/header&gt;
+&lt;button id="submit-btn"&gt;Submit&lt;/button&gt;</code></pre>
+
+<p>The practical implication of uniqueness is that ID selectors are best reserved for landmark elements — things like a site header, a navigation bar, a main content region, or a modal — where there genuinely is only ever one instance. Because IDs are also used by JavaScript's <code>getElementById</code> and as anchor link targets (<code>href="#section"</code>), overloading them purely for styling can create coupling between concerns.</p>
+
+<p>ID selectors carry <strong>significantly higher specificity</strong> than class or element selectors. This means an ID rule will override a class rule or element rule targeting the same element, even if the class or element rule appears later in the stylesheet. This power can be a double-edged sword — while useful, it can make styles difficult to override later without resorting to even more specific selectors or <code>!important</code>.</p>
+
+<p><strong>Combination selectors</strong> let you express more nuanced relationships between elements. Rather than targeting elements in isolation, combination selectors describe structural or attributive conditions that must be satisfied simultaneously.</p>
+
+<p>A <strong>descendant selector</strong> is written as two (or more) selectors separated by a space. It matches any element that satisfies the right-hand selector <em>and</em> is a descendant (at any depth) of an element satisfying the left-hand selector:</p>
+
+<pre><code>/* Targets any &lt;a&gt; that lives anywhere inside a &lt;nav&gt; */
+nav a {
+  text-decoration: none;
+  color: #333;
+}
+
+/* Targets any &lt;li&gt; inside a &lt;ul&gt; with class "menu" */
+ul.menu li {
+  list-style: none;
+  padding: 0.5rem 0;
+}</code></pre>
+
+<p>A <strong>child selector</strong> uses the <code>&gt;</code> combinator and is more restrictive — it matches only <em>direct</em> children, not deeper descendants. This precision is valuable when you have nested structures and only want to style the immediate children:</p>
+
+<pre><code>/* Only direct &lt;li&gt; children of this &lt;ul&gt;, not nested &lt;li&gt;s inside nested &lt;ul&gt;s */
+ul.top-level &gt; li {
+  font-weight: bold;
+}
+
+/* Only &lt;p&gt; elements that are direct children of .article */
+.article &gt; p {
+  margin-bottom: 1rem;
+}</code></pre>
+
+<p><strong>Grouped selectors</strong> allow you to apply the same declaration block to multiple selectors by separating them with commas. This avoids repeating identical rules and keeps the stylesheet DRY (Don't Repeat Yourself):</p>
+
+<pre><code>/* Instead of three separate rules with identical declarations... */
+h1, h2, h3 {
+  font-family: 'Georgia', serif;
+  color: #111;
+  margin-bottom: 0.5em;
+}
+
+/* Also works with mixed selector types */
+.error, #form-alert, span.warning {
+  color: red;
+  border: 1px solid red;
+  padding: 0.25rem 0.5rem;
+}</code></pre>
+
+<p>You can also <strong>chain class and element selectors</strong> (with no space between them) to narrow targeting to elements that match both conditions simultaneously. For instance, <code>p.intro</code> targets only <code>&lt;p&gt;</code> elements that also have the class <code>intro</code> — a plain <code>&lt;div class="intro"&gt;</code> would not match:</p>
+
+<pre><code>/* Only &lt;p&gt; tags with class "intro" — not &lt;div class="intro"&gt; */
+p.intro {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+/* An &lt;a&gt; that has BOTH "nav-link" and "active" classes */
+a.nav-link.active {
+  color: #0070f3;
+  border-bottom: 2px solid #0070f3;
+}</code></pre>
+
+<p><strong>CSS specificity</strong> is a scoring system the browser uses to decide which rule wins when two or more rules target the same element and set the same property. Each selector type contributes a different number of points to a rule's specificity score. The browser compares scores from most significant to least significant digit, not as simple integers.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Selector Type</th>
+      <th>Specificity Notation</th>
+      <th>Example</th>
+      <th>Score (A, B, C)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Inline style</td>
+      <td>(1, 0, 0, 0)</td>
+      <td><code>style="color: red;"</code></td>
+      <td>Highest</td>
+    </tr>
+    <tr>
+      <td>ID selector</td>
+      <td>(0, 1, 0, 0)</td>
+      <td><code>#main-header</code></td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <td>Class selector</td>
+      <td>(0, 0, 1, 0)</td>
+      <td><code>.highlight</code></td>
+      <td>Medium</td>
+    </tr>
+    <tr>
+      <td>Attribute selector</td>
+      <td>(0, 0, 1, 0)</td>
+      <td><code>[type="text"]</code></td>
+      <td>Medium</td>
+    </tr>
+    <tr>
+      <td>Pseudo-class</td>
+      <td>(0, 0, 1, 0)</td>
+      <td><code>:hover</code></td>
+      <td>Medium</td>
+    </tr>
+    <tr>
+      <td>Element selector</td>
+      <td>(0, 0, 0, 1)</td>
+      <td><code>p</code></td>
+      <td>Low</td>
+    </tr>
+    <tr>
+      <td>Universal selector</td>
+      <td>(0, 0, 0, 0)</td>
+      <td><code>*</code></td>
+      <td>No specificity</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>When multiple selectors are combined, their specificity scores are <em>added together</em>. Consider the following competing rules for a paragraph inside a div that has an ID:</p>
+
+<pre><code>#content p.intro {
+  color: green;  /* specificity: 0,1,1,1 */
+}
+
+.wrapper p {
+  color: blue;   /* specificity: 0,0,1,1 */
+}
+
+p {
+  color: red;    /* specificity: 0,0,0,1 */
+}</code></pre>
+
+<p>For a <code>&lt;p class="intro"&gt;</code> inside <code>&lt;div id="content"&gt;</code>, the first rule wins with a score of (0,1,1,1), regardless of where the rules appear in the file. The second rule beats the third for any other paragraph inside <code>.wrapper</code>. The third rule only wins when none of the more specific selectors match.</p>
+
+<p>A crucial tiebreaker: <strong>when two rules have exactly equal specificity</strong>, the one that appears <em>later</em> in the stylesheet wins. This is called source order, and it is the final differentiator when everything else is equal:</p>
+
+<pre><code>.btn {
+  background-color: grey;
+}
+
+.btn {
+  background-color: blue; /* This wins — same specificity, declared later */
+}</code></pre>
+
+<p>A key best practice is to keep specificity as <em>low and consistent</em> as possible. Deeply nested selectors like <code>div#sidebar ul.nav li a.active span</code> become extremely difficult to override without writing equally or more specific rules, which quickly leads to an arms race of ever-escalating specificity that makes the stylesheet fragile and hard to maintain. Preferring flat, class-based selectors keeps the stylesheet flexible and predictable.</p>
+
+<p><strong>The cascade</strong> is the algorithm CSS uses to resolve conflicts between all style rules that could apply to an element. The word "cascading" in CSS is a direct reference to this process — rules flow down through several levels of evaluation before a winner is declared.</p>
+
+<p>The cascade evaluates rules in the following order of <em>origin and importance</em>:</p>
+
+<ul>
+  <li><strong>Browser default styles (user-agent stylesheet)</strong> — every browser ships with built-in styles for HTML elements (e.g., blue underlined links, bold headings). These have the lowest priority.</li>
+  <li><strong>User styles</strong> — some browsers allow users to apply their own stylesheets (for accessibility reasons, for example). These override browser defaults.</li>
+  <li><strong>Author styles</strong> — the stylesheets written by the developer. These override user and browser styles under normal conditions.</li>
+  <li><strong>Author <code>!important</code> styles</strong> — author rules marked <code>!important</code> leap ahead in priority.</li>
+  <li><strong>User <code>!important</code> styles</strong> — user rules marked <code>!important</code> override even author <code>!important</code> rules (this protects accessibility overrides).</li>
+</ul>
+
+<p>Within the same origin and importance level, <strong>specificity</strong> is then compared, and within equal specificity, <strong>source order</strong> determines the winner — the later rule prevails.</p>
+
+<p>The <code>!important</code> declaration overrides the normal cascade:</p>
+
+<pre><code>p {
+  color: red !important; /* Will beat a more specific class rule */
+}
+
+.intro {
+  color: blue; /* Loses to the !important rule above */
+}</code></pre>
+
+<p>While <code>!important</code> can seem like a convenient escape hatch, it comes at a significant cost to maintainability. Once a property is declared <code>!important</code>, overriding it later requires either another <code>!important</code> (which restarts the arms race) or restructuring the stylesheet. It also makes it much harder to trace why a style is being applied, since it breaks the expected mental model of specificity and source order. Legitimate uses of <code>!important</code> tend to be limited to utility classes (like a <code>.visually-hidden</code> accessibility class) or third-party stylesheet overrides where you have no control over the source.</p>
+
+<p>Putting it all together, consider this scenario:</p>
+
+<pre><code>/* Author stylesheet */
+body {
+  font-size: 16px; /* element selector — low specificity */
+}
+
+.content p {
+  font-size: 14px; /* class + element — medium specificity */
+}
+
+#article p {
+  font-size: 18px; /* ID + element — high specificity */
+}
+</code></pre>
+
+<pre><code>&lt;div id="article" class="content"&gt;
+  &lt;p&gt;What size am I?&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+<p>The <code>&lt;p&gt;</code> here is targeted by all three rules. The cascade first checks origin (all are author styles — tied). It then checks specificity: <code>#article p</code> scores (0,1,0,1), <code>.content p</code> scores (0,0,1,1), and <code>body</code> scores (0,0,0,1). The ID selector wins, so the paragraph renders at <strong>18px</strong>. Understanding this evaluation pipeline — origin → specificity → source order — is what allows developers to write CSS that behaves predictably rather than feeling like a guessing game.</p>
+        <div class="notes"><strong>Notes</strong>Encourage students to use browser DevTools (the Styles panel) to inspect which rules are being applied or struck through on any element — this makes specificity and the cascade immediately visible and tangible. A good exercise is to intentionally write conflicting rules and use DevTools to observe which rule wins and why.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

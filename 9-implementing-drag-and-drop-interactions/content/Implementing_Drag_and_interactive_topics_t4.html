@@ -1,0 +1,293 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Handling the dragover Event</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 9 - Implementing Drag and Drop Interactions</a></div>
+  <header>
+    <h1>Handling the dragover Event</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Handling the dragover Event</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The HTML Drag and Drop API exposes a rich set of events that fire at different moments throughout a drag operation. Among these, the <strong>dragover</strong> event occupies a uniquely important position: it is the gatekeeper that determines whether a given element can accept a drop at all. Understanding how this event works, what it expects from your code, and how to use it to build a polished user experience is essential for implementing reliable drag-and-drop interfaces in the browser.</p>
+
+<p>Unlike most browser interaction events that fire once in response to a discrete action such as a click or a keypress, <code>dragover</code> fires <em>repeatedly and continuously</em> as long as a dragged item remains above a potential target element. This continuous firing is both its most powerful characteristic and its most important constraint to keep in mind when writing handlers.</p>
+
+<p><strong>The Role of the dragover Event</strong></p>
+
+<p>When a user begins dragging an element or selected text, the browser raises a <code>dragstart</code> event on the <em>dragged item</em>. From that point forward, as the dragged item moves across the page, the browser raises <code>dragover</code> events on whichever element currently lies <em>beneath</em> the dragged item — not on the item being dragged. This distinction is fundamental. The dragged item is the source; the element underneath is the potential target, and <code>dragover</code> belongs entirely to that target.</p>
+
+<p>Because the event fires continuously — potentially dozens of times per second as the mouse moves — any code placed inside a <code>dragover</code> handler has a direct impact on page performance. Expensive operations such as DOM queries, layout-triggering style reads, or heavy computations should never be placed inside this handler without careful thought. Keeping the handler lean ensures smooth animation and prevents dropped frames during the drag.</p>
+
+<p>Listening for <code>dragover</code> on a target element is the very first step in designating it as a valid drop zone. An element that has no <code>dragover</code> listener is, by definition, never a valid drop target, because it never has the opportunity to perform the one action the browser requires to unlock dropping.</p>
+
+<p><strong>Preventing Default Browser Behavior</strong></p>
+
+<p>By default, browsers treat virtually every HTML element as an <em>invalid</em> drop target. This design decision is intentional: the browser cannot know in advance which parts of your UI are meant to receive drops, so it opts out of all of them unless you explicitly opt in. The mechanism for opting in is disarmingly simple: you must call <code>event.preventDefault()</code> inside your <code>dragover</code> handler.</p>
+
+<p>Calling <code>preventDefault()</code> cancels the browser's default handling of the event, which would otherwise do nothing useful (or in the case of dropping a file onto a page, navigate away from the current document). By cancelling this default, you send a clear signal to the browser that a drop <em>is</em> acceptable at the current position. The browser responds by allowing the <code>drop</code> event to fire when the user releases the mouse button.</p>
+
+<p>This single call is the absolute minimum required to transform any element into a functional drop target:</p>
+
+<pre><code>const dropZone = document.getElementById('drop-zone');
+
+dropZone.addEventListener('dragover', function(event) {
+  event.preventDefault(); // This is all that is strictly required
+});</code></pre>
+
+<p>Without this line, no <code>drop</code> event will ever fire on the element, regardless of how many other drag-and-drop handlers you attach. It is the most common mistake made by developers new to the Drag and Drop API, and its absence produces a confusing result: everything looks wired up, but nothing happens when the user releases the mouse.</p>
+
+<p><strong>Designating Valid Drop Targets</strong></p>
+
+<p>The fact that <code>preventDefault()</code> must be called explicitly gives you precise, fine-grained control over which elements serve as drop targets. Elements that never call <code>preventDefault()</code> in their <code>dragover</code> handler will simply never fire a <code>drop</code> event, effectively protecting areas of your UI where drops should not occur. You do not need to add special "no-drop" markers to elements you want to exclude — the browser's default behavior handles that automatically.</p>
+
+<p>More powerfully, you can make the call to <code>preventDefault()</code> <em>conditional</em>. Because the <code>dragover</code> event object exposes the <code>dataTransfer</code> object, you can inspect information about what is being dragged and only permit a drop if the dragged data meets your requirements. Consider a scenario where a page has two types of draggable items — images and text snippets — and a drop zone that should only accept images:</p>
+
+<pre><code>dropZone.addEventListener('dragover', function(event) {
+  // Only allow drops if the dragged item carries image data
+  if (event.dataTransfer.types.includes('text/x-image-id')) {
+    event.preventDefault(); // Permit the drop
+  }
+  // If the condition is not met, preventDefault() is never called,
+  // so the element behaves as an invalid drop target for this drag.
+});</code></pre>
+
+<p>This pattern is extremely useful for building complex interfaces where different drop zones accept different kinds of content. Note that for security reasons, the actual <em>values</em> stored in <code>dataTransfer</code> are not accessible during <code>dragover</code> — only the list of <code>types</code> is available. This is sufficient for most conditional logic.</p>
+
+<p><strong>Providing Visual Feedback During a Drag</strong></p>
+
+<p>Once you have the basic mechanics in place, the next priority is communicating drop eligibility to the user. A drag-and-drop interface that gives no visual feedback is disorienting and hard to use. The <code>dragover</code> handler is the right place to apply a visual highlight to the potential drop target.</p>
+
+<p>The most common approach is to add a CSS class to the target element when <code>dragover</code> fires, and remove it when the item leaves. Your stylesheet might define something like this:</p>
+
+<pre><code>/* CSS */
+.drag-over {
+  border: 2px dashed #4a90e2;
+  background-color: rgba(74, 144, 226, 0.1);
+  opacity: 0.85;
+}</code></pre>
+
+<p>And your handler applies and removes it:</p>
+
+<pre><code>dropZone.addEventListener('dragover', function(event) {
+  event.preventDefault();
+  dropZone.classList.add('drag-over'); // Visual highlight
+});
+
+dropZone.addEventListener('dragleave', function(event) {
+  dropZone.classList.remove('drag-over'); // Remove highlight when item leaves
+});
+
+dropZone.addEventListener('drop', function(event) {
+  event.preventDefault();
+  dropZone.classList.remove('drag-over'); // Also remove on drop
+  // Handle the dropped data here
+});</code></pre>
+
+<p>Because <code>dragover</code> fires many times per second, calling <code>classList.add()</code> repeatedly is harmless — the class is either present or absent, and adding a class that is already present has no effect. This makes the pattern efficient even without explicit debouncing.</p>
+
+<p>Visual cues you might consider adjusting during a drag operation include:</p>
+
+<ul>
+  <li><strong>Border style and color</strong> — a dashed or highlighted border is the most universally recognizable drop zone indicator</li>
+  <li><strong>Background color</strong> — a subtle tint visually encloses the drop zone area</li>
+  <li><strong>Opacity</strong> — slightly dimming or brightening the zone draws attention without being jarring</li>
+  <li><strong>Box shadow</strong> — an inset shadow can create a sense of depth, suggesting the zone is "ready to receive"</li>
+  <li><strong>Scale transform</strong> — a subtle enlargement (for example, <code>transform: scale(1.02)</code>) makes the zone feel inviting</li>
+</ul>
+
+<p><strong>Coordinating dragover with dragleave</strong></p>
+
+<p>The visual highlight applied during <code>dragover</code> must be removed when the dragged item leaves the target area. The browser provides the <code>dragleave</code> event for exactly this purpose: it fires on the element when the dragged item moves out of its bounds.</p>
+
+<p>Pairing <code>dragover</code> and <code>dragleave</code> handlers creates a responsive UI that accurately tracks the drag operation in real time:</p>
+
+<pre><code>dropZone.addEventListener('dragover', function(event) {
+  event.preventDefault();
+  event.dataTransfer.dropEffect = 'move';
+  dropZone.classList.add('drag-over');
+});
+
+dropZone.addEventListener('dragleave', function(event) {
+  dropZone.classList.remove('drag-over');
+});</code></pre>
+
+<p>One subtlety to be aware of: <code>dragleave</code> can fire spuriously when the cursor moves over a <em>child element</em> inside the drop zone. From the browser's perspective, the cursor has left the parent and entered the child. This can cause the highlight to flash on and off unexpectedly. A robust solution is to check whether the related target of the <code>dragleave</code> event is still inside the drop zone:</p>
+
+<pre><code>dropZone.addEventListener('dragleave', function(event) {
+  // relatedTarget is the element the cursor is moving INTO
+  if (!dropZone.contains(event.relatedTarget)) {
+    dropZone.classList.remove('drag-over');
+  }
+});</code></pre>
+
+<p>This guard ensures the highlight is only removed when the drag genuinely exits the drop zone, not merely when it passes over a child element.</p>
+
+<p>The following table summarises the key drag events involved in making a drop zone work and when each fires:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Event</th>
+      <th>Fires On</th>
+      <th>When It Fires</th>
+      <th>Primary Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>dragstart</code></td>
+      <td>Dragged element</td>
+      <td>Once, when drag begins</td>
+      <td>Set data with <code>dataTransfer.setData()</code></td>
+    </tr>
+    <tr>
+      <td><code>dragover</code></td>
+      <td>Target element beneath cursor</td>
+      <td>Continuously while dragged item hovers</td>
+      <td>Call <code>preventDefault()</code> to allow drop; apply visual feedback</td>
+    </tr>
+    <tr>
+      <td><code>dragleave</code></td>
+      <td>Target element beneath cursor</td>
+      <td>Once, when dragged item exits target</td>
+      <td>Remove visual feedback</td>
+    </tr>
+    <tr>
+      <td><code>drop</code></td>
+      <td>Target element beneath cursor</td>
+      <td>Once, when mouse button is released over target</td>
+      <td>Read data with <code>dataTransfer.getData()</code>; process drop</td>
+    </tr>
+    <tr>
+      <td><code>dragend</code></td>
+      <td>Dragged element</td>
+      <td>Once, when drag operation concludes</td>
+      <td>Clean up source element state</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Using dataTransfer.dropEffect in dragover</strong></p>
+
+<p>Beyond calling <code>preventDefault()</code>, the <code>dragover</code> handler is the correct place to set <code>event.dataTransfer.dropEffect</code>. This property controls the cursor icon the browser displays while the item hovers over the current target, giving the user an additional, standardised visual cue about what will happen if they release the mouse.</p>
+
+<p>The valid values for <code>dropEffect</code> are:</p>
+
+<ul>
+  <li><strong>'move'</strong> — signals that the dragged item will be moved from its source to the target. The cursor typically shows a standard move arrow.</li>
+  <li><strong>'copy'</strong> — signals that a copy of the item will be created at the target. The cursor often shows a plus-sign overlay on the pointer.</li>
+  <li><strong>'link'</strong> — signals that a link or shortcut to the source will be created. The cursor may show a chain-link or arrow-with-shortcut icon.</li>
+  <li><strong>'none'</strong> — signals an invalid drop target. The cursor shows a "no drop" (circle with a line) symbol, even if <code>preventDefault()</code> has been called.</li>
+</ul>
+
+<p>Setting <code>dropEffect</code> must be done inside the <code>dragover</code> handler; doing it elsewhere has no effect on cursor appearance. Additionally, it should be compatible with the <code>effectAllowed</code> value set in the <code>dragstart</code> handler — if these two values are inconsistent, the browser may override your <code>dropEffect</code> choice and revert to 'none'.</p>
+
+<pre><code>dropZone.addEventListener('dragover', function(event) {
+  event.preventDefault();
+  event.dataTransfer.dropEffect = 'copy'; // Tells user a copy will be made
+  dropZone.classList.add('drag-over');
+});</code></pre>
+
+<p>Choosing the correct <code>dropEffect</code> meaningfully improves usability and accessibility. A user who sees a 'copy' cursor knows they are not about to lose their original item; a user who sees a 'move' cursor understands the source will be removed. This alignment between visual feedback and actual behaviour prevents confusion and builds trust in the interface.</p>
+
+<p>Putting all the pieces together, a complete and well-considered drop zone implementation looks like this:</p>
+
+<pre><code>const dropZone = document.getElementById('drop-zone');
+
+dropZone.addEventListener('dragover', function(event) {
+  // 1. Permit the drop by cancelling default browser behaviour
+  event.preventDefault();
+
+  // 2. Tell the user this will be a move operation
+  event.dataTransfer.dropEffect = 'move';
+
+  // 3. Apply a visual highlight to the drop zone
+  dropZone.classList.add('drag-over');
+});
+
+dropZone.addEventListener('dragleave', function(event) {
+  // Remove the highlight only when genuinely leaving the zone
+  if (!dropZone.contains(event.relatedTarget)) {
+    dropZone.classList.remove('drag-over');
+  }
+});
+
+dropZone.addEventListener('drop', function(event) {
+  // Prevent default (e.g. file drops navigating the page)
+  event.preventDefault();
+
+  // Remove highlight
+  dropZone.classList.remove('drag-over');
+
+  // Retrieve and process the dropped data
+  const data = event.dataTransfer.getData('text/plain');
+  console.log('Dropped data:', data);
+});</code></pre>
+
+<p>This pattern — <code>preventDefault()</code> in <code>dragover</code>, <code>dropEffect</code> for cursor feedback, CSS class toggling coordinated between <code>dragover</code> and <code>dragleave</code>, and a <code>drop</code> handler for actual processing — represents the standard, production-ready approach to creating robust drop targets in the browser. Mastering it gives you a reusable mental model that applies to virtually every drag-and-drop scenario you will encounter.</p>
+        <div class="notes"><strong>Notes</strong>Covers the dragover event and how to designate valid drop targets by preventing default browser behavior. Explains how to provide visual feedback to users during an active drag operation.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

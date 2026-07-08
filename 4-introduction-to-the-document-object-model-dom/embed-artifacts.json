@@ -1,0 +1,52 @@
+﻿[
+  {
+    "title": "4 - Introduction to the Document Object Model (DOM) \u2014 Topics \u0026 Learning Outcomes",
+    "href": "topics-outcomes.html",
+    "type": "Page"
+  },
+  {
+    "title": "4 - Introduction to the Document Object Model (DOM) \u2014 Module Topics",
+    "href": "topics.html",
+    "type": "Page"
+  },
+  {
+    "title": "Adding and Removing DOM Nodes",
+    "href": "content/Introduction_to_the_interactive.html",
+    "type": "Content"
+  },
+  {
+    "title": "What is the DOM?",
+    "href": "content/Introduction_to_the_interactive_topics_t1.html",
+    "type": "Content"
+  },
+  {
+    "title": "How Browsers Parse HTML into the DOM",
+    "href": "content/Introduction_to_the_interactive_topics_t2.html",
+    "type": "Content"
+  },
+  {
+    "title": "The DOM Tree Structure",
+    "href": "content/Introduction_to_the_interactive_topics_t3.html",
+    "type": "Content"
+  },
+  {
+    "title": "Selecting DOM Elements",
+    "href": "content/Introduction_to_the_interactive_topics_t4.html",
+    "type": "Content"
+  },
+  {
+    "title": "Manipulating DOM Elements",
+    "href": "content/Introduction_to_the_interactive_topics_t5.html",
+    "type": "Content"
+  },
+  {
+    "title": "Adding and Removing DOM Nodes",
+    "href": "content/Introduction_to_the_interactive_topics_t6.html",
+    "type": "Content"
+  },
+  {
+    "title": "4 - Introduction to the Document Object Model (DOM) \u2014 Module Topics",
+    "href": "content/module_topics.html",
+    "type": "Content"
+  }
+]

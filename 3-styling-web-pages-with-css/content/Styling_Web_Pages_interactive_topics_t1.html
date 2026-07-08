@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to CSS</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 3 -Styling Web Pages with CSS</a></div>
+  <header>
+    <h1>Introduction to CSS</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to CSS</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>CSS, which stands for <strong>Cascading Style Sheets</strong>, is the language used to describe how HTML elements should look when displayed in a browser. While HTML provides the raw structure and meaning of a web page — headings, paragraphs, lists, links, images — CSS is what transforms that bare structure into a visually designed experience. Without CSS, every website would look like a plain document: black text on a white background, with the browser's own default font and spacing applied inconsistently across different browsers and devices.</p>
+
+<p>The separation of content from presentation is one of CSS's most important contributions to web development. When structure (HTML) and style (CSS) are kept in separate layers, a developer can completely redesign the visual appearance of a website by editing only the CSS, without touching a single line of the underlying HTML content. This makes websites dramatically easier to maintain, update, and hand off between team members. A content writer can update text in the HTML without worrying about breaking the design, and a designer can restyle the layout without disrupting the content.</p>
+
+<p>The word <strong>cascading</strong> in the name is not decorative — it describes a fundamental mechanism of how CSS works. When multiple CSS rules target the same HTML element, the browser must decide which rule wins. It does this through a defined order of priority that takes into account three factors: <em>specificity</em> (how precisely a rule targets an element), <em>source order</em> (rules that appear later in the stylesheet override earlier ones when specificity is equal), and <em>origin</em> (author styles, user styles, and browser default styles each have different levels of authority). Understanding the cascade is essential for predicting and controlling how your styles are applied.</p>
+
+<p>CSS controls an enormous range of visual properties. Among the most commonly used are:</p>
+
+<ul>
+  <li><strong>Color and background</strong> — text color, background color, background images, gradients</li>
+  <li><strong>Typography</strong> — font family, font size, font weight, line height, letter spacing, text alignment</li>
+  <li><strong>Spacing</strong> — margin (space outside an element), padding (space inside an element), border</li>
+  <li><strong>Sizing</strong> — width, height, minimum and maximum dimensions</li>
+  <li><strong>Layout</strong> — how elements are positioned and arranged relative to one another, including Flexbox and Grid systems</li>
+  <li><strong>Visual effects</strong> — opacity, box shadows, border radius, transitions, and animations</li>
+</ul>
+
+<p>To understand how CSS and HTML work together, it helps to look at the anatomy of a CSS rule. Every CSS rule is made up of two parts: a <strong>selector</strong> and a <strong>declaration block</strong>. The selector identifies which HTML element or elements the rule applies to. The declaration block, enclosed in curly braces, contains one or more <strong>declarations</strong>, each consisting of a <strong>property</strong> and a <strong>value</strong> separated by a colon. Multiple declarations are separated by semicolons.</p>
+
+<pre><code>p {
+  color: navy;
+  font-size: 16px;
+  line-height: 1.6;
+}</code></pre>
+
+<p>In this example, <code>p</code> is the selector — it targets every <code>&lt;p&gt;</code> paragraph element on the page. Inside the braces, <code>color</code>, <code>font-size</code>, and <code>line-height</code> are properties, and <code>navy</code>, <code>16px</code>, and <code>1.6</code> are their respective values. When a browser loads the page, it reads both the HTML and the CSS, matches each rule to the elements it targets, and applies the declared styles when rendering the visual output on screen. Without any CSS, the browser falls back to its own built-in default stylesheet, which varies between browsers and produces a generic, unstyled appearance.</p>
+
+<p>There are three distinct methods for attaching CSS to an HTML document, each with its own syntax, scope, and appropriate use case: <strong>inline CSS</strong>, <strong>internal CSS</strong>, and <strong>external CSS</strong>.</p>
+
+<p><strong>Inline CSS</strong> is written directly inside the <code>style</code> attribute of an individual HTML element. Instead of writing a selector, you place declarations directly as the attribute's value, because the element itself is implicitly the target.</p>
+
+<pre><code>&lt;p style="color: darkred; font-weight: bold;"&gt;This paragraph has inline styles.&lt;/p&gt;</code></pre>
+
+<p>Inline styles are applied immediately and exclusively to the single element on which they are written. They do not affect any other element on the page, even other elements of the same type. This extreme specificity is actually a double-edged sword: inline CSS carries the <strong>highest specificity</strong> of all three methods, meaning it will override rules defined in both internal and external stylesheets for that element. While this can occasionally be useful for a targeted, one-off override, it creates serious maintenance problems at scale. Imagine a site with 200 paragraph elements all styled inline — changing the font would require editing every single element individually. For this reason, inline CSS is generally discouraged in professional practice and is best reserved for rapid testing, debugging, or situations where styles must be applied programmatically (for example, via JavaScript).</p>
+
+<p><strong>Internal CSS</strong> (also called embedded CSS) is written inside a <code>&lt;style&gt;</code> element placed within the <code>&lt;head&gt;</code> section of an HTML document. Unlike inline styles, internal CSS uses full CSS syntax with selectors, meaning a single rule can target every matching element on the page simultaneously.</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Internal CSS Example&lt;/title&gt;
+  &lt;style&gt;
+    body {
+      font-family: Georgia, serif;
+      background-color: #f4f4f4;
+    }
+
+    h1 {
+      color: #333333;
+      text-align: center;
+    }
+
+    p {
+      font-size: 15px;
+      line-height: 1.7;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Welcome&lt;/h1&gt;
+  &lt;p&gt;This page uses internal CSS.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<p>Because the styles live inside the HTML file itself, no additional file needs to be downloaded for the page to render correctly. This can be convenient for standalone, single-page projects, email templates, or quick prototypes. However, internal CSS becomes a significant liability when the same styles need to appear on multiple pages. If your website has ten pages all sharing a common header style and you store those styles internally in each file, updating that style requires editing ten separate documents. Any inconsistency introduces visual bugs. Internal CSS is therefore best suited to genuinely single-page use cases.</p>
+
+<p><strong>External CSS</strong> is the method used in virtually all professional, multi-page web projects. Styles are written in a completely separate file with a <code>.css</code> extension, and that file is linked to one or more HTML documents using a <code>&lt;link&gt;</code> element placed in the <code>&lt;head&gt;</code> section.</p>
+
+<pre><code>&lt;!-- Inside index.html --&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;External CSS Example&lt;/title&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;</code></pre>
+
+<pre><code>/* Inside styles.css */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+}
+
+h1 {
+  color: #0056b3;
+}
+
+p {
+  color: #444444;
+  font-size: 16px;
+}</code></pre>
+
+<p>With an external stylesheet, every HTML page that includes that <code>&lt;link&gt;</code> tag instantly inherits all of the defined styles. Changing one rule in <code>styles.css</code> updates the appearance of every linked page simultaneously. This is the principle of <strong>centralized styling</strong>, and it is the cornerstone of maintainable web design. External stylesheets also offer a meaningful performance benefit: once a browser downloads and parses a CSS file, it stores it in its <strong>cache</strong>. On subsequent page visits or when navigating to other pages on the same site, the browser can use the cached file instead of downloading it again, resulting in faster load times.</p>
+
+<p>The following table summarizes the key characteristics of each CSS method side by side to make the distinctions clear:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Where It Is Written</th>
+      <th>Scope</th>
+      <th>Reusability</th>
+      <th>Specificity Level</th>
+      <th>Best Used For</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Inline CSS</td>
+      <td>Inside the <code>style</code> attribute of an HTML element</td>
+      <td>Single element only</td>
+      <td>None — cannot be reused</td>
+      <td>Highest</td>
+      <td>Quick tests, one-off overrides, dynamic JS-driven styles</td>
+    </tr>
+    <tr>
+      <td>Internal CSS</td>
+      <td>Inside a <code>&lt;style&gt;</code> tag in the HTML <code>&lt;head&gt;</code></td>
+      <td>Entire single page</td>
+      <td>Low — limited to one file</td>
+      <td>Medium</td>
+      <td>Single-page projects, prototypes, email templates</td>
+    </tr>
+    <tr>
+      <td>External CSS</td>
+      <td>Separate <code>.css</code> file linked via <code>&lt;link&gt;</code></td>
+      <td>Any page that links to it</td>
+      <td>High — shared across entire site</td>
+      <td>Medium (same as internal)</td>
+      <td>Multi-page websites, all professional projects</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Choosing the right method comes down to the scope and purpose of the styles you are writing. <strong>Inline CSS</strong> should be used sparingly and deliberately — it is appropriate when you need to override a style for one specific element without affecting anything else, or when you are adding styles dynamically through JavaScript. It should never become the primary styling strategy for a page, as it scatters presentation logic throughout the HTML and makes global updates nearly impossible.</p>
+
+<p><strong>Internal CSS</strong> earns its place when you are building something that is genuinely self-contained: a single HTML file that will not share its visual language with other pages, such as a standalone landing page, a code demo, or a templated HTML email where external file references may not be supported by email clients.</p>
+
+<p><strong>External CSS</strong> is the industry standard for any real website and should be the default choice whenever you are building more than one page. By centralizing all styling in one or more dedicated files, you gain consistent design across pages, clean and readable HTML, easier team collaboration, and the performance advantage of browser caching. Most large-scale projects go further by organizing their external CSS into multiple files — for example, one file for layout, one for typography, and one for components — which are then combined or imported as needed.</p>
+
+<p>Understanding these three methods and when to reach for each one is the foundational skill that all further CSS knowledge builds upon. Every technique you learn from this point forward — selectors, the box model, layout systems, responsive design — will be applied through one of these three delivery mechanisms, with external CSS being the vehicle you will use most of the time.</p>
+        <div class="notes"><strong>Notes</strong>Students should practice all three methods hands-on: add an inline style to a single element, embed a style block in the head, and finally move all styles to a linked external file. Seeing the same visual result achieved three different ways reinforces the conceptual distinction between method and outcome. Emphasise that specificity conflicts between the three methods are a common source of beginner confusion and will be explored more deeply in a later module on the cascade and specificity.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

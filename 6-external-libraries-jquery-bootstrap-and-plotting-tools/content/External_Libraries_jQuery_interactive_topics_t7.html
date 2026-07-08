@@ -1,0 +1,400 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Combining Libraries in a Complete Web Project</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 6 - External Libraries: jQuery, Bootstrap, and Plotting Tools</a></div>
+  <header>
+    <h1>Combining Libraries in a Complete Web Project</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Combining Libraries in a Complete Web Project</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Building a modern web project rarely means relying on a single tool. Most real-world pages combine several libraries — each handling a distinct concern — and the skill of orchestrating those libraries cleanly is what separates a maintainable project from a tangled mess. This topic walks through every layer of combining <strong>Bootstrap</strong> (layout and UI components), <strong>jQuery</strong> (DOM interaction and event handling), and <strong>Chart.js</strong> (data visualization) into one cohesive, conflict-free web page. Every decision — from the order of <code>&lt;script&gt;</code> tags to how chart instances are stored — has a clear rationale that you can apply to any multi-library project.</p>
+
+<p><strong>Planning the Project Structure</strong></p>
+
+<p>Before writing a single line of code, clarity about <em>what each library does</em> and <em>where its output lives</em> in the page saves hours of refactoring. Think of the three libraries as occupying separate lanes:</p>
+
+<ul>
+  <li><strong>Bootstrap</strong> owns the visual skeleton — the grid, the navbar, the cards, the buttons, the alert boxes. It answers the question "where does everything sit and how does it look?"</li>
+  <li><strong>jQuery</strong> owns the behavior — listening for clicks, reading form values, toggling visibility, and triggering updates. It answers the question "what happens when the user does something?"</li>
+  <li><strong>Chart.js</strong> owns the data canvas — drawing and redrawing charts inside a <code>&lt;canvas&gt;</code> element. It answers the question "how is the data visualized?"</li>
+</ul>
+
+<p>With those lanes defined, sketch the page on paper or in a wireframing tool before opening a code editor. Identify the Bootstrap grid columns you need — for example, a full-width navbar at the top, a left-hand column for filter controls, and a right-hand column for the chart canvas. Mark every element that needs jQuery interaction (a dropdown that changes the dataset, a button that resets the chart) and every <code>&lt;canvas&gt;</code> that Chart.js will target. This sketch becomes a contract that keeps HTML, CSS, and JavaScript aligned.</p>
+
+<p>Keep custom code in dedicated files rather than scattering it inline. A typical structure looks like this:</p>
+
+<pre><code>project/
+├── index.html          ← markup only; links to all external and local assets
+├── css/
+│   └── styles.css      ← custom overrides, project-specific classes
+└── js/
+    └── main.js         ← jQuery event handlers, Chart.js initialization
+</code></pre>
+
+<p>Inline <code>&lt;style&gt;</code> blocks and inline <code>&lt;script&gt;</code> tags make it difficult to search, diff, and debug. When a bug appears in <code>main.js</code>, you open one file; when a visual glitch appears, you open <code>styles.css</code>. That separation is especially valuable when libraries are involved, because it surfaces whether a problem originates in your code or in a library.</p>
+
+<p><strong>Loading External Libraries in the Correct Order</strong></p>
+
+<p>The browser processes HTML top to bottom. A script that references a symbol defined by another script will throw a <code>ReferenceError</code> if that other script has not yet been parsed. Getting the load order right is therefore non-negotiable.</p>
+
+<p>The recommended order is:</p>
+
+<ul>
+  <li><strong>Bootstrap CSS</strong> — placed inside <code>&lt;head&gt;</code> so that styles are parsed before the browser paints any element. Users never see unstyled content.</li>
+  <li><strong>Your custom CSS</strong> — also in <code>&lt;head&gt;</code>, after Bootstrap, so your rules can deliberately override Bootstrap defaults using the normal cascade.</li>
+  <li><strong>jQuery</strong> — the first <code>&lt;script&gt;</code> tag, placed just before <code>&lt;/body&gt;</code>. Bootstrap's JavaScript bundle uses jQuery as a dependency (in Bootstrap 4) or ships its own Popper in Bootstrap 5, but jQuery must still appear before any script that calls <code>$()</code>.</li>
+  <li><strong>Bootstrap JS bundle</strong> — after jQuery, so Bootstrap's interactive components (dropdowns, modals, tooltips) have jQuery available.</li>
+  <li><strong>Chart.js</strong> — after Bootstrap, since it is independent of Bootstrap but must be ready before your custom script tries to instantiate a chart.</li>
+  <li><strong>Your custom script (main.js)</strong> — absolutely last, so every library symbol (<code>$</code>, <code>Chart</code>, Bootstrap component classes) is defined and accessible.</li>
+</ul>
+
+<p>A correctly ordered <code>index.html</code> skeleton looks like this:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Dashboard&lt;/title&gt;
+
+  &lt;!-- 1. Bootstrap CSS --&gt;
+  &lt;link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"&gt;
+
+  &lt;!-- 2. Custom CSS --&gt;
+  &lt;link rel="stylesheet" href="css/styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;!-- page markup here --&gt;
+
+  &lt;!-- 3. jQuery --&gt;
+  &lt;script src="https://code.jquery.com/jquery-3.7.1.min.js"&gt;&lt;/script&gt;
+
+  &lt;!-- 4. Bootstrap JS bundle (includes Popper) --&gt;
+  &lt;script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"&gt;
+  &lt;/script&gt;
+
+  &lt;!-- 5. Chart.js --&gt;
+  &lt;script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"&gt;&lt;/script&gt;
+
+  &lt;!-- 6. Custom script (always last) --&gt;
+  &lt;script src="js/main.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>Placing scripts at the bottom of <code>&lt;body&gt;</code> also means the DOM is fully parsed before the scripts execute, which eliminates many "element not found" bugs without needing to wrap everything in a ready handler.</p>
+
+<p><strong>Building the Responsive Layout with Bootstrap</strong></p>
+
+<p>Bootstrap's twelve-column grid is built from three nested classes: <code>container</code> (sets max-width and centers the content), <code>row</code> (creates a flex row), and <code>col-*</code> (defines how many of the twelve columns each child occupies). Because Bootstrap uses CSS Flexbox under the hood, columns reflow automatically at breakpoints, giving you a responsive layout with almost no custom CSS.</p>
+
+<p>A practical dashboard layout might dedicate three columns to a control panel on the left and nine columns to the chart on the right. On small screens those columns stack vertically:</p>
+
+<pre><code>&lt;div class="container-fluid py-4"&gt;
+
+  &lt;!-- Navbar --&gt;
+  &lt;nav class="navbar navbar-dark bg-dark mb-4"&gt;
+    &lt;span class="navbar-brand ms-3"&gt;Sales Dashboard&lt;/span&gt;
+  &lt;/nav&gt;
+
+  &lt;div class="row g-4"&gt;
+
+    &lt;!-- Control panel --&gt;
+    &lt;div class="col-12 col-md-3"&gt;
+      &lt;div class="card shadow-sm"&gt;
+        &lt;div class="card-body"&gt;
+          &lt;h6 class="card-title"&gt;Filters&lt;/h6&gt;
+          &lt;select id="regionSelect" class="form-select mb-3"&gt;
+            &lt;option value="north"&gt;North&lt;/option&gt;
+            &lt;option value="south"&gt;South&lt;/option&gt;
+            &lt;option value="east"&gt;East&lt;/option&gt;
+          &lt;/select&gt;
+          &lt;button id="resetBtn" class="btn btn-outline-secondary w-100"&gt;
+            Reset Chart
+          &lt;/button&gt;
+          &lt;div id="loadingSpinner" class="text-center mt-3 d-none"&gt;
+            &lt;div class="spinner-border text-primary" role="status"&gt;&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Chart area --&gt;
+    &lt;div class="col-12 col-md-9"&gt;
+      &lt;div class="card shadow-sm"&gt;
+        &lt;div class="card-body"&gt;
+          &lt;canvas id="salesChart"&gt;&lt;/canvas&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>Notice that the <code>&lt;canvas id="salesChart"&gt;</code> element lives inside its Bootstrap card body column. Chart.js will query this element by its ID. Giving it a stable, unique ID and keeping it inside a sized container is essential — Chart.js reads the container's dimensions to scale the canvas. The <code>card-body</code> class provides consistent padding and a defined width, which Chart.js can measure reliably.</p>
+
+<p>Bootstrap's utility classes (<code>d-none</code>, <code>text-center</code>, <code>mb-3</code>, and so on) mean you rarely need custom CSS for spacing, alignment, or show/hide logic. The spinner element is hidden by default with <code>d-none</code> and will be made visible by jQuery when needed.</p>
+
+<p><strong>Adding Interactivity with jQuery</strong></p>
+
+<p>Even though scripts are placed at the end of <code>&lt;body&gt;</code> — meaning the DOM is already parsed — wrapping jQuery code in <code>$(document).ready()</code> (or its shorthand <code>$(function() { ... })</code>) is still a widely adopted convention that makes intent explicit and guards against edge cases where scripts are moved:</p>
+
+<pre><code>// js/main.js
+
+$(function () {
+
+  // Chart instance, declared in outer scope so event handlers can reach it
+  let salesChart;
+
+  // Dataset lookup keyed by region
+  const regionData = {
+    north: [120, 150, 180, 200, 170, 210],
+    south: [90,  110, 130, 160, 140, 175],
+    east:  [200, 220, 250, 230, 260, 280]
+  };
+
+  const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+
+  // ── Initialize chart ──────────────────────────────────────────────
+  function initChart(region) {
+    const ctx = document.getElementById('salesChart').getContext('2d');
+
+    salesChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: region.charAt(0).toUpperCase() + region.slice(1) + ' Sales',
+          data: regionData[region],
+          backgroundColor: 'rgba(13, 110, 253, 0.6)',
+          borderColor:     'rgba(13, 110, 253, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false
+      }
+    });
+  }
+
+  initChart('north');   // render default chart on page load
+
+  // ── Region selector ───────────────────────────────────────────────
+  $('#regionSelect').on('change', function () {
+    const selected = $(this).val();
+
+    // Show spinner while "processing"
+    $('#loadingSpinner').removeClass('d-none');
+
+    setTimeout(function () {
+      // Update existing chart rather than destroying and recreating it
+      salesChart.data.datasets[0].data  = regionData[selected];
+      salesChart.data.datasets[0].label = selected.charAt(0).toUpperCase()
+                                          + selected.slice(1) + ' Sales';
+      salesChart.update();
+
+      $('#loadingSpinner').addClass('d-none');
+    }, 500);   // simulates an async data fetch
+  });
+
+  // ── Reset button ──────────────────────────────────────────────────
+  $('#resetBtn').on('click', function () {
+    $('#regionSelect').val('north').trigger('change');
+  });
+
+});
+</code></pre>
+
+<p>Several jQuery patterns are worth highlighting here:</p>
+
+<ul>
+  <li><strong><code>$('#regionSelect').on('change', ...)</code></strong> — The <code>.on()</code> method is the modern, preferred way to attach events. It supports event delegation (useful for dynamically created elements) and is more explicit than shorthand methods like <code>.change()</code>.</li>
+  <li><strong><code>$(this).val()</code></strong> — Inside a jQuery event handler, <code>this</code> refers to the native DOM element that fired the event. Wrapping it in <code>$()</code> gives access to jQuery's API, including <code>.val()</code> for reading form control values.</li>
+  <li><strong>Bootstrap spinner toggled with jQuery</strong> — The spinner uses Bootstrap's <code>d-none</code> utility class for invisibility. jQuery's <code>.removeClass('d-none')</code> and <code>.addClass('d-none')</code> respect Bootstrap's class system rather than fighting it with inline <code>style</code> attributes.</li>
+  <li><strong>Simulated async with <code>setTimeout</code></strong> — Real projects fetch data from an API. The <code>setTimeout</code> here stands in for that fetch, demonstrating the pattern: show spinner → fetch data → update chart → hide spinner.</li>
+</ul>
+
+<p><strong>Rendering and Updating Charts with Chart.js</strong></p>
+
+<p>Chart.js requires a <code>&lt;canvas&gt;</code> element and a 2D rendering context obtained via <code>getContext('2d')</code>. The chart constructor accepts a configuration object with three top-level keys: <code>type</code>, <code>data</code>, and <code>options</code>.</p>
+
+<p>Storing the chart instance in a variable (<code>let salesChart</code> in the example above) is critical. If you discard the reference, the only way to update the chart is to destroy the canvas and recreate it, which causes a visible flash and wastes resources. With the reference, you can mutate <code>salesChart.data</code> in place and call <code>salesChart.update()</code> for a smooth animated transition.</p>
+
+<p>Two Chart.js options deserve special attention when embedding charts inside Bootstrap columns:</p>
+
+<ul>
+  <li><strong><code>responsive: true</code></strong> — Chart.js listens for changes to the canvas container's size and redraws the chart proportionally. Without this, the chart is a fixed pixel size and breaks on different screen widths.</li>
+  <li><strong><code>maintainAspectRatio: false</code></strong> — By default Chart.js enforces a 2:1 width-to-height ratio. Setting this to <code>false</code> lets you control the canvas height explicitly via CSS, which is necessary when the Bootstrap column dictates the width but you want a taller or shorter chart.</li>
+</ul>
+
+<p>To control height when <code>maintainAspectRatio</code> is <code>false</code>, set a height on the parent element in your custom CSS:</p>
+
+<pre><code>/* css/styles.css */
+#salesChart {
+  height: 350px;   /* Chart.js reads this from the parent container */
+}
+</code></pre>
+
+<p>Chart.js also supports a variety of update modes. Calling <code>chart.update()</code> with no arguments uses the default animation. Passing <code>'none'</code> skips animation entirely — useful if you are updating dozens of data points in rapid succession and performance matters more than aesthetics.</p>
+
+<p><strong>Avoiding Library Conflicts</strong></p>
+
+<p>The most common conflict in jQuery-based projects is the <code>$</code> variable. jQuery assigns itself to both <code>window.jQuery</code> and the <code>window.$</code> shorthand. If another library (some older Prototype.js code, a custom script, or a CMS plugin) also claims <code>$</code>, the two definitions collide and one library stops working.</p>
+
+<p>jQuery provides <code>jQuery.noConflict()</code> precisely for this situation. Calling it immediately after jQuery loads releases <code>$</code> back to whatever owned it before, while leaving <code>jQuery</code> itself intact. You then use a different shorthand inside an IIFE:</p>
+
+<pre><code>&lt;script src="jquery-3.7.1.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  // Release $ immediately
+  var $j = jQuery.noConflict();
+
+  // Wrap all jQuery code in an IIFE that maps $j to $ locally
+  (function ($) {
+    $(function () {
+      // Inside this function, $ is safely jQuery
+      $('#resetBtn').on('click', function () { /* ... */ });
+    });
+  }($j));
+&lt;/script&gt;
+</code></pre>
+
+<p>The IIFE pattern is elegant because existing code that uses <code>$</code> for something else continues to work in the global scope, while your jQuery code uses the familiar <code>$</code> locally.</p>
+
+<p>CSS conflicts are subtler but equally disruptive. Bootstrap defines dozens of utility classes with short, generic names like <code>.text-primary</code>, <code>.card</code>, <code>.row</code>, and <code>.container</code>. If your custom styles use those same names, the cascade merges your rules with Bootstrap's in unpredictable ways. The solution is to prefix every custom class with a project-specific namespace:</p>
+
+<pre><code>/* Avoid: might clash with Bootstrap's .card */
+.card { border-radius: 12px; }
+
+/* Prefer: namespace with project prefix */
+.dash-card { border-radius: 12px; }
+</code></pre>
+
+<p>Before integrating all three libraries, test each in a minimal standalone HTML file. Load Bootstrap alone and verify that the grid and components work. Add jQuery and confirm that event handlers fire. Add Chart.js and confirm that a chart renders. Only then combine them. This staged approach isolates errors to the library most recently added, rather than forcing you to debug three unknown interactions at once. Open the browser's developer console throughout — <code>Uncaught ReferenceError: Chart is not defined</code> immediately tells you Chart.js was not loaded, while <code>$ is not a function</code> tells you jQuery was overridden or missing.</p>
+
+<p><strong>Best Practices for Managing Dependencies</strong></p>
+
+<p>External libraries introduce risks that grow over time: version drift, CDN outages, breaking API changes, and security vulnerabilities. A few disciplined habits keep those risks manageable.</p>
+
+<p>Document every dependency at the top of <code>index.html</code> or in a <code>README.md</code>. Include the library name, the version in use, and the full CDN URL. This comment block becomes the first place anyone looks when a library needs upgrading:</p>
+
+<pre><code>&lt;!--
+  Dependencies
+  ─────────────────────────────────────────────────────────────
+  Bootstrap  5.3.2   https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/
+  jQuery     3.7.1   https://code.jquery.com/jquery-3.7.1.min.js
+  Chart.js   4.4.0   https://cdn.jsdelivr.net/npm/chart.js@4.4.0/
+  ─────────────────────────────────────────────────────────────
+--&gt;
+</code></pre>
+
+<p>Keep the library count low. Every additional library adds HTTP requests, increases page weight, introduces a new API surface to learn, and creates another potential conflict. Before adding a library, ask whether the feature it provides could be achieved with a small custom function instead. A fifty-line custom function that you fully understand is often preferable to a hundred-kilobyte library that does the same thing.</p>
+
+<p>Review changelogs when upgrading. Bootstrap's migration from version 4 to 5, for example, dropped jQuery as a dependency and renamed several CSS classes (e.g., <code>data-toggle</code> became <code>data-bs-toggle</code>). Chart.js's migration from version 2 to version 3 introduced breaking changes to the options object structure. Reading the "Migration" or "Breaking Changes" section of a changelog before upgrading prevents surprise failures in production. Pin specific versions in CDN URLs (as shown throughout this topic) rather than using a floating <code>latest</code> tag — a library author's new release should not automatically change your site's behavior.</p>
+
+<p>The table below summarizes the role, key API entry points, and conflict considerations for each library in this project:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Library</th>
+      <th>Primary Role</th>
+      <th>Key API Entry Points</th>
+      <th>Common Conflict Risk</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Bootstrap</td>
+      <td>Layout, UI components, responsive grid</td>
+      <td><code>container</code>, <code>row</code>, <code>col-*</code>, <code>navbar</code>, <code>card</code>, <code>d-none</code></td>
+      <td>Generic CSS class names may clash with custom styles</td>
+    </tr>
+    <tr>
+      <td>jQuery</td>
+      <td>DOM traversal, event handling, AJAX</td>
+      <td><code>$()</code>, <code>.on()</code>, <code>.val()</code>, <code>.addClass()</code>, <code>.removeClass()</code></td>
+      <td><code>$</code> shorthand may conflict with other libraries; use <code>noConflict()</code></td>
+    </tr>
+    <tr>
+      <td>Chart.js</td>
+      <td>Canvas-based data visualization</td>
+      <td><code>new Chart(ctx, config)</code>, <code>chart.data</code>, <code>chart.update()</code></td>
+      <td>Requires canvas to be in a sized container; must load after DOM is ready</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>When all three libraries are loaded in the correct order, scoped with consistent naming conventions, and wired together through a clean separation of concerns — Bootstrap for structure, jQuery for behavior, Chart.js for visualization — the result is a page that is easy to read, easy to debug, and straightforward to extend when requirements change.</p>
+        <div class="notes"><strong>Notes</strong>Covers all six subtopic areas (project structure, load order, Bootstrap layout, jQuery interactivity, Chart.js rendering, conflict avoidance, and dependency management) with working code examples and a summary comparison table.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

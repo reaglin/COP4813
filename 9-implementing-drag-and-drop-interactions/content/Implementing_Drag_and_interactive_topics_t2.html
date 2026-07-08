@@ -1,0 +1,443 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Making Elements Draggable</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 9 - Implementing Drag and Drop Interactions</a></div>
+  <header>
+    <h1>Making Elements Draggable</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Making Elements Draggable</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Drag-and-drop is one of the most intuitive interaction patterns available on the web. When implemented correctly, it allows users to pick up elements, carry them across the page, and deposit them in a new location — all with a natural, physical metaphor. The HTML Drag and Drop API is the browser-native mechanism that powers this behaviour, and the first step to using it is understanding how to make an element a <em>drag source</em>: an element that the user can grab and begin dragging. This involves three closely related concerns — declaring an element as draggable, identifying which element should be the drag source, and wiring up the event listeners that capture the start of a drag operation so data can be attached and visual feedback can be prepared.</p>
+
+<p>The entire system builds on a sequence of DOM events (<code>dragstart</code>, <code>drag</code>, <code>dragenter</code>, <code>dragover</code>, <code>dragleave</code>, <code>drop</code>, <code>dragend</code>), but everything begins with the drag source and the <code>dragstart</code> event. Before any of those events fire, though, the browser must be told which elements are eligible to be dragged.</p>
+
+<p><strong>The <code>draggable</code> Attribute</strong></p>
+
+<p>The <code>draggable</code> attribute is a global HTML attribute that controls whether the browser treats an element as a drag source. It accepts exactly three string values: <code>'true'</code>, <code>'false'</code>, and <code>'auto'</code>. Only these three values are valid; any other string is treated the same as <code>'auto'</code>.</p>
+
+<ul>
+  <li><strong><code>draggable="true"</code></strong> — Explicitly opts the element into the drag system. Once this is set, the browser will fire <code>dragstart</code> on the element when the user begins a drag gesture (typically a click-and-hold followed by movement on desktop, or a touch-and-hold on some mobile browsers).</li>
+  <li><strong><code>draggable="false"</code></strong> — Explicitly opts the element <em>out</em> of dragging, even if the browser would otherwise make it draggable by default. This is useful on images and links (both of which are draggable by default in most browsers) when you want to suppress that behaviour.</li>
+  <li><strong><code>draggable="auto"</code></strong> — Defers to the browser's default rules. In practice, <code>&lt;img&gt;</code> and <code>&lt;a href="..."&gt;</code> elements are draggable by default; almost everything else is not. When the attribute is absent entirely the behaviour is also <code>'auto'</code>.</li>
+</ul>
+
+<p>A simple example — making a paragraph draggable:</p>
+
+<pre><code>&lt;p draggable="true" id="drag-me"&gt;
+  Drag this paragraph to a drop zone.
+&lt;/p&gt;
+</code></pre>
+
+<p>And suppressing the default draggability of an image (for example, inside a photo gallery where you want to control drag behaviour yourself):</p>
+
+<pre><code>&lt;img src="photo.jpg" draggable="false" alt="A landscape photo" /&gt;
+</code></pre>
+
+<p>It is worth noting that <code>draggable</code> is <em>not</em> a boolean attribute in the same way <code>disabled</code> or <code>checked</code> are. You cannot simply write <code>&lt;div draggable&gt;</code> and expect it to work — you must write the full string <code>draggable="true"</code>. This is an easy mistake to make and a common source of confusion.</p>
+
+<p><strong>Identifying Drag Source Elements</strong></p>
+
+<p>Any visible DOM element can be designated as a drag source. The choice of <em>which</em> element you mark as draggable has real practical consequences for the user experience and for the logic of your drag-and-drop implementation.</p>
+
+<p>Consider a task board where each card contains a heading, a description paragraph, a priority badge, and a delete button. If you add <code>draggable="true"</code> directly to the heading, only the heading is technically the drag source, which means the drag ghost image might only show the heading text, the hit area for initiating a drag is small, and it is harder to associate the card's full data with the operation. A better approach is to wrap the entire card in a container element — typically a <code>&lt;div&gt;</code> or an <code>&lt;li&gt;</code> — and mark that container as the drag source:</p>
+
+<pre><code>&lt;ul id="task-list"&gt;
+  &lt;li class="task-card" draggable="true" data-task-id="42"&gt;
+    &lt;h3&gt;Design the login screen&lt;/h3&gt;
+    &lt;p&gt;Create wireframes and high-fidelity mockups.&lt;/p&gt;
+    &lt;span class="badge"&gt;High priority&lt;/span&gt;
+  &lt;/li&gt;
+
+  &lt;li class="task-card" draggable="true" data-task-id="43"&gt;
+    &lt;h3&gt;Write unit tests&lt;/h3&gt;
+    &lt;p&gt;Achieve 80% code coverage for the auth module.&lt;/p&gt;
+    &lt;span class="badge"&gt;Medium priority&lt;/span&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+
+<p>Notice the use of a <code>data-task-id</code> custom data attribute on each <code>&lt;li&gt;</code>. This is a common pattern: store the record's identifier on the element itself so that the <code>dragstart</code> handler can read it and pass it to the drop target without having to search the DOM or rely on closure variables. It keeps the source of truth close to the element and makes the handler reusable across many cards.</p>
+
+<p>Choosing a container as the drag source also gives you finer control over what moves. If the card contains interactive controls (buttons, input fields), those controls should generally <em>not</em> initiate a drag. You can prevent the drag from starting when the user clicks a button by calling <code>event.preventDefault()</code> on the <code>mousedown</code> or <code>pointerdown</code> event of those child controls, or by setting <code>draggable="false"</code> on them explicitly.</p>
+
+<p><strong>Setting Up the <code>dragstart</code> Event Listener</strong></p>
+
+<p>Marking an element as <code>draggable="true"</code> is necessary but not sufficient. To actually do anything useful with a drag operation, you must attach a <code>dragstart</code> event listener to the drag source (or to an ancestor using event delegation). This listener fires the moment the browser confirms that the user has started dragging the element.</p>
+
+<pre><code>const cards = document.querySelectorAll('.task-card');
+
+cards.forEach(card =&gt; {
+  card.addEventListener('dragstart', handleDragStart);
+});
+
+function handleDragStart(event) {
+  // event.target is the element that was dragged
+  const taskId = event.target.dataset.taskId;
+
+  // Store data for the drop target to retrieve
+  event.dataTransfer.setData('text/plain', taskId);
+
+  // Signal that this is a move operation (not a copy)
+  event.dataTransfer.effectAllowed = 'move';
+
+  // Add a visual class so the card appears "lifted"
+  event.target.classList.add('dragging');
+}
+</code></pre>
+
+<p>For larger lists, event delegation is more efficient. Instead of attaching a listener to every card, you attach one listener to the parent list and check whether the drag originated from a card:</p>
+
+<pre><code>document.getElementById('task-list').addEventListener('dragstart', function(event) {
+  const card = event.target.closest('.task-card');
+  if (!card) return; // drag started on something else inside the list
+
+  event.dataTransfer.setData('text/plain', card.dataset.taskId);
+  event.dataTransfer.effectAllowed = 'move';
+  card.classList.add('dragging');
+});
+</code></pre>
+
+<p>The <code>effectAllowed</code> property is worth understanding in detail. It is a hint to both the browser and the drop target about what kind of operation is permitted:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>'none'</code></td>
+      <td>Dropping is not permitted anywhere.</td>
+    </tr>
+    <tr>
+      <td><code>'copy'</code></td>
+      <td>A copy of the source item may be made at the drop target.</td>
+    </tr>
+    <tr>
+      <td><code>'move'</code></td>
+      <td>The item will be moved to the drop target (removed from the source).</td>
+    </tr>
+    <tr>
+      <td><code>'link'</code></td>
+      <td>A link to the source will be created at the drop target.</td>
+    </tr>
+    <tr>
+      <td><code>'copyMove'</code></td>
+      <td>Either copy or move is allowed.</td>
+    </tr>
+    <tr>
+      <td><code>'copyLink'</code></td>
+      <td>Either copy or link is allowed.</td>
+    </tr>
+    <tr>
+      <td><code>'linkMove'</code></td>
+      <td>Either link or move is allowed.</td>
+    </tr>
+    <tr>
+      <td><code>'all'</code></td>
+      <td>All three operations are allowed.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The browser may change the cursor icon to reflect the effect — a plus symbol for copy, an arrow for move — though exact rendering varies between browsers and operating systems.</p>
+
+<p><strong>Storing Data with <code>dataTransfer</code></strong></p>
+
+<p>The <code>event.dataTransfer</code> object is the communication channel between the drag source and the drop target. It acts as a temporary clipboard scoped to a single drag operation. The key method for writing data into it is <code>setData(format, data)</code>.</p>
+
+<p>The <code>format</code> parameter is a MIME type string. Common choices include:</p>
+
+<ul>
+  <li><strong><code>'text/plain'</code></strong> — Plain text. Universally supported. Good for IDs, simple strings, or content that may be dropped into native applications (such as a text editor).</li>
+  <li><strong><code>'text/html'</code></strong> — An HTML string. Useful when the drop target should insert markup.</li>
+  <li><strong><code>'text/uri-list'</code></strong> — A URL or list of URLs. Used when dragging links.</li>
+  <li><strong>Custom keys</strong> — You can use any string as a format key (e.g., <code>'application/x-task-id'</code> or even just <code>'task-id'</code>), but custom formats will not be understood by external applications.</li>
+</ul>
+
+<p>You can store multiple pieces of data under different formats in a single drag operation:</p>
+
+<pre><code>function handleDragStart(event) {
+  const card = event.target.closest('.task-card');
+  const taskId = card.dataset.taskId;
+
+  // Store the ID as plain text (readable by external drop targets)
+  event.dataTransfer.setData('text/plain', taskId);
+
+  // Also store richer data as a JSON-encoded string under a custom key
+  const taskData = {
+    id: taskId,
+    title: card.querySelector('h3').textContent,
+    priority: card.querySelector('.badge').textContent
+  };
+  event.dataTransfer.setData('application/json', JSON.stringify(taskData));
+
+  event.dataTransfer.effectAllowed = 'move';
+}
+</code></pre>
+
+<p>The critical constraint is that <code>dataTransfer</code> only accepts <strong>strings</strong>. You cannot pass DOM nodes, File objects (for drag sources — files are handled differently on the <code>drop</code> side via <code>dataTransfer.files</code>), or plain JavaScript objects. If you need to transfer structured data, serialise it with <code>JSON.stringify()</code> in <code>dragstart</code> and deserialise it with <code>JSON.parse()</code> in the <code>drop</code> handler.</p>
+
+<p>There is also a security constraint worth knowing: in some browsers, the data stored in <code>dataTransfer</code> is only readable inside the <code>drop</code> event handler of a valid drop target. During <code>dragover</code> and <code>dragenter</code>, you can read the list of available formats (via <code>event.dataTransfer.types</code>), but not the actual values. This protects sensitive data from being read by rogue drop targets on the same page.</p>
+
+<p><strong>Visual Feedback During Drag</strong></p>
+
+<p>When a drag begins, the browser automatically creates a "ghost image" — a semi-transparent copy of the dragged element that follows the cursor. While this default is often adequate, you have two primary tools for customising the visual feedback: <code>setDragImage()</code> and CSS class toggling.</p>
+
+<p><em>Custom drag image with <code>setDragImage()</code></em></p>
+
+<p>The <code>event.dataTransfer.setDragImage(element, xOffset, yOffset)</code> method replaces the default ghost with any element. The element does not need to be visible in the document — it can be an off-screen element created purely for this purpose. The <code>xOffset</code> and <code>yOffset</code> values determine where, relative to the element's top-left corner, the cursor appears to "grip" it.</p>
+
+<pre><code>function handleDragStart(event) {
+  // Create a custom ghost element
+  const ghost = document.createElement('div');
+  ghost.textContent = '📋 Moving task…';
+  ghost.style.cssText = `
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    background: #4a90e2;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    white-space: nowrap;
+  `;
+  document.body.appendChild(ghost);
+
+  // Use the ghost as the drag image; grip it at its top-left corner
+  event.dataTransfer.setDragImage(ghost, 0, 0);
+
+  // Clean up the ghost element after the drag ends
+  event.target.addEventListener('dragend', () =&gt; {
+    document.body.removeChild(ghost);
+  }, { once: true });
+
+  event.dataTransfer.setData('text/plain', event.target.dataset.taskId);
+  event.dataTransfer.effectAllowed = 'move';
+}
+</code></pre>
+
+<p>The element passed to <code>setDragImage()</code> must be in the DOM at the time the call is made (the browser reads it synchronously during the event), which is why the pattern above appends it to <code>document.body</code> first, positioned off-screen to hide it from the visible layout.</p>
+
+<p><em>CSS class toggling for source styling</em></p>
+
+<p>A common and effective pattern is to apply a CSS class to the drag source in <code>dragstart</code> to visually indicate that it is "in flight" — typically by reducing its opacity or applying a dashed border to mark where it came from:</p>
+
+<pre><code>/* CSS */
+.task-card.dragging {
+  opacity: 0.4;
+  border: 2px dashed #4a90e2;
+}
+</code></pre>
+
+<pre><code>// JavaScript
+function handleDragStart(event) {
+  event.target.classList.add('dragging');
+  event.dataTransfer.setData('text/plain', event.target.dataset.taskId);
+  event.dataTransfer.effectAllowed = 'move';
+}
+</code></pre>
+
+<p>However, there is an important subtlety here. In some browsers, if you apply a CSS change to the drag source synchronously inside the <code>dragstart</code> handler, that change is reflected in the ghost image (because the ghost is captured at that moment). To avoid this, wrap the class addition in a <code>setTimeout</code> with a delay of 0 so it executes after the ghost image is captured:</p>
+
+<pre><code>function handleDragStart(event) {
+  event.dataTransfer.setData('text/plain', event.target.dataset.taskId);
+  event.dataTransfer.effectAllowed = 'move';
+
+  const card = event.target;
+  setTimeout(() =&gt; card.classList.add('dragging'), 0);
+}
+</code></pre>
+
+<p>To restore the element's appearance after the drag operation ends (whether or not it resulted in a successful drop), use the <code>dragend</code> event. This event fires on the <em>drag source</em> element, not the drop target, which makes it the ideal place to clean up:</p>
+
+<pre><code>function handleDragEnd(event) {
+  event.target.classList.remove('dragging');
+}
+
+cards.forEach(card =&gt; {
+  card.addEventListener('dragstart', handleDragStart);
+  card.addEventListener('dragend', handleDragEnd);
+});
+</code></pre>
+
+<p><strong>Accessibility Considerations for Draggable Elements</strong></p>
+
+<p>Drag-and-drop presents real barriers for users who rely on keyboard navigation, switch access devices, or screen readers. The HTML Drag and Drop API is fundamentally pointer-based and is not natively keyboard-accessible. Addressing this responsibly involves both ARIA attributes and a parallel keyboard-friendly interaction pattern.</p>
+
+<p><em>ARIA attributes</em></p>
+
+<p>The <code>aria-grabbed</code> attribute (part of the older ARIA 1.0 specification) was intended to communicate the grabbed state of a draggable element to assistive technologies. While it has been deprecated in ARIA 1.1 (the current recommendation is to avoid it and use other patterns), you may still encounter it in legacy code. A more robust approach is to use <code>aria-roledescription</code> and live regions:</p>
+
+<pre><code>&lt;li
+  class="task-card"
+  draggable="true"
+  data-task-id="42"
+  tabindex="0"
+  role="option"
+  aria-roledescription="draggable item"
+  aria-describedby="drag-instructions"
+&gt;
+  Design the login screen
+&lt;/li&gt;
+
+&lt;p id="drag-instructions" class="sr-only"&gt;
+  Press Space to pick up, use arrow keys to move, press Space again to drop,
+  or press Escape to cancel.
+&lt;/p&gt;
+</code></pre>
+
+<p><em>Keyboard focusability</em></p>
+
+<p>Set <code>tabindex="0"</code> on every draggable element so that keyboard users can focus it with the Tab key. Without this, elements that are not natively focusable (such as <code>&lt;div&gt;</code> and <code>&lt;li&gt;</code>) are invisible to keyboard navigation.</p>
+
+<pre><code>&lt;li class="task-card" draggable="true" tabindex="0" data-task-id="42"&gt;
+  Design the login screen
+&lt;/li&gt;
+</code></pre>
+
+<p><em>Providing a non-drag alternative</em></p>
+
+<p>The single most important accessibility rule for drag-and-drop is this: <strong>never make drag-and-drop the only way to accomplish a task</strong>. Always provide an alternative. Common alternatives include:</p>
+
+<ul>
+  <li>A keyboard-driven "pick up and place" mode triggered by pressing Space or Enter, then using arrow keys to move the item, and pressing Space or Enter again to drop it.</li>
+  <li>A context menu or action button (e.g., "Move to column…") that opens a dialog allowing the user to select a target location.</li>
+  <li>Reorder buttons (up/down arrows) adjacent to each item in an ordered list.</li>
+</ul>
+
+<p>Below is a minimal example combining all the draggable setup concepts — the <code>draggable</code> attribute, keyboard focusability, <code>dragstart</code> listener, <code>dataTransfer</code> usage, CSS class feedback, and <code>dragend</code> cleanup — into a single coherent pattern:</p>
+
+<pre><code>&lt;!-- HTML --&gt;
+&lt;ul id="task-list" aria-label="Task cards"&gt;
+  &lt;li class="task-card" draggable="true" tabindex="0"
+      data-task-id="1" role="option"
+      aria-roledescription="draggable task"&gt;
+    Write the project brief
+  &lt;/li&gt;
+  &lt;li class="task-card" draggable="true" tabindex="0"
+      data-task-id="2" role="option"
+      aria-roledescription="draggable task"&gt;
+    Review the design mockups
+  &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+
+<pre><code>/* CSS */
+.task-card {
+  padding: 12px 16px;
+  margin: 8px 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: grab;
+  list-style: none;
+  transition: opacity 0.2s, border-color 0.2s;
+}
+
+.task-card:focus {
+  outline: 3px solid #4a90e2;
+  outline-offset: 2px;
+}
+
+.task-card.dragging {
+  opacity: 0.4;
+  border: 2px dashed #4a90e2;
+  cursor: grabbing;
+}
+</code></pre>
+
+<pre><code>// JavaScript
+const list = document.getElementById('task-list');
+
+list.addEventListener('dragstart', function(event) {
+  const card = event.target.closest('.task-card');
+  if (!card) return;
+
+  const taskId = card.dataset.taskId;
+
+  event.dataTransfer.setData('text/plain', taskId);
+  event.dataTransfer.setData('application/json', JSON.stringify({ id: taskId }));
+  event.dataTransfer.effectAllowed = 'move';
+
+  // Defer the class addition so the ghost image is not affected
+  setTimeout(() =&gt; card.classList.add('dragging'), 0);
+});
+
+list.addEventListener('dragend', function(event) {
+  const card = event.target.closest('.task-card');
+  if (card) card.classList.remove('dragging');
+});
+</code></pre>
+
+<p>This pattern is extensible: once the drag source side is set up cleanly, wiring in the drop target (using <code>dragover</code>, <code>dragenter</code>, <code>dragleave</code>, and <code>drop</code> listeners) becomes straightforward because the data has already been stored in <code>dataTransfer</code> and is ready to be retrieved.</p>
+        <div class="notes"><strong>Notes</strong>The setTimeout trick for deferring class application during dragstart is widely needed in Chrome and Safari; worth calling out clearly. The aria-grabbed deprecation note is accurate as of ARIA 1.1 — learners should be pointed toward live-region announcements and custom keyboard handlers as the current best practice rather than aria-grabbed.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

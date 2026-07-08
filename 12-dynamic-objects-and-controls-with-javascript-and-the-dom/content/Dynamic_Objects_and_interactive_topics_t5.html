@@ -1,0 +1,499 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adding and Managing Event Listeners</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 12 - Dynamic Objects and Controls with JavaScript and the DOM</a></div>
+  <header>
+    <h1>Adding and Managing Event Listeners</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Adding and Managing Event Listeners</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Event listeners are the backbone of interactive web applications. Every time a user clicks a button, types into a field, scrolls the page, or submits a form, the browser generates an <strong>event</strong> — a signal that something has happened. JavaScript's event system gives you a structured way to intercept those signals and respond with your own code. Understanding how to attach, configure, and clean up event listeners is therefore one of the most fundamental skills in front-end development.</p>
+
+<p>At the heart of this system is the <code>addEventListener</code> method, but the topic extends far beyond a single method call. You need to understand which event types exist and when each fires, how events travel through the DOM, how to read information from the event object itself, how to fine-tune listener behavior with options, and how to clean up listeners when they are no longer needed. Each of these concerns is examined in depth below.</p>
+
+<p><strong>The addEventListener Method</strong></p>
+
+<p>The <code>addEventListener</code> method is the modern, recommended way to attach a function to a DOM element so that the function runs whenever a specified event occurs. Its basic signature is:</p>
+
+<pre><code>element.addEventListener(eventType, callbackFunction, options);</code></pre>
+
+<p>The first argument, <strong>eventType</strong>, is a string naming the kind of event you want to listen for — for example <code>'click'</code>, <code>'keydown'</code>, <code>'mouseover'</code>, or <code>'submit'</code>. The second argument, <strong>callbackFunction</strong>, is the function that will be invoked every time the event fires on that element. The third argument is optional and is discussed later under listener options.</p>
+
+<p>A minimal example that logs a message whenever a button is clicked looks like this:</p>
+
+<pre><code>const button = document.getElementById('myButton');
+
+button.addEventListener('click', function(event) {
+  console.log('Button was clicked!', event);
+});</code></pre>
+
+<p>You can equally pass a named function reference instead of an anonymous function, which becomes important when you later need to remove the listener:</p>
+
+<pre><code>function handleClick(event) {
+  console.log('Clicked:', event.target);
+}
+
+button.addEventListener('click', handleClick);</code></pre>
+
+<p>One of the most significant advantages of <code>addEventListener</code> over the older approach of assigning directly to an element's event property (such as <code>element.onclick = someFunction</code>) is that <strong>multiple listeners of the same type can coexist on a single element</strong>. When you write <code>element.onclick = fn</code>, a second assignment simply overwrites the first. With <code>addEventListener</code>, every registered callback is preserved and all of them fire when the event occurs:</p>
+
+<pre><code>button.addEventListener('click', function() {
+  console.log('First listener fires');
+});
+
+button.addEventListener('click', function() {
+  console.log('Second listener fires — both run!');
+});</code></pre>
+
+<p>The method can be called not only on individual HTML elements but also on the <code>document</code> object and the <code>window</code> object. This is useful when you want to listen for events that have no single element target, such as global keyboard shortcuts or page-lifecycle events:</p>
+
+<pre><code>document.addEventListener('DOMContentLoaded', function() {
+  console.log('DOM is ready');
+});
+
+window.addEventListener('resize', function() {
+  console.log('Viewport was resized');
+});</code></pre>
+
+<p><strong>Event Types and Common Browser Events</strong></p>
+
+<p>The browser defines dozens of built-in event types, each representing a distinct kind of user action or browser occurrence. Choosing the <em>correct</em> event type for a given use case is critical, because superficially similar events fire at different times and carry different implications.</p>
+
+<p>Some of the most commonly used event types, grouped by category, are shown below:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Event Type</th>
+      <th>When It Fires</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Mouse</td>
+      <td><code>click</code></td>
+      <td>A full press-and-release of a mouse button on an element</td>
+    </tr>
+    <tr>
+      <td>Mouse</td>
+      <td><code>dblclick</code></td>
+      <td>Two rapid clicks in succession</td>
+    </tr>
+    <tr>
+      <td>Mouse</td>
+      <td><code>mousedown</code> / <code>mouseup</code></td>
+      <td>The moment a mouse button is pressed / released</td>
+    </tr>
+    <tr>
+      <td>Mouse</td>
+      <td><code>mouseover</code> / <code>mouseout</code></td>
+      <td>Pointer enters / leaves an element (including children)</td>
+    </tr>
+    <tr>
+      <td>Mouse</td>
+      <td><code>mouseenter</code> / <code>mouseleave</code></td>
+      <td>Pointer enters / leaves an element (does <em>not</em> bubble)</td>
+    </tr>
+    <tr>
+      <td>Keyboard</td>
+      <td><code>keydown</code></td>
+      <td>Any key is pressed; fires repeatedly while held</td>
+    </tr>
+    <tr>
+      <td>Keyboard</td>
+      <td><code>keyup</code></td>
+      <td>A key is released</td>
+    </tr>
+    <tr>
+      <td>Form</td>
+      <td><code>input</code></td>
+      <td>The value of an input, textarea, or select changes (fires on every keystroke)</td>
+    </tr>
+    <tr>
+      <td>Form</td>
+      <td><code>change</code></td>
+      <td>The value changes <em>and</em> the field loses focus (fires once on blur)</td>
+    </tr>
+    <tr>
+      <td>Form</td>
+      <td><code>submit</code></td>
+      <td>A form is submitted</td>
+    </tr>
+    <tr>
+      <td>Focus</td>
+      <td><code>focus</code> / <code>blur</code></td>
+      <td>An element gains / loses focus (do not bubble)</td>
+    </tr>
+    <tr>
+      <td>Focus</td>
+      <td><code>focusin</code> / <code>focusout</code></td>
+      <td>Same as focus/blur but <em>do</em> bubble</td>
+    </tr>
+    <tr>
+      <td>Document / Window</td>
+      <td><code>DOMContentLoaded</code></td>
+      <td>HTML fully parsed and DOM built; external resources may still be loading</td>
+    </tr>
+    <tr>
+      <td>Document / Window</td>
+      <td><code>load</code></td>
+      <td>All resources (images, stylesheets, etc.) have finished loading</td>
+    </tr>
+    <tr>
+      <td>Document / Window</td>
+      <td><code>scroll</code></td>
+      <td>The document or a scrollable element is scrolled</td>
+    </tr>
+    <tr>
+      <td>Touch</td>
+      <td><code>touchstart</code> / <code>touchend</code></td>
+      <td>A touch point appears on / is removed from the screen</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The difference between <code>'input'</code> and <code>'change'</code> is a common source of confusion. Consider a search field that should filter results as the user types. Using <code>'change'</code> would only filter after the user clicks away from the field, which feels sluggish. Using <code>'input'</code> fires on every single keystroke and keeps results immediately up to date:</p>
+
+<pre><code>const searchField = document.getElementById('search');
+
+// Fires on every keystroke — ideal for live search
+searchField.addEventListener('input', function(event) {
+  filterResults(event.target.value);
+});
+
+// Only fires after the user finishes typing AND tabs away
+searchField.addEventListener('change', function(event) {
+  filterResults(event.target.value);
+});</code></pre>
+
+<p>The <code>'DOMContentLoaded'</code> event deserves special mention. Scripts placed in the <code>&lt;head&gt;</code> of an HTML document run before the browser has built the full DOM, meaning that calls to <code>document.getElementById</code> or <code>querySelectorAll</code> inside those scripts may return <code>null</code>. Wrapping initialization code inside a <code>'DOMContentLoaded'</code> listener guarantees the DOM is ready:</p>
+
+<pre><code>document.addEventListener('DOMContentLoaded', function() {
+  // Safe to query and manipulate DOM elements here
+  const nav = document.querySelector('nav');
+  nav.classList.add('initialized');
+});</code></pre>
+
+<p>Beyond built-in events, the browser's event system also supports <strong>custom events</strong>. You can create an event with your own name using the <code>CustomEvent</code> constructor and dispatch it from any element. This is valuable for building loosely coupled component communication:</p>
+
+<pre><code>// Creating and dispatching a custom event
+const cartUpdated = new CustomEvent('cart:updated', {
+  bubbles: true,
+  detail: { itemCount: 5 }
+});
+document.dispatchEvent(cartUpdated);
+
+// Listening for the custom event elsewhere
+document.addEventListener('cart:updated', function(event) {
+  console.log('Cart has', event.detail.itemCount, 'items');
+});</code></pre>
+
+<p><strong>The Event Object and Its Properties</strong></p>
+
+<p>When a browser event fires and your callback is invoked, the browser automatically passes an <strong>event object</strong> as the first argument to the callback. This object is a rich source of information about what happened and where.</p>
+
+<p>Two of the most important properties on the event object are <code>event.target</code> and <code>event.currentTarget</code>, and the distinction between them matters enormously once you start working with event delegation or nested elements.</p>
+
+<ul>
+  <li><strong>event.target</strong> — The element on which the event <em>originally occurred</em>. If the user clicks a <code>&lt;span&gt;</code> inside a <code>&lt;button&gt;</code>, <code>event.target</code> is the <code>&lt;span&gt;</code>.</li>
+  <li><strong>event.currentTarget</strong> — The element to which the <em>listener is attached</em>. If the listener is on the <code>&lt;button&gt;</code>, <code>event.currentTarget</code> is always the <code>&lt;button&gt;</code>, regardless of which descendant was actually clicked.</li>
+</ul>
+
+<pre><code>&lt;button id="btn"&gt;
+  &lt;span&gt;Click me&lt;/span&gt;
+&lt;/button&gt;
+
+&lt;script&gt;
+document.getElementById('btn').addEventListener('click', function(event) {
+  console.log('target:', event.target);         // &lt;span&gt;Click me&lt;/span&gt;
+  console.log('currentTarget:', event.currentTarget); // &lt;button id="btn"&gt;
+});
+&lt;/script&gt;</code></pre>
+
+<p>The event object also carries type-specific properties. Mouse events include <code>event.clientX</code> / <code>event.clientY</code> (cursor coordinates relative to the viewport), keyboard events include <code>event.key</code> (the key's string value such as <code>'Enter'</code> or <code>'a'</code>) and <code>event.code</code> (the physical key such as <code>'KeyA'</code>), and form events expose <code>event.target.value</code> for reading the field's current content.</p>
+
+<p>Two methods on the event object allow you to intervene in the browser's normal behavior:</p>
+
+<ul>
+  <li><strong>event.preventDefault()</strong> — Cancels the browser's built-in default action for the event. Calling it on a form's <code>'submit'</code> event prevents the page from reloading; calling it on an anchor's <code>'click'</code> event prevents navigation; calling it on a <code>'keydown'</code> event can prevent a character from being typed in an input field.</li>
+  <li><strong>event.stopPropagation()</strong> — Stops the event from traveling further up (or down) the DOM tree. It does <em>not</em> prevent the default browser action — it only cuts off further propagation to other listeners on ancestor (or descendant) elements.</li>
+</ul>
+
+<pre><code>const form = document.querySelector('form');
+form.addEventListener('submit', function(event) {
+  event.preventDefault(); // Page won't reload
+  validateAndSendData();
+});
+
+const modal = document.getElementById('modal');
+modal.addEventListener('click', function(event) {
+  event.stopPropagation(); // Clicking inside the modal won't close it
+});
+
+document.addEventListener('click', function() {
+  closeModal(); // This fires only if click happens outside the modal
+});</code></pre>
+
+<p>A closely related method, <code>event.stopImmediatePropagation()</code>, goes one step further: it prevents both propagation to ancestors <em>and</em> the invocation of any other listeners registered on the <em>same</em> element for the same event type.</p>
+
+<p><strong>Event Propagation: Bubbling and Capturing</strong></p>
+
+<p>When an event fires on a DOM element, it does not stay isolated to that element. Instead, the event travels through the DOM in up to three distinct phases:</p>
+
+<ul>
+  <li><strong>Capturing phase</strong> — The event travels <em>down</em> from the <code>window</code> through each ancestor toward the target element.</li>
+  <li><strong>Target phase</strong> — The event reaches the element on which it originated.</li>
+  <li><strong>Bubbling phase</strong> — The event travels back <em>up</em> from the target through each ancestor toward the <code>window</code>.</li>
+</ul>
+
+<p>By default, <code>addEventListener</code> registers listeners in the <strong>bubbling phase</strong>. This means if a user clicks a <code>&lt;td&gt;</code> inside a <code>&lt;tr&gt;</code> inside a <code>&lt;table&gt;</code>, any <code>'click'</code> listeners on the <code>&lt;tr&gt;</code> and <code>&lt;table&gt;</code> will also fire, in order, after the listener on the <code>&lt;td&gt;</code>:</p>
+
+<pre><code>document.querySelector('td').addEventListener('click', () =&gt; console.log('td'));
+document.querySelector('tr').addEventListener('click', () =&gt; console.log('tr'));
+document.querySelector('table').addEventListener('click', () =&gt; console.log('table'));
+
+// Clicking the &lt;td&gt; logs: "td", then "tr", then "table"</code></pre>
+
+<p><strong>Event delegation</strong> is a powerful pattern that deliberately exploits bubbling. Instead of attaching individual listeners to each child element, you attach a single listener to a common ancestor. When an event bubbles up to that ancestor, you inspect <code>event.target</code> to determine which specific child triggered it and respond accordingly.</p>
+
+<p>Imagine a to-do list where items can be added and removed dynamically. Attaching a click listener to each individual list item would require you to add a new listener every time an item is created. With delegation, one listener on the parent handles all items — past, present, and future:</p>
+
+<pre><code>const list = document.getElementById('todo-list');
+
+list.addEventListener('click', function(event) {
+  // Only act when a delete button was clicked
+  const deleteBtn = event.target.closest('.delete-btn');
+  if (!deleteBtn) return;
+
+  const listItem = deleteBtn.closest('li');
+  listItem.remove();
+});
+
+// This dynamically created item is handled automatically
+function addItem(text) {
+  const li = document.createElement('li');
+  li.innerHTML = `${text} &lt;button class="delete-btn"&gt;✕&lt;/button&gt;`;
+  list.appendChild(li);
+}</code></pre>
+
+<p>The <code>closest()</code> method walks up the DOM from <code>event.target</code> until it finds an ancestor (or self) matching the given CSS selector, returning <code>null</code> if none is found. This is the idiomatic way to identify the intended target within a delegated handler, especially when clicking a nested child (such as an icon inside a button).</p>
+
+<p>To prevent an event from bubbling, call <code>event.stopPropagation()</code> inside your handler. This is occasionally useful to prevent a parent's delegated handler from reacting to a click that was already fully handled by a child's own listener:</p>
+
+<pre><code>document.getElementById('special-item').addEventListener('click', function(event) {
+  event.stopPropagation(); // Won't reach the parent list listener
+  handleSpecialCase();
+});</code></pre>
+
+<p><strong>Listener Options: once, passive, and capture</strong></p>
+
+<p>The optional third argument to <code>addEventListener</code> can be either a plain <code>true</code>/<code>false</code> (legacy shorthand for the capture flag) or an <strong>options object</strong> that gives you fine-grained control over listener behavior.</p>
+
+<pre><code>element.addEventListener('click', handler, {
+  once: true,
+  passive: true,
+  capture: false
+});</code></pre>
+
+<p>The three most important options are:</p>
+
+<ul>
+  <li>
+    <strong>once: true</strong> — The listener fires exactly once and is then automatically removed. This eliminates the need to call <code>removeEventListener</code> manually for one-shot interactions, such as a "play intro animation" button that should respond only to the very first click:
+    <pre><code>button.addEventListener('click', function() {
+  playIntroAnimation();
+}, { once: true });
+// After the first click, this listener is gone automatically</code></pre>
+  </li>
+  <li>
+    <strong>passive: true</strong> — Promises the browser that your handler will <em>never</em> call <code>event.preventDefault()</code>. The browser can then optimize scrolling and touch handling by not waiting to see if your script will cancel the event. This is particularly important on mobile devices where scroll performance is sensitive. Using <code>passive: true</code> on <code>'scroll'</code> and <code>'touchstart'</code> listeners is considered best practice unless you explicitly need to prevent the scroll:
+    <pre><code>window.addEventListener('scroll', function() {
+  updateScrollIndicator();
+}, { passive: true });</code></pre>
+  </li>
+  <li>
+    <strong>capture: true</strong> — Registers the listener in the <em>capturing</em> phase instead of the default bubbling phase. Capturing listeners fire before any bubbling listeners on descendant elements. This is rarely needed in everyday development but can be useful when you want to intercept or block events at a high level before they reach their targets:
+    <pre><code>document.addEventListener('click', function(event) {
+  console.log('Capturing — fires before any element\'s bubble listener');
+}, { capture: true });</code></pre>
+  </li>
+</ul>
+
+<p>Options can be combined freely. A passive, once-only scroll listener on the window might be written as <code>{ once: true, passive: true }</code>.</p>
+
+<p><strong>Removing Event Listeners with removeEventListener</strong></p>
+
+<p>Adding listeners without ever removing them can lead to <strong>memory leaks</strong> and unexpected behavior, especially in single-page applications where components are created and destroyed repeatedly. The <code>removeEventListener</code> method undoes an <code>addEventListener</code> call:</p>
+
+<pre><code>element.removeEventListener(eventType, callbackFunction, options);</code></pre>
+
+<p>For <code>removeEventListener</code> to succeed, three things must match exactly what was passed to <code>addEventListener</code>:</p>
+
+<ul>
+  <li>The <strong>event type string</strong> must be identical (e.g., <code>'click'</code>).</li>
+  <li>The <strong>function reference</strong> must be the same object in memory — not a newly created function that happens to have the same code. This is the most common source of errors when trying to remove listeners.</li>
+  <li>The <strong>capture flag</strong> (or options object's <code>capture</code> property) must match.</li>
+</ul>
+
+<p>This is why anonymous functions cannot be removed with <code>removeEventListener</code> — each function expression creates a new object, and you have no reference to the exact one that was registered. Always store a reference to the handler when you know you'll need to remove it:</p>
+
+<pre><code>// ❌ Cannot remove this — no reference to the anonymous function
+button.addEventListener('click', function() { doSomething(); });
+button.removeEventListener('click', function() { doSomething(); }); // No effect
+
+// ✅ Correct approach: keep a reference
+function handleClick() { doSomething(); }
+button.addEventListener('click', handleClick);
+// Later...
+button.removeEventListener('click', handleClick); // Works!</code></pre>
+
+<p>In component-based or modular architectures, a clean pattern is to pair <code>addEventListener</code> in a <code>setup()</code> or <code>init()</code> function with <code>removeEventListener</code> in a corresponding <code>teardown()</code> or <code>destroy()</code> function:</p>
+
+<pre><code>class Tooltip {
+  constructor(element) {
+    this.element = element;
+    this.handleMouseEnter = this.show.bind(this);
+    this.handleMouseLeave = this.hide.bind(this);
+  }
+
+  init() {
+    this.element.addEventListener('mouseenter', this.handleMouseEnter);
+    this.element.addEventListener('mouseleave', this.handleMouseLeave);
+  }
+
+  destroy() {
+    this.element.addEventListener('mouseenter', this.handleMouseEnter);
+    this.element.removeEventListener('mouseleave', this.handleMouseLeave);
+  }
+
+  show() { /* ... */ }
+  hide() { /* ... */ }
+}</code></pre>
+
+<p>Note the use of <code>.bind(this)</code> stored on instance properties. Because <code>bind</code> returns a new function each time it is called, calling <code>this.handleMouseEnter = this.show.bind(this)</code> inside the constructor ensures the same bound function reference is used for both adding and removing the listener.</p>
+
+<p>When dynamically created elements are removed from the DOM, their listeners do not automatically disappear if external code still holds a reference to those elements. Explicitly removing listeners before removing elements from the DOM is important to help the garbage collector reclaim memory. Modern garbage collectors can often reclaim listener memory once both the element and all references to it are gone, but explicit cleanup is more predictable and is always recommended as a professional practice.</p>
+
+<p><strong>Event Delegation for Dynamic Elements</strong></p>
+
+<p>Event delegation deserves a deeper look as a standalone pattern because it solves a fundamental problem in dynamic user interfaces: <em>how do you listen for events on elements that don't exist yet?</em></p>
+
+<p>Consider a comment section where users can post new comments that are appended to the DOM. If you wanted each comment to have a "Like" button, the naive approach would be to add a listener every time a comment is created:</p>
+
+<pre><code>// Naive approach — adding a new listener for every new element
+function addComment(text) {
+  const div = document.createElement('div');
+  div.className = 'comment';
+  div.innerHTML = `&lt;p&gt;${text}&lt;/p&gt;&lt;button class="like-btn"&gt;Like&lt;/button&gt;`;
+  commentsContainer.appendChild(div);
+
+  // Must remember to add the listener every single time
+  div.querySelector('.like-btn').addEventListener('click', handleLike);
+}</code></pre>
+
+<p>With event delegation, a single listener placed on the stable container handles all current and future like buttons, regardless of when they were added:</p>
+
+<pre><code>const commentsContainer = document.getElementById('comments');
+
+// One listener that handles all Like buttons — now and in the future
+commentsContainer.addEventListener('click', function(event) {
+  const likeBtn = event.target.closest('.like-btn');
+  if (!likeBtn) return; // Clicked somewhere that isn't a like button
+
+  const comment = likeBtn.closest('.comment');
+  incrementLikeCount(comment);
+  likeBtn.textContent = 'Liked ✓';
+  likeBtn.disabled = true;
+});
+
+function addComment(text) {
+  const div = document.createElement('div');
+  div.className = 'comment';
+  div.innerHTML = `&lt;p&gt;${text}&lt;/p&gt;&lt;button class="like-btn"&gt;Like&lt;/button&gt;`;
+  commentsContainer.appendChild(div);
+  // No need to add any event listener here!
+}</code></pre>
+
+<p>Beyond solving the dynamic-element problem, delegation also improves <strong>memory efficiency</strong>. If you had a table with five hundred rows and each row had its own click listener, that would mean five hundred listener objects held in memory. A single delegated listener on the <code>&lt;tbody&gt;</code> achieves the same result with a tiny fraction of the memory overhead.</p>
+
+<p>The <code>closest()</code> method used inside delegated handlers is essential because <code>event.target</code> may point to a deeply nested element rather than the direct child you're interested in. For example, if a list item contains an icon and a span of text, clicking the icon sets <code>event.target</code> to the icon's element, not the <code>&lt;li&gt;</code>. Using <code>event.target.closest('li')</code> reliably walks up the tree to find the intended item regardless of which nested child was clicked:</p>
+
+<pre><code>list.addEventListener('click', function(event) {
+  const item = event.target.closest('li[data-id]');
+  if (!item) return;
+
+  const id = item.dataset.id;
+  loadDetail(id);
+});</code></pre>
+
+<p>One consideration with delegation is that not all events bubble. <code>'focus'</code> and <code>'blur'</code> do not bubble, which means they cannot be delegated. Their bubbling counterparts, <code>'focusin'</code> and <code>'focusout'</code>, do bubble and can be used for delegation when you need to react to focus changes across many form fields from a single container listener.</p>
+
+<p>Taken together, a thorough understanding of <code>addEventListener</code>, event types, the event object, propagation mechanics, listener options, cleanup with <code>removeEventListener</code>, and the delegation pattern equips you to build responsive, memory-efficient, and maintainable user interfaces — ones that can handle both static layouts and highly dynamic, data-driven content with equal elegance.</p>
+        <div class="notes"><strong>Notes</strong>The tooltip class example contains a copy-paste error in the destroy() method (addEventListener instead of removeEventListener for mouseenter). Instructors may wish to use this as a deliberate &quot;spot the bug&quot; exercise or correct it before delivery.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

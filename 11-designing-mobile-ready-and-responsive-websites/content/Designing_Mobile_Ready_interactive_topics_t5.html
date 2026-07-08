@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile-First Design Philosophy</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 11 - Designing Mobile-Ready and Responsive Websites</a></div>
+  <header>
+    <h1>Mobile-First Design Philosophy</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Mobile-First Design Philosophy</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Mobile-first design is one of the most consequential shifts in how web designers and developers approach their craft. For most of the web's history, the assumption was that users sat at desks, in front of large monitors, with reliable broadband connections. That assumption has been shattered. Today, more than half of all global web traffic originates from mobile devices, and in many regions the smartphone is the <em>only</em> device through which people access the internet. Mobile-first design is the discipline's response to this reality: rather than building a rich desktop experience and then grudgingly squeezing it into a small screen, designers begin with the smallest, most constrained screen and build outward from there. The result is a philosophy that touches every dimension of the design process — content strategy, CSS architecture, performance budgeting, and even the way designers think about human hands.</p>
+
+<p><strong>What Is Mobile-First Design?</strong></p>
+
+<p>At its core, mobile-first design means that the design process begins with the mobile experience. Wireframes, prototypes, and CSS stylesheets all start by solving the problem for a small viewport — typically a smartphone with a screen width somewhere between 320 px and 430 px — before any thought is given to how the design will appear on a tablet or desktop monitor. This is not merely a technical convention; it is a philosophical stance about where design decisions should originate.</p>
+
+<p>Working within tight constraints first forces a kind of productive discipline. A 375 px wide screen cannot accommodate a mega-navigation menu, a sidebar full of promotional widgets, and a hero image carousel all at once. Designers must ask hard questions: <em>What does this user actually need to accomplish on this page?</em> Those constraints eliminate indecision. Only the most essential content survives the mobile canvas, and that clarity pays dividends across every subsequent screen size.</p>
+
+<p>It is instructive to contrast mobile-first with the older approach known as <strong>graceful degradation</strong>. Graceful degradation started with a fully featured desktop design and then progressively removed or simplified features as the screen shrank. The intent was good — make sure the desktop experience is excellent, then make sure it doesn't break on smaller screens. In practice, however, graceful degradation produced experiences where mobile users received whatever was left over after desktop needs were satisfied. Animations were disabled, columns collapsed awkwardly, and calls to action were buried beneath content that had been repositioned as an afterthought. Mobile-first inverts this priority structure entirely: the mobile user is the primary design target, and the desktop user benefits from enhancements layered on top of an already solid foundation.</p>
+
+<p><strong>Why Mobile-First Matters</strong></p>
+
+<p>The argument for mobile-first rests on several converging pressures. The most straightforward is the audience: designing first for the most constrained users guarantees that no visitor receives a broken or degraded experience. When a team designs desktop-first, the mobile version is often treated as a deadline-driven compression exercise. When mobile-first, the team is forced to solve the hardest version of the layout problem before tackling the easier ones.</p>
+
+<p>There is also a cognitive trap that mobile-first helps designers avoid. Complex desktop layouts accumulate features over time — sticky sidebars, modal overlays, hover-triggered dropdowns — because screen real estate feels abundant. When designers then attempt to retrofit that complexity onto a phone, they often discover that fundamental assumptions about navigation and layout simply do not translate. Starting small prevents this accumulation from happening in the first place. Every feature earns its place by surviving the mobile constraint test.</p>
+
+<p>Search engine optimization adds a third compelling reason. Google's <strong>mobile-first indexing</strong> policy, which became the default for all new websites as of 2019 and has been progressively applied to older sites since, means that Google's crawlers primarily use the mobile version of a page to determine its ranking. A site that delivers a poor mobile experience — slow load times, hidden content, unresponsive layouts — risks ranking lower in search results regardless of how polished its desktop version may be. Mobile-first design aligns the development process with the way search engines evaluate quality.</p>
+
+<p><strong>Progressive Enhancement Strategy</strong></p>
+
+<p>Mobile-first design is inseparable from the strategy of <strong>progressive enhancement</strong>. Progressive enhancement treats the baseline experience — the version delivered to the most constrained device — as a fully functional, complete product, not a stripped-down placeholder. From that baseline, designers and developers <em>layer in</em> additional capabilities as more screen space, processing power, and bandwidth become available.</p>
+
+<p>Consider a news article page. The mobile baseline might include the article headline, a single lead image, the article body text, and a minimal share button. That is everything a reader needs. As the viewport expands to tablet width, a persistent table of contents might appear in a sidebar, allowing readers to jump between sections. At full desktop width, a related-articles panel might join the layout, along with a larger hero image and perhaps an inline data visualization that would have been collapsed into a simple link on mobile. At no point in this progression does anything break or disappear for smaller screens — each layer is additive.</p>
+
+<p>This approach guarantees that functionality and usability are preserved regardless of the device. A user on a 2G connection in a rural area and a user on fiber broadband at a standing desk both accomplish their goal: reading the article. The second user simply has access to a richer set of supporting tools around that core task.</p>
+
+<p><strong>Content Prioritization in Mobile-First Thinking</strong></p>
+
+<p>Before a single line of CSS is written, mobile-first design demands a rigorous content audit. Designers and content strategists must sort every piece of content on a page into categories. A useful mental model is to ask: if a user could only see <em>one thing</em> on this page, what must it be? That becomes the primary content. Everything else is evaluated against how much it supports the user's primary goal.</p>
+
+<p>Content that does not survive this prioritization exercise is not necessarily eliminated — it is deferred. On mobile, secondary content might be hidden behind a "Show more" toggle, collapsed into an accordion, or moved to a separate page entirely. On larger screens, that same content can be promoted to a visible sidebar or an expanded section. The key insight is that the decision about what is primary and what is secondary is made <em>once</em>, during mobile design, and that decision cascades consistently across all screen sizes. This discipline tends to produce clearer, better-organized experiences even on desktop, because the content hierarchy was never allowed to become cluttered in the first place.</p>
+
+<p>A practical example: an e-commerce product page. The mobile-first content hierarchy might be ordered as follows:</p>
+
+<ul>
+  <li>Product name and primary image</li>
+  <li>Price and availability</li>
+  <li>Add to cart button</li>
+  <li>Key product specifications (condensed)</li>
+  <li>Customer reviews summary</li>
+  <li>Full specifications and detailed reviews (revealed on tap or on larger screens)</li>
+  <li>Related products (below the fold or in a sidebar on larger screens)</li>
+</ul>
+
+<p>This ordering reflects what a buyer actually needs to make a purchase decision. On desktop, all of this content might be visible simultaneously in a multi-column layout, but the hierarchy — and therefore the design's logic — originates from the mobile version.</p>
+
+<p><strong>Mobile-First CSS and Media Queries</strong></p>
+
+<p>The technical implementation of mobile-first design is most clearly visible in how CSS is structured. In a mobile-first stylesheet, the <strong>base styles</strong> — those written without any media query wrapper — describe the design for the smallest screens. Media queries are then used to <em>override and extend</em> those base styles as the viewport grows wider.</p>
+
+<p>The critical distinction is between <code>min-width</code> and <code>max-width</code> media queries. Mobile-first uses <code>min-width</code>, which activates additional rules only when the viewport meets or exceeds a specified width. Desktop-first uses <code>max-width</code>, which applies rules only when the viewport is at or below a specified width. This difference has significant consequences for CSS maintainability.</p>
+
+<p>Consider a simple navigation component. In a mobile-first stylesheet, the base styles might look like this:</p>
+
+<pre><code>/* Base styles — applied to all screen sizes, starting with mobile */
+.nav {
+  display: flex;
+  flex-direction: column;
+  background-color: #1a1a2e;
+}
+
+.nav__item {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 1rem;
+}
+
+/* Tablet and above */
+@media (min-width: 768px) {
+  .nav {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .nav__item {
+    border-bottom: none;
+    padding: 8px 20px;
+  }
+}
+
+/* Desktop and above */
+@media (min-width: 1200px) {
+  .nav__item {
+    font-size: 1.125rem;
+    padding: 10px 28px;
+  }
+}</code></pre>
+
+<p>In this structure, the mobile styles are the foundation. The <code>@media (min-width: 768px)</code> block adds a horizontal layout for tablets. The <code>@media (min-width: 1200px)</code> block refines spacing and sizing for larger monitors. Each block only adds or modifies what is necessary — it never needs to undo a complex desktop layout. Compare this with a desktop-first equivalent that would need to use <code>max-width</code> queries to collapse the horizontal navigation into a vertical stack, and then potentially reset or override styles that were never appropriate for mobile in the first place. Desktop-first CSS tends to accumulate overrides, making it harder to maintain and reason about over time.</p>
+
+<p>The common breakpoints used in mobile-first design are not fixed rules, but industry conventions have coalesced around several widely used values:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Breakpoint Name</th>
+      <th>Min-Width Value</th>
+      <th>Typical Target Devices</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Base (no query)</td>
+      <td>0 px and up</td>
+      <td>Small smartphones</td>
+    </tr>
+    <tr>
+      <td>Small</td>
+      <td>576 px</td>
+      <td>Large smartphones, landscape</td>
+    </tr>
+    <tr>
+      <td>Medium</td>
+      <td>768 px</td>
+      <td>Tablets, portrait</td>
+    </tr>
+    <tr>
+      <td>Large</td>
+      <td>992 px</td>
+      <td>Tablets landscape, small laptops</td>
+    </tr>
+    <tr>
+      <td>Extra Large</td>
+      <td>1200 px</td>
+      <td>Desktops, large monitors</td>
+    </tr>
+    <tr>
+      <td>XX-Large</td>
+      <td>1400 px</td>
+      <td>Wide monitors, ultra-wide displays</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>These breakpoints should be treated as starting points, not rigid rules. Content-driven breakpoints — adding a media query precisely where the layout begins to feel uncomfortable rather than at a predetermined width — often produce more refined results.</p>
+
+<p><strong>Performance Benefits of Mobile-First</strong></p>
+
+<p>One of the less obvious but deeply consequential advantages of mobile-first design is its effect on web performance. When designers begin with desktop, there is a natural tendency to include large background images, autoplay video headers, and JavaScript-heavy interactive widgets as part of the default experience. Trimming these for mobile is an afterthought, and often an incomplete one. Assets may be hidden with CSS while still being downloaded by the browser, consuming bandwidth and slowing page load without providing any user benefit.</p>
+
+<p>Mobile-first inverts this tendency. When you start with a constrained environment in mind, you question every asset before including it. Is this hero image essential? Can it be served in a modern format like WebP or AVIF? Can it be lazy-loaded? Do we need this third-party widget on mobile, or ever? These questions, asked at the beginning of the process rather than at the end, produce leaner, faster pages for everyone.</p>
+
+<p>The performance benefits are not merely theoretical. Research from Google and various performance-focused organizations consistently shows that page load time has a direct relationship with user behavior:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Page Load Time</th>
+      <th>Probability of Bounce (User Leaving)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1 second</td>
+      <td>~9%</td>
+    </tr>
+    <tr>
+      <td>3 seconds</td>
+      <td>~32%</td>
+    </tr>
+    <tr>
+      <td>5 seconds</td>
+      <td>~90%</td>
+    </tr>
+    <tr>
+      <td>6 seconds</td>
+      <td>~106% increase over 1-second baseline</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Mobile users are disproportionately affected because they are more likely to be on cellular connections with higher latency and variable bandwidth. A mobile-first performance mindset — compressing images aggressively, minimizing HTTP requests, inlining critical CSS, deferring non-essential JavaScript — benefits all users but is most critical for the mobile audience. These optimizations are built into the workflow from the start rather than bolted on after launch.</p>
+
+<p>Practical performance techniques that mobile-first teams adopt early in their process include:</p>
+
+<ul>
+  <li><strong>Responsive images with <code>srcset</code> and <code>sizes</code>:</strong> Serving appropriately sized images to each device rather than downloading a 2000 px wide image and displaying it at 375 px.</li>
+  <li><strong>System fonts or variable fonts:</strong> Reducing or eliminating custom font downloads that add render-blocking requests.</li>
+  <li><strong>Critical CSS inlining:</strong> Embedding the styles needed to render above-the-fold content directly in the HTML so that the page appears visually complete before external stylesheets finish loading.</li>
+  <li><strong>Lazy loading:</strong> Deferring the loading of images and iframes that are below the fold using the <code>loading="lazy"</code> attribute.</li>
+  <li><strong>Minimizing third-party scripts:</strong> Auditing every analytics tag, social widget, and advertising script for its performance cost before including it.</li>
+</ul>
+
+<p><strong>Shifting the Design Mindset</strong></p>
+
+<p>Beyond CSS and content strategy, mobile-first design requires a fundamental shift in how designers conceptualize interaction itself. Desktop design assumes a mouse pointer — a precise cursor that can target small elements and trigger hover states. Mobile interaction is built around human fingers, and human fingers are much larger, less precise, and typically operate one at a time on a phone held in one hand.</p>
+
+<p>Apple's Human Interface Guidelines and Google's Material Design both recommend a minimum touch target size of <strong>44 × 44 points</strong> (approximately 44 × 44 px at 1x density). Designing for touch means ensuring that buttons, links, and form controls meet this minimum, that interactive elements are spaced apart enough to avoid accidental taps, and that critical actions fall within the <strong>thumb's natural reach zone</strong> when a phone is held in one hand. This zone — roughly the lower-center portion of the screen — is where the most important actions should live, while less critical controls can occupy the upper corners where thumb reach is more effortful.</p>
+
+<p>Mobile-first design also demands sensitivity to context of use. A desktop user is typically seated, stationary, and focused. A mobile user may be walking, riding public transit, waiting in a queue, or glancing at their phone between tasks. This context has real implications for design decisions: text must be legible at a glance, forms should require as few inputs as possible, and key information should never require scrolling through walls of text to discover. Error messages must be clear and recoverable, because a user typing on a glass keyboard in a moving vehicle deserves every advantage the design can give them.</p>
+
+<p>Low-connectivity environments are another dimension that mobile-first thinking brings into focus. A designer who starts with a desktop experience assumes fast, reliable internet. A designer who starts with mobile cannot make that assumption. Building offline-first or low-bandwidth-first features — such as service workers, skeleton loading screens, and graceful fallbacks for failed requests — becomes a natural part of the process when the mobile user is always in the designer's mind.</p>
+
+<p>The cumulative effect of all these considerations — constraint-driven content prioritization, additive CSS architecture, performance budgeting, touch-centric interaction design, and context-aware thinking — is that mobile-first teams tend to produce better designs across <em>all</em> screen sizes. The constraints of mobile do not diminish the desktop experience; they clarify it. By forcing every element to justify its presence in the most demanding environment first, mobile-first design eliminates the clutter, confusion, and performance debt that accumulate when the desktop is treated as the default and everything else is an afterthought.</p>
+        <div class="notes"><strong>Notes</strong>Covers all listed subtopics in depth including mobile-first vs graceful degradation, progressive enhancement, content prioritization, min-width CSS media queries with code example, performance data with tables, and touch/context interaction mindset considerations.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

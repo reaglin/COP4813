@@ -1,0 +1,479 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Visualization with Chart.js</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 6 - External Libraries: jQuery, Bootstrap, and Plotting Tools</a></div>
+  <header>
+    <h1>Data Visualization with Chart.js</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Data Visualization with Chart.js</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Data visualization is one of the most powerful ways to communicate information clearly and efficiently. Rather than presenting raw numbers in a table, a well-designed chart reveals trends, comparisons, and proportions at a glance. <strong>Chart.js</strong> is a free, open-source JavaScript library that makes it straightforward to embed beautiful, interactive charts directly into any web page. Whether you are building a dashboard, a data-driven report, or simply want to make your project more engaging, Chart.js gives you everything you need without requiring a complex setup or deep expertise in graphics programming.</p>
+
+<p><strong>What is Chart.js?</strong></p>
+
+<p>Chart.js works by drawing visualizations onto an HTML <code>&lt;canvas&gt;</code> element using the browser's built-in 2D rendering engine. The <code>&lt;canvas&gt;</code> element is a rectangular drawing surface that JavaScript can paint pixels onto, and Chart.js handles all of that low-level drawing on your behalf. You simply provide your data and a small configuration object, and the library produces a polished, responsive chart.</p>
+
+<p>The library ships with <strong>eight core chart types</strong>:</p>
+
+<ul>
+  <li><strong>Bar</strong> – compares values across discrete categories using vertical or horizontal bars.</li>
+  <li><strong>Line</strong> – shows trends over a continuous or sequential axis by connecting data points with a line.</li>
+  <li><strong>Pie</strong> – represents parts of a whole as slices of a circular disk.</li>
+  <li><strong>Doughnut</strong> – a variant of pie with a hollow center, often used for a cleaner aesthetic.</li>
+  <li><strong>Radar</strong> – plots multiple variables on axes radiating from a common center point, useful for comparing profiles.</li>
+  <li><strong>Scatter</strong> – plots individual data points on an x/y plane to reveal correlations or distributions.</li>
+  <li><strong>Bubble</strong> – extends scatter by encoding a third dimension in the size of each bubble.</li>
+  <li><strong>Polar Area</strong> – similar to pie but all slices share the same angle; only the radius varies.</li>
+</ul>
+
+<p>A key quality-of-life feature is that <strong>charts are interactive by default</strong>. When a user hovers over any data point, bar, or slice, Chart.js automatically renders a tooltip showing the label and value — no extra configuration required. This makes even a minimal setup feel polished and professional. The library is actively maintained on GitHub, has thorough official documentation, and benefits from a large community that regularly contributes plugins, examples, and bug fixes.</p>
+
+<p><strong>Integrating Chart.js via CDN</strong></p>
+
+<p>The quickest way to add Chart.js to a project is through a <strong>Content Delivery Network (CDN)</strong>. A CDN hosts the library file on servers distributed around the world, so the browser fetches it from a location close to the user. This often results in faster downloads, and if the user has visited another site that loaded the same CDN file, it may already be cached in their browser — meaning no download at all.</p>
+
+<p>The official Chart.js documentation and providers such as <strong>jsDelivr</strong> or <strong>cdnjs</strong> publish ready-to-copy <code>&lt;script&gt;</code> tags. A typical jsDelivr tag for a specific version looks like this:</p>
+
+<pre><code>&lt;script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"&gt;&lt;/script&gt;</code></pre>
+
+<p>Place this tag in your HTML file <em>before</em> any of your own <code>&lt;script&gt;</code> tags that use Chart.js. Because browsers parse HTML top-to-bottom, your custom script must not run until Chart.js has finished loading, or the <code>Chart</code> constructor will be undefined. A safe pattern is to put the CDN tag and your own script just before the closing <code>&lt;/body&gt;</code> tag:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;My Chart&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;!-- canvas goes here --&gt;
+
+  &lt;!-- 1. Load Chart.js first --&gt;
+  &lt;script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"&gt;&lt;/script&gt;
+  &lt;!-- 2. Then your custom script --&gt;
+  &lt;script src="app.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<p>Notice that the URL includes a <strong>specific version number</strong> (<code>4.4.0</code>). Pinning to a version is a best practice. If you use a floating tag like <code>@latest</code>, the CDN might serve a newer version with breaking changes and silently break your charts. Always check the Chart.js changelog before upgrading versions in a production project.</p>
+
+<p><strong>Setting Up the Canvas Element</strong></p>
+
+<p>Before writing any JavaScript, you need a <code>&lt;canvas&gt;</code> element in your HTML. Think of it as reserving a rectangular space on the page where Chart.js will paint the chart. The most important attribute is a unique <code>id</code>, because your JavaScript will use that id to find the element.</p>
+
+<pre><code>&lt;canvas id="myChart" width="600" height="400"&gt;&lt;/canvas&gt;</code></pre>
+
+<p>Chart.js reads the <code>width</code> and <code>height</code> attributes and scales the chart to fill that space. However, in practice it is more common to let CSS control the visual size while Chart.js manages its own internal resolution. Wrapping the canvas in a container <code>&lt;div&gt;</code> is the standard approach for layout control:</p>
+
+<pre><code>&lt;div style="width: 700px; margin: 0 auto;"&gt;
+  &lt;canvas id="myChart"&gt;&lt;/canvas&gt;
+&lt;/div&gt;</code></pre>
+
+<p>When Chart.js detects no explicit dimensions, it sizes the chart to fill its parent container. By controlling the container's width with CSS — and letting height be calculated automatically — you get a chart that adapts to different screen sizes. Chart.js also has a built-in <strong>responsive mode</strong> (enabled by default) that redraws the chart whenever the window is resized, ensuring it always fits correctly.</p>
+
+<p><strong>JavaScript Data Configuration</strong></p>
+
+<p>Once the canvas is in place, you instantiate a chart in JavaScript using the <code>Chart</code> constructor. The full signature is:</p>
+
+<pre><code>new Chart(ctx, configObject);</code></pre>
+
+<p><code>ctx</code> is the 2D rendering context of the canvas, obtained like this:</p>
+
+<pre><code>const canvas = document.getElementById('myChart');
+const ctx = canvas.getContext('2d');</code></pre>
+
+<p>Many developers shorten this to a single line, and Chart.js v3+ also accepts a raw canvas element directly:</p>
+
+<pre><code>const ctx = document.getElementById('myChart');</code></pre>
+
+<p>The <strong>configuration object</strong> passed as the second argument has three top-level properties:</p>
+
+<ul>
+  <li><strong><code>type</code></strong> – a string that selects the chart type, e.g. <code>'bar'</code>, <code>'line'</code>, or <code>'pie'</code>.</li>
+  <li><strong><code>data</code></strong> – an object containing the labels and datasets that define what is drawn.</li>
+  <li><strong><code>options</code></strong> – an optional object for fine-grained customization of titles, legends, scales, animations, and tooltips.</li>
+</ul>
+
+<p>The <code>data</code> object always has this shape:</p>
+
+<pre><code>data: {
+  labels: ['January', 'February', 'March', 'April'],
+  datasets: [
+    {
+      label: 'Monthly Sales',
+      data: [120, 95, 160, 210],
+      backgroundColor: 'rgba(54, 162, 235, 0.6)',
+      borderColor: 'rgba(54, 162, 235, 1)',
+      borderWidth: 1
+    }
+  ]
+}</code></pre>
+
+<p>The <code>labels</code> array controls what appears on the x-axis (for bar and line charts) or next to each slice (for pie charts). The <code>datasets</code> array holds one or more dataset objects; each dataset is an independent series of data drawn on the same chart. Key dataset properties include:</p>
+
+<ul>
+  <li><strong><code>label</code></strong> – a string shown in the legend and in tooltips to identify this series.</li>
+  <li><strong><code>data</code></strong> – an array of numbers whose positions correspond one-to-one with the <code>labels</code> array.</li>
+  <li><strong><code>backgroundColor</code></strong> – fill color for bars or slices; accepts any CSS color string or an array of colors.</li>
+  <li><strong><code>borderColor</code></strong> – the outline color drawn around each bar, slice, or along a line.</li>
+  <li><strong><code>borderWidth</code></strong> – thickness of the border in pixels.</li>
+</ul>
+
+<p><strong>Creating a Bar Chart</strong></p>
+
+<p>A bar chart is one of the most universally understood chart types. It excels at showing comparisons across a set of discrete categories — for example, monthly revenue, student grades by subject, or product ratings. Setting <code>type: 'bar'</code> tells Chart.js to render the data as vertical bars rising from a baseline.</p>
+
+<p>Here is a complete, self-contained example that renders a bar chart showing a fictional bookshop's quarterly sales:</p>
+
+<pre><code>const ctx = document.getElementById('salesChart');
+
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+    datasets: [{
+      label: 'Books Sold',
+      data: [430, 780, 620, 950],
+      backgroundColor: [
+        'rgba(255, 99,  132, 0.7)',
+        'rgba(255, 159,  64, 0.7)',
+        'rgba(255, 205,  86, 0.7)',
+        'rgba( 75, 192, 192, 0.7)'
+      ],
+      borderColor: [
+        'rgb(255, 99,  132)',
+        'rgb(255, 159,  64)',
+        'rgb(255, 205,  86)',
+        'rgb( 75, 192, 192)'
+      ],
+      borderWidth: 2
+    }]
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});</code></pre>
+
+<p>Several details are worth highlighting:</p>
+
+<ul>
+  <li>The <code>backgroundColor</code> is provided as an <strong>array of colors</strong>, one per bar. If you supply a single color string, all bars share that color. Arrays let you use distinct colors to make individual bars stand out or follow a color scheme.</li>
+  <li><code>scales.y.beginAtZero: true</code> forces the y-axis to start at zero even if the smallest data value is much larger, which prevents visually misleading charts where differences look exaggerated.</li>
+  <li>To flip to a <strong>horizontal bar chart</strong>, simply change <code>type: 'bar'</code> to <code>type: 'bar'</code> and add <code>indexAxis: 'y'</code> inside the <code>options</code> object — no other changes needed.</li>
+</ul>
+
+<p>Bar charts work best when you have a <em>small to medium</em> number of categories (roughly 2–15). With too many bars, the chart becomes cluttered and labels overlap. In those cases, consider grouping categories, using a horizontal layout, or switching to a line chart.</p>
+
+<p><strong>Creating Line and Pie Charts</strong></p>
+
+<p>The <strong>line chart</strong> is ideal for showing how a value changes over time or across a sequential series of steps. Setting <code>type: 'line'</code> causes Chart.js to plot each data value as a point and connect adjacent points with a line. This instantly conveys trends — is the value rising, falling, or fluctuating?</p>
+
+<pre><code>new Chart(document.getElementById('tempChart'), {
+  type: 'line',
+  data: {
+    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    datasets: [{
+      label: 'Temperature (°C)',
+      data: [14, 17, 13, 19, 22, 25, 20],
+      borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: 'rgba(255, 99, 132, 0.15)',
+      fill: true,
+      tension: 0.4
+    }]
+  }
+});</code></pre>
+
+<p>Key line-specific dataset properties:</p>
+
+<ul>
+  <li><strong><code>borderColor</code></strong> – the color of the line itself.</li>
+  <li><strong><code>fill: true</code></strong> – shades the area beneath the line with <code>backgroundColor</code>, creating an area chart effect. Set to <code>false</code> for a plain line with no fill.</li>
+  <li><strong><code>tension</code></strong> – controls the curvature of the line. A value of <code>0</code> produces straight segments between points; <code>0.4</code> produces smooth bezier curves. Values above <code>0.5</code> can create unrealistic-looking wiggles.</li>
+  <li><strong><code>pointRadius</code></strong> – the size of the dot drawn at each data point. Set to <code>0</code> to hide points entirely for a cleaner line.</li>
+</ul>
+
+<p>You can render <strong>multiple datasets</strong> on a single line chart simply by adding more objects to the <code>datasets</code> array, each with its own <code>label</code>, <code>data</code>, and <code>borderColor</code>. Chart.js automatically adds both series to the legend and draws them in different colors.</p>
+
+<p>The <strong>pie chart</strong> shifts the focus from trends to proportions. Each value in the <code>data</code> array is converted to a slice whose angular size represents that value's share of the total. The configuration is almost identical to bar and line, but with <code>type: 'pie'</code>:</p>
+
+<pre><code>new Chart(document.getElementById('marketChart'), {
+  type: 'pie',
+  data: {
+    labels: ['Fiction', 'Non-Fiction', 'Science', 'History', 'Art'],
+    datasets: [{
+      label: 'Genre Share',
+      data: [35, 25, 20, 12, 8],
+      backgroundColor: [
+        '#FF6384',
+        '#36A2EB',
+        '#FFCE56',
+        '#4BC0C0',
+        '#9966FF'
+      ],
+      hoverOffset: 10
+    }]
+  }
+});</code></pre>
+
+<p>Important pie chart notes:</p>
+
+<ul>
+  <li>The <code>backgroundColor</code> array must have at least as many colors as there are slices. Each color corresponds to the label and data value at the same index.</li>
+  <li><strong><code>hoverOffset</code></strong> causes a slice to move outward (in pixels) when the user hovers over it, providing satisfying visual feedback.</li>
+  <li>Pie charts do <em>not</em> use <code>options.scales</code> because there are no x or y axes — that entire subtree is irrelevant and can be omitted.</li>
+  <li>A <strong>doughnut chart</strong> is created by simply changing <code>type: 'pie'</code> to <code>type: 'doughnut'</code>. All other configuration remains the same.</li>
+</ul>
+
+<p>Because bar, line, and pie charts share the same fundamental <code>data</code> structure (<code>labels</code> + <code>datasets</code>), it is remarkably easy to experiment. You can prototype a visualization as a bar chart, then switch to line or pie just by changing the <code>type</code> string, and the data wires up automatically.</p>
+
+<p><strong>Customizing and Enhancing Charts</strong></p>
+
+<p>A chart that communicates clearly is not just about the data — presentation matters. Chart.js exposes a rich <code>options</code> object that lets you control nearly every visual aspect of a chart.</p>
+
+<p><em>Titles and Legends</em></p>
+
+<p>A descriptive title tells the viewer immediately what they are looking at:</p>
+
+<pre><code>options: {
+  plugins: {
+    title: {
+      display: true,
+      text: 'Annual Bookshop Sales by Quarter',
+      font: {
+        size: 18
+      }
+    },
+    legend: {
+      display: true,
+      position: 'bottom'   // 'top', 'left', 'right', or 'bottom'
+    }
+  }
+}</code></pre>
+
+<p>Setting <code>legend.display: false</code> removes the legend entirely, which is often preferable for a single-dataset chart where the title already makes the context clear.</p>
+
+<p><em>Axis Customization</em></p>
+
+<p>For bar and line charts, <code>options.scales</code> is where you tune the axes:</p>
+
+<pre><code>options: {
+  scales: {
+    x: {
+      title: {
+        display: true,
+        text: 'Quarter'
+      }
+    },
+    y: {
+      beginAtZero: true,
+      min: 0,
+      max: 1200,
+      ticks: {
+        stepSize: 200,
+        callback: function(value) {
+          return '$' + value;   // prefix each tick with a dollar sign
+        }
+      },
+      grid: {
+        color: 'rgba(0,0,0,0.05)'   // subtle grid lines
+      }
+    }
+  }
+}</code></pre>
+
+<p>The <code>ticks.callback</code> function is particularly useful — it receives the raw numeric tick value and returns a formatted string, allowing you to display currency symbols, percentage signs, units, or abbreviated large numbers (e.g., "1.2k" instead of "1200").</p>
+
+<p><em>Animations</em></p>
+
+<p>Chart.js animates every chart on first render by default — bars rise from the baseline, lines draw themselves across the canvas, and pie slices fan outward. This is visually engaging and draws the viewer's attention to the data as it appears. You can customize or disable animation:</p>
+
+<pre><code>options: {
+  animation: {
+    duration: 1500,      // milliseconds; set to 0 to disable
+    easing: 'easeInOutQuart'
+  }
+}</code></pre>
+
+<p>Disabling animation (<code>duration: 0</code>) can be valuable when a chart updates frequently with live data, where constant re-animation would be distracting.</p>
+
+<p><em>Tooltip Customization</em></p>
+
+<p>Tooltips are the small pop-ups that appear when a user hovers over a data point. By default they show the label and value. Callback functions inside <code>options.plugins.tooltip.callbacks</code> let you reformat that content:</p>
+
+<pre><code>options: {
+  plugins: {
+    tooltip: {
+      callbacks: {
+        label: function(context) {
+          const value = context.parsed.y;
+          return ' Revenue: $' + value.toLocaleString();
+        },
+        title: function(context) {
+          return 'Quarter: ' + context[0].label;
+        }
+      }
+    }
+  }
+}</code></pre>
+
+<p>The <code>context</code> object inside each callback contains rich information: the raw data value, the dataset label, the point index, and more. This makes it possible to build highly informative tooltips that show calculated fields, units, or even comparative text like "15% above target."</p>
+
+<p>The table below summarizes the most commonly used configuration properties across all chart types:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Property Path</th>
+      <th>Type</th>
+      <th>Purpose</th>
+      <th>Example Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>type</code></td>
+      <td>string</td>
+      <td>Selects the chart type</td>
+      <td><code>'bar'</code>, <code>'line'</code>, <code>'pie'</code></td>
+    </tr>
+    <tr>
+      <td><code>data.labels</code></td>
+      <td>array</td>
+      <td>Category or axis labels</td>
+      <td><code>['Q1', 'Q2', 'Q3']</code></td>
+    </tr>
+    <tr>
+      <td><code>data.datasets[n].data</code></td>
+      <td>array</td>
+      <td>Numeric data values</td>
+      <td><code>[120, 95, 160]</code></td>
+    </tr>
+    <tr>
+      <td><code>data.datasets[n].backgroundColor</code></td>
+      <td>string or array</td>
+      <td>Fill color for bars, slices, or area</td>
+      <td><code>'rgba(75,192,192,0.6)'</code></td>
+    </tr>
+    <tr>
+      <td><code>data.datasets[n].borderColor</code></td>
+      <td>string or array</td>
+      <td>Outline or line color</td>
+      <td><code>'rgb(75,192,192)'</code></td>
+    </tr>
+    <tr>
+      <td><code>data.datasets[n].tension</code></td>
+      <td>number (0–1)</td>
+      <td>Line curvature (line charts only)</td>
+      <td><code>0.4</code></td>
+    </tr>
+    <tr>
+      <td><code>options.plugins.title.text</code></td>
+      <td>string</td>
+      <td>Chart title text</td>
+      <td><code>'Sales Report 2024'</code></td>
+    </tr>
+    <tr>
+      <td><code>options.plugins.legend.position</code></td>
+      <td>string</td>
+      <td>Legend placement</td>
+      <td><code>'bottom'</code></td>
+    </tr>
+    <tr>
+      <td><code>options.scales.y.beginAtZero</code></td>
+      <td>boolean</td>
+      <td>Force y-axis to start at zero</td>
+      <td><code>true</code></td>
+    </tr>
+    <tr>
+      <td><code>options.animation.duration</code></td>
+      <td>number</td>
+      <td>Animation length in milliseconds</td>
+      <td><code>1000</code></td>
+    </tr>
+    <tr>
+      <td><code>options.plugins.tooltip.callbacks.label</code></td>
+      <td>function</td>
+      <td>Custom tooltip text formatter</td>
+      <td><code>ctx =&gt; '$' + ctx.parsed.y</code></td>
+    </tr>
+    <tr>
+      <td><code>options.responsive</code></td>
+      <td>boolean</td>
+      <td>Auto-resize chart with window</td>
+      <td><code>true</code> (default)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Putting it all together, Chart.js follows a consistent, composable pattern: choose a type, supply labels and datasets, then layer in options to refine the presentation. Because every chart type shares the same top-level structure, skills learned building a bar chart transfer directly to line, pie, or any other type. Start simple — get data on screen — then progressively enhance with titles, axis formatting, custom tooltips, and color schemes until the chart communicates exactly what you intend.</p>
+        <div class="notes"><strong>Notes</strong>Covers all listed subtopics: what Chart.js is and its chart types, CDN integration with version pinning, canvas element setup, the full data configuration structure (ctx, type, data, options), bar chart creation with per-bar colors, line chart properties (fill, tension), pie chart properties (backgroundColor array, hoverOffset, doughnut variant), and customization via plugins.title, plugins.legend, scales, animation, and tooltip callbacks. A summary reference table is included for quick lookup of key configuration paths.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

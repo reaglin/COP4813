@@ -1,0 +1,323 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How Browsers Parse HTML into the DOM</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 4 - Introduction to the Document Object Model (DOM)</a></div>
+  <header>
+    <h1>How Browsers Parse HTML into the DOM</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>How Browsers Parse HTML into the DOM</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Every time you navigate to a webpage, your browser performs one of its most fundamental tasks: converting raw HTML text into a living, interactive structure that JavaScript can manipulate and the rendering engine can paint onto the screen. This structure is called the <strong>Document Object Model</strong>, or DOM. Understanding how that conversion happens — step by step — is essential for writing JavaScript that works reliably, debugging puzzling errors where scripts cannot find elements, and optimizing pages so they load as fast as possible. The journey from a stream of raw characters to a fully interactive page involves several distinct phases: receiving the HTML, tokenizing it into meaningful pieces, constructing a tree of nodes, and carefully managing the execution of scripts encountered along the way.</p>
+
+<p>It is worth appreciating that the DOM is not the HTML source file itself. The HTML file is just text. The DOM is the browser's in-memory, object-oriented representation of that text — a tree of nodes, each with properties and methods, that JavaScript can read and modify at runtime. Changes you make via JavaScript update the DOM but do not alter the original HTML file on the server.</p>
+
+<p><strong>What Happens When a Browser Receives HTML</strong></p>
+
+<p>When you type a URL and press Enter, the browser sends an HTTP request to a server. The server responds with bytes. Those bytes are decoded into characters using the encoding specified in the HTTP header or in a <code>&lt;meta charset&gt;</code> tag — most commonly UTF-8. What the browser then has is a long stream of characters, starting with something like <code>&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;</code> and ending with <code>&lt;/html&gt;</code>.</p>
+
+<p>The browser does not wait for the entire document to arrive before it starts working. Modern browsers use an <strong>incremental, streaming parser</strong>. As bytes arrive over the network, the parser processes them from top to bottom, character by character. This means that elements near the top of the document — the <code>&lt;head&gt;</code>, early stylesheets, and the opening lines of the <code>&lt;body&gt;</code> — begin to be processed before the server has even finished sending the rest of the file.</p>
+
+<p>Each recognized tag, attribute, and piece of text content is translated into a corresponding <strong>DOM object</strong> — a JavaScript-accessible node. For example, the characters <code>&lt;p class="intro"&gt;Hello&lt;/p&gt;</code> become an <code>Element</code> node of type <code>HTMLParagraphElement</code>, with a <code>className</code> property set to <code>"intro"</code>, containing a child <code>Text</code> node whose data is <code>"Hello"</code>. The final result of parsing is a tree of these objects — the DOM tree — rooted at the <code>document</code> object, which the browser uses both to render the page visually and to expose to JavaScript for programmatic interaction.</p>
+
+<p><strong>Tokenization: Breaking HTML into Meaningful Pieces</strong></p>
+
+<p>Before the browser can build nodes, it must break the character stream into discrete, meaningful units called <strong>tokens</strong>. Tokenization is the first stage of parsing. A token is the smallest chunk of HTML that carries complete, self-contained meaning to the parser. The main types of tokens are:</p>
+
+<ul>
+  <li><strong>DOCTYPE token</strong> — for example, <code>&lt;!DOCTYPE html&gt;</code>, which signals the document type and affects quirks-mode behavior.</li>
+  <li><strong>Start tag token</strong> — for example, <code>&lt;div class="box"&gt;</code>. This token carries the tag name and any associated attributes as name-value pairs.</li>
+  <li><strong>End tag token</strong> — for example, <code>&lt;/div&gt;</code>.</li>
+  <li><strong>Self-closing tag token</strong> — for example, <code>&lt;img src="photo.jpg" alt="A photo"&gt;</code>, which has no matching end tag.</li>
+  <li><strong>Character token</strong> — a run of text content between tags.</li>
+  <li><strong>Comment token</strong> — for example, <code>&lt;!-- This is a comment --&gt;</code>.</li>
+  <li><strong>End-of-file token</strong> — signaling that the character stream has ended.</li>
+</ul>
+
+<p>The tokenizer operates as a <strong>state machine</strong>. It begins in a "data" state, consuming characters one at a time. When it encounters a <code>&lt;</code> character, it transitions to a "tag open" state. A <code>/</code> after <code>&lt;</code> indicates an end tag. Attribute names and values are captured as the tokenizer moves through further states. This approach is defined precisely in the <strong>HTML5 parsing specification</strong> published by the WHATWG, which means every conforming browser tokenizes the same way — producing consistent results even for malformed markup.</p>
+
+<p>That last point deserves emphasis. The HTML5 specification does not merely describe valid HTML; it also specifies exactly how to handle invalid HTML. If you write <code>&lt;p&gt;Text&lt;/div&gt;</code>, the spec says what a parser must do — in this case, the mismatched end tag is handled by an error-recovery algorithm. This is why browsers do not display blank pages when they encounter mistakes; instead, they apply well-defined rules to produce a sensible DOM even from broken source code. The downside is that the DOM you get may not be what you intended, so valid HTML remains important.</p>
+
+<p><strong>Building the DOM Tree from Tokens</strong></p>
+
+<p>As tokens are produced, the <strong>tree construction stage</strong> processes them in sequence to build the DOM tree. The key tool in this stage is the <strong>stack of open elements</strong>, sometimes called the open element stack or the element stack. Think of it as a list tracking which elements are currently "open" — started but not yet closed.</p>
+
+<p>The rules work as follows:</p>
+
+<ul>
+  <li>When a <strong>start tag token</strong> is encountered, the parser creates a new element node for it, appends it as a child of the element currently at the top of the stack, and then pushes the new element onto the stack. It becomes the new "current parent" for anything that follows.</li>
+  <li>When a <strong>character token</strong> is encountered, a text node is created and appended as a child of whatever element is currently at the top of the stack.</li>
+  <li>When an <strong>end tag token</strong> is encountered, the parser pops the matching element off the stack. The element that was beneath it becomes the new current parent.</li>
+  <li>Some elements are <strong>void elements</strong> — they cannot have children and have no end tag: <code>&lt;img&gt;</code>, <code>&lt;br&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;hr&gt;</code>, and a few others. Their start tag token causes the parser to create the element node without pushing it onto the stack.</li>
+</ul>
+
+<p>Consider a simple example:</p>
+
+<pre><code>&lt;ul&gt;
+  &lt;li&gt;First&lt;/li&gt;
+  &lt;li&gt;Second&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+<p>The parser processes this as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Token encountered</th>
+      <th>Action taken</th>
+      <th>Stack after action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>&lt;ul&gt;</code> start tag</td>
+      <td>Create <code>ul</code> element, append to <code>body</code>, push onto stack</td>
+      <td>html → body → ul</td>
+    </tr>
+    <tr>
+      <td><code>&lt;li&gt;</code> start tag</td>
+      <td>Create <code>li</code> element, append to <code>ul</code>, push onto stack</td>
+      <td>html → body → ul → li</td>
+    </tr>
+    <tr>
+      <td>Character: "First"</td>
+      <td>Create text node "First", append to <code>li</code></td>
+      <td>html → body → ul → li</td>
+    </tr>
+    <tr>
+      <td><code>&lt;/li&gt;</code> end tag</td>
+      <td>Pop <code>li</code> off the stack</td>
+      <td>html → body → ul</td>
+    </tr>
+    <tr>
+      <td><code>&lt;li&gt;</code> start tag</td>
+      <td>Create new <code>li</code> element, append to <code>ul</code>, push onto stack</td>
+      <td>html → body → ul → li</td>
+    </tr>
+    <tr>
+      <td>Character: "Second"</td>
+      <td>Create text node "Second", append to new <code>li</code></td>
+      <td>html → body → ul → li</td>
+    </tr>
+    <tr>
+      <td><code>&lt;/li&gt;</code> end tag</td>
+      <td>Pop <code>li</code> off the stack</td>
+      <td>html → body → ul</td>
+    </tr>
+    <tr>
+      <td><code>&lt;/ul&gt;</code> end tag</td>
+      <td>Pop <code>ul</code> off the stack</td>
+      <td>html → body</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The finished tree mirrors the nesting structure of the original markup. The deeper an element is nested in the HTML, the deeper it sits in the DOM tree. This direct correspondence is why understanding HTML nesting is so useful when working with the DOM in JavaScript — methods like <code>querySelector</code>, <code>closest</code>, and <code>children</code> all operate on this tree structure.</p>
+
+<p><strong>How Parser-Blocking Scripts Affect Parsing</strong></p>
+
+<p>The HTML parser processes the document from top to bottom, but it must pause — <em>block</em> — whenever it encounters a <code>&lt;script&gt;</code> element that does not carry a <code>defer</code> or <code>async</code> attribute. This behavior exists because a script might call <code>document.write()</code>, which can inject new HTML directly into the stream being parsed, potentially changing what comes next. To keep that possible, the browser stops parsing, waits for the script file to download (if it is an external file), then executes the script, and only then resumes parsing the rest of the document.</p>
+
+<p>Consider this structure:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;script src="heavy-library.js"&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Welcome&lt;/h1&gt;
+    &lt;p&gt;Page content here.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<p>In this scenario, the parser reaches the <code>&lt;script&gt;</code> tag in the <code>&lt;head&gt;</code>, stops, downloads <code>heavy-library.js</code> (which might take several hundred milliseconds on a slow connection), executes it, and only <em>then</em> continues to parse the <code>&lt;body&gt;</code>. The user sees a blank or incomplete page for the entire duration of that download and execution. The <code>&lt;h1&gt;</code> and <code>&lt;p&gt;</code> elements do not even exist in the DOM yet.</p>
+
+<p>A classic solution is to move scripts to <strong>just before the closing <code>&lt;/body&gt;</code> tag</strong>:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;&lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Welcome&lt;/h1&gt;
+    &lt;p&gt;Page content here.&lt;/p&gt;
+    &lt;script src="heavy-library.js"&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<p>Now the parser builds and (after stylesheets load) renders the <code>&lt;h1&gt;</code> and <code>&lt;p&gt;</code> elements before it encounters the script. The blocking still occurs, but by then the user has already seen the page content. This technique was the industry standard for many years before the <code>defer</code> and <code>async</code> attributes became widely supported.</p>
+
+<p>There is one additional subtlety: browsers use a secondary process called the <strong>preload scanner</strong> (or speculative parser). Even while the main parser is blocked by a script, the preload scanner looks ahead in the raw HTML bytes and dispatches network requests for other resources it spots — other scripts, stylesheets, images. This reduces the cascading delay that would otherwise occur. However, the preload scanner cannot build DOM nodes; that work remains blocked until the current script finishes executing.</p>
+
+<p><strong>The defer and async Attributes</strong></p>
+
+<p>HTML5 introduced two attributes on the <code>&lt;script&gt;</code> element that give developers fine-grained control over the download and execution timing of external scripts without blocking the parser.</p>
+
+<p>The <strong><code>async</code></strong> attribute tells the browser: "Download this script in parallel with the rest of the parsing, and execute it as soon as it has finished downloading — even if the HTML is not fully parsed yet." Consider:</p>
+
+<pre><code>&lt;script async src="analytics.js"&gt;&lt;/script&gt;</code></pre>
+
+<p><code>async</code> is best suited for scripts that are completely independent — they do not rely on other scripts, and nothing else relies on them. Web analytics trackers are a perfect example: they do not need the DOM to be fully built, and no other script depends on them. The critical caveat is that <strong><code>async</code> scripts do not execute in order</strong>. If you have two <code>async</code> scripts, whichever finishes downloading first will execute first, regardless of their order in the HTML.</p>
+
+<p>The <strong><code>defer</code></strong> attribute tells the browser: "Download this script in parallel, but <em>do not execute it</em> until the HTML has been fully parsed." Consider:</p>
+
+<pre><code>&lt;script defer src="main-app.js"&gt;&lt;/script&gt;</code></pre>
+
+<p><code>defer</code> is ideal for scripts that need to interact with DOM elements — since execution is deferred until parsing completes, those elements are guaranteed to exist. Crucially, <strong>deferred scripts execute in the order they appear in the HTML</strong>, which makes it safe to split application code across multiple deferred files while preserving dependency order.</p>
+
+<p>The behavioral differences are summarized below:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Download timing</th>
+      <th>Execution timing</th>
+      <th>Execution order</th>
+      <th>Blocks parsing?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Neither (default)</td>
+      <td>Immediately, blocks parsing during download</td>
+      <td>Immediately after download</td>
+      <td>In order</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td><code>async</code></td>
+      <td>In parallel with parsing</td>
+      <td>As soon as downloaded, may interrupt parsing</td>
+      <td>Not guaranteed</td>
+      <td>Only during execution</td>
+    </tr>
+    <tr>
+      <td><code>defer</code></td>
+      <td>In parallel with parsing</td>
+      <td>After HTML is fully parsed</td>
+      <td>In order</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Both <code>async</code> and <code>defer</code> apply only to <strong>external scripts</strong> (those with a <code>src</code> attribute). Inline scripts — where the JavaScript is written directly between <code>&lt;script&gt;</code> tags — always execute immediately and block the parser; those attributes have no effect on them.</p>
+
+<p><strong>The DOMContentLoaded Event and Parse Completion</strong></p>
+
+<p>Once the HTML parser has processed every token in the document and the DOM tree is fully constructed, the browser fires a special event on the <code>document</code> object: <strong><code>DOMContentLoaded</code></strong>. This event is your reliable signal that every element in the HTML now exists as a node in the DOM — you can safely query, traverse, and modify the tree.</p>
+
+<pre><code>document.addEventListener('DOMContentLoaded', function() {
+  // Safe to query the DOM here
+  const heading = document.querySelector('h1');
+  heading.textContent = 'Page is ready!';
+});</code></pre>
+
+<p>If you attempt to query an element before <code>DOMContentLoaded</code> fires — for instance, in a parser-blocking script in the <code>&lt;head&gt;</code> that tries to select a <code>&lt;body&gt;</code> element — the query returns <code>null</code> because the parser has not yet reached and created that element. This is one of the most common sources of JavaScript errors for beginners, and understanding the parsing sequence explains exactly why it happens.</p>
+
+<p>Deferred scripts are closely tied to this event. The specification guarantees that <strong>all deferred scripts execute just before <code>DOMContentLoaded</code> fires</strong>. This means if you add a <code>defer</code> attribute to your scripts, you do not even need a <code>DOMContentLoaded</code> listener — by the time your deferred script runs, the DOM is already complete.</p>
+
+<p>It is important to distinguish <code>DOMContentLoaded</code> from the <strong><code>load</code></strong> event, which fires on the <code>window</code> object:</p>
+
+<pre><code>window.addEventListener('load', function() {
+  // Fires after ALL resources have loaded:
+  // images, stylesheets, fonts, iframes, etc.
+});</code></pre>
+
+<p>The <code>load</code> event fires much later than <code>DOMContentLoaded</code> — potentially seconds later on image-heavy pages — because it waits for every dependent resource to finish loading. Use <code>DOMContentLoaded</code> for DOM manipulation; use <code>load</code> only when you genuinely need all resources (for example, to read the dimensions of loaded images).</p>
+
+<p><strong>Parsing Order and Its Impact on Page Rendering</strong></p>
+
+<p>Because the parser processes HTML from top to bottom, <strong>order matters enormously</strong> for both rendering performance and JavaScript correctness.</p>
+
+<p>Content appearing earlier in the document is parsed and available for rendering sooner. This is why the visible, above-the-fold content of a page should come as early in the <code>&lt;body&gt;</code> as possible, and why large scripts or heavy resource references should come later. Moving a 200 KB blocking script from the <code>&lt;head&gt;</code> to just before <code>&lt;/body&gt;</code> can shave hundreds of milliseconds off the time until a user sees actual content.</p>
+
+<p>Stylesheets add a nuance. A <code>&lt;link rel="stylesheet"&gt;</code> in the <code>&lt;head&gt;</code> does not block the <em>parser</em> — the parser keeps building the DOM while the CSS file downloads. However, stylesheets <strong>do block rendering</strong>. The browser will not paint any pixels until both the DOM and the CSSOM (CSS Object Model) are ready and combined into the <strong>render tree</strong>. This is intentional: painting without CSS would briefly show unstyled content (a "flash of unstyled content," or FOUC), which is a poor user experience. The practical consequence is that placing critical stylesheets in the <code>&lt;head&gt;</code> is correct — you want CSS to load as early as possible so it does not delay the first paint any more than necessary.</p>
+
+<p>Scripts placed in the <code>&lt;head&gt;</code> without <code>defer</code> or <code>async</code> block both parsing and rendering because the browser cannot safely continue building the DOM (in case the script uses <code>document.write</code>) and cannot render anything while the parser is blocked. Furthermore, if a stylesheet precedes a script in the <code>&lt;head&gt;</code>, the browser may delay script execution until the stylesheet has loaded, because the script might query computed styles — another interaction between the CSS and JavaScript pipelines that can compound delays.</p>
+
+<p>A practical, modern strategy combining these insights looks like this:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;link rel="stylesheet" href="styles.css"&gt;   &lt;!-- CSS in head, blocks render but not parse --&gt;
+    &lt;script defer src="app.js"&gt;&lt;/script&gt;         &lt;!-- defer: downloads in parallel, runs after parse --&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Visible content first&lt;/h1&gt;
+    &lt;p&gt;The parser reaches this immediately after the head.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<p>In this pattern, the stylesheet downloads (blocking the first paint but not parsing), the script downloads in parallel without blocking the parser, the body content is parsed and made available for rendering as soon as the CSS is ready, and the script executes only after the full DOM is built — exactly when it is safe to manipulate elements.</p>
+
+<p>Awareness of the parsing pipeline underpins two of the most important skill areas in front-end development. <strong>Debugging</strong>: when JavaScript throws "Cannot read properties of null" on a DOM query, the root cause is almost always that the script ran before the parser had created the targeted element. <strong>Performance optimization</strong>: the metrics that define a fast page — First Contentful Paint, Largest Contentful Paint, Time to Interactive — are all directly influenced by when the parser can build and render each part of the document. Building a clear mental model of how browsers parse HTML is not an academic exercise; it is one of the most practically useful things a web developer can understand.</p>
+        <div class="notes"><strong>Notes</strong>Covers all listed subtopics in depth: streaming parsing, tokenization and the state machine, DOM tree construction via the open element stack, parser-blocking scripts and the preload scanner, async vs defer comparison table, DOMContentLoaded vs load events, and rendering/performance implications of parse order. Inline code examples illustrate each key concept. All tabular data rendered as proper HTML tables.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

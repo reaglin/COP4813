@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What is the DOM?</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 4 - Introduction to the Document Object Model (DOM)</a></div>
+  <header>
+    <h1>What is the DOM?</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>What is the DOM?</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When you open a webpage in a browser, something remarkable happens behind the scenes. The browser does not simply display the raw HTML text — it reads that text and transforms it into a rich, structured, in-memory representation of the entire document. This representation is called the <strong>Document Object Model</strong>, or <strong>DOM</strong>. Understanding what the DOM is, why it exists, and how it works is the single most important conceptual foundation for writing interactive JavaScript on the web.</p>
+
+<p>The DOM is a programming interface — a system of objects — that represents every part of an HTML (or XML) document in a way that programming languages can access and manipulate. When the browser finishes parsing an HTML file, it has built a living data structure in memory. Every element, every attribute on that element, and every piece of text content is represented as an <strong>object</strong> within this structure. Because each part of the document is an object, it has properties you can read and methods you can call. You can ask an element what its text content is, change its color, remove it from the page, or attach behavior to it — all by working with these objects through code.</p>
+
+<p>A critical point is that the DOM is designed to be <strong>language-neutral</strong>. It is defined by standards bodies (primarily the W3C and WHATWG) as an abstract interface, not as something tied to any one programming language. In principle, any language could be used to interact with it. In practice, on the web, <strong>JavaScript</strong> is overwhelmingly the language used to access the DOM, and the browser makes the DOM available to JavaScript automatically as soon as a page loads. Without the DOM, JavaScript would have no standardized, reliable way to find an element on a page, read what a user has typed into a form, or change a headline's text — it would simply be a scripting language with no connection to the visible page.</p>
+
+<p><strong>Why does the DOM exist in the first place?</strong> HTML documents are, at their core, plain text files. A file full of angle-bracket tags is meaningful to humans and to the browser's rendering engine, but it is not directly usable by a scripting language that needs organized, queryable data. The DOM solves this problem by giving scripts a standardized model of the document's contents. Consider what the DOM makes possible:</p>
+
+<ul>
+  <li><strong>Reading content:</strong> A script can ask "what text is inside the element with the id of <code>username</code>?" and get an answer instantly, without parsing raw HTML strings.</li>
+  <li><strong>Responding to events:</strong> The DOM lets JavaScript register listeners so that when a user clicks a button, submits a form, or moves their mouse, a function runs in response — all without reloading the page.</li>
+  <li><strong>Updating the page dynamically:</strong> JavaScript can add new elements, remove existing ones, or change text and styles on the fly, and the browser immediately reflects those changes on screen.</li>
+</ul>
+
+<p>This design also enforces a healthy <strong>separation of concerns</strong>. HTML is responsible for the document's structure and content. CSS is responsible for visual presentation. JavaScript, working through the DOM, is responsible for behavior and interactivity. The DOM is the bridge that makes the JavaScript side of that arrangement possible.</p>
+
+<p><strong>How do browsers actually build the DOM?</strong> When a browser receives an HTML file — either from a server or from a local disk — it begins a process called <em>parsing</em>. It reads the file character by character, from top to bottom. As it encounters each opening tag, it creates a corresponding object (called a <em>node</em>) in memory and sets that node's properties based on the tag's attributes. When it encounters text between tags, it creates a text node. When it encounters a closing tag, it finishes that element and moves back up to the parent context. The relationships between these nodes — which element contains which — are determined by the nesting of the original HTML.</p>
+
+<p>Once parsing is complete, the entire document is represented in the browser's memory as a connected structure of nodes. This structure is made available to JavaScript through a globally accessible object called <strong><code>document</code></strong>. Every JavaScript script running on a page can access <code>document</code> without any special import or setup — it is simply there. For example, <code>document.title</code> gives you the title of the page, and <code>document.body</code> gives you the object representing the <code>&lt;body&gt;</code> element.</p>
+
+<p>One of the most important characteristics of the DOM is that it is <strong>live</strong>. It is not a static snapshot taken at load time. When JavaScript modifies a DOM node — changing its text, adding a child element, removing it from the tree — that change takes effect immediately. The browser re-renders the affected part of the page in response, so the user sees the result right away. This live nature is what makes single-page applications and dynamic user interfaces possible: instead of fetching an entirely new HTML page from the server each time something changes, the JavaScript simply updates the relevant parts of the DOM.</p>
+
+<p><strong>The DOM as a tree structure</strong> is the mental model you will use constantly as a web developer. Because HTML is a nested language — elements contain other elements, which contain other elements — the DOM mirrors this nesting as a <em>tree</em> of nodes, sometimes called the <em>DOM tree</em>. Consider the following minimal HTML document:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;My Page&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Hello, world!&lt;/h1&gt;
+    &lt;p&gt;Welcome to my page.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<p>The DOM tree built from this document looks like the following structure:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Node</th>
+      <th>Type</th>
+      <th>Parent</th>
+      <th>Children</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>document</code></td>
+      <td>Document node</td>
+      <td>None (root)</td>
+      <td><code>html</code></td>
+    </tr>
+    <tr>
+      <td><code>html</code></td>
+      <td>Element node</td>
+      <td><code>document</code></td>
+      <td><code>head</code>, <code>body</code></td>
+    </tr>
+    <tr>
+      <td><code>head</code></td>
+      <td>Element node</td>
+      <td><code>html</code></td>
+      <td><code>title</code></td>
+    </tr>
+    <tr>
+      <td><code>title</code></td>
+      <td>Element node</td>
+      <td><code>head</code></td>
+      <td>Text node: "My Page"</td>
+    </tr>
+    <tr>
+      <td><code>body</code></td>
+      <td>Element node</td>
+      <td><code>html</code></td>
+      <td><code>h1</code>, <code>p</code></td>
+    </tr>
+    <tr>
+      <td><code>h1</code></td>
+      <td>Element node</td>
+      <td><code>body</code></td>
+      <td>Text node: "Hello, world!"</td>
+    </tr>
+    <tr>
+      <td><code>p</code></td>
+      <td>Element node</td>
+      <td><code>body</code></td>
+      <td>Text node: "Welcome to my page."</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The topmost node accessible to JavaScript is <code>document</code>, which represents the entire page. Below it is the <code>html</code> element — the root element of the document itself. Every other element descends from it. The <code>head</code> and <code>body</code> elements are <em>children</em> of <code>html</code> and <em>siblings</em> of each other. The <code>h1</code> and <code>p</code> elements are children of <code>body</code>. Text content — like "Hello, world!" — is represented as its own type of node (a <em>text node</em>) that is a child of its containing element.</p>
+
+<p>Understanding parent, child, and sibling relationships in the tree is not just academic. When you write JavaScript to navigate the DOM — moving from one element to a related one — you are traversing these relationships. For instance, if you have a reference to the <code>body</code> element, you can reach its first child (<code>h1</code>) or loop through all of its children (<code>h1</code> and <code>p</code>) using properties the DOM provides on every node.</p>
+
+<p><strong>The DOM as the interface between HTML and JavaScript</strong> is perhaps the clearest way to summarize its role. JavaScript, on its own, has no built-in knowledge of web pages. It is a general-purpose scripting language. What makes it the language of the web is the fact that browsers give it access to the DOM. Through this interface, JavaScript can do everything that makes modern web applications feel alive:</p>
+
+<ul>
+  <li><strong>Select elements:</strong> Find the paragraph with a specific class name, find all list items on the page, or find the single element with a unique id.</li>
+  <li><strong>Read and change content:</strong> Get the current text inside an element and replace it with new text — for example, updating a shopping cart total after the user adds an item.</li>
+  <li><strong>Modify styles and attributes:</strong> Change an element's CSS class to trigger an animation, toggle a <code>disabled</code> attribute on a button, or update the <code>src</code> of an image.</li>
+  <li><strong>Add and remove elements:</strong> Create a new list item and append it to a list, or remove a notification banner once the user dismisses it.</li>
+  <li><strong>Listen for user interactions:</strong> Attach event listeners so that code runs when the user clicks, types, scrolls, or submits a form.</li>
+</ul>
+
+<p>It is important to internalize one subtlety: <em>JavaScript never reads or writes the raw HTML text file</em>. If you use JavaScript to change an element's text, the underlying <code>.html</code> file on the server is completely untouched. What changes is the DOM — the in-memory object model the browser built from that file. The browser then re-renders the page based on the updated DOM. This distinction matters because it explains why DOM changes do not persist when you refresh the page (the browser re-parses the original HTML file and builds a fresh DOM) and why server-side changes require different techniques.</p>
+
+<p>To make this concrete, imagine a simple button that updates a greeting when clicked. The HTML provides the structure — a <code>&lt;p&gt;</code> element and a <code>&lt;button&gt;</code>. The DOM turns those into objects. JavaScript, through the DOM, finds the <code>&lt;p&gt;</code> object and the <code>&lt;button&gt;</code> object, attaches a click listener to the button, and when that listener fires, it changes the <code>textContent</code> property of the paragraph object. The browser immediately shows the new text. No page reload. No server request. Just a live, in-memory model being updated and re-rendered in real time. That, in essence, is what the DOM enables — and why it is the indispensable foundation of everything interactive on the web.</p>
+        <div class="notes"><strong>Notes</strong>Introduces the Document Object Model as a concept, explaining what it is and why it exists as a bridge between HTML documents and JavaScript programming.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

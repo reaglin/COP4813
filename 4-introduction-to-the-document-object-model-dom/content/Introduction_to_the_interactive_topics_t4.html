@@ -1,0 +1,235 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selecting DOM Elements</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 4 - Introduction to the Document Object Model (DOM)</a></div>
+  <header>
+    <h1>Selecting DOM Elements</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Selecting DOM Elements</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Before you can read or change anything on a web page using JavaScript, you first need a way to <em>find</em> the elements you care about. That process — locating a specific element or group of elements in the page's structure — is called <strong>DOM selection</strong>. The Document Object Model (DOM) is the browser's live, in-memory representation of your HTML document, organized as a tree of nodes. Every tag you write in HTML becomes a node in that tree, and JavaScript can navigate and manipulate that tree at any time while the page is open.</p>
+
+<p>Selection always begins with the global <strong><code>document</code></strong> object. The <code>document</code> object is automatically available in any script running in a browser; it represents the entire HTML page and acts as the entry point to every element within it. You call selection methods <em>on</em> <code>document</code> (or sometimes on another element, as you'll see later), passing a description of what you want, and the browser searches its tree and hands back a reference.</p>
+
+<p>That reference is a live JavaScript object — a full-featured instance of an interface like <code>HTMLDivElement</code> or <code>HTMLInputElement</code> — whose properties you can read and whose content you can change. The critical thing to understand upfront is that <strong>selecting an element does not modify it</strong>. Selection is purely a <em>lookup</em>: you get a reference, and then you decide what (if anything) to do with it. This separation between finding an element and changing it keeps your code predictable and easy to reason about.</p>
+
+<p>JavaScript provides several methods for DOM selection, each suited to different situations. The three you will use most frequently are <code>getElementById</code>, <code>querySelector</code>, and <code>querySelectorAll</code>.</p>
+
+<p><strong>getElementById</strong> is the oldest and most specialized of the three. Its syntax is straightforward: you call it on <code>document</code> and pass the element's <code>id</code> attribute value as a plain string — <em>without</em> a <code>#</code> prefix, because you are not writing a CSS selector here, just a raw identifier value.</p>
+
+<pre><code>// HTML: &lt;section id="hero"&gt;Welcome&lt;/section&gt;
+
+const heroSection = document.getElementById('hero');
+console.log(heroSection); // &lt;section id="hero"&gt;Welcome&lt;/section&gt;
+</code></pre>
+
+<p>If an element with that id exists in the document, you get back the corresponding <code>Element</code> object. If nothing matches, you get <code>null</code>. Because HTML requires id values to be unique per page, <code>getElementById</code> will always return at most one element. More importantly, browsers maintain an internal index of id values, which makes this method <strong>the fastest DOM selection method available</strong>. For elements you access repeatedly — a navigation bar, a modal dialog, a form — storing the result in a variable is a common and efficient pattern.</p>
+
+<pre><code>const modal = document.getElementById('confirmModal');
+
+if (modal !== null) {
+  modal.style.display = 'block'; // safe to use — element exists
+}
+</code></pre>
+
+<p><strong>querySelector</strong> is more versatile. Its argument is a full CSS selector string, written exactly as you would write it in a stylesheet — complete with <code>#</code> for ids, <code>.</code> for classes, tag names, attribute selectors, combinators, and pseudo-classes.</p>
+
+<pre><code>// By id
+const nav = document.querySelector('#mainNav');
+
+// By class
+const firstCard = document.querySelector('.card');
+
+// By tag
+const firstParagraph = document.querySelector('p');
+
+// Attribute selector
+const emailInput = document.querySelector('input[type="email"]');
+
+// Descendant combinator
+const submitBtn = document.querySelector('form .btn-submit');
+</code></pre>
+
+<p>The key behavior to internalize: <code>querySelector</code> returns <strong>only the first matching element</strong> in document order (top to bottom, left to right through the source). Even if a hundred elements share the same class, you get back exactly one — the first one the browser encounters while scanning the tree. If nothing matches, the return value is <code>null</code>, just like <code>getElementById</code>. Always guard against <code>null</code> before accessing properties on the result.</p>
+
+<pre><code>const highlight = document.querySelector('.highlight');
+
+if (highlight) {
+  highlight.classList.add('active'); // 'if (highlight)' is falsy-check for null
+}
+</code></pre>
+
+<p>Because <code>querySelector</code> accepts any valid CSS selector, it can replace <code>getElementById</code> entirely (using the <code>#id</code> syntax). In practice, teams often use <code>getElementById</code> for id-based lookups where speed matters most, and <code>querySelector</code> for everything more complex.</p>
+
+<p><strong>querySelectorAll</strong> works like <code>querySelector</code> but instead of stopping at the first match, it collects <em>every</em> element in the document that matches the selector and returns them together as a <strong>NodeList</strong>.</p>
+
+<pre><code>// Select every list item inside a navigation element
+const navItems = document.querySelectorAll('nav li');
+console.log(navItems.length); // e.g., 5
+
+// Select all elements carrying the 'card' class
+const cards = document.querySelectorAll('.card');
+</code></pre>
+
+<p>There are two important characteristics of this NodeList to remember. First, it is <strong>static</strong>: it reflects the state of the DOM at the exact moment the call was made. If you subsequently add or remove elements from the page, the NodeList you already have does not update. Second, if nothing matches the selector, <code>querySelectorAll</code> returns an <em>empty</em> NodeList — not <code>null</code>. This means you never need to null-check the return value; iterating over an empty NodeList is simply a no-op.</p>
+
+<pre><code>const items = document.querySelectorAll('.menu-item');
+
+// forEach — built into NodeList
+items.forEach(item =&gt; {
+  item.addEventListener('click', handleClick);
+});
+
+// for...of — works with any iterable
+for (const item of items) {
+  console.log(item.textContent);
+}
+
+// Spread to a true array if you need array methods like .map or .filter
+const itemArray = [...items];
+const texts = itemArray.map(el =&gt; el.textContent.trim());
+</code></pre>
+
+<p>The table below summarizes the key differences between the three methods at a glance:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Argument type</th>
+      <th>Returns</th>
+      <th>When nothing matches</th>
+      <th>Can be scoped?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>getElementById</code></td>
+      <td>Raw id string (no <code>#</code>)</td>
+      <td>Single <code>Element</code></td>
+      <td><code>null</code></td>
+      <td>No — <code>document</code> only</td>
+    </tr>
+    <tr>
+      <td><code>querySelector</code></td>
+      <td>Any CSS selector</td>
+      <td>First matching <code>Element</code></td>
+      <td><code>null</code></td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td><code>querySelectorAll</code></td>
+      <td>Any CSS selector</td>
+      <td>Static <code>NodeList</code></td>
+      <td>Empty <code>NodeList</code></td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Scoped selection</strong> is a powerful technique that becomes especially useful as pages grow in complexity. Both <code>querySelector</code> and <code>querySelectorAll</code> can be called not just on <code>document</code>, but on <em>any element reference</em> you already hold. When you do that, the browser limits its search to that element's <strong>descendants</strong> only — it does not scan the rest of the page.</p>
+
+<pre><code>const sidebar = document.querySelector('#sidebar');
+
+// Only finds .widget elements that are inside #sidebar
+const sidebarWidgets = sidebar.querySelectorAll('.widget');
+
+// Only finds the first &lt;a&gt; inside #sidebar
+const firstLink = sidebar.querySelector('a');
+</code></pre>
+
+<p>Scoped selection has two advantages. Performance-wise, the browser searches a smaller subtree rather than the entire document. Clarity-wise, the code explicitly communicates that you expect these elements to live <em>inside</em> a particular container — a valuable signal for anyone reading your code later. Note that <code>getElementById</code> is defined only on the <code>document</code> object and <strong>cannot</strong> be called on an element reference; it is the one selection method that cannot be scoped.</p>
+
+<p><strong>Reading and verifying selection results</strong> is a habit every JavaScript developer must build. Both <code>getElementById</code> and <code>querySelector</code> return <code>null</code> when no match is found, and trying to access a property on <code>null</code> throws a <code>TypeError</code> that can crash your script.</p>
+
+<pre><code>// Dangerous — will throw if '#nonexistent' does not exist
+document.querySelector('#nonexistent').textContent = 'Hello';
+
+// Safe pattern 1 — explicit null check
+const el = document.querySelector('#nonexistent');
+if (el !== null) {
+  el.textContent = 'Hello';
+}
+
+// Safe pattern 2 — optional chaining (modern JavaScript)
+document.querySelector('#nonexistent')?.classList.add('visible');
+</code></pre>
+
+<p>For <code>querySelectorAll</code>, because the return value is always a NodeList (never <code>null</code>), no null-check is needed. You can loop over the result unconditionally; an empty NodeList simply means the loop body never runs.</p>
+
+<p>One of the most practical tools for learning and debugging selection is the browser's built-in <strong>DevTools console</strong>. Open it with <kbd>F12</kbd> (or right-click → Inspect), click the Console tab, and type any selection expression directly. The browser evaluates it immediately against the live page and displays the result — letting you confirm that your selector syntax is correct before writing it into your script. For example, typing <code>document.querySelectorAll('.card')</code> shows you exactly how many cards were found and lets you expand each one to inspect its properties.</p>
+
+<pre><code>// Try these directly in the DevTools console on any page:
+document.querySelector('h1');
+document.querySelectorAll('a[href^="https"]');
+document.getElementById('footer');
+</code></pre>
+
+<p>Mastering these three selection methods — understanding what each accepts, what each returns, and how to handle edge cases — forms the foundation of all DOM manipulation. Every animation, form validation, dynamic content update, and interactive widget you build in vanilla JavaScript will begin with one of these calls to locate the element you need to work with.</p>
+        <div class="notes"><strong>Notes</strong>Covers the core vanilla JavaScript methods used to query and retrieve elements from the DOM, such as getElementById, querySelector, and querySelectorAll.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Maintenance and Production Management</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 14 - Content Management Systems, Webmaster Roles, and Site Maintenance</a></div>
+  <header>
+    <h1>Website Maintenance and Production Management</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Website Maintenance and Production Management</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Keeping a live website healthy is not a one-time effort — it is an ongoing discipline that touches security, performance, reliability, and communication. Website maintenance and production management is the practice of systematically caring for a deployed site so that it remains secure, accurate, fast, and resilient over time. Without a deliberate maintenance program, even a well-built site will accumulate technical debt, security vulnerabilities, broken experiences, and eventually suffer outages or data loss that could have been prevented. The sections below explore every major dimension of this practice in depth, from applying software patches to communicating with clients during planned downtime.</p>
+
+<p><strong>Routine Software Updates and Patch Management</strong></p>
+
+<p>Modern websites — especially those built on content management systems like WordPress, Drupal, or Joomla — are assemblies of many moving parts: a CMS core, a database layer, a collection of plugins or modules, and one or more themes. Each of these components is maintained by developers who periodically release new versions containing bug fixes, feature improvements, and critically, security patches. Failing to apply these updates means leaving known vulnerabilities open for attackers to exploit.</p>
+
+<p>The workflow for patch management should follow a consistent process. The very first step is <strong>awareness</strong>: subscribe to security advisories for your CMS platform and its major plugins. Organizations like the WordPress Security Team, Drupal Security Team, and independent researchers publish CVEs (Common Vulnerabilities and Exposures) whenever serious flaws are discovered. Knowing about a vulnerability the day it is announced — rather than weeks later — is itself a meaningful layer of defense.</p>
+
+<p>Before any update touches the live site, it should be tested in a <strong>staging environment</strong> — an exact replica of the production site running on a separate server or subdomain that is not publicly accessible. A staging site allows the team to observe whether the update causes layout breaks, plugin conflicts, PHP errors, or database migration problems without any visitor ever seeing the damage. Many managed hosting providers (WP Engine, Kinsta, Pantheon) offer one-click staging environments for exactly this purpose. Once an update is verified safe on staging, it can be promoted to production with confidence.</p>
+
+<p>Tracking changes is just as important as making them. A <strong>changelog or update log</strong> — even a simple shared spreadsheet or a note in a project management tool — records what was updated, by whom, and on what date. When a problem surfaces two weeks after an update, this log is invaluable for narrowing down the cause quickly. An entry might look like this:</p>
+
+<pre><code>2024-11-14 | WooCommerce 8.3.1 → 8.4.0 | Tested on staging, no issues | Deployed by J. Rivera
+2024-11-14 | Yoast SEO 21.5 → 21.6 | Minor update, auto-applied | Verified on production
+</code></pre>
+
+<p>The question of <strong>automation</strong> deserves careful consideration. Most CMS platforms allow automatic application of minor updates — patch releases (e.g., 6.4.1 → 6.4.2) that fix bugs and security issues without introducing breaking changes. Enabling auto-updates for minor releases is generally safe and closes security gaps faster than a manual workflow. However, <strong>major version updates</strong> (e.g., PHP 7.4 → 8.1, or WordPress 6.x → 7.x) can introduce deprecated functions, changed APIs, or incompatible plugin behavior. These should always be reviewed manually, tested on staging, and applied during a planned maintenance window with a rollback plan ready.</p>
+
+<p><strong>Backup Strategies and Disaster Recovery</strong></p>
+
+<p>Backups are the safety net beneath every other maintenance practice. No matter how carefully updates are tested or how thoroughly security is hardened, unexpected failures happen — a corrupted database migration, a ransomware attack, an accidental mass deletion, or a catastrophic hardware failure at the hosting provider. A reliable backup strategy ensures that the worst-case scenario is "we lose a few hours of data" rather than "we lose everything."</p>
+
+<p>A complete website backup consists of two components that must always be captured together: the <strong>files</strong> (the CMS installation, uploaded media, themes, plugins, configuration files) and the <strong>database</strong> (all content, user records, settings, and relational data stored in MySQL, PostgreSQL, or whichever database engine powers the site). A file backup without the database — or vice versa — is often useless for a full restoration.</p>
+
+<p>Backup <strong>frequency</strong> should reflect how often the site's content changes. A news publication updating dozens of articles per day needs daily or even hourly backups. A small business brochure site that changes once a month might be adequately protected by weekly backups. A sensible general rule is to ensure that the maximum acceptable data loss (known in disaster recovery terminology as the <em>Recovery Point Objective</em>, or RPO) is shorter than the backup interval.</p>
+
+<p>Where backups are <strong>stored</strong> is as critical as whether they exist at all. A backup stored only on the same server as the live site is destroyed by the same fire, hardware failure, or ransomware attack that takes down the live site. Best practice is the <strong>3-2-1 rule</strong>: keep at least <em>3 copies</em> of the data, on at least <em>2 different storage media</em>, with at least <em>1 copy offsite</em>. In practical terms for a web team, this might mean the hosting provider's own snapshot system, a copy synced to Amazon S3 or Google Cloud Storage, and an optional local archive downloaded to an office NAS.</p>
+
+<p>Perhaps the most commonly neglected backup practice is <strong>testing restoration</strong>. A backup that has never been restored is a backup of unknown quality. Periodically — at minimum quarterly — a team member should take a backup archive and attempt a full restoration to a test environment, then verify that the site functions correctly: pages load, user authentication works, media displays, and e-commerce transactions process correctly. This exercise also rehearses the team so that under the pressure of a real incident they already know the exact steps rather than puzzling through unfamiliar tooling.</p>
+
+<p>The recovery procedure itself should be <strong>written down</strong> in plain, step-by-step language accessible to any technically capable team member, not just the lead developer. In a real emergency, the lead developer might be the one unavailable. Documentation might include steps such as:</p>
+
+<ul>
+  <li>Downloading and extracting the backup archive from offsite storage</li>
+  <li>Creating a fresh database and importing the SQL dump</li>
+  <li>Updating the CMS configuration file with the new database credentials</li>
+  <li>Pointing the domain's DNS or web server configuration to the restored files</li>
+  <li>Running a post-restore checklist to verify critical site functions</li>
+</ul>
+
+<p><strong>Security Monitoring and Hardening</strong></p>
+
+<p>Security is not a feature you add once and forget — it is a continuous process of monitoring, assessment, and incremental improvement. Website security incidents range from nuisances (comment spam, low-quality link injection) to catastrophic breaches (customer data theft, site defacement, ransomware that encrypts all files). A multi-layered security posture — often called <em>defense in depth</em> — ensures that if one layer is compromised, additional layers slow or stop the attacker.</p>
+
+<p><strong>Security scanning</strong> tools continuously or periodically examine a website's files and outward-facing behavior for signs of compromise. Tools like Sucuri SiteCheck, Wordfence (for WordPress), or server-side scanners like Maldet compare file hashes against known-good baselines to detect unauthorized modifications. They also scan the site's HTML output for signs of injected malware — hidden iframes, malicious JavaScript payloads, or phishing pages that attackers have inserted. Alerts from these tools should be treated as high-priority incidents requiring immediate investigation.</p>
+
+<p><strong>Access control</strong> is one of the highest-impact security measures. Weak or reused passwords on administrative accounts are responsible for a substantial percentage of website compromises. Enforce a password policy that requires length (at minimum 12 characters), complexity (mixed character types), and prohibits reuse of recent passwords. More powerfully, enable <strong>multi-factor authentication (MFA)</strong> for all administrative users — even if an attacker steals a password, they cannot log in without the second factor (typically a time-based one-time code from an authenticator app). Most CMS platforms support MFA through built-in settings or plugins.</p>
+
+<p>A <strong>Web Application Firewall (WAF)</strong> sits in front of the web application and inspects incoming HTTP traffic against a ruleset designed to detect and block common attack patterns: SQL injection attempts, cross-site scripting (XSS) payloads, brute-force login attempts, and malicious bot traffic. WAFs can be deployed at the server level (ModSecurity on Apache or Nginx), at the application level (Wordfence for WordPress), or as a cloud-based reverse proxy (Cloudflare, Sucuri, Imperva). The cloud-based approach has the additional benefit of absorbing DDoS traffic before it ever reaches the origin server.</p>
+
+<p>Over time, user accounts accumulate. Former employees, contractors who completed a project, or test accounts created during development remain in the system long after they are needed. A periodic <strong>access review</strong> — quarterly is a reasonable cadence — should audit every user account, confirm that the account's role still reflects its actual need, and remove or downgrade accounts that are no longer required. The principle of <em>least privilege</em> should guide this review: every account should have the minimum level of access necessary to perform its function and nothing more.</p>
+
+<p>Additional hardening measures worth implementing include: disabling directory listing on the web server, removing or protecting sensitive files like <code>wp-config.php</code> or <code>.env</code> from public access, rate-limiting login attempts to deter brute-force attacks, enforcing HTTPS everywhere with an up-to-date TLS certificate, and adding security-relevant HTTP response headers such as <code>Content-Security-Policy</code>, <code>X-Frame-Options</code>, and <code>Strict-Transport-Security</code>.</p>
+
+<p><strong>Performance Monitoring and Optimization</strong></p>
+
+<p>A secure site that is slow or frequently unavailable still fails its users. Performance management encompasses both <em>availability</em> (is the site up?) and <em>speed</em> (how quickly does it respond?). Both dimensions directly affect user satisfaction, conversion rates, and search engine rankings — Google uses page experience signals including Core Web Vitals as ranking factors.</p>
+
+<p><strong>Uptime monitoring</strong> services — such as UptimeRobot, Pingdom, or Better Uptime — send an HTTP request to the site at regular intervals (every one to five minutes is typical). If the site fails to respond or returns an error code, the service immediately sends an alert via email, SMS, or Slack. This catches outages within minutes rather than hours, dramatically reducing the window during which visitors encounter a broken site. Configure uptime monitors for the homepage and for critical internal pages (checkout, login, API endpoints) to detect partial failures that might not affect the homepage alone.</p>
+
+<p><strong>Page speed analysis</strong> requires ongoing attention because performance degrades over time as new content is added, new plugins are installed, and traffic patterns change. Tools like Google PageSpeed Insights, WebPageTest, and Lighthouse provide detailed diagnostics identifying the largest contributors to slow load times. Common culprits include:</p>
+
+<ul>
+  <li><strong>Uncompressed or oversized images</strong> — a single 5MB unoptimized photograph can triple a page's load time. Compress images with tools like ImageOptim or convert them to modern formats like WebP.</li>
+  <li><strong>Render-blocking scripts and stylesheets</strong> — JavaScript and CSS files loaded in the <code>&lt;head&gt;</code> block the browser from displaying content until they are fully downloaded and parsed. Defer non-critical scripts or load them asynchronously.</li>
+  <li><strong>Excessive HTTP requests</strong> — each asset (image, script, stylesheet, font) requires its own request. Combining files, using icon fonts or SVG sprites, and eliminating unnecessary third-party embeds reduce total request count.</li>
+  <li><strong>Missing or misconfigured caching</strong> — without caching, every page request triggers a full database query and template rendering cycle. With caching, the rendered HTML is stored and served directly, reducing server load by orders of magnitude.</li>
+</ul>
+
+<p><strong>Caching</strong> deserves particular attention because it operates at multiple levels. <em>Page caching</em> stores fully rendered HTML responses. <em>Object caching</em> (using tools like Redis or Memcached) stores the results of expensive database queries in memory so they need not be recomputed on each request. <em>Browser caching</em> instructs visitors' browsers to store static assets locally so repeat visits load faster without re-downloading unchanged files. <em>CDN (Content Delivery Network) caching</em> distributes static assets to edge servers around the world so files are served from a location geographically close to each visitor.</p>
+
+<p><strong>Server resource monitoring</strong> tracks CPU usage, memory consumption, disk I/O, and bandwidth over time. Gradual upward trends in these metrics indicate that traffic is growing or that an inefficient process (a runaway cron job, a memory-leaking plugin) is consuming more resources than expected. Tools like New Relic, Datadog, or simple hosting-panel graphs can visualize these trends. Identifying a resource constraint when usage reaches 70% of capacity is far preferable to discovering it at 100% when the site is already failing under load.</p>
+
+<p><strong>Content Auditing and Link Maintenance</strong></p>
+
+<p>A website's content is not a static archive — it ages, becomes inaccurate, and develops structural problems over time. Products are discontinued, staff members leave, event pages for past events remain live, and pages accumulate broken links as external sites change or disappear. Systematic content auditing addresses these issues before they undermine user experience and search performance.</p>
+
+<p><strong>Broken link detection</strong> is best performed with crawling tools. Screaming Frog SEO Spider (downloadable software), Ahrefs Site Audit, or Semrush's site audit tool systematically follow every internal link on the site and report which destination URLs return HTTP error codes (most commonly 404 Not Found). A broken link on a frequently visited page is immediately damaging to user experience; a broken link on an obscure archive page is less urgent but still worth resolving. For internal broken links, the fix is straightforward: update the link's destination to the correct current URL. For external broken links, the options are to find a replacement URL, remove the link, or use archive.org to link to a cached version.</p>
+
+<p>When pages are <strong>deleted or moved</strong>, the original URL must not simply disappear. A visitor or search engine following an old bookmark or inbound link will encounter a 404 error — a dead end that destroys any link equity the original page had accumulated. The correct solution is to configure a <strong>301 redirect</strong> (HTTP status code for a permanent redirect) from the old URL to the new or most relevant current URL. Most CMS platforms support redirects natively or via plugins; at the server level, redirects can be configured in <code>.htaccess</code> (Apache) or <code>nginx.conf</code>. A redirect map should be maintained — a document listing every deprecated URL and its redirect destination — so redirects are not forgotten or accidentally removed during server migrations.</p>
+
+<p><strong>Duplicate content</strong> occurs when substantially identical content is accessible at multiple URLs. This can happen due to URL parameter variations (e.g., <code>/page?sort=asc</code> vs. <code>/page?sort=desc</code>), <code>www</code> vs. non-<code>www</code> variants, or staging content accidentally indexed. Search engines that find duplicate content must choose which version to rank, often ranking neither well. The solution involves canonical tags (<code>&lt;link rel="canonical"&gt;</code>), proper <code>www</code> redirects, and blocking parameter-driven duplicates in the site's <code>robots.txt</code> or via Google Search Console's URL parameter handling settings.</p>
+
+<p><strong>Content review</strong> — beyond technical link health — means a human reading pages with fresh eyes and asking: is this information still accurate? Is this language still appropriate? Does this page still serve a clear purpose aligned with current business goals? A quarterly content audit, even if it only reviews the highest-traffic pages, keeps the site credible and useful.</p>
+
+<p><strong>Troubleshooting and Incident Response</strong></p>
+
+<p>Despite best efforts, problems will occur. A plugin update will break the checkout flow. A traffic spike will overwhelm the server. A configuration change will cause the site to return 500 errors. The difference between a team that resolves incidents quickly and one that scrambles chaotically lies in preparation: having a documented process, the right diagnostic tools, and the discipline to work methodically rather than reactively.</p>
+
+<p>An <strong>incident response workflow</strong> should specify, in advance: who is the first point of contact when an alert fires, what is the escalation path if that person is unavailable, what are the immediate steps to take in the first five minutes, and who is authorized to make production changes. This does not need to be elaborate — a one-page document in the team's shared workspace is far better than nothing. The key is that when an incident occurs at 2 a.m., nobody is improvising the process from scratch.</p>
+
+<p><strong>Diagnostic tools</strong> are the team's eyes into the system during an incident. Server error logs (<code>/var/log/apache2/error.log</code>, <code>/var/log/nginx/error.log</code>) record application errors with timestamps, file paths, and error messages that point directly at root causes. The CMS's own debug mode — in WordPress, setting <code>WP_DEBUG</code> to <code>true</code> in <code>wp-config.php</code> — outputs PHP warnings and errors that are normally suppressed from public view. Browser developer tools reveal JavaScript console errors and failed network requests. Database query logs can expose slow or broken queries causing timeouts. Using these tools together, a skilled troubleshooter can often identify the root cause of an incident within minutes.</p>
+
+<p>Once a likely cause is identified, fixes should be applied <strong>incrementally</strong>. The temptation during a high-pressure incident is to make multiple changes simultaneously in hopes that one of them will work. This approach makes it impossible to determine which change actually resolved the problem — and risks introducing new issues. Instead: make one change, test, observe the result, and document what happened before moving to the next change. This methodical approach is slower in the moment but produces reliable results and a clear record of what was done.</p>
+
+<p>After an incident is resolved, a <strong>post-mortem review</strong> (sometimes called a retrospective or after-action review) is conducted while the details are still fresh. A post-mortem is not a blame exercise — it is a structured analysis asking: what exactly happened, what was the sequence of events, what caused it, what resolved it, and what changes to process, tooling, or monitoring would prevent or accelerate the response to a similar incident in the future? The output is a written document and a prioritized action list. Organizations that conduct post-mortems rigorously find that each incident genuinely improves their systems and processes.</p>
+
+<p><strong>Maintenance Scheduling and Client Communication</strong></p>
+
+<p>Even well-planned maintenance activities cause temporary disruption. Managing this disruption — and communicating about it professionally — is what separates a trustworthy web team from one that leaves clients and users anxious and uninformed.</p>
+
+<p>A <strong>maintenance window</strong> is a pre-scheduled time period during which changes are applied to the production site. The window should be chosen to minimize user impact: for most websites serving a single time zone, traffic is lowest in the early morning hours (typically 2 a.m.–5 a.m.). For global sites, there may be no period of universally low traffic, so the window might be chosen based on the primary user geography. All significant updates — especially major version upgrades, database migrations, or server configuration changes — should be scheduled within a maintenance window rather than applied ad hoc during business hours.</p>
+
+<p><strong>Advance notification</strong> to clients or site stakeholders should be sent several days before any planned maintenance, especially if downtime is expected. The notification should include: when the maintenance will begin, how long it is expected to last, what work will be performed, what the impact will be (full downtime vs. potential brief interruptions), and who to contact with questions. Clients who feel informed and respected are far more tolerant of brief outages than those who discover downtime without warning.</p>
+
+<p>During planned downtime, the site should display a professional <strong>maintenance page</strong> rather than a generic server error or a blank screen. A good maintenance page acknowledges that the site is temporarily unavailable, explains that maintenance is in progress, provides an estimated time for return (if known), offers an alternative contact method (email or phone) for urgent needs, and reflects the brand's visual identity so it feels intentional rather than broken. This can be configured at the web server level so it displays even when the CMS is completely offline.</p>
+
+<p>A <strong>maintenance log</strong> is the written record of every maintenance activity performed on the site. It differs from the update log mentioned earlier in that it covers the full scope of maintenance work: updates applied, backups verified, security scans run, content reviewed, performance optimizations made, and incidents resolved. A well-maintained log serves multiple purposes: it gives clients transparency and accountability, it helps onboard new team members by providing historical context, it supports audits or compliance reviews, and it provides the detailed timeline that makes post-mortem analysis possible. A simple table structure captures what is needed:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Task Performed</th>
+      <th>Performed By</th>
+      <th>Outcome / Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2024-11-01</td>
+      <td>WordPress core 6.6.2 → 6.7.0; tested on staging first</td>
+      <td>M. Okafor</td>
+      <td>Successful. No plugin conflicts detected.</td>
+    </tr>
+    <tr>
+      <td>2024-11-01</td>
+      <td>Full site backup verified — files + DB</td>
+      <td>M. Okafor</td>
+      <td>Backup restored successfully to test environment.</td>
+    </tr>
+    <tr>
+      <td>2024-11-08</td>
+      <td>Broken link audit with Screaming Frog</td>
+      <td>T. Nguyen</td>
+      <td>14 broken links found; 12 fixed, 2 external links removed.</td>
+    </tr>
+    <tr>
+      <td>2024-11-15</td>
+      <td>Security scan — Wordfence full scan</td>
+      <td>M. Okafor</td>
+      <td>No threats detected. Firewall rules updated.</td>
+    </tr>
+    <tr>
+      <td>2024-11-22</td>
+      <td>Image optimization pass on media library</td>
+      <td>T. Nguyen</td>
+      <td>Average page weight reduced by 18% on product pages.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Taken together, these practices — disciplined update management, robust backups, layered security, proactive performance optimization, thorough content hygiene, calm and structured incident response, and transparent client communication — constitute a comprehensive maintenance program. No single practice is sufficient on its own; their combined effect is a site that remains trustworthy, performant, and resilient month after month, year after year, without requiring heroic firefighting to keep it alive.</p>
+        <div class="notes"><strong>Notes</strong>This topic is comprehensive and covers all listed subtopics in depth. The maintenance log is rendered as a proper HTML table. Code examples illustrate the update log format and diagnostic configuration. The 3-2-1 backup rule and post-mortem/retrospective concepts are introduced as industry-standard frameworks to enrich understanding beyond the bullet points.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

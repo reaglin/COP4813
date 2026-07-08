@@ -1,0 +1,360 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animation and the Game Loop</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 13 - Building a Browser-Embedded Game</a></div>
+  <header>
+    <h1>Animation and the Game Loop</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Animation and the Game Loop</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Every interactive game or animation you see running in a browser window shares one foundational mechanism: a <strong>game loop</strong>. Without it, a canvas-based game would paint a single frame and go silent. With it, the game breathes — objects move, collisions are tested, scores change, and the screen refreshes dozens of times every second. Understanding how to build and control this loop is the single most important skill in browser-based game development.</p>
+
+<p>At its core, a game loop is a cycle that runs repeatedly for as long as the game is active. Each iteration of the cycle does exactly two things in order: it <strong>updates game state</strong> (moving objects, checking collisions, tracking score, advancing animations) and then <strong>renders the updated state</strong> to the canvas (clearing the old frame and drawing every object in its new position). Separating these two concerns — update first, draw second — keeps your code organised and dramatically easier to debug. If a ball is teleporting to the wrong place, you know to look in your update logic. If a ball is drawn in the wrong colour, you look in your draw logic.</p>
+
+<p>Because JavaScript running in a browser is single-threaded and event-driven, you cannot write an infinite <code>while(true)</code> loop; it would lock the browser completely. Instead, browsers provide a purpose-built scheduling API called <strong><code>requestAnimationFrame</code></strong>.</p>
+
+<p><strong>Introducing <code>requestAnimationFrame</code></strong></p>
+
+<p><code>window.requestAnimationFrame(callback)</code> tells the browser: <em>"Before you paint the next frame to the screen, please call this function."</em> The browser synchronises your callback with its own repaint cycle — typically 60 times per second on a 60 Hz display, or up to 144 times per second on high-refresh-rate monitors. This synchronisation is what makes animations silky smooth and avoids the screen-tearing that can happen with timer-based approaches like <code>setInterval</code>.</p>
+
+<p>A critical detail: each call to <code>requestAnimationFrame</code> schedules <strong>exactly one future callback</strong>. It does not loop on its own. To keep the animation running continuously, your callback must call <code>requestAnimationFrame</code> again before it returns. If it forgets to do so, the animation simply stops after a single frame.</p>
+
+<p>The browser automatically passes a <strong>high-resolution timestamp</strong> (a <code>DOMHighResTimeStamp</code> measured in milliseconds, with sub-millisecond precision) as the first argument to your callback. This timestamp records the moment the frame began, and you will use it to measure how much time has elapsed between frames — a concept explored in detail below.</p>
+
+<pre><code>// Minimal skeleton — scheduling one frame at a time
+function gameLoop(timestamp) {
+    // 1. Update game state
+    // 2. Draw everything
+    // 3. Schedule the next frame
+    requestAnimationFrame(gameLoop);
+}
+
+// Kick off the very first frame
+requestAnimationFrame(gameLoop);
+</code></pre>
+
+<p><strong>Writing the Core Loop Function</strong></p>
+
+<p>Give your loop function a proper <strong>name</strong> (such as <code>gameLoop</code>) rather than using an anonymous arrow function. Because the loop must call itself to schedule the next iteration, a named function can reference itself by name. An anonymous function stored in a variable can also work, but a declared function is clearer and avoids subtle closure issues.</p>
+
+<p>At the very <strong>start of the drawing step</strong>, always clear the entire canvas with <code>ctx.clearRect(0, 0, canvas.width, canvas.height)</code>. Skipping this leaves "ghost" images from the previous frame behind — every frame gets painted on top of all previous frames, producing a smeared trail rather than smooth movement.</p>
+
+<p>Keep the loop function itself short. Delegate real work to clearly named helper functions — conventionally called <code>update()</code> and <code>draw()</code> — and call those helpers from inside the loop. This pattern makes each piece individually testable and keeps the top-level loop readable at a glance.</p>
+
+<pre><code>const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+// Game state
+const ball = { x: 100, y: 100, vx: 3, vy: 2, radius: 15 };
+
+function update() {
+    ball.x += ball.vx;
+    ball.y += ball.vy;
+
+    // Bounce off left/right walls
+    if (ball.x - ball.radius < 0 || ball.x + ball.radius > canvas.width) {
+        ball.vx *= -1;
+    }
+    // Bounce off top/bottom walls
+    if (ball.y - ball.radius < 0 || ball.y + ball.radius > canvas.height) {
+        ball.vy *= -1;
+    }
+}
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+    ctx.fillStyle = '#e74c3c';
+    ctx.fill();
+}
+
+function gameLoop(timestamp) {
+    update();
+    draw();
+    requestAnimationFrame(gameLoop);
+}
+
+requestAnimationFrame(gameLoop);
+</code></pre>
+
+<p>In the example above, the loop is clean and the responsibilities are obvious: <code>update</code> handles physics and boundary logic, <code>draw</code> handles rendering, and <code>gameLoop</code> simply orchestrates the two in the correct order.</p>
+
+<p><strong>Updating Game State Each Frame</strong></p>
+
+<p>The most common way to move an object is to give it <strong>velocity</strong> properties (<code>vx</code> for horizontal speed, <code>vy</code> for vertical speed) and add them to the object's coordinates once per frame. If <code>ball.vx</code> is <code>3</code>, then every frame the ball moves three canvas units to the right. Over 60 frames (one second at 60 fps), it travels 180 units — a predictable, controllable speed.</p>
+
+<p>The update function is also the right place to evaluate <strong>game conditions</strong> continuously: is the player out of bounds? Has a projectile struck an enemy? Has the score reached a winning threshold? Because <code>update</code> runs every frame, any condition checked there is evaluated at the same frequency as movement, so you will never miss a collision because it happened "between" checks.</p>
+
+<pre><code>function update() {
+    // Move the player
+    if (keys['ArrowRight']) player.x += player.speed;
+    if (keys['ArrowLeft'])  player.x -= player.speed;
+
+    // Clamp to canvas bounds
+    player.x = Math.max(0, Math.min(canvas.width - player.width, player.x));
+
+    // Check win condition
+    if (player.x > goalX) {
+        console.log('Level complete!');
+    }
+}
+</code></pre>
+
+<p><strong>Delta Time and Frame-Rate Independence</strong></p>
+
+<p>Adding a fixed velocity like <code>ball.x += 3</code> works fine at 60 fps, but consider what happens on a slower machine that only manages 30 fps. At 30 fps the update function runs half as many times per second, so the ball travels only half the distance it would at 60 fps. Players on slower hardware get a slower, harder game. Players on fast 144 Hz screens get a blazingly fast, unfair game. This is the <strong>frame-rate dependency</strong> problem.</p>
+
+<p>The solution is <strong>delta time</strong> (often written <code>dt</code>): the number of seconds (or milliseconds) that elapsed since the last frame. Instead of moving an object by a fixed pixel amount, you move it by <em>speed × deltaTime</em>. Because speed is now expressed in pixels-per-second and multiplied by the actual time elapsed, the total distance covered per second stays constant regardless of frame rate.</p>
+
+<p>To calculate delta time, store the timestamp received in the previous frame, then subtract it from the current timestamp:</p>
+
+<pre><code>let lastTimestamp = null;
+
+function gameLoop(timestamp) {
+    // On the very first frame, lastTimestamp is null, so delta defaults to 0
+    const dt = lastTimestamp !== null ? (timestamp - lastTimestamp) / 1000 : 0;
+    lastTimestamp = timestamp;
+
+    update(dt);
+    draw();
+    requestAnimationFrame(gameLoop);
+}
+</code></pre>
+
+<pre><code>// Speed expressed as pixels per SECOND
+const BALL_SPEED = 200; // 200 px/s
+
+function update(dt) {
+    ball.x += ball.vx * BALL_SPEED * dt;
+    ball.y += ball.vy * BALL_SPEED * dt;
+}
+</code></pre>
+
+<p>At 60 fps, <code>dt</code> ≈ 0.0167 s, so the ball moves <code>200 × 0.0167 ≈ 3.33 px</code> per frame. At 30 fps, <code>dt</code> ≈ 0.0333 s, so it moves <code>200 × 0.0333 ≈ 6.67 px</code> per frame — twice as far per frame, but only half as many frames. The result in both cases: the ball travels approximately 200 pixels per second.</p>
+
+<p>One important safeguard: if a browser tab is hidden or backgrounded, <code>requestAnimationFrame</code> pauses automatically (a feature, not a bug). When the tab becomes visible again, the <em>next</em> timestamp will be hundreds or thousands of milliseconds after the last one, producing a giant <code>dt</code> that launches objects across the screen in a single frame. Always <strong>clamp delta time</strong> to a safe maximum — a common choice is 100 ms (0.1 s):</p>
+
+<pre><code>const MAX_DT = 0.1; // seconds
+
+function gameLoop(timestamp) {
+    let dt = lastTimestamp !== null ? (timestamp - lastTimestamp) / 1000 : 0;
+    dt = Math.min(dt, MAX_DT); // prevent huge jumps after tab switch
+    lastTimestamp = timestamp;
+
+    update(dt);
+    draw();
+    requestAnimationFrame(gameLoop);
+}
+</code></pre>
+
+<p>The table below summarises what happens to object movement at various frame rates, both with and without delta-time correction, for an object with a target speed of 180 pixels per second:</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Frame Rate</th>
+            <th>Frames per second</th>
+            <th>Movement without delta time (px/frame fixed at 3)</th>
+            <th>Total px/second (no dt)</th>
+            <th>dt per frame (s)</th>
+            <th>Movement with delta time (180 px/s × dt)</th>
+            <th>Total px/second (with dt)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>30 fps</td>
+            <td>30</td>
+            <td>3 px</td>
+            <td>90 px/s</td>
+            <td>≈ 0.0333</td>
+            <td>≈ 6 px</td>
+            <td>180 px/s</td>
+        </tr>
+        <tr>
+            <td>60 fps</td>
+            <td>60</td>
+            <td>3 px</td>
+            <td>180 px/s</td>
+            <td>≈ 0.0167</td>
+            <td>≈ 3 px</td>
+            <td>180 px/s</td>
+        </tr>
+        <tr>
+            <td>120 fps</td>
+            <td>120</td>
+            <td>3 px</td>
+            <td>360 px/s</td>
+            <td>≈ 0.0083</td>
+            <td>≈ 1.5 px</td>
+            <td>180 px/s</td>
+        </tr>
+        <tr>
+            <td>144 fps</td>
+            <td>144</td>
+            <td>3 px</td>
+            <td>432 px/s</td>
+            <td>≈ 0.0069</td>
+            <td>≈ 1.25 px</td>
+            <td>180 px/s</td>
+        </tr>
+    </tbody>
+</table>
+
+<p>The pattern is clear: without delta time, faster hardware gives faster movement. With delta time, movement speed is consistent across all frame rates.</p>
+
+<p><strong>Starting and Stopping the Loop</strong></p>
+
+<p>The loop is started with a <strong>single initial call</strong> to <code>requestAnimationFrame(gameLoop)</code>. This must happen <em>after</em> all game assets are loaded, all variables are initialised, and the canvas is ready. Calling it too early (before images have loaded, for example) means your first frames may draw placeholder or missing content.</p>
+
+<p><code>requestAnimationFrame</code> returns a numeric <strong>frame ID</strong> — a handle that uniquely identifies the pending callback registration. Saving this ID is what allows you to stop the loop:</p>
+
+<pre><code>let frameId;
+
+function gameLoop(timestamp) {
+    update();
+    draw();
+    frameId = requestAnimationFrame(gameLoop); // save the new ID every frame
+}
+
+function startGame() {
+    frameId = requestAnimationFrame(gameLoop);
+}
+
+function pauseGame() {
+    cancelAnimationFrame(frameId); // the loop stops after the current frame
+}
+
+function resumeGame() {
+    lastTimestamp = null; // reset dt so there's no huge jump on resume
+    frameId = requestAnimationFrame(gameLoop);
+}
+</code></pre>
+
+<p><code>cancelAnimationFrame(frameId)</code> tells the browser to cancel the pending callback. Because the loop re-schedules itself at the end of every iteration, cancelling the <em>most recent</em> scheduled ID is all that is needed to halt the entire loop — it simply never schedules another frame after the current one finishes. Note that you cannot "resume" a cancelled callback; you must make a fresh call to <code>requestAnimationFrame</code> to restart scheduling, just as you did when first starting the game.</p>
+
+<p>A complete, well-structured example tying all concepts together:</p>
+
+<pre><code>const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+const ball = { x: 50, y: 150, radius: 20, speed: 180 }; // speed in px/s
+let directionX = 1;
+let lastTimestamp = null;
+let frameId = null;
+let running = false;
+
+function update(dt) {
+    ball.x += ball.speed * directionX * dt;
+    if (ball.x + ball.radius >= canvas.width || ball.x - ball.radius <= 0) {
+        directionX *= -1;
+    }
+}
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+    ctx.fillStyle = '#2980b9';
+    ctx.fill();
+}
+
+function gameLoop(timestamp) {
+    let dt = lastTimestamp !== null ? (timestamp - lastTimestamp) / 1000 : 0;
+    dt = Math.min(dt, 0.1); // clamp to 100 ms max
+    lastTimestamp = timestamp;
+
+    update(dt);
+    draw();
+
+    frameId = requestAnimationFrame(gameLoop);
+}
+
+function start() {
+    if (!running) {
+        running = true;
+        lastTimestamp = null;
+        frameId = requestAnimationFrame(gameLoop);
+    }
+}
+
+function stop() {
+    if (running) {
+        running = false;
+        cancelAnimationFrame(frameId);
+    }
+}
+
+// Begin on page load
+start();
+</code></pre>
+
+<p>This example demonstrates every principle from this topic: a named loop function, separated update and draw helpers, delta-time calculation with clamping, frame ID management, and clean start/stop control. A ball bounces horizontally at a consistent 180 pixels per second regardless of the display's refresh rate — the hallmark of a correctly implemented game loop.</p>
+        <div class="notes"><strong>Notes</strong>Students should run the complete example in a browser and experiment by changing the ball&#39;s speed value, the canvas size, and the MAX_DT clamp value to observe the effects. A useful exercise is to deliberately omit the clearRect call and observe the smearing effect, then omit the delta-time multiplication and compare movement on a throttled CPU using browser DevTools.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

@@ -1,0 +1,1181 @@
+{
+  "ModuleFolderName": "Styling_Web_Pages",
+  "CourseName": "COP4813",
+  "GeneratedDate": "2026-06-26T21:30:38.1486192-04:00",
+  "ModifiedDate": "2026-06-26T21:33:04.5909309-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "ceedebdf-cb77-4544-96fd-17a00104d525",
+      "Title": "Introduction to CSS",
+      "Summary": "An overview of what Cascading Style Sheets are and how they work alongside HTML to control the visual presentation of web pages. Students learn how to link CSS to their HTML documents using inline, internal, and external stylesheet methods.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-06-26T21:30:38.1486192-04:00",
+      "ModifiedDate": "2026-06-26T21:30:38.1486192-04:00",
+      "Elements": [
+        {
+          "Id": "fccabb6b-b479-4168-8235-63d582d3c1e9",
+          "TopicId": "ceedebdf-cb77-4544-96fd-17a00104d525",
+          "Title": "What is CSS?",
+          "BodyText": "CSS, or Cascading Style Sheets, is a stylesheet language used to control the visual presentation of HTML documents.",
+          "Notes": "Think of HTML as the skeleton of a web page and CSS as the clothing and makeup \u2014 it dictates how elements look without changing their underlying structure.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:30:57.1071571-04:00",
+          "ModifiedDate": "2026-06-26T21:30:57.1071571-04:00",
+          "Items": [
+            {
+              "Id": "cabc23df-5b99-4f9c-a758-3fa739729012",
+              "Text": "CSS separates content (HTML) from presentation (styles), making websites easier to maintain and update.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3ea2f6cb-5501-40b6-8d4c-64eda5a77398",
+              "Text": "The \u0027cascading\u0027 in CSS refers to the way styles are applied in a specific order of priority when multiple rules target the same element.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f4ac4147-7b23-440c-88b8-86fd571af636",
+              "Text": "CSS controls properties such as colors, fonts, spacing, sizing, and layout of HTML elements.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "26a2fa92-55b0-4020-b40c-2249cee50763",
+          "TopicId": "ceedebdf-cb77-4544-96fd-17a00104d525",
+          "Title": "How CSS Works with HTML",
+          "BodyText": "CSS works alongside HTML by targeting HTML elements and applying visual rules to them.",
+          "Notes": "A browser reads both the HTML and CSS files, combines them, and renders the final styled page that users see.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:30:57.1071571-04:00",
+          "ModifiedDate": "2026-06-26T21:30:57.1071571-04:00",
+          "Items": [
+            {
+              "Id": "f22b3765-0f04-446f-af4e-e046b3da14b9",
+              "Text": "CSS rules consist of a selector that targets an HTML element and a declaration block containing property-value pairs.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "259d6196-826a-486e-b925-9047903ed996",
+              "Text": "A browser applies CSS rules to the matching HTML elements when rendering the page.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1c3a4821-002f-4021-8fae-6f639a53544d",
+              "Text": "Without CSS, web pages display only unstyled, plain text and images arranged by the browser\u0027s default settings.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "635ed0ff-806e-47c4-95db-025b584253a6",
+          "TopicId": "ceedebdf-cb77-4544-96fd-17a00104d525",
+          "Title": "Inline CSS",
+          "BodyText": "Inline CSS is applied directly to a single HTML element using the style attribute within the opening tag.",
+          "Notes": "Example: \u003Cp style=\u0022color: red; font-size: 16px;\u0022\u003EHello World\u003C/p\u003E. This method is useful for quick, one-off style changes but is not recommended for large projects.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:30:57.1071571-04:00",
+          "ModifiedDate": "2026-06-26T21:30:57.1071571-04:00",
+          "Items": [
+            {
+              "Id": "c8626a64-99fd-487f-8399-7b92f6a4ed10",
+              "Text": "Inline styles are written inside the style attribute of any HTML element.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d232dba8-39af-4590-9bc0-e01dd0906f79",
+              "Text": "Because inline CSS targets only one element at a time, it does not promote reusability and can make code harder to maintain.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c7e41abc-ad61-48c0-b4c0-454f43610bb5",
+              "Text": "Inline CSS has the highest specificity, meaning it overrides both internal and external stylesheet rules for that element.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "cf6f3efb-5281-42a3-9abe-d50701056e72",
+          "TopicId": "ceedebdf-cb77-4544-96fd-17a00104d525",
+          "Title": "Internal CSS",
+          "BodyText": "Internal CSS is written inside a \u003Cstyle\u003E element placed within the \u003Chead\u003E section of an HTML document.",
+          "Notes": "Example: \u003Cstyle\u003E p { color: blue; } \u003C/style\u003E placed in the \u003Chead\u003E. This method is useful for styling a single page without creating a separate file.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:30:57.1071571-04:00",
+          "ModifiedDate": "2026-06-26T21:30:57.1071571-04:00",
+          "Items": [
+            {
+              "Id": "5e259689-240a-442e-b587-fa47c314d8ad",
+              "Text": "Internal styles apply to the entire HTML page in which they are written, allowing multiple elements to share the same rules.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c9557493-971e-4bcc-9062-bcc1d5a5ec2e",
+              "Text": "Because the styles are embedded in the HTML file, they do not require a separate CSS file to be downloaded.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e9368022-f264-4176-ac56-d7f43797c177",
+              "Text": "Internal CSS is better for single-page styling but becomes inefficient when the same styles need to be applied across multiple pages.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "5a4db397-cfa6-4a36-b98b-5ac56ae46a6e",
+          "TopicId": "ceedebdf-cb77-4544-96fd-17a00104d525",
+          "Title": "External CSS",
+          "BodyText": "External CSS stores all styles in a separate .css file that is linked to one or more HTML documents.",
+          "Notes": "Example: \u003Clink rel=\u0022stylesheet\u0022 href=\u0022styles.css\u0022\u003E placed in the \u003Chead\u003E of an HTML file. This is the most widely used and recommended method for professional web development.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:30:57.1071571-04:00",
+          "ModifiedDate": "2026-06-26T21:30:57.1071571-04:00",
+          "Items": [
+            {
+              "Id": "e94b4a6a-e2e2-4ae7-a282-83df74a5fb9e",
+              "Text": "A single external stylesheet can be linked to multiple HTML pages, ensuring visual consistency across an entire website.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "803ba811-0849-4848-a76a-cc76bfa638f6",
+              "Text": "Separating CSS into its own file keeps HTML documents clean and easier to read.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "da4c7243-c6ef-4ab2-95d2-0663611c42a3",
+              "Text": "Browsers can cache external CSS files, which improves page load performance on repeat visits.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "aab6437b-8712-47ce-bbae-3f48259fdbdd",
+          "TopicId": "ceedebdf-cb77-4544-96fd-17a00104d525",
+          "Title": "Choosing the Right Method",
+          "BodyText": "Each of the three CSS methods \u2014 inline, internal, and external \u2014 has appropriate use cases depending on the scope and scale of styling needed.",
+          "Notes": "As a general best practice, external stylesheets are preferred for most real-world projects because they maximize reusability and maintainability.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:30:57.1071571-04:00",
+          "ModifiedDate": "2026-06-26T21:30:57.1071571-04:00",
+          "Items": [
+            {
+              "Id": "a820e1b4-02d7-4fe2-bf6b-6574e18af3a9",
+              "Text": "Inline CSS is best reserved for testing or for highly specific overrides that should not affect other elements.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e6bfc43b-f12f-4ad1-a9bd-d56a9ae2515d",
+              "Text": "Internal CSS is suitable when creating a standalone page that will not share styles with other pages.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a170ea31-cbf6-4351-a14b-b1b2a8b76dbd",
+              "Text": "External CSS is the industry standard for multi-page websites, as it centralizes all styling in one manageable location.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "59c3290c-8303-4315-a6c4-cdcf37850f1d",
+      "Title": "CSS Selectors",
+      "Summary": "Exploration of the different types of CSS selectors including element, class, ID, and combination selectors used to target specific HTML elements. Students learn how specificity and the cascade determine which styles are applied when rules conflict.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-06-26T21:30:38.1486192-04:00",
+      "ModifiedDate": "2026-06-26T21:30:38.1486192-04:00",
+      "Elements": [
+        {
+          "Id": "caf8e1f0-e385-404c-b2fe-7e9a60c58589",
+          "TopicId": "59c3290c-8303-4315-a6c4-cdcf37850f1d",
+          "Title": "Element Selectors",
+          "BodyText": "Element selectors target HTML elements directly by their tag name, applying styles to every instance of that element on the page.",
+          "Notes": "For example, writing \u0027p { color: blue; }\u0027 will turn all paragraph text blue across the entire document.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:31:20.8302422-04:00",
+          "ModifiedDate": "2026-06-26T21:31:20.8302422-04:00",
+          "Items": [
+            {
+              "Id": "597d9ff9-945d-4857-8f8c-74a36be46f50",
+              "Text": "Element selectors are the most basic form of CSS selector and match every occurrence of a given HTML tag.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "bec9b926-2632-4694-9ff2-cd9e18d5f3fd",
+              "Text": "They are useful for setting broad, default styles for common elements like headings, paragraphs, and links.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "67339705-2d89-425c-b8e5-d51504324043",
+              "Text": "Because they apply globally, element selectors typically have the lowest level of specificity among the main selector types.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "d8a86ae1-28fa-4f8a-a8e0-03a744d1bda8",
+          "TopicId": "59c3290c-8303-4315-a6c4-cdcf37850f1d",
+          "Title": "Class Selectors",
+          "BodyText": "Class selectors target elements that share a specific class attribute, allowing the same styles to be applied to multiple elements regardless of their tag type.",
+          "Notes": "A class selector is written with a leading dot, such as \u0027.highlight { background-color: yellow; }\u0027. Multiple elements can share the same class, and a single element can carry multiple classes.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:31:20.8302422-04:00",
+          "ModifiedDate": "2026-06-26T21:31:20.8302422-04:00",
+          "Items": [
+            {
+              "Id": "97871672-1ea6-4cb7-a484-7659a8e5e7b7",
+              "Text": "Class selectors are defined in CSS with a period (.) followed by the class name.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d4f6b265-50e1-4c61-b035-4021b9a645ee",
+              "Text": "They offer reusability, letting developers style diverse HTML elements consistently by assigning them the same class.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5e521f38-cbbf-44e7-aba4-65c95fd5e7e9",
+              "Text": "A single HTML element can have more than one class applied to it, enabling combinations of styles.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "806af332-c570-48d0-9ec7-d4eeabffe71b",
+          "TopicId": "59c3290c-8303-4315-a6c4-cdcf37850f1d",
+          "Title": "ID Selectors",
+          "BodyText": "ID selectors target a single, unique element on a page using the element\u0027s id attribute, making them ideal for styling one-of-a-kind components.",
+          "Notes": "An ID selector is written with a hash symbol, such as \u0027#main-header { font-size: 2em; }\u0027. Because IDs must be unique within a page, this selector should only match one element.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:31:20.8302422-04:00",
+          "ModifiedDate": "2026-06-26T21:31:20.8302422-04:00",
+          "Items": [
+            {
+              "Id": "109a1495-489b-4608-be48-ce442263d3f3",
+              "Text": "ID selectors are prefixed with a hash (#) in CSS and correspond to the id attribute on an HTML element.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3eab3652-71e1-492f-ae82-21c148de265b",
+              "Text": "Each ID should be unique within an HTML document, so an ID selector targets at most one element.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2415b5bb-fb9d-4b58-b31d-0482351e4198",
+              "Text": "ID selectors carry higher specificity than class or element selectors, meaning their styles will override conflicting class or element rules.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "243cf33f-310f-47ef-be53-527f6e3fc530",
+          "TopicId": "59c3290c-8303-4315-a6c4-cdcf37850f1d",
+          "Title": "Combination Selectors",
+          "BodyText": "Combination selectors allow developers to target elements based on their relationship to other elements or by combining multiple conditions, enabling precise styling control.",
+          "Notes": "Examples include descendant selectors (\u0027div p\u0027 targets paragraphs inside divs), child selectors (\u0027ul \u003E li\u0027 targets direct list-item children), and grouped selectors (\u0027h1, h2, h3\u0027 applies the same rule to all three headings).",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:31:20.8302422-04:00",
+          "ModifiedDate": "2026-06-26T21:31:20.8302422-04:00",
+          "Items": [
+            {
+              "Id": "736ad4b1-5867-45a4-b012-0c8648a7d4c9",
+              "Text": "Descendant selectors target elements nested anywhere inside a specified ancestor element.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d585aeb3-c560-486f-977d-027506494d2a",
+              "Text": "Child selectors (using \u0027\u003E\u0027) restrict targeting to direct children only, not deeper descendants.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c04e018a-4a13-4fcd-a62b-f977345f945e",
+              "Text": "Grouped selectors allow the same declaration block to be applied to multiple selectors separated by commas, reducing code repetition.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "49acec22-2868-458e-9638-b4ee623b37fd",
+              "Text": "Combining class and element selectors (e.g., \u0027p.intro\u0027) narrows targeting to only elements that match both conditions.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "a01ead92-36c7-4765-9c07-0eacefb5ccb5",
+          "TopicId": "59c3290c-8303-4315-a6c4-cdcf37850f1d",
+          "Title": "CSS Specificity",
+          "BodyText": "Specificity is a scoring system browsers use to determine which CSS rule takes precedence when multiple rules target the same element and property.",
+          "Notes": "Specificity is often represented as a three-part value (ID count, class/attribute count, element count). For example, \u0027#nav .link a\u0027 scores (1, 1, 1), giving it higher specificity than \u0027.link a\u0027 which scores (0, 1, 1).",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:31:20.8302422-04:00",
+          "ModifiedDate": "2026-06-26T21:31:20.8302422-04:00",
+          "Items": [
+            {
+              "Id": "142c0370-c878-42e1-9b04-f2284a3075d8",
+              "Text": "Inline styles have the highest specificity, followed by ID selectors, then class selectors, and finally element selectors.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8c3105e9-49aa-4e59-bcf9-2861d47601b5",
+              "Text": "When two rules have equal specificity, the one that appears later in the stylesheet wins.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b7d001bc-7241-4ebe-90b7-6c91f2ef9be5",
+              "Text": "Understanding specificity helps developers write predictable CSS and avoid unintended style overrides.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9ce93b17-28b3-40b8-8c43-eaf9414e065a",
+              "Text": "Overly specific selectors can make stylesheets harder to maintain; keeping specificity low and consistent is a best practice.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "c73d170a-7a78-41f4-b37c-c9b04071279f",
+          "TopicId": "59c3290c-8303-4315-a6c4-cdcf37850f1d",
+          "Title": "The Cascade",
+          "BodyText": "The cascade is the algorithm CSS uses to resolve conflicts between rules, considering origin, specificity, and source order to decide which styles are ultimately applied.",
+          "Notes": "The term \u0027Cascading\u0027 in CSS comes directly from this mechanism. Styles can originate from the browser\u0027s default stylesheet, author stylesheets, or user preferences, and the cascade prioritizes them accordingly.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:31:20.8302422-04:00",
+          "ModifiedDate": "2026-06-26T21:31:20.8302422-04:00",
+          "Items": [
+            {
+              "Id": "a11c840a-251e-466e-b474-6c845c304724",
+              "Text": "The cascade evaluates style rules in order of importance: browser defaults are overridden by author styles, which can be overridden by user styles.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9c0d6248-bd26-4fc5-bdb8-a1e177132e68",
+              "Text": "Within the same origin, specificity is compared next; the more specific rule wins.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1332160b-727c-470b-adef-41874207bd23",
+              "Text": "If origin and specificity are equal, the rule declared last in the source order takes effect.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "5dd8448a-dfe0-4187-8b41-0998ca98ba9c",
+              "Text": "The \u0027!important\u0027 declaration can override the normal cascade order but should be used sparingly as it makes debugging more difficult.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "a33a1648-dc22-4f8a-a61f-a5eb3b863eda",
+      "Title": "The Box Model",
+      "Summary": "A foundational concept explaining how every HTML element is treated as a rectangular box with content, padding, border, and margin areas. Students learn how to manipulate these properties to control spacing and sizing of elements on a page.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-06-26T21:30:38.1486192-04:00",
+      "ModifiedDate": "2026-06-26T21:30:38.1486192-04:00",
+      "Elements": [
+        {
+          "Id": "22e0cc58-8ed5-4f4b-8564-33c86aeabfad",
+          "TopicId": "a33a1648-dc22-4f8a-a61f-a5eb3b863eda",
+          "Title": "What Is the Box Model?",
+          "BodyText": "Every HTML element on a web page is treated by the browser as a rectangular box. This box is made up of four distinct areas that together form the CSS Box Model.",
+          "Notes": "Understanding the box model is essential before attempting any layout work in CSS, as all spacing and sizing calculations rely on it.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:31:48.2878653-04:00",
+          "ModifiedDate": "2026-06-26T21:31:48.2878653-04:00",
+          "Items": [
+            {
+              "Id": "56bc6848-bdb5-46eb-8e75-12bdd1c2d31a",
+              "Text": "The four areas of the box model, from innermost to outermost, are: content, padding, border, and margin.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4758c8c2-3550-4a80-8ada-fd6f4c3ed675",
+              "Text": "The browser uses these four layers to calculate how much space an element occupies on the page.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ad99b7f8-3c3a-40eb-ba0a-da571e1c759b",
+              "Text": "Every HTML element \u2014 whether a heading, paragraph, image, or div \u2014 follows this same box model structure.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "1c26302a-7c2d-423a-883d-06dd71cdb657",
+          "TopicId": "a33a1648-dc22-4f8a-a61f-a5eb3b863eda",
+          "Title": "The Content Area",
+          "BodyText": "The content area is the innermost part of the box, where the actual text, images, or other media of an element are displayed.",
+          "Notes": "For example, the text inside a \u003Cp\u003E tag lives in the content area. The width and height CSS properties directly control the size of this area by default.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:31:48.2878653-04:00",
+          "ModifiedDate": "2026-06-26T21:31:48.2878653-04:00",
+          "Items": [
+            {
+              "Id": "a34f17ea-f30a-4718-9cef-ff5f750702d9",
+              "Text": "The content area\u0027s dimensions are set using the CSS \u0027width\u0027 and \u0027height\u0027 properties.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5be5826e-cd95-426c-8064-e0c085928d8e",
+              "Text": "Content can overflow its defined area if the dimensions are too small, which is controlled with the \u0027overflow\u0027 property.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d517a0cf-fa97-49f2-8f58-3b8535705e57",
+              "Text": "The background color or image of an element fills the content area as well as the padding area.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "84a718b8-9e61-45ad-8580-e08cc34bbe28",
+          "TopicId": "a33a1648-dc22-4f8a-a61f-a5eb3b863eda",
+          "Title": "Padding",
+          "BodyText": "Padding is the space between the content area and the element\u0027s border. It creates breathing room inside the element, pushing the content away from the edges.",
+          "Notes": "For example, adding \u0027padding: 20px;\u0027 to a button gives the text inside space from the button\u0027s edges, making it look more visually balanced.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:31:48.2878653-04:00",
+          "ModifiedDate": "2026-06-26T21:31:48.2878653-04:00",
+          "Items": [
+            {
+              "Id": "2882eb50-d3b8-47c4-9a64-0d56ddc72ad1",
+              "Text": "Padding is set using the \u0027padding\u0027 shorthand property or individual sides: \u0027padding-top\u0027, \u0027padding-right\u0027, \u0027padding-bottom\u0027, and \u0027padding-left\u0027.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "62c42d43-420b-4455-b4f4-a20cba0eb105",
+              "Text": "Padding inherits the element\u0027s background color, so it appears as an extension of the content area visually.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e3abba23-5a43-4bf0-a90c-26c0b7a1e9bd",
+              "Text": "Unlike margin, padding cannot be set to negative values.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "20fa8b29-c6af-447e-87a8-3813b63c1efb",
+          "TopicId": "a33a1648-dc22-4f8a-a61f-a5eb3b863eda",
+          "Title": "Border",
+          "BodyText": "The border wraps around the padding and content areas, forming a visible or invisible boundary around the element. It sits between the padding and the margin.",
+          "Notes": "A common example is \u0027border: 2px solid black;\u0027, which draws a solid black line 2 pixels wide around the element.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:31:48.2878653-04:00",
+          "ModifiedDate": "2026-06-26T21:31:48.2878653-04:00",
+          "Items": [
+            {
+              "Id": "9e731824-a0b7-41f5-9f8a-d0c2d8f0dad4",
+              "Text": "Borders are defined using the \u0027border\u0027 shorthand, which accepts values for width, style, and color (e.g., \u00271px dashed red\u0027).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ab4f5b4f-1930-4b06-90b8-79e01a196d61",
+              "Text": "Border style must be set (e.g., solid, dashed, dotted) for the border to be visible; without a style, no border is rendered.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "eca9acd9-c64d-453b-af41-5676c632db65",
+              "Text": "Individual sides can be targeted with properties like \u0027border-top\u0027, \u0027border-right\u0027, \u0027border-bottom\u0027, and \u0027border-left\u0027.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "1e63039b-175d-4560-ab3c-abae5b99d89e",
+              "Text": "The \u0027border-radius\u0027 property rounds the corners of the border, enabling circular or pill-shaped elements.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "3ce370d3-b62c-49be-a8d4-7c5a751b4194",
+          "TopicId": "a33a1648-dc22-4f8a-a61f-a5eb3b863eda",
+          "Title": "Margin",
+          "BodyText": "Margin is the outermost layer of the box model, creating space outside the element\u0027s border to separate it from neighboring elements.",
+          "Notes": "A key behavior to understand is margin collapsing: when two vertical margins meet, they collapse into a single margin equal to the larger of the two values, rather than adding together.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:31:48.2878653-04:00",
+          "ModifiedDate": "2026-06-26T21:31:48.2878653-04:00",
+          "Items": [
+            {
+              "Id": "9ae5a9d0-63b1-433c-950f-ef308caf6d0d",
+              "Text": "Margins are set using the \u0027margin\u0027 shorthand or individual side properties: \u0027margin-top\u0027, \u0027margin-right\u0027, \u0027margin-bottom\u0027, and \u0027margin-left\u0027.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "03f45f41-5209-45c2-a387-31e81a11052c",
+              "Text": "Unlike padding, margin areas are transparent and do not inherit the element\u0027s background color.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "aad6d5d1-5f11-4d2e-b6ab-ec8dcce1a261",
+              "Text": "Margins can be set to negative values to pull elements closer together or overlap them.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a8e2d9a4-5572-4c53-96c2-05def39bca8a",
+              "Text": "Setting \u0027margin: 0 auto;\u0027 on a block element with a defined width is a common technique to horizontally center it on the page.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "4b64271f-0139-4d69-ae32-8d2ae743cc30",
+          "TopicId": "a33a1648-dc22-4f8a-a61f-a5eb3b863eda",
+          "Title": "The box-sizing Property",
+          "BodyText": "By default, the \u0027width\u0027 and \u0027height\u0027 properties in CSS apply only to the content area, meaning padding and border are added on top of that size. The \u0027box-sizing\u0027 property changes how the total size of an element is calculated.",
+          "Notes": "Most modern developers apply \u0027box-sizing: border-box;\u0027 globally using a universal selector reset (* { box-sizing: border-box; }) to make sizing more predictable across a project.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:31:48.2878653-04:00",
+          "ModifiedDate": "2026-06-26T21:31:48.2878653-04:00",
+          "Items": [
+            {
+              "Id": "9a9c8d9e-ec6b-430d-8400-770cda013d19",
+              "Text": "The default value is \u0027content-box\u0027, where width and height define only the content area; padding and border increase the element\u0027s total rendered size.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b0972c0f-0eb7-40fd-8906-4bffe7d7b6c7",
+              "Text": "Setting \u0027box-sizing: border-box;\u0027 makes width and height include the content, padding, and border, so the element will never render larger than the defined dimensions.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e82b8f9a-4227-4cc1-a73a-1827b2606710",
+              "Text": "Using \u0027border-box\u0027 makes it significantly easier to build predictable, consistent layouts without doing manual size calculations.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "58301f9f-2d8a-4b0d-9761-746624baef22",
+          "TopicId": "a33a1648-dc22-4f8a-a61f-a5eb3b863eda",
+          "Title": "Inspecting the Box Model with DevTools",
+          "BodyText": "Modern browser developer tools provide a visual diagram of the box model for any selected element, making it easy to inspect and debug spacing and sizing issues.",
+          "Notes": "In Chrome or Firefox DevTools, selecting an element and opening the \u0027Computed\u0027 or \u0027Layout\u0027 panel displays a color-coded box model diagram showing exact pixel values for margin, border, padding, and content.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:31:48.2878653-04:00",
+          "ModifiedDate": "2026-06-26T21:31:48.2878653-04:00",
+          "Items": [
+            {
+              "Id": "1f0b11be-64d7-4eaf-8627-c2394806d6e3",
+              "Text": "Right-clicking an element on a page and selecting \u0027Inspect\u0027 opens the browser\u0027s DevTools, where the box model diagram is visible in the Styles or Computed panel.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c5e8bc52-6d72-4907-a35d-dd38c8dba1b2",
+              "Text": "Hovering over an element in DevTools highlights its margin (orange), border (yellow), padding (green), and content (blue) areas directly on the page.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d1d76e0f-6878-4104-be91-c8d2364e7722",
+              "Text": "Using DevTools to experiment with box model values in real time is an efficient way to learn how changes to padding, border, and margin affect layout before writing them in code.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "7a597a8d-7f3b-4af9-8da1-a90411d0e80e",
+      "Title": "Typography and Colors",
+      "Summary": "Covers CSS properties for styling text including font family, size, weight, line height, and text alignment to improve readability. Students also learn how to apply colors using named values, hex codes, and RGB notation to both text and backgrounds.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-06-26T21:30:38.1486192-04:00",
+      "ModifiedDate": "2026-06-26T21:30:38.1486192-04:00",
+      "Elements": [
+        {
+          "Id": "5dc31c7e-b4ba-4fcd-af6a-9033c8b70002",
+          "TopicId": "7a597a8d-7f3b-4af9-8da1-a90411d0e80e",
+          "Title": "Font Family",
+          "BodyText": "The font-family property specifies the typeface used to display text on a web page.",
+          "Notes": "It is best practice to provide a font stack \u2014 a comma-separated list of fonts \u2014 so the browser falls back to the next option if a font is unavailable. Example: font-family: \u0027Helvetica Neue\u0027, Arial, sans-serif;",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:32:13.8308794-04:00",
+          "ModifiedDate": "2026-06-26T21:32:13.8308794-04:00",
+          "Items": [
+            {
+              "Id": "32a6df1d-b601-44c7-a22c-a65624c86327",
+              "Text": "A font stack lists multiple fonts in order of preference, ending with a generic family such as serif, sans-serif, or monospace.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d34622d7-e4cd-48fa-864f-76c9f6527045",
+              "Text": "Web-safe fonts like Arial and Georgia are reliably available across most devices without additional loading.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "72556072-277e-439e-b083-8f4e86654902",
+              "Text": "Custom fonts can be loaded using Google Fonts or the @font-face rule to expand beyond web-safe options.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "acf19a7d-aa07-4a22-82cf-b726d970e751",
+              "Text": "Always end a font stack with a generic family name to guarantee a usable fallback.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "72e555ea-5766-4726-b0ce-fcb6e8a30895",
+          "TopicId": "7a597a8d-7f3b-4af9-8da1-a90411d0e80e",
+          "Title": "Font Size and Weight",
+          "BodyText": "Font size controls how large text appears, while font weight controls its thickness or boldness.",
+          "Notes": "Using relative units like em or rem for font size improves accessibility and scalability across different screen sizes. Example: font-size: 1.2rem; font-weight: 700;",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:32:13.8308794-04:00",
+          "ModifiedDate": "2026-06-26T21:32:13.8308794-04:00",
+          "Items": [
+            {
+              "Id": "5fc0b1d1-cb4b-42b9-88f2-279597d3d014",
+              "Text": "The font-size property accepts absolute units (px, pt) and relative units (em, rem, %) to set text size.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e21bc758-1c81-4943-a3a8-9203a3ebf5e6",
+              "Text": "Using rem units ties the font size to the root element, making it easier to scale text consistently across the page.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f601f7ef-65bb-4e82-b5b6-79ed5588671c",
+              "Text": "The font-weight property accepts keyword values like normal and bold, or numeric values from 100 (thin) to 900 (extra bold).",
+              "SortOrder": 2
+            },
+            {
+              "Id": "263b7f1f-492c-4701-80e2-d98d52316596",
+              "Text": "Bold text is commonly used to emphasize headings and important information, improving visual hierarchy.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "9de22ae2-8ff2-4608-80cf-1c325b663755",
+          "TopicId": "7a597a8d-7f3b-4af9-8da1-a90411d0e80e",
+          "Title": "Line Height and Text Alignment",
+          "BodyText": "Line height and text alignment are key properties that directly affect the readability and layout of text blocks.",
+          "Notes": "A line-height value between 1.4 and 1.6 is generally recommended for body text to ensure comfortable reading. Example: line-height: 1.5; text-align: center;",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:32:13.8308794-04:00",
+          "ModifiedDate": "2026-06-26T21:32:13.8308794-04:00",
+          "Items": [
+            {
+              "Id": "240265ee-8b7d-4322-ae0e-29171ea79674",
+              "Text": "The line-height property sets the vertical space between lines of text; unitless values like 1.5 are preferred as they scale with the font size.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b2ed088a-2651-4c14-bfc3-f81173b232bb",
+              "Text": "Adequate line height prevents text from feeling cramped and significantly improves readability, especially in paragraphs.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "388bba6f-c05a-4a14-b52a-cfb2a1a491c5",
+              "Text": "The text-align property positions text horizontally within its container using values such as left, right, center, or justify.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c92bac6f-8bcb-4c13-b8df-2e1a59a7369a",
+              "Text": "Justified text creates clean edges on both sides but can produce uneven word spacing; left alignment is generally safer for readability.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "51fca362-cc76-4109-8766-256f80facdbe",
+          "TopicId": "7a597a8d-7f3b-4af9-8da1-a90411d0e80e",
+          "Title": "Applying Colors with Named Values and Hex Codes",
+          "BodyText": "CSS allows colors to be specified using human-readable named values or precise hexadecimal codes.",
+          "Notes": "There are 140 named CSS colors such as tomato, steelblue, and coral. Hex codes offer far greater precision with over 16 million possible color combinations. Example: color: tomato; background-color: #3a86ff;",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:32:13.8308794-04:00",
+          "ModifiedDate": "2026-06-26T21:32:13.8308794-04:00",
+          "Items": [
+            {
+              "Id": "e6febc29-0f06-428d-a80c-10fa4787a8a5",
+              "Text": "Named colors like red, white, and navy are easy to read and write but are limited to a predefined set of values.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ca2539b6-84c6-4b0b-9534-8bda28d2acca",
+              "Text": "Hex codes use a six-character combination of digits and letters (0\u20139, A\u2013F) prefixed with #, representing red, green, and blue channel values.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8de5f7a9-3ab5-4b2f-987b-6cb32c0e9583",
+              "Text": "Shorthand hex codes can be used when each pair repeats, for example #fff instead of #ffffff.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "df6bdea8-eb50-435a-ac07-a2549b04c8be",
+              "Text": "Hex codes are widely used in design tools and style guides, making them a practical choice for matching specific brand colors.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "0ede1808-05a0-4e61-9c67-7335d6dcb98e",
+          "TopicId": "7a597a8d-7f3b-4af9-8da1-a90411d0e80e",
+          "Title": "Applying Colors with RGB Notation",
+          "BodyText": "RGB notation defines colors by specifying the intensity of red, green, and blue channels as numeric values from 0 to 255.",
+          "Notes": "RGBA extends RGB by adding an alpha channel for transparency, where 0 is fully transparent and 1 is fully opaque. Example: color: rgb(255, 87, 51); background-color: rgba(0, 0, 0, 0.5);",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:32:13.8308794-04:00",
+          "ModifiedDate": "2026-06-26T21:32:13.8308794-04:00",
+          "Items": [
+            {
+              "Id": "82e707d9-85d7-4e04-86eb-ab7e5f05a76a",
+              "Text": "The rgb() function takes three arguments representing red, green, and blue values, each ranging from 0 to 255.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "cdab5073-d926-465a-832e-aac2983466d3",
+              "Text": "RGB notation is intuitive for understanding how colors mix, since combining all channels at 255 produces white and all at 0 produces black.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "df615ab9-858a-4c4c-accd-f71288d76790",
+              "Text": "The rgba() function adds a fourth alpha argument to control transparency, useful for overlays and subtle background effects.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "36ba23c3-b433-44ef-8104-0db3090a1135",
+              "Text": "RGB and RGBA values are especially convenient when color values need to be dynamically calculated or adjusted with JavaScript.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "b011ed3a-5ff8-4503-a98f-c6aab4277d4c",
+          "TopicId": "7a597a8d-7f3b-4af9-8da1-a90411d0e80e",
+          "Title": "Styling Text Color and Background Color",
+          "BodyText": "CSS provides two distinct properties for applying color: one for text and one for the background of an element.",
+          "Notes": "Ensuring sufficient contrast between text color and background color is essential for accessibility and meets WCAG guidelines. Tools like the WebAIM Contrast Checker can help verify contrast ratios.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:32:13.8308794-04:00",
+          "ModifiedDate": "2026-06-26T21:32:13.8308794-04:00",
+          "Items": [
+            {
+              "Id": "4bb86d9f-653d-42e7-96fd-443ca3826a88",
+              "Text": "The color property sets the foreground color of text content within an element.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "07b35d46-cf16-44f0-b1fd-3f8619e4ebb2",
+              "Text": "The background-color property fills the background area of an element with a specified color, accepting named, hex, or RGB values.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "53361dfb-d59a-4973-84eb-f813aca7aee0",
+              "Text": "Both properties can be applied to any HTML element, allowing precise control over visual presentation throughout the page.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "fee8cbab-1326-4740-8c1a-90ce4c5f82db",
+              "Text": "High contrast between text and background colors improves readability for all users, including those with visual impairments.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "629afa56-cd4d-4671-b42b-e8c5952611d2",
+      "Title": "CSS Layout Techniques",
+      "Summary": "An introduction to modern CSS layout methods including Flexbox and basic positioning to arrange elements on a web page. Students apply these techniques to structure multi-section page layouts in a visually organized way.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-06-26T21:30:38.1486192-04:00",
+      "ModifiedDate": "2026-06-26T21:30:38.1486192-04:00",
+      "Elements": [
+        {
+          "Id": "9890bad3-12ee-4074-84ea-da4e7c41e5c2",
+          "TopicId": "629afa56-cd4d-4671-b42b-e8c5952611d2",
+          "Title": "Understanding CSS Layout Flow",
+          "BodyText": "By default, browsers arrange HTML elements using normal document flow, where block elements stack vertically and inline elements sit side by side.",
+          "Notes": "Understanding normal flow is the foundation before applying any layout technique. Knowing how elements behave by default helps you predict what needs to be overridden.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:32:35.8222315-04:00",
+          "ModifiedDate": "2026-06-26T21:32:35.8222315-04:00",
+          "Items": [
+            {
+              "Id": "419dbf48-4e73-4805-8ef9-3bba03fbf26c",
+              "Text": "Block-level elements like \u003Cdiv\u003E and \u003Cp\u003E take up the full width available and stack on top of one another.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4c26e323-988a-42b4-b080-2063e3b4bbe7",
+              "Text": "Inline elements like \u003Cspan\u003E and \u003Ca\u003E sit next to each other horizontally within a line.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4d256011-6902-4b1a-ac9f-f2ae06d7850b",
+              "Text": "Overriding normal flow with layout tools like Flexbox or positioning gives designers precise control over element placement.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "f51ffe7f-8392-4685-89d8-5c7de81a6e11",
+          "TopicId": "629afa56-cd4d-4671-b42b-e8c5952611d2",
+          "Title": "Introducing Flexbox",
+          "BodyText": "Flexbox is a one-dimensional CSS layout model that arranges items in a row or column, making it easy to align and distribute space among elements in a container.",
+          "Notes": "Flexbox is ideal for navigation bars, card rows, and any UI component that requires items to be evenly spaced or centered along a single axis.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:32:35.8222315-04:00",
+          "ModifiedDate": "2026-06-26T21:32:35.8222315-04:00",
+          "Items": [
+            {
+              "Id": "57aca6b1-8024-422b-8b05-74556824f749",
+              "Text": "Apply display: flex; to a parent container to activate Flexbox for all its direct children.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f91f356a-8fed-4583-b926-f52c5cde6047",
+              "Text": "The flex-direction property controls whether children are laid out in a row (horizontal) or a column (vertical).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9acf853f-9f65-4801-8888-9b11e5cff966",
+              "Text": "Flexbox handles varying content sizes gracefully, automatically adjusting spacing between items.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "a7ebfc98-3253-41c2-8250-22fd56e119c8",
+          "TopicId": "629afa56-cd4d-4671-b42b-e8c5952611d2",
+          "Title": "Aligning and Justifying Flex Items",
+          "BodyText": "Flexbox provides two primary axes \u2014 the main axis and the cross axis \u2014 each controlled by dedicated alignment properties.",
+          "Notes": "A common use case is centering a div both horizontally and vertically using justify-content: center and align-items: center together on the flex container.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:32:35.8222315-04:00",
+          "ModifiedDate": "2026-06-26T21:32:35.8222315-04:00",
+          "Items": [
+            {
+              "Id": "8a8e2a82-052c-44ed-8b3a-e8330156137d",
+              "Text": "justify-content aligns items along the main axis and accepts values like flex-start, flex-end, center, space-between, and space-around.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "36eddea7-a58b-4df7-9a91-22c9bfa6cc86",
+              "Text": "align-items aligns items along the cross axis, with values such as stretch, center, and flex-start.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4ba68446-0f70-4c91-ab7e-91d79e359de6",
+              "Text": "These two properties together allow precise two-dimensional placement without needing manual margins or padding hacks.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "342005a1-98ae-4eb9-ac7f-7f2a69ab256f",
+          "TopicId": "629afa56-cd4d-4671-b42b-e8c5952611d2",
+          "Title": "Controlling Individual Flex Items",
+          "BodyText": "Properties applied directly to flex children let you override container-level alignment and control how each item grows or shrinks.",
+          "Notes": "The flex shorthand property (e.g., flex: 1) is frequently used to make all children share available space equally in a responsive layout.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:32:35.8222315-04:00",
+          "ModifiedDate": "2026-06-26T21:32:35.8222315-04:00",
+          "Items": [
+            {
+              "Id": "655afa0a-462e-487c-a4a8-115d00beaa1a",
+              "Text": "flex-grow defines how much a flex item expands relative to siblings when extra space is available.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "da4ae12c-ac73-4fe6-9a61-5fc1bbc1a63b",
+              "Text": "flex-shrink controls how much an item contracts when the container is too small to fit all items at their base size.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b0d84a6e-5411-430b-b678-c5bb451c1ed5",
+              "Text": "align-self overrides the container\u0027s align-items value for a single item, allowing one element to be positioned differently from its siblings.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "85ad4b49-d0cb-45a8-9787-4a4a3ac80f44",
+          "TopicId": "629afa56-cd4d-4671-b42b-e8c5952611d2",
+          "Title": "CSS Positioning",
+          "BodyText": "The position property removes elements from normal flow or adjusts their placement relative to a reference point, enabling overlapping and fixed UI elements.",
+          "Notes": "A common pattern is to set a parent element to position: relative so that an absolutely positioned child is placed relative to that parent rather than the entire page.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:32:35.8222315-04:00",
+          "ModifiedDate": "2026-06-26T21:32:35.8222315-04:00",
+          "Items": [
+            {
+              "Id": "954a4b96-0020-4ebe-a53e-42cd9bf33f1d",
+              "Text": "position: relative moves an element from its default location using top, right, bottom, and left offsets while still occupying its original space in the flow.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "56d5ad28-b194-4598-8c72-1b79fc26450d",
+              "Text": "position: absolute removes the element from document flow and places it relative to its nearest positioned ancestor.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bb51d5df-2ae8-44f9-baa6-39f170734bfc",
+              "Text": "position: fixed anchors an element to the viewport so it stays visible as the user scrolls, commonly used for navigation bars or banners.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "d20678f3-65c3-4190-9cbf-36378dafe927",
+          "TopicId": "629afa56-cd4d-4671-b42b-e8c5952611d2",
+          "Title": "Structuring Multi-Section Page Layouts",
+          "BodyText": "Combining Flexbox and positioning allows you to build organized, multi-section page layouts such as headers, sidebars, main content areas, and footers.",
+          "Notes": "A practical approach is to use semantic HTML elements (\u003Cheader\u003E, \u003Cmain\u003E, \u003Csection\u003E, \u003Cfooter\u003E) as flex containers or flex items, keeping the structure readable and maintainable.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:32:35.8222315-04:00",
+          "ModifiedDate": "2026-06-26T21:32:35.8222315-04:00",
+          "Items": [
+            {
+              "Id": "fb7ca709-5726-4ad8-9b74-1d0f03898803",
+              "Text": "Wrapping the page in a flex column container makes it straightforward to stack a header, content area, and footer vertically.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d114b887-0119-4459-94df-eea1b241cc24",
+              "Text": "Nesting a flex row container inside the main content area creates a side-by-side sidebar and article layout.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "80af5f89-3c11-439d-a148-b3beed4b0bc1",
+              "Text": "Consistent use of gap, padding, and margin within flex containers keeps spacing uniform across all sections of the page.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "3154f8a5-41a2-4a13-bbdf-5099a122df72",
+      "Title": "Styling a Complete Web Page",
+      "Summary": "Students bring together all learned CSS concepts to apply cohesive visual styling to the websites they built in the previous lesson. This capstone topic reinforces best practices for writing clean, organized CSS stylesheets.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-06-26T21:30:38.1486192-04:00",
+      "ModifiedDate": "2026-06-26T21:30:38.1486192-04:00",
+      "Elements": [
+        {
+          "Id": "92830fb2-1abc-4ba2-acbb-f7d2a55fe163",
+          "TopicId": "3154f8a5-41a2-4a13-bbdf-5099a122df72",
+          "Title": "Linking Your Stylesheet to Your HTML Page",
+          "BodyText": "Before any CSS can be applied, the external stylesheet must be properly connected to the HTML document using a link element in the head section.",
+          "Notes": "Example: \u003Clink rel=\u0027stylesheet\u0027 href=\u0027styles.css\u0027\u003E placed inside the \u003Chead\u003E tag ensures all rules in styles.css apply to the page.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-06-26T21:33:04.5907396-04:00",
+          "ModifiedDate": "2026-06-26T21:33:04.5907396-04:00",
+          "Items": [
+            {
+              "Id": "0bed8585-d89f-4143-a63c-999e01793ade",
+              "Text": "Use a single external stylesheet for the entire website to keep styles centralized and easy to manage.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f2df8fc0-47c1-4e85-a17c-70d0bfebc675",
+              "Text": "Double-check the file path in the href attribute \u2014 an incorrect path means none of your styles will load.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "dbd0d9d8-1a7e-4fb9-8829-c4a6d8461861",
+              "Text": "Verify the connection is working by making one visible change, such as altering the background color, before writing all other rules.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "e875fb67-1583-4774-b958-ea666679052a",
+          "TopicId": "3154f8a5-41a2-4a13-bbdf-5099a122df72",
+          "Title": "Organizing Your CSS Stylesheet",
+          "BodyText": "A well-organized stylesheet groups related rules together and uses comments to label each section, making the code easier to read and maintain.",
+          "Notes": "Common sections include: Reset/Base Styles, Typography, Layout, Navigation, and Components. This mirrors how professional developers structure production stylesheets.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-06-26T21:33:04.5907396-04:00",
+          "ModifiedDate": "2026-06-26T21:33:04.5907396-04:00",
+          "Items": [
+            {
+              "Id": "a736f428-af87-449e-8352-950a018ae206",
+              "Text": "Place global reset or base styles at the top so they apply universally before more specific rules are defined.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c873a71d-d3d1-4146-a61c-3632e0ad9580",
+              "Text": "Use CSS comments (/* Section Name */) as headers to divide the stylesheet into clearly labeled sections.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8b916487-1377-4df5-857b-07421fce0b43",
+              "Text": "Group rules that apply to the same part of the page \u2014 such as the header or footer \u2014 together in one block.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "1e555e64-3b30-4bf1-a418-4aa19c376481",
+              "Text": "Consistent indentation and spacing between rule blocks makes the file far easier to scan and debug.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "f94d8c9e-3089-448b-99f8-2fe84d164251",
+          "TopicId": "3154f8a5-41a2-4a13-bbdf-5099a122df72",
+          "Title": "Applying Typography Across the Page",
+          "BodyText": "Consistent typography ties a web page together visually by establishing a clear hierarchy of headings, body text, and supporting content.",
+          "Notes": "Choosing one or two complementary fonts and applying them through the body selector ensures typographic consistency without repeating font declarations on every element.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-06-26T21:33:04.5907396-04:00",
+          "ModifiedDate": "2026-06-26T21:33:04.5907396-04:00",
+          "Items": [
+            {
+              "Id": "0b6ac7ab-4d19-4d93-8493-80202610361a",
+              "Text": "Set a base font-family and font-size on the body selector so all elements inherit a consistent default style.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d6502db7-e807-48a8-a47a-26281d44a99a",
+              "Text": "Define distinct sizes and weights for h1 through h3 elements to create a clear visual hierarchy.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5d994f97-221f-484e-96d4-0a06de81a742",
+              "Text": "Use line-height and letter-spacing to improve readability, especially for paragraphs of body text.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "26bae239-ea95-4965-9f5d-9725942d1630",
+              "Text": "Limit the page to two fonts \u2014 one for headings and one for body text \u2014 to maintain a cohesive look.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "c89b675b-45cb-4731-a929-3067d07f7305",
+          "TopicId": "3154f8a5-41a2-4a13-bbdf-5099a122df72",
+          "Title": "Using Color Cohesively",
+          "BodyText": "A cohesive color scheme unifies all sections of a web page and reinforces the overall visual identity of the site.",
+          "Notes": "Defining color values as CSS custom properties (variables) at the top of the stylesheet \u2014 e.g., --primary-color: #3a86ff; \u2014 makes it easy to update the entire palette in one place.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-06-26T21:33:04.5907396-04:00",
+          "ModifiedDate": "2026-06-26T21:33:04.5907396-04:00",
+          "Items": [
+            {
+              "Id": "8db000c4-ab9e-4a3d-b8e7-01ae4345fe49",
+              "Text": "Choose a primary, secondary, and neutral color and apply them consistently to backgrounds, text, and interactive elements.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b67bfcc1-d699-4d58-9e21-0872038ba52d",
+              "Text": "Ensure sufficient contrast between text color and background color to meet basic readability standards.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bfdcd0f7-a182-4652-9ea1-50c5447a522b",
+              "Text": "Apply the same accent color to links, buttons, and highlights so interactive elements are visually consistent.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e66e22f5-b487-47f6-baaf-231c6987d0e5",
+              "Text": "Avoid using raw color values repeatedly throughout the file; define them once and reuse them.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "383ec214-16ec-41ad-b624-ef3458aa9cbc",
+          "TopicId": "3154f8a5-41a2-4a13-bbdf-5099a122df72",
+          "Title": "Styling Layout and Spacing with the Box Model",
+          "BodyText": "Proper use of margin, padding, and width controls how each element occupies space on the page and how sections relate to one another visually.",
+          "Notes": "A common starting practice is to add box-sizing: border-box to all elements so that padding and borders are included in the declared width, preventing unexpected overflow.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-06-26T21:33:04.5907396-04:00",
+          "ModifiedDate": "2026-06-26T21:33:04.5907396-04:00",
+          "Items": [
+            {
+              "Id": "ed189083-9a32-40ef-956f-67d12244c9e7",
+              "Text": "Use padding to create breathing room inside elements such as cards, navigation bars, and content sections.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a8eea85a-b93d-4daf-aa2c-686083e35641",
+              "Text": "Use margin to separate distinct sections of the page and prevent content from feeling cramped.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1ecaeb49-6a95-40e0-8bbb-8da307917ca0",
+              "Text": "Set max-width on main content containers and center them with margin: 0 auto to prevent overly wide text lines.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "2d3f7771-0d7f-48a5-991c-0329db4f4fdf",
+              "Text": "Review each section in the browser and adjust spacing incrementally until proportions feel balanced.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "7da07150-fe3d-44a6-8f27-5514254e1262",
+          "TopicId": "3154f8a5-41a2-4a13-bbdf-5099a122df72",
+          "Title": "Styling Navigation and Interactive Elements",
+          "BodyText": "Navigation links and buttons are the primary interactive elements on most pages and should receive deliberate styling that signals their purpose to users.",
+          "Notes": "Removing default list styles from nav elements and styling anchor tags directly gives designers full control over the navigation\u0027s appearance.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-06-26T21:33:04.5907396-04:00",
+          "ModifiedDate": "2026-06-26T21:33:04.5907396-04:00",
+          "Items": [
+            {
+              "Id": "c7e5451e-96a0-442f-b191-f16077b6c2a6",
+              "Text": "Remove default underlines and colors from anchor tags and apply your chosen color scheme instead.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "98fca91e-a8a5-4123-be86-81a9c26f16d8",
+              "Text": "Add a :hover pseudo-class rule to links and buttons so users receive visual feedback when they interact with them.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2b43c9a8-9621-4189-816d-8e8aafa43fc6",
+              "Text": "Style the navigation bar with consistent padding and background color so it is clearly distinguishable from the page body.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "7c7c30ac-eb9a-4bf0-96dd-0e59f4d870a3",
+              "Text": "Ensure clickable elements are large enough to be easily tapped or clicked on all screen sizes.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "6e64110a-a07c-484c-8a40-7b3b071adca9",
+          "TopicId": "3154f8a5-41a2-4a13-bbdf-5099a122df72",
+          "Title": "Reviewing and Refining the Finished Stylesheet",
+          "BodyText": "Once all styles are applied, a final review pass ensures the stylesheet is clean, consistent, and free of redundant or conflicting rules.",
+          "Notes": "Using browser developer tools to inspect elements and test changes live is an essential part of the refinement process before considering a stylesheet complete.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-06-26T21:33:04.5907396-04:00",
+          "ModifiedDate": "2026-06-26T21:33:04.5907396-04:00",
+          "Items": [
+            {
+              "Id": "9591c356-aace-49ef-8604-419ed6db063b",
+              "Text": "Read through the entire stylesheet and remove any rules that are duplicated or no longer referenced by the HTML.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d73c6cea-9760-4a5a-b8a5-3dc1a3de1897",
+              "Text": "Check every page section in the browser at different window sizes to spot any spacing or alignment issues.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "87c97330-a158-4e13-b4a4-03271d8bb90d",
+              "Text": "Confirm that selectors are as specific as needed but no more \u2014 overly specific selectors make future edits harder.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "1f6d328d-b78d-474a-8ad7-1bf73fbf865e",
+              "Text": "Ask a peer to view the finished page and provide feedback on visual clarity and consistency before submission.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 38
+}

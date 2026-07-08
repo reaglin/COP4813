@@ -1,0 +1,413 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 14 – Content Management Systems, Webmaster Roles, and Site Maintenance | COP4813</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --color-bg: #f4f6f9;
+      --color-surface: #ffffff;
+      --color-border: #dde2ea;
+      --color-primary: #1a4f8a;
+      --color-primary-dark: #133a68;
+      --color-accent: #2e7d52;
+      --color-accent-hover: #235f3e;
+      --color-text: #1e2430;
+      --color-muted: #5a6378;
+      --color-tag-bg: #eaf0fb;
+      --color-tag-text: #1a4f8a;
+      --color-filetype-bg: #f0f4f0;
+      --color-filetype-text: #2e7d52;
+      --color-header-bg: #12345c;
+      --color-header-text: #ffffff;
+      --color-source-bg: #f5f7fa;
+      --color-source-border: #b0bdd0;
+      --color-source-text: #3d5a80;
+      --radius: 8px;
+      --shadow: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-hover: 0 6px 20px rgba(0,0,0,0.13);
+      --font-sans: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+      --font-mono: 'Consolas', 'Courier New', monospace;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ─────────────────────────────────────────────── */
+    header {
+      background-color: var(--color-header-bg);
+      color: var(--color-header-text);
+      padding: 2.5rem 1.5rem 2rem;
+    }
+
+    .header-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .course-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background-color: rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.88);
+      border-radius: 4px;
+      padding: 0.25rem 0.65rem;
+      margin-bottom: 0.9rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.85rem;
+      color: #ffffff;
+    }
+
+    header p {
+      font-size: 0.975rem;
+      color: rgba(255,255,255,0.82);
+      max-width: 720px;
+      line-height: 1.65;
+    }
+
+    /* ── Main ────────────────────────────────────────────────── */
+    main {
+      max-width: 1080px;
+      margin: 2.5rem auto 3.5rem;
+      padding: 0 1.25rem;
+    }
+
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--color-border);
+    }
+
+    /* ── Card Grid ───────────────────────────────────────────── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.35rem 1.4rem 1.3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card top badges ─────────────────────────────────────── */
+    .card-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      border-radius: 4px;
+      padding: 0.2rem 0.55rem;
+      letter-spacing: 0.03em;
+    }
+
+    .badge-type {
+      background-color: var(--color-tag-bg);
+      color: var(--color-tag-text);
+    }
+
+    .badge-filetype {
+      background-color: var(--color-filetype-bg);
+      color: var(--color-filetype-text);
+      font-family: var(--font-mono);
+    }
+
+    /* ── Card heading ────────────────────────────────────────── */
+    .card-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-text);
+      line-height: 1.35;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.55rem;
+    }
+
+    .card-name a {
+      color: var(--color-primary);
+      text-decoration: none;
+      border-bottom: 1.5px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .card-name a:hover,
+    .card-name a:focus {
+      color: var(--color-primary-dark);
+      border-bottom-color: var(--color-primary-dark);
+      outline: none;
+    }
+
+    .card-name a:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    .plain-name {
+      color: var(--color-text);
+    }
+
+    /* ── Source link ─────────────────────────────────────────── */
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--color-source-text);
+      background-color: var(--color-source-bg);
+      border: 1px solid var(--color-source-border);
+      border-radius: 4px;
+      padding: 0.18rem 0.5rem;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background-color 0.15s, color 0.15s;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background-color: #e4eaf4;
+      color: var(--color-primary-dark);
+      outline: none;
+    }
+
+    .source-link:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    .source-link svg {
+      flex-shrink: 0;
+    }
+
+    /* ── Description ─────────────────────────────────────────── */
+    .card-description {
+      font-size: 0.875rem;
+      color: var(--color-muted);
+      line-height: 1.62;
+      flex-grow: 1;
+    }
+
+    /* ── Footer ──────────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--color-muted);
+      padding: 1.5rem 1rem 2rem;
+      border-top: 1px solid var(--color-border);
+    }
+
+    /* ── Responsive tweaks ───────────────────────────────────── */
+    @media (max-width: 500px) {
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+      header {
+        padding: 2rem 1rem 1.5rem;
+      }
+      main {
+        margin-top: 1.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ COP4813</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
+
+  <header>
+    <div class="header-inner">
+      <span class="course-label">COP4813</span>
+      <h1>Module 14 &mdash; Content Management Systems, Webmaster Roles, and Site Maintenance</h1>
+      <p>
+        This module explores how Content Management Systems power modern websites, compares leading
+        CMS platforms, and examines the strategic decision between a CMS and a custom build. It also
+        defines the professional scope of the webmaster role and establishes best practices for
+        ongoing website maintenance and production management.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <h2 class="section-title">Module Artifacts</h2>
+
+    <div class="card-grid">
+
+      <!-- Artifact 1: Module Topics -->
+      <article class="card">
+        <div class="card-badges">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <div class="card-name">
+          <a href="content/module_topics.html">Module Topics</a>
+          <a class="source-link" href="source/hierarchy.json" aria-label="Source file for Module Topics">
+            <svg width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13.5 10v3.5a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5h3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M9 2.5h4.5V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M13.5 2.5 7.5 8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            source file
+          </a>
+        </div>
+        <p class="card-description">
+          Outlines the module's learning topics spanning CMS fundamentals (definition, core components,
+          ecosystem role), comparisons of major platforms (WordPress, Joomla, Drupal), and
+          decision-making between CMS and custom builds, serving as a navigational overview for learners
+          and instructors to understand the scope and sequence of the module.
+        </p>
+      </article>
+
+      <!-- Artifact 2: Introduction to Content Management Systems -->
+      <article class="card">
+        <div class="card-badges">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-name">
+          <a href="content/Content_Management_Systems_interactive_topics_t1.html">Introduction to Content Management Systems</a>
+        </div>
+        <p class="card-description">
+          A foundational reading that explains what a Content Management System is, how it stores and
+          presents content, and why CMS platforms are the standard solution for building and managing
+          modern websites; learners read it before exploring specific platforms.
+        </p>
+      </article>
+
+      <!-- Artifact 3: Popular CMS Platforms and Their Features -->
+      <article class="card">
+        <div class="card-badges">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-name">
+          <a href="content/Content_Management_Systems_interactive_topics_t2.html">Popular CMS Platforms and Their Features</a>
+        </div>
+        <p class="card-description">
+          A comparative overview of major CMS platforms (such as WordPress, Drupal, and others),
+          examining their core features, strengths, and typical use cases to help learners and
+          instructors evaluate which platform suits different project types.
+        </p>
+      </article>
+
+      <!-- Artifact 4: CMS vs. Custom Builds -->
+      <article class="card">
+        <div class="card-badges">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-name">
+          <a href="content/Content_Management_Systems_interactive_topics_t3.html">CMS vs. Custom Builds: Choosing the Right Approach</a>
+        </div>
+        <p class="card-description">
+          A decision-focused reading that weighs the trade-offs between using an existing CMS and
+          building a fully custom web application, covering strategic, technical, and business factors;
+          learners use it to develop a framework for making platform decisions on real projects.
+        </p>
+      </article>
+
+      <!-- Artifact 5: The Webmaster Role and Professional Responsibilities -->
+      <article class="card">
+        <div class="card-badges">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-name">
+          <a href="content/Content_Management_Systems_interactive_topics_t4.html">The Webmaster Role and Professional Responsibilities</a>
+        </div>
+        <p class="card-description">
+          A reading that defines the webmaster role, its scope of responsibilities — spanning technical
+          maintenance, content oversight, and organizational communication — and how it differs from
+          pure development or content-editing roles; learners use it to understand the profession's
+          breadth.
+        </p>
+      </article>
+
+      <!-- Artifact 6: Website Maintenance and Production Management (Topic Detail) -->
+      <article class="card">
+        <div class="card-badges">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-name">
+          <a href="content/Content_Management_Systems_interactive_topics_t5.html">Website Maintenance and Production Management</a>
+        </div>
+        <p class="card-description">
+          A reading covering the ongoing practices required to keep a live website secure, performant,
+          accurate, and reliable, including maintenance routines, production management workflows, and
+          strategies for handling updates and incidents; learners use it as a practical guide to
+          post-launch site care.
+        </p>
+      </article>
+
+      <!-- Artifact 7: Website Maintenance and Production Management (Text Content) -->
+      <article class="card">
+        <div class="card-badges">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-name">
+          <a href="content/Content_Management_Systems_interactive.html">Website Maintenance and Production Management</a>
+        </div>
+        <p class="card-description">
+          A reading covering the ongoing practices required to keep a live website secure, performant,
+          accurate, and reliable, including maintenance routines, production management workflows, and
+          strategies for handling updates and incidents; learners use it as a practical guide to
+          post-launch site care.
+        </p>
+      </article>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>COP4813 &mdash; Module 14 &nbsp;|&nbsp; Content Management Systems, Webmaster Roles, and Site Maintenance</p>
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+</html>

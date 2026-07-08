@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Labels, Fieldsets, and Form Accessibility</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 5 - Creating and Validating HTML Forms</a></div>
+  <header>
+    <h1>Labels, Fieldsets, and Form Accessibility</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Labels, Fieldsets, and Form Accessibility</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Forms are one of the most critical interactive elements on the web. They are how users log in, make purchases, send messages, sign up for services, and provide information of all kinds. Yet forms are also one of the most common sources of accessibility failures. The difference between a form that works for everyone — including people using screen readers, keyboard navigation, voice control software, or mobile touch interfaces — and one that does not often comes down to a handful of HTML elements used correctly: <code>&lt;label&gt;</code>, <code>&lt;fieldset&gt;</code>, and <code>&lt;legend&gt;</code>. Understanding how and why to use these elements is foundational to building web forms that are truly inclusive.</p>
+
+<p><strong>The Label Element and Its Purpose</strong></p>
+<p>The <code>&lt;label&gt;</code> element exists to give every interactive form control a human-readable name — a visible piece of text that tells the user what information that control is asking for. Without a label, a text input is just a blank box. With a label, it becomes a clearly identified field like "Email Address" or "Date of Birth." This seems obvious, yet many forms on the web use visual text positioned near a field without actually creating a programmatic connection between that text and the field. A connection that only looks right to sighted users is not enough.</p>
+<p>Labels serve three distinct purposes simultaneously:</p>
+<ul>
+  <li><strong>Visual identification:</strong> They provide a visible text description positioned near the form control so sighted users know what to type or select.</li>
+  <li><strong>Programmatic identification:</strong> They create a machine-readable association between the descriptive text and the form control, which assistive technologies like screen readers use to announce the field's purpose when a user focuses on it.</li>
+  <li><strong>Expanded click/touch target:</strong> When a label is properly associated with an input, clicking or tapping anywhere on the label text moves keyboard focus into the associated input field. This is especially valuable on touch devices where small checkboxes and radio buttons are notoriously difficult to tap accurately — clicking the label text instead of the tiny control makes the interaction far more reliable.</li>
+</ul>
+<p>Consider a simple login form. The inputs for username and password need labels so that every user — whether using a mouse, a keyboard, a screen reader, or a voice interface — can understand what each field requires.</p>
+
+<p><strong>Explicit Label Association Using the <code>for</code> Attribute</strong></p>
+<p>The most robust and widely recommended way to associate a label with a form control is the <em>explicit</em> method, using the <code>for</code> attribute on the <code>&lt;label&gt;</code> and a matching <code>id</code> attribute on the form control. The value of <code>for</code> must be an exact, case-sensitive match to the value of <code>id</code>. When this match exists, the browser and assistive technologies understand that this label describes that specific input.</p>
+
+<pre><code>&lt;label for="username"&gt;Username&lt;/label&gt;
+&lt;input type="text" id="username" name="username"&gt;
+
+&lt;label for="password"&gt;Password&lt;/label&gt;
+&lt;input type="password" id="password" name="password"&gt;</code></pre>
+
+<p>In this example, the label "Username" is explicitly linked to the text input whose <code>id</code> is <code>username</code>. A screen reader user tabbing into the input will hear something like "Username, edit text" — the label text combined with the control type. Without the label association, the screen reader might only announce "edit text" with no indication of what information is expected.</p>
+<p>One of the key strengths of explicit association is that the label and input do not need to be adjacent in the HTML source or even near each other visually. The association is purely attribute-based, which gives developers full flexibility to position elements using CSS without breaking accessibility. For example, a layout that places the label to the right of a checkbox, or inside a table cell separate from the input, still works perfectly as long as the <code>for</code>/<code>id</code> pairing is correct.</p>
+<p>A critical rule: every <code>id</code> value on a page must be unique. If two elements share the same <code>id</code>, the browser can only associate a label with one of them (typically the first), causing the second control to be effectively unlabeled. Duplicate <code>id</code> values are a surprisingly common bug that silently breaks label associations and causes unpredictable screen reader behavior.</p>
+
+<p><strong>Implicit Label Association by Nesting</strong></p>
+<p>The second valid method is <em>implicit</em> association, achieved by nesting the form control directly inside its <code>&lt;label&gt;</code> element. Because the input is a child of the label, the browser automatically understands the association without needing <code>for</code> and <code>id</code> attributes at all.</p>
+
+<pre><code>&lt;label&gt;
+  Username
+  &lt;input type="text" name="username"&gt;
+&lt;/label&gt;
+
+&lt;label&gt;
+  Password
+  &lt;input type="password" name="password"&gt;
+&lt;/label&gt;</code></pre>
+
+<p>This approach reduces the amount of markup needed and eliminates the risk of mismatched <code>for</code>/<code>id</code> values. For simple, self-contained forms — particularly where each label and input are naturally grouped together — implicit association is perfectly valid and supported across all modern browsers and most screen readers.</p>
+<p>However, implicit association has practical limitations. It requires the label and input to share the same parent-child relationship in the HTML structure. If your CSS layout or component architecture requires the label and input to exist in different parts of the DOM — for instance, when labels appear in one column of a table and inputs in another — you cannot use implicit association. You also cannot use it when you want a single label to describe multiple elements (though that situation usually calls for a <code>&lt;fieldset&gt;</code> instead). For these reasons, <strong>explicit association using <code>for</code> and <code>id</code> is the generally recommended default</strong>, especially for complex layouts.</p>
+
+<p><strong>Grouping Related Controls with Fieldset</strong></p>
+<p>Individual labels handle the relationship between a single piece of descriptive text and a single form control. But many forms contain groups of controls that are conceptually related and need to be understood together. The most common examples are sets of radio buttons (where the user picks one option from a group) and sets of checkboxes (where the user may select multiple items from a group). Individual labels on each radio button or checkbox tell the user what that specific option means, but they do not communicate the question or category those options belong to.</p>
+<p>The <code>&lt;fieldset&gt;</code> element solves this problem. It wraps a group of related form controls in a semantic container that communicates their shared relationship both visually and to assistive technologies. By default, browsers render a <code>&lt;fieldset&gt;</code> with a visible border around its contents, which provides a clear visual grouping. More importantly, the <code>&lt;fieldset&gt;</code> creates a programmatic grouping that screen readers recognize and announce to users.</p>
+
+<pre><code>&lt;fieldset&gt;
+  &lt;legend&gt;Preferred Contact Method&lt;/legend&gt;
+
+  &lt;label&gt;
+    &lt;input type="radio" name="contact" value="email"&gt;
+    Email
+  &lt;/label&gt;
+
+  &lt;label&gt;
+    &lt;input type="radio" name="contact" value="phone"&gt;
+    Phone
+  &lt;/label&gt;
+
+  &lt;label&gt;
+    &lt;input type="radio" name="contact" value="mail"&gt;
+    Postal Mail
+  &lt;/label&gt;
+&lt;/fieldset&gt;</code></pre>
+
+<p>Without the <code>&lt;fieldset&gt;</code> and <code>&lt;legend&gt;</code>, a screen reader user tabbing through these radio buttons would hear only "Email, radio button," "Phone, radio button," and "Postal Mail, radio button." They would have no idea what question these options are answering. With the fieldset and legend in place, they hear "Preferred Contact Method — Email, radio button" for the first option, giving them the full context they need to answer correctly. This context is announced for each control within the group, so a user who tabs directly to the middle of the group still receives the legend information.</p>
+<p>Fieldsets are also valuable for organizing long forms with logically distinct sections. A checkout form, for example, might use separate fieldsets for "Shipping Address," "Billing Address," and "Payment Details." This sectioning helps all users — not just screen reader users — understand the form's structure and navigate it with less cognitive effort.</p>
+
+<p><strong>Naming Groups with the Legend Element</strong></p>
+<p>The <code>&lt;legend&gt;</code> element provides the accessible name for its parent <code>&lt;fieldset&gt;</code>. It must be the <em>first child element</em> inside the <code>&lt;fieldset&gt;</code> to be rendered and interpreted correctly by browsers and assistive technologies. Placing a <code>&lt;legend&gt;</code> anywhere other than the first position inside a fieldset produces unpredictable rendering and may break screen reader announcements.</p>
+
+<pre><code>&lt;!-- Correct: legend is the first child --&gt;
+&lt;fieldset&gt;
+  &lt;legend&gt;Shipping Address&lt;/legend&gt;
+  &lt;label for="street"&gt;Street Address&lt;/label&gt;
+  &lt;input type="text" id="street" name="street"&gt;
+  &lt;label for="city"&gt;City&lt;/label&gt;
+  &lt;input type="text" id="city" name="city"&gt;
+&lt;/fieldset&gt;
+
+&lt;!-- Incorrect: legend is not the first child --&gt;
+&lt;fieldset&gt;
+  &lt;p&gt;Please fill in your address.&lt;/p&gt;
+  &lt;legend&gt;Shipping Address&lt;/legend&gt; &lt;!-- Wrong position --&gt;
+  &lt;input type="text" id="street" name="street"&gt;
+&lt;/fieldset&gt;</code></pre>
+
+<p>The legend text should be clear, concise, and descriptive of the group's purpose. Good legend text examples include "Contact Information," "Billing Address," "Account Preferences," or "Select Your Interests." Poor legend text would be vague phrases like "Section 1" or "Details" that do not convey meaningful context. Remember that screen readers announce the legend text before the label of every field within the fieldset, so the legend should make sense as a prefix to each field's label. For example, a legend of "Shipping Address" combined with a label of "City" produces the announcement "Shipping Address — City, edit text," which is perfectly clear.</p>
+<p>While the default browser rendering of a <code>&lt;legend&gt;</code> (displayed overlapping the fieldset border) may not always match a design's visual requirements, the legend should never be hidden with <code>display: none</code> or <code>visibility: hidden</code>, as this removes it from the accessibility tree entirely. If you need to visually style or reposition the legend, use CSS techniques that keep it accessible, such as positioning it off-screen with a visually-hidden utility class, or styling it in place without removing it from the rendered output.</p>
+
+<p><strong>Accessibility Benefits of Proper Labeling and Grouping</strong></p>
+<p>The accessibility benefits of correctly using labels, fieldsets, and legends extend across many different types of users and assistive technologies:</p>
+<ul>
+  <li><strong>Screen reader users</strong> depend entirely on programmatic associations. When a screen reader user tabs to a form field, the software reads the associated label aloud. If there is no label, the user may hear only the input type ("edit text," "checkbox") with no indication of what the field is for. In a fieldset, users also hear the legend text, giving them full context for the group. Without these associations, many forms become completely unusable for blind users.</li>
+  <li><strong>Keyboard-only users</strong> benefit from the larger click/focus targets that labels create. While keyboard users navigate with Tab and arrow keys rather than mouse clicks, the logical structure created by fieldsets helps them understand where they are in a long form and what the current group of inputs represents.</li>
+  <li><strong>Voice control users</strong> (using tools like Dragon NaturallySpeaking or built-in voice control on iOS/Android) can activate form controls by speaking their label text. A voice user might say "click Email" to select a radio button — this only works if the radio button has a correctly associated label with that text.</li>
+  <li><strong>All users</strong> benefit from well-structured forms. Labels reduce errors by clearly stating what each field requires. Fieldsets with legends help users with cognitive disabilities, low literacy, or simply those filling out a long complex form understand the structure and purpose of each section without having to read the entire form from top to bottom.</li>
+  <li><strong>Browser autofill</strong> uses label text and input names/ids to identify what type of information a field requests. Well-labeled forms are more reliably auto-filled by browsers, saving time for all users.</li>
+</ul>
+
+<p>The following table summarizes the key elements and their roles in accessible form construction:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Element</th>
+      <th>Purpose</th>
+      <th>Key Attribute(s)</th>
+      <th>Typical Use Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>&lt;label&gt;</code></td>
+      <td>Provides an accessible name for a single form control</td>
+      <td><code>for</code> (matches control's <code>id</code>)</td>
+      <td>Every text input, select, textarea, checkbox, radio button</td>
+    </tr>
+    <tr>
+      <td><code>&lt;fieldset&gt;</code></td>
+      <td>Groups related form controls into a meaningful section</td>
+      <td>None required; works semantically</td>
+      <td>Sets of radio buttons, checkboxes, or logically grouped fields</td>
+    </tr>
+    <tr>
+      <td><code>&lt;legend&gt;</code></td>
+      <td>Provides an accessible name for the parent fieldset group</td>
+      <td>None required; must be first child of fieldset</td>
+      <td>Describing the question or category for a group of controls</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Common Labeling Mistakes to Avoid</strong></p>
+<p>Even developers who understand the importance of labels sometimes make mistakes that undermine their accessibility. Here are the most frequent errors and how to avoid them:</p>
+
+<ul>
+  <li>
+    <strong>Using placeholder text as a substitute for a label.</strong> The <code>placeholder</code> attribute displays hint text inside an input field that disappears as soon as the user starts typing. This is useful as a supplement to a label — for example, to show an expected format — but it is a poor substitute for a label. Once typing begins, the hint is gone, forcing users to clear the field to remember what it asked for. Additionally, placeholder text typically renders in a low-contrast gray color that fails WCAG contrast requirements, and it is inconsistently announced by screen readers. Always provide a visible <code>&lt;label&gt;</code> in addition to any placeholder.
+    <pre><code>&lt;!-- Wrong: no label, relies on placeholder only --&gt;
+&lt;input type="email" placeholder="Enter your email address"&gt;
+
+&lt;!-- Correct: label plus optional placeholder for format hint --&gt;
+&lt;label for="email"&gt;Email Address&lt;/label&gt;
+&lt;input type="email" id="email" name="email" placeholder="you@example.com"&gt;</code></pre>
+  </li>
+  <li>
+    <strong>Using non-semantic elements as visual labels.</strong> It is tempting to use a <code>&lt;div&gt;</code>, <code>&lt;span&gt;</code>, or <code>&lt;p&gt;</code> as a visual label and position it near an input with CSS. This creates text that looks like a label to sighted users but has no programmatic relationship to the input. Screen readers will not associate the text with the field. If you genuinely cannot use a <code>&lt;label&gt;</code> element, you must provide a programmatic association using ARIA attributes: <code>aria-label</code> (to provide a label string directly on the input) or <code>aria-labelledby</code> (to reference the <code>id</code> of an existing element containing the label text). However, native HTML labels are always preferred over ARIA workarounds.
+    <pre><code>&lt;!-- Wrong: visual label with no programmatic link --&gt;
+&lt;span&gt;Phone Number&lt;/span&gt;
+&lt;input type="tel" name="phone"&gt;
+
+&lt;!-- Acceptable workaround when label element cannot be used --&gt;
+&lt;span id="phone-label"&gt;Phone Number&lt;/span&gt;
+&lt;input type="tel" name="phone" aria-labelledby="phone-label"&gt;
+
+&lt;!-- Best: use a proper label element --&gt;
+&lt;label for="phone"&gt;Phone Number&lt;/label&gt;
+&lt;input type="tel" id="phone" name="phone"&gt;</code></pre>
+  </li>
+  <li>
+    <strong>Duplicate <code>id</code> values on the page.</strong> Every <code>id</code> must be unique within an HTML document. If two inputs share the same <code>id</code>, the <code>for</code> attribute on a label can only match one of them (browsers generally select the first matching element), leaving the other input unlabeled. This bug is easy to introduce in templated or component-based systems where the same form widget is rendered multiple times. Always generate unique <code>id</code> values, for example by appending an index or UUID when repeating form elements.
+  </li>
+  <li>
+    <strong>Leaving form controls completely unlabeled.</strong> Icon-only buttons, search fields, and other controls that may seem "obvious" from context still require a programmatic label. A magnifying glass icon button without a label is announced as simply "button" to a screen reader user with no indication of its function. Use <code>aria-label="Search"</code> or a visually hidden <code>&lt;label&gt;</code> to provide the accessible name. No form control should ever be entirely without a label, regardless of how visually self-explanatory the design appears.
+  </li>
+  <li>
+    <strong>Omitting legends from fieldsets containing radio buttons or checkboxes.</strong> A fieldset without a legend provides no accessible name for the group. Screen reader users navigating through a set of unlabeled radio buttons will hear each option's label but have no context for the question being answered. Always include a descriptive <code>&lt;legend&gt;</code> as the first child of every <code>&lt;fieldset&gt;</code>.
+  </li>
+</ul>
+
+<p>Combining all of these elements correctly produces forms that work reliably across all users and technologies. The following complete example demonstrates a well-structured, accessible form section using explicit labels, a fieldset for a radio group, and a fieldset for logically grouping address fields:</p>
+
+<pre><code>&lt;form action="/submit" method="post"&gt;
+
+  &lt;fieldset&gt;
+    &lt;legend&gt;Contact Information&lt;/legend&gt;
+
+    &lt;label for="full-name"&gt;Full Name&lt;/label&gt;
+    &lt;input type="text" id="full-name" name="full_name" autocomplete="name"&gt;
+
+    &lt;label for="email-address"&gt;Email Address&lt;/label&gt;
+    &lt;input type="email" id="email-address" name="email" autocomplete="email"&gt;
+
+  &lt;/fieldset&gt;
+
+  &lt;fieldset&gt;
+    &lt;legend&gt;Preferred Contact Method&lt;/legend&gt;
+
+    &lt;label&gt;
+      &lt;input type="radio" name="contact_method" value="email"&gt;
+      Email
+    &lt;/label&gt;
+
+    &lt;label&gt;
+      &lt;input type="radio" name="contact_method" value="phone"&gt;
+      Phone
+    &lt;/label&gt;
+
+    &lt;label&gt;
+      &lt;input type="radio" name="contact_method" value="mail"&gt;
+      Postal Mail
+    &lt;/label&gt;
+
+  &lt;/fieldset&gt;
+
+  &lt;button type="submit"&gt;Submit&lt;/button&gt;
+
+&lt;/form&gt;</code></pre>
+
+<p>In this example, screen reader users will hear "Contact Information" announced as they enter the first fieldset, followed by the individual field labels. In the second fieldset, they will hear "Preferred Contact Method" before each radio button option — for instance, "Preferred Contact Method — Email, radio button, 1 of 3." This complete, contextual announcement is the goal of proper label and fieldset usage: every user, regardless of how they interact with the web, receives all the information they need to understand and complete the form accurately.</p>
+        <div class="notes"><strong>Notes</strong>How to use label elements, fieldsets, and legends to create well-structured, accessible forms that improve usability for all users.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

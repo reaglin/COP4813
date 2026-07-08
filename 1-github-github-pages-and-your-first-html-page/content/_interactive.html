@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Writing Your First HTML Document</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 1 -GitHub, GitHub Pages, and Your First HTML Page</a></div>
+  <header>
+    <h1>Writing Your First HTML Document</h1>
+  </header><main>
+    <div class="slide-card">
+      <div class="slide-header"><span class="slide-num">1</span><h2>Writing Your First HTML Document</h2><span class="chevron">▶</span></div>
+      <div class="slide-body">
+        <p>Every web page you have ever visited — whether a news article, a social media feed, or an online store — begins as a plain text file containing HTML. Understanding what that file is, how it is structured, and how a browser transforms it into something visual is the essential first step in learning web development. In this topic you will build a complete, valid HTML document from scratch, line by line, so that each piece of the structure makes sense before you add the next.</p>
+
+<p><strong>What is an HTML Document?</strong></p>
+
+<p>An HTML document is, at its core, nothing more than a plain text file. There is no special binary format, no proprietary encoding, and no software required to create one beyond the simplest text editor. On Windows you could use Notepad; on macOS you could use TextEdit (in plain-text mode); on any platform you could use a dedicated code editor such as VS Code. The key point is that the file stores only characters — the letters, numbers, punctuation, and angle-bracket tags that make up HTML — and nothing else.</p>
+
+<p>What makes an HTML file different from an ordinary <code>.txt</code> file is its <strong>file extension</strong> and the <strong>tags</strong> written inside it. When you save a file with the <code>.html</code> extension, a web browser knows to read it as a web page. The browser scans the tags and uses them as instructions: this text should be a large heading, this text should be a paragraph, this should be a clickable link, and so on. The tags themselves are never shown to the visitor; only the rendered result is displayed.</p>
+
+<p>You will also frequently encounter the filename <strong><code>index.html</code></strong>. This is a widely observed convention rather than a technical requirement of HTML itself. When a web server receives a request for a folder rather than a specific file — for example, a visitor navigating to <code>https://example.com/</code> — the server automatically looks for a file called <code>index.html</code> inside that folder and serves it as the default page. Using <code>index.html</code> as your main filename means your pages will work correctly under this convention without any extra server configuration.</p>
+
+<p><strong>The DOCTYPE Declaration</strong></p>
+
+<p>The very first thing that must appear in any HTML file is the DOCTYPE declaration. It looks like this:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;</code></pre>
+
+<p>This single line carries significant meaning. It tells the browser — before the browser reads a single tag — that the document is written in <strong>HTML5</strong>, the current standard for web pages. Without it, many browsers fall back into a mode called <em>quirks mode</em>, in which they attempt to imitate the inconsistent rendering behavior of very old browsers from the 1990s. In quirks mode, layouts can break, spacing can be wrong, and certain modern features may not work as expected. Placing <code>&lt;!DOCTYPE html&gt;</code> on the first line switches the browser into <em>standards mode</em>, ensuring modern, predictable rendering.</p>
+
+<p>A few important rules about the DOCTYPE declaration:</p>
+<ul>
+  <li>It must appear on the <strong>very first line</strong> of the file, before everything else — including blank lines and spaces.</li>
+  <li>It must appear <strong>before the opening <code>&lt;html&gt;</code> tag</strong> and before any other content whatsoever.</li>
+  <li>It is <strong>not</strong> an HTML tag in the usual sense — it is a declaration to the browser. Notice it uses an exclamation mark and has no closing counterpart.</li>
+  <li>It is <strong>not case-sensitive</strong>: <code>&lt;!DOCTYPE html&gt;</code>, <code>&lt;!doctype html&gt;</code>, and <code>&lt;!Doctype HTML&gt;</code> are all equivalent, though the all-uppercase convention shown here is the most widely used style.</li>
+</ul>
+
+<p><strong>The Root <code>&lt;html&gt;</code> Element</strong></p>
+
+<p>Immediately after the DOCTYPE declaration comes the opening <code>&lt;html&gt;</code> tag. This is called the <strong>root element</strong> because it is the ancestor of every other element in the document — every tag you write will be nested somewhere inside it. Think of it as the outer container that holds the entire page.</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+
+&lt;/html&gt;</code></pre>
+
+<p>The <code>&lt;/html&gt;</code> closing tag marks the absolute end of the document. Nothing meaningful should be written after it. Every element you will ever add — the <code>&lt;head&gt;</code>, the <code>&lt;body&gt;</code>, and all content within them — lives between these two tags.</p>
+
+<p>You will sometimes see the opening tag written as <code>&lt;html lang="en"&gt;</code>. The <code>lang</code> attribute tells browsers and assistive technologies such as screen readers what human language the page is written in. Using <code>lang="en"</code> for English is considered good practice and improves accessibility, but it does not affect whether the document is structurally valid.</p>
+
+<p><strong>The <code>&lt;head&gt;</code> Element</strong></p>
+
+<p>Inside the <code>&lt;html&gt;</code> element there are two direct children: <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code>. The <code>&lt;head&gt;</code> element comes first. It is a container for <strong>metadata</strong> — information <em>about</em> the page rather than content that appears visually on the page itself.</p>
+
+<p>Two tags you will place inside <code>&lt;head&gt;</code> immediately are:</p>
+
+<ul>
+  <li><strong><code>&lt;title&gt;</code></strong> — The text inside this tag appears in the browser's tab and in the title bar of the window. It is also the text search engines display as the clickable link in search results. Every HTML document should have exactly one <code>&lt;title&gt;</code> tag.</li>
+  <li><strong><code>&lt;meta charset="UTF-8"&gt;</code></strong> — This tag declares the <em>character encoding</em> of the document. UTF-8 is a standard encoding that supports virtually every character in every human language, including accented letters, punctuation, and symbols. Without this tag, a browser may guess the encoding incorrectly and display garbled text — especially for characters outside basic English. Note that <code>&lt;meta&gt;</code> is a <em>void element</em>: it has no closing tag.</li>
+</ul>
+
+<p>The <code>&lt;head&gt;</code> element can also hold links to stylesheets, scripts, and other metadata, but for a minimal valid document the title and charset declaration are the most important starting points.</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;My First Page&lt;/title&gt;
+  &lt;/head&gt;
+
+&lt;/html&gt;</code></pre>
+
+<p><strong>The <code>&lt;body&gt;</code> Element</strong></p>
+
+<p>After the closing <code>&lt;/head&gt;</code> tag and still inside <code>&lt;html&gt;</code>, you place the <code>&lt;body&gt;</code> element. This is where <strong>all visible page content</strong> lives — every paragraph, heading, image, link, list, form, and anything else a visitor actually sees and interacts with in the browser window.</p>
+
+<p>Some key rules about <code>&lt;body&gt;</code>:</p>
+<ul>
+  <li>It opens <strong>after</strong> <code>&lt;/head&gt;</code> and closes <strong>before</strong> <code>&lt;/html&gt;</code>.</li>
+  <li>A valid HTML document contains <strong>exactly one</strong> <code>&lt;body&gt;</code> element. Having multiple <code>&lt;body&gt;</code> tags is invalid and will produce unpredictable rendering.</li>
+  <li>Any content you place outside <code>&lt;body&gt;</code> (but inside <code>&lt;html&gt;</code>) may still be displayed by some browsers due to error-correction behavior, but it is invalid HTML and should be avoided.</li>
+</ul>
+
+<p><strong>Writing "Hello, World!"</strong></p>
+
+<p>The traditional first program in any programming language is "Hello, World!" — a minimal example that proves your environment is set up correctly and produces a visible result. In HTML, you achieve this by placing a heading tag inside the <code>&lt;body&gt;</code>:</p>
+
+<pre><code>&lt;h1&gt;Hello, World!&lt;/h1&gt;</code></pre>
+
+<p>The <code>&lt;h1&gt;</code> tag defines a <strong>top-level heading</strong> — the most prominent level of heading in HTML. Browsers render it in large, bold text by default. Using a heading here is not strictly required; you could use a <code>&lt;p&gt;</code> paragraph tag instead and the page would still work. But the heading is visually satisfying as a first result and demonstrates that your structure is correct.</p>
+
+<p>Once you have typed your content, save the file as <code>index.html</code> (make sure your text editor is not secretly adding a <code>.txt</code> extension), then open it by double-clicking the file or dragging it into a browser window. If the words <em>Hello, World!</em> appear as a large heading on a white background and the browser tab shows <em>My First Page</em>, your document is valid and working correctly.</p>
+
+<p><strong>Putting It All Together: The Complete Basic Structure</strong></p>
+
+<p>With all the pieces assembled, a complete, valid, minimal HTML5 document looks like this:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;My First Page&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Hello, World!&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<p>Reading through this document from top to bottom, you can trace the exact nesting order that every valid HTML page follows:</p>
+<ul>
+  <li><code>&lt;!DOCTYPE html&gt;</code> — Declares the HTML5 standard to the browser.</li>
+  <li><code>&lt;html&gt;</code> — Opens the root element that wraps the entire document.</li>
+  <li><code>&lt;head&gt;</code> — Opens the metadata section (invisible to the visitor).</li>
+  <li><code>&lt;meta charset="UTF-8"&gt;</code> — Declares character encoding.</li>
+  <li><code>&lt;title&gt;</code> — Sets the browser tab text.</li>
+  <li><code>&lt;/head&gt;</code> — Closes the metadata section.</li>
+  <li><code>&lt;body&gt;</code> — Opens the visible content section.</li>
+  <li><code>&lt;h1&gt;</code> — A visible heading the visitor will see.</li>
+  <li><code>&lt;/body&gt;</code> — Closes the visible content section.</li>
+  <li><code>&lt;/html&gt;</code> — Closes the root element, ending the document.</li>
+</ul>
+
+<p>Notice the <strong>indentation</strong> used in the example above. HTML does not require indentation — a browser will render the page identically whether it is neatly indented or written on a single line. However, consistent indentation makes the hierarchical structure of the document immediately visible to a human reader. When you can see at a glance that <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code> are children of <code>&lt;html&gt;</code>, and that <code>&lt;meta&gt;</code> and <code>&lt;title&gt;</code> are children of <code>&lt;head&gt;</code>, it is much easier to catch mistakes such as a missing closing tag or an element placed in the wrong section. Developing the habit of indenting your code from the very beginning will save you considerable debugging time as your pages grow more complex.</p>
+
+<p>This template is not just a learning exercise — it is the <strong>foundation you will return to every time you start a new HTML file</strong>. Every web page in this course, and in professional web development practice, begins with exactly this structure. Mastering it now means every future topic builds on a solid, correct base.</p>
+        <div class="notes"><strong>Notes</strong>The complete code example near the end of the body directly supports MO2 [Apply]: students can use it as a model to construct their own valid minimal HTML document. Consider having students close their notes and reproduce the full structure from memory as a low-stakes in-class activity to assess Apply-level competency.</div>
+      </div></div>
+  </main>
+  <script>
+    document.querySelectorAll('.slide-header').forEach(function(h){
+      h.addEventListener('click',function(){
+        var b=this.nextElementSibling,c=this.querySelector('.chevron'),o=b.classList.contains('open');
+        b.classList.toggle('open',!o);c.style.transform=o?'':'rotate(90deg)';
+      });});
+    var f=document.querySelector('.slide-body');
+    if(f){f.classList.add('open');var c=f.previousElementSibling.querySelector('.chevron');if(c)c.style.transform='rotate(90deg)';}
+  </script>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

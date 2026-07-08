@@ -1,0 +1,357 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Semantic HTML Markup</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 2 -Building a Full Website with HTML, Images, and Links</a></div>
+  <header>
+    <h1>Semantic HTML Markup</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Semantic HTML Markup</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When you write HTML, every tag you choose sends a message — not just to the browser that renders it, but to developers reading your code, search engine crawlers indexing your page, and assistive technologies helping users navigate your content. <strong>Semantic HTML</strong> is the practice of selecting elements whose names accurately describe the <em>role and meaning</em> of the content they contain, rather than choosing tags purely for their default visual appearance. Mastering semantic markup is one of the most impactful skills a web developer can build, because its benefits ripple outward into accessibility, search engine performance, code maintainability, and team collaboration all at once.</p>
+
+<p><strong>What Is Semantic HTML?</strong></p>
+
+<p>A semantic element is one whose tag name communicates something meaningful about the content it wraps. Consider the difference between these two snippets:</p>
+
+<pre><code>&lt;!-- Non-semantic approach --&gt;
+&lt;div class="header"&gt;
+  &lt;span class="site-title"&gt;My Travel Blog&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Semantic approach --&gt;
+&lt;header&gt;
+  &lt;h1&gt;My Travel Blog&lt;/h1&gt;
+&lt;/header&gt;
+</code></pre>
+
+<p>Both snippets can be styled to look identical in a browser. The critical difference is that <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code> are <strong>non-semantic containers</strong> — they carry absolutely no inherent information about what kind of content lives inside them. A screen reader encounters a <code>&lt;div&gt;</code> and has nothing to announce; a search crawler sees it as a generic box. By contrast, <code>&lt;header&gt;</code> tells every consumer of the HTML — human or machine — "this block introduces the page or the section it belongs to."</p>
+
+<p>Non-semantic elements like <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code> remain useful and valid. They are the right choice when you genuinely need a neutral wrapper for styling or scripting purposes and no semantic element fits. The problem arises when developers use <code>&lt;div&gt;</code> for <em>everything</em>, producing a codebase sometimes called "div soup" — dozens of nested, anonymous containers that force every reader to reverse-engineer the page structure from class names and CSS alone.</p>
+
+<p>Adopting semantic markup is considered a professional best practice in modern web development precisely because it externalises meaning into the markup itself, reducing the cognitive load on anyone who later reads or maintains the code.</p>
+
+<p><strong>The <code>&lt;header&gt;</code> and <code>&lt;nav&gt;</code> Elements</strong></p>
+
+<p>The <code>&lt;header&gt;</code> element represents introductory content for its nearest ancestor sectioning element, or for the page as a whole. At the page level it typically holds the site logo, the primary <code>&lt;h1&gt;</code> heading, a tagline, or a search bar. It can also appear inside an <code>&lt;article&gt;</code> or <code>&lt;section&gt;</code>, where it introduces just that piece of content.</p>
+
+<pre><code>&lt;header&gt;
+  &lt;img src="logo.svg" alt="Acme Corp logo"&gt;
+  &lt;h1&gt;Acme Corp — Quality Widgets Since 1952&lt;/h1&gt;
+&lt;/header&gt;
+</code></pre>
+
+<p>The <code>&lt;nav&gt;</code> element is reserved for a block of navigation links — the kind that let users move between major sections of the site or page. Placing your main menu inside <code>&lt;nav&gt;</code> rather than a generic <code>&lt;div&gt;</code> does something powerful: assistive technologies such as screen readers expose <code>&lt;nav&gt;</code> as a <strong>navigation landmark</strong>. A user of a screen reader can summon a list of all landmarks on the page and jump directly to "navigation," skipping everything before it. Without <code>&lt;nav&gt;</code>, that shortcut simply does not exist.</p>
+
+<pre><code>&lt;header&gt;
+  &lt;h1&gt;Acme Corp&lt;/h1&gt;
+  &lt;nav aria-label="Primary navigation"&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="/products"&gt;Products&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="/about"&gt;About&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="/contact"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;
+</code></pre>
+
+<p>Notice the <code>aria-label</code> attribute. When a page contains more than one <code>&lt;nav&gt;</code> — for example, a main menu and a breadcrumb trail — giving each a distinct label lets screen reader users distinguish between them instantly.</p>
+
+<p><strong>The <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>, and <code>&lt;article&gt;</code> Elements</strong></p>
+
+<p>The <code>&lt;main&gt;</code> element wraps the <em>dominant, unique content</em> of a page. Think of it as everything that is not repeated across pages — not the header, not the navigation, not the footer. A valid HTML document should contain exactly <strong>one</strong> <code>&lt;main&gt;</code> element that is not hidden. Like <code>&lt;nav&gt;</code>, it maps to a landmark role ("main"), so screen reader users can jump to it immediately, bypassing repetitive header and navigation content.</p>
+
+<pre><code>&lt;main&gt;
+  &lt;!-- All the unique page content goes here --&gt;
+&lt;/main&gt;
+</code></pre>
+
+<p>Inside <code>&lt;main&gt;</code> (and elsewhere), you will use <code>&lt;section&gt;</code> and <code>&lt;article&gt;</code> to give your content further structure. Understanding when to use which element is a common point of confusion, so it helps to apply a simple test:</p>
+
+<ul>
+  <li><strong><code>&lt;section&gt;</code></strong> — Use this when you want to group related content under a common theme and the group is part of a larger whole. A section almost always has its own heading. Think of chapters in a report, or distinct zones on a product page (features, pricing, testimonials).</li>
+  <li><strong><code>&lt;article&gt;</code></strong> — Use this when the content is <em>self-contained</em> and would make complete sense if syndicated or lifted out of context. A blog post, a news story, a forum reply, a product card, or a user review each qualifies as an article.</li>
+</ul>
+
+<pre><code>&lt;main&gt;
+  &lt;section&gt;
+    &lt;h2&gt;Latest Posts&lt;/h2&gt;
+
+    &lt;article&gt;
+      &lt;h3&gt;Exploring the Dolomites&lt;/h3&gt;
+      &lt;p&gt;Published 12 June 2025 by Maria Santos&lt;/p&gt;
+      &lt;p&gt;Towering limestone spires, wildflower meadows ...&lt;/p&gt;
+    &lt;/article&gt;
+
+    &lt;article&gt;
+      &lt;h3&gt;A Week in Kyoto&lt;/h3&gt;
+      &lt;p&gt;Published 3 June 2025 by James Lee&lt;/p&gt;
+      &lt;p&gt;Cherry blossoms and ancient temples ...&lt;/p&gt;
+    &lt;/article&gt;
+  &lt;/section&gt;
+&lt;/main&gt;
+</code></pre>
+
+<p>Nesting is flexible. An <code>&lt;article&gt;</code> can contain one or more <code>&lt;section&gt;</code> elements if a long post has distinct chapters. Conversely, a <code>&lt;section&gt;</code> can contain multiple <code>&lt;article&gt;</code> elements, as in the blog listing above. The HTML specification permits both directions of nesting when the content structure genuinely calls for it.</p>
+
+<p><strong>The <code>&lt;footer&gt;</code> Element</strong></p>
+
+<p>Just as <code>&lt;header&gt;</code> introduces content, <code>&lt;footer&gt;</code> closes it out. At the page level, a <code>&lt;footer&gt;</code> typically contains copyright notices, legal disclaimers, links to privacy policies, contact information, and perhaps a secondary site map. Browsers and screen readers recognise the page-level <code>&lt;footer&gt;</code> as a "contentinfo" landmark — another landmark users can jump to directly.</p>
+
+<pre><code>&lt;footer&gt;
+  &lt;p&gt;&amp;copy; 2025 Acme Corp. All rights reserved.&lt;/p&gt;
+  &lt;nav aria-label="Footer navigation"&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href="/privacy"&gt;Privacy Policy&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="/terms"&gt;Terms of Service&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+&lt;/footer&gt;
+</code></pre>
+
+<p>A <code>&lt;footer&gt;</code> can also appear inside an <code>&lt;article&gt;</code>. In that context it is scoped to the article alone and is an ideal place to credit the author, display a publication date using the <code>&lt;time&gt;</code> element, or list tags associated with that post — contextual metadata rather than site-wide boilerplate.</p>
+
+<pre><code>&lt;article&gt;
+  &lt;h3&gt;Exploring the Dolomites&lt;/h3&gt;
+  &lt;p&gt;Towering limestone spires ...&lt;/p&gt;
+  &lt;footer&gt;
+    &lt;p&gt;Written by &lt;strong&gt;Maria Santos&lt;/strong&gt; on
+      &lt;time datetime="2025-06-12"&gt;12 June 2025&lt;/time&gt;
+    &lt;/p&gt;
+  &lt;/footer&gt;
+&lt;/article&gt;
+</code></pre>
+
+<p><strong>Semantic Markup and Accessibility</strong></p>
+
+<p>The Web Content Accessibility Guidelines (WCAG) set the international standard for making websites usable by people with disabilities. Semantic HTML is not just a nice-to-have in this context — it is the <em>foundation</em> on which accessible experiences are built. Here is why:</p>
+
+<p>Assistive technologies like screen readers (NVDA, JAWS, VoiceOver) build an internal model of a page called the <strong>accessibility tree</strong>. This tree is derived primarily from the HTML structure. When you use semantic elements, the browser automatically maps them to <strong>ARIA landmark roles</strong> without you needing to write a single line of ARIA code:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>HTML Element</th>
+      <th>Implicit Landmark Role</th>
+      <th>What a Screen Reader Announces</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>&lt;header&gt;</code> (page-level)</td>
+      <td>banner</td>
+      <td>"banner"</td>
+    </tr>
+    <tr>
+      <td><code>&lt;nav&gt;</code></td>
+      <td>navigation</td>
+      <td>"navigation"</td>
+    </tr>
+    <tr>
+      <td><code>&lt;main&gt;</code></td>
+      <td>main</td>
+      <td>"main"</td>
+    </tr>
+    <tr>
+      <td><code>&lt;section&gt;</code> (with accessible name)</td>
+      <td>region</td>
+      <td>"region" + label</td>
+    </tr>
+    <tr>
+      <td><code>&lt;article&gt;</code></td>
+      <td>article</td>
+      <td>"article"</td>
+    </tr>
+    <tr>
+      <td><code>&lt;footer&gt;</code> (page-level)</td>
+      <td>contentinfo</td>
+      <td>"contentinfo"</td>
+    </tr>
+    <tr>
+      <td><code>&lt;div&gt;</code></td>
+      <td><em>none</em></td>
+      <td><em>nothing — content only</em></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A user navigating with a screen reader can open a <strong>landmarks menu</strong> and teleport straight to "main" or "navigation" rather than listening to every element on the page in sequence. For a person who cannot use a mouse and relies entirely on keyboard or switch access, this efficiency is not a luxury — it is essential to usability. Proper semantic structure therefore directly satisfies WCAG 2.1 Success Criterion 1.3.1 (Info and Relationships) and 2.4.1 (Bypass Blocks), among others.</p>
+
+<p><strong>Semantic Markup and Search Engine Optimization (SEO)</strong></p>
+
+<p>Search engines send automated crawlers to read and index your pages. These crawlers process HTML much as an accessibility tree does — they look for signals about what matters. Semantic elements provide those signals clearly.</p>
+
+<p>When a Googlebot or Bingbot encounters a <code>&lt;nav&gt;</code> element, it understands that the links inside are for navigation, not primary content, and weights them accordingly. When it finds content inside <code>&lt;main&gt;</code> or wrapped in <code>&lt;article&gt;</code> with a descriptive heading hierarchy, it can confidently identify the topic of the page and index it with greater precision. Footer content inside <code>&lt;footer&gt;</code> is recognised as supplementary boilerplate and not confused with the core message of the page.</p>
+
+<ul>
+  <li><strong>Clearer content signals:</strong> <code>&lt;article&gt;</code> and <code>&lt;section&gt;</code> with descriptive <code>&lt;h2&gt;</code> and <code>&lt;h3&gt;</code> headings help crawlers extract topics, subtopics, and keywords in their natural hierarchy.</li>
+  <li><strong>Reduced noise:</strong> Navigation and footer links marked up semantically are less likely to dilute the relevance score of your main content.</li>
+  <li><strong>Rich results eligibility:</strong> Some structured-data features and rich snippets (such as article dates and authorship shown in search results) are easier to implement and more reliable when the underlying HTML is already semantically structured.</li>
+</ul>
+
+<p>While semantic HTML alone does not guarantee top rankings — content quality, backlinks, and page performance all matter — it ensures you are not inadvertently obscuring your content from the algorithms designed to surface it.</p>
+
+<p><strong>Structuring a Full Page with Semantic Elements</strong></p>
+
+<p>Putting everything together, a well-structured semantic page follows a logical outline that mirrors both the visual layout and the informational hierarchy. Here is a complete, realistic example:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;My Travel Blog&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;header&gt;
+    &lt;img src="logo.svg" alt="My Travel Blog logo"&gt;
+    &lt;h1&gt;My Travel Blog&lt;/h1&gt;
+    &lt;nav aria-label="Primary navigation"&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="/destinations"&gt;Destinations&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="/tips"&gt;Travel Tips&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="/about"&gt;About Me&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+
+    &lt;section&gt;
+      &lt;h2&gt;Featured Destinations&lt;/h2&gt;
+
+      &lt;article&gt;
+        &lt;header&gt;
+          &lt;h3&gt;Exploring the Dolomites&lt;/h3&gt;
+        &lt;/header&gt;
+        &lt;p&gt;
+          The jagged peaks of the Dolomites rise from the
+          Venetian plain like a fever dream in stone ...
+        &lt;/p&gt;
+        &lt;footer&gt;
+          &lt;p&gt;By &lt;strong&gt;Maria Santos&lt;/strong&gt; &amp;mdash;
+            &lt;time datetime="2025-06-12"&gt;12 June 2025&lt;/time&gt;
+          &lt;/p&gt;
+        &lt;/footer&gt;
+      &lt;/article&gt;
+
+      &lt;article&gt;
+        &lt;header&gt;
+          &lt;h3&gt;A Week in Kyoto&lt;/h3&gt;
+        &lt;/header&gt;
+        &lt;p&gt;
+          Ancient temples draped in moss, the scent of
+          incense on the morning air ...
+        &lt;/p&gt;
+        &lt;footer&gt;
+          &lt;p&gt;By &lt;strong&gt;James Lee&lt;/strong&gt; &amp;mdash;
+            &lt;time datetime="2025-06-03"&gt;3 June 2025&lt;/time&gt;
+          &lt;/p&gt;
+        &lt;/footer&gt;
+      &lt;/article&gt;
+
+    &lt;/section&gt;
+
+    &lt;section&gt;
+      &lt;h2&gt;Latest Travel Tips&lt;/h2&gt;
+      &lt;article&gt;
+        &lt;h3&gt;Packing Light for a Two-Week Trip&lt;/h3&gt;
+        &lt;p&gt;The secret to carry-on-only travel is a ruthless
+          capsule wardrobe and a trusty packing cube set ...&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/section&gt;
+
+  &lt;/main&gt;
+
+  &lt;footer&gt;
+    &lt;p&gt;&amp;copy; 2025 My Travel Blog. All rights reserved.&lt;/p&gt;
+    &lt;nav aria-label="Footer links"&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href="/privacy"&gt;Privacy Policy&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="/contact"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+  &lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>Notice several important qualities of this structure:</p>
+
+<ul>
+  <li><strong>No extra CSS or JavaScript is needed</strong> to achieve the semantic benefits. The elements carry their meaning at the markup level. You add CSS on top to control visual presentation, but the meaning exists independently of any stylesheet.</li>
+  <li><strong>The heading hierarchy is unbroken:</strong> <code>&lt;h1&gt;</code> names the site, <code>&lt;h2&gt;</code> names each section, <code>&lt;h3&gt;</code> titles each article. A screen reader user navigating by headings gets a perfectly logical outline of the page.</li>
+  <li><strong>Each landmark is purposeful:</strong> There is one <code>&lt;main&gt;</code>, one page-level <code>&lt;header&gt;</code>, and one page-level <code>&lt;footer&gt;</code>. The two <code>&lt;nav&gt;</code> elements are distinguished by distinct <code>aria-label</code> attributes.</li>
+  <li><strong>Maintenance is straightforward:</strong> A new developer reading this file can immediately understand the layout — featured content, then tips, all within a main content area — without relying on class names or comments.</li>
+</ul>
+
+<p>When this same semantic pattern is applied consistently across every page of a website, both users and search engines encounter a predictable, coherent structure. Screen reader users know where to find navigation and main content on every page. Search crawlers build a reliable model of the site's information architecture. And the development team inherits a codebase where every element earns its place and communicates its purpose clearly.</p>
+        <div class="notes"><strong>Notes</strong>The full-page example intentionally demonstrates nested &lt;header&gt; and &lt;footer&gt; inside &lt;article&gt; elements to reinforce that these elements are not limited to the page level. The ARIA landmark table provides a quick-reference comparison that bridges the semantic HTML and accessibility sections.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>
