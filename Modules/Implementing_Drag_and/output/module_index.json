@@ -2,7 +2,7 @@
   "ModuleName": "9 - Implementing Drag and Drop Interactions",
   "CourseName": "COP4813",
   "ModuleFolderName": "Implementing_Drag_and",
-  "GeneratedUtc": "2026-07-08T00:18:00.6491172Z",
+  "GeneratedUtc": "2026-07-08T00:36:57.427649Z",
   "HtmlIndexSignature": "AE75C38B63BA9E71DFED7D90B2AFEBAB184D95F73A9AD21AED2D851F82FABF71",
   "Artifacts": [
     {
@@ -24,7 +24,7 @@
       "Name": "Module Topics (HTML)",
       "Type": "Module Topics (HTML)",
       "FileType": ".html",
-      "Description": "An outline of all topics covered in the module \u2014 including the HTML5 Drag and Drop API, draggable elements, and key drag events \u2014 giving learners and instructors a navigable overview of the module\u0027s scope.",
+      "Description": "This page outlines the module\u0027s topics on the HTML5 Drag and Drop API, covering browser support, draggable element setup, key drag events (dragstart, dragover, drop, etc.), data transfer, visual feedback, and practical use cases; learners use it as a reading guide to preview and navigate the module\u0027s core concepts.",
       "CustomName": null,
       "ContentCategory": "",
       "ExcludedFromWebsite": false,
@@ -33,7 +33,7 @@
       "WebHref": "",
       "LocalHref": "module_topics.html",
       "RawHref": "",
-      "SourceModifiedTicks": 639181234334748968
+      "SourceModifiedTicks": 639190666806556420
     },
     {
       "Name": "Introduction to HTML5 Drag and Drop",

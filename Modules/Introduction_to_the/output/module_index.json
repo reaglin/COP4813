@@ -2,7 +2,7 @@
   "ModuleName": "4 - Introduction to the Document Object Model (DOM)",
   "CourseName": "COP4813",
   "ModuleFolderName": "Introduction_to_the",
-  "GeneratedUtc": "2026-07-08T00:13:40.7405355Z",
+  "GeneratedUtc": "2026-07-08T00:36:45.0387756Z",
   "HtmlIndexSignature": "95449E929D17B14C80678F8040E335DCBE4E1DA602FF36A88061A352D3FA8ABE",
   "Artifacts": [
     {
@@ -24,7 +24,7 @@
       "Name": "Module Topics (HTML)",
       "Type": "Module Topics (HTML)",
       "FileType": ".html",
-      "Description": "An overview page listing all module topics \u2014 what the DOM is, how browsers parse HTML, the DOM tree structure, selecting elements, manipulating elements, and adding/removing nodes \u2014 giving learners and instructors a navigable outline of the module\u0027s content.",
+      "Description": "Lists the topics covered in the DOM module\u2014including what the DOM is, how it structures HTML as a tree of nodes, and how JavaScript interacts with it\u2014serving as a navigational overview that helps learners and instructors see the scope of the module at a glance.",
       "CustomName": null,
       "ContentCategory": "",
       "ExcludedFromWebsite": false,
@@ -33,7 +33,7 @@
       "WebHref": "",
       "LocalHref": "module_topics.html",
       "RawHref": "",
-      "SourceModifiedTicks": 639181232564466448
+      "SourceModifiedTicks": 639190664207581034
     },
     {
       "Name": "What is the DOM?",

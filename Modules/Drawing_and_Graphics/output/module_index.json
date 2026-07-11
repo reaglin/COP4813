@@ -2,7 +2,7 @@
   "ModuleName": "7 - Drawing and Graphics with the HTML5 Canvas",
   "CourseName": "COP4813",
   "ModuleFolderName": "Drawing_and_Graphics",
-  "GeneratedUtc": "2026-07-08T00:16:14.7374689Z",
+  "GeneratedUtc": "2026-07-08T00:36:51.9316274Z",
   "HtmlIndexSignature": "A17A9064DB13D0EFB535962854C6E1C16C2096AF4CE65D240199F23B4B8AA1BF",
   "Artifacts": [
     {
@@ -24,7 +24,7 @@
       "Name": "Module Topics (HTML)",
       "Type": "Module Topics (HTML)",
       "FileType": ".html",
-      "Description": "An overview page listing all topics covered in the module \u2014 including the Canvas element, basic shapes, paths, colors, text, images, and interactivity \u2014 giving learners and instructors a structured roadmap of the module\u0027s content.",
+      "Description": "An overview page listing the module\u0027s core topics\u2014introducing the HTML5 Canvas element, adding it to a webpage, and accessing the 2D rendering context with JavaScript\u2014which learners use to preview what they will study and instructors use to communicate the module\u0027s scope.",
       "CustomName": null,
       "ContentCategory": "",
       "ExcludedFromWebsite": false,
@@ -33,7 +33,7 @@
       "WebHref": "",
       "LocalHref": "module_topics.html",
       "RawHref": "",
-      "SourceModifiedTicks": 639181233593054101
+      "SourceModifiedTicks": 639190665747437288
     },
     {
       "Name": "Introduction to the HTML5 Canvas Element",

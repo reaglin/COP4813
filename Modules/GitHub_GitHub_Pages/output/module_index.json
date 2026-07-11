@@ -2,7 +2,7 @@
   "ModuleName": "1 -GitHub, GitHub Pages, and Your First HTML Page",
   "CourseName": "COP4813",
   "ModuleFolderName": "GitHub_GitHub_Pages",
-  "GeneratedUtc": "2026-07-08T00:11:32.6286533Z",
+  "GeneratedUtc": "2026-07-08T00:36:40.3934326Z",
   "HtmlIndexSignature": "AE3E494F8AC62FBA42BE7A0AA905A94D8C956008F51E52863C4A3558F7C4E068",
   "Artifacts": [
     {
@@ -24,7 +24,7 @@
       "Name": "Module Topics (HTML)",
       "Type": "Module Topics (HTML)",
       "FileType": ".html",
-      "Description": "This artifact is a structured overview of the module\u0027s learning topics \u2014 covering GitHub\u0027s purpose, account setup, GitHub Pages configuration, and creating a first HTML page \u2014 that learners and instructors can use as a navigational reference to see what subjects will be taught and in what order.",
+      "Description": "Lists the topics covered in the module\u2014including what GitHub is, why it\u0027s used, creating a GitHub account, setting up GitHub Pages, and building a first HTML page\u2014so learners can preview what they will study and instructors can see the module\u0027s scope at a glance.",
       "CustomName": null,
       "ContentCategory": "",
       "ExcludedFromWebsite": false,
@@ -33,7 +33,7 @@
       "WebHref": "",
       "LocalHref": "module_topics.html",
       "RawHref": "",
-      "SourceModifiedTicks": 639181642433663320
+      "SourceModifiedTicks": 639190662926784926
     },
     {
       "Name": "Writing Your First HTML Document",

@@ -2,7 +2,7 @@
   "ModuleName": "8 - Introduction to JSON and Using It in the Browser",
   "CourseName": "COP4813",
   "ModuleFolderName": "Introduction_to_JSON",
-  "GeneratedUtc": "2026-07-08T00:17:08.66456Z",
+  "GeneratedUtc": "2026-07-08T00:36:54.5710701Z",
   "HtmlIndexSignature": "24D81C30DE26B59A74AE0B7C1ED4F406C0799E6612F931C7EF110046957FDF6B",
   "Artifacts": [
     {
@@ -24,7 +24,7 @@
       "Name": "Module Topics (HTML)",
       "Type": "Module Topics (HTML)",
       "FileType": ".html",
-      "Description": "An overview page listing all topics covered in the module \u2014 JSON definition, syntax, parsing, stringifying, fetching with Fetch API and XMLHttpRequest, and displaying data \u2014 giving learners and instructors a navigational outline of what the module addresses.",
+      "Description": "Outlines the topics covered in the module, including what JSON is, its syntax and data types, how to parse and stringify JSON in JavaScript, and how to fetch and display JSON data in the browser, serving as a navigation guide for learners to preview and locate key concepts within the module.",
       "CustomName": null,
       "ContentCategory": "",
       "ExcludedFromWebsite": false,
@@ -33,7 +33,7 @@
       "WebHref": "",
       "LocalHref": "module_topics.html",
       "RawHref": "",
-      "SourceModifiedTicks": 639181233895703297
+      "SourceModifiedTicks": 639190666286705754
     },
     {
       "Name": "What is JSON?",

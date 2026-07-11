@@ -2,7 +2,7 @@
   "ModuleName": "12 - Dynamic Objects and Controls with JavaScript and the DOM",
   "CourseName": "COP4813",
   "ModuleFolderName": "Dynamic_Objects_and",
-  "GeneratedUtc": "2026-07-08T00:20:35.9468309Z",
+  "GeneratedUtc": "2026-07-08T00:37:04.2591882Z",
   "HtmlIndexSignature": "91197141CCD4CC8F0CDD09C77F11768B0D682EF938918C9A92404F421655CFF1",
   "Artifacts": [
     {
@@ -24,7 +24,7 @@
       "Name": "Module Topics (HTML)",
       "Type": "Module Topics (HTML)",
       "FileType": ".html",
-      "Description": "A navigational outline listing all topics covered in the module \u2014 including the DOM, dynamic element creation, property modification, event listeners, and UI controls \u2014 giving learners and instructors a structured overview of what the module contains.",
+      "Description": "Outlines the topics covered in the module, including the Document Object Model\u0027s structure, how JavaScript interacts with HTML elements at runtime, and dynamic manipulation of objects and controls; used by learners and instructors to preview and navigate the module\u0027s subject matter.",
       "CustomName": null,
       "ContentCategory": "",
       "ExcludedFromWebsite": false,
@@ -33,7 +33,7 @@
       "WebHref": "",
       "LocalHref": "module_topics.html",
       "RawHref": "",
-      "SourceModifiedTicks": 639181235377559444
+      "SourceModifiedTicks": 639190668359583043
     },
     {
       "Name": "Introduction to the DOM and Dynamic Manipulation",

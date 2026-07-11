@@ -2,7 +2,7 @@
   "ModuleName": "3 -Styling Web Pages with CSS",
   "CourseName": "COP4813",
   "ModuleFolderName": "Styling_Web_Pages",
-  "GeneratedUtc": "2026-07-08T00:12:57.9645862Z",
+  "GeneratedUtc": "2026-07-08T00:36:42.7433173Z",
   "HtmlIndexSignature": "D0BECA4C76E70D1F6FEF11CF609136D9D82B244F93EFA960F4835A337A435073",
   "Artifacts": [
     {
@@ -24,7 +24,7 @@
       "Name": "Module Topics (HTML)",
       "Type": "Module Topics (HTML)",
       "FileType": ".html",
-      "Description": "This outline lists and summarises all topics covered in the module \u2014 Introduction to CSS, selectors, the box model, typography, colors, layout techniques, and a capstone styling project \u2014 giving learners and instructors a navigable overview of what the module contains.",
+      "Description": "A topic overview listing the CSS concepts covered in the module\u2014including what CSS is, how to link stylesheets (inline, internal, and external), and how CSS controls the visual presentation of HTML pages\u2014giving learners and instructors a roadmap of the module\u0027s learning objectives before diving into the content.",
       "CustomName": null,
       "ContentCategory": "",
       "ExcludedFromWebsite": false,
@@ -33,7 +33,7 @@
       "WebHref": "",
       "LocalHref": "module_topics.html",
       "RawHref": "",
-      "SourceModifiedTicks": 639181232254248648
+      "SourceModifiedTicks": 639190663779840781
     },
     {
       "Name": "Introduction to CSS",

@@ -2,7 +2,7 @@
   "ModuleName": "10 - Animation Techniques in the Browser",
   "CourseName": "COP4813",
   "ModuleFolderName": "Animation_Techniques_in",
-  "GeneratedUtc": "2026-07-08T00:18:53.7768772Z",
+  "GeneratedUtc": "2026-07-08T00:36:59.58289Z",
   "HtmlIndexSignature": "A4E20DD334C7D5B532C9AEFA495E3E2C6462A34046E89C23E4080C0CDA2CCE75",
   "Artifacts": [
     {
@@ -24,7 +24,7 @@
       "Name": "Module Topics (HTML)",
       "Type": "Module Topics (HTML)",
       "FileType": ".html",
-      "Description": "An outline of the module\u0027s topics covering browser animation fundamentals, CSS-based approaches, JavaScript-driven techniques, and performance best practices, used by learners to preview and navigate the module\u0027s structure.",
+      "Description": "A topic outline covering browser animation fundamentals, including how animations work, their impact on user experience, and an introduction to CSS-based versus JavaScript-driven animation approaches; used by learners to preview module content and by instructors to plan lesson structure.",
       "CustomName": null,
       "ContentCategory": "",
       "ExcludedFromWebsite": false,
@@ -33,7 +33,7 @@
       "WebHref": "",
       "LocalHref": "module_topics.html",
       "RawHref": "",
-      "SourceModifiedTicks": 639181234710457147
+      "SourceModifiedTicks": 639190667337802054
     },
     {
       "Name": "Introduction to Browser Animation",

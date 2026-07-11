@@ -2,7 +2,7 @@
   "ModuleName": "5 - Creating and Validating HTML Forms",
   "CourseName": "COP4813",
   "ModuleFolderName": "Creating_and_Validating",
-  "GeneratedUtc": "2026-07-08T00:14:28.8678512Z",
+  "GeneratedUtc": "2026-07-08T00:36:47.4631367Z",
   "HtmlIndexSignature": "3DD88E12F5CA599BC8C5820C3F47EAAC3FCBCB640CE2B3F1A13E0983174A32B6",
   "Artifacts": [
     {
@@ -24,7 +24,7 @@
       "Name": "Module Topics (HTML)",
       "Type": "Module Topics (HTML)",
       "FileType": ".html",
-      "Description": "An outline of all topics covered in the module \u2014 including form structure, input types, accessibility, submission attributes, HTML5 validation, JavaScript validation, and user feedback \u2014 giving learners and instructors a navigable overview of what the module contains.",
+      "Description": "A topic outline covering HTML form fundamentals\u2014including form structure, user input elements, and data submission\u2014that learners use to preview the key concepts addressed in the module and instructors use to confirm curricular scope.",
       "CustomName": null,
       "ContentCategory": "",
       "ExcludedFromWebsite": false,
@@ -33,7 +33,7 @@
       "WebHref": "",
       "LocalHref": "module_topics.html",
       "RawHref": "",
-      "SourceModifiedTicks": 639181232876768889
+      "SourceModifiedTicks": 639190664688715469
     },
     {
       "Name": "Introduction to HTML Forms",

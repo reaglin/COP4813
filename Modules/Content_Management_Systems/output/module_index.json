@@ -2,7 +2,7 @@
   "ModuleName": "14 - Content Management Systems, Webmaster Roles, and Site Maintenance",
   "CourseName": "COP4813",
   "ModuleFolderName": "Content_Management_Systems",
-  "GeneratedUtc": "2026-07-08T00:22:20.9633349Z",
+  "GeneratedUtc": "2026-07-08T00:37:08.7116885Z",
   "HtmlIndexSignature": "B7550A2E61A040005A80BB93B65A05D91914526C61E0F0BD40B87947BB9D878E",
   "Artifacts": [
     {
@@ -24,7 +24,7 @@
       "Name": "Module Topics (HTML)",
       "Type": "Module Topics (HTML)",
       "FileType": ".html",
-      "Description": "A navigation page listing all topics covered in the module \u2014 Introduction to CMS, popular platforms, CMS vs. custom builds, the webmaster role, and site maintenance \u2014 giving learners and instructors an at-a-glance outline of the module\u0027s structure.",
+      "Description": "This module outline lists and briefly describes the topics covered in Module 14, including an introduction to content management systems, how CMS platforms function, webmaster roles, and site maintenance practices, serving as a navigational guide for learners to preview and locate key subject areas before diving into the full module content.",
       "CustomName": null,
       "ContentCategory": "",
       "ExcludedFromWebsite": false,
@@ -33,7 +33,7 @@
       "WebHref": "",
       "LocalHref": "module_topics.html",
       "RawHref": "",
-      "SourceModifiedTicks": 639181235992242181
+      "SourceModifiedTicks": 639190669409801823
     },
     {
       "Name": "Introduction to Content Management Systems",

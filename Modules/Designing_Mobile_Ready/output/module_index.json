@@ -2,7 +2,7 @@
   "ModuleName": "11 - Designing Mobile-Ready and Responsive Websites",
   "CourseName": "COP4813",
   "ModuleFolderName": "Designing_Mobile_Ready",
-  "GeneratedUtc": "2026-07-08T00:19:43.5170399Z",
+  "GeneratedUtc": "2026-07-08T00:37:01.8546136Z",
   "HtmlIndexSignature": "456E102CE01B9982285FB49827F1D1B0025F20D19FC600A453CE32F236880195",
   "Artifacts": [
     {
@@ -24,7 +24,7 @@
       "Name": "Module Topics (HTML)",
       "Type": "Module Topics (HTML)",
       "FileType": ".html",
-      "Description": "An overview page listing all topics covered in the module \u2014 including responsive web design concepts, fluid grids, media queries, and mobile-first philosophy \u2014 which learners use as a navigational starting point for the module.",
+      "Description": "This page outlines the topics covered in Module 11, focusing on responsive web design concepts such as fluid layouts, flexible images, and media queries that enable websites to adapt across multiple screen sizes, serving as a navigational overview for learners to preview and access the module\u0027s subject areas.",
       "CustomName": null,
       "ContentCategory": "",
       "ExcludedFromWebsite": false,
@@ -33,7 +33,7 @@
       "WebHref": "",
       "LocalHref": "module_topics.html",
       "RawHref": "",
-      "SourceModifiedTicks": 639181235050050380
+      "SourceModifiedTicks": 639190667835215752
     },
     {
       "Name": "Introduction to Responsive Web Design",

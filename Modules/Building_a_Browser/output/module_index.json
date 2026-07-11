@@ -2,7 +2,7 @@
   "ModuleName": "13 - Building a Browser-Embedded Game",
   "CourseName": "COP4813",
   "ModuleFolderName": "Building_a_Browser",
-  "GeneratedUtc": "2026-07-08T00:21:31.5439283Z",
+  "GeneratedUtc": "2026-07-08T00:37:06.3991942Z",
   "HtmlIndexSignature": "A5C23E84FBAF30F7739B150A586712958341DF6C975B46D5378FB8F233A094AD",
   "Artifacts": [
     {
@@ -24,7 +24,7 @@
       "Name": "Module Topics (HTML)",
       "Type": "Module Topics (HTML)",
       "FileType": ".html",
-      "Description": "An overview page listing all topics covered in the module \u2014 game design fundamentals, canvas drawing, animation loops, event handling, game logic, and final integration \u2014 giving learners and instructors a navigable table of contents for the module.",
+      "Description": "Covers the foundational topics of Module 13\u2014game design principles, defining objectives and rules, and structuring a browser-embedded game\u2014serving as a learner\u0027s overview of what the module will teach before diving into coding.",
       "CustomName": null,
       "ContentCategory": "",
       "ExcludedFromWebsite": false,
@@ -33,7 +33,7 @@
       "WebHref": "",
       "LocalHref": "module_topics.html",
       "RawHref": "",
-      "SourceModifiedTicks": 639181235665343895
+      "SourceModifiedTicks": 639190668915516470
     },
     {
       "Name": "Game Design Fundamentals",

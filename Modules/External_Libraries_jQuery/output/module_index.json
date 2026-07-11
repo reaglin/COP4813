@@ -2,7 +2,7 @@
   "ModuleName": "6 - External Libraries: jQuery, Bootstrap, and Plotting Tools",
   "CourseName": "COP4813",
   "ModuleFolderName": "External_Libraries_jQuery",
-  "GeneratedUtc": "2026-07-08T00:15:20.071364Z",
+  "GeneratedUtc": "2026-07-08T00:36:49.6868131Z",
   "HtmlIndexSignature": "6CE93BD26DDAA401FF7FBDDE248C156A94A9BF51DBCEBE542ECFFCADE68A814D",
   "Artifacts": [
     {
@@ -24,7 +24,7 @@
       "Name": "Module Topics (HTML)",
       "Type": "Module Topics (HTML)",
       "FileType": ".html",
-      "Description": "An outline of all topics covered in Module 6, listing each lesson from CDN integration through jQuery, Bootstrap, Chart.js, and combining libraries, so learners can preview the module\u0027s scope before diving in.",
+      "Description": "A topic outline for Module 6 listing and briefly explaining the key subject areas covered\u2014including what external libraries are, how to load them via CDNs, and how to work with jQuery, Bootstrap, and plotting tools\u2014intended to give learners and instructors an overview of the module\u0027s scope before diving into the lessons.",
       "CustomName": null,
       "ContentCategory": "",
       "ExcludedFromWebsite": false,
@@ -33,7 +33,7 @@
       "WebHref": "",
       "LocalHref": "module_topics.html",
       "RawHref": "",
-      "SourceModifiedTicks": 639181233238805953
+      "SourceModifiedTicks": 639190665200741401
     },
     {
       "Name": "Introduction to External Libraries and CDN Integration",

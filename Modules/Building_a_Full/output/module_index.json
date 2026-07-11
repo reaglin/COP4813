@@ -2,7 +2,7 @@
   "ModuleName": "2 -Building a Full Website with HTML, Images, and Links",
   "CourseName": "COP4813",
   "ModuleFolderName": "Building_a_Full",
-  "GeneratedUtc": "2026-07-08T00:12:12.1347383Z",
+  "GeneratedUtc": "2026-07-08T00:36:40.4147292Z",
   "HtmlIndexSignature": "99827B4A174DC33E4378ED33E0A0ADA903A1EA672132B64D1132DF67BE201B6F",
   "Artifacts": [
     {
@@ -24,7 +24,7 @@
       "Name": "Module Topics (HTML)",
       "Type": "Module Topics (HTML)",
       "FileType": ".html",
-      "Description": "A navigational overview page listing all topics covered in the module \u2014 from multi-page website structure through semantic HTML, images, links, and navigation \u2014 giving learners and instructors a high-level roadmap of the module\u0027s content.",
+      "Description": "This page outlines the topics covered in the module \u2014 including multi-page website structure, HTML, images, and links \u2014 and serves as a navigational overview to help learners and instructors understand what concepts will be taught and in what order.",
       "CustomName": null,
       "ContentCategory": "",
       "ExcludedFromWebsite": false,
@@ -33,7 +33,7 @@
       "WebHref": "",
       "LocalHref": "module_topics.html",
       "RawHref": "",
-      "SourceModifiedTicks": 639181231927227982
+      "SourceModifiedTicks": 639190663321718966
     },
     {
       "Name": "Introduction to Multi-Page Website Structure",
