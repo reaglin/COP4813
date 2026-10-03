@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Validation Feedback and User Experience</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 5 - Creating and Validating HTML Forms</a></div>
+<h1>Validation Feedback and User Experience</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Test a form for accessibility checklist and demo</a>
+<a href="#sec3">Video 2: What ARIA is and its impact on accessibility</a>
+<a href="#sec4">Video 3: How to test your form for accessibility issues with the WAVE extension</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>A form that rejects input without explaining why is a dead end for the user. Validation feedback is the layer of messaging and visual cues that tells someone what went wrong, where it went wrong, and how to fix it. In this topic you will look at inline error messages placed next to the field they describe, visual indicators of field state (valid, invalid, required, focused), and the trade-offs between validating as the user types versus waiting until submit.</p>
+<p>You will also work with the HTML5 Constraint Validation API, which gives you programmatic access to validity states and lets you replace the browser&#39;s default bubble messages with your own styled, well-placed text. Because error text that is only visible is not enough, the topic extends into accessible error announcements using ARIA attributes such as aria-invalid, aria-describedby, and live regions, plus summary error lists at the top of long or complex forms. Finally, you will consider when placeholder text helps and when it quietly hurts, and how persistent helper text is usually the safer choice.</p>
+<p>The three videos below come from Pope Tech, a producer focused on web accessibility testing. They approach the topic from the evaluation side: how to check whether a form actually communicates its errors to all users, what ARIA is really for, and how an automated tool reports form problems. While watching, pay attention to the checks being performed and ask yourself how you would build a form that passes them the first time, and note any guidance about labels, error identification, and ARIA misuse that you can apply to your own validation code.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Test a form for accessibility checklist and demo</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/4Sei-7XUscA?cc_load_policy=1&amp;rel=0" title="Video: Test a form for accessibility checklist and demo (Pope Tech)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Pope Tech</strong> · 6:07 · 2,706 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=4Sei-7XUscA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A walkthrough of what makes an HTML form accessible, paired with a demonstration of how to test one against a checklist. Expect coverage of items such as labeling, keyboard operation, required field indication, and whether errors are identified and described in a way assistive technology can reach.</p>
+<h3>Why this video</h3>
+<p>It gives you a concrete evaluation checklist you can run against your own forms, which directly supports the inline error message, field state, and accessible announcement subtopics.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: What ARIA is and its impact on accessibility</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/BDPMUq__gIM?cc_load_policy=1&amp;rel=0" title="Video: What ARIA is and its impact on accessibility (Pope Tech)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Pope Tech</strong> · 5:21 · 2,449 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=BDPMUq__gIM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>An introduction to ARIA: what the specification is for, the first rule of ARIA (do not use ARIA when native HTML will do), and examples of how incorrect ARIA degrades the experience for assistive technology users. It frames ARIA as a supplement to semantic markup rather than a replacement for it.</p>
+<h3>Why this video</h3>
+<p>Accessible error announcements depend on correct ARIA usage, and this video sets the ground rules so you apply attributes like aria-invalid and aria-describedby intentionally instead of by habit.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: How to test your form for accessibility issues with the WAVE extension</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/03U9qYLIyi0?cc_load_policy=1&amp;rel=0" title="Video: How to test your form for accessibility issues with the WAVE extension (Pope Tech)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Pope Tech</strong> · 5:34 · 830 views · 11mo ago · captions — <a href="https://www.youtube.com/watch?v=03U9qYLIyi0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A practical demonstration of testing a form with the WAVE browser extension, reviewing the kinds of results WAVE returns for form elements and how to interpret and fix them. The video reflects the updated version of the tool and connects each reported issue back to a remedy in markup.</p>
+<h3>Why this video</h3>
+<p>It turns accessibility feedback into something you can check immediately in the browser, giving you a fast feedback loop while building and validating the forms assigned in this module.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>These videos reinforce the accessibility half of the module&#39;s outcomes. The form accessibility checklist and WAVE testing demonstrations help you verify that the labels, fieldsets, and semantic structure required by MO1 are actually present and announced, and that error identification works for the inline messages you build with the Constraint Validation API in MO4. The ARIA video supplies the conceptual grounding needed to choose appropriate attributes for error announcements rather than over-applying them. Together they give you the evaluation criteria called for in MO5, so you can weigh real-time versus on-submit feedback, ARIA live announcements, and summary error lists against measurable usability and accessibility outcomes instead of personal preference.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

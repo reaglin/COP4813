@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Introduction to External Libraries and CDN Integration</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 6 - External Libraries: jQuery, Bootstrap, and Plotting Tools</a></div>
+<h1>Introduction to External Libraries and CDN Integration</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: What Is A CDN? How Does It Work?</a>
+<a href="#sec3">Video 2: What Is jQuery? A Look At the Web’s Most-Used JavaScript Library</a>
+<a href="#sec4">Video 3: CDN - Content Delivery Network - Explained</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Almost no modern web project is built entirely from scratch. Instead, developers pull in third-party external libraries — pre-written, tested bundles of JavaScript and CSS such as jQuery, Bootstrap, and Chart.js — so they can focus on their own application logic rather than reinventing common functionality. This topic introduces what those libraries are, where they live, and the two ways you can bring them into a page: downloading the files and hosting them yourself, or linking to a copy hosted on a Content Delivery Network (CDN).</p>
+<p>A CDN is a geographically distributed network of servers that stores copies of files close to the people requesting them. For this course, the practical payoff is simple: a single script tag or link tag pointing at a CDN URL gives your page a fully working library with no downloads, no file management, and often faster load times. You will also need to understand the details that make CDN links reliable in production — pinning a specific version number so your site does not break when the library updates, and using integrity (Subresource Integrity) attributes so the browser can verify the file has not been tampered with.</p>
+<p>As you watch, pay attention to two things. First, in the CDN videos, focus on the mechanics — edge servers, caching, origin servers, and latency — because that explains why a CDN link usually outperforms a file sitting on your own server. Second, in the jQuery video, notice how the library is introduced and loaded; that is the exact pattern you will repeat for Bootstrap&#39;s CSS link tag and Chart.js&#39;s script tag, and load order will matter once libraries depend on one another.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: What Is A CDN? How Does It Work?</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/RI9np1LWzqw?cc_load_policy=1&amp;rel=0" title="Video: What Is A CDN? How Does It Work? (ByteByteGo)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>ByteByteGo</strong> · 4:24 · 381,287 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=RI9np1LWzqw" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A concise, animated explainer from ByteByteGo covering what a Content Delivery Network is and how it works, including the role of edge servers, caching, and the origin server. Based on its title and framing within ByteByteGo&#39;s system design content, it likely walks through the request path from a user to the nearest edge location and why that reduces latency.</p>
+<h3>Why this video</h3>
+<p>It gives you the conceptual foundation behind the CDN subtopics in under five minutes, from a channel known for clear, accurate system-design explanations — ideal context for understanding why a CDN link beats local hosting.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: What Is jQuery? A Look At the Web’s Most-Used JavaScript Library</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/aN8V-Ah2y4Q?cc_load_policy=1&amp;rel=0" title="Video: What Is jQuery? A Look At the Web’s Most-Used JavaScript Library (Kinsta)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Kinsta</strong> · 12:54 · 38,139 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=aN8V-Ah2y4Q" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>Kinsta&#39;s guide introduces jQuery as the web&#39;s most widely used JavaScript library, covering what it is, what problems it solves, and how it fits into a typical web page. As a thorough overview it is likely to touch on including the library in a project and demonstrate basic usage patterns that the rest of this module builds on.</p>
+<h3>Why this video</h3>
+<p>It puts a concrete face on the abstract idea of a &quot;third-party external library,&quot; and it previews jQuery specifically — the first library you will load via CDN in this module.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: CDN - Content Delivery Network - Explained</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/nhhfSBm6v4A?cc_load_policy=1&amp;rel=0" title="Video: CDN - Content Delivery Network - Explained (PowerCert Animated Videos)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>PowerCert Animated Videos</strong> · 6:20 · 65,830 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=nhhfSBm6v4A" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>PowerCert&#39;s animated explainer defines a CDN and focuses on its main purpose: making websites load faster by serving content from servers physically closer to the visitor. Expect a visual walkthrough of distributed server locations, caching of static assets, and the performance and reliability benefits that result.</p>
+<h3>Why this video</h3>
+<p>It reinforces the CDN concept with a different visual approach and a slightly slower pace, directly supporting the &quot;Benefits of Using a CDN Over Local File Hosting&quot; subtopic for students who want the idea explained twice.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos build the conceptual groundwork for MO1: before you can correctly load jQuery, Bootstrap, and Chart.js via script and link tags in the right order, you need to understand what an external library is and why CDN-hosted copies are the standard delivery mechanism. The two CDN explainers cover distribution, caching, and performance so that CDN URLs are not just strings you copy, and the jQuery overview previews the specific library behind MO2&#39;s event handling and DOM manipulation work. Understanding versioned CDN links and dependency loading also sets up MO5, where you will reason about combining multiple libraries without conflicts; the hands-on syntax for MO3 and MO4 is developed in the later topics of this module.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

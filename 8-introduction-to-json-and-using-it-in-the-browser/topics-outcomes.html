@@ -18,13 +18,13 @@ li{margin:5px 0}
 .el-body{color:#555}
 .prefix{color:#555;font-style:italic;margin:6px 0 14px}
 .mo{border:1px solid #e2e2e2;border-radius:6px;padding:12px 16px;margin:12px 0}
-.mo .code{font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.mo .code{font-size:.8rem;color:#595959;text-transform:uppercase;letter-spacing:.04em}
 .mo .statement{font-weight:600;margin:4px 0 8px}
 .meta span{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin:0 6px 0 0;font-size:.85rem}
 .meta .map{background:#eaf6ec;color:#137333}
 .co{margin:7px 0}
 .co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
-.empty{color:#888}
+.empty{color:#595959}
 </style>
 </head>
 <body>
@@ -33,7 +33,7 @@ li{margin:5px 0}
 <div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
 
 <h2 id="topics">Module Topics</h2>
-<h3>What is JSON?</h3>
+<h3 id="topic-1">What is JSON?</h3>
 <div class="summary">An introduction to the JSON (JavaScript Object Notation) data format, its purpose, and why it is widely used for data interchange on the web.</div>
 <ul>
 <li><strong>Definition of JSON</strong> <span class="el-body">— JSON stands for JavaScript Object Notation, a lightweight text-based format for representing structured data.</span></li>
@@ -42,7 +42,7 @@ li{margin:5px 0}
 <li><strong>Why JSON is Widely Used on the Web</strong> <span class="el-body">— JSON has become the dominant data format for web APIs and browser-server communication due to its simplicity, readability, and native compatibility with JavaScript.</span></li>
 <li><strong>JSON vs. JavaScript Objects</strong> <span class="el-body">— While JSON looks very similar to a JavaScript object literal, the two are distinct: JSON is a text string, whereas a JavaScript object is a live, in-memory data structure.</span></li>
 </ul>
-<h3>JSON Syntax and Structure</h3>
+<h3 id="topic-2">JSON Syntax and Structure</h3>
 <div class="summary">An exploration of the rules and structure of valid JSON, including data types, objects, arrays, and formatting conventions.</div>
 <ul>
 <li><strong>What Is JSON?</strong> <span class="el-body">— JSON (JavaScript Object Notation) is a lightweight, text-based data format used to represent structured data.</span></li>
@@ -52,7 +52,7 @@ li{margin:5px 0}
 <li><strong>JSON Formatting Conventions</strong> <span class="el-body">— Valid JSON must follow strict formatting rules that differ from relaxed JavaScript object syntax.</span></li>
 <li><strong>Nested Structures in JSON</strong> <span class="el-body">— JSON&#39;s true power lies in its ability to represent complex, hierarchical data through nesting of objects and arrays.</span></li>
 </ul>
-<h3>Parsing JSON in JavaScript</h3>
+<h3 id="topic-3">Parsing JSON in JavaScript</h3>
 <div class="summary">How to convert a JSON string into a usable JavaScript object using JSON.parse(), including handling common errors.</div>
 <ul>
 <li><strong>What Is JSON Parsing?</strong> <span class="el-body">— Parsing JSON means converting a JSON-formatted string into a native JavaScript object that your code can work with directly.</span></li>
@@ -62,7 +62,7 @@ li{margin:5px 0}
 <li><strong>Parsing JSON Arrays</strong> <span class="el-body">— JSON strings can represent arrays at the top level, and JSON.parse() handles these just as naturally as it handles objects.</span></li>
 <li><strong>Using the Reviver Function</strong> <span class="el-body">— JSON.parse() accepts an optional second argument called a reviver function, which lets you transform parsed values as they are being built.</span></li>
 </ul>
-<h3>Stringifying JavaScript Objects to JSON</h3>
+<h3 id="topic-4">Stringifying JavaScript Objects to JSON</h3>
 <div class="summary">How to convert JavaScript objects into JSON strings using JSON.stringify(), and when this operation is needed in web development.</div>
 <ul>
 <li><strong>What Is JSON.stringify()?</strong> <span class="el-body">— JSON.stringify() is a built-in JavaScript method that converts a JavaScript object or value into a JSON-formatted string.</span></li>
@@ -72,7 +72,7 @@ li{margin:5px 0}
 <li><strong>Using the Replacer to Control Output</strong> <span class="el-body">— The replacer parameter gives you fine-grained control over which properties are included when stringifying an object.</span></li>
 <li><strong>Pretty-Printing JSON with the Space Argument</strong> <span class="el-body">— The optional third argument to JSON.stringify() formats the output with indentation, making it human-readable.</span></li>
 </ul>
-<h3>Fetching JSON Data with the Fetch API</h3>
+<h3 id="topic-5">Fetching JSON Data with the Fetch API</h3>
 <div class="summary">How to use the modern Fetch API to retrieve JSON data from a server or external source and process the response in the browser.</div>
 <ul>
 <li><strong>Introduction to the Fetch API</strong> <span class="el-body">— The Fetch API is a modern, promise-based interface built into browsers that allows JavaScript to make HTTP requests to servers or external URLs.</span></li>
@@ -82,7 +82,7 @@ li{margin:5px 0}
 <li><strong>Handling Errors in Fetch Requests</strong> <span class="el-body">— The Fetch API only rejects its Promise for network-level failures; HTTP error statuses like 404 or 500 must be checked manually.</span></li>
 <li><strong>Displaying Fetched JSON Data in the Browser</strong> <span class="el-body">— Once the JSON response is parsed into a JavaScript object, you can use DOM manipulation methods to render the data dynamically on the web page.</span></li>
 </ul>
-<h3>Fetching JSON Data with XMLHttpRequest</h3>
+<h3 id="topic-6">Fetching JSON Data with XMLHttpRequest</h3>
 <div class="summary">How to use the older XMLHttpRequest method to retrieve JSON data, providing context for legacy codebases and browser compatibility.</div>
 <ul>
 <li><strong>What is XMLHttpRequest?</strong> <span class="el-body">— XMLHttpRequest (XHR) is a built-in browser object that allows JavaScript to make HTTP requests to servers without reloading the page.</span></li>
@@ -92,7 +92,7 @@ li{margin:5px 0}
 <li><strong>Error Handling with XMLHttpRequest</strong> <span class="el-body">— XMLHttpRequest provides the onerror event handler to catch network-level failures, and status code checks to detect server-side errors.</span></li>
 <li><strong>XHR vs. the Fetch API: Context and Legacy Use</strong> <span class="el-body">— While the Fetch API is the modern standard for making HTTP requests in the browser, understanding XMLHttpRequest is essential for working with legacy code and older browser environments.</span></li>
 </ul>
-<h3>Displaying JSON Data in a Web Page</h3>
+<h3 id="topic-7">Displaying JSON Data in a Web Page</h3>
 <div class="summary">Techniques for dynamically rendering fetched JSON data in the browser by manipulating the DOM to present information to users.</div>
 <ul>
 <li><strong>Selecting DOM Elements as Render Targets</strong> <span class="el-body">— Before injecting JSON data into a page, you must identify and select the HTML elements that will serve as containers for the rendered content.</span></li>
@@ -132,6 +132,6 @@ li{margin:5px 0}
 <h3>Course Outcomes (reference)</h3>
 <p class="empty">No course outcomes have been defined.</p>
 
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
 </body>
 </html>

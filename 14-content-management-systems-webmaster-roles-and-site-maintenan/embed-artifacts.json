@@ -1,5 +1,10 @@
 ﻿[
   {
+    "title": "14 - Content Management Systems, Webmaster Roles, and Site Maintenance (module page)",
+    "href": "index.html",
+    "type": "Module page"
+  },
+  {
     "title": "14 - Content Management Systems, Webmaster Roles, and Site Maintenance \u2014 Topics \u0026 Learning Outcomes",
     "href": "topics-outcomes.html",
     "type": "Page"
@@ -40,8 +45,38 @@
     "type": "Content"
   },
   {
-    "title": "14 - Content Management Systems, Webmaster Roles, and Site Maintenance \u2014 Module Topics",
-    "href": "content/module_topics.html",
+    "title": "Introduction to Content Management Systems",
+    "href": "content/Content_Management_Systems_t1_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Popular CMS Platforms and Their Features",
+    "href": "content/Content_Management_Systems_t2_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "CMS vs. Custom Builds: Choosing the Right Approach",
+    "href": "content/Content_Management_Systems_t3_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "The Webmaster Role and Professional Responsibilities",
+    "href": "content/Content_Management_Systems_t4_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Website Maintenance and Production Management",
+    "href": "content/Content_Management_Systems_t5_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Client Relations and Communication",
+    "href": "content/Content_Management_Systems_t6_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "14 - Content Management Systems, Webmaster Roles, and Site Maintenance",
+    "href": "content/Content_Management_Systems_videos_merged.html",
     "type": "Content"
   }
 ]

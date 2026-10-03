@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Making Elements Draggable</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 9 - Implementing Drag and Drop Interactions</a></div>
+<h1>Making Elements Draggable</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: JavaScript - Drag &amp; Drop Files &amp; Elements</a>
+<a href="#sec3">Video 2: Drag And Drop Containers With Html Drag And Drop API</a>
+<a href="#sec4">Video 3: Draggable Element Using HTML CSS JavaScript | ProgrammingTT</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Drag and drop feels natural to users, but browsers do not grant it automatically. In HTML5, an element becomes a drag source only when you mark it with the draggable attribute and then attach JavaScript that responds when the drag begins. This topic focuses on that first half of the interaction: preparing the source element, recognizing which element the user grabbed, wiring up a dragstart listener, and placing information into the dataTransfer object so a drop target can later retrieve it.</p>
+<p>This matters in COP4813 because every later piece of the module depends on a correctly configured source. If the draggable attribute is missing, if dragstart never fires, or if nothing is stored in dataTransfer, the dragover and drop handlers you write afterward will have nothing meaningful to work with. Getting the source right also sets up the visual feedback users rely on — the class changes, opacity shifts, and drag images that signal &quot;this item is moving.&quot;</p>
+<p>As you watch the videos below, pay close attention to three things: where the draggable attribute is declared (markup versus JavaScript), how the developer identifies the element being dragged inside the event handler (event.target, a stored reference, or an id), and what exactly gets passed to dataTransfer.setData. Also notice what the videos do not cover — keyboard access and ARIA announcements for assistive technology — since native drag and drop is mouse-oriented by default and accessibility must be added deliberately by you.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: JavaScript - Drag &amp; Drop Files &amp; Elements</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/lSCLnWoa6Tw?cc_load_policy=1&amp;rel=0" title="Video: JavaScript - Drag &amp; Drop Files &amp; Elements (Azul Coding)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Azul Coding</strong> · 9:26 · 9,339 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=lSCLnWoa6Tw" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A general walkthrough of drag and drop in JavaScript that covers both dragging HTML elements and dragging files into a page. Based on its title and description, it should demonstrate marking elements as draggable, handling the drag events, and it also mentions using a plugin as an alternative approach. The file-drop portion gives useful context for how the same event model serves more than one use case.</p>
+<h3>Why this video</h3>
+<p>At just over nine minutes it gives a broad but concrete orientation to the API, which helps you see where the draggable attribute and dragstart fit within the whole interaction lifecycle before narrowing in on details.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Drag And Drop Containers With Html Drag And Drop API</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/sNvwEkgV2SM?cc_load_policy=1&amp;rel=0" title="Video: Drag And Drop Containers With Html Drag And Drop API (Web Dev With Ron)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Web Dev With Ron</strong> · 5:24 · 646 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=sNvwEkgV2SM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short, focused demonstration of moving items between containers using the native HTML Drag and Drop API. Expect to see draggable elements defined in markup, event listeners attached to the source items, and container elements set up to receive them. The container-to-container framing shows why identifying the drag source element clearly is necessary.</p>
+<h3>Why this video</h3>
+<p>Its brevity and its use of the native API rather than a library keep the focus on the standard attributes and events this topic covers, making it a clean reinforcement of drag source setup.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Draggable Element Using HTML CSS JavaScript | ProgrammingTT</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/4-5KDvnKWd0?cc_load_policy=1&amp;rel=0" title="Video: Draggable Element Using HTML CSS JavaScript | ProgrammingTT (Code to Concept)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Code to Concept</strong> · 10:33 · 998 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=4-5KDvnKWd0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A step-by-step build of a draggable element using HTML, CSS, and JavaScript, with source code referenced in the description. It should walk through the markup, the styling that provides visual feedback while an item is in motion, and the JavaScript event handling that drives the behavior. The longer runtime allows for a slower, more explanatory pace.</p>
+<h3>Why this video</h3>
+<p>The combined HTML, CSS, and JavaScript treatment directly supports the visual feedback subtopic, showing how styling and event handlers work together rather than treating the attribute in isolation.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos build the foundation for MO1 and MO2 by showing the draggable attribute, the dragstart event, and dataTransfer in working code you can replicate. The container-based example previews the source-to-target relationship that MO3 asks you to reason about, and the styled draggable build contributes the visual-feedback techniques you will need for the polished component in MO4. None of the three addresses keyboard operation or ARIA attributes, so treat that gap as your prompt for MO5: as you watch, note where a keyboard-only user would be blocked and what you would add to make these examples usable with assistive technology.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

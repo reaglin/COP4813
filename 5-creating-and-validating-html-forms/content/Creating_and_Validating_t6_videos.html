@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Custom JavaScript Form Validation</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 5 - Creating and Validating HTML Forms</a></div>
+<h1>Custom JavaScript Form Validation</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: How to display JavaScript form error message in html form</a>
+<a href="#sec3">Video 2: JavaScript Validation in HTML Registration Form | HTML Structure  #javascript</a>
+<a href="#sec4">Video 3: JavaScript Validation in HTML Registration Form | Email Validation #javascript</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>HTML5 validation attributes like required, pattern, and min cover many common cases, but real applications often need more: passwords that must match, fields that are required only when another option is selected, usernames checked against a format your business defines, or error messages worded for your users rather than the browser&#39;s defaults. Custom JavaScript validation fills that gap. Using the Constraint Validation API (properties and methods such as validity, checkValidity(), and setCustomValidity()) together with event listeners, you can intercept form submission, run your own validation functions, and decide exactly what the user sees and when.</p>
+<p>In this module you are building on the semantic, accessible forms from earlier topics, so the goal is not just &quot;stop bad data&quot; but &quot;tell the user clearly what went wrong.&quot; That means inline error messages placed near the field they describe, markup that screen readers can announce (labels, aria-describedby, aria-invalid, live regions), and a feedback strategy that balances on-submit checking with real-time input and blur events so users are not scolded mid-typing. Finally, you will see why it pays to organize this logic into a reusable validation module instead of copy-pasting the same if-statements for every field.</p>
+<p>The three videos below walk through practical implementations. As you watch, pay attention to the HTML structure that makes inline errors possible (where the error container sits relative to the input), which events the author listens for, how error text is added and cleared, and where the demonstrated approach could be improved for accessibility or reuse. Treat the code as a starting point you will refactor, not a final answer.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: How to display JavaScript form error message in html form</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/nNIr0lF7KnU?cc_load_policy=1&amp;rel=0" title="Video: How to display JavaScript form error message in html form (Digital Fox)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Digital Fox</strong> · 12:10 · 31,448 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=nNIr0lF7KnU" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This tutorial focuses on structuring an HTML form so that an error message can be displayed directly beneath each input field, then using JavaScript to populate and clear those messages. Expect to see the markup pattern (input plus a dedicated error element), the script that checks each field, and how the message is shown when validation fails. Downloadable source code is referenced in the description so you can follow along.</p>
+<h3>Why this video</h3>
+<p>It targets the inline error message subtopic head-on, and because it starts from the HTML structure it shows why markup decisions determine how easily you can attach per-field feedback.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: JavaScript Validation in HTML Registration Form | HTML Structure  #javascript</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/R-AL6z8Fg4k?cc_load_policy=1&amp;rel=0" title="Video: JavaScript Validation in HTML Registration Form | HTML Structure  #javascript (Step by Step)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Step by Step</strong> · 10:54 · 1,246 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=R-AL6z8Fg4k" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>Part of a short series, this video sets up the HTML structure of a registration form as the foundation for JavaScript validation. It is likely to cover the form fields, labels, and containers you need in place before any validation script is written, giving you the scaffolding used in the follow-up video.</p>
+<h3>Why this video</h3>
+<p>It reinforces the connection between well-formed markup and maintainable validation code, which is exactly the groundwork needed before writing custom validation functions or a reusable module.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: JavaScript Validation in HTML Registration Form | Email Validation #javascript</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/VoV75J35XPM?cc_load_policy=1&amp;rel=0" title="Video: JavaScript Validation in HTML Registration Form | Email Validation #javascript (Step by Step)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Step by Step</strong> · 6:42 · 1,013 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=VoV75J35XPM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>The follow-up installment applies JavaScript validation to the registration form, concentrating on email validation. Expect a demonstration of reading the field value, testing it against a pattern or rule, and reporting the result back to the user on the page.</p>
+<h3>Why this video</h3>
+<p>Email checking is a classic case where you decide between a browser default message and your own logic, making it a compact example of writing a custom validation function and wiring it to form events.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>These videos sit squarely on MO4: each one demonstrates intercepting a form with JavaScript, running custom checks, and rendering inline error messages rather than relying solely on browser defaults. The Step by Step pair also reinforces MO1 by showing that accessible, well-structured markup is a prerequisite for per-field error reporting, while the Digital Fox video gives you a concrete pattern to evaluate against the usability and accessibility trade-offs discussed in MO5 — compare its on-submit messaging to real-time input and blur feedback, and consider what ARIA attributes you would add. Together they complement, rather than replace, the HTML5 attribute work in MO3: use built-in constraints first, then layer custom logic where the attributes cannot express the rule.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

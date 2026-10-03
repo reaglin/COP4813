@@ -1,5 +1,10 @@
 ﻿[
   {
+    "title": "1 -GitHub, GitHub Pages, and Your First HTML Page (module page)",
+    "href": "index.html",
+    "type": "Module page"
+  },
+  {
     "title": "1 -GitHub, GitHub Pages, and Your First HTML Page \u2014 Topics \u0026 Learning Outcomes",
     "href": "topics-outcomes.html",
     "type": "Page"
@@ -30,8 +35,38 @@
     "type": "Content"
   },
   {
-    "title": "1 -GitHub, GitHub Pages, and Your First HTML Page \u2014 Module Topics",
-    "href": "content/module_topics.html",
+    "title": "Introduction to GitHub",
+    "href": "content/GitHub_GitHub_Pages_t1_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Creating Your First Repository",
+    "href": "content/GitHub_GitHub_Pages_t2_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Deploying with GitHub Pages",
+    "href": "content/GitHub_GitHub_Pages_t3_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Writing Your First HTML Document",
+    "href": "content/GitHub_GitHub_Pages_t4_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Publishing and Verifying Your Live Page",
+    "href": "content/GitHub_GitHub_Pages_t5_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Understanding the Development Workflow",
+    "href": "content/GitHub_GitHub_Pages_t6_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "1 -GitHub, GitHub Pages, and Your First HTML Page",
+    "href": "content/GitHub_GitHub_Pages_videos_merged.html",
     "type": "Content"
   },
   {

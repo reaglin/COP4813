@@ -1,376 +1,179 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Module 8 – Introduction to JSON and Using It in the Browser | COP4813</title>
-  <style>
-    /* ── Reset & base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: #f4f6f9;
-      color: #1e2a3a;
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    /* ── Page header ── */
-    header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
-      color: #fff;
-      padding: 2.5rem 1.5rem 2rem;
-    }
-
-    .header-inner {
-      max-width: 960px;
-      margin: 0 auto;
-    }
-
-    .course-label {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background: rgba(255,255,255,0.18);
-      color: #d9eaff;
-      border-radius: 4px;
-      padding: 0.25rem 0.65rem;
-      margin-bottom: 0.85rem;
-    }
-
-    header h1 {
-      font-size: clamp(1.4rem, 3.5vw, 2rem);
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      line-height: 1.25;
-      margin-bottom: 0.75rem;
-    }
-
-    header p {
-      font-size: 0.98rem;
-      color: #c8ddf5;
-      max-width: 680px;
-    }
-
-    /* ── Main content ── */
-    main {
-      max-width: 960px;
-      margin: 2rem auto 3rem;
-      padding: 0 1.25rem;
-    }
-
-    .section-title {
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #5a7a9a;
-      margin-bottom: 1rem;
-      padding-bottom: 0.4rem;
-      border-bottom: 2px solid #dde5ef;
-    }
-
-    /* ── Card grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.1rem;
-    }
-
-    .card {
-      background: #ffffff;
-      border: 1px solid #dde5ef;
-      border-radius: 8px;
-      padding: 1.2rem 1.3rem 1.1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-      transition: box-shadow 0.18s ease, transform 0.18s ease;
-    }
-
-    .card:hover {
-      box-shadow: 0 4px 18px rgba(30, 70, 130, 0.11);
-      transform: translateY(-2px);
-    }
-
-    /* ── Card header row ── */
-    .card-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 0.5rem;
-    }
-
-    .card-name {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #1e2a3a;
-      line-height: 1.3;
-    }
-
-    .card-name a {
-      color: #1a5fb8;
-      text-decoration: none;
-    }
-
-    .card-name a:hover {
-      text-decoration: underline;
-      color: #1044a3;
-    }
-
-    .source-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: #4a7fbb;
-      text-decoration: none;
-      white-space: nowrap;
-      border: 1px solid #b8d1ef;
-      border-radius: 4px;
-      padding: 0.18rem 0.5rem;
-      background: #eef4fd;
-      margin-top: 0.1rem;
-      flex-shrink: 0;
-      transition: background 0.15s, color 0.15s;
-    }
-
-    .source-link:hover {
-      background: #d9eaff;
-      color: #1044a3;
-      border-color: #93b8e0;
-    }
-
-    /* ── Meta badges ── */
-    .card-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-    }
-
-    .badge {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      border-radius: 4px;
-      padding: 0.18rem 0.55rem;
-    }
-
-    .badge-type {
-      background: #e9f0fa;
-      color: #2c5f9e;
-    }
-
-    .badge-filetype {
-      background: #f0f4ec;
-      color: #3d6b32;
-      font-family: 'Courier New', monospace;
-      letter-spacing: 0.02em;
-    }
-
-    /* ── Description ── */
-    .card-description {
-      font-size: 0.875rem;
-      color: #445566;
-      line-height: 1.55;
-      flex: 1;
-    }
-
-    /* ── Footer ── */
-    footer {
-      text-align: center;
-      font-size: 0.78rem;
-      color: #8a9bb0;
-      padding: 1.5rem 1rem 2rem;
-      border-top: 1px solid #dde5ef;
-    }
-
-    /* ── Responsive tweaks ── */
-    @media (max-width: 480px) {
-      header { padding: 2rem 1rem 1.5rem; }
-      .card-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>8 - Introduction to JSON and Using It in the Browser — COP4813</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ COP4813</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-
-  <header>
-    <div class="header-inner">
-      <span class="course-label">COP4813</span>
-      <h1>8 – Introduction to JSON and Using It in the Browser</h1>
-      <p>
-        This module introduces JSON (JavaScript Object Notation) as a lightweight data-interchange format and walks through the essential skills for working with it in browser-based JavaScript — from parsing and stringifying to fetching data from APIs and rendering it dynamically in the DOM.
-      </p>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">COP4813</a><span class="sep" aria-hidden="true">›</span><span class="current">8 - Introduction to JSON and Using It in the Browser</span>
+  </nav>
+      <div class="hero-label">Module 8</div>
+      <h1>Introduction to JSON and Using It in the Browser</h1>
+      <p class="hero-desc">This lesson explains the JSON data format, how to parse and stringify JSON in JavaScript, and how to fetch and display JSON data in a web page using the Fetch API or XMLHttpRequest.</p>
     </div>
   </header>
-
-  <main>
-    <p class="section-title">Module Artifacts &mdash; 9 items</p>
-
-    <div class="card-grid">
-
-      <!-- 1: Module Topics -->
-      <div class="card">
-        <div class="card-header">
-          <span class="card-name">
-            <a href="content/module_topics.html">Module Topics</a>
-          </span>
-          <a class="source-link" href="source/hierarchy.json" title="View source file">
-            &#x2197; source file
-          </a>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Module Topics</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <p class="card-description">
-          Outlines the module's core topics — including JSON definitions, syntax, data types, parsing with <code>JSON.parse()</code>, stringifying with <code>JSON.stringify()</code>, and fetching JSON in the browser — serving as a navigational overview for learners and instructors to see what the module covers and in what order.
-        </p>
-      </div>
-
-      <!-- 2: What is JSON? -->
-      <div class="card">
-        <div class="card-header">
-          <span class="card-name">
-            <a href="content/Introduction_to_JSON_interactive_topics_t1.html">What is JSON?</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          A reading that defines JSON (JavaScript Object Notation) as a lightweight, plain-text format for representing structured data, explaining its origins, its role in web data interchange, and why it is widely adopted, giving learners a conceptual foundation before working with JSON in code.
-        </p>
-      </div>
-
-      <!-- 3: JSON Syntax and Structure -->
-      <div class="card">
-        <div class="card-header">
-          <span class="card-name">
-            <a href="content/Introduction_to_JSON_interactive_topics_t2.html">JSON Syntax and Structure</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          A reading that explains JSON's syntax rules and structural elements — objects, arrays, key-value pairs, and supported data types — so learners understand how well-formed JSON is written and can read or author valid JSON documents.
-        </p>
-      </div>
-
-      <!-- 4: Parsing JSON in JavaScript -->
-      <div class="card">
-        <div class="card-header">
-          <span class="card-name">
-            <a href="content/Introduction_to_JSON_interactive_topics_t3.html">Parsing JSON in JavaScript</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          A reading that covers how to use <code>JSON.parse()</code> to convert a JSON string received from a server or API into a usable JavaScript object, including common pitfalls and error handling, so learners can work with incoming JSON data in their applications.
-        </p>
-      </div>
-
-      <!-- 5: Stringifying JavaScript Objects -->
-      <div class="card">
-        <div class="card-header">
-          <span class="card-name">
-            <a href="content/Introduction_to_JSON_interactive_topics_t4.html">Stringifying JavaScript Objects to JSON</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          A reading that explains how to use <code>JSON.stringify()</code> to convert in-memory JavaScript objects into JSON-formatted strings for sending over a network, saving to storage, or sharing with external systems, including options for formatting output.
-        </p>
-      </div>
-
-      <!-- 6: Fetching JSON with Fetch API -->
-      <div class="card">
-        <div class="card-header">
-          <span class="card-name">
-            <a href="content/Introduction_to_JSON_interactive_topics_t5.html">Fetching JSON Data with the Fetch API</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          A reading that teaches learners how to use the browser's Fetch API to make HTTP requests and retrieve JSON data from servers or public APIs, covering the promise-based workflow, response parsing, and error handling in a modern JavaScript context.
-        </p>
-      </div>
-
-      <!-- 7: Fetching JSON with XHR -->
-      <div class="card">
-        <div class="card-header">
-          <span class="card-name">
-            <a href="content/Introduction_to_JSON_interactive_topics_t6.html">Fetching JSON Data with XMLHttpRequest</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          A reading that introduces XMLHttpRequest (XHR) as the legacy browser mechanism for making asynchronous HTTP requests to fetch JSON data, explaining its event-driven workflow so learners understand how older codebases and pre-Fetch environments handle JSON retrieval.
-        </p>
-      </div>
-
-      <!-- 8: Displaying JSON Data (Topic Detail) -->
-      <div class="card">
-        <div class="card-header">
-          <span class="card-name">
-            <a href="content/Introduction_to_JSON_interactive_topics_t7.html">Displaying JSON Data in a Web Page</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          A reading that walks learners through the process of taking parsed JSON data and dynamically rendering it into a web page using DOM manipulation techniques, bridging the gap between raw data and a visible, user-facing interface.
-        </p>
-      </div>
-
-      <!-- 9: Displaying JSON Data (Text Content) -->
-      <div class="card">
-        <div class="card-header">
-          <span class="card-name">
-            <a href="content/Introduction_to_JSON_interactive.html">Displaying JSON Data in a Web Page</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          A reading that walks learners through the process of taking parsed JSON data and dynamically rendering it into a web page using DOM manipulation techniques, bridging the gap between raw data and a visible, user-facing interface.
-        </p>
-      </div>
-
-    </div>
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 7 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">What is JSON?</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">JSON Syntax and Structure</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">Parsing JSON in JavaScript</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">Stringifying JavaScript Objects to JSON</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Fetching JSON Data with the Fetch API</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-6"><span class="topic-num" aria-hidden="true">6</span><span class="topic-text"><span class="topic-title">Fetching JSON Data with XMLHttpRequest</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-7"><span class="topic-num" aria-hidden="true">7</span><span class="topic-text"><span class="topic-title">Displaying JSON Data in a Web Page</span><span class="topic-meta">6 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">16 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Introduction_to_JSON_interactive_topics_t1.html">What is JSON?</a></div>
+    <p class="content-desc">A reading that defines JSON (JavaScript Object Notation) as a lightweight, plain-text format for representing structured data, explaining its origins, its role in web data interchange, and why it is widely adopted, giving learners a conceptual foundation before working with JSON in code.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Introduction_to_JSON_interactive_topics_t2.html">JSON Syntax and Structure</a></div>
+    <p class="content-desc">A reading that explains JSON&#39;s syntax rules and structural elements — objects, arrays, key-value pairs, and supported data types — so learners understand how well-formed JSON is written and can read or author valid JSON documents.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Introduction_to_JSON_interactive_topics_t3.html">Parsing JSON in JavaScript</a></div>
+    <p class="content-desc">A reading that covers how to use JSON.parse() to convert a JSON string received from a server or API into a usable JavaScript object, including common pitfalls and error handling, so learners can work with incoming JSON data in their applications.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Introduction_to_JSON_interactive_topics_t4.html">Stringifying JavaScript Objects to JSON</a></div>
+    <p class="content-desc">A reading that explains how to use JSON.stringify() to convert in-memory JavaScript objects into JSON-formatted strings for sending over a network, saving to storage, or sharing with external systems, including options for formatting output.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Introduction_to_JSON_interactive_topics_t5.html">Fetching JSON Data with the Fetch API</a></div>
+    <p class="content-desc">A reading that teaches learners how to use the browser&#39;s Fetch API to make HTTP requests and retrieve JSON data from servers or public APIs, covering the promise-based workflow, response parsing, and error handling in a modern JavaScript context.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Introduction_to_JSON_interactive_topics_t6.html">Fetching JSON Data with XMLHttpRequest</a></div>
+    <p class="content-desc">A reading that introduces XMLHttpRequest (XHR) as the legacy browser mechanism for making asynchronous HTTP requests to fetch JSON data, explaining its event-driven workflow so learners understand how older codebases and pre-Fetch environments handle JSON retrieval.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Introduction_to_JSON_interactive_topics_t7.html">Displaying JSON Data in a Web Page</a></div>
+    <p class="content-desc">A reading that walks learners through the process of taking parsed JSON data and dynamically rendering it into a web page using DOM manipulation techniques, bridging the gap between raw data and a visible, user-facing interface.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Introduction_to_JSON_interactive.html">Displaying JSON Data in a Web Page</a></div>
+    <p class="content-desc">A reading that walks learners through the process of taking parsed JSON data and dynamically rendering it into a web page using DOM manipulation techniques, bridging the gap between raw data and a visible, user-facing interface.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Introduction_to_JSON_t1_videos.html">What is JSON? — Videos</a></div>
+    <p class="content-desc">An introductory reading that defines JSON as a lightweight, language-independent text format derived from JavaScript object literals and explains why servers, browsers, and APIs use it to exchange data, giving learners the conceptual foundation for the rest of the module.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Introduction_to_JSON_t2_videos.html">JSON Syntax and Structure — Videos</a></div>
+    <p class="content-desc">A reference lesson detailing JSON&#39;s syntax rules and structure — objects, arrays, key/value pairs, permitted data types, and quoting conventions — that learners consult when writing or validating well-formed JSON documents.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Introduction_to_JSON_t3_videos.html">Parsing JSON in JavaScript — Videos</a></div>
+    <p class="content-desc">A tutorial on using JSON.parse() to convert incoming JSON strings from APIs, configuration files, or browser storage into usable JavaScript objects, arrays, and primitives, which learners follow to practice reading data into their scripts.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Introduction_to_JSON_t4_videos.html">Stringifying JavaScript Objects to JSON — Videos</a></div>
+    <p class="content-desc">A lesson on JSON.stringify() and serializing JavaScript values into JSON text for sending in request bodies, saving to localStorage, or logging, used by learners to practice converting in-memory objects back into transmittable strings.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Introduction_to_JSON_t5_videos.html">Fetching JSON Data with the Fetch API — Videos</a></div>
+    <p class="content-desc">A walkthrough of the promise-based Fetch API showing how to request JSON from a server, handle the response, and build page content from the returned data, used by learners to practice modern asynchronous data retrieval.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Introduction_to_JSON_t6_videos.html">Fetching JSON Data with XMLHttpRequest — Videos</a></div>
+    <p class="content-desc">A lesson covering the older XMLHttpRequest object — creating, opening, sending, and handling responses for JSON requests without reloading the page — so learners can read and maintain legacy AJAX code alongside Fetch.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Introduction_to_JSON_t7_videos.html">Displaying JSON Data in a Web Page — Videos</a></div>
+    <p class="content-desc">A hands-on topic explaining how to take parsed JSON data and render it into the page by selecting a container element and generating HTML, used by learners to complete the fetch-to-display workflow.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Introduction_to_JSON_videos_merged.html">8 - Introduction to JSON and Using It in the Browser — 7 topics (merged)</a></div>
+    <p class="content-desc">A consolidated module overview that compiles all seven topics — JSON basics, syntax, parsing, stringifying, Fetch, XMLHttpRequest, and displaying data — into a single document for review or printing.</p>
+  </div>
+</li>
+</ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../7-drawing-and-graphics-with-the-html5-canvas/index.html">← 7 - Drawing and Graphics with the HTML5 Canvas</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../9-implementing-drag-and-drop-interactions/index.html">9 - Implementing Drag and Drop Interactions →</a>
+</nav>
   </main>
-
-  <footer>
-    <p>COP4813 &mdash; Module 8: Introduction to JSON and Using It in the Browser</p>
-  </footer>
-
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
 </html>

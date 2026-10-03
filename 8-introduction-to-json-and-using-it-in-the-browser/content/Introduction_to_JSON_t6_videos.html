@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fetching JSON Data with XMLHttpRequest</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 8 - Introduction to JSON and Using It in the Browser</a></div>
+<h1>Fetching JSON Data with XMLHttpRequest</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: [Learn with VSCode] JavaScript for Beginners #26 Fetch/XMLHttpRequest in JavaScript</a>
+<a href="#sec3">Video 2: [Learn with VSCode] TypeScript for Beginners #30 Fetch/XMLHttpRequest in TypeScript</a>
+<a href="#sec4">How These Videos Support the Learning Outcomes</a>
+<a href="#sec5">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Before the Fetch API became standard, nearly all browser-based requests for data were made with XMLHttpRequest, usually shortened to XHR. It is a built-in browser object that lets JavaScript ask a server for a resource — often a JSON file or an API endpoint — without reloading the page. You create an XHR object, open it with an HTTP method and a URL, attach a handler that runs when the response arrives, and then send the request. Because the response arrives as text, you still need JSON.parse() to turn it into a usable JavaScript object or array.</p>
+<p>XHR matters in this course for two reasons. First, you will encounter it constantly in existing codebases, tutorials, and older libraries, so you need to be able to read and maintain it. Second, comparing XHR to Fetch sharpens your understanding of what Fetch actually gives you: promises and async/await instead of event handlers and readyState checks, cleaner chaining, and a more predictable structure. Knowing both lets you make an informed choice rather than copying whatever you saw first.</p>
+<p>As you watch the videos below, pay attention to the order of the steps (create, open, set a handler, send), to where the response text is converted into an object, and to how status codes and network failures are checked. Notice also how the same task looks when written with Fetch, and keep a short list of the differences you spot — you will need that comparison later in the module.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: [Learn with VSCode] JavaScript for Beginners #26 Fetch/XMLHttpRequest in JavaScript</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/pMg66JhAMfw?cc_load_policy=1&amp;rel=0" title="Video: [Learn with VSCode] JavaScript for Beginners #26 Fetch/XMLHttpRequest in JavaScript (Code Spark Lab)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Code Spark Lab</strong> · 6:53 · 27 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=pMg66JhAMfw" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short, example-driven walkthrough of making HTTP requests in JavaScript using both XMLHttpRequest and the Fetch API, demonstrated inside Visual Studio Code. Based on its title and description, it is likely to show creating and opening an XHR object, sending it, reading the response, and then writing the equivalent request with fetch(). The code is previewed live, so you can see the request and its response side by side.</p>
+<h3>Why this video</h3>
+<p>It covers the core mechanics of XHR and places them next to Fetch in a single short lesson, which directly serves both the request-handling and the XHR-versus-Fetch comparison subtopics. At under seven minutes it is an efficient first pass that you can pause and retype in your own editor.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: [Learn with VSCode] TypeScript for Beginners #30 Fetch/XMLHttpRequest in TypeScript</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/RhrZ5y0hQ-c?cc_load_policy=1&amp;rel=0" title="Video: [Learn with VSCode] TypeScript for Beginners #30 Fetch/XMLHttpRequest in TypeScript (Code Spark Lab)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Code Spark Lab</strong> · 7:54 · 2 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=RhrZ5y0hQ-c" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>The same lesson presented in TypeScript, walking through the Fetch API and XMLHttpRequest with typed code in Visual Studio Code. Expect the same request lifecycle — constructing the XHR object, opening a URL, handling the response event, and sending — with the addition of type annotations on the request and response values. It serves as a useful second look at the pattern from a slightly different angle.</p>
+<h3>Why this video</h3>
+<p>Seeing the identical request pattern expressed with explicit types reinforces what each piece of an XHR call actually is — an object, a string URL, a text response — which helps when you parse the response into real data. It also previews how these APIs appear in typed, production-style codebases.</p>
+</section>
+<section class="item" id="sec4">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>These two videos support MO3 and MO4 most directly: they demonstrate retrieving data from an external source with XMLHttpRequest, handling the response when it arrives, and then show the Fetch equivalent so you can weigh event-handler-based legacy code against modern promise-based syntax. Because an XHR response arrives as text, the step where it is converted into a usable object also reinforces MO2 and the JSON.parse() distinction. They are a starting point rather than full coverage — you will still need the module readings and practice work for detailed error handling, HTTP status checking, and the DOM rendering required by MO1 and MO5.</p>
+</section>
+<section class="item" id="sec5">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

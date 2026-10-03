@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>14 - Content Management Systems, Webmaster Roles, and Site Maintenance</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+<style>section.merged-part{border-top:2px solid rgba(128,128,128,.3);margin-top:2rem;padding-top:.5rem}nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}nav.toc a{display:block;text-decoration:none;padding:.12rem 0}</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 14 - Content Management Systems, Webmaster Roles, and Site Maintenance</a></div>
+<h1>14 - Content Management Systems, Webmaster Roles, and Site Maintenance</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#part1">Introduction to Content Management Systems</a>
+<a href="#part2">Popular CMS Platforms and Their Features</a>
+<a href="#part3">CMS vs. Custom Builds: Choosing the Right Approach</a>
+<a href="#part4">The Webmaster Role and Professional Responsibilities</a>
+<a href="#part5">Website Maintenance and Production Management</a>
+<a href="#part6">Client Relations and Communication</a>
+</nav>
+<section class="merged-part" id="part1">
+<h2>Introduction to Content Management Systems</h2>
+<section class="item" id="p1-sec1">
+<h3>Introduction</h3>
+<p>A content management system (CMS) is software that separates the content of a website from its presentation and code, allowing people who are not developers to create, edit, organize, and publish pages through an administrative interface. Behind that interface sit a few predictable parts: a database or content store, an editing and authoring environment, a templating or theming layer that controls appearance, and an extension mechanism (plugins, modules, apps) that adds functionality. Understanding these pieces is what lets you reason about any platform you encounter later, whether it is WordPress, Joomla, Drupal, Shopify, or a headless service.</p>
+<p>This topic matters in COP4813 because the rest of the module asks you to make judgments, not just to click through dashboards. Before you can compare platforms or defend a recommendation of "CMS" versus "custom build" for a client, you need a clear mental model of how a CMS fits into the web ecosystem: where content lives, who touches it, what the server does at request time, and what parts a developer still owns. You will also meet the distinction between traditional (coupled) systems, where the CMS renders the pages it stores, and headless systems, which deliver content over an API to a front end you build separately.</p>
+<p>The three videos below move from the general idea to two specific modern variations. While watching, keep a running list of the components each presenter mentions, note the vocabulary they use for content types and templates, and ask yourself what kind of project each approach would suit — a small brochure site, a large editorial operation, or an application front end that needs content from multiple channels.</p>
+</section>
+<section class="item" id="p1-sec2">
+<h3>Video 1: What is a CMS ? Content Management System | WordPress Course Class 1</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/r-3TU26QUsE?cc_load_policy=1&amp;rel=0" title="Video: What is a CMS ? Content Management System | WordPress Course Class 1 (90s Mentor)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>90s Mentor</strong> · 10:30 · 144,802 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=r-3TU26QUsE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Presented as the opening class of a WordPress course, this video explains what a content management system is before touching any specific platform. Expect a definition-level treatment: what problem a CMS solves, how it differs from hand-coding pages, and the general pieces that make up the system, framed with WordPress as the running example.</p>
+<h4>Why this video</h4>
+<p>It is the natural starting point for the subtopics "What Is a Content Management System?" and "Core Components of a CMS," and its course-introduction framing keeps the explanation at the foundational level this topic needs before specific platforms are compared.</p>
+</section>
+<section class="item" id="p1-sec3">
+<h3>Video 2: Headless CMS Explained&nbsp;in 3 minutes</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/ajRbuyLUfZE?cc_load_policy=1&amp;rel=0" title="Video: Headless CMS Explained&nbsp;in 3 minutes (Storyblok)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Storyblok</strong> · 3:09 · 106,348 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=ajRbuyLUfZE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A brief, focused explanation of the headless CMS model, produced by Storyblok, a company that builds one. In about three minutes it should contrast a traditional CMS, where content and presentation are bundled together, with a headless approach where content is stored centrally and delivered through an API to any front end or channel.</p>
+<h4>Why this video</h4>
+<p>Headless architecture is listed explicitly in the module outcomes, and this short piece gives you the vocabulary and the architectural contrast quickly; note that the producer is a vendor, so treat the benefits it lists as claims to verify against other sources.</p>
+</section>
+<section class="item" id="p1-sec4">
+<h3>Video 3: Intro to the Webflow CMS — Webflow tutorial</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/brrC1W6LXRk?cc_load_policy=1&amp;rel=0" title="Video: Intro to the Webflow CMS — Webflow tutorial (Webflow)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Webflow</strong> · 5:13 · 39,169 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=brrC1W6LXRk" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>An official Webflow tutorial introducing the CMS features of that platform. The description indicates it covers scaling site content dynamically and breaks down the difference between static pages and content driven by collections or structured content types, which is the practical mechanism behind templates and dynamic pages in most CMS platforms.</p>
+<h4>Why this video</h4>
+<p>It makes the abstract idea of "content separated from presentation" concrete by showing structured content feeding templates, and it adds a third platform style to the comparison alongside traditional and headless systems covered in the other videos.</p>
+</section>
+<section class="item" id="p1-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos build the vocabulary and mental model the module outcomes depend on. The WordPress class establishes what a CMS is and what its core components do; the headless explainer introduces the architectural alternative named directly in MO1; and the Webflow tutorial demonstrates structured content driving templates, which clarifies what a CMS automates and therefore what a custom build would require you to write yourself. That contrast is the raw material for MO2, where you will weigh scope, budget, scalability, and client technical skill to justify a CMS or custom approach. The same understanding of components, updates, and extensions also sets up the webmaster and maintenance outcomes (MO3 and MO4) later in the module, since knowing where a CMS stores content and code is a prerequisite for planning patching, backups, and content audits.</p>
+</section>
+<section class="item" id="p1-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part2">
+<h2>Popular CMS Platforms and Their Features</h2>
+<section class="item" id="p2-sec1">
+<h3>Introduction</h3>
+<p>A content management system (CMS) separates the job of creating and organizing content from the job of writing code. Instead of hand-editing HTML files, site owners log into an administrative dashboard, type content into forms, and the platform stores it in a database and renders it through templates. This single idea underpins a large share of the modern web, and it explains why so many professional web projects begin with the question "which CMS?" rather than "which framework?"</p>
+<p>The platforms in this topic occupy different points on a spectrum. WordPress dominates by market share and plugin ecosystem; Joomla sits in a flexible middle tier; Drupal targets enterprise and government sites with complex content models and permissions; Shopify specializes in e-commerce; Wix and Squarespace bundle hosting, templates, and editing into a single hosted service; and headless CMS platforms strip away the front end entirely, delivering content through APIs to whatever application consumes it. Each choice trades control against convenience, and cost against capability.</p>
+<p>The videos below approach the topic from the comparison angle and from the headless angle. As you watch, build a mental table: who is the intended user, what technical skill is assumed, where does the content actually live, who hosts it, and what happens when the project grows or the requirements change. Pay particular attention to the arguments made for traditional CMS platforms as well as against them—being able to argue both sides is the point of this module, not picking a favorite.</p>
+</section>
+<section class="item" id="p2-sec2">
+<h3>Video 1: No-code vs Headless vs Traditional CMS</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/sMmFktteOP4?cc_load_policy=1&amp;rel=0" title="Video: No-code vs Headless vs Traditional CMS (Sam Anthony)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Sam Anthony</strong> · 11:13 · 84,956 views · 5mo ago · captions — <a href="https://www.youtube.com/watch?v=sMmFktteOP4" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A comparison video that surveys the main categories of site-building tools—no-code builders, headless CMS platforms, and traditional CMS platforms—using named products including Framer, WordPress, Webflow, Wix Studio, and Shopify as examples. Based on its title and description, it is organized around which platform category fits which kind of project rather than around tutorials for any one tool. Expect discussion of trade-offs such as ease of use, flexibility, and e-commerce versus general content needs.</p>
+<h4>Why this video</h4>
+<p>This is the broadest single match for the topic, touching the hosted-builder, e-commerce, traditional, and headless subtopics in one pass, which makes it a useful framing video before the deeper headless material.</p>
+</section>
+<section class="item" id="p2-sec3">
+<h3>Video 2: Headless CMS Explained (2026)</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/Nvyeo2J7ML8?cc_load_policy=1&amp;rel=0" title="Video: Headless CMS Explained (2026) (Sam Anthony)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Sam Anthony</strong> · 7:33 · 51,919 views · 7mo ago · captions — <a href="https://www.youtube.com/watch?v=Nvyeo2J7ML8" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video explains what a headless CMS is and, equally important, who it is not for. The description signals a deliberately non-hyped treatment that argues traditional CMS platforms remain the better choice for many projects, so expect the limitations of decoupled content delivery alongside its benefits. It should help you connect the architecture to realistic use cases.</p>
+<h4>Why this video</h4>
+<p>It directly serves the headless CMS subtopic while also supporting the "choosing the right CMS" subtopic by resisting the common assumption that newer equals better—exactly the balanced reasoning this module asks for.</p>
+</section>
+<section class="item" id="p2-sec4">
+<h3>Video 3: Headless Architecture Fundamentals - The Basics You Need to Know</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/i_HOfr_0DY4?cc_load_policy=1&amp;rel=0" title="Video: Headless Architecture Fundamentals - The Basics You Need to Know (Going Headless with John)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Going Headless with John</strong> · 9:23 · 26,567 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=i_HOfr_0DY4" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A fundamentals-level explanation of headless architecture as a general approach to building and deploying systems, with customer engagement and eCommerce platforms as the motivating examples. It focuses on the underlying architectural concepts—separating the content or commerce back end from the presentation layer—rather than on a specific vendor's product. This gives you the technical vocabulary behind the term "decoupled."</p>
+<h4>Why this video</h4>
+<p>From a channel devoted to headless architecture, it supplies the conceptual grounding that the shorter comparison videos assume, and its eCommerce framing links the headless subtopic back to Shopify and e-commerce platforms.</p>
+</section>
+<section class="item" id="p2-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos build the comparative foundation MO1 requires: the first surveys WordPress, Shopify, hosted builders, and headless options side by side, while the second and third go deeper on decoupled architecture so you can weigh it against traditional and custom approaches. The repeated emphasis on "who is this for" and "when does the traditional option still win" models the structured decision-making MO2 asks you to perform, giving you criteria—scope, technical capability, scalability, and cost—to justify a platform recommendation for a client scenario. The videos do not address webmaster operations, maintenance planning, or client communication (MO3 through MO5); those outcomes are covered by the module's readings and assignments, though the platform differences discussed here directly shape what update, backup, and security work a site will later demand.</p>
+</section>
+<section class="item" id="p2-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part3">
+<h2>CMS vs. Custom Builds: Choosing the Right Approach</h2>
+<section class="item" id="p3-sec1">
+<h3>Introduction</h3>
+<p>Almost every web project begins with the same question: do we build this on an existing content management system, or do we write it from scratch? A CMS such as WordPress, Drupal, Joomla, or Shopify gives you a pre-built administrative interface, a content database, a theming layer, and a plugin ecosystem on day one. A custom build gives you complete control over the architecture, data model, and performance profile, but you are responsible for every piece of functionality a CMS would have handed you for free. Between these two poles sit hybrid options — headless CMS platforms and code-first frameworks — that let you keep an editing interface while building the front end yourself.</p>
+<p>This question matters in COP4813 because choosing the wrong approach is expensive and hard to reverse. The decision is rarely about which technology is "better"; it is about matching the tool to the project's scope, the available budget, the expected traffic and growth, the client's willingness and ability to administer the site, and the long-term security and maintenance burden someone will have to carry. A small business brochure site and a high-traffic application with a custom data model call for very different answers, and a professional should be able to explain why.</p>
+<p>As you watch the videos below, listen for the decision criteria rather than the product recommendations. Note when a presenter says a tool is a poor fit and what reason they give — those negative cases are often more instructive than the sales pitch. Try to collect the criteria you hear into a checklist you could actually apply to a client scenario: scope, budget, editorial workflow, scalability, technical capability of the people who will run the site, and ongoing maintenance and security responsibility.</p>
+</section>
+<section class="item" id="p3-sec2">
+<h3>Video 1: Headless CMS Explained (2026)</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/Nvyeo2J7ML8?cc_load_policy=1&amp;rel=0" title="Video: Headless CMS Explained (2026) (Sam Anthony)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Sam Anthony</strong> · 7:33 · 51,919 views · 7mo ago · captions — <a href="https://www.youtube.com/watch?v=Nvyeo2J7ML8" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video explains what a headless CMS actually is — a content backend that serves data through an API to a separately built front end — and contrasts it with a traditional, all-in-one CMS. Based on its title and description, it deliberately avoids hype and focuses on who headless genuinely suits, who it does not, and why a traditional CMS remains the better choice for many projects. Expect discussion of trade-offs in editing experience, development effort, and project fit.</p>
+<h4>Why this video</h4>
+<p>Headless sits squarely between "pure CMS" and "fully custom," so it is the clearest way to see that the choice is a spectrum rather than a binary; the explicit "who it's not for" framing directly supports the evaluating-scope and client-capability subtopics.</p>
+</section>
+<section class="item" id="p3-sec3">
+<h3>Video 2: When You SHOULD Use Payload (and When You Shouldn’t)</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/2mG1Hc0Z3AI?cc_load_policy=1&amp;rel=0" title="Video: When You SHOULD Use Payload (and When You Shouldn’t) (Nick Vogel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Nick Vogel</strong> · 4:37 · 10,991 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=2mG1Hc0Z3AI" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short, focused look at Payload, a code-first CMS used in modern JavaScript stacks, framed entirely around when it is and is not the right tool. The description points to top use cases, so expect concrete project types where a developer-oriented CMS pays off versus situations where it adds unnecessary complexity. It is a practitioner's perspective on fitting a tool to a project's requirements.</p>
+<h4>Why this video</h4>
+<p>It models exactly the reasoning this topic asks for — stating use cases and anti-use-cases — and shows the developer-centric middle ground where custom code and CMS conveniences meet, which is useful for the decision framework and scalability discussions.</p>
+</section>
+<section class="item" id="p3-sec4">
+<h3>Video 3: BEST Website Builder 2026 (Don’t Choose Wrong)</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/TYYgCXNwTtQ?cc_load_policy=1&amp;rel=0" title="Video: BEST Website Builder 2026 (Don’t Choose Wrong) (Metics Media)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Metics Media</strong> · 17:46 · 421,175 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=TYYgCXNwTtQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A long-form comparison of mainstream website builders and hosted platforms, organized around matching a tool to the viewer's situation rather than naming a single winner. Expect coverage of pricing tiers, ease of use for non-technical owners, design flexibility, and the limitations that show up as a site grows. The channel produces marketing-oriented tool reviews, so the lens is practical and client-facing.</p>
+<h4>Why this video</h4>
+<p>It represents the low-code end of the spectrum that many real clients will ask about, and its emphasis on cost and ease of use gives you concrete material for the budget and client technical capability criteria in your framework.</p>
+</section>
+<section class="item" id="p3-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos let you compare hosted builders, traditional CMS platforms, headless and code-first CMS options, and fully custom development, which is the comparative work described in MO1. Because each video is organized around fit — who should and should not use a given approach — they supply the raw criteria (scope, budget, editorial workflow, scalability, client skill level, and ongoing maintenance) that you will assemble into the structured decision framework required by MO2. The discussions of updates, plugin ecosystems, hosting, and long-term upkeep also preview the webmaster responsibilities and maintenance planning covered later in the module, and the client-oriented framing in the builder comparison connects to the requirements-gathering and expectation-setting skills in MO5.</p>
+</section>
+<section class="item" id="p3-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part4">
+<h2>The Webmaster Role and Professional Responsibilities</h2>
+<section class="item" id="p4-sec1">
+<h3>Introduction</h3>
+<p>A webmaster is the person who owns a live website after launch. The role goes well beyond writing code: it includes keeping software patched, monitoring uptime and security, auditing content, coordinating with designers, developers, and content authors, and communicating clearly with clients and stakeholders about what is happening to their site and why. On small teams one person may do all of this; on larger teams the webmaster is often the coordinator who makes sure nothing falls through the cracks.</p>
+<p>This topic matters in COP4813 because the technical skills you have built only create value if someone maintains them responsibly over time. Professional accountability — following platform guidelines, respecting search engine and accessibility standards, disclosing problems honestly, and staying current as tools change — is part of the job description, not an optional extra.</p>
+<p>The three videos below approach the role from the operational side: the published standards a webmaster is expected to follow, the free diagnostic tools that support routine monitoring, and the audit habit that turns monitoring data into decisions. As you watch, note which tasks are recurring (daily, weekly, monthly), which require a judgment call you would need to explain to a client, and which could be documented as a checklist for a team to follow.</p>
+</section>
+<section class="item" id="p4-sec2">
+<h3>Video 1: Google Search Essentials formerly Webmaster Guidelines</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/mAykfaa02r8?cc_load_policy=1&amp;rel=0" title="Video: Google Search Essentials formerly Webmaster Guidelines (Trevor Stolber)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Trevor Stolber</strong> · 6:33 · 228 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=mAykfaa02r8" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This short video covers Google's rebranding of the long-standing Webmaster Guidelines as Google Search Essentials, and explains what the renamed documentation says. Based on the title and description, it walks through the key requirements and best practices Google expects site owners to meet, and highlights what changed in the update. It is essentially a tour of the rulebook a webmaster is accountable to when running a public, indexed site.</p>
+<h4>Why this video</h4>
+<p>Professional standards are a core subtopic here, and this video points to the single most widely referenced set of published expectations for site owners. It also models the habit of continuous learning: guidelines get renamed and revised, and a webmaster is responsible for noticing.</p>
+</section>
+<section class="item" id="p4-sec3">
+<h3>Video 2: How to Use Microsoft Bing Webmaster Tools to Increase Your SEO Traffic</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/iE7_m9ZNAe8?cc_load_policy=1&amp;rel=0" title="Video: How to Use Microsoft Bing Webmaster Tools to Increase Your SEO Traffic (TM Blast)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>TM Blast</strong> · 9:03 · 5,506 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=iE7_m9ZNAe8" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>TM Blast demonstrates Microsoft Bing Webmaster Tools and how to use it to monitor and improve search traffic. Expect a practical walkthrough of the dashboard — submitting and verifying a site, reviewing indexing and crawl information, and reading the reports the tool provides. The presenter frames it around real client work, noting that Bing accounts for a meaningful share of his search traffic.</p>
+<h4>Why this video</h4>
+<p>It shows the day-to-day operational side of the role: logging into a monitoring tool, reading diagnostics, and acting on them. It also reinforces an accountability point — a webmaster is responsible for all channels that reach the site, not just the most obvious one.</p>
+</section>
+<section class="item" id="p4-sec4">
+<h3>Video 3: Website Audit Basics: Video 2 (Wordpress + Benchmarks)</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/WyOIoHTIo90?cc_load_policy=1&amp;rel=0" title="Video: Website Audit Basics: Video 2 (Wordpress + Benchmarks) (Jill Caren)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Jill Caren</strong> · 10:47 · 599 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=WyOIoHTIo90" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Part of a website audit series, this video focuses on WordPress sites and on benchmarks you can use to judge how a site is performing relative to competitors. It introduces the basic measures an auditor looks at and how to interpret whether the numbers are healthy. The emphasis is on establishing a baseline rather than on advanced or specialized analysis.</p>
+<h4>Why this video</h4>
+<p>Content and performance auditing is explicitly part of the webmaster's recurring duties, and this video gives a concrete, beginner-accessible starting point. Benchmark data is also what you present to a client when justifying maintenance work, which ties directly to professional communication.</p>
+</section>
+<section class="item" id="p4-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>These videos concentrate on the operational and professional dimensions of the module. The Bing Webmaster Tools walkthrough and the website audit video map directly to MO3, giving you concrete examples of security and indexing monitoring, performance checks, and content auditing on a production site — the audit video using WordPress keeps that work anchored to a specific CMS context relevant to MO1. The Google Search Essentials overview supplies the published standards a maintenance plan should be built against, supporting MO4 by showing what routine compliance and review look like over time. All three also support MO5 indirectly: the reports and benchmarks they produce are exactly the evidence a webmaster uses to set client expectations, report progress, and justify recommended work.</p>
+</section>
+<section class="item" id="p4-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part5">
+<h2>Website Maintenance and Production Management</h2>
+<section class="item" id="p5-sec1">
+<h3>Introduction</h3>
+<p>Launching a website is not the finish line — it is the start of an ongoing operational commitment. Website maintenance and production management covers everything that happens after go-live: applying software and plugin updates, taking and testing backups, watching for intrusions, keeping pages fast, auditing content and links, responding to incidents, and telling clients what you are doing and when. For a CMS-based site in particular, where core software, themes, and third-party plugins all update on their own schedules, neglected maintenance is one of the most common causes of defacement, data loss, and downtime.</p>
+<p>In this course, this topic connects the technical skills you have built to the professional role of a webmaster. You are expected to think like the person responsible for a live production site: what gets checked daily, weekly, and monthly; what you do before you touch production; how you recover when something breaks; and how you communicate planned work and outages to a non-technical client.</p>
+<p>The three videos below approach the subject from different angles — a hands-on CMS maintenance checklist, a conceptual distinction between backup and disaster recovery, and a practical look at hardening a site against automated attacks. As you watch, note the recurring themes: staging environments before production changes, backups that are actually tested and stored off-site, recovery objectives expressed in time and data loss, and the difference between a one-time fix and a repeatable scheduled routine. Try to capture each recommended task into a draft maintenance calendar you could hand to a client.</p>
+</section>
+<section class="item" id="p5-sec2">
+<h3>Video 1: The Ultimate WordPress Maintenance Checklist: Backups, Updates, Staging, and Monitoring</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/0N3ofHne53E?cc_load_policy=1&amp;rel=0" title="Video: The Ultimate WordPress Maintenance Checklist: Backups, Updates, Staging, and Monitoring (WPTuts)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>WPTuts</strong> · 14:43 · 2,364 views · 3mo ago · captions — <a href="https://www.youtube.com/watch?v=0N3ofHne53E" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A walkthrough of a practical WordPress maintenance checklist covering backups, core/theme/plugin updates, use of a staging environment, and ongoing site monitoring. Based on its title and description, it frames maintenance as the routine work that keeps a site secure and recoverable rather than as a one-off cleanup task.</p>
+<h4>Why this video</h4>
+<p>It maps directly onto several subtopics at once — patch management, backups, and monitoring — and does so in the context of a real CMS, which is the platform context for this module. The checklist format gives you a concrete starting point for building your own maintenance schedule.</p>
+</section>
+<section class="item" id="p5-sec3">
+<h3>Video 2: Disaster Recovery vs. Backup: What's the difference?</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/07EHsPuKXc0?cc_load_policy=1&amp;rel=0" title="Video: Disaster Recovery vs. Backup: What's the difference? (IBM Technology)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>IBM Technology</strong> · 9:32 · 159,139 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=07EHsPuKXc0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>An IBM Technology explainer that separates two terms people often use interchangeably: backup (copies of data you can restore) and disaster recovery (a plan and infrastructure for resuming operations after a major failure). Expect discussion of planning concepts such as recovery objectives, what each approach protects against, and why having backups alone is not a recovery plan.</p>
+<h4>Why this video</h4>
+<p>It supplies the vocabulary and conceptual framing behind the backup and disaster recovery subtopic, from an established enterprise technology producer, so your maintenance plan can justify choices rather than just list tasks.</p>
+</section>
+<section class="item" id="p5-sec4">
+<h3>Video 3: How to Secure Your WordPress Website | The Journey</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/9uJfmUhJVTQ?cc_load_policy=1&amp;rel=0" title="Video: How to Secure Your WordPress Website | The Journey (GoDaddy)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>GoDaddy</strong> · 5:20 · 4,987 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=9uJfmUhJVTQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short, practical GoDaddy segment on securing a WordPress site, opening with the point that most attacks come from automated bots scanning for easy targets. It is likely to cover basic hardening steps such as strong credentials, keeping software current, limiting access, and using security tooling or monitoring.</p>
+<h4>Why this video</h4>
+<p>It is a concise, beginner-friendly treatment of the security monitoring and hardening subtopic and reinforces why timely updates matter from a threat perspective; its brevity makes it a good complement to the longer checklist video.</p>
+</section>
+<section class="item" id="p5-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos support MO3 and MO4 most directly: the WordPress maintenance checklist and the security video enumerate the webmaster's day-to-day operational responsibilities — updates, backups, hardening, and monitoring — while the IBM explainer gives you the backup-versus-disaster-recovery distinction and recovery planning language needed to construct a defensible production maintenance plan. The emphasis on staging, scheduled routines, and planned recovery procedures also feeds MO5, since maintenance windows, incident notifications, and progress reporting are the client-facing side of the same work. Watching them in the context of a CMS-hosted site reinforces MO1 and MO2 by making the ongoing security and upkeep burden of CMS platforms a visible factor in choosing between a CMS and a custom build.</p>
+</section>
+<section class="item" id="p5-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part6">
+<h2>Client Relations and Communication</h2>
+<section class="item" id="p6-sec1">
+<h3>Introduction</h3>
+<p>Technical skill alone does not make a successful web project. Most projects that go over budget, miss deadlines, or end in frustration fail for communication reasons: the requirements were never fully understood, the client expected something different from what was scoped, feedback arrived late or in scattered emails, or nobody explained who was responsible for the site after launch. This topic treats client relations as a professional skill set you can learn and practice, not a personality trait.</p>
+<p>The lifecycle runs from first contact through discovery, proposal and scope agreement, regular progress reporting, structured feedback and revision rounds, handoff and CMS training, and finally ongoing support and maintenance communication. Each stage has its own tools and habits: discovery questionnaires and stakeholder interviews, written scope documents and change-order policies, status updates on a predictable schedule, consolidated feedback rounds with a stated limit, training sessions and documentation for the client's content editors, and clear escalation paths when something breaks. When conversations do get difficult — a missed deadline, a scope dispute, an unhappy stakeholder — a calm, documented, solution-focused approach protects both the relationship and your professional reputation.</p>
+<p>As you watch the videos below, look for three things: the specific questions practitioners ask during discovery, the moments where expectations are put in writing rather than assumed, and the listening behaviors that make a client feel genuinely heard. Try to connect each practice to a stage of the project lifecycle, and think about how you would document it — in a discovery form, a scope statement, a status email, or a maintenance agreement.</p>
+</section>
+<section class="item" id="p6-sec2">
+<h3>Video 1: Complete Web Design Process: What Took Me 10 Years to Learn in 12 Minutes [Free Trello Template]</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/T5JglDcd54A?cc_load_policy=1&amp;rel=0" title="Video: Complete Web Design Process: What Took Me 10 Years to Learn in 12 Minutes [Free Trello Template] (Self-Made Web Designer)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Self-Made Web Designer</strong> · 12:13 · 152,334 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=T5JglDcd54A" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A practicing web designer walks through an end-to-end client website process, from intake and discovery through design, build, delivery, and the project management system used to keep it organized (the description mentions a free Trello template). Expect an overview of how the phases connect and where client touchpoints — approvals, updates, and revision rounds — fall within them. It is framed as hard-won practical experience rather than theory.</p>
+<h4>Why this video</h4>
+<p>It gives students a realistic, start-to-finish view of a client project, which is the backbone of this topic and places requirements gathering, expectation setting, progress updates, and handoff in their proper sequence.</p>
+</section>
+<section class="item" id="p6-sec3">
+<h3>Video 2: 5 Powerful Requirement Gathering Techniques Every Business Analyst Should Know</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/6wJEtVMA3Io?cc_load_policy=1&amp;rel=0" title="Video: 5 Powerful Requirement Gathering Techniques Every Business Analyst Should Know (Bridging the Gap - Resources for Business Analysts)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Bridging the Gap - Resources for Business Analysts</strong> · 8:27 · 12,594 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=6wJEtVMA3Io" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Laura Brandenburg of Bridging the Gap presents five requirements elicitation techniques used by business analysts to discover what stakeholders actually need. The video is likely to cover approaches such as interviews, document analysis, observation, workshops, and prototyping, along with when each technique is the better choice.</p>
+<h4>Why this video</h4>
+<p>It directly supports the Requirements Gathering and Discovery subtopic with structured, profession-standard methods from a channel dedicated to business analysis training, giving students vocabulary and techniques beyond simply asking a client what they want.</p>
+</section>
+<section class="item" id="p6-sec4">
+<h3>Video 3: The Art of Active Listening | The Harvard Business Review Guide</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/aDMtx5ivKK0?cc_load_policy=1&amp;rel=0" title="Video: The Art of Active Listening | The Harvard Business Review Guide (Harvard Business Review)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Harvard Business Review</strong> · 7:39 · 1,026,711 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=aDMtx5ivKK0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Harvard Business Review explains why common listening signals like nodding and saying "mm-hmm" can fall short, and presents concrete habits that make listening genuinely effective. The guide focuses on attention, clarifying and reflecting back what was said, and responding in ways that confirm understanding.</p>
+<h4>Why this video</h4>
+<p>Active listening is the underlying skill for discovery interviews, feedback sessions, and difficult conversations, and HBR is a credible, concise source for professional communication practice.</p>
+</section>
+<section class="item" id="p6-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>These videos focus on MO5, the client communication outcome. The web design process video maps professional communication onto the full project lifecycle — discovery, updates, approvals, revisions, and delivery — while the business analysis video supplies concrete requirements elicitation techniques for the discovery phase, and the Harvard Business Review guide builds the active listening skill that underpins expectation setting, feedback management, and conflict resolution. Together they also reinforce MO3 and MO4 indirectly, since handoff, CMS training, and scheduled maintenance communication are the points where a webmaster's operational responsibilities are explained and agreed upon with stakeholders.</p>
+</section>
+<section class="item" id="p6-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

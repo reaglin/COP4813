@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Embedding Images in HTML</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 2 -Building a Full Website with HTML, Images, and Links</a></div>
+<h1>Embedding Images in HTML</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: HTML - Images - W3Schools.com</a>
+<a href="#sec3">Video 2: HTML Tutorial - IMG tag attributes and responsive resolution</a>
+<a href="#sec4">Video 3: Writing Good Alt Text - HTTP 203</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Images turn a plain document into a real web page, and in HTML they are added with a single, self-closing element: img. Unlike paragraphs or headings, the img element has no content between tags — everything it needs comes from its attributes. The src attribute points to the image file, alt describes the image for people who cannot see it, and width and height tell the browser how much space to reserve while the page loads.</p>
+<p>This matters in COP4813 because the site you build in this module must work for everyone and must not break when files move. A src path that is correct on your machine but wrong on the server produces a broken image; a missing or careless alt attribute makes your page unusable with a screen reader. You will also need to make sensible choices about file formats — JPEG for photographs, PNG for graphics needing transparency, SVG for logos and icons, and newer formats such as WebP for smaller file sizes.</p>
+<p>As you watch, pay attention to three things: how relative paths are written when images live in a subfolder like images/, how each speaker decides what alt text should actually say (including when it should be empty), and why setting dimensions in the HTML or CSS helps page layout and performance. Try each example in your own editor rather than only watching.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: HTML - Images - W3Schools.com</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/FmoYRiepmOE?cc_load_policy=1&amp;rel=0" title="Video: HTML - Images - W3Schools.com (w3schools.com)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>w3schools.com</strong> · 3:43 · 266,326 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=FmoYRiepmOE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short, beginner-focused introduction from W3Schools covering the img element and its core attributes, including src, alt, and sizing. Based on its title and description, it walks through how images are embedded in a page and gives practical advice on using them correctly. It is part of a larger HTML tutorial series, so the explanations assume only basic HTML knowledge.</p>
+<h3>Why this video</h3>
+<p>W3Schools is a widely used, reliable reference for HTML syntax, and this clip gives a fast, accurate overview of the img element that maps directly to the first subtopics of this lesson.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: HTML Tutorial - IMG tag attributes and responsive resolution</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/zZCSTAR-4w0?cc_load_policy=1&amp;rel=0" title="Video: HTML Tutorial - IMG tag attributes and responsive resolution (LinkedIn Learning)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>LinkedIn Learning</strong> · 8:36 · 102,448 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=zZCSTAR-4w0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A longer tutorial from LinkedIn Learning focused specifically on img tag attributes and image resolution. The description indicates it addresses incorporating images in ways that are dynamic, accessible, and responsive, which suggests coverage of src, alt, and dimension attributes along with how images adapt to different screen sizes and resolutions.</p>
+<h3>Why this video</h3>
+<p>It goes deeper than a basic introduction, connecting the width and height attributes to responsive and high-resolution displays — a useful bridge between syntax and real-world image sizing decisions.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Writing Good Alt Text - HTTP 203</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/flf2vS0IoRs?cc_load_policy=1&amp;rel=0" title="Video: Writing Good Alt Text - HTTP 203 (Chrome for Developers)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Chrome for Developers</strong> · 9:57 · 24,522 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=flf2vS0IoRs" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>An episode of the HTTP 203 series in which two Chrome developer advocates discuss what should actually go into an image&#39;s alt attribute. Rather than teaching syntax, it works through the judgment calls: describing the purpose of an image in context, what to do with decorative images, and common mistakes that make alt text unhelpful.</p>
+<h3>Why this video</h3>
+<p>Produced by Chrome for Developers, it is an authoritative and unusually practical treatment of the alt text and accessibility best practices subtopics, where most students&#39; mistakes occur.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos target MO2 directly: the W3Schools overview establishes correct img syntax with src and alt, the LinkedIn Learning tutorial extends that to width, height, and resolution choices, and the Chrome for Developers episode supplies the accessibility judgment needed to write alt text that genuinely helps users. The emphasis on relative source paths also reinforces the file and folder organization skills in MO4 and the relative-path thinking behind MO3, while the accessibility guidance gives you concrete criteria for the image and accessibility testing required in MO5 and supports the accessible page structure goal in MO1.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

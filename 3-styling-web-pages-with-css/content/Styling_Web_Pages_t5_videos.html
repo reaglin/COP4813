@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CSS Layout Techniques</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 3 -Styling Web Pages with CSS</a></div>
+<h1>CSS Layout Techniques</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Intro to CSS layouts (flex, grid, block, none, inline-grid, inline-flex) — Webflow tutorial</a>
+<a href="#sec3">Video 2: FlexBox Tutorial - CSS Tutorial to Learn and Understand Flexbox in 12 Minutes</a>
+<a href="#sec4">Video 3: CSS Position : static, relative, absolute, fixed, and sticky ( CSS Basics by CodeON Jason K )</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Up to this point in the module you have been styling individual elements — choosing fonts and colors, writing selectors, and adjusting padding, borders, and margins. CSS layout is the next step: deciding where elements sit on the page and how they relate to one another. Every HTML element starts out following the normal document flow, where block-level elements stack vertically and inline elements sit side by side within a line. Layout techniques are the tools you use to change that default behavior deliberately.</p>
+<p>This topic focuses on two of the most practical tools for that job. Flexbox is a one-dimensional layout model that lets a container distribute, align, and space its children along a row or a column, and it is the standard way to build navigation bars, card rows, and side-by-side content sections. CSS positioning — static, relative, absolute, fixed, and sticky — lets you take an element partly or fully out of normal flow to pin it in a specific place, such as a sticky header or a badge layered over an image. Together these give you enough control to assemble a multi-section page layout without hacks.</p>
+<p>As you watch the videos below, pay attention to the distinction between properties you set on the container (display, flex-direction, justify-content, align-items) and properties you set on individual children (flex-grow, flex-shrink, flex-basis, align-self, and the offset properties top, right, bottom, left). Also notice what each positioning value is measured against — that is the most common source of confusion. Try reproducing the examples in your own stylesheet rather than only watching; layout is much easier to understand when you can change a value and see what moves.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Intro to CSS layouts (flex, grid, block, none, inline-grid, inline-flex) — Webflow tutorial</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/26vYyGWzVFc?cc_load_policy=1&amp;rel=0" title="Video: Intro to CSS layouts (flex, grid, block, none, inline-grid, inline-flex) — Webflow tutorial (Webflow)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Webflow</strong> · 10:49 · 17,778 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=26vYyGWzVFc" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This Webflow tutorial surveys the main values of the CSS display property, including block, flex, grid, inline-flex, inline-grid, and none, and explains how each one changes the way an element and its children are laid out. Based on its title and description, it is an overview video that compares layout modes rather than drilling deeply into any one of them. Expect visual demonstrations of how switching a container&#39;s display value rearranges the elements inside it.</p>
+<h3>Why this video</h3>
+<p>It is a good starting point for the Understanding CSS Layout Flow subtopic because it frames Flexbox as one option among several display modes, which helps you see why and when you would reach for it. Webflow produces design-focused instructional content, so the explanations are presented visually, which suits a layout topic.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: FlexBox Tutorial - CSS Tutorial to Learn and Understand Flexbox in 12 Minutes</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/DPHgIIdrmFk?cc_load_policy=1&amp;rel=0" title="Video: FlexBox Tutorial - CSS Tutorial to Learn and Understand Flexbox in 12 Minutes (front-end)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>front-end</strong> · 13:15 · 70,617 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=DPHgIIdrmFk" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A focused, roughly twelve-minute walkthrough of Flexbox, with timestamps indicating it begins at display: flex and continues through the core flex properties. It should cover setting up a flex container and then working through direction, alignment, justification, and the properties applied to individual flex items. The short runtime means it moves quickly and concentrates on the properties you will use most often.</p>
+<h3>Why this video</h3>
+<p>This video maps directly onto three of our subtopics — Introducing Flexbox, Aligning and Justifying Flex Items, and Controlling Individual Flex Items — in a single compact lesson. The chapter timestamps also make it easy to return to a specific property while you are working on your own layout.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: CSS Position : static, relative, absolute, fixed, and sticky ( CSS Basics by CodeON Jason K )</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/XZnkEHz1q5o?cc_load_policy=1&amp;rel=0" title="Video: CSS Position : static, relative, absolute, fixed, and sticky ( CSS Basics by CodeON Jason K ) (Code ON 코드온)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Code ON 코드온</strong> · 3:23 · 1,908 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=XZnkEHz1q5o" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A brief explanation of the five values of the CSS position property: static, relative, absolute, fixed, and sticky. In just over three minutes it should define each value, show what each one is positioned relative to, and demonstrate how the top, right, bottom, and left offsets behave in each case. It is a basics-level video intended as a quick conceptual reference.</p>
+<h3>Why this video</h3>
+<p>It covers the CSS Positioning subtopic directly and concisely, which is useful because positioning is a small set of rules that mainly needs to be understood rather than practiced at length. Its short length makes it easy to rewatch when you are deciding whether an element needs relative, absolute, or sticky positioning in your page layout.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>These three videos together support MO4, the outcome that asks you to arrange page elements into multi-section layouts using Flexbox alignment properties and CSS positioning. The Webflow overview establishes how display values govern layout flow so you can choose the right approach for a given section; the Flexbox tutorial supplies the container and item properties you will use to align and distribute content; and the positioning video covers the static, relative, absolute, fixed, and sticky behaviors needed to place elements outside normal flow. Because layout rules are written alongside your typography, color, and box model rules, practicing these techniques also feeds into MO5, where you integrate everything into one organized external stylesheet.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

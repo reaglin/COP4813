@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Handling the drop Event</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 9 - Implementing Drag and Drop Interactions</a></div>
+<h1>Handling the drop Event</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: JavaScript #29 - Show and hide DOM element</a>
+<a href="#sec3">How These Videos Support the Learning Outcomes</a>
+<a href="#sec4">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>The drop event is where a drag-and-drop interaction finally pays off. It fires on the drop target when the user releases the mouse button over an element that has been designated a valid target, and it is your opportunity to read the data that was stashed during dragstart and act on it. Because browsers have default behaviors for dropped content (such as opening a dragged link or file), your drop handler almost always begins with event.preventDefault() before doing anything else.</p>
+<p>In this topic you will work through the full sequence: attaching a drop listener to the target, suppressing default browser behavior, calling event.dataTransfer.getData() with the same format string you used in setData(), using the retrieved value (typically an element id) to locate the dragged element with document.getElementById(), and then updating the DOM — usually with appendChild() or insertBefore() — so the element visually moves into its new container. Finally, you clean up any visual feedback, such as highlight classes or opacity changes added during dragover and dragstart, so the interface returns to a neutral state.</p>
+<p>The heart of all of this is DOM manipulation: showing, hiding, moving, and restyling elements with JavaScript. The video below focuses on that underlying skill. As you watch, pay attention to how elements are selected, how classes and styles are toggled, and how those same techniques would let you update a drop target and remove leftover highlighting after a successful drop.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: JavaScript #29 - Show and hide DOM element</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/jXlWW6ppq1g?cc_load_policy=1&amp;rel=0" title="Video: JavaScript #29 - Show and hide DOM element (Code with Bibek)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Code with Bibek</strong> · 5:49 · 950 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=jXlWW6ppq1g" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short, project-oriented JavaScript tutorial that demonstrates how to show and hide a DOM element from code. Based on its title and description, it likely covers selecting an element, attaching an event handler, and toggling its visibility by changing a style property or a CSS class. The example is small enough to follow line by line and then adapt to your own pages.</p>
+<h3>Why this video</h3>
+<p>The DOM-update techniques shown here — selecting elements and changing their appearance in response to an event — are exactly what a drop handler does when it moves an item into a target and clears highlight styling afterward, so it supports the &quot;Updating the DOM After a Successful Drop&quot; and &quot;Cleaning Up Visual Feedback&quot; subtopics.</p>
+</section>
+<section class="item" id="sec3">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>The video reinforces the DOM-manipulation foundation that the drop event depends on: once getData() returns the identifier of the dragged element, everything that follows is ordinary JavaScript element selection and styling. That practice supports MO2 and MO3, where your drop listener must call preventDefault(), retrieve transferred data, and visibly complete the interaction, and it feeds directly into MO4, where the same show, hide, move, and restyle operations are combined to build a sortable list or Kanban-style board. Use the module readings and API reference alongside it for the drag-and-drop event names, attributes, and DataTransfer methods in MO1, and for the usability and accessibility review called for in MO5.</p>
+</section>
+<section class="item" id="sec4">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

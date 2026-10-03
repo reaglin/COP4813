@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Styling a Complete Web Page</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 3 -Styling Web Pages with CSS</a></div>
+<h1>Styling a Complete Web Page</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: CSS in 7 Minutes &#128293;</a>
+<a href="#sec3">Video 2: Discover CSS issues with DevTools #DevToolsTips</a>
+<a href="#sec4">Video 3: HTML Tutorial - Styling a form with CSS</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>So far in this module you have worked with individual CSS concepts: selectors, the cascade, typography properties, color values, the box model, and layout tools like Flexbox. This topic brings all of those pieces together. Instead of styling one element at a time, you will style an entire page from top to bottom using a single external stylesheet, making deliberate choices about fonts, colors, spacing, and navigation so the finished site looks like one coherent design rather than a collection of unrelated rules.</p>
+<p>Two habits matter most here. The first is organization: linking your stylesheet correctly with the link element in the head, then grouping rules in a predictable order (resets and base styles, typography, layout, components, interactive states) with comments so you and your teammates can find things later. The second is consistency: reusing a small set of fonts, a limited color palette, and repeatable spacing values so the page feels intentional. Interactive elements such as navigation links, buttons, and form fields need special attention because they have multiple states (normal, hover, focus) that users rely on.</p>
+<p>As you watch the videos below, pay attention to three things: how each presenter connects a style rule to the element it targets, how they inspect and verify results in the browser rather than guessing, and how they handle spacing and alignment with box model properties. When you return to your own site, review your stylesheet critically — look for duplicated rules, inconsistent values, and declarations that are not actually doing anything.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: CSS in 7 Minutes &#128293;</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/AP3_V7KXHs4?cc_load_policy=1&amp;rel=0" title="Video: CSS in 7 Minutes &#128293; (CodeWithHarry)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>CodeWithHarry</strong> · 7:30 · 561,945 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=AP3_V7KXHs4" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A fast-paced overview of CSS that, based on its title and framing, walks through the core of the language in roughly seven minutes. Expect coverage of how CSS is attached to HTML, basic selector types, and common property categories such as text, color, and spacing. Note that the instruction in this video is delivered in Hindi, though the on-screen code and demonstrations are in standard CSS.</p>
+<h3>Why this video</h3>
+<p>It serves as a compact refresher that ties the module&#39;s separate concepts back together before you style a complete page, and CodeWithHarry is a widely followed coding channel known for condensed, code-first walkthroughs.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Discover CSS issues with DevTools #DevToolsTips</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/iuZx0kHS0Xs?cc_load_policy=1&amp;rel=0" title="Video: Discover CSS issues with DevTools #DevToolsTips (Chrome for Developers)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Chrome for Developers</strong> · 7:41 · 14,873 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=iuZx0kHS0Xs" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>Produced by the Chrome for Developers team, this episode shows how to use browser DevTools to figure out why a CSS rule you wrote is not taking effect. The presenters demonstrate inspecting elements, reading the styles panel, and spotting problems such as overridden, invalid, or inactive declarations. It is a troubleshooting workflow rather than a lecture on syntax.</p>
+<h3>Why this video</h3>
+<p>Reviewing and refining a finished stylesheet depends on being able to diagnose specificity conflicts and dead rules, and this guidance comes directly from the team that builds the Chrome DevTools.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: HTML Tutorial - Styling a form with CSS</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/8yrTnjo0TWw?cc_load_policy=1&amp;rel=0" title="Video: HTML Tutorial - Styling a form with CSS (LinkedIn Learning)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>LinkedIn Learning</strong> · 8:39 · 137,766 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=8yrTnjo0TWw" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A focused lesson on applying CSS to an HTML form, an area the description notes is often overlooked in web design. It is likely to cover labeling and aligning form fields, controlling their width and spacing, and making inputs and buttons look consistent with the rest of a page. Forms are a practical case study in spacing and interactive element styling.</p>
+<h3>Why this video</h3>
+<p>Forms combine the box model, alignment, and interactive states in one small component, and LinkedIn Learning content is professionally produced and instructionally sequenced, making it a good fit for the navigation and interactive elements subtopic.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos support the capstone goals of the module. The CSS overview reinforces how stylesheets connect to HTML and how selectors and properties work, backing MO1 and MO2. The form styling lesson gives concrete practice with padding, margins, borders, and alignment on real page components, supporting MO3 and MO4 while modeling the styling of interactive elements. The DevTools episode addresses the cascade and specificity in practice, helping you resolve conflicting declarations (MO2) and audit your work. Taken as a set, they prepare you for MO5: producing a fully styled, cohesive page whose typography, color, layout, and spacing all live in one organized external stylesheet.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

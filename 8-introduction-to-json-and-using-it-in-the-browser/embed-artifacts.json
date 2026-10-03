@@ -1,5 +1,10 @@
 ﻿[
   {
+    "title": "8 - Introduction to JSON and Using It in the Browser (module page)",
+    "href": "index.html",
+    "type": "Module page"
+  },
+  {
     "title": "8 - Introduction to JSON and Using It in the Browser \u2014 Topics \u0026 Learning Outcomes",
     "href": "topics-outcomes.html",
     "type": "Page"
@@ -50,8 +55,43 @@
     "type": "Content"
   },
   {
-    "title": "8 - Introduction to JSON and Using It in the Browser \u2014 Module Topics",
-    "href": "content/module_topics.html",
+    "title": "What is JSON?",
+    "href": "content/Introduction_to_JSON_t1_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "JSON Syntax and Structure",
+    "href": "content/Introduction_to_JSON_t2_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Parsing JSON in JavaScript",
+    "href": "content/Introduction_to_JSON_t3_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Stringifying JavaScript Objects to JSON",
+    "href": "content/Introduction_to_JSON_t4_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Fetching JSON Data with the Fetch API",
+    "href": "content/Introduction_to_JSON_t5_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Fetching JSON Data with XMLHttpRequest",
+    "href": "content/Introduction_to_JSON_t6_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Displaying JSON Data in a Web Page",
+    "href": "content/Introduction_to_JSON_t7_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "8 - Introduction to JSON and Using It in the Browser",
+    "href": "content/Introduction_to_JSON_videos_merged.html",
     "type": "Content"
   }
 ]

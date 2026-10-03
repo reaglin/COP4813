@@ -1,5 +1,10 @@
 ﻿[
   {
+    "title": "7 - Drawing and Graphics with the HTML5 Canvas (module page)",
+    "href": "index.html",
+    "type": "Module page"
+  },
+  {
     "title": "7 - Drawing and Graphics with the HTML5 Canvas \u2014 Topics \u0026 Learning Outcomes",
     "href": "topics-outcomes.html",
     "type": "Page"
@@ -50,8 +55,28 @@
     "type": "Content"
   },
   {
-    "title": "7 - Drawing and Graphics with the HTML5 Canvas \u2014 Module Topics",
-    "href": "content/module_topics.html",
+    "title": "Introduction to the HTML5 Canvas Element",
+    "href": "content/Drawing_and_Graphics_t1_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Drawing Basic Shapes",
+    "href": "content/Drawing_and_Graphics_t2_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Drawing and Manipulating Images",
+    "href": "content/Drawing_and_Graphics_t6_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Foundations of Interactive Canvas Graphics",
+    "href": "content/Drawing_and_Graphics_t7_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "7 - Drawing and Graphics with the HTML5 Canvas",
+    "href": "content/Drawing_and_Graphics_videos_merged.html",
     "type": "Content"
   }
 ]

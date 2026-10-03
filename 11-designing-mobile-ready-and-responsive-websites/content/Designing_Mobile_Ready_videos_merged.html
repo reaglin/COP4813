@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>11 - Designing Mobile-Ready and Responsive Websites</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+<style>section.merged-part{border-top:2px solid rgba(128,128,128,.3);margin-top:2rem;padding-top:.5rem}nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}nav.toc a{display:block;text-decoration:none;padding:.12rem 0}</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 11 - Designing Mobile-Ready and Responsive Websites</a></div>
+<h1>11 - Designing Mobile-Ready and Responsive Websites</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#part1">Introduction to Responsive Web Design</a>
+<a href="#part2">Fluid Grids and Flexible Layouts</a>
+<a href="#part3">Flexible Images and Media</a>
+<a href="#part4">CSS Media Queries</a>
+<a href="#part5">Mobile-First Design Philosophy</a>
+<a href="#part6">Viewport Configuration and Screen Sizes</a>
+</nav>
+<section class="merged-part" id="part1">
+<h2>Introduction to Responsive Web Design</h2>
+<section class="item" id="p1-sec1">
+<h3>Introduction</h3>
+<p>Responsive web design is the practice of building a single website that adapts gracefully to whatever screen it lands on — a phone held in one hand, a tablet in landscape, a laptop, or a large desktop monitor. Instead of maintaining separate "mobile" and "desktop" sites, you write one set of HTML and CSS that reflows, resizes, and reorganizes itself based on the available viewport. This introductory topic sets up the vocabulary and mental model you will use for the rest of the module: the multi-device landscape, the three core pillars (fluid grids, flexible images, and media queries), the mobile-first philosophy, and the viewport meta tag that makes any of it work on real phones.</p>
+<p>Why does this matter in COP4813? Most of your users will reach your web applications from a mobile device first, and search engines, accessibility guidelines, and employers all assume responsive behavior as a baseline rather than a bonus. Understanding the "why" before the "how" will make the CSS you write later in the module — relative units, Flexbox and Grid, srcset, min-width media queries — feel like deliberate choices instead of memorized syntax.</p>
+<p>As you watch the videos below, look for three things: how content is prioritized when space shrinks, how layouts are allowed to flex rather than being pinned to fixed pixel widths, and how designers think about breakpoints as content-driven decisions rather than device-specific ones. The first video is a hands-on tour of responsive layout mechanics in a visual tool; the two Apple sessions widen the lens to design thinking across an increasingly varied set of devices and form factors.</p>
+</section>
+<section class="item" id="p1-sec2">
+<h3>Video 1: Intro to responsive web design — Webflow 101 (Part 7 of 10)</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/yLKdltvUj2o?cc_load_policy=1&amp;rel=0" title="Video: Intro to responsive web design — Webflow 101 (Part 7 of 10) (Webflow)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Webflow</strong> · 14:11 · 42,163 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=yLKdltvUj2o" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Part 7 of Webflow's ten-part introductory series, this video focuses specifically on responsive design: how content reflows and repositions across desktop, tablet, mobile landscape, and mobile portrait views. Based on its title and description, it should walk through adjusting a layout at different breakpoints and show visually what happens to elements as the canvas narrows. Expect a practical, demonstration-driven treatment of the same ideas you will later implement by hand in CSS.</p>
+<h4>Why this video</h4>
+<p>Webflow is a mainstream web design platform and its 101 series is aimed squarely at beginners, which makes this a clear, accurate entry point for the "What Is Responsive Web Design?" and "Multi-Device Landscape" subtopics. Seeing breakpoints applied live in a visual editor helps you build intuition for fluid layouts before you write media queries from scratch.</p>
+</section>
+<section class="item" id="p1-sec3">
+<h3>Video 2: WWDC25: Design foundations from idea to interface | Apple</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/dGcqqA3Sl-o?cc_load_policy=1&amp;rel=0" title="Video: WWDC25: Design foundations from idea to interface | Apple (Apple Developer)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Apple Developer</strong> · 19:06 · 145,192 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=dGcqqA3Sl-o" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This WWDC25 session from Apple Developer traces app design from an initial idea through to a finished interface, discussing how design choices make an experience feel clear, intuitive, and effortless. Based on its description, it should cover design foundations such as hierarchy, layout, and how visual structure supports functionality. While framed around apps rather than websites, the underlying reasoning about content priority and adaptable interfaces transfers directly to the web.</p>
+<h4>Why this video</h4>
+<p>It comes straight from Apple's design team, a highly credible source on interface design, and it supports the "Why Responsive Design Matters" and mobile-first subtopics by showing how designers decide what matters most on a small, focused screen.</p>
+</section>
+<section class="item" id="p1-sec4">
+<h3>Video 3: Design for iPhone Duo | Apple</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/do3UqxfYc3I?cc_load_policy=1&amp;rel=0" title="Video: Design for iPhone Duo | Apple (Apple Developer)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Apple Developer</strong> · 10:45 · 331,105 views · 3w ago · captions — <a href="https://www.youtube.com/watch?v=do3UqxfYc3I" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A recent Apple Developer video introducing the design principles behind iPhone Duo, Apple's folding iPhone, and the reimagined iOS that accompanies it. Judging from its description, it should explain how interfaces are expected to behave when a single device changes shape and screen dimensions mid-use. That makes it a concrete, current illustration of just how varied and unpredictable target screen sizes have become.</p>
+<h4>Why this video</h4>
+<p>Folding devices are the sharpest possible argument for the multi-device landscape subtopic: a layout that assumes fixed dimensions simply breaks. This short, well-produced session gives you a real-world case for why fluid, adaptive layouts are the only sustainable strategy.</p>
+</section>
+<section class="item" id="p1-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos build the conceptual foundation that the module outcomes depend on. The Webflow walkthrough demonstrates fluid layouts and breakpoint adjustments visually, previewing the core pillars named in MO1 and the proportional scaling you will build yourself in MO2 and MO3. The two Apple sessions reinforce the mobile-first reasoning behind MO4 — start with the constrained screen and progressively enhance — and give you concrete evidence for the trade-off discussion in MO5 by showing how many distinct form factors a single interface must now serve. None of these videos teaches the CSS syntax directly; they supply the "why" and the design judgment, while the module readings and labs supply the code.</p>
+</section>
+<section class="item" id="p1-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part2">
+<h2>Fluid Grids and Flexible Layouts</h2>
+<section class="item" id="p2-sec1">
+<h3>Introduction</h3>
+<p>A fluid grid is the structural backbone of a responsive page. Instead of fixing column widths in pixels, you express them as proportions of their container — percentages, fr units, em and rem — so the layout reflows and rescales continuously as the viewport changes. The classic conversion formula (target divided by context equals result) lets you take an existing fixed-width comp and translate each column and gutter into a relative value that preserves the original proportions.</p>
+<p>In this module, fluid grids are one of the three pillars of responsive design, alongside flexible images and media queries. Modern CSS gives you two purpose-built layout modules for the job: Flexbox, which distributes space along a single axis and is ideal for navigation bars, card rows, and component-level alignment, and CSS Grid, which defines rows and columns together for full two-dimensional page structure. You also need to understand how padding, borders, and gutters interact with percentage widths — which is why box-sizing: border-box and the gap property matter so much in fluid layouts.</p>
+<p>As you watch the videos below, focus on three things: which unit or layout method the presenter chooses and why, how spacing between items is created (margins versus gap), and how the layout behaves when the browser window is resized. Try rebuilding each example yourself and then drag your browser edge or use DevTools device emulation to verify that nothing overflows, collapses, or breaks at in-between widths.</p>
+</section>
+<section class="item" id="p2-sec2">
+<h3>Video 1: Flexbox vs. CSS Grid: Which Should You Use and When?</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/18VLSXfsj94?cc_load_policy=1&amp;rel=0" title="Video: Flexbox vs. CSS Grid: Which Should You Use and When? (Envato Tuts+)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Envato Tuts+</strong> · 17:16 · 67,118 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=18VLSXfsj94" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This tutorial compares Flexbox and CSS Grid as layout modules and, as the title indicates, focuses on deciding which one fits a given situation. Expect discussion of one-dimensional versus two-dimensional layout thinking, content-driven versus layout-driven sizing, and practical examples of where each module is the better tool. It is likely to also touch on using the two together, since Grid items can themselves be flex containers.</p>
+<h4>Why this video</h4>
+<p>Envato Tuts+ is a well-established web development training publisher, and this video directly addresses the Flexbox and CSS Grid subtopics by framing them as complementary rather than competing tools — exactly the judgment you need when planning a fluid layout.</p>
+</section>
+<section class="item" id="p2-sec3">
+<h3>Video 2: CSS Grid - Create a FULL-HEIGHT RESPONSIVE Layout in Minutes</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/xR23ktLwvrg?cc_load_policy=1&amp;rel=0" title="Video: CSS Grid - Create a FULL-HEIGHT RESPONSIVE Layout in Minutes (Optimistic Web)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Optimistic Web</strong> · 10:01 · 34,954 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=xR23ktLwvrg" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A compact, hands-on build in which CSS Grid is used to create a full-height, responsive page layout. It should demonstrate defining rows and columns with flexible units, making a layout fill the viewport height, and letting the grid adapt as the screen size changes. Watch for how track sizes and gaps are declared and how the structure holds together at different widths.</p>
+<h4>Why this video</h4>
+<p>This gives you a short, practical demonstration of CSS Grid for two-dimensional layout and reinforces how fluid track sizing and gutters work in a real page rather than an isolated snippet.</p>
+</section>
+<section class="item" id="p2-sec4">
+<h3>Video 3: Intro to CSS layouts (flex, grid, block, none, inline-grid, inline-flex) — Webflow tutorial</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/26vYyGWzVFc?cc_load_policy=1&amp;rel=0" title="Video: Intro to CSS layouts (flex, grid, block, none, inline-grid, inline-flex) — Webflow tutorial (Webflow)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Webflow</strong> · 10:49 · 17,778 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=26vYyGWzVFc" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>An overview of the CSS display values used for layout — block, inline, none, flex, grid, inline-flex, and inline-grid — explained through Webflow's visual interface. It should clarify what each display mode does to an element and its children, and when designers reach for one over another. The visual presentation makes the differences between flow layout, flex layout, and grid layout easy to see.</p>
+<h4>Why this video</h4>
+<p>Webflow's design team produces clear, well-illustrated layout content, and this video provides the conceptual foundation underneath Flexbox and Grid, helping you understand how display modes govern the box model and spacing behavior in fluid layouts.</p>
+</section>
+<section class="item" id="p2-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos concentrate on MO2, the construction of fluid grid layouts that scale proportionally. The Webflow overview establishes the display and box-model vocabulary you need, the Envato Tuts+ comparison helps you choose correctly between Flexbox and CSS Grid for a given layout problem, and the CSS Grid walkthrough shows a responsive, full-height structure being built end to end. They also reinforce MO1 by illustrating the fluid-grid pillar of responsive design in practice, and the resizing demonstrations prepare you for testing and validating fluid behavior. Readings and lab work in this module cover the relative-unit conversion math, responsive images (MO3), and mobile-first breakpoint strategy (MO4, MO5).</p>
+</section>
+<section class="item" id="p2-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part3">
+<h2>Flexible Images and Media</h2>
+<section class="item" id="p3-sec1">
+<h3>Introduction</h3>
+<p>Flexible images and media are the second pillar of responsive web design. A fluid grid will happily shrink and stretch, but a fixed-width image dropped into that grid will overflow its container, trigger horizontal scrolling, or force the layout to break. The classic fix is deceptively simple — a CSS rule such as img { max-width: 100%; height: auto; } — but modern responsive media goes further, letting the browser choose among several image files based on screen width and pixel density, and letting you swap in a differently cropped image for narrow screens.</p>
+<p>In this topic you will work through the max-width technique, the srcset and sizes attributes on the img element, the picture element with source and media for art direction, techniques for keeping embedded video and iframes fluid, and the CSS background-size property (cover, contain, and percentage values) for responsive background images. Running underneath all of it is a performance question: mobile users on slow connections should not download a 2000-pixel-wide hero image to display it at 400 pixels.</p>
+<p>As you watch, pay attention to three things. First, the difference between resolution switching (same picture, different file sizes — srcset and sizes) and art direction (different crops or compositions — the picture element). Second, how the sizes attribute tells the browser how wide the image will be laid out, since the browser must decide which file to download before the CSS is fully applied. Third, note the actual markup and CSS syntax so you can reproduce it, not just recognize it.</p>
+</section>
+<section class="item" id="p3-sec2">
+<h3>Video 1: Responsive images &amp; art direction - Designing in the Browser</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/KBQz1OSpRv8?cc_load_policy=1&amp;rel=0" title="Video: Responsive images &amp; art direction - Designing in the Browser (Chrome for Developers)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Chrome for Developers</strong> · 12:19 · 24,071 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=KBQz1OSpRv8" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Una Kravets of the Chrome Developer Relations team walks through responsive image techniques in the browser, covering both resolution switching and art direction. Based on the title and series description, expect coverage of srcset for serving appropriately sized files and the picture element for changing the image itself at different breakpoints, demonstrated live in browser developer tools.</p>
+<h4>Why this video</h4>
+<p>It comes directly from Chrome for Developers, so the guidance reflects how browsers actually implement these features, and it is the one video here that explicitly addresses the art-direction subtopic alongside srcset.</p>
+</section>
+<section class="item" id="p3-sec3">
+<h3>Video 2: HTML Tutorial - Responsive image markup</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/NcD1V7C_3ks?cc_load_policy=1&amp;rel=0" title="Video: HTML Tutorial - Responsive image markup (LinkedIn Learning)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>LinkedIn Learning</strong> · 6:05 · 14,543 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=NcD1V7C_3ks" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short, focused tutorial from LinkedIn Learning on writing image markup that adapts to the size of the screen. It is likely to start from the foundational idea of images that scale to fit their container and then introduce the responsive image attributes that let you supply multiple sources.</p>
+<h4>Why this video</h4>
+<p>At six minutes it is a compact, well-produced introduction that is a good first watch before the more technical videos, and it connects the max-width scaling idea to responsive markup.</p>
+</section>
+<section class="item" id="p3-sec4">
+<h3>Video 3: Responsive Images Tutorial 2022 - img srcset and sizes</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/4VUfk464vzk?cc_load_policy=1&amp;rel=0" title="Video: Responsive Images Tutorial 2022 - img srcset and sizes (Austin Shelby)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Austin Shelby</strong> · 9:54 · 9,267 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=4VUfk464vzk" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Austin Shelby focuses specifically on the img element's srcset and sizes attributes, showing how to supply multiple image files and let the browser load only the most appropriate one for the current viewport. The framing is explicitly about optimization — avoiding oversized downloads on small screens.</p>
+<h4>Why this video</h4>
+<p>This is the most detailed treatment of srcset and sizes among the three, and its performance angle directly supports the performance considerations subtopic.</p>
+</section>
+<section class="item" id="p3-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos target MO3 most directly: the LinkedIn Learning tutorial establishes images that scale within a fluid container, Austin Shelby's video drills into srcset and sizes for resolution switching, and the Chrome for Developers episode adds the picture element and art direction. Because all three repeatedly tie image behavior to viewport width and breakpoints, they also reinforce the flexible-images pillar described in MO1 and show how media behaves inside the fluid layouts you build for MO2. The performance framing in the srcset videos — downloading only the bytes a device needs — feeds directly into the mobile-first thinking and trade-off analysis called for in MO4 and MO5. Supplement the videos with the module readings for background-size and fluid video embeds, which the videos may not cover in depth.</p>
+</section>
+<section class="item" id="p3-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part4">
+<h2>CSS Media Queries</h2>
+<section class="item" id="p4-sec1">
+<h3>Introduction</h3>
+<p>CSS media queries are the conditional logic of styling: they let you apply a block of CSS only when the browsing context matches certain conditions, such as a minimum viewport width, a landscape orientation, or a device that supports hover. Without them, a single stylesheet must serve every screen identically; with them, the same HTML can present a single-column mobile layout, a two-column tablet layout, and a wide desktop layout.</p>
+<p>In this module, media queries are the third pillar of responsive design, working alongside fluid grids and flexible images. Fluid layouts handle continuous scaling between sizes; media queries handle the moments where the layout needs to change shape entirely — collapsing a navigation bar, stacking cards, or hiding a sidebar. You will also look at where media queries live (inside an external stylesheet, in a linked file, or via the media attribute) and how a mobile-first approach using min-width differs from a desktop-first approach using max-width.</p>
+<p>As you watch, pay attention to four things: the exact syntax of the @media rule and its media type and feature conditions; how breakpoint values are chosen and whether the instructor argues from content or from device names; how the cascade determines which rule wins when two media queries both match; and how each demo is tested, usually with browser developer tools and device emulation. Try re-typing the examples yourself and resizing the window rather than only watching.</p>
+</section>
+<section class="item" id="p4-sec2">
+<h3>Video 1: CSS Media Queries | Sigma Web Development Course - Tutorial #31</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/eHye3PxH4jU?cc_load_policy=1&amp;rel=0" title="Video: CSS Media Queries | Sigma Web Development Course - Tutorial #31 (CodeWithHarry)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>CodeWithHarry</strong> · 11:37 · 541,554 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=eHye3PxH4jU" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A focused tutorial from the Sigma Web Development course that introduces media queries and walks through writing @media rules to change styles at different screen widths. Expect coverage of the basic syntax, min-width and max-width conditions, and a live demo of a layout adapting as the viewport is resized. It is positioned within a larger structured CSS sequence, so terminology is introduced step by step.</p>
+<h4>Why this video</h4>
+<p>CodeWithHarry is a widely followed, well-reviewed web development channel, and this lesson sits in a sequenced course, which makes it a reliable, concise introduction to the What Are Media Queries and Basic Syntax subtopics.</p>
+</section>
+<section class="item" id="p4-sec3">
+<h3>Video 2: Responsive Website Design with CSS Media Queries | Complete Web Development Course #28</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/XG02yn-OAWM?cc_load_policy=1&amp;rel=0" title="Video: Responsive Website Design with CSS Media Queries | Complete Web Development Course #28 (Coding Shuttle by Anuj Bhaiya)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Coding Shuttle by Anuj Bhaiya</strong> · 16:43 · 100,174 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=XG02yn-OAWM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A longer, project-oriented lesson that explains media queries in the context of building a responsive website rather than in isolation. The extra runtime suggests room for multiple breakpoints, discussion of how a page restructures at each one, and hands-on demonstration of testing responsiveness in the browser. It frames media queries as the tool that ties a responsive layout together.</p>
+<h4>Why this video</h4>
+<p>Its applied, build-along format reinforces the width breakpoint subtopic and shows how media queries interact with the rest of a responsive stylesheet, which is exactly the integration this module asks for.</p>
+</section>
+<section class="item" id="p4-sec4">
+<h3>Video 3: Kickstart Your Responsive Web Design Journey with CSS Media Queries</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/6xzulGrFGO8?cc_load_policy=1&amp;rel=0" title="Video: Kickstart Your Responsive Web Design Journey with CSS Media Queries (Optimistic Web)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Optimistic Web</strong> · 9:59 · 4,689 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=6xzulGrFGO8" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A compact ten-minute overview aimed at getting started with media queries for responsive design. Its brevity suggests a tight walkthrough of the rule syntax and a few practical examples of targeting different screen sizes. Useful as a quick first pass or as review before you attempt the module exercises.</p>
+<h4>Why this video</h4>
+<p>The short, kickstart framing makes it a good warm-up or refresher that complements the two longer tutorials without repeating them at length.</p>
+</section>
+<section class="item" id="p4-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos concentrate on MO1 and MO4: they establish media queries as one of the three pillars of responsive design and give you repeated, hands-on practice writing @media rules with width conditions, including the min-width pattern that underpins mobile-first CSS. The project-based tutorial also shows media queries operating alongside fluid layout and scaling media, supporting MO2 and MO3 in context. For MO5, use the videos as evidence rather than as the final answer: compare how each instructor selects breakpoints and whether they build up from small screens or scale down from desktop, then weigh those choices against the performance and maintainability criteria discussed in the module readings.</p>
+</section>
+<section class="item" id="p4-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part5">
+<h2>Mobile-First Design Philosophy</h2>
+<section class="item" id="p5-sec1">
+<h3>Introduction</h3>
+<p>Mobile-first design means starting your layout, content decisions, and CSS with the smallest screen in mind, then adding complexity as more space becomes available. Instead of building a full desktop page and stripping things away for phones, you begin with the essential content and a single-column layout, and use min-width media queries to progressively enhance the design for tablets and desktops. This forces hard choices early: what content truly matters, what can wait, and what is decoration.</p>
+<p>This approach matters in COP4813 because most real-world traffic arrives on phones over variable networks. Mobile-first thinking tends to produce leaner CSS, faster initial loads, and a clearer content hierarchy, and it pairs naturally with progressive enhancement — delivering a working baseline experience to every browser and layering on features where they are supported. It also changes how you reason about breakpoints: you add rules as the viewport grows rather than overriding desktop assumptions downward.</p>
+<p>As you watch the videos below, look for three things. First, how progressive enhancement is framed as a baseline-plus-layers strategy rather than an all-or-nothing feature choice. Second, how responsive utility classes or media queries express the idea of "small screen first, larger screens as overrides." Third, the professional mindset behind these choices — the habits and reasoning that lead developers to design for constraints first.</p>
+</section>
+<section class="item" id="p5-sec2">
+<h3>Video 1: Browser compatibility &amp; Progressive Enhancement to maximize users' experience ft Ire Aderinokun</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/W8kj7ukMfF4?cc_load_policy=1&amp;rel=0" title="Video: Browser compatibility &amp; Progressive Enhancement to maximize users' experience ft Ire Aderinokun (Prismic)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Prismic</strong> · 18:26 · 284 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=W8kj7ukMfF4" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A conversation with front-end developer Ire Aderinokun about browser compatibility and progressive enhancement, and how these practices shape the experience users actually get. Expect discussion of building a functional baseline that works everywhere and then layering on enhancements for browsers and devices that support them, along with practical ways to reason about feature support. The talk format means the focus is on strategy and decision-making rather than line-by-line code.</p>
+<h4>Why this video</h4>
+<p>Progressive enhancement is the conceptual backbone of mobile-first design, and this video addresses it directly from a recognized front-end expert, making it strong support for the "Progressive Enhancement Strategy" and "Shifting the Design Mindset" subtopics.</p>
+</section>
+<section class="item" id="p5-sec3">
+<h3>Video 2: Creating Responsive Designs in Tailwind CSS : Tailwind Tutorial #7</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/WGsiW_-2rZg?cc_load_policy=1&amp;rel=0" title="Video: Creating Responsive Designs in Tailwind CSS : Tailwind Tutorial #7 (CodeWithHarry)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>CodeWithHarry</strong> · 17:02 · 140,061 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=WGsiW_-2rZg" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A hands-on tutorial showing how to make a page responsive using Tailwind CSS, covering the framework's responsive prefixes and breakpoint system. Because Tailwind's responsive utilities are mobile-first by default — unprefixed classes apply to all sizes and prefixed classes apply from a breakpoint upward — the video demonstrates mobile-first breakpoint logic in a concrete, visual way. Source code and follow-along examples are referenced in the description.</p>
+<h4>Why this video</h4>
+<p>It gives you a practical, code-level look at how min-width-style breakpoints stack from small screens upward, reinforcing the "Mobile-First CSS and Media Queries" subtopic even if you write plain CSS rather than Tailwind.</p>
+</section>
+<section class="item" id="p5-sec4">
+<h3>Video 3: Journey to become a front-end developer | Ire Aderinokun | Prismic</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/OubWvOkg8iU?cc_load_policy=1&amp;rel=0" title="Video: Journey to become a front-end developer | Ire Aderinokun | Prismic (Prismic)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Prismic</strong> · 14:08 · 2,058 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=OubWvOkg8iU" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>An interview following Ire Aderinokun's path as a self-taught front-end developer, Google Developer Expert, and startup co-founder. The discussion is career- and mindset-oriented, touching on how she learned the craft and approaches front-end problems in contexts where device and network constraints are real considerations. It is context rather than a technical tutorial.</p>
+<h4>Why this video</h4>
+<p>It supports the "Shifting the Design Mindset" subtopic by showing how an experienced practitioner thinks about users and constraints, which is the attitude change mobile-first design actually requires.</p>
+</section>
+<section class="item" id="p5-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos target the conceptual and strategic ends of the module. The progressive enhancement discussion gives you the reasoning behind MO4 and MO5 — why building up from a small-screen baseline with min-width queries is more maintainable and performant than overriding a desktop design downward. The Tailwind responsive tutorial makes breakpoint behavior concrete, reinforcing MO1's media query pillar and showing MO4's mobile-first ordering in working code. The developer interview rounds this out with the professional mindset that underlies content prioritization and trade-off evaluation. You should still rely on the module readings and lab work for the hands-on specifics of fluid grids (MO2) and responsive images (MO3), which these videos touch on only indirectly.</p>
+</section>
+<section class="item" id="p5-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part6">
+<h2>Viewport Configuration and Screen Sizes</h2>
+<section class="item" id="p6-sec1">
+<h3>Introduction</h3>
+<p>Every browser renders a page inside a viewport — the visible area available for your content. On desktop machines that area is usually close to the window size, but on phones and tablets browsers historically pretended to be much wider so that older desktop-only sites would still fit. The viewport meta tag is how you tell a mobile browser to stop pretending: it sets the layout width to the device width and establishes the initial zoom level. Without it, even carefully written responsive CSS will appear shrunken and unreadable on a phone.</p>
+<p>Once the viewport is configured correctly, the next question is where your layout should change. CSS breakpoints are the specific viewport widths at which you introduce new rules through media queries — stacking columns, resizing type, hiding or revealing navigation. Breakpoints are best chosen by watching where your own content starts to break rather than by memorizing a list of device widths, since the range of real screen sizes is continuous and constantly shifting. You will also decide on a direction: mobile-first, which starts with a simple small-screen layout and adds complexity using min-width queries, or desktop-first, which starts wide and strips down using max-width queries.</p>
+<p>As you watch the videos below, pay attention to three things: the exact syntax of a media query and where it sits in your stylesheet, how the order of rules determines which styles win when several queries match, and how the presenters decide that a layout needs a breakpoint at all. Afterward, practice testing your own pages by resizing the browser window and using your browser's device emulation tools at several widths, not just one or two.</p>
+</section>
+<section class="item" id="p6-sec2">
+<h3>Video 1: CSS Media Queries | Sigma Web Development Course - Tutorial #31</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/eHye3PxH4jU?cc_load_policy=1&amp;rel=0" title="Video: CSS Media Queries | Sigma Web Development Course - Tutorial #31 (CodeWithHarry)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>CodeWithHarry</strong> · 11:37 · 541,554 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=eHye3PxH4jU" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A hands-on tutorial from CodeWithHarry's Sigma web development series covering CSS media queries. Expect the practical syntax — the @media rule, min-width and max-width conditions, combining conditions, and writing rules that take effect only at particular viewport ranges — demonstrated in a live stylesheet.</p>
+<h4>Why this video</h4>
+<p>This is the code-level piece of the topic: it shows exactly how to write the media queries that implement your chosen breakpoints, which is the skill you will be assessed on.</p>
+</section>
+<section class="item" id="p6-sec3">
+<h3>Video 2: Design across breakpoints</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/dXKqEBcSs5M?cc_load_policy=1&amp;rel=0" title="Video: Design across breakpoints (Webflow)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Webflow</strong> · 8:13 · 4,348 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=dXKqEBcSs5M" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This Webflow video focuses specifically on designing across breakpoints — how a single design is adjusted at different viewport widths so it looks and works well on each device class. It should illustrate the workflow of moving between screen sizes and deciding what needs to change at each one, including how changes at one breakpoint relate to the others.</p>
+<h4>Why this video</h4>
+<p>It directly addresses the breakpoint strategy subtopics, including the question of which direction changes cascade, and gives a visual, design-oriented view that complements the code-focused tutorial.</p>
+</section>
+<section class="item" id="p6-sec4">
+<h3>Video 3: Intro to responsive design</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/Qm-UXN12ZL0?cc_load_policy=1&amp;rel=0" title="Video: Intro to responsive design (Webflow)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Webflow</strong> · 3:35 · 6,305 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=Qm-UXN12ZL0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A brief conceptual overview from Webflow introducing responsive design: the idea that a layout should adapt automatically whether someone is on a phone, tablet, or large display, without forcing the user to zoom or scroll sideways. Expect a high-level framing of why fixed-width layouts fail on modern devices and what adapting across screen sizes means in practice.</p>
+<h4>Why this video</h4>
+<p>At under four minutes it sets up the vocabulary and motivation for viewport and breakpoint work before you touch code, which is useful context for the device-screen-sizes subtopic.</p>
+</section>
+<section class="item" id="p6-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos cover the media query pillar of responsive design named in MO1 and give you the syntax you need for MO4, where min-width queries and a correctly configured viewport meta tag are combined into a mobile-first stylesheet. The Webflow breakpoint video supports MO5 by making the consequences of breakpoint direction and ordering visible, so you can reason about maintainability and content prioritization rather than guessing. The introductory responsive design video frames the fluid, continuous-scaling mindset behind MO2 and MO3, reminding you that breakpoints are adjustments to an already flexible layout, not a substitute for one.</p>
+</section>
+<section class="item" id="p6-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

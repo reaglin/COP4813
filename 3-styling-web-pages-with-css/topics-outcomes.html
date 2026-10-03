@@ -18,13 +18,13 @@ li{margin:5px 0}
 .el-body{color:#555}
 .prefix{color:#555;font-style:italic;margin:6px 0 14px}
 .mo{border:1px solid #e2e2e2;border-radius:6px;padding:12px 16px;margin:12px 0}
-.mo .code{font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.mo .code{font-size:.8rem;color:#595959;text-transform:uppercase;letter-spacing:.04em}
 .mo .statement{font-weight:600;margin:4px 0 8px}
 .meta span{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin:0 6px 0 0;font-size:.85rem}
 .meta .map{background:#eaf6ec;color:#137333}
 .co{margin:7px 0}
 .co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
-.empty{color:#888}
+.empty{color:#595959}
 </style>
 </head>
 <body>
@@ -33,7 +33,7 @@ li{margin:5px 0}
 <div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
 
 <h2 id="topics">Module Topics</h2>
-<h3>Introduction to CSS</h3>
+<h3 id="topic-1">Introduction to CSS</h3>
 <div class="summary">An overview of what Cascading Style Sheets are and how they work alongside HTML to control the visual presentation of web pages. Students learn how to link CSS to their HTML documents using inline, internal, and external stylesheet methods.</div>
 <ul>
 <li><strong>What is CSS?</strong> <span class="el-body">— CSS, or Cascading Style Sheets, is a stylesheet language used to control the visual presentation of HTML documents.</span></li>
@@ -43,7 +43,7 @@ li{margin:5px 0}
 <li><strong>External CSS</strong> <span class="el-body">— External CSS stores all styles in a separate .css file that is linked to one or more HTML documents.</span></li>
 <li><strong>Choosing the Right Method</strong> <span class="el-body">— Each of the three CSS methods — inline, internal, and external — has appropriate use cases depending on the scope and scale of styling needed.</span></li>
 </ul>
-<h3>CSS Selectors</h3>
+<h3 id="topic-2">CSS Selectors</h3>
 <div class="summary">Exploration of the different types of CSS selectors including element, class, ID, and combination selectors used to target specific HTML elements. Students learn how specificity and the cascade determine which styles are applied when rules conflict.</div>
 <ul>
 <li><strong>Element Selectors</strong> <span class="el-body">— Element selectors target HTML elements directly by their tag name, applying styles to every instance of that element on the page.</span></li>
@@ -53,7 +53,7 @@ li{margin:5px 0}
 <li><strong>CSS Specificity</strong> <span class="el-body">— Specificity is a scoring system browsers use to determine which CSS rule takes precedence when multiple rules target the same element and property.</span></li>
 <li><strong>The Cascade</strong> <span class="el-body">— The cascade is the algorithm CSS uses to resolve conflicts between rules, considering origin, specificity, and source order to decide which styles are ultimately applied.</span></li>
 </ul>
-<h3>The Box Model</h3>
+<h3 id="topic-3">The Box Model</h3>
 <div class="summary">A foundational concept explaining how every HTML element is treated as a rectangular box with content, padding, border, and margin areas. Students learn how to manipulate these properties to control spacing and sizing of elements on a page.</div>
 <ul>
 <li><strong>What Is the Box Model?</strong> <span class="el-body">— Every HTML element on a web page is treated by the browser as a rectangular box. This box is made up of four distinct areas that together form the CSS Box Model.</span></li>
@@ -64,7 +64,7 @@ li{margin:5px 0}
 <li><strong>The box-sizing Property</strong> <span class="el-body">— By default, the &#39;width&#39; and &#39;height&#39; properties in CSS apply only to the content area, meaning padding and border are added on top of that size. The &#39;box-sizing&#39; property changes how the total size of an element is calculated.</span></li>
 <li><strong>Inspecting the Box Model with DevTools</strong> <span class="el-body">— Modern browser developer tools provide a visual diagram of the box model for any selected element, making it easy to inspect and debug spacing and sizing issues.</span></li>
 </ul>
-<h3>Typography and Colors</h3>
+<h3 id="topic-4">Typography and Colors</h3>
 <div class="summary">Covers CSS properties for styling text including font family, size, weight, line height, and text alignment to improve readability. Students also learn how to apply colors using named values, hex codes, and RGB notation to both text and backgrounds.</div>
 <ul>
 <li><strong>Font Family</strong> <span class="el-body">— The font-family property specifies the typeface used to display text on a web page.</span></li>
@@ -74,7 +74,7 @@ li{margin:5px 0}
 <li><strong>Applying Colors with RGB Notation</strong> <span class="el-body">— RGB notation defines colors by specifying the intensity of red, green, and blue channels as numeric values from 0 to 255.</span></li>
 <li><strong>Styling Text Color and Background Color</strong> <span class="el-body">— CSS provides two distinct properties for applying color: one for text and one for the background of an element.</span></li>
 </ul>
-<h3>CSS Layout Techniques</h3>
+<h3 id="topic-5">CSS Layout Techniques</h3>
 <div class="summary">An introduction to modern CSS layout methods including Flexbox and basic positioning to arrange elements on a web page. Students apply these techniques to structure multi-section page layouts in a visually organized way.</div>
 <ul>
 <li><strong>Understanding CSS Layout Flow</strong> <span class="el-body">— By default, browsers arrange HTML elements using normal document flow, where block elements stack vertically and inline elements sit side by side.</span></li>
@@ -84,7 +84,7 @@ li{margin:5px 0}
 <li><strong>CSS Positioning</strong> <span class="el-body">— The position property removes elements from normal flow or adjusts their placement relative to a reference point, enabling overlapping and fixed UI elements.</span></li>
 <li><strong>Structuring Multi-Section Page Layouts</strong> <span class="el-body">— Combining Flexbox and positioning allows you to build organized, multi-section page layouts such as headers, sidebars, main content areas, and footers.</span></li>
 </ul>
-<h3>Styling a Complete Web Page</h3>
+<h3 id="topic-6">Styling a Complete Web Page</h3>
 <div class="summary">Students bring together all learned CSS concepts to apply cohesive visual styling to the websites they built in the previous lesson. This capstone topic reinforces best practices for writing clean, organized CSS stylesheets.</div>
 <ul>
 <li><strong>Linking Your Stylesheet to Your HTML Page</strong> <span class="el-body">— Before any CSS can be applied, the external stylesheet must be properly connected to the HTML document using a link element in the head section.</span></li>
@@ -125,6 +125,6 @@ li{margin:5px 0}
 <h3>Course Outcomes (reference)</h3>
 <p class="empty">No course outcomes have been defined.</p>
 
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
 </body>
 </html>

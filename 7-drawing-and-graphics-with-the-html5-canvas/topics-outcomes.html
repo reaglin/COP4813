@@ -18,13 +18,13 @@ li{margin:5px 0}
 .el-body{color:#555}
 .prefix{color:#555;font-style:italic;margin:6px 0 14px}
 .mo{border:1px solid #e2e2e2;border-radius:6px;padding:12px 16px;margin:12px 0}
-.mo .code{font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.mo .code{font-size:.8rem;color:#595959;text-transform:uppercase;letter-spacing:.04em}
 .mo .statement{font-weight:600;margin:4px 0 8px}
 .meta span{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin:0 6px 0 0;font-size:.85rem}
 .meta .map{background:#eaf6ec;color:#137333}
 .co{margin:7px 0}
 .co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
-.empty{color:#888}
+.empty{color:#595959}
 </style>
 </head>
 <body>
@@ -33,7 +33,7 @@ li{margin:5px 0}
 <div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
 
 <h2 id="topics">Module Topics</h2>
-<h3>Introduction to the HTML5 Canvas Element</h3>
+<h3 id="topic-1">Introduction to the HTML5 Canvas Element</h3>
 <div class="summary">Students learn what the HTML5 Canvas element is, how to add it to a webpage, and how to access the 2D rendering context using JavaScript to begin drawing programmatically.</div>
 <ul>
 <li><strong>What is the HTML5 Canvas Element?</strong> <span class="el-body">— The HTML5 Canvas element is a rectangular drawing surface defined in HTML that allows developers to render graphics dynamically using JavaScript.</span></li>
@@ -43,7 +43,7 @@ li{margin:5px 0}
 <li><strong>Writing the Basic Canvas Setup Code</strong> <span class="el-body">— A minimal canvas setup involves three lines of JavaScript: selecting the element, getting the context, and verifying the result before drawing.</span></li>
 <li><strong>Canvas Coordinate System</strong> <span class="el-body">— The canvas uses a 2D coordinate system where the origin (0, 0) is located at the top-left corner, with x increasing to the right and y increasing downward.</span></li>
 </ul>
-<h3>Drawing Basic Shapes</h3>
+<h3 id="topic-2">Drawing Basic Shapes</h3>
 <div class="summary">This topic covers how to draw fundamental shapes such as rectangles, circles, and polygons using the Canvas API&#39;s built-in methods and properties.</div>
 <ul>
 <li><strong>Setting Up the Canvas Context</strong> <span class="el-body">— Before drawing any shapes, you must obtain a 2D rendering context from the canvas element using JavaScript.</span></li>
@@ -53,7 +53,7 @@ li{margin:5px 0}
 <li><strong>Applying Fill and Stroke Styles</strong> <span class="el-body">— The visual appearance of shapes is controlled by setting fillStyle and strokeStyle properties on the context before drawing.</span></li>
 <li><strong>Drawing Rounded Rectangles</strong> <span class="el-body">— Rounded rectangles combine straight edges with arc-based corners and can be created using the roundRect() method or constructed manually with paths and arcs.</span></li>
 </ul>
-<h3>Working with Paths and Lines</h3>
+<h3 id="topic-3">Working with Paths and Lines</h3>
 <div class="summary">Students explore how to create complex custom shapes and line drawings by defining paths, using moveTo, lineTo, and related methods to construct precise graphics.</div>
 <ul>
 <li><strong>Understanding the Path Concept</strong> <span class="el-body">— A path in the HTML5 Canvas is an invisible set of connected points and curves that defines the outline of a shape before it is rendered.</span></li>
@@ -64,7 +64,7 @@ li{margin:5px 0}
 <li><strong>Rendering Paths with stroke() and fill()</strong> <span class="el-body">— Once a path is defined, stroke() renders the outline of the path and fill() fills the enclosed area with the current fill color or style.</span></li>
 <li><strong>Controlling Line Appearance</strong> <span class="el-body">— The Canvas API provides several properties to control how stroked lines look, including their width, end caps, and join style between segments.</span></li>
 </ul>
-<h3>Applying Colors, Styles, and Gradients</h3>
+<h3 id="topic-4">Applying Colors, Styles, and Gradients</h3>
 <div class="summary">This topic introduces fill and stroke styles, including solid colors, gradients, and patterns, enabling students to add visual richness and detail to their canvas drawings.</div>
 <ul>
 <li><strong>Fill and Stroke Style Basics</strong> <span class="el-body">— The Canvas API provides two fundamental style properties — fillStyle and strokeStyle — that control how shapes and paths are colored when drawn.</span></li>
@@ -74,7 +74,7 @@ li{margin:5px 0}
 <li><strong>Working with Patterns</strong> <span class="el-body">— Patterns allow an image, canvas, or video element to be tiled and used as a fill or stroke style, enabling textured and repeating backgrounds within canvas drawings.</span></li>
 <li><strong>Controlling Global Opacity and Composite Operations</strong> <span class="el-body">— Beyond per-color transparency, the Canvas API provides globalAlpha and globalCompositeOperation properties to control how new drawing operations interact visually with existing canvas content.</span></li>
 </ul>
-<h3>Rendering Text on the Canvas</h3>
+<h3 id="topic-5">Rendering Text on the Canvas</h3>
 <div class="summary">Students learn how to render and style text on the canvas, including setting font properties, alignment, and applying fill or stroke to textual content.</div>
 <ul>
 <li><strong>Setting Up the Canvas Context for Text</strong> <span class="el-body">— Before rendering text, you must obtain a 2D rendering context from the canvas element using JavaScript.</span></li>
@@ -85,7 +85,7 @@ li{margin:5px 0}
 <li><strong>Setting the Text Baseline</strong> <span class="el-body">— The `textBaseline` property controls vertical alignment by defining which part of the text&#39;s line box aligns with the y-coordinate.</span></li>
 <li><strong>Measuring Text Width with measureText()</strong> <span class="el-body">— The `measureText()` method returns a `TextMetrics` object that provides the measured width of a string given the current font settings.</span></li>
 </ul>
-<h3>Drawing and Manipulating Images</h3>
+<h3 id="topic-6">Drawing and Manipulating Images</h3>
 <div class="summary">This topic covers how to load and draw images onto the canvas using the drawImage method, including techniques for cropping and scaling image content.</div>
 <ul>
 <li><strong>Loading an Image for Canvas Use</strong> <span class="el-body">— Before drawing an image onto the canvas, it must be loaded into the browser using a JavaScript Image object.</span></li>
@@ -95,7 +95,7 @@ li{margin:5px 0}
 <li><strong>Combining Cropping and Scaling</strong> <span class="el-body">— Using all nine arguments of `drawImage` simultaneously allows you to both crop a specific region of an image and scale that region to a different size on the canvas.</span></li>
 <li><strong>Practical Considerations for Image Drawing</strong> <span class="el-body">— Working with images on the canvas involves several practical concerns related to performance, cross-origin access, and canvas state.</span></li>
 </ul>
-<h3>Foundations of Interactive Canvas Graphics</h3>
+<h3 id="topic-7">Foundations of Interactive Canvas Graphics</h3>
 <div class="summary">Students are introduced to the principles of combining Canvas drawing with JavaScript events to create dynamic and interactive browser-based graphics experiences.</div>
 <ul>
 <li><strong>The Canvas Element as an Interactive Surface</strong> <span class="el-body">— The HTML5 Canvas element serves as a programmable drawing surface that can respond to user input, making it the foundation for interactive browser-based graphics.</span></li>
@@ -135,6 +135,6 @@ li{margin:5px 0}
 <h3>Course Outcomes (reference)</h3>
 <p class="empty">No course outcomes have been defined.</p>
 
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
 </body>
 </html>

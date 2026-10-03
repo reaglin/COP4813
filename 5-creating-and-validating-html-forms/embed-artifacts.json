@@ -1,5 +1,10 @@
 ﻿[
   {
+    "title": "5 - Creating and Validating HTML Forms (module page)",
+    "href": "index.html",
+    "type": "Module page"
+  },
+  {
     "title": "5 - Creating and Validating HTML Forms \u2014 Topics \u0026 Learning Outcomes",
     "href": "topics-outcomes.html",
     "type": "Page"
@@ -50,8 +55,43 @@
     "type": "Content"
   },
   {
-    "title": "5 - Creating and Validating HTML Forms \u2014 Module Topics",
-    "href": "content/module_topics.html",
+    "title": "Introduction to HTML Forms",
+    "href": "content/Creating_and_Validating_t1_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Form Input Types and Elements",
+    "href": "content/Creating_and_Validating_t2_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Labels, Fieldsets, and Form Accessibility",
+    "href": "content/Creating_and_Validating_t3_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Form Submission and Action Attributes",
+    "href": "content/Creating_and_Validating_t4_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Built-in HTML5 Validation Attributes",
+    "href": "content/Creating_and_Validating_t5_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Custom JavaScript Form Validation",
+    "href": "content/Creating_and_Validating_t6_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Validation Feedback and User Experience",
+    "href": "content/Creating_and_Validating_t7_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "5 - Creating and Validating HTML Forms",
+    "href": "content/Creating_and_Validating_videos_merged.html",
     "type": "Content"
   }
 ]

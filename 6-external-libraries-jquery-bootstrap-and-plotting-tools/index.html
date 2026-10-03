@@ -1,404 +1,179 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Module 6 – External Libraries: jQuery, Bootstrap, and Plotting Tools | COP4813</title>
-  <style>
-    /* ── Reset & base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: #f4f6f9;
-      color: #1e2533;
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    /* ── Header banner ── */
-    header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #25567d 60%, #1e7a8c 100%);
-      color: #fff;
-      padding: 3rem 2rem 2.5rem;
-    }
-
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .course-label {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 4px;
-      padding: 0.25rem 0.65rem;
-      margin-bottom: 1rem;
-    }
-
-    header h1 {
-      font-size: clamp(1.5rem, 3vw, 2.25rem);
-      font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: 1rem;
-      letter-spacing: -0.01em;
-    }
-
-    header p {
-      font-size: 1rem;
-      color: rgba(255,255,255,0.88);
-      max-width: 72ch;
-      line-height: 1.7;
-    }
-
-    /* ── Main content ── */
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2.5rem 1.5rem 4rem;
-    }
-
-    .section-heading {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #6b7a99;
-      margin-bottom: 1.25rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid #e2e7f0;
-    }
-
-    /* ── Card grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.25rem;
-    }
-
-    .card {
-      background: #fff;
-      border: 1px solid #dde3ef;
-      border-radius: 10px;
-      padding: 1.4rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      transition: box-shadow 0.18s ease, transform 0.18s ease;
-    }
-
-    .card:hover {
-      box-shadow: 0 6px 22px rgba(26, 58, 92, 0.1);
-      transform: translateY(-2px);
-    }
-
-    /* ── Card top row: badges ── */
-    .card-meta {
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-      flex-wrap: wrap;
-    }
-
-    .badge {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      border-radius: 4px;
-      padding: 0.2rem 0.5rem;
-    }
-
-    .badge-type {
-      background: #e8f0fb;
-      color: #1a4a9e;
-      border: 1px solid #c4d6f5;
-    }
-
-    .badge-filetype {
-      background: #f0f4f8;
-      color: #4a5568;
-      border: 1px solid #d5dce8;
-      font-family: 'Courier New', monospace;
-    }
-
-    /* ── Card title row ── */
-    .card-title-row {
-      display: flex;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-    }
-
-    .card-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #1a3a5c;
-      line-height: 1.35;
-    }
-
-    .card-title a {
-      color: #1a3a5c;
-      text-decoration: none;
-      border-bottom: 2px solid #4a90c8;
-    }
-
-    .card-title a:hover {
-      color: #1166aa;
-      border-bottom-color: #1166aa;
-    }
-
-    .source-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.28rem;
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: #5a7aaa;
-      text-decoration: none;
-      background: #f0f5fb;
-      border: 1px solid #c8d9ef;
-      border-radius: 4px;
-      padding: 0.18rem 0.48rem;
-      white-space: nowrap;
-      transition: background 0.15s, color 0.15s;
-    }
-
-    .source-link:hover {
-      background: #daeaf8;
-      color: #1155aa;
-    }
-
-    .source-link::before {
-      content: '↓';
-      font-size: 0.75rem;
-    }
-
-    /* ── Card description ── */
-    .card-desc {
-      font-size: 0.875rem;
-      color: #4a5568;
-      line-height: 1.65;
-      flex: 1;
-    }
-
-    /* ── Footer ── */
-    footer {
-      text-align: center;
-      font-size: 0.8rem;
-      color: #8a94aa;
-      padding: 1.5rem 1rem 2rem;
-      border-top: 1px solid #e2e7f0;
-    }
-
-    /* ── Responsive tweaks ── */
-    @media (max-width: 480px) {
-      header { padding: 2rem 1.25rem 2rem; }
-      .card-grid { grid-template-columns: 1fr; }
-      .card { padding: 1.15rem 1.2rem; }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>6 - External Libraries: jQuery, Bootstrap, and Plotting Tools — COP4813</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ COP4813</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-
-  <header>
-    <div class="header-inner">
-      <span class="course-label">COP4813 &mdash; Module 6</span>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">COP4813</a><span class="sep" aria-hidden="true">›</span><span class="current">6 - External Libraries: jQuery, Bootstrap, and Plotting Tools</span>
+  </nav>
+      <div class="hero-label">Module 6</div>
       <h1>External Libraries: jQuery, Bootstrap, and Plotting Tools</h1>
-      <p>
-        This module introduces the use of popular third-party JavaScript and CSS libraries in
-        web development. Learners will explore how to load external libraries via CDN, harness
-        jQuery for DOM manipulation and event handling, build responsive layouts and polished
-        interfaces with Bootstrap, and create interactive data visualizations with Chart.js —
-        culminating in a project that combines all three tools.
-      </p>
+      <p class="hero-desc">This lesson demonstrates how to integrate third-party libraries via CDN, covering jQuery for DOM manipulation, Bootstrap for responsive layout and components, and a plotting library such as Chart.js for data visualization.</p>
     </div>
   </header>
-
-  <main>
-    <p class="section-heading">Module Artifacts &mdash; 9 items</p>
-
-    <div class="card-grid">
-
-      <!-- 1: Module Topics -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Module Topics</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/module_topics.html">Module Topics</a>
-          </span>
-          <a class="source-link" href="source/hierarchy.json">source file</a>
-        </div>
-        <p class="card-desc">
-          A structured outline of the module's lecture topics covering external libraries and CDN
-          integration, jQuery fundamentals, DOM manipulation, events, Bootstrap components, and
-          plotting tools, used by instructors to organize content delivery and by learners to
-          preview what concepts will be taught.
-        </p>
-      </div>
-
-      <!-- 2: Introduction to External Libraries and CDN Integration -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/External_Libraries_jQuery_interactive_topics_t1.html">Introduction to External Libraries and CDN Integration</a>
-          </span>
-        </div>
-        <p class="card-desc">
-          A reading that explains what third-party libraries are, how to load them via CDN using
-          script and link tags, and why CDN hosting is preferred over local files, giving learners
-          the foundation to include any external library in a web project.
-        </p>
-      </div>
-
-      <!-- 3: jQuery Fundamentals and DOM Manipulation -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/External_Libraries_jQuery_interactive_topics_t2.html">jQuery Fundamentals and DOM Manipulation</a>
-          </span>
-        </div>
-        <p class="card-desc">
-          A reading covering jQuery's core concepts including its selector syntax, DOM traversal,
-          element manipulation, and cross-browser compatibility, teaching learners how to read and
-          modify page content with concise jQuery code.
-        </p>
-      </div>
-
-      <!-- 4: jQuery Events and Dynamic Interactivity -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/External_Libraries_jQuery_interactive_topics_t3.html">jQuery Events and Dynamic Interactivity</a>
-          </span>
-        </div>
-        <p class="card-desc">
-          A reading that explains how jQuery's event system works — attaching listeners for clicks,
-          keystrokes, form submissions, and hover actions — so learners can make static HTML pages
-          respond dynamically to user interactions.
-        </p>
-      </div>
-
-      <!-- 5: Bootstrap Layout and the Responsive Grid System -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/External_Libraries_jQuery_interactive_topics_t4.html">Bootstrap Layout and the Responsive Grid System</a>
-          </span>
-        </div>
-        <p class="card-desc">
-          A reading that explains Bootstrap's 12-column responsive grid system, including container
-          types, rows, column classes, and breakpoints, enabling learners to build page layouts that
-          adapt cleanly across different screen sizes.
-        </p>
-      </div>
-
-      <!-- 6: Bootstrap UI Components and Styling -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/External_Libraries_jQuery_interactive_topics_t5.html">Bootstrap UI Components and Styling</a>
-          </span>
-        </div>
-        <p class="card-desc">
-          A reading covering Bootstrap's pre-built UI components such as buttons, cards, navbars,
-          modals, and utility classes, showing learners how to assemble polished, professional
-          interfaces without writing extensive custom CSS.
-        </p>
-      </div>
-
-      <!-- 7: Data Visualization with Chart.js -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/External_Libraries_jQuery_interactive_topics_t6.html">Data Visualization with Chart.js</a>
-          </span>
-        </div>
-        <p class="card-desc">
-          A reading introducing Chart.js, explaining how to configure and embed interactive bar,
-          line, pie, and other chart types into a webpage using a canvas element, so learners can
-          present data visually in their projects.
-        </p>
-      </div>
-
-      <!-- 8: Combining Libraries in a Complete Web Project (Topic Detail) -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/External_Libraries_jQuery_interactive_topics_t7.html">Combining Libraries in a Complete Web Project</a>
-          </span>
-        </div>
-        <p class="card-desc">
-          A reading that walks through integrating Bootstrap, jQuery, and Chart.js together in a
-          single cohesive web project, demonstrating how to structure HTML, coordinate library
-          responsibilities, and avoid conflicts between tools.
-        </p>
-      </div>
-
-      <!-- 9: Combining Libraries in a Complete Web Project (Text Content) -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/External_Libraries_jQuery_interactive.html">Combining Libraries in a Complete Web Project</a>
-          </span>
-        </div>
-        <p class="card-desc">
-          A duplicate reading that walks through integrating Bootstrap, jQuery, and Chart.js
-          together in a single cohesive web project, demonstrating how to structure HTML, coordinate
-          library responsibilities, and avoid conflicts between tools.
-        </p>
-      </div>
-
-    </div>
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 7 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">Introduction to External Libraries and CDN Integration</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">jQuery Fundamentals and DOM Manipulation</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">jQuery Events and Dynamic Interactivity</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">Bootstrap Layout and the Responsive Grid System</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Bootstrap UI Components and Styling</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-6"><span class="topic-num" aria-hidden="true">6</span><span class="topic-text"><span class="topic-title">Data Visualization with Chart.js</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-7"><span class="topic-num" aria-hidden="true">7</span><span class="topic-text"><span class="topic-title">Combining Libraries in a Complete Web Project</span><span class="topic-meta">7 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">16 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/External_Libraries_jQuery_interactive_topics_t1.html">Introduction to External Libraries and CDN Integration</a></div>
+    <p class="content-desc">A reading that explains what third-party libraries are, how to load them via CDN using script and link tags, and why CDN hosting is preferred over local files, giving learners the foundation to include any external library in a web project.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/External_Libraries_jQuery_interactive_topics_t2.html">jQuery Fundamentals and DOM Manipulation</a></div>
+    <p class="content-desc">A reading covering jQuery&#39;s core concepts including its selector syntax, DOM traversal, element manipulation, and cross-browser compatibility, teaching learners how to read and modify page content with concise jQuery code.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/External_Libraries_jQuery_interactive_topics_t3.html">jQuery Events and Dynamic Interactivity</a></div>
+    <p class="content-desc">A reading that explains how jQuery&#39;s event system works — attaching listeners for clicks, keystrokes, form submissions, and hover actions — so learners can make static HTML pages respond dynamically to user interactions.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/External_Libraries_jQuery_interactive_topics_t4.html">Bootstrap Layout and the Responsive Grid System</a></div>
+    <p class="content-desc">A reading that explains Bootstrap&#39;s 12-column responsive grid system, including container types, rows, column classes, and breakpoints, enabling learners to build page layouts that adapt cleanly across different screen sizes.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/External_Libraries_jQuery_interactive_topics_t5.html">Bootstrap UI Components and Styling</a></div>
+    <p class="content-desc">A reading covering Bootstrap&#39;s pre-built UI components such as buttons, cards, navbars, modals, and utility classes, showing learners how to assemble polished, professional interfaces without writing extensive custom CSS.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/External_Libraries_jQuery_interactive_topics_t6.html">Data Visualization with Chart.js</a></div>
+    <p class="content-desc">A reading introducing Chart.js, explaining how to configure and embed interactive bar, line, pie, and other chart types into a webpage using a canvas element, so learners can present data visually in their projects.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/External_Libraries_jQuery_interactive_topics_t7.html">Combining Libraries in a Complete Web Project</a></div>
+    <p class="content-desc">A reading that walks through integrating Bootstrap, jQuery, and Chart.js together in a single cohesive web project, demonstrating how to structure HTML, coordinate library responsibilities, and avoid conflicts between tools.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/External_Libraries_jQuery_interactive.html">Combining Libraries in a Complete Web Project</a></div>
+    <p class="content-desc">A duplicate reading that walks through integrating Bootstrap, jQuery, and Chart.js together in a single cohesive web project, demonstrating how to structure HTML, coordinate library responsibilities, and avoid conflicts between tools.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/External_Libraries_jQuery_t1_videos.html">Introduction to External Libraries and CDN Integration — Videos</a></div>
+    <p class="content-desc">A lesson page explaining why web developers rely on third-party libraries like jQuery, Bootstrap, and Chart.js and how to pull them into a project via CDN script and link tags, which learners read first to understand library loading, hosting choices, and version considerations before hands-on practice.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/External_Libraries_jQuery_t2_videos.html">jQuery Fundamentals and DOM Manipulation — Videos</a></div>
+    <p class="content-desc">A reading that introduces jQuery&#39;s selector syntax and core DOM methods for finding elements and changing their content, attributes, styles, and visibility, used by learners to compare jQuery shortcuts with plain JavaScript and practice basic page manipulation.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/External_Libraries_jQuery_t3_videos.html">jQuery Events and Dynamic Interactivity — Videos</a></div>
+    <p class="content-desc">A lesson on jQuery&#39;s event system, centered on the .on() method for handling clicks, form submissions, typing, and other user actions, which students use to connect user interactions to the DOM manipulation code they already know.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/External_Libraries_jQuery_t4_videos.html">Bootstrap Layout and the Responsive Grid System — Videos</a></div>
+    <p class="content-desc">A tutorial on Bootstrap&#39;s 12-column responsive grid, covering containers, rows, column classes, and breakpoints so learners can build page layouts that rearrange themselves across different screen sizes.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/External_Libraries_jQuery_t5_videos.html">Bootstrap UI Components and Styling — Videos</a></div>
+    <p class="content-desc">A reference-style lesson on Bootstrap&#39;s pre-built UI components—navbars, buttons, modals, cards—and its utility classes for spacing, color, text, display, and flexbox, used by learners to style pages with class names instead of custom CSS.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/External_Libraries_jQuery_t6_videos.html">Data Visualization with Chart.js — Videos</a></div>
+    <p class="content-desc">An introduction to Chart.js that walks through adding the library via CDN, placing a canvas element, and writing a configuration object with chart type, labels, datasets, and options to render data visualizations in the browser.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/External_Libraries_jQuery_t7_videos.html">Combining Libraries in a Complete Web Project — Videos</a></div>
+    <p class="content-desc">A capstone lesson showing how jQuery, Bootstrap, and Chart.js work together in one realistic page, guiding learners through combining layout, DOM/AJAX scripting, and charting while managing script order and potential conflicts.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/External_Libraries_jQuery_videos_merged.html">6 - External Libraries: jQuery, Bootstrap, and Plotting Tools — 7 topics (merged)</a></div>
+    <p class="content-desc">A single consolidated page compiling all six module topics—CDN integration, jQuery DOM and events, Bootstrap grid and components, Chart.js, and combining libraries—useful for reviewing or printing the full module in one place.</p>
+  </div>
+</li>
+</ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../5-creating-and-validating-html-forms/index.html">← 5 - Creating and Validating HTML Forms</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../7-drawing-and-graphics-with-the-html5-canvas/index.html">7 - Drawing and Graphics with the HTML5 Canvas →</a>
+</nav>
   </main>
-
-  <footer>
-    <p>COP4813 &mdash; Module 6 &mdash; External Libraries: jQuery, Bootstrap, and Plotting Tools</p>
-  </footer>
-
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
 </html>

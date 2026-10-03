@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JavaScript-Driven Animation with requestAnimationFrame</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 10 - Animation Techniques in the Browser</a></div>
+<h1>JavaScript-Driven Animation with requestAnimationFrame</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Javascript Animation using requestAnimationFrame</a>
+<a href="#sec3">Video 2: [Hype #6] The “FPS” Template — Frames Per Second &amp; JavaScript&#39;s requestAnimationFrame vs setInterval</a>
+<a href="#sec4">Video 3: 2.1: Variables in p5.js (mouseX, mouseY) - p5.js Tutorial</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>CSS transitions and keyframe animations are excellent for declarative, predictable motion, but some animations need to be computed frame by frame — physics, collisions, values that depend on user input, or drawing on a canvas. That is where requestAnimationFrame (often shortened to rAF) comes in. It asks the browser to call a function just before the next repaint, so your updates land in step with the browser&#39;s own rendering cycle instead of fighting it.</p>
+<p>The core pattern is simple and worth memorizing: write a function that updates state and applies it to the DOM or canvas, then call requestAnimationFrame again from inside that function to schedule the next frame. The callback receives a high-resolution timestamp, which you use to compute elapsed time (delta time) so motion stays consistent regardless of the device&#39;s frame rate. Saving the ID returned by requestAnimationFrame lets you stop the loop later with cancelAnimationFrame — a detail many beginners skip and then wonder why animations keep running in the background.</p>
+<p>As you watch these videos, pay attention to four things: where the loop re-schedules itself, how time is handled, which properties are being changed each frame, and how the speaker contrasts rAF with setInterval or setTimeout. The timer-based approach can drift, fire while the tab is hidden, and produce frames the browser never paints; rAF avoids all three. Try pausing each video and rebuilding the loop yourself before watching the finished result.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Javascript Animation using requestAnimationFrame</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/phP9xakjy00?cc_load_policy=1&amp;rel=0" title="Video: Javascript Animation using requestAnimationFrame (Mario Eraso)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Mario Eraso</strong> · 9:39 · 442 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=phP9xakjy00" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A focused walkthrough of animation fundamentals applied in plain JavaScript, using requestAnimationFrame to drive the motion of an example element. Expect to see the basic loop structure — an update function that recalculates position and then re-schedules itself for the next frame — along with how the changing values are written back to the page each tick.</p>
+<h3>Why this video</h3>
+<p>This is the most direct match for the core subtopics: what requestAnimationFrame is and how to build and run a basic animation loop, demonstrated at a pace short enough to follow along in your own editor.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: [Hype #6] The “FPS” Template — Frames Per Second &amp; JavaScript&#39;s requestAnimationFrame vs setInterval</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/eJJ-22f8YRI?cc_load_policy=1&amp;rel=0" title="Video: [Hype #6] The “FPS” Template — Frames Per Second &amp; JavaScript&#39;s requestAnimationFrame vs setInterval (Photics TV)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Photics TV</strong> · 12:08 · 1,249 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=eJJ-22f8YRI" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>Built around a frames-per-second display template, this video makes frame timing visible and then compares requestAnimationFrame with setInterval head to head. Because it measures FPS on screen, it naturally touches on the timestamp and elapsed-time calculations that underlie smooth, frame-rate-independent motion.</p>
+<h3>Why this video</h3>
+<p>It addresses the performance-advantages and synchronization subtopics explicitly, and seeing an actual FPS counter react to each technique is far more convincing than reading a description of the difference.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: 2.1: Variables in p5.js (mouseX, mouseY) - p5.js Tutorial</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/7A5tKW9HGoM?cc_load_policy=1&amp;rel=0" title="Video: 2.1: Variables in p5.js (mouseX, mouseY) - p5.js Tutorial (The Coding Train)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>The Coding Train</strong> · 10:41 · 131,689 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=7A5tKW9HGoM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>From The Coding Train, this p5.js tutorial introduces variables alongside the setup() and draw() functions, using mouseX and mouseY as live, changing values. The draw() function is p5&#39;s wrapper around a requestAnimationFrame loop, so this is a gentle look at the same idea: state that changes every frame and is redrawn to a canvas.</p>
+<h3>Why this video</h3>
+<p>It is a clear, well-produced introduction to the mental model of a per-frame draw loop and canvas updates, which helps before you write the raw requestAnimationFrame version yourself — just remember p5 is hiding the rAF call for you.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos target MO3 most directly: the first demonstrates constructing a requestAnimationFrame loop and updating element properties each frame, the second surfaces timestamp and frame-rate reasoning through an on-screen FPS counter, and the third builds intuition for per-frame canvas drawing and changing state. The rAF-versus-setInterval comparison supports MO1 and MO5 by showing concretely why a rendering-synchronized loop produces smoother results than timer-based animation, and it provides a frame-rate reference point you will use again in MO4 when profiling animations in Chrome DevTools. Note that cancelAnimationFrame and loop cancellation are only lightly implied here, so plan to practice stopping and restarting a loop in the module exercises.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

@@ -1,410 +1,155 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Module 7 – Drawing and Graphics with the HTML5 Canvas | COP4813</title>
-  <style>
-    /* ── Reset & base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: #f4f6f9;
-      color: #2c3e50;
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    /* ── Header banner ── */
-    header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #2d6a9f 100%);
-      color: #fff;
-      padding: 2.5rem 1.5rem 2rem;
-    }
-
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .course-label {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 4px;
-      padding: 0.2rem 0.65rem;
-      margin-bottom: 0.75rem;
-      color: #d6eaf8;
-    }
-
-    header h1 {
-      font-size: clamp(1.45rem, 3.5vw, 2.1rem);
-      font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: 0.85rem;
-      letter-spacing: -0.01em;
-    }
-
-    header p {
-      font-size: 0.97rem;
-      color: #c8dff2;
-      max-width: 720px;
-      line-height: 1.65;
-    }
-
-    /* ── Main content ── */
-    main {
-      max-width: 1100px;
-      margin: 2.2rem auto 3rem;
-      padding: 0 1.25rem;
-    }
-
-    .section-heading {
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #5d7fa3;
-      margin-bottom: 1.1rem;
-      padding-bottom: 0.45rem;
-      border-bottom: 2px solid #dce5ef;
-    }
-
-    /* ── Card grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.2rem;
-    }
-
-    .card {
-      background: #fff;
-      border: 1px solid #dce5ef;
-      border-radius: 8px;
-      padding: 1.25rem 1.35rem 1.2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-      transition: box-shadow 0.18s ease, border-color 0.18s ease;
-    }
-
-    .card:hover {
-      box-shadow: 0 4px 14px rgba(0,0,0,0.10);
-      border-color: #b0c8e4;
-    }
-
-    /* ── Card header row ── */
-    .card-title-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 0.5rem 0.65rem;
-    }
-
-    .card-name {
-      font-size: 0.98rem;
-      font-weight: 700;
-      color: #1a3a5c;
-      line-height: 1.3;
-    }
-
-    .card-name a {
-      color: #1a6bb5;
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.15s;
-    }
-
-    .card-name a:hover,
-    .card-name a:focus {
-      border-bottom-color: #1a6bb5;
-      outline: none;
-    }
-
-    .source-link {
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: #fff;
-      background: #5d8fbd;
-      border-radius: 4px;
-      padding: 0.15rem 0.5rem;
-      text-decoration: none;
-      white-space: nowrap;
-      letter-spacing: 0.02em;
-      transition: background 0.15s;
-      align-self: center;
-    }
-
-    .source-link:hover,
-    .source-link:focus {
-      background: #1a6bb5;
-      outline: none;
-    }
-
-    /* ── Meta badges row ── */
-    .card-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      align-items: center;
-    }
-
-    .badge {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      border-radius: 4px;
-      padding: 0.18rem 0.55rem;
-      white-space: nowrap;
-    }
-
-    .badge-type {
-      background: #eaf1fb;
-      color: #2d6a9f;
-      border: 1px solid #c5d9f0;
-    }
-
-    .badge-filetype {
-      background: #f0f4f0;
-      color: #3a6b3a;
-      border: 1px solid #bfd8bf;
-      font-family: "Courier New", monospace;
-      font-size: 0.68rem;
-    }
-
-    /* ── Description ── */
-    .card-description {
-      font-size: 0.875rem;
-      color: #4a5f72;
-      line-height: 1.6;
-      flex-grow: 1;
-    }
-
-    /* ── Footer ── */
-    footer {
-      text-align: center;
-      font-size: 0.78rem;
-      color: #8fa8bf;
-      padding: 1.5rem 1rem 2rem;
-      border-top: 1px solid #dce5ef;
-      background: #fff;
-    }
-
-    /* ── Responsive tweaks ── */
-    @media (max-width: 520px) {
-      .card-grid {
-        grid-template-columns: 1fr;
-      }
-
-      header {
-        padding: 2rem 1rem 1.6rem;
-      }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>7 - Drawing and Graphics with the HTML5 Canvas — COP4813</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ COP4813</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-
-  <header>
-    <div class="header-inner">
-      <span class="course-label">COP4813 &mdash; Module 7</span>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">COP4813</a><span class="sep" aria-hidden="true">›</span><span class="current">7 - Drawing and Graphics with the HTML5 Canvas</span>
+  </nav>
+      <div class="hero-label">Module 7</div>
       <h1>Drawing and Graphics with the HTML5 Canvas</h1>
-      <p>
-        This module introduces the HTML5 Canvas API and teaches you how to programmatically draw
-        shapes, paths, text, and images directly in the browser. You will explore colors, gradients,
-        and styles, then progress to image manipulation and interactive, event-driven graphics &mdash;
-        building the practical skills needed for data visualizations, games, and rich web applications.
-      </p>
+      <p class="hero-desc">Students explore the HTML5 Canvas API to programmatically draw shapes, paths, text, and images using JavaScript, laying the foundation for interactive graphics in the browser.</p>
     </div>
   </header>
-
-  <main>
-    <p class="section-heading">Module Artifacts &mdash; 9 items</p>
-
-    <div class="card-grid">
-
-      <!-- Artifact 1 -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/module_topics.html">Module Topics</a>
-          </span>
-          <a class="source-link" href="source/hierarchy.json">source file</a>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Module Topics</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <p class="card-description">
-          Outlines the full scope of the module by listing its major topics and subtopics &mdash;
-          covering the HTML5 Canvas element, drawing shapes, paths and lines, colors and styles,
-          text, images, and animations &mdash; serving as a navigational overview for learners and
-          a planning reference for instructors.
-        </p>
-      </div>
-
-      <!-- Artifact 2 -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Drawing_and_Graphics_interactive_topics_t1.html">Introduction to the HTML5 Canvas Element</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          A reading that explains what the HTML5 Canvas element is, its history and advantages over
-          older plugin-based approaches, and how to add it to a webpage and obtain a 2D rendering
-          context in JavaScript, serving as the foundational lesson before any drawing begins.
-        </p>
-      </div>
-
-      <!-- Artifact 3 -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Drawing_and_Graphics_interactive_topics_t2.html">Drawing Basic Shapes</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          A reading that covers how to prepare the canvas context and draw basic shapes such as
-          rectangles and other primitives using the Canvas 2D API, teaching learners the essential
-          first steps for rendering graphics programmatically.
-        </p>
-      </div>
-
-      <!-- Artifact 4 -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Drawing_and_Graphics_interactive_topics_t3.html">Working with Paths and Lines</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          A reading that explains the Canvas path system &mdash; including
-          <code>beginPath()</code>, <code>moveTo()</code>, <code>lineTo()</code>,
-          <code>stroke()</code>, <code>arc()</code>, and curves &mdash; showing learners how to
-          define and render complex shapes and line-based drawings step by step.
-        </p>
-      </div>
-
-      <!-- Artifact 5 -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Drawing_and_Graphics_interactive_topics_t4.html">Applying Colors, Styles, and Gradients</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          A reading that covers how to apply fill and stroke colors, transparency, linear and radial
-          gradients, and blending options in the Canvas 2D API, teaching learners how to control the
-          visual appearance of all drawn elements.
-        </p>
-      </div>
-
-      <!-- Artifact 6 -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Drawing_and_Graphics_interactive_topics_t5.html">Rendering Text on the Canvas</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          A reading that explains how to render and style text directly on an HTML5 Canvas using the
-          Canvas 2D API, covering font properties, <code>fillText()</code>,
-          <code>strokeText()</code>, and text measurement, and distinguishing canvas text from
-          DOM-based text.
-        </p>
-      </div>
-
-      <!-- Artifact 7 -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Drawing_and_Graphics_interactive_topics_t6.html">Drawing and Manipulating Images</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          A reading that covers how to draw, scale, crop, and manipulate raster images on the HTML5
-          Canvas using <code>drawImage()</code> and related API features, providing the skills
-          needed for use cases such as photo editors, sprite-based games, and image overlays.
-        </p>
-      </div>
-
-      <!-- Artifact 8 -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Drawing_and_Graphics_interactive_topics_t7.html">Foundations of Interactive Canvas Graphics</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          A reading that explains how to combine the Canvas drawing surface with the browser's event
-          system to create interactive graphics, covering event listeners, coordinate mapping, and
-          real-time user input handling on the canvas.
-        </p>
-      </div>
-
-      <!-- Artifact 9 -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Drawing_and_Graphics_interactive.html">Foundations of Interactive Canvas Graphics</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          A duplicate reading of the Foundations of Interactive Canvas Graphics lesson covering how
-          to wire browser events to canvas drawing for real-time interactive graphics, which learners
-          and instructors can use identically to the Topic Detail artifact above.
-        </p>
-      </div>
-
-    </div><!-- /.card-grid -->
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 7 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">Introduction to the HTML5 Canvas Element</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">Drawing Basic Shapes</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">Working with Paths and Lines</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">Applying Colors, Styles, and Gradients</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Rendering Text on the Canvas</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-6"><span class="topic-num" aria-hidden="true">6</span><span class="topic-text"><span class="topic-title">Drawing and Manipulating Images</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-7"><span class="topic-num" aria-hidden="true">7</span><span class="topic-text"><span class="topic-title">Foundations of Interactive Canvas Graphics</span><span class="topic-meta">6 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">13 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Drawing_and_Graphics_interactive_topics_t1.html">Introduction to the HTML5 Canvas Element</a></div>
+    <p class="content-desc">A reading that explains what the HTML5 Canvas element is, its history and advantages over older plugin-based approaches, and how to add it to a webpage and obtain a 2D rendering context in JavaScript, serving as the foundational lesson before any drawing begins.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Drawing_and_Graphics_interactive_topics_t2.html">Drawing Basic Shapes</a></div>
+    <p class="content-desc">A reading that covers how to prepare the canvas context and draw basic shapes such as rectangles and other primitives using the Canvas 2D API, teaching learners the essential first steps for rendering graphics programmatically.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Drawing_and_Graphics_interactive_topics_t3.html">Working with Paths and Lines</a></div>
+    <p class="content-desc">A reading that explains the Canvas path system — including beginPath(), moveTo(), lineTo(), stroke(), arc(), and curves — showing learners how to define and render complex shapes and line-based drawings step by step.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Drawing_and_Graphics_interactive_topics_t4.html">Applying Colors, Styles, and Gradients</a></div>
+    <p class="content-desc">A reading that covers how to apply fill and stroke colors, transparency, linear and radial gradients, and blending options in the Canvas 2D API, teaching learners how to control the visual appearance of all drawn elements.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Drawing_and_Graphics_interactive_topics_t5.html">Rendering Text on the Canvas</a></div>
+    <p class="content-desc">A reading that explains how to render and style text directly on an HTML5 Canvas using the Canvas 2D API, covering font properties, fillText(), strokeText(), and text measurement, and distinguishing canvas text from DOM-based text.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Drawing_and_Graphics_interactive_topics_t6.html">Drawing and Manipulating Images</a></div>
+    <p class="content-desc">A reading that covers how to draw, scale, crop, and manipulate raster images on the HTML5 Canvas using drawImage() and related API features, providing the skills needed for use cases such as photo editors, sprite-based games, and image overlays.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Drawing_and_Graphics_interactive_topics_t7.html">Foundations of Interactive Canvas Graphics</a></div>
+    <p class="content-desc">A reading that explains how to combine the Canvas drawing surface with the browser&#39;s event system to create interactive graphics, covering event listeners, coordinate mapping, and real-time user input handling on the canvas.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Drawing_and_Graphics_interactive.html">Foundations of Interactive Canvas Graphics</a></div>
+    <p class="content-desc">A duplicate reading of the Foundations of Interactive Canvas Graphics lesson covering how to wire browser events to canvas drawing for real-time interactive graphics, which learners and instructors can use identically to artifact 8.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Drawing_and_Graphics_t1_videos.html">Introduction to the HTML5 Canvas Element — Videos</a></div>
+    <p class="content-desc">A reading that introduces the canvas element as a JavaScript-controlled bitmap drawing surface, explaining how it differs from DOM elements like divs and images, how to obtain a 2D rendering context, and how canvas width/height and the coordinate system work — used as the conceptual starting point before any drawing code is written.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Drawing_and_Graphics_t2_videos.html">Drawing Basic Shapes — Videos</a></div>
+    <p class="content-desc">A tutorial covering the core 2D context drawing commands for rectangles, paths, lines, arcs, and text, including selecting the canvas from the DOM, requesting the context, and applying fill and stroke styles — learners follow the examples to produce their first shapes on a canvas.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Drawing_and_Graphics_t6_videos.html">Drawing and Manipulating Images — Videos</a></div>
+    <p class="content-desc">A lesson on loading and painting raster images onto the canvas with drawImage, including its coordinate, scaling, and cropping argument forms and the implications of immediate-mode rendering once pixels are baked into the bitmap — used to practice compositing photos and sprites into canvas scenes.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Drawing_and_Graphics_t7_videos.html">Foundations of Interactive Canvas Graphics — Videos</a></div>
+    <p class="content-desc">A reading that explains how interactivity and animation are built on an immediate-mode surface, covering clearing and redrawing frames, tracking shape state in JavaScript objects, mapping mouse coordinates to canvas positions, and hit detection — used to move from static drawings to responsive, animated graphics.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Drawing_and_Graphics_videos_merged.html">7 - Drawing and Graphics with the HTML5 Canvas — 4 topics (merged)</a></div>
+    <p class="content-desc">The consolidated module overview page that stitches together all four canvas topics — the canvas element, basic shapes, images, and interactive graphics — into a single continuous reading for review or printing.</p>
+  </div>
+</li>
+</ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../6-external-libraries-jquery-bootstrap-and-plotting-tools/index.html">← 6 - External Libraries: jQuery, Bootstrap, and Plotting Tools</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../8-introduction-to-json-and-using-it-in-the-browser/index.html">8 - Introduction to JSON and Using It in the Browser →</a>
+</nav>
   </main>
-
-  <footer>
-    <p>COP4813 &mdash; Module 7: Drawing and Graphics with the HTML5 Canvas &nbsp;|&nbsp; Course Module Index</p>
-  </footer>
-
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
 </html>

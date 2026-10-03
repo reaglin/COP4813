@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building Interactive UI Controls with JavaScript</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 12 - Dynamic Objects and Controls with JavaScript and the DOM</a></div>
+<h1>Building Interactive UI Controls with JavaScript</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Part - 1 | HTML CSS JS Project: Build a interactive TV</a>
+<a href="#sec3">Video 2: Part - 3 | HTML CSS JS Project: Build a interactive TV</a>
+<a href="#sec4">Video 3: Coding for Beginners: WAI-ARIA and accessibility</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Up to this point in the module you have practiced the individual pieces of DOM work: reading the document tree, creating elements, changing styles and content, and responding to events. This topic puts those pieces together. An interactive UI control — a toggle, a tab strip, a custom dropdown, a media panel — is nothing more than a small, well-planned collection of elements that JavaScript builds, wires to event listeners, and keeps in a known state as the user interacts with it.</p>
+<p>The work usually follows a predictable order. First you plan the structure: what elements the control needs, how they nest, and what markup roles they play. Then you construct those elements in JavaScript, attach listeners to the parts that respond to input, and decide how the control&#39;s state (open/closed, selected, disabled, current value) will be stored and reflected back in the DOM. Finally you make the control accessible — keyboard operable, with ARIA roles and states that describe it to assistive technology — and package the whole thing so it can be reused more than once on a page.</p>
+<p>The videos below approach this from two angles. The two project videos follow a small interactive application being built from scratch, so watch how the author moves from markup and layout to the JavaScript that drives behavior, and notice where state is being tracked and where the DOM is being updated in response. The accessibility video addresses the part beginners most often skip: why a JavaScript-built control needs ARIA and semantics to be usable by everyone. While watching, keep asking yourself where each technique would land in your own control&#39;s structure, state, and event wiring.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Part - 1 | HTML CSS JS Project: Build a interactive TV</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/FXiQ8icN-6U?cc_load_policy=1&amp;rel=0" title="Video: Part - 1 | HTML CSS JS Project: Build a interactive TV (Code Jamun)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Code Jamun</strong> · 17:10 · 91 views · 8mo ago · captions — <a href="https://www.youtube.com/watch?v=FXiQ8icN-6U" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>The opening part of a beginner-oriented HTML, CSS, and JavaScript project in which an interactive TV interface is built step by step. Expect the early stages of the build: laying out the control&#39;s structure and visual design before the JavaScript behavior is layered on top.</p>
+<h3>Why this video</h3>
+<p>It models the planning and structure stage of building a UI control, which is where most students struggle, and it does so at a pace aimed at beginners rather than assuming prior project experience.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Part - 3 | HTML CSS JS Project: Build a interactive TV</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/BIw2EgNUeQg?cc_load_policy=1&amp;rel=0" title="Video: Part - 3 | HTML CSS JS Project: Build a interactive TV (Code Jamun)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Code Jamun</strong> · 13:52 · 13 views · 8mo ago · captions — <a href="https://www.youtube.com/watch?v=BIw2EgNUeQg" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>Part 3 of the same interactive TV project, continuing from the earlier installments. This later stage is where a project of this kind typically focuses on the JavaScript side — wiring up controls, responding to clicks, and updating the display as the user interacts with it.</p>
+<h3>Why this video</h3>
+<p>It shows the payoff stage of the same build, so you can see event listeners and runtime DOM updates applied in a real project context rather than as isolated snippets, which directly supports the state-management and runtime-modification subtopics.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Coding for Beginners: WAI-ARIA and accessibility</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/oEpbnlExvm0?cc_load_policy=1&amp;rel=0" title="Video: Coding for Beginners: WAI-ARIA and accessibility (Designers Learn Code)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Designers Learn Code</strong> · 3:02 · 95 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=oEpbnlExvm0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short beginner introduction to WAI-ARIA and what it is for, framed as necessary background before making buttons and similar controls accessible. In three minutes it covers the vocabulary of accessibility attributes rather than a full implementation.</p>
+<h3>Why this video</h3>
+<p>It fills the gap the project videos leave open, giving you the accessibility concepts needed when your control is built entirely in JavaScript and therefore has no built-in semantics to rely on.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Taken together, the videos trace the path from DOM fundamentals to a finished control. The two project installments reinforce MO1 through MO4 in applied form: you see elements created and structured, content and styles updated as the interface changes, and event listeners attached so user input drives those updates. The ARIA video supplies the accessibility half of MO5, explaining why roles and states matter for controls that JavaScript builds at runtime. None of the videos alone delivers a reusable, encapsulated control, so use them alongside the module readings and your own practice — the project videos for structure, construction, and event handling; the accessibility video as the checklist you apply before calling a control finished.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

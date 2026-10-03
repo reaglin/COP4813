@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Internal Navigation and Site Linking</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 2 -Building a Full Website with HTML, Images, and Links</a></div>
+<h1>Internal Navigation and Site Linking</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: HTML Hyperlinks and Navigation (Clip 16): Gentle Introduction to HTML for Beginners</a>
+<a href="#sec3">Video 2: HTML Tutorial #37 - HTML File Paths | Relative File Paths vs Absolute File Paths</a>
+<a href="#sec4">Video 3: How to add images and links to HTML</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>A website becomes a website — rather than a pile of separate files — when its pages are connected. Internal navigation is the system of links that lets a visitor move from the home page to an about page, a gallery, or a contact form and back again without ever typing a URL. The core tool is the anchor element, and the skill that makes it work is writing correct relative file paths: addresses that describe where a file sits in relation to the page currently being viewed.</p>
+<p>In this topic you will practice writing links such as about.html, pages/contact.html, and ../index.html, and you will see why a path that works on one page may break on another once files are moved into folders. You will also build a navigation menu — a group of links, usually inside a nav element, repeated in the same place and same order on every page so users always know where they are and what their options are. Finally, you will use fragment identifiers (the # syntax paired with an element id) to jump directly to a section within a long page.</p>
+<p>As you watch the videos below, pay attention to three things: how the href value changes depending on where the file lives, how the folder structure of the site is organized before any links are written, and how a navigation block is copied and kept consistent across pages. Keep a small test site open and try each path yourself — broken links are usually a typo or a wrong folder level, and the fastest way to learn the rules is to break and fix them.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: HTML Hyperlinks and Navigation (Clip 16): Gentle Introduction to HTML for Beginners</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/jHNIFMOW6es?cc_load_policy=1&amp;rel=0" title="Video: HTML Hyperlinks and Navigation (Clip 16): Gentle Introduction to HTML for Beginners (Deborah Kurata)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Deborah Kurata</strong> · 12:03 · 468 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=jHNIFMOW6es" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This clip introduces hyperlinks using the anchor (a) element and focuses specifically on navigating between the pages of a single website. Based on its description, it also demonstrates assembling those links into a navigation bar, which is exactly the structure you will reuse on every page of your own site.</p>
+<h3>Why this video</h3>
+<p>Deborah Kurata is a well-known instructor whose beginner series is carefully paced and accurate, and this clip maps directly onto two of our subtopics: creating basic internal links with the anchor tag and building a navigation menu structure.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: HTML Tutorial #37 - HTML File Paths | Relative File Paths vs Absolute File Paths</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/HAZzTG1EcKc?cc_load_policy=1&amp;rel=0" title="Video: HTML Tutorial #37 - HTML File Paths | Relative File Paths vs Absolute File Paths (Career &amp; Tech HQ)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Career &amp; Tech HQ</strong> · 14:53 · 430 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=HAZzTG1EcKc" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A focused tutorial on HTML file paths that contrasts relative paths with absolute paths. Expect coverage of how a path is written relative to the current document, including moving into subfolders and stepping back up a level, and when an absolute URL is the right choice instead.</p>
+<h3>Why this video</h3>
+<p>File paths are the single most common source of broken internal links, and this video devotes nearly fifteen minutes to just that topic, giving you the depth needed for the relative-paths and multi-page file-organization subtopics.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: How to add images and links to HTML</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/DWkyuVOg41E?cc_load_policy=1&amp;rel=0" title="Video: How to add images and links to HTML (Professor K Explains)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Professor K Explains</strong> · 10:34 · 4,325 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=DWkyuVOg41E" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A beginner-level walkthrough that covers the img and a tags together, showing how to place an image on a page and how to turn text into a link. Because both elements rely on a path or URL in an attribute, the video reinforces path-writing in two different contexts.</p>
+<h3>Why this video</h3>
+<p>Pairing images with links is useful here because the same relative-path logic governs src and href, and the short, practical format makes it a good quick review or refresher before you start wiring your own multi-page site together.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos support the module outcomes that concern linking and site structure. The file paths tutorial underpins MO3 by clarifying when to use a relative path for internal links versus an absolute URL for external ones, while the hyperlinks and navigation clip addresses MO4 by showing how anchor elements are grouped into a navigation bar that connects every page of the site, and it contributes to MO1 by demonstrating the nav region within an overall page structure. The images and links video reinforces MO2 and MO3 by treating src and href as parallel path-based attributes. All three prepare you for MO5, since knowing how a correct path is formed is what allows you to test a finished site and diagnose any link or image that fails to load.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

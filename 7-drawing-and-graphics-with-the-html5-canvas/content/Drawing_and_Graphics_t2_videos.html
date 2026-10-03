@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drawing Basic Shapes</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 7 - Drawing and Graphics with the HTML5 Canvas</a></div>
+<h1>Drawing Basic Shapes</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Canvas API - Draw and create images with Javascript</a>
+<a href="#sec3">Video 2: Make a Game With HTML and JavaScript, Part 1/2. The Ultimate Beginner&#39;s Guide!</a>
+<a href="#sec4">Video 3: Easy HTML canvas game, part 2/2. Tutorial for beginners.</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>The HTML5 canvas element is a blank drawing surface that does nothing on its own. Everything you see on a canvas is produced by JavaScript: you select the canvas element from the DOM, ask it for a 2D rendering context, and then issue drawing commands against that context. This topic walks through the first and most important set of those commands — the ones that put rectangles, circles, arcs, lines, and multi-sided shapes on the screen.</p>
+<p>Along the way you will meet the two ideas that organize nearly all canvas drawing. The first is the path: you begin a path, move to a starting point, add segments or arcs, and then close it. The second is the fill-versus-stroke distinction: fillStyle and strokeStyle decide the colors, and fill() and stroke() decide whether a shape is painted solid or outlined. Rounded rectangles are a good test case because they combine straight line segments with arcs in a single path.</p>
+<p>As you watch the videos below, pay attention to the setup sequence that appears at the start of every example — getElementById followed by getContext(&#39;2d&#39;) — and notice the order in which styling properties are set relative to the drawing calls. Also watch for coordinates: the canvas origin is the top-left corner, x increases to the right and y increases downward, and arcs are measured in radians rather than degrees. Getting comfortable with these conventions now will make the later work on text, images, animation, and mouse interaction much easier.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Canvas API - Draw and create images with Javascript</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/On5c2d3JSVI?cc_load_policy=1&amp;rel=0" title="Video: Canvas API - Draw and create images with Javascript (Mohamed Chiny)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Mohamed Chiny</strong> · 4:07 · 4,576 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=On5c2d3JSVI" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short, focused introduction to the Canvas API as the JavaScript interface to the HTML5 canvas element. Based on its title and description, it covers how a script gains access to the canvas, how the canvas element hosts graphic content, and how drawing and image operations are issued from JavaScript. Expect the standard setup pattern — reference the canvas, retrieve the rendering context, then draw — demonstrated in a compact example.</p>
+<h3>Why this video</h3>
+<p>At roughly four minutes it is an efficient primer on exactly the first subtopic, Setting Up the Canvas Context, which every other subtopic depends on. It frames canvas as an API you call rather than markup you configure, which is the correct mental model for this module.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Make a Game With HTML and JavaScript, Part 1/2. The Ultimate Beginner&#39;s Guide!</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/l9P_qfJ2wUA?cc_load_policy=1&amp;rel=0" title="Video: Make a Game With HTML and JavaScript, Part 1/2. The Ultimate Beginner&#39;s Guide! (BaseScript)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>BaseScript</strong> · 4:39 · 692 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=l9P_qfJ2wUA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>Part one of a beginner-oriented tutorial that builds a small game using HTML and JavaScript on a canvas. Early parts of a project like this typically establish the canvas element, obtain the 2D context, and draw the first simple shapes that represent game objects. It is a worked example rather than a reference lesson, so the drawing calls appear in the context of a real page.</p>
+<h3>Why this video</h3>
+<p>Seeing rectangles and simple filled shapes used as actual game objects reinforces how fillStyle, fillRect, and coordinate placement work together in practice. The beginner framing keeps the pace approachable for students new to the Canvas API.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Easy HTML canvas game, part 2/2. Tutorial for beginners.</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/haMPY0BGbkc?cc_load_policy=1&amp;rel=0" title="Video: Easy HTML canvas game, part 2/2. Tutorial for beginners. (BaseScript)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>BaseScript</strong> · 7:04 · 652 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=haMPY0BGbkc" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>Reviewing this installment a second time is useful for tracing the drawing calls specifically, separate from the game logic. Pause on each line that touches the context object and identify which shape method and which style property it uses.</p>
+<h3>Why this video</h3>
+<p>A targeted second pass helps isolate the Canvas API calls — fill and stroke styles, rectangles, and paths — from the surrounding application code, supporting the separation-of-concerns habits emphasized in this module.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos move from the minimal setup required by MO1 — embedding the canvas, selecting it with JavaScript, and retrieving the 2D rendering context — to the shape and styling work described in MO2, where fill and stroke properties are applied to rectangles, arcs, and paths. The two-part game tutorial adds a practical dimension: because the game surface must be repainted as objects move, it previews the immediate-mode behavior explained in MO3 and the redraw loop behind MO4. Finally, watching a complete project built from start to finish gives you a concrete example to critique against MO5, asking where initialization, state, and rendering responsibilities are kept apart and where they are tangled together.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

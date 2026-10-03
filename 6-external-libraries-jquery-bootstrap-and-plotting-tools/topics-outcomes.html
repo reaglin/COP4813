@@ -18,13 +18,13 @@ li{margin:5px 0}
 .el-body{color:#555}
 .prefix{color:#555;font-style:italic;margin:6px 0 14px}
 .mo{border:1px solid #e2e2e2;border-radius:6px;padding:12px 16px;margin:12px 0}
-.mo .code{font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.mo .code{font-size:.8rem;color:#595959;text-transform:uppercase;letter-spacing:.04em}
 .mo .statement{font-weight:600;margin:4px 0 8px}
 .meta span{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin:0 6px 0 0;font-size:.85rem}
 .meta .map{background:#eaf6ec;color:#137333}
 .co{margin:7px 0}
 .co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
-.empty{color:#888}
+.empty{color:#595959}
 </style>
 </head>
 <body>
@@ -33,7 +33,7 @@ li{margin:5px 0}
 <div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
 
 <h2 id="topics">Module Topics</h2>
-<h3>Introduction to External Libraries and CDN Integration</h3>
+<h3 id="topic-1">Introduction to External Libraries and CDN Integration</h3>
 <div class="summary">Explains what third-party libraries are and how to load them into a web project using Content Delivery Networks (CDNs). Covers the benefits of CDNs over local file hosting and the basic script/link tag syntax required.</div>
 <ul>
 <li><strong>What Are Third-Party External Libraries?</strong> <span class="el-body">— External libraries are pre-written collections of code created by other developers that you can include in your own web project to add functionality without building it from scratch.</span></li>
@@ -43,7 +43,7 @@ li{margin:5px 0}
 <li><strong>Loading a CSS Library via a Link Tag</strong> <span class="el-body">— CSS-based libraries such as Bootstrap are loaded using the HTML &lt;link&gt; tag placed inside the &lt;head&gt; section of the page, referencing the CDN-hosted stylesheet.</span></li>
 <li><strong>Versioning and Integrity When Using CDN Links</strong> <span class="el-body">— CDN URLs typically include a specific version number of the library, and modern best practices recommend using Subresource Integrity (SRI) hashes to verify that the file has not been tampered with.</span></li>
 </ul>
-<h3>jQuery Fundamentals and DOM Manipulation</h3>
+<h3 id="topic-2">jQuery Fundamentals and DOM Manipulation</h3>
 <div class="summary">Introduces jQuery as a JavaScript library that simplifies HTML document traversal, event handling, and DOM manipulation. Demonstrates core jQuery syntax and practical examples for selecting and modifying page elements.</div>
 <ul>
 <li><strong>What is jQuery and Why Use It?</strong> <span class="el-body">— jQuery is a fast, lightweight JavaScript library designed to simplify common tasks like HTML document traversal, event handling, and DOM manipulation.</span></li>
@@ -54,7 +54,7 @@ li{margin:5px 0}
 <li><strong>Handling Events with jQuery</strong> <span class="el-body">— jQuery simplifies attaching event listeners to elements, enabling interactive responses to user actions such as clicks, key presses, and mouse movements.</span></li>
 <li><strong>Manipulating CSS and Visibility</strong> <span class="el-body">— jQuery provides methods to dynamically change the styling and visibility of elements without directly editing the stylesheet.</span></li>
 </ul>
-<h3>jQuery Events and Dynamic Interactivity</h3>
+<h3 id="topic-3">jQuery Events and Dynamic Interactivity</h3>
 <div class="summary">Explores how jQuery handles user events such as clicks, form submissions, and keyboard input to create dynamic, interactive web pages. Covers event binding methods and common interaction patterns.</div>
 <ul>
 <li><strong>Binding Events with .on()</strong> <span class="el-body">— jQuery&#39;s .on() method is the primary way to attach event listeners to DOM elements, replacing older methods like .click() and .submit().</span></li>
@@ -65,7 +65,7 @@ li{margin:5px 0}
 <li><strong>The Event Object and Stopping Propagation</strong> <span class="el-body">— Every jQuery event handler receives an event object containing details about the interaction and methods to control how the event travels through the DOM.</span></li>
 <li><strong>Common Interaction Patterns with jQuery</strong> <span class="el-body">— jQuery enables several recurring UI patterns — such as toggling visibility, tab switching, and live filtering — through concise combinations of event binding and DOM manipulation.</span></li>
 </ul>
-<h3>Bootstrap Layout and the Responsive Grid System</h3>
+<h3 id="topic-4">Bootstrap Layout and the Responsive Grid System</h3>
 <div class="summary">Introduces Bootstrap&#39;s grid system and how it enables responsive, mobile-first page layouts using rows and columns. Explains breakpoint classes and how to structure content that adapts across screen sizes.</div>
 <ul>
 <li><strong>What Is the Bootstrap Grid System?</strong> <span class="el-body">— Bootstrap&#39;s grid system is a flexible, 12-column layout framework that makes it straightforward to build structured, responsive web pages.</span></li>
@@ -76,7 +76,7 @@ li{margin:5px 0}
 <li><strong>Offsetting and Ordering Columns</strong> <span class="el-body">— Bootstrap provides utility classes for offsetting columns and reordering them visually without changing the HTML source order.</span></li>
 <li><strong>Nesting Grids for Complex Layouts</strong> <span class="el-body">— Bootstrap columns can contain their own nested rows and columns, enabling multi-level, complex responsive layouts within a single page.</span></li>
 </ul>
-<h3>Bootstrap UI Components and Styling</h3>
+<h3 id="topic-5">Bootstrap UI Components and Styling</h3>
 <div class="summary">Covers ready-made Bootstrap components such as navigation bars, buttons, modals, and cards that accelerate UI development. Demonstrates how to apply Bootstrap utility classes to achieve consistent, professional styling.</div>
 <ul>
 <li><strong>Navigation Bars with Bootstrap</strong> <span class="el-body">— Bootstrap&#39;s navbar component provides a ready-made, responsive navigation bar that collapses gracefully on smaller screens.</span></li>
@@ -86,7 +86,7 @@ li{margin:5px 0}
 <li><strong>Bootstrap Utility Classes</strong> <span class="el-body">— Utility classes are single-purpose CSS helpers in Bootstrap that apply spacing, color, typography, and layout adjustments directly in HTML without writing custom styles.</span></li>
 <li><strong>Responsive Grid and Component Integration</strong> <span class="el-body">— Bootstrap&#39;s 12-column grid system works in tandem with its UI components to create professional, responsive page layouts rapidly.</span></li>
 </ul>
-<h3>Data Visualization with Chart.js</h3>
+<h3 id="topic-6">Data Visualization with Chart.js</h3>
 <div class="summary">Introduces Chart.js as a plotting library and explains how to integrate it via CDN to render interactive charts on an HTML canvas element. Covers creating common chart types such as bar, line, and pie charts using JavaScript data configuration.</div>
 <ul>
 <li><strong>What is Chart.js?</strong> <span class="el-body">— Chart.js is a free, open-source JavaScript library that enables developers to create interactive, animated charts directly in the browser using the HTML5 canvas element.</span></li>
@@ -97,7 +97,7 @@ li{margin:5px 0}
 <li><strong>Creating Line and Pie Charts</strong> <span class="el-body">— Chart.js makes it straightforward to switch between chart types by changing a single property, allowing the same data configuration pattern to produce line or pie charts.</span></li>
 <li><strong>Customizing and Enhancing Charts</strong> <span class="el-body">— Chart.js provides an extensive options API that lets you tailor the appearance, interactivity, and responsiveness of any chart to suit your project&#39;s needs.</span></li>
 </ul>
-<h3>Combining Libraries in a Complete Web Project</h3>
+<h3 id="topic-7">Combining Libraries in a Complete Web Project</h3>
 <div class="summary">Demonstrates how jQuery, Bootstrap, and Chart.js can be used together within a single cohesive web page to deliver layout, interactivity, and data visualization. Highlights best practices for managing multiple external dependencies without conflicts.</div>
 <ul>
 <li><strong>Planning the Project Structure</strong> <span class="el-body">— Before writing any code, a well-organized project structure ensures that HTML, CSS, and JavaScript concerns are separated and that all external libraries are accounted for.</span></li>
@@ -138,6 +138,6 @@ li{margin:5px 0}
 <h3>Course Outcomes (reference)</h3>
 <p class="empty">No course outcomes have been defined.</p>
 
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
 </body>
 </html>

@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Introduction to the HTML5 Canvas Element</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 7 - Drawing and Graphics with the HTML5 Canvas</a></div>
+<h1>Introduction to the HTML5 Canvas Element</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Introduction to Canvas 2D API | Web Graphics Programming Episode 01</a>
+<a href="#sec3">Video 2: HTML Canvas | HTML5 Tutorial | HTML5 Canvas Tutorials for Beginners</a>
+<a href="#sec4">Video 3: How to draw graphics on a web page | HTML5 Canvas Tutorial</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>The HTML5 canvas element gives you a blank rectangular drawing surface on a webpage that you control entirely from JavaScript. Unlike HTML elements such as divs or images, the canvas itself holds no content you can style or inspect in the DOM — it is a bitmap you paint onto by calling drawing commands. That single idea shapes everything else in this module: if you want a shape on screen, your code has to draw it, and if you want it to change, your code has to draw it again.</p>
+<p>In this topic you will see the full startup sequence: placing a canvas tag in your markup with width and height attributes, giving it an id, selecting it in JavaScript with something like document.getElementById, and calling getContext(&quot;2d&quot;) to obtain the rendering context object that exposes the drawing API. You will also meet the canvas coordinate system, where the origin sits at the top-left corner and the y-axis increases downward — a detail that trips up many beginners and that matters later when you map mouse positions into canvas space.</p>
+<p>As you watch, pay attention to a few specifics: why the width and height should be set as HTML attributes rather than only in CSS, what exactly getContext returns and why the context (not the canvas) owns the drawing methods, and how the presenter checks that the setup worked before drawing anything complex. Try typing the setup code yourself alongside the video rather than only watching it.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Introduction to Canvas 2D API | Web Graphics Programming Episode 01</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/JpSCJDuEpMQ?cc_load_policy=1&amp;rel=0" title="Video: Introduction to Canvas 2D API | Web Graphics Programming Episode 01 (Quantum Web)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Quantum Web</strong> · 11:12 · 103 views · 4mo ago · captions — <a href="https://www.youtube.com/watch?v=JpSCJDuEpMQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>The opening episode of a Web Graphics Programming series, this video introduces the Canvas 2D API and the foundations of the HTML canvas element. Expect an overview of what canvas is for, how to place it on a page, and how to reach the 2D rendering context before any drawing takes place. As a series opener it is likely to frame canvas within the wider landscape of web graphics.</p>
+<h3>Why this video</h3>
+<p>It is positioned as a first-principles introduction, which matches the opening subtopics on what canvas is and how the rendering context works, and the series format means the setup steps are explained rather than assumed.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: HTML Canvas | HTML5 Tutorial | HTML5 Canvas Tutorials for Beginners</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/i2b1wShhUIA?cc_load_policy=1&amp;rel=0" title="Video: HTML Canvas | HTML5 Tutorial | HTML5 Canvas Tutorials for Beginners (Rai Gurukul)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Rai Gurukul</strong> · 19:18 · 285 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=i2b1wShhUIA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A beginner-oriented HTML5 tutorial that walks through creating a simple canvas using the canvas element. The longer runtime allows time for the markup, the sizing attributes, and a first look at drawing through JavaScript. It is pitched at students who have not used canvas before.</p>
+<h3>Why this video</h3>
+<p>Its slower, beginner pace supports the subtopics on adding the canvas element to a page and writing the basic setup code, giving you a second pass over the same steps at a different level of detail.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: How to draw graphics on a web page | HTML5 Canvas Tutorial</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/ijvihD-wXek?cc_load_policy=1&amp;rel=0" title="Video: How to draw graphics on a web page | HTML5 Canvas Tutorial (DevWebApp)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>DevWebApp</strong> · 10:43 · 45 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=ijvihD-wXek" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This tutorial focuses on using the canvas element to draw graphics in the browser with JavaScript, starting from how to set up the canvas. It moves from the setup phase into actually putting marks on the surface, so you see the payoff of the initialization code. The short runtime keeps it focused on the essentials.</p>
+<h3>Why this video</h3>
+<p>It connects setup to a first drawing, which helps you confirm that selecting the element and retrieving the context actually works, and it reinforces the coordinate system through practical placement of shapes.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>All three videos target MO1 directly: each one demonstrates embedding the canvas element in a page, selecting it from JavaScript, and retrieving the 2D rendering context — the exact sequence you must be able to reproduce from memory. The drawing portions of the DevWebApp and Rai Gurukul tutorials give an early preview of the Canvas API methods you will apply more fully under MO2, and the emphasis across all three on the context object as the holder of drawing commands lays the conceptual groundwork for MO3&#39;s distinction between immediate-mode and retained-mode rendering. Understanding the top-left origin and the canvas coordinate system here is also a prerequisite for translating mouse event coordinates in MO4.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

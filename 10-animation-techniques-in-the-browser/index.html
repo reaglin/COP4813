@@ -1,405 +1,145 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Module 10 – Animation Techniques in the Browser | COP4813</title>
-  <style>
-    /* ── Reset & Base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
-      background: #f4f6f9;
-      color: #1e2a38;
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    /* ── Header ── */
-    header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #24527a 60%, #2d6a9f 100%);
-      color: #fff;
-      padding: 2.8rem 2rem 2.4rem;
-    }
-
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .course-label {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 4px;
-      padding: 0.2rem 0.65rem;
-      margin-bottom: 0.85rem;
-      color: #d6e8f8;
-    }
-
-    header h1 {
-      font-size: clamp(1.55rem, 4vw, 2.3rem);
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      line-height: 1.25;
-      margin-bottom: 0.9rem;
-    }
-
-    header h1 span {
-      color: #8ecae6;
-    }
-
-    header p {
-      font-size: 1rem;
-      color: #cde3f4;
-      max-width: 700px;
-      line-height: 1.7;
-    }
-
-    /* ── Main ── */
-    main {
-      max-width: 1100px;
-      margin: 2.5rem auto 3.5rem;
-      padding: 0 1.25rem;
-    }
-
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 1.4rem;
-    }
-
-    .section-header h2 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: #4a6280;
-    }
-
-    .section-header::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: #d0d9e4;
-    }
-
-    /* ── Card Grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-      gap: 1.25rem;
-    }
-
-    /* ── Card ── */
-    .card {
-      background: #fff;
-      border: 1px solid #dce4ef;
-      border-radius: 10px;
-      padding: 1.35rem 1.4rem 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
-    }
-
-    .card:hover {
-      box-shadow: 0 6px 22px rgba(30, 60, 100, 0.1);
-      transform: translateY(-2px);
-    }
-
-    /* ── Card Top Row ── */
-    .card-meta {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-
-    .badge {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      padding: 0.18rem 0.55rem;
-      border-radius: 20px;
-      white-space: nowrap;
-    }
-
-    /* Type badge colours */
-    .badge-type {
-      background: #e8f0fb;
-      color: #2d5fa6;
-      border: 1px solid #c4d8f8;
-    }
-
-    .badge-filetype {
-      background: #edf7f0;
-      color: #1e7a40;
-      border: 1px solid #b8e5c8;
-      font-family: "Courier New", monospace;
-    }
-
-    /* ── Card Title Row ── */
-    .card-title-row {
-      display: flex;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-      row-gap: 0.3rem;
-    }
-
-    .card-title {
-      font-size: 1.02rem;
-      font-weight: 700;
-      color: #1e2a38;
-      line-height: 1.35;
-    }
-
-    .card-title a {
-      color: #1a5fa8;
-      text-decoration: none;
-      border-bottom: 2px solid transparent;
-      transition: border-color 0.15s ease, color 0.15s ease;
-    }
-
-    .card-title a:hover,
-    .card-title a:focus {
-      color: #0d3f75;
-      border-bottom-color: #0d3f75;
-      outline: none;
-    }
-
-    .source-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.28rem;
-      font-size: 0.73rem;
-      font-weight: 600;
-      color: #5a7fa6;
-      text-decoration: none;
-      background: #f0f5fb;
-      border: 1px solid #c8d8ee;
-      border-radius: 4px;
-      padding: 0.18rem 0.5rem;
-      white-space: nowrap;
-      transition: background 0.15s, color 0.15s;
-    }
-
-    .source-link:hover,
-    .source-link:focus {
-      background: #dce9f8;
-      color: #1a3d6b;
-      outline: none;
-    }
-
-    .source-link::before {
-      content: "⬡";
-      font-size: 0.65rem;
-    }
-
-    /* ── Card Description ── */
-    .card-description {
-      font-size: 0.875rem;
-      color: #485a6e;
-      line-height: 1.65;
-      flex: 1;
-    }
-
-    /* ── Footer ── */
-    footer {
-      text-align: center;
-      font-size: 0.8rem;
-      color: #8a9ab0;
-      padding: 1.5rem 1rem 2rem;
-      border-top: 1px solid #dce4ef;
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 540px) {
-      .card-grid {
-        grid-template-columns: 1fr;
-      }
-
-      header {
-        padding: 2rem 1.25rem 1.75rem;
-      }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10 - Animation Techniques in the Browser — COP4813</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ COP4813</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-
-  <header>
-    <div class="header-inner">
-      <span class="course-label">COP4813</span>
-      <h1>Module <span>10</span> — Animation Techniques in the Browser</h1>
-      <p>
-        Explore how modern browsers bring interfaces to life through CSS transitions,
-        keyframe animations, and JavaScript-driven motion. This module covers
-        foundational concepts, practical techniques, and performance best practices
-        to help you craft smooth, engaging web experiences.
-      </p>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">COP4813</a><span class="sep" aria-hidden="true">›</span><span class="current">10 - Animation Techniques in the Browser</span>
+  </nav>
+      <div class="hero-label">Module 10</div>
+      <h1>Animation Techniques in the Browser</h1>
+      <p class="hero-desc">This lesson covers CSS transitions and keyframe animations as well as JavaScript-driven animation using requestAnimationFrame, enabling students to create smooth, performant browser animations.</p>
     </div>
   </header>
-
-  <main>
-    <div class="section-header">
-      <h2>Module Artifacts</h2>
-    </div>
-
-    <div class="card-grid">
-
-      <!-- 1. Module Topics -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Module Topics</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/module_topics.html">Module Topics</a>
-          </span>
-          <a class="source-link" href="source/hierarchy.json">source file</a>
-        </div>
-        <p class="card-description">
-          Outlines the module's learning topics across browser animation fundamentals,
-          CSS transitions, CSS keyframe animations, and JavaScript-driven animation,
-          serving as a navigational overview for learners and instructors to see what
-          concepts will be covered and in what order.
-        </p>
-      </div>
-
-      <!-- 2. Introduction to Browser Animation -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Animation_Techniques_in_interactive_topics_t1.html">Introduction to Browser Animation</a>
-          </span>
-        </div>
-        <p class="card-description">
-          A reading that explains how browser animation works under the hood, why it
-          matters for user experience, and introduces the two main animation approaches
-          (CSS and JavaScript), used by learners to build foundational knowledge before
-          exploring specific techniques.
-        </p>
-      </div>
-
-      <!-- 3. CSS Transitions -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Animation_Techniques_in_interactive_topics_t2.html">CSS Transitions</a>
-          </span>
-        </div>
-        <p class="card-description">
-          A reading that explains CSS transitions — how they smoothly animate property
-          changes between two states without JavaScript, including syntax, timing
-          functions, and practical use cases — used by learners to implement simple,
-          state-driven animations.
-        </p>
-      </div>
-
-      <!-- 4. CSS Keyframe Animations -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Animation_Techniques_in_interactive_topics_t3.html">CSS Keyframe Animations</a>
-          </span>
-        </div>
-        <p class="card-description">
-          A reading that covers CSS keyframe animations, explaining how to define
-          multi-step animations using <code>@keyframes</code> and the
-          <code>animation</code> property, including looping, reversing, and controlling
-          intermediate states, used by learners to create complex, self-running CSS
-          animations.
-        </p>
-      </div>
-
-      <!-- 5. JavaScript-Driven Animation -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Animation_Techniques_in_interactive_topics_t4.html">JavaScript-Driven Animation with requestAnimationFrame</a>
-          </span>
-        </div>
-        <p class="card-description">
-          A reading that explains the <code>requestAnimationFrame</code> API, how it
-          synchronizes JavaScript animations with the browser's rendering engine for
-          smooth, performant motion, and how to structure an animation loop, used by
-          learners to build custom JavaScript-driven animations.
-        </p>
-      </div>
-
-      <!-- 6. Animation Performance (Topic Detail) -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Animation_Techniques_in_interactive_topics_t5.html">Animation Performance and Best Practices</a>
-          </span>
-        </div>
-        <p class="card-description">
-          A reading that covers browser rendering performance for animations, including
-          the 60 fps target, the impact of different CSS properties on the rendering
-          pipeline, and best practices for keeping animations smooth, used by learners
-          to optimize their animation implementations.
-        </p>
-      </div>
-
-      <!-- 7. Animation Performance (Text Content) -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Animation_Techniques_in_interactive.html">Animation Performance and Best Practices</a>
-          </span>
-        </div>
-        <p class="card-description">
-          A duplicate reading identical to the Topic Detail above that covers browser
-          rendering performance for animations, the 60 fps threshold, and best practices
-          for smooth animation, used by learners to review or reinforce animation
-          performance concepts.
-        </p>
-      </div>
-
-    </div>
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 5 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">Introduction to Browser Animation</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">CSS Transitions</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">CSS Keyframe Animations</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">JavaScript-Driven Animation with requestAnimationFrame</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Animation Performance and Best Practices</span><span class="topic-meta">7 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">12 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Animation_Techniques_in_interactive_topics_t1.html">Introduction to Browser Animation</a></div>
+    <p class="content-desc">A reading that explains how browser animation works under the hood, why it matters for user experience, and introduces the two main animation approaches (CSS and JavaScript), used by learners to build foundational knowledge before exploring specific techniques.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Animation_Techniques_in_interactive_topics_t2.html">CSS Transitions</a></div>
+    <p class="content-desc">A reading that explains CSS transitions — how they smoothly animate property changes between two states without JavaScript, including syntax, timing functions, and practical use cases — used by learners to implement simple, state-driven animations.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Animation_Techniques_in_interactive_topics_t3.html">CSS Keyframe Animations</a></div>
+    <p class="content-desc">A reading that covers CSS keyframe animations, explaining how to define multi-step animations using @keyframes and the animation property, including looping, reversing, and controlling intermediate states, used by learners to create complex, self-running CSS animations.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Animation_Techniques_in_interactive_topics_t4.html">JavaScript-Driven Animation with requestAnimationFrame</a></div>
+    <p class="content-desc">A reading that explains the requestAnimationFrame API, how it synchronizes JavaScript animations with the browser&#39;s rendering engine for smooth, performant motion, and how to structure an animation loop, used by learners to build custom JavaScript-driven animations.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Animation_Techniques_in_interactive_topics_t5.html">Animation Performance and Best Practices</a></div>
+    <p class="content-desc">A reading that covers browser rendering performance for animations, including the 60 fps target, the impact of different CSS properties on the rendering pipeline, and best practices for keeping animations smooth, used by learners to optimize their animation implementations.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Animation_Techniques_in_interactive.html">Animation Performance and Best Practices</a></div>
+    <p class="content-desc">A duplicate reading identical to artifact 6 that covers browser rendering performance for animations, the 60 fps threshold, and best practices for smooth animation, used by learners to review or reinforce animation performance concepts.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Animation_Techniques_in_t1_videos.html">Introduction to Browser Animation — Videos</a></div>
+    <p class="content-desc">An opening reading that defines browser animation as the timed change of visual properties and walks through the rendering pipeline (style, layout, paint, composite) behind effects like fades, slides, and spinners, giving learners the conceptual foundation for the rest of the module.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Animation_Techniques_in_t2_videos.html">CSS Transitions — Videos</a></div>
+    <p class="content-desc">A lesson on CSS transitions that explains how to interpolate property values between states such as :hover, :focus, or JavaScript-added classes, with guidance on duration, timing functions, and which properties to transition for smooth state changes.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Animation_Techniques_in_t3_videos.html">CSS Keyframe Animations — Videos</a></div>
+    <p class="content-desc">A lesson on @keyframes animations covering how to define multi-step sequences using percentage stops or from/to shorthand and attach them to elements with the animation property, letting learners build looping or multi-stage motion without JavaScript.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Animation_Techniques_in_t4_videos.html">JavaScript-Driven Animation with requestAnimationFrame — Videos</a></div>
+    <p class="content-desc">A lesson on scripted animation using requestAnimationFrame, showing when frame-by-frame computation is needed — physics, collisions, input-driven values, canvas drawing — and how to structure a rAF loop that syncs with the browser&#39;s refresh cycle.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Animation_Techniques_in_t5_videos.html">Animation Performance and Best Practices — Videos</a></div>
+    <p class="content-desc">A best-practices reading on animation performance that explains the roughly 16ms-per-frame budget for 60fps and how to avoid layout and paint work by animating compositor-friendly properties, useful for diagnosing and fixing janky animations.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Animation_Techniques_in_videos_merged.html">10 - Animation Techniques in the Browser — 5 topics (merged)</a></div>
+    <p class="content-desc">A consolidated module overview page that compiles all the lesson readings — browser animation fundamentals, CSS transitions, keyframe animations, requestAnimationFrame, and performance practices — into a single document for review or printing.</p>
+  </div>
+</li>
+</ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../9-implementing-drag-and-drop-interactions/index.html">← 9 - Implementing Drag and Drop Interactions</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../11-designing-mobile-ready-and-responsive-websites/index.html">11 - Designing Mobile-Ready and Responsive Websites →</a>
+</nav>
   </main>
-
-  <footer>
-    <p>COP4813 &mdash; Module 10: Animation Techniques in the Browser</p>
-  </footer>
-
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
 </html>

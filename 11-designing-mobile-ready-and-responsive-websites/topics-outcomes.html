@@ -18,13 +18,13 @@ li{margin:5px 0}
 .el-body{color:#555}
 .prefix{color:#555;font-style:italic;margin:6px 0 14px}
 .mo{border:1px solid #e2e2e2;border-radius:6px;padding:12px 16px;margin:12px 0}
-.mo .code{font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.mo .code{font-size:.8rem;color:#595959;text-transform:uppercase;letter-spacing:.04em}
 .mo .statement{font-weight:600;margin:4px 0 8px}
 .meta span{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin:0 6px 0 0;font-size:.85rem}
 .meta .map{background:#eaf6ec;color:#137333}
 .co{margin:7px 0}
 .co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
-.empty{color:#888}
+.empty{color:#595959}
 </style>
 </head>
 <body>
@@ -33,7 +33,7 @@ li{margin:5px 0}
 <div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
 
 <h2 id="topics">Module Topics</h2>
-<h3>Introduction to Responsive Web Design</h3>
+<h3 id="topic-1">Introduction to Responsive Web Design</h3>
 <div class="summary">Explore the foundational concepts of responsive web design and understand why building websites that adapt to multiple screen sizes is essential in today&#39;s multi-device landscape.</div>
 <ul>
 <li><strong>What Is Responsive Web Design?</strong> <span class="el-body">— Responsive web design (RWD) is an approach to web development that ensures a website&#39;s layout and content adapt fluidly to fit any screen size or device.</span></li>
@@ -43,7 +43,7 @@ li{margin:5px 0}
 <li><strong>Viewport Configuration</strong> <span class="el-body">— The viewport meta tag is a critical HTML element that instructs browsers on how to scale and display a web page on different screen sizes.</span></li>
 <li><strong>Why Responsive Design Matters</strong> <span class="el-body">— Beyond user experience, responsive web design has significant implications for search engine optimization, accessibility, and long-term site maintainability.</span></li>
 </ul>
-<h3>Fluid Grids and Flexible Layouts</h3>
+<h3 id="topic-2">Fluid Grids and Flexible Layouts</h3>
 <div class="summary">Learn how to construct fluid grid systems using relative units that allow page layouts to scale proportionally across different screen sizes and resolutions.</div>
 <ul>
 <li><strong>Understanding Fluid Grids</strong> <span class="el-body">— A fluid grid system uses relative units instead of fixed pixel values to define column widths, allowing the layout to scale proportionally as the viewport changes size.</span></li>
@@ -54,7 +54,7 @@ li{margin:5px 0}
 <li><strong>Gutters, Spacing, and the Box Model in Fluid Layouts</strong> <span class="el-body">— Managing spacing between grid columns and rows is critical in fluid layouts to prevent elements from touching or overflowing as the layout scales.</span></li>
 <li><strong>Testing and Validating Fluid Grid Behavior</strong> <span class="el-body">— After building a fluid grid layout, it is essential to verify that it scales correctly across a continuous range of screen sizes, not just at defined breakpoints.</span></li>
 </ul>
-<h3>Flexible Images and Media</h3>
+<h3 id="topic-3">Flexible Images and Media</h3>
 <div class="summary">Discover techniques for making images and other media elements resize and adapt fluidly within responsive layouts without breaking the design.</div>
 <ul>
 <li><strong>The max-width Technique for Images</strong> <span class="el-body">— Setting max-width: 100% on images is the foundational CSS rule that allows images to scale down fluidly within their containing elements.</span></li>
@@ -64,7 +64,7 @@ li{margin:5px 0}
 <li><strong>CSS background-size for Responsive Background Images</strong> <span class="el-body">— CSS background images are controlled differently from inline images and require the background-size property to behave responsively.</span></li>
 <li><strong>Performance Considerations for Responsive Media</strong> <span class="el-body">— Serving correctly sized images and media is as much a performance concern as a layout concern, directly affecting page load times on mobile networks.</span></li>
 </ul>
-<h3>CSS Media Queries</h3>
+<h3 id="topic-4">CSS Media Queries</h3>
 <div class="summary">Understand how to write and apply CSS media queries to target specific screen sizes, orientations, and device capabilities to deliver tailored styles.</div>
 <ul>
 <li><strong>What Are CSS Media Queries?</strong> <span class="el-body">— CSS media queries are conditional rules that apply specific styles only when certain device or viewport conditions are met.</span></li>
@@ -75,7 +75,7 @@ li{margin:5px 0}
 <li><strong>Applying Media Queries: Inline vs. External</strong> <span class="el-body">— Media queries can be placed directly within a stylesheet or used to conditionally load entire external CSS files, each approach suiting different project needs.</span></li>
 <li><strong>Best Practices for Writing Media Queries</strong> <span class="el-body">— Following established best practices ensures media queries remain readable, maintainable, and performant as a project scales.</span></li>
 </ul>
-<h3>Mobile-First Design Philosophy</h3>
+<h3 id="topic-5">Mobile-First Design Philosophy</h3>
 <div class="summary">Examine the mobile-first approach to web design, which prioritizes designing for the smallest screens first and progressively enhancing the experience for larger displays.</div>
 <ul>
 <li><strong>What Is Mobile-First Design?</strong> <span class="el-body">— Mobile-first design is a philosophy where the design and development process begins with the smallest screen sizes and progressively builds up to larger displays.</span></li>
@@ -86,7 +86,7 @@ li{margin:5px 0}
 <li><strong>Performance Benefits of Mobile-First</strong> <span class="el-body">— The mobile-first approach naturally encourages performance optimization, since mobile devices often have slower connections and less processing power than desktops.</span></li>
 <li><strong>Shifting the Design Mindset</strong> <span class="el-body">— Adopting a mobile-first philosophy requires a fundamental shift in how designers and developers think about layout, interaction, and user context from the very beginning of a project.</span></li>
 </ul>
-<h3>Viewport Configuration and Screen Sizes</h3>
+<h3 id="topic-6">Viewport Configuration and Screen Sizes</h3>
 <div class="summary">Learn how to configure the viewport meta tag and manage breakpoints to ensure websites render correctly across a wide range of devices and screen dimensions.</div>
 <ul>
 <li><strong>The Viewport Meta Tag</strong> <span class="el-body">— The viewport meta tag is an HTML element placed in the &lt;head&gt; section that instructs the browser how to control the page&#39;s dimensions and scaling on different devices.</span></li>
@@ -126,6 +126,6 @@ li{margin:5px 0}
 <h3>Course Outcomes (reference)</h3>
 <p class="empty">No course outcomes have been defined.</p>
 
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
 </body>
 </html>

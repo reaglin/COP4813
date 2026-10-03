@@ -1,0 +1,273 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>13 - Building a Browser-Embedded Game</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+<style>section.merged-part{border-top:2px solid rgba(128,128,128,.3);margin-top:2rem;padding-top:.5rem}nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}nav.toc a{display:block;text-decoration:none;padding:.12rem 0}</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 13 - Building a Browser-Embedded Game</a></div>
+<h1>13 - Building a Browser-Embedded Game</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#part1">Game Design Fundamentals</a>
+<a href="#part2">Canvas Drawing for Games</a>
+<a href="#part3">Animation and the Game Loop</a>
+<a href="#part4">Event Handling and Player Input</a>
+<a href="#part5">Game Logic and State Management</a>
+<a href="#part6">Integrating and Assembling the Complete Game</a>
+</nav>
+<section class="merged-part" id="part1">
+<h2>Game Design Fundamentals</h2>
+<section class="item" id="p1-sec1">
+<h3>Introduction</h3>
+<p>Before you write a single line of JavaScript, a browser game needs a plan. Game design fundamentals are about answering a handful of deceptively simple questions: What is the player trying to do? What rules govern success and failure? What objects exist in the world, and how do they relate to one another? How does the player act on the game, and what does the game show back? Writing these answers down — in a short design document or a rough sketch — turns a vague idea into something you can actually build in a few weeks.</p>
+<p>In this course, design discipline matters mostly because of scope. A browser game built on Canvas with a single game loop can support a surprising amount of play, but only if the entity list stays small, the rules stay clear, and the win/loss conditions are decidable in code. Deciding early that you have a player, a set of obstacles, a score, and two end states makes the later work of looping, rendering, input handling, and collision detection far more straightforward. Changing your mind about the core objective halfway through does the opposite.</p>
+<p>The videos below come from game designers rather than web programmers, so treat them as sources of design thinking, not implementation detail. As you watch, listen for how designers talk about a core mechanic, how rules create interesting decisions, and how constraints improve rather than limit a project. Then translate what you hear into your own one-page design: objective, rules, entity list, interaction model, and a sketch of the screen.</p>
+</section>
+<section class="item" id="p1-sec2">
+<h3>Video 1: How To Think Like A Game Designer</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/iIOIT3dCy5w?cc_load_policy=1&amp;rel=0" title="Video: How To Think Like A Game Designer (Game Maker's Toolkit)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Game Maker's Toolkit</strong> · 13:07 · 957,430 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=iIOIT3dCy5w" target="_blank" rel="noopener">Watch on YouTube</a></p>
+</section>
+<section class="item" id="p1-sec3">
+<h3>Video 2: 10 Game Design Lessons from 10 Years of GMTK</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/Cm2_drGLGbc?cc_load_policy=1&amp;rel=0" title="Video: 10 Game Design Lessons from 10 Years of GMTK (Game Maker's Toolkit)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Game Maker's Toolkit</strong> · 15:38 · 405,761 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=Cm2_drGLGbc" target="_blank" rel="noopener">Watch on YouTube</a></p>
+</section>
+<section class="item" id="p1-sec4">
+<h3>Video 3: Start Learning Game Design | Game Design Basics | Ep 00</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/oumT3FN7Ih0?cc_load_policy=1&amp;rel=0" title="Video: Start Learning Game Design | Game Design Basics | Ep 00 (Godot Tutorials)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Godot Tutorials</strong> · 7:06 · 25,146 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=oumT3FN7Ih0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+</section>
+<section class="item" id="p1-sec5">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part2">
+<h2>Canvas Drawing for Games</h2>
+<section class="item" id="p2-sec1">
+<h3>Introduction</h3>
+<p>The HTML5 Canvas element gives you a blank rectangle of pixels in the browser and a JavaScript drawing context (usually obtained with getContext('2d')) that lets you paint on it. Everything a player sees in a Canvas game — the background, the character, the obstacles, the score text — is drawn by your code, one shape or image at a time, and then erased and drawn again a fraction of a second later. There is no DOM element for the player's character; there is only what you drew on the most recent frame.</p>
+<p>In this module that matters because Canvas drawing is the output half of your game. You will set up the canvas and its size, establish the coordinate grid (origin at the top-left, x increasing to the right, y increasing downward), layer a background, draw rectangles and images for obstacles and objects, and cut frames out of a sprite sheet with drawImage to animate a character. Then you will clear the canvas with clearRect and redraw everything so that motion appears smooth rather than smeared.</p>
+<p>As you watch the videos below, pay attention to a few recurring details: how the canvas is created and sized in HTML versus in JavaScript, how each drawing call translates numbers into positions on screen, the order in which things are drawn (background first, foreground last), and where the clear-and-redraw step sits inside the animation loop. Try pausing and recreating small pieces in your own file — a filled rectangle, an image at a given x and y — before attempting a full game.</p>
+</section>
+<section class="item" id="p2-sec2">
+<h3>Video 1: Code a Stick Hero game with JavaScript and HTML Canvas</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/eue3UdFvwPo?cc_load_policy=1&amp;rel=0" title="Video: Code a Stick Hero game with JavaScript and HTML Canvas (Hunor Márton Borbély)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Hunor Márton Borbély</strong> · 13:10 · 77,662 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=eue3UdFvwPo" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A walkthrough of building a complete Stick Hero-style game using plain JavaScript and the HTML Canvas 2D context. Based on the title and description, it covers setting up the canvas, drawing the game world (platforms, the stick, the character) as shapes, and redrawing the scene as the game state changes. It is a condensed, project-oriented tutorial rather than a reference lecture.</p>
+<h4>Why this video</h4>
+<p>Because the whole game is drawn with Canvas primitives, it is a strong demonstration of the coordinate grid, layered drawing, and clear-and-redraw cycle in a real project; Hunor Márton Borbély is known for clean, well-explained Canvas game tutorials.</p>
+</section>
+<section class="item" id="p2-sec3">
+<h3>Video 2: Coding a Street Fighter game | JavaScript, HTML Canvas | Intro and Tooling (Part 1)</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/JW8q8lBJpiE?cc_load_policy=1&amp;rel=0" title="Video: Coding a Street Fighter game | JavaScript, HTML Canvas | Intro and Tooling (Part 1) (shezzor's Dev Corner)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>shezzor's Dev Corner</strong> · 17:08 · 51,974 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=JW8q8lBJpiE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>The opening part of a series on recreating a Street Fighter style game with JavaScript and HTML Canvas. This first episode focuses on the plan for the project and the tooling and setup needed to get started, which typically includes creating the canvas element, sizing it, and getting the 2D rendering context before anything is drawn. It frames the scope of the game before code is written.</p>
+<h4>Why this video</h4>
+<p>It models the "set up the canvas element and plan the game first" step that opens this topic, and it previews how background, characters, and objects will later be rendered in the same drawing surface.</p>
+</section>
+<section class="item" id="p2-sec4">
+<h3>Video 3: Sprite Animation in JavaScript - JavaScript Tutorial with HTML Canvas (Javascript Game Ep.3)</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/krNollwfqN0?cc_load_policy=1&amp;rel=0" title="Video: Sprite Animation in JavaScript - JavaScript Tutorial with HTML Canvas (Javascript Game Ep.3) (TK)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>TK</strong> · 14:12 · 8,990 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=krNollwfqN0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A focused tutorial on sprite animation in JavaScript using the Canvas element, part of a larger game-building series. It deals with sprite sheets — single images containing multiple animation frames — and how to draw the correct frame onto the canvas so a character appears to move. Expect discussion of frame indices, source rectangles, and timing the frame changes.</p>
+<h4>Why this video</h4>
+<p>This is the most direct coverage of rendering character sprites, and it shows why the canvas must be cleared and redrawn each frame for animation to look right rather than leave trails.</p>
+</section>
+<section class="item" id="p2-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos build the drawing layer that the module's outcomes depend on. The Street Fighter intro supports MO1 by showing a game being scoped and set up before code is written; the Stick Hero build and the sprite animation episode both demonstrate the clear-update-redraw cycle at the heart of MO2, including how every visible element is re-rendered on each frame. Watching complete game projects also previews MO3 through MO5, since input handling, collision and scoring logic, and final assembly all operate on the same entities and coordinates you learn to draw here; master the drawing and the grid first, and the later subsystems have something concrete to act on.</p>
+</section>
+<section class="item" id="p2-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part3">
+<h2>Animation and the Game Loop</h2>
+<section class="item" id="p3-sec1">
+<h3>Introduction</h3>
+<p>Every browser game, no matter how simple, is driven by a loop: a function that runs over and over, updating the positions and states of game objects and then redrawing the screen. This is the game loop, and it is the heartbeat of the project you are building in this module. Without it, a Canvas drawing is just a static picture; with it, the same drawing code becomes animation.</p>
+<p>In JavaScript, the preferred way to drive that loop is requestAnimationFrame. Unlike setInterval or setTimeout, it asks the browser to call your function right before the next repaint, which produces smoother motion, synchronizes with the display's refresh rate, and pauses automatically when the tab is hidden. You will write a core loop function that clears the canvas, updates game state, draws everything, and then schedules itself again. You will also learn to store the loop's ID so you can stop it for pausing or for a game-over screen.</p>
+<p>The subtler issue is timing. Because different machines and monitors run at different frame rates, movement expressed as "add 5 pixels per frame" will run faster on some computers than others. The fix is delta time: measure how much real time passed since the last frame and scale movement by it. As you watch these videos, pay attention to three things — how the loop schedules itself, where in the loop state is updated versus drawn, and how timestamps are used to make motion independent of frame rate.</p>
+</section>
+<section class="item" id="p3-sec2">
+<h3>Video 1: [Hype #6] The “FPS” Template — Frames Per Second &amp; JavaScript's requestAnimationFrame vs setInterval</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/eJJ-22f8YRI?cc_load_policy=1&amp;rel=0" title="Video: [Hype #6] The “FPS” Template — Frames Per Second &amp; JavaScript's requestAnimationFrame vs setInterval (Photics TV)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Photics TV</strong> · 12:08 · 1,249 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=eJJ-22f8YRI" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video walks through a template built to display frames per second in the browser, and in doing so compares requestAnimationFrame with the older setInterval approach to timed animation. Expect discussion of why frame rates vary, how FPS is measured by tracking elapsed time between frames, and what each scheduling method does differently. The context is a Tumult Hype template, but the underlying JavaScript concepts are the ones you will use in your own loop.</p>
+<h4>Why this video</h4>
+<p>It directly addresses the requestAnimationFrame versus setInterval decision at the center of this topic, and the FPS counter angle makes frame timing concrete, which is the foundation for understanding delta time and frame-rate independence.</p>
+</section>
+<section class="item" id="p3-sec3">
+<h3>Video 2: Javascript Animation using requestAnimationFrame</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/phP9xakjy00?cc_load_policy=1&amp;rel=0" title="Video: Javascript Animation using requestAnimationFrame (Mario Eraso)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Mario Eraso</strong> · 9:39 · 442 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=phP9xakjy00" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A focused tutorial on JavaScript animation fundamentals that builds up an animated example using requestAnimationFrame. It covers the basic structure of an animation function that updates values and then re-schedules itself, which is exactly the shape of a core game loop. The short runtime keeps it close to the essential mechanics rather than wandering into unrelated features.</p>
+<h4>Why this video</h4>
+<p>It is the most direct match for the subtopics on introducing requestAnimationFrame, writing the core loop function, and updating state each frame, presented as a hands-on coding walkthrough you can follow along with.</p>
+</section>
+<section class="item" id="p3-sec4">
+<h3>Video 3: Source Engine Tick System Explained</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/k3IFbheOPU0?cc_load_policy=1&amp;rel=0" title="Video: Source Engine Tick System Explained (Pinsplash)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Pinsplash</strong> · 8:51 · 169,044 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=k3IFbheOPU0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video explains how the Source game engine handles ticks — the fixed-interval updates that advance simulation state — and why tick rate affects gameplay behavior. It references the well-known "Fix Your Timestep" article, which is the standard reference on separating simulation updates from rendering frames. The examples come from commercial games, but the problem being described is the same one your delta-time code solves.</p>
+<h4>Why this video</h4>
+<p>It gives useful context for why frame-rate independence matters beyond the browser, showing real consequences when update timing is tied to frame rate, and it points you toward the canonical timestep reference.</p>
+</section>
+<section class="item" id="p3-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos support MO2 most directly: the requestAnimationFrame tutorials show how to write a self-scheduling loop that updates and redraws every frame, while the FPS and tick-rate videos explain the timing measurements behind frame-rate independence. Because the loop is where updates happen, this material also underpins MO4, since collision checks, scoring, and win/loss tests all live in the update phase you are learning to structure here, and MO5, since the loop is the component that ties drawing, input, and game logic into one running program.</p>
+</section>
+<section class="item" id="p3-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part4">
+<h2>Event Handling and Player Input</h2>
+<section class="item" id="p4-sec1">
+<h3>Introduction</h3>
+<p>A game is only a game when the player can act on it. Everything you have built so far — the Canvas drawing calls, the state object, the requestAnimationFrame loop — runs on its own schedule. Event handling is the bridge that lets a keypress, a click, or a finger tap reach into that loop and change what happens on the next frame.</p>
+<p>In this topic you will attach listeners to the document or directly to the canvas element, read the properties the browser hands you (key codes and key names from keyboard events, coordinates from mouse events, touch lists from touch events), and convert those raw values into game-meaningful actions such as "move left," "fire," or "aim at this point." A common and important pattern is to record input into a state object rather than acting immediately inside the handler, so the game loop stays the single place where the world updates. You will also learn when to call preventDefault() to stop the browser from scrolling the page, selecting text, or firing a synthetic click when the player is really trying to play.</p>
+<p>While watching the videos below, pay attention to three things: which element the listener is attached to, which event properties carry the information you need, and how the handler avoids doing too much work on its own. Mouse and touch coordinates in particular are reported relative to the viewport, so note any step that converts them into canvas coordinates — that conversion is something you will need in your own project.</p>
+</section>
+<section class="item" id="p4-sec2">
+<h3>Video 1: Detect Keyboard Keys in JavaScript | Day 20: HTML, CSS, &amp; JS | 60-Day Challenge</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/EEbm5mvmSMM?cc_load_policy=1&amp;rel=0" title="Video: Detect Keyboard Keys in JavaScript | Day 20: HTML, CSS, &amp; JS | 60-Day Challenge (Creative Babar)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Creative Babar</strong> · 10:27 · 88 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=EEbm5mvmSMM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+</section>
+<section class="item" id="p4-sec3">
+<h3>Video 2: Exploring touch events in JavaScript — Building Aggregate</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/Kh56KGE6POM?cc_load_policy=1&amp;rel=0" title="Video: Exploring touch events in JavaScript — Building Aggregate (PHP Annotated)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>PHP Annotated</strong> · 3:48 · 1,965 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=Kh56KGE6POM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+</section>
+<section class="item" id="p4-sec4">
+<h3>Video 3: Day 23: Creating an Animated Mouse Cursor | 60-Day Projects Series for Beginners! 🖱️🚀</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/ANOennSfIP0?cc_load_policy=1&amp;rel=0" title="Video: Day 23: Creating an Animated Mouse Cursor | 60-Day Projects Series for Beginners! 🖱️🚀 (Creative Babar)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Creative Babar</strong> · 8:52 · 127 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=ANOennSfIP0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+</section>
+<section class="item" id="p4-sec5">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part5">
+<h2>Game Logic and State Management</h2>
+<section class="item" id="p5-sec1">
+<h3>Introduction</h3>
+<p>A game is really just a data structure that changes over time. Behind the sprites and animation sits a game state: the score, the number of lives remaining, the positions and velocities of every entity, and a flag telling you whether the game is running, paused, won, or lost. Every frame of your game loop reads that state, updates it according to the rules, and redraws the screen to match. If the state is clean and well organized, the rest of the game becomes much easier to write, test, and debug.</p>
+<p>In this topic you will work through the mechanics that drive those state changes. Collision detection answers the question "did these two things touch?" and usually drives everything else: a hit may increase the score, remove an entity, deduct a life, or end the round. Win and loss conditions are checks you run during the update phase, and restarting the game is simply resetting your state object back to its initial values rather than reloading the page. Keeping all of this in the update phase of one unified loop prevents the scattered, hard-to-trace bugs that come from changing state in random event handlers.</p>
+<p>As you watch, pay attention to two things. First, the geometry and logic of rectangle overlap tests: how the comparison is built, and where in the loop it belongs. Second, the broader idea of state that the React videos illustrate: what belongs in state versus what is passed in, why state updates may not take effect immediately, and why you should treat state as something you replace rather than quietly mutate. Those habits transfer directly to a plain JavaScript Canvas game even though the framework differs.</p>
+</section>
+<section class="item" id="p5-sec2">
+<h3>Video 1: 2d Rectangle collision detection for JavaScript game development</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/wJC1aEpx8Mc?cc_load_policy=1&amp;rel=0" title="Video: 2d Rectangle collision detection for JavaScript game development (shezzor's Dev Corner)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>shezzor's Dev Corner</strong> · 8:39 · 2,389 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=wJC1aEpx8Mc" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>The first installment of a mini-series on 2D collisions in JavaScript game development, focused on axis-aligned rectangle (bounding box) collision detection. Expect a walkthrough of the overlap comparisons between two rectangles using their x, y, width, and height, and how to call that test from game code. As the opening part of a series, it establishes the basic case that later, more complex collision scenarios build upon.</p>
+<h4>Why this video</h4>
+<p>Rectangle overlap testing is the workhorse collision technique for browser games, and this video targets it directly in a short, practical, game-development context that matches the Collision Detection subtopic.</p>
+</section>
+<section class="item" id="p5-sec3">
+<h3>Video 2: State VS Props | Complete React Developer in 2020 (w/ Redux, Hooks, GraphQL)</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/uVlJVrUr5EY?cc_load_policy=1&amp;rel=0" title="Video: State VS Props | Complete React Developer in 2020 (w/ Redux, Hooks, GraphQL) (Get Me That Course)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Get Me That Course</strong> · 7:22 · 196 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=uVlJVrUr5EY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short conceptual video contrasting state and props in React, explaining which data an object owns and manages itself versus which data is handed to it from outside. It covers how changing state triggers a re-render and why props should be treated as read-only.</p>
+<h4>Why this video</h4>
+<p>The distinction maps cleanly onto game design: your score, lives, and status flags are owned state, while entity configuration is more like props, which helps you plan the overall state structure before coding.</p>
+</section>
+<section class="item" id="p5-sec4">
+<h3>Video 3: Asynchronous setState | Complete React Developer in 2020 (w/ Redux, Hooks, GraphQL)</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/JVKrnTpHQhc?cc_load_policy=1&amp;rel=0" title="Video: Asynchronous setState | Complete React Developer in 2020 (w/ Redux, Hooks, GraphQL) (Get Me That Course)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Get Me That Course</strong> · 14:48 · 147 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=JVKrnTpHQhc" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video explains that setState in React is asynchronous and does not immediately reflect the new value, and demonstrates the problems that arise when you read state right after setting it. It typically shows the callback or updater-function pattern for computing a new value from the previous one.</p>
+<h4>Why this video</h4>
+<p>It teaches the discipline of deriving new state from the previous state rather than assuming an immediate update, a habit that prevents subtle scoring and lives-counter bugs when several events fire within a single frame.</p>
+</section>
+<section class="item" id="p5-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos support the planning and logic outcomes of the module. The two state-focused videos reinforce MO1 by pushing you to decide what belongs in your game's state structure and how it should be updated safely, which also underpins the clean restart and reset behavior you need for a finished project (MO5). The rectangle collision video speaks directly to MO4, giving you the overlap test that triggers scoring, life loss, and win or loss transitions inside the update phase of the loop you build for MO2. None of the videos cover input wiring (MO3) or requestAnimationFrame directly, so rely on the module readings and your own lab work for those pieces and use these videos for the logic and state layer.</p>
+</section>
+<section class="item" id="p5-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part6">
+<h2>Integrating and Assembling the Complete Game</h2>
+<section class="item" id="p6-sec1">
+<h3>Introduction</h3>
+<p>Up to this point you have practiced the pieces of browser game development separately: drawing shapes and images on a Canvas, animating them frame by frame, capturing keyboard and mouse input, and writing the logic that decides what happens next. This topic is about assembly — taking those separate skills and fitting them into one project with a sensible file structure, a single authoritative game loop, and clear rules for when the player wins or loses.</p>
+<p>Assembly is where most beginner projects break down, because subsystems that worked in isolation start competing: input events fire at unpredictable times, drawing code is scattered across functions, and state is updated in two places at once. The discipline you are learning here is to keep one loop that clears, updates, and redraws every frame; to let event handlers only record intent rather than directly move objects; and to keep game state in one structure that logic and rendering both read from.</p>
+<p>As you watch the videos below, pay less attention to the specific game being built and more to the architecture. Ask yourself: where does this project store its state? What happens exactly once per frame versus once per event? Where do collision checks and scoring live? How does the developer get the finished game onto a page so someone else can play it? Those questions map directly onto the subtopics in this module.</p>
+</section>
+<section class="item" id="p6-sec2">
+<h3>Video 1: Create Game in 10 Minutes with JavaScript Physics Engine</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/PsL3iI61wl8?cc_load_policy=1&amp;rel=0" title="Video: Create Game in 10 Minutes with JavaScript Physics Engine (Red Stapler)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Red Stapler</strong> · 9:37 · 106,557 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=PsL3iI61wl8" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A fast, complete walkthrough of building a slingshot shooting game in JavaScript using the matter.js 2D physics engine, with source code provided. Based on the title and description, it covers setting up a project, creating a world of game bodies, handling mouse-based player input to aim and fire, and running the simulation and rendering loop that keeps everything moving. The compressed ten-minute format means you see the whole pipeline from blank page to playable game in one pass.</p>
+<h4>Why this video</h4>
+<p>It is a useful end-to-end model of assembling a complete project rather than an isolated technique, and the mouse-driven slingshot interaction is a clear example of wiring player input into game state. The available source code lets you compare your own project structure against a working one.</p>
+</section>
+<section class="item" id="p6-sec3">
+<h3>Video 2: Build a Space Invaders Game using JavaScript 🔥</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/3O-1DQKYuOU?cc_load_policy=1&amp;rel=0" title="Video: Build a Space Invaders Game using JavaScript 🔥 (CyberWolves)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>CyberWolves</strong> · 8:09 · 2,987 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=3O-1DQKYuOU" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A build-along tutorial that recreates the classic Space Invaders arcade game in JavaScript. A project like this typically involves drawing player and enemy entities, animating enemy movement each frame, reading keyboard input for movement and firing, detecting collisions between projectiles and targets, and tracking score along with win and lose conditions. The short runtime suggests a brisk, code-focused presentation you may want to pause and follow along with.</p>
+<h4>Why this video</h4>
+<p>Space Invaders exercises nearly every subtopic in this module at once — drawing, animation, keyboard input, collision detection, scoring, and game-over logic — making it a strong template for your own integrated project.</p>
+</section>
+<section class="item" id="p6-sec4">
+<h3>Video 3: Canvas2D is getting an update</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/dfOKFSDG7IM?cc_load_policy=1&amp;rel=0" title="Video: Canvas2D is getting an update (Chrome for Developers)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Chrome for Developers</strong> · 10:42 · 19,739 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=dfOKFSDG7IM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>An official Chrome for Developers overview of recent additions and improvements to the Canvas2D API. Expect a tour of newer drawing and context features, performance-related capabilities, and guidance on what the modern 2D rendering surface can do beyond the basics you have already used. It is explanatory rather than a step-by-step build.</p>
+<h4>Why this video</h4>
+<p>It comes directly from the browser vendor, so it is an authoritative reference on the rendering layer your finished game depends on, and it helps you make informed choices while combining your drawing and animation systems and testing the result across browsers.</p>
+</section>
+<section class="item" id="p6-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>The two build-along projects show complete games assembled from drawing, animation, input, and logic, which is the core of MO5, and both demonstrate the single update-and-redraw loop pattern behind MO2. Their mouse-based aiming and keyboard-based movement illustrate the input wiring described in MO3, while the shooting and collision mechanics model the collision detection, scoring, and win/loss transitions in MO4. Watching each project take shape from an initial concept also reinforces MO1, since you can see how the designer's choices about entities, rules, and state structure shape the code. The Canvas2D update video supports the rendering foundation for MO2 and MO5, and gives you an authoritative reference point when debugging or presenting your finished game.</p>
+</section>
+<section class="item" id="p6-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

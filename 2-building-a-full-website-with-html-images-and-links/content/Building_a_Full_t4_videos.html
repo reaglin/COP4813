@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Creating Hyperlinks</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 2 -Building a Full Website with HTML, Images, and Links</a></div>
+<h1>Creating Hyperlinks</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: HTML - Links - W3Schools.com</a>
+<a href="#sec3">Video 2: You’re Using HTML Links Wrong — Here’s How to Fix It!</a>
+<a href="#sec4">Video 3: HTML Navigation: Create Links with Anchor Elements</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Hyperlinks are what turn a collection of separate HTML files into an actual website. The anchor element, written as a pair of &lt;a&gt; tags, wraps the text or image a visitor clicks, and its href attribute tells the browser where to go. That destination can be an absolute URL pointing to another site on the web (an external link), or a relative file path pointing to another page in your own project folder (an internal link).</p>
+<p>In this module you are building a multi-page site, so linking is the glue that holds your work together. Every page you create needs to be reachable from your navigation menu, and every navigation menu needs correct relative paths that still work when files move into subfolders. You will also meet the target attribute, which controls whether a link opens in the same tab or a new one, along with the rel attribute that should accompany target=&quot;_blank&quot; for security reasons.</p>
+<p>As you watch the videos below, pay attention to three things: the exact syntax of the anchor element and where the clickable text goes, the difference between a full URL and a relative path, and the practical habits that keep links from breaking. Try typing each example yourself rather than only watching, and test every link in a browser before you move on.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: HTML - Links - W3Schools.com</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/HA6bByKdAQM?cc_load_policy=1&amp;rel=0" title="Video: HTML - Links - W3Schools.com (w3schools.com)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>w3schools.com</strong> · 3:27 · 276,152 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=HA6bByKdAQM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short, beginner-focused introduction from W3Schools covering what a hyperlink is and how the anchor element and href attribute work together in HTML. Expect a quick walkthrough of basic link syntax and how a browser responds when a link is clicked. At under four minutes, it is a compact overview rather than a deep dive.</p>
+<h3>Why this video</h3>
+<p>W3Schools is a long-standing, widely used reference for web standards, so the syntax demonstrated is reliable and matches what you will find in the course documentation. It is the fastest way to get the anchor element and href attribute straight before tackling the longer videos.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: You’re Using HTML Links Wrong — Here’s How to Fix It!</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/h5XtlkmE7U4?cc_load_policy=1&amp;rel=0" title="Video: You’re Using HTML Links Wrong — Here’s How to Fix It! (williamsk)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>williamsk</strong> · 8:52 · 451 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=h5XtlkmE7U4" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A longer lesson that looks past basic syntax at the lesser-known capabilities of the anchor tag and at common mistakes developers make when writing links. Based on its title and description, expect discussion of attributes and link behaviors that beginners often get wrong or overlook. The nearly nine-minute runtime allows for more detail than an introductory clip.</p>
+<h3>Why this video</h3>
+<p>It pushes you beyond copy-paste syntax toward the judgment calls this topic requires, such as when a link should open in a new tab and what accompanies the target attribute, which supports the course emphasis on correct and secure linking.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: HTML Navigation: Create Links with Anchor Elements</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/wIrYQ0f9zOA?cc_load_policy=1&amp;rel=0" title="Video: HTML Navigation: Create Links with Anchor Elements (WebDev Exploration)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>WebDev Exploration</strong> · 7:06 · 636 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=wIrYQ0f9zOA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This tutorial focuses specifically on using the anchor element to build site navigation, and its description states it covers creating both internal and external links. You should see how absolute URLs are used to reach other websites and how relative file paths are used to reach other pages in your own project. Around seven minutes long, it gives enough room for worked examples.</p>
+<h3>Why this video</h3>
+<p>It maps directly onto the internal and external hyperlink subtopics and frames linking as navigation, which is exactly how you will use it when building your multi-page site in this module.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos build directly toward MO3 and MO4: the W3Schools clip establishes the anchor element and href syntax, the WebDev Exploration tutorial distinguishes relative internal links from absolute external URLs in the context of site navigation, and the williamsk lesson addresses the finer points of anchor tag usage such as link behavior and attributes like target. Applying this material lets you construct the nav element required in MO1 and connect every page in the folder structure described in MO4. The habit of checking that each link resolves correctly, reinforced across all three videos, is also what you will need for the link-testing and quality review step in MO5.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

@@ -1,5 +1,10 @@
 ﻿[
   {
+    "title": "10 - Animation Techniques in the Browser (module page)",
+    "href": "index.html",
+    "type": "Module page"
+  },
+  {
     "title": "10 - Animation Techniques in the Browser \u2014 Topics \u0026 Learning Outcomes",
     "href": "topics-outcomes.html",
     "type": "Page"
@@ -40,8 +45,33 @@
     "type": "Content"
   },
   {
-    "title": "10 - Animation Techniques in the Browser \u2014 Module Topics",
-    "href": "content/module_topics.html",
+    "title": "Introduction to Browser Animation",
+    "href": "content/Animation_Techniques_in_t1_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "CSS Transitions",
+    "href": "content/Animation_Techniques_in_t2_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "CSS Keyframe Animations",
+    "href": "content/Animation_Techniques_in_t3_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "JavaScript-Driven Animation with requestAnimationFrame",
+    "href": "content/Animation_Techniques_in_t4_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Animation Performance and Best Practices",
+    "href": "content/Animation_Techniques_in_t5_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "10 - Animation Techniques in the Browser",
+    "href": "content/Animation_Techniques_in_videos_merged.html",
     "type": "Content"
   }
 ]

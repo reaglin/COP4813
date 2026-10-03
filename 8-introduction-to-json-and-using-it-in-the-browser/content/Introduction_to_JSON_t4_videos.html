@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stringifying JavaScript Objects to JSON</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 8 - Introduction to JSON and Using It in the Browser</a></div>
+<h1>Stringifying JavaScript Objects to JSON</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Day 1 | JSON Tutorial | Introduction, parse(), stringify(), Serialize() &amp; Deserialize(), JSON Vs XML</a>
+<a href="#sec3">Video 2: Day 6 | JSON.stringify() Explained | JSON Object vs JavaScript Object</a>
+<a href="#sec4">Video 3: Day 8 | JSON.stringify() with JavaScript Object | JSON Object vs JavaScript Object</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>JavaScript objects live in memory, but the network, browser storage, and most server APIs only move text. JSON.stringify() is the bridge: it serializes a JavaScript value — an object, array, number, string, boolean, or null — into a JSON-formatted string that can be sent in a request body, saved to localStorage, or logged for inspection. It is the exact counterpart of JSON.parse(), which turns such a string back into a usable object.</p>
+<p>In this topic you will look at the method&#39;s signature, JSON.stringify(value, replacer, space), and what each argument does. The optional replacer (a function or an array of property names) lets you filter or transform what gets written, and the space argument lets you pretty-print the output with indentation so it is readable during debugging. You will also see how different data types are treated: strings, numbers, booleans, arrays, and nested objects convert cleanly, while functions and undefined values are dropped from objects, and Date objects become ISO strings.</p>
+<p>As you watch the videos below, keep one distinction in front of you: a JavaScript object is a live value you can access with dot notation, while the result of JSON.stringify() is just text. Notice when the speaker types quotes around the output in the console, and try to predict what each example will print before it appears on screen.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Day 1 | JSON Tutorial | Introduction, parse(), stringify(), Serialize() &amp; Deserialize(), JSON Vs XML</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/edifAKaHbGg?cc_load_policy=1&amp;rel=0" title="Video: Day 1 | JSON Tutorial | Introduction, parse(), stringify(), Serialize() &amp; Deserialize(), JSON Vs XML (Veer - the developer)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Veer - the developer</strong> · 17:40 · 361 views · 7mo ago · captions — <a href="https://www.youtube.com/watch?v=edifAKaHbGg" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This opening lesson of a JSON course series introduces JSON as a data format and walks through the two core methods, JSON.parse() and JSON.stringify(), framing them as deserialization and serialization. Based on the title and description, it also contrasts JSON with XML as a data-interchange format. Expect a broad orientation rather than a deep dive into any single parameter.</p>
+<h3>Why this video</h3>
+<p>It establishes the vocabulary — serialize, deserialize, parse, stringify — that the rest of the topic depends on, so it is a sensible starting point before focusing on stringification alone.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Day 6 | JSON.stringify() Explained | JSON Object vs JavaScript Object</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/SBQz0to14LE?cc_load_policy=1&amp;rel=0" title="Video: Day 6 | JSON.stringify() Explained | JSON Object vs JavaScript Object (Veer - the developer)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Veer - the developer</strong> · 9:16 · 45 views · 4mo ago · captions — <a href="https://www.youtube.com/watch?v=SBQz0to14LE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>Day 6 of the same series focuses specifically on JSON.stringify(), explaining what the method does and how a JSON string differs from a native JavaScript object. The title suggests direct attention to the JSON object versus JavaScript object comparison that often confuses beginners. In roughly nine minutes it should cover the basic call and the shape of the output.</p>
+<h3>Why this video</h3>
+<p>This is the most on-target video for the subtopics &quot;What Is JSON.stringify()?&quot; and &quot;Basic Syntax and Parameters,&quot; and it reinforces the string-versus-object distinction that underpins the whole module.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Day 8 | JSON.stringify() with JavaScript Object | JSON Object vs JavaScript Object</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/UylQFbdjtcM?cc_load_policy=1&amp;rel=0" title="Video: Day 8 | JSON.stringify() with JavaScript Object | JSON Object vs JavaScript Object (Veer - the developer)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Veer - the developer</strong> · 5:35 · 53 views · 4mo ago · captions — <a href="https://www.youtube.com/watch?v=UylQFbdjtcM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>Day 8 continues the series by applying JSON.stringify() to JavaScript objects in practice, again set against the JSON object versus JavaScript object comparison. The short runtime suggests a focused, example-driven demonstration of converting objects and viewing the resulting string. Watch how properties of different data types appear in the output.</p>
+<h3>Why this video</h3>
+<p>Its hands-on treatment gives you a concrete sense of how stringification handles object properties and nested values, complementing the more conceptual explanation in the earlier videos.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos support MO1 by showing the structural elements — objects, arrays, and nested values — that appear in valid JSON output, and they directly serve MO2 by repeatedly contrasting a JSON-formatted string with a native JavaScript object and demonstrating how JSON.stringify() and JSON.parse() convert between the two. Because serializing data is a prerequisite for sending request bodies and for inspecting fetched responses, the skills demonstrated here also prepare you for the Fetch and DOM-rendering work described in MO3 through MO5.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

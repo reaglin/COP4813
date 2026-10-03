@@ -1,5 +1,10 @@
 ﻿[
   {
+    "title": "6 - External Libraries: jQuery, Bootstrap, and Plotting Tools (module page)",
+    "href": "index.html",
+    "type": "Module page"
+  },
+  {
     "title": "6 - External Libraries: jQuery, Bootstrap, and Plotting Tools \u2014 Topics \u0026 Learning Outcomes",
     "href": "topics-outcomes.html",
     "type": "Page"
@@ -50,8 +55,43 @@
     "type": "Content"
   },
   {
-    "title": "6 - External Libraries: jQuery, Bootstrap, and Plotting Tools \u2014 Module Topics",
-    "href": "content/module_topics.html",
+    "title": "Introduction to External Libraries and CDN Integration",
+    "href": "content/External_Libraries_jQuery_t1_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "jQuery Fundamentals and DOM Manipulation",
+    "href": "content/External_Libraries_jQuery_t2_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "jQuery Events and Dynamic Interactivity",
+    "href": "content/External_Libraries_jQuery_t3_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Bootstrap Layout and the Responsive Grid System",
+    "href": "content/External_Libraries_jQuery_t4_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Bootstrap UI Components and Styling",
+    "href": "content/External_Libraries_jQuery_t5_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Data Visualization with Chart.js",
+    "href": "content/External_Libraries_jQuery_t6_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Combining Libraries in a Complete Web Project",
+    "href": "content/External_Libraries_jQuery_t7_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "6 - External Libraries: jQuery, Bootstrap, and Plotting Tools",
+    "href": "content/External_Libraries_jQuery_videos_merged.html",
     "type": "Content"
   }
 ]

@@ -1,5 +1,10 @@
 ﻿[
   {
+    "title": "2 -Building a Full Website with HTML, Images, and Links (module page)",
+    "href": "index.html",
+    "type": "Module page"
+  },
+  {
     "title": "2 -Building a Full Website with HTML, Images, and Links \u2014 Topics \u0026 Learning Outcomes",
     "href": "topics-outcomes.html",
     "type": "Page"
@@ -50,8 +55,43 @@
     "type": "Content"
   },
   {
-    "title": "2 -Building a Full Website with HTML, Images, and Links \u2014 Module Topics",
-    "href": "content/module_topics.html",
+    "title": "Introduction to Multi-Page Website Structure",
+    "href": "content/Building_a_Full_t1_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Semantic HTML Markup",
+    "href": "content/Building_a_Full_t2_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Embedding Images in HTML",
+    "href": "content/Building_a_Full_t3_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Creating Hyperlinks",
+    "href": "content/Building_a_Full_t4_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Internal Navigation and Site Linking",
+    "href": "content/Building_a_Full_t5_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "External Links and Web Resources",
+    "href": "content/Building_a_Full_t6_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Bringing It All Together: Building a Complete Website",
+    "href": "content/Building_a_Full_t7_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "2 -Building a Full Website with HTML, Images, and Links",
+    "href": "content/Building_a_Full_videos_merged.html",
     "type": "Content"
   }
 ]

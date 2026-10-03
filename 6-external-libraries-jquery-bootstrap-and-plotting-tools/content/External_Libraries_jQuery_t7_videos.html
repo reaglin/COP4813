@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Combining Libraries in a Complete Web Project</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 6 - External Libraries: jQuery, Bootstrap, and Plotting Tools</a></div>
+<h1>Combining Libraries in a Complete Web Project</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Date Range Filter in DataTables, Chart.js using Date Range Picker with PHP MySQL Ajax</a>
+<a href="#sec3">Video 2: School Fees Management System in PHP &amp; MySQL - Load User Data in jQuery Datatables - 5</a>
+<a href="#sec4">Video 3: Backend web development - a complete overview</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Up to this point in the module you have practiced each external library on its own: jQuery for DOM manipulation and events, Bootstrap for responsive layout and components, and Chart.js for data visualization. This topic brings them together. A realistic web page rarely uses just one library — it uses a layout framework, a DOM/AJAX helper, and a charting tool all on the same page, each loaded from a CDN or a local file, each with its own dependencies and its own expectations about when it runs.</p>
+<p>The practical issues are mostly about order and structure. Scripts must load so that dependencies arrive before the code that uses them (jQuery before jQuery plugins, Bootstrap&#39;s JavaScript bundle after its dependencies, Chart.js before any chart-rendering code), initialization code should run after the DOM is ready, and the project folder itself should be organized so that CSS, JavaScript, vendor files, and markup stay separate and predictable. You also need to watch for conflicts: two libraries claiming the same global name, duplicate versions of jQuery, or a plugin written for an older version than the one you loaded.</p>
+<p>The videos below are walkthroughs of working projects rather than isolated feature demos. As you watch, pay attention to the head and footer of each page: which libraries are included, in what sequence, and from where. Notice how a jQuery event (a button click, a date selection, a form submit) triggers a request for data, and how that returned data is then handed to both a table and a chart. The third video steps back to the bigger picture of how front-end code fits with a backend and a database, which is the context in which these multi-library pages usually live.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Date Range Filter in DataTables, Chart.js using Date Range Picker with PHP MySQL Ajax</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/o7eL8kZlOX0?cc_load_policy=1&amp;rel=0" title="Video: Date Range Filter in DataTables, Chart.js using Date Range Picker with PHP MySQL Ajax (Webslesson)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Webslesson</strong> · 16:50 · 21,235 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=o7eL8kZlOX0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This tutorial builds a date-range filter that drives both a DataTables table and a Chart.js chart, using a jQuery Date Range Picker widget with a PHP/MySQL backend and Ajax. Based on the title and description, it likely shows the full include list for jQuery, the picker plugin, DataTables and Chart.js, then wires a change event on the picker to an Ajax call that returns filtered data and refreshes both the table and the chart. Expect to see chart data being replaced and re-rendered rather than the page being reloaded.</p>
+<h3>Why this video</h3>
+<p>It is one of the few short tutorials that genuinely combines jQuery, a jQuery plugin, a styled table, and Chart.js on a single page, which is exactly the integration scenario this topic describes. Webslesson is a long-running channel focused on practical PHP and jQuery builds, so the walkthrough is code-first and shows the actual script tags and load order.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: School Fees Management System in PHP &amp; MySQL - Load User Data in jQuery Datatables - 5</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/iZcoGLeDjR8?cc_load_policy=1&amp;rel=0" title="Video: School Fees Management System in PHP &amp; MySQL - Load User Data in jQuery Datatables - 5 (Webslesson)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Webslesson</strong> · 17:46 · 2,233 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=iZcoGLeDjR8" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>Part of a longer School Fees Management System series, this episode focuses on fetching user records from MySQL and loading them into a jQuery DataTables grid. From the title and description it should cover the server-side query, the Ajax request, and the jQuery initialization code that binds returned data to the table in a Bootstrap-styled page. It is a slice of a larger multi-page project rather than a standalone demo.</p>
+<h3>Why this video</h3>
+<p>Watching one episode of a larger build shows how library includes and initialization code are organized across a real project structure, which supports the planning and dependency-management subtopics. It also reinforces the jQuery side of the stack — selectors, document-ready initialization, and Ajax-driven DOM updates.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Backend web development - a complete overview</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/XBu54nfzxAQ?cc_load_policy=1&amp;rel=0" title="Video: Backend web development - a complete overview (SuperSimpleDev)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>SuperSimpleDev</strong> · 12:58 · 2,933,135 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=XBu54nfzxAQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A high-level overview of backend web development: what a server does, common backend languages and frameworks, databases, APIs, and how the browser front end talks to all of it. It is conceptual rather than a coding walkthrough, with diagrams and plain explanations of the request-response cycle.</p>
+<h3>Why this video</h3>
+<p>It supplies the context that makes the other two videos readable — why pages fetch data over Ajax, where the data in a chart actually comes from, and how front-end libraries sit on top of a backend. SuperSimpleDev is a widely viewed, carefully explained channel, making this a good orientation piece before studying project-level integration.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos reinforce the module outcomes in an applied setting. The first two show real pages that include jQuery, Bootstrap styling, plugins, and Chart.js from CDNs in a working sequence, which supports MO1 on correct include syntax and load order, and MO5 on managing several dependencies without conflicts. The jQuery event handling and Ajax-driven DOM updates in both Webslesson tutorials map to MO2, the Bootstrap-based page layouts around the tables and charts touch MO3, and the date-filtered chart that re-renders with new data addresses MO4. The backend overview rounds this out by explaining where the chart data originates, helping you reason about project structure and the division of work between browser and server.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

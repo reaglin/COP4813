@@ -1,5 +1,10 @@
 ﻿[
   {
+    "title": "9 - Implementing Drag and Drop Interactions (module page)",
+    "href": "index.html",
+    "type": "Module page"
+  },
+  {
     "title": "9 - Implementing Drag and Drop Interactions \u2014 Topics \u0026 Learning Outcomes",
     "href": "topics-outcomes.html",
     "type": "Page"
@@ -45,8 +50,33 @@
     "type": "Content"
   },
   {
-    "title": "9 - Implementing Drag and Drop Interactions \u2014 Module Topics",
-    "href": "content/module_topics.html",
+    "title": "Introduction to HTML5 Drag and Drop",
+    "href": "content/Implementing_Drag_and_t1_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Making Elements Draggable",
+    "href": "content/Implementing_Drag_and_t2_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Handling the dragstart Event",
+    "href": "content/Implementing_Drag_and_t3_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Handling the drop Event",
+    "href": "content/Implementing_Drag_and_t5_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Building an Interactive UI Component",
+    "href": "content/Implementing_Drag_and_t6_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "9 - Implementing Drag and Drop Interactions",
+    "href": "content/Implementing_Drag_and_videos_merged.html",
     "type": "Content"
   }
 ]

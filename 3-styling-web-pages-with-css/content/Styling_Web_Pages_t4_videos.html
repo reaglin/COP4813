@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Typography and Colors</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 3 -Styling Web Pages with CSS</a></div>
+<h1>Typography and Colors</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: CSS - Colors Introduction - W3Schools.com</a>
+<a href="#sec3">Video 2: Typography With CSS</a>
+<a href="#sec4">Video 3: Hex, RGB, and HSLA: What&#39;s the difference? Color types in CSS, explained - Recipe for Disaster Pt 10</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Typography and color are two of the most visible decisions you make in CSS. Font family, font size, font weight, line height, and text alignment determine whether a block of text is comfortable to read or exhausting to look at, and color determines contrast, mood, and whether a visitor can read your content at all. These are not decorative afterthoughts — they are the properties you will reach for first when you begin styling any page.</p>
+<p>In this topic you will work with two related skill sets. The first is text styling: choosing a font stack with font-family, setting size and weight, adjusting line-height for readable spacing between lines, and controlling alignment with text-align. The second is color: naming a color with a keyword like red or steelblue, specifying it precisely with a hex code such as #3366FF, or building it from channel values with rgb() and rgba() notation. You will apply those color values to both the color property (text) and the background-color property (the area behind it).</p>
+<p>As you watch the videos below, pay attention to syntax details that trip students up: the comma-separated fallback list in font-family, the unitless number often used for line-height, the # prefix and six-digit pattern of hex codes, and the 0–255 range of each RGB channel. Also notice that every color value in these videos ultimately describes the same thing — the formats are interchangeable, so you can choose the one that fits your workflow. Keep contrast between text color and background color in mind throughout; it is the practical reason these two subtopics are taught together.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: CSS - Colors Introduction - W3Schools.com</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/q0uWmobMf6I?cc_load_policy=1&amp;rel=0" title="Video: CSS - Colors Introduction - W3Schools.com (w3schools.com)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>w3schools.com</strong> · 3:02 · 85,432 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=q0uWmobMf6I" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short beginner introduction to color in CSS from the W3Schools video series. Based on the W3Schools CSS Colors reference pages, it should walk through how colors are specified in CSS and how those values are written into style rules. Expect coverage of the basic color formats you will use in your own stylesheets.</p>
+<h3>Why this video</h3>
+<p>W3Schools is the reference most beginning web developers use daily, so this video matches the documentation you will likely consult while coding, and its three-minute length makes it an efficient entry point to the named-value, hex, and RGB subtopics.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Typography With CSS</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/jggV5PucL1A?cc_load_policy=1&amp;rel=0" title="Video: Typography With CSS (Udacity)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Udacity</strong> · 3:11 · 15,630 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=jggV5PucL1A" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A concise overview from Udacity of the typography tools CSS gives you for styling text on a page. It is framed around the range of text-related properties available, which is exactly the font-family, size, weight, and spacing territory of this topic. Treat it as a map of what is possible before you practice the individual properties.</p>
+<h3>Why this video</h3>
+<p>Udacity produces structured instructional content for developers, and this video gathers the typography subtopics into one short survey, which helps you see how font and text properties work together rather than as isolated rules.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Hex, RGB, and HSLA: What&#39;s the difference? Color types in CSS, explained - Recipe for Disaster Pt 10</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/nOeDrsCOq3g?cc_load_policy=1&amp;rel=0" title="Video: Hex, RGB, and HSLA: What&#39;s the difference? Color types in CSS, explained - Recipe for Disaster Pt 10 (Professor K Explains)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Professor K Explains</strong> · 9:09 · 424 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=nOeDrsCOq3g" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A longer, more explanatory video that compares the different ways of writing a color value in CSS — hex, RGB, and HSLA — and discusses when you might choose one over another. As part of a project-based series, it is likely to show these values being used in real stylesheet code. The added HSLA material goes slightly beyond this topic but reinforces how all color notations relate.</p>
+<h3>Why this video</h3>
+<p>This is the clearest fit for the hex-versus-RGB subtopics because it directly contrasts the notations instead of simply listing them, helping you understand that the formats are different ways of expressing the same color.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>These videos support MO5 most directly: producing a cohesive, fully styled page requires confident control of typography and color inside your external stylesheet, and the Udacity typography overview plus the two color videos give you the property vocabulary to do that. They also reinforce MO2, since every font and color declaration demonstrated must be attached to an element, class, or ID selector and may be overridden by the cascade — watching how these rules are written gives you more realistic material to reason about specificity with. Finally, the text-spacing properties covered here (line-height in particular) connect to the spacing concerns of MO3, where margin and padding control the space around elements rather than within the text itself.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

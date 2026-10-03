@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CSS Transitions</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 10 - Animation Techniques in the Browser</a></div>
+<h1>CSS Transitions</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: CSS Transition Property | Sigma Web Development Course - Tutorial #45</a>
+<a href="#sec3">Video 2: CSS Animations &amp; Transitions - What You Need To Know in 6 Minutes</a>
+<a href="#sec4">Video 3: Animate to &quot;height: auto;&quot; &amp; &quot;display: none;&quot; Using CSS Transitions</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>CSS transitions are the simplest way to make a web page feel alive. Instead of a property snapping instantly from one value to another when a state changes — for example on :hover, :focus, or when a class is added by JavaScript — a transition tells the browser to interpolate between the old and new values over a span of time. The result is motion that communicates change to the user without writing a single line of animation code.</p>
+<p>In this module you will work with the four sub-properties that control that motion: transition-property (which properties are allowed to animate), transition-duration (how long the change takes), transition-timing-function (the acceleration curve, such as ease, linear, ease-in-out, or a custom cubic-bezier), and transition-delay (how long to wait before starting). You will also use the transition shorthand to combine them, and you will learn that not every CSS property is transitionable or cheap to animate — properties like transform and opacity are handled by the compositor, while animating width, height, or top forces the browser to redo layout and paint work on every frame.</p>
+<p>As you watch the videos below, pay attention to three things: the exact syntax and ordering of values in the shorthand, where the transition declaration is placed (on the base state, not only on the hover state, so it applies in both directions), and any remarks about which properties are safe to animate. Keep a scratch HTML file open and reproduce each example yourself — transitions are far easier to understand by tweaking a duration or timing function and watching the difference than by reading about them.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: CSS Transition Property | Sigma Web Development Course - Tutorial #45</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/pHI4PBFM0wY?cc_load_policy=1&amp;rel=0" title="Video: CSS Transition Property | Sigma Web Development Course - Tutorial #45 (CodeWithHarry)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>CodeWithHarry</strong> · 13:33 · 352,552 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=pHI4PBFM0wY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A detailed tutorial lesson from CodeWithHarry&#39;s Sigma Web Development course that walks through the CSS transition property from the ground up. Based on its length and title, it should demonstrate the individual sub-properties — transition-property, transition-duration, transition-timing-function, and transition-delay — and then show how they are combined in the shorthand, with live code examples typically triggered by hover states.</p>
+<h3>Why this video</h3>
+<p>This is the most complete single walkthrough of the topic in the list and maps directly onto nearly every subtopic, making it a good primary video; CodeWithHarry is a well-established web development instructor who codes along in the browser so you can follow the syntax step by step.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: CSS Animations &amp; Transitions - What You Need To Know in 6 Minutes</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/9A6XzkhkuGY?cc_load_policy=1&amp;rel=0" title="Video: CSS Animations &amp; Transitions - What You Need To Know in 6 Minutes (Academind)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Academind</strong> · 6:39 · 8,789 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=9A6XzkhkuGY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A fast, condensed overview from Academind that contrasts CSS transitions with CSS keyframe animations and explains when each is the right tool. The description points to a comparison of transitions versus animations, so expect a summary of the core syntax rather than a line-by-line beginner tutorial.</p>
+<h3>Why this video</h3>
+<p>At under seven minutes it is an efficient review or preview, and its transitions-versus-animations framing is exactly the distinction this module asks you to make before you move on to @keyframes.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Animate to &quot;height: auto;&quot; &amp; &quot;display: none;&quot; Using CSS Transitions</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/1VsMKz4Zweg?cc_load_policy=1&amp;rel=0" title="Video: Animate to &quot;height: auto;&quot; &amp; &quot;display: none;&quot; Using CSS Transitions (CSS Weekly)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>CSS Weekly</strong> · 10:14 · 16,552 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=1VsMKz4Zweg" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A focused, practical video from CSS Weekly on two classic transition problems: animating from height: 0 to height: auto, and transitioning elements that use display: none. It covers modern CSS approaches to these cases instead of the older hacks and workarounds developers have traditionally relied on.</p>
+<h3>Why this video</h3>
+<p>It shows you what transitions can and cannot interpolate by default — a real limitation you will hit in your own projects — and the discussion of layout-affecting properties like height connects directly to the performance considerations subtopic.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos build the transition half of the module&#39;s learning outcomes. The CodeWithHarry tutorial gives you hands-on practice with duration, timing function, and delay so you can construct working transitions (MO2), while the Academind video draws the line between transition-based and keyframe-based CSS animation that MO1 asks you to articulate. The CSS Weekly video on height: auto and display: none exposes the limits of property interpolation and the cost of animating layout-affecting properties, which supports the performance analysis in MO4 and the property-selection best practices in MO5. The requestAnimationFrame material in MO3 is covered elsewhere in the module; use these videos to make sure you can reach for a CSS transition first whenever the browser can do the work for you.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

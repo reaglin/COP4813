@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bootstrap Layout and the Responsive Grid System</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 6 - External Libraries: jQuery, Bootstrap, and Plotting Tools</a></div>
+<h1>Bootstrap Layout and the Responsive Grid System</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Bootstrap 5 Crash Course Tutorial #7 - Grid Layout</a>
+<a href="#sec3">Video 2: Bootstrap 5 - The container class and breakpoints</a>
+<a href="#sec4">Video 3: Bootstrap #6: Responsive grid system with row and col in sm, md, lg screen size</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Bootstrap&#39;s grid system is the part of the framework you will use most often. It gives you a predictable way to divide a page into rows and columns so that content rearranges itself as the browser window — or the device — gets narrower or wider. The grid is built on a 12-column model: inside a row, you assign each column a number of the 12 available units, and Bootstrap handles the widths, the spacing, and the wrapping for you.</p>
+<p>Two ideas make the grid work. The first is mobile-first design: classes without a breakpoint apply at every size, and breakpoint classes such as col-sm, col-md, col-lg, and col-xl only take effect from that screen width upward. The second is structure: a container wraps your layout, rows live inside containers, and columns live inside rows. Getting that nesting right is what prevents the strange gutters and overflow problems beginners run into.</p>
+<p>As you watch these videos, pay attention to three things. Watch how the presenter resizes the browser to demonstrate a breakpoint taking effect — that is the fastest way to build intuition about tiers. Note the difference between a fixed-width container and container-fluid. And notice how column classes stack: giving one element both col-12 and col-md-6 means full width on phones and half width from medium screens up. Also look for offset and order utilities, and for examples where a row is placed inside a column to create nested grids.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Bootstrap 5 Crash Course Tutorial #7 - Grid Layout</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/RCff34Xd5TA?cc_load_policy=1&amp;rel=0" title="Video: Bootstrap 5 Crash Course Tutorial #7 - Grid Layout (KenBroTech)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>KenBroTech</strong> · 17:35 · 648 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=RCff34Xd5TA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A focused lesson from a Bootstrap 5 crash course series that walks through the grid layout from the ground up. Based on its title and length, it should cover the container-row-column structure, how the 12 columns are divided among elements, and how breakpoint-specific column classes change the layout at different screen widths. Expect live coding and browser resizing to demonstrate the results.</p>
+<h3>Why this video</h3>
+<p>At roughly seventeen minutes it is the longest and most complete treatment of the grid here, and being part of a structured Bootstrap 5 series it introduces the concepts in a sensible order rather than as isolated tips.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Bootstrap 5 - The container class and breakpoints</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/DYP-BFX8COY?cc_load_policy=1&amp;rel=0" title="Video: Bootstrap 5 - The container class and breakpoints (Emprinnos)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Emprinnos</strong> · 4:45 · 4,834 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=DYP-BFX8COY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short, targeted video on the container class and breakpoints in Bootstrap 5. It should explain what a container does as the outermost layout wrapper, how fixed containers differ from responsive and fluid variants, and what the breakpoint tiers (sm, md, lg, xl, xxl) correspond to in pixel widths.</p>
+<h3>Why this video</h3>
+<p>It directly addresses two subtopics — containers as the foundation of layout, and breakpoint classes and screen size tiers — in under five minutes, making it an efficient reference to rewatch when you are unsure which container or tier to use.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Bootstrap #6: Responsive grid system with row and col in sm, md, lg screen size</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/08qtTrW66XQ?cc_load_policy=1&amp;rel=0" title="Video: Bootstrap #6: Responsive grid system with row and col in sm, md, lg screen size (Happy Full Stack Life)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Happy Full Stack Life</strong> · 10:01 · 244 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=08qtTrW66XQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This video concentrates on building a responsive grid using row and col classes across the sm, md, and lg screen sizes. It should show how assigning different column widths at different tiers causes content to reflow, and demonstrate the resulting behavior as the viewport changes.</p>
+<h3>Why this video</h3>
+<p>It reinforces the mobile-first idea by example, showing the same markup behaving differently at each tier, which is the single concept students most often need to see more than once.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>These three videos together support MO3 by covering the mechanics of Bootstrap&#39;s 12-column grid and breakpoint classes needed to build responsive, mobile-first layouts. The crash-course lesson supplies the overall container-row-column structure, the container-and-breakpoints video clarifies the wrapper and the screen-size tiers, and the row-and-col video demonstrates how the same markup adapts across sm, md, and lg widths. Note that this topic covers layout only — navbars, modals, and cards, along with the CDN loading practices in MO1, are addressed elsewhere in the module, and you should be able to apply the grid inside a page that already has Bootstrap&#39;s CSS linked correctly.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

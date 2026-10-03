@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parsing JSON in JavaScript</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 8 - Introduction to JSON and Using It in the Browser</a></div>
+<h1>Parsing JSON in JavaScript</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Demo: JavaScript Object Notation (JSON) [42 of 51] | JavaScript for Beginners</a>
+<a href="#sec3">Video 2: JavaScript Object Notation (JSON) [41 of 51] | JavaScript for Beginners</a>
+<a href="#sec4">Video 3: Day 3 | JSON.parse() Explained with Valid Data Types | JSON Tutorial</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>JSON (JavaScript Object Notation) is a text format for representing structured data. When data arrives from a web API, a configuration file, or browser storage, it arrives as a string — not as a usable JavaScript object. Parsing is the step that bridges that gap: JSON.parse() reads a JSON-formatted string and returns the corresponding JavaScript value, whether that is an object, an array, a number, a string, a boolean, or null.</p>
+<p>Because parsing depends entirely on the input being well-formed, this topic also covers what counts as valid JSON: double-quoted keys and strings, no trailing commas, no comments, no functions or undefined values, and correct nesting of objects and arrays. When the string is malformed, JSON.parse() throws a SyntaxError, so wrapping the call in try...catch is the standard defensive pattern. You will also meet the optional second argument to JSON.parse(), the reviver function, which lets you transform values as they are read — for example, converting an ISO date string into a real Date object.</p>
+<p>As you watch, pay attention to three things: the distinction between a JSON string and a live JavaScript object, exactly which characters make a string invalid, and how parsed arrays can then be looped over with ordinary JavaScript. These habits carry directly into the fetch-and-render work later in this module.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Demo: JavaScript Object Notation (JSON) [42 of 51] | JavaScript for Beginners</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/hxQmx2R1zJw?cc_load_policy=1&amp;rel=0" title="Video: Demo: JavaScript Object Notation (JSON) [42 of 51] | JavaScript for Beginners (Microsoft Developer)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Microsoft Developer</strong> · 6:31 · 4,477 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=hxQmx2R1zJw" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>The companion demo episode to the previous video, showing JSON in actual code rather than in the abstract. Expect to see objects built and described in JSON notation on screen, with the instructor walking through the syntax line by line.</p>
+<h3>Why this video</h3>
+<p>Seeing JSON written and used in a live editor reinforces the object-versus-string distinction that JSON.parse() depends on, and the demo format makes the syntax rules concrete.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: JavaScript Object Notation (JSON) [41 of 51] | JavaScript for Beginners</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/OEqHC1kbrbg?cc_load_policy=1&amp;rel=0" title="Video: JavaScript Object Notation (JSON) [41 of 51] | JavaScript for Beginners (Microsoft Developer)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Microsoft Developer</strong> · 4:29 · 5,809 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=OEqHC1kbrbg" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short conceptual lesson from Microsoft&#39;s JavaScript for Beginners series introducing JSON as a notation for creating and describing objects in JavaScript. Based on its title and description, it explains what JSON is, how its syntax relates to JavaScript object literals, and why the format is so widely used for exchanging data.</p>
+<h3>Why this video</h3>
+<p>It gives you the vocabulary and mental model you need before parsing makes sense, and it comes from Microsoft Developer&#39;s structured beginner curriculum, so the explanation is concise and reliable.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Day 3 | JSON.parse() Explained with Valid Data Types | JSON Tutorial</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/Gle4iMu9sz0?cc_load_policy=1&amp;rel=0" title="Video: Day 3 | JSON.parse() Explained with Valid Data Types | JSON Tutorial (Veer - the developer)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Veer - the developer</strong> · 17:30 · 79 views · 5mo ago · captions — <a href="https://www.youtube.com/watch?v=Gle4iMu9sz0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A focused, longer tutorial dedicated specifically to JSON.parse() and the data types that are valid inside JSON. As part of a multi-day JSON course series, it works through what the method accepts and returns, and which values are and are not legal in a JSON document.</p>
+<h3>Why this video</h3>
+<p>This is the most direct match for the core subtopics — the mechanics of JSON.parse() and the validity requirements that determine whether parsing succeeds or throws — and its length allows for worked examples rather than a quick overview.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos build from format to function. The two Microsoft Developer episodes establish JSON syntax, supported types, and structure, supporting MO1, while also making clear how a JSON representation differs from a native JavaScript object (MO2). The JSON.parse() tutorial addresses MO2 directly by demonstrating the conversion from string to object and the data types that conversion permits, and the error-handling and array-parsing practices discussed in this topic prepare you for MO3 and MO5, where you will parse a fetched response, catch failures gracefully, and iterate over the resulting array to update the DOM.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

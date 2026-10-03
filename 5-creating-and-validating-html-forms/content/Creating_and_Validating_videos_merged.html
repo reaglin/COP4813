@@ -1,0 +1,350 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>5 - Creating and Validating HTML Forms</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+<style>section.merged-part{border-top:2px solid rgba(128,128,128,.3);margin-top:2rem;padding-top:.5rem}nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}nav.toc a{display:block;text-decoration:none;padding:.12rem 0}</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 5 - Creating and Validating HTML Forms</a></div>
+<h1>5 - Creating and Validating HTML Forms</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#part1">Introduction to HTML Forms</a>
+<a href="#part2">Form Input Types and Elements</a>
+<a href="#part3">Labels, Fieldsets, and Form Accessibility</a>
+<a href="#part4">Form Submission and Action Attributes</a>
+<a href="#part5">Built-in HTML5 Validation Attributes</a>
+<a href="#part6">Custom JavaScript Form Validation</a>
+<a href="#part7">Validation Feedback and User Experience</a>
+</nav>
+<section class="merged-part" id="part1">
+<h2>Introduction to HTML Forms</h2>
+<section class="item" id="p1-sec1">
+<h3>Introduction</h3>
+<p>HTML forms are the primary way that web pages collect information from people: a search box, a login screen, a checkout page, and a survey are all forms. At its core, a form is a container element, &lt;form&gt;, that groups a set of controls (text boxes, checkboxes, radio buttons, drop-down lists, buttons) and defines what should happen when the user submits them. Two attributes on the &lt;form&gt; element do most of that work: action, which names the URL that will receive the data, and method, which says how the data travels (most commonly GET or POST).</p>
+<p>In this course, forms are the bridge between the browser and server-side processing. Before you can validate input or handle it in application code, you need a clear mental model of form structure: the &lt;form&gt; wrapper, the controls inside it, the name attribute that labels each piece of submitted data, the &lt;label&gt; elements that connect text to controls, and the submit button that triggers the request. Getting this structure right from the start makes later work on accessibility and validation far easier.</p>
+<p>As you watch the videos below, pay attention to a few things: how the &lt;form&gt; tag is opened and closed and what sits inside it, where action and method appear and how they are described, how each input is given a name and an associated label, and how different input types change what the user sees and what gets sent. Try typing along with at least one example rather than only watching.</p>
+</section>
+<section class="item" id="p1-sec2">
+<h3>Video 1: Forms and input tags in HTML | Sigma Web Development Course - Tutorial #7</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/tLBlhp0SA_0?cc_load_policy=1&amp;rel=0" title="Video: Forms and input tags in HTML | Sigma Web Development Course - Tutorial #7 (CodeWithHarry)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>CodeWithHarry</strong> · 14:53 · 1,248,881 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=tLBlhp0SA_0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A tutorial from CodeWithHarry's Sigma Web Development series covering forms and input tags in HTML. Based on its title and series position, it should introduce the &lt;form&gt; element, walk through the common input tags and their type values, and show how these pieces fit together into a working form. At roughly fifteen minutes, it has room to demonstrate several control types and discuss submission attributes.</p>
+<h4>Why this video</h4>
+<p>CodeWithHarry is a widely followed web development channel, and this lesson sits inside a structured beginner course, so the material is presented in sequence rather than in isolation — a good match for the "What Is an HTML Form?" and "Overview of Form Structure" subtopics.</p>
+</section>
+<section class="item" id="p1-sec3">
+<h3>Video 2: [HTML-Tutorial-19] Basic Form | form, input, label, button elements | Web Development for Beginners</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/2JrGepWlUvg?cc_load_policy=1&amp;rel=0" title="Video: [HTML-Tutorial-19] Basic Form | form, input, label, button elements | Web Development for Beginners (Code Range)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Code Range</strong> · 11:47 · 106,972 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=2JrGepWlUvg" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This Code Range tutorial builds a basic sign-up form from scratch using the form, label, input, and button elements. The description indicates it also covers different input types, so you should see how a realistic form is assembled control by control. It is part of a numbered HTML tutorial series aimed at beginners.</p>
+<h4>Why this video</h4>
+<p>Building one complete form end to end is the clearest way to see overall form structure, and the explicit focus on label and button elements supports the semantic and accessibility habits emphasized in this module.</p>
+</section>
+<section class="item" id="p1-sec4">
+<h3>Video 3: HTML Forms and Inputs in 7 Minutes!</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/H9zdfZrFUp0?cc_load_policy=1&amp;rel=0" title="Video: HTML Forms and Inputs in 7 Minutes! (Learndev)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Learndev</strong> · 7:22 · 16,399 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=H9zdfZrFUp0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A condensed seven-minute overview from Learndev that moves through form basics, a login form example, input labels, and placeholder text, according to its listed chapters. It is organized with timestamps, so you can jump directly to the segment you need. Expect a fast but focused tour of the essential pieces.</p>
+<h4>Why this video</h4>
+<p>This is a useful quick review or first pass before the longer tutorials, and its chapter markers make it easy to revisit specific subtopics such as the form element or labeling inputs.</p>
+</section>
+<section class="item" id="p1-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos establish the foundation that the rest of the module builds on. All three demonstrate constructing a form from the &lt;form&gt; element, inputs, labels, and buttons, which directly supports MO1's emphasis on well-structured, semantic forms; the discussion of action and method introduces the submission mechanics you will compare in detail for MO2. They do not themselves cover HTML5 validation attributes, the Constraint Validation API, or accessible error-feedback strategies (MO3, MO4, MO5) — those build on the structural understanding you gain here, so treat these videos as the necessary starting point rather than the full picture.</p>
+</section>
+<section class="item" id="p1-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part2">
+<h2>Form Input Types and Elements</h2>
+<section class="item" id="p2-sec1">
+<h3>Introduction</h3>
+<p>Forms are the main way users send data to a web application. Every search box, login screen, checkout page, and survey is built from the same small set of HTML elements: the form element itself, plus input, select, option, textarea, button, and label. What makes forms interesting is that a single element — input — changes behavior entirely based on its type attribute, producing anything from a simple text box to a date picker, a color swatch, a file chooser, or an invisible field that carries data the user never sees.</p>
+<p>In this course, this topic is the foundation for everything that follows in the module. Before you can validate input, choose between GET and POST, or wire up the Constraint Validation API in JavaScript, you need to know which control to reach for and how to mark it up correctly. Choosing the right input type is also your first accessibility and usability decision: type="email" and type="tel" change the on-screen keyboard on mobile devices, radio buttons communicate mutually exclusive choices, and a properly associated label makes a control usable with a screen reader or by clicking the text next to it.</p>
+<p>As you watch the videos below, pay attention to a few recurring details: how the name attribute (not the id) determines what gets submitted, how label and id are paired, how radio buttons in the same group share a name while checkboxes usually do not, and how select/option differ from a list of radios. Try pausing and rebuilding each example yourself — a registration or contact form that uses text, password, email, radio, checkbox, select, textarea, and submit is a good practice target.</p>
+</section>
+<section class="item" id="p2-sec2">
+<h3>Video 1: Forms and input tags in HTML | Sigma Web Development Course - Tutorial #7</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/tLBlhp0SA_0?cc_load_policy=1&amp;rel=0" title="Video: Forms and input tags in HTML | Sigma Web Development Course - Tutorial #7 (CodeWithHarry)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>CodeWithHarry</strong> · 14:53 · 1,248,881 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=tLBlhp0SA_0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A thorough tutorial lesson on the form element and the input tag, covering how forms are structured and how different input types behave. Based on its length and series format, it likely walks through building a form from scratch and demonstrates a range of attributes and control types rather than just listing them. It is part of CodeWithHarry's larger web development course, so concepts are introduced in sequence with hands-on coding.</p>
+<h4>Why this video</h4>
+<p>CodeWithHarry is a widely followed instructor with a very large audience for this lesson, and the extended runtime allows coverage of multiple input types in one place, making it a strong primary overview for this topic.</p>
+</section>
+<section class="item" id="p2-sec3">
+<h3>Video 2: [HTML-Tutorial-19] Basic Form | form, input, label, button elements | Web Development for Beginners</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/2JrGepWlUvg?cc_load_policy=1&amp;rel=0" title="Video: [HTML-Tutorial-19] Basic Form | form, input, label, button elements | Web Development for Beginners (Code Range)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Code Range</strong> · 11:47 · 106,972 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=2JrGepWlUvg" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This lesson builds a basic sign-up form using form, label, input, and button elements, and introduces several different input types along the way. The sign-up scenario naturally brings in text and password fields plus a submit control, so you see the elements working together rather than in isolation. It is presented as part of a beginner-oriented HTML tutorial series.</p>
+<h4>Why this video</h4>
+<p>It explicitly pairs labels with inputs, which directly supports the semantic and accessibility expectations of this module, and the single realistic form example ties the separate subtopics into one coherent structure.</p>
+</section>
+<section class="item" id="p2-sec4">
+<h3>Video 3: HTML Forms and Inputs in 7 Minutes!</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/H9zdfZrFUp0?cc_load_policy=1&amp;rel=0" title="Video: HTML Forms and Inputs in 7 Minutes! (Learndev)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Learndev</strong> · 7:22 · 16,399 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=H9zdfZrFUp0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A compact, seven-minute explanation that starts by clarifying what an HTML form actually is and then moves directly into the markup. Expect a fast-paced tour of the form element and common input controls rather than a slow, step-by-step build. Its brevity makes it well suited to a first pass or to a quick review before an assignment.</p>
+<h4>Why this video</h4>
+<p>It is an efficient summary that reinforces the same core elements covered in the longer videos, which is useful either as a preview of the topic or as a refresher when you are coding your own form.</p>
+</section>
+<section class="item" id="p2-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>These videos target MO1 most directly: they demonstrate how to assemble a working form from the correct elements — form, input across multiple types, select, textarea, label, and submit — which is the prerequisite skill for producing well-structured, semantically labeled forms. By showing the form element and its attributes, they also preview the submission concepts formalized in MO2. Because input type choice is itself the first layer of data constraint (an email field accepts different content than a plain text field), the material lays the groundwork for the HTML5 validation attributes in MO3 and for the JavaScript-driven validation and feedback strategies in MO4 and MO5, which build on correctly marked-up controls and their associated labels.</p>
+</section>
+<section class="item" id="p2-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part3">
+<h2>Labels, Fieldsets, and Form Accessibility</h2>
+<section class="item" id="p3-sec1">
+<h3>Introduction</h3>
+<p>A form is only usable if every control tells the user what it is for. The label element is the HTML mechanism that creates that connection: it attaches visible text to a specific input so that screen readers announce the right name, and so that clicking the text moves focus into (or toggles) the control. You can associate a label explicitly, by matching the label's for attribute to the input's id, or implicitly, by nesting the input inside the label element. Both approaches are valid, but explicit association is generally safer and easier to style.</p>
+<p>Some controls only make sense as a set. Radio buttons for a shipping method, or checkboxes for a list of interests, need a group-level question in addition to individual labels. That is the job of fieldset, which wraps related controls, and legend, which supplies the group's name. Without them, a screen reader user may hear "Standard, radio button" with no idea what question is being answered.</p>
+<p>As you watch the videos below, pay attention to three things: how each presenter writes the markup (for and id pairs, nested labels, fieldset and legend structure), how assistive technology announces a labeled versus an unlabeled control, and the common mistakes they warn against, such as using placeholder text as a substitute for a label, mismatched or duplicated id values, or relying only on visual proximity. These same habits carry directly into the validation work later in this module, since error messages also need to be tied to the control they describe.</p>
+</section>
+<section class="item" id="p3-sec2">
+<h3>Video 1: Designing Accessible Forms for Everyone</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/72nrJJAf_Ak?cc_load_policy=1&amp;rel=0" title="Video: Designing Accessible Forms for Everyone (Aquent Gymnasium)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Aquent Gymnasium</strong> · 4:43 · 2,990 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=72nrJJAf_Ak" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short, focused overview of what makes a web form accessible, with specific attention to using the label element correctly so that every control has a programmatically associated name. In under five minutes it frames the problem from the user's point of view: who struggles with poorly built forms and why proper labeling fixes it. Expect practical guidance you can apply immediately to the markup you write in this module.</p>
+<h4>Why this video</h4>
+<p>Aquent Gymnasium produces professional training on web accessibility, and this clip targets exactly the core subtopic of the lesson, the purpose and correct use of the label element, in a concise format that works well as an introduction before the longer tutorials.</p>
+</section>
+<section class="item" id="p3-sec3">
+<h3>Video 2: Transform Your HTML Forms: Make Elements Accessible – Don’t Miss This!</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/7PgO7RuhXqQ?cc_load_policy=1&amp;rel=0" title="Video: Transform Your HTML Forms: Make Elements Accessible – Don’t Miss This! (Skills Singh)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Skills Singh</strong> · 16:07 · 1,292 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=7PgO7RuhXqQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A longer walkthrough aimed at transforming an ordinary HTML form into an accessible one, covering how form elements should be marked up and connected to their descriptive text. Being part of a broader accessibility playlist, it situates form labeling within general accessibility practice rather than treating it as an isolated trick. Expect hands-on demonstration of markup changes and the reasoning behind them.</p>
+<h4>Why this video</h4>
+<p>Its sixteen-minute length allows the presenter to work through association techniques and structural grouping in more depth than a quick overview, which supports the explicit, implicit, and fieldset or legend subtopics.</p>
+</section>
+<section class="item" id="p3-sec4">
+<h3>Video 3: Make Your HTML Form Inputs (Textboxes, Checkboxes, &amp; Buttons) Fully Accessible – Here’s How!</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/K6d8CsqHumM?cc_load_policy=1&amp;rel=0" title="Video: Make Your HTML Form Inputs (Textboxes, Checkboxes, &amp; Buttons) Fully Accessible – Here’s How! (Skills Singh)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Skills Singh</strong> · 15:56 · 724 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=K6d8CsqHumM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This tutorial narrows in on specific control types, including text boxes, checkboxes, and buttons, and shows how to make each of them fully accessible. Because checkboxes and radio buttons are the controls that most often need group-level naming, this is where grouping concerns typically surface alongside individual labeling. Expect control-by-control treatment with demonstrations of the correct markup.</p>
+<h4>Why this video</h4>
+<p>It complements the previous video by moving from general form accessibility to the particular controls where labeling mistakes are most common, reinforcing both individual labels and the need to name groups of related inputs.</p>
+</section>
+<section class="item" id="p3-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>These three videos support MO1 most directly: together they demonstrate how labels, fieldsets, and legends combine with appropriate input types to produce a semantically correct, accessible form, and they model the markup patterns you will be expected to write. The emphasis on associating descriptive text with a specific control also prepares you for MO4 and MO5, where inline error messages and ARIA announcements must be tied to the field they refer to in order to be announced correctly by assistive technology. They do not address GET versus POST (MO2) or HTML5 validation attributes (MO3); those outcomes are covered by other materials in this module.</p>
+</section>
+<section class="item" id="p3-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part4">
+<h2>Form Submission and Action Attributes</h2>
+<section class="item" id="p4-sec1">
+<h3>Introduction</h3>
+<p>A form is only useful if the data it collects actually reaches somewhere. That delivery is controlled by a small set of attributes on the form element: action tells the browser where to send the data, method tells it how to send it (most commonly GET or POST), and enctype tells it how the data should be encoded on the way. Together these three attributes determine the shape of the HTTP request your server receives.</p>
+<p>In this course the distinction matters because you will build both the front end and the code that consumes the submitted data. GET appends name/value pairs to the URL as a query string, which makes it visible, bookmarkable, cacheable, and limited in length — fine for searches and filters, wrong for passwords or anything that changes state. POST places the data in the request body, which suits larger payloads, sensitive values, and file uploads. File uploads in particular require enctype set to multipart/form-data, while the default application/x-www-form-urlencoded handles ordinary text fields.</p>
+<p>As you watch the videos below, pay attention to three things: what the URL looks like after submission, what the request actually contains, and which attribute combination the presenter uses for each scenario. Also notice how submission is triggered — a submit button, the Enter key inside a text input, or JavaScript — because later in this module you will intercept that moment to run validation.</p>
+</section>
+<section class="item" id="p4-sec2">
+<h3>Video 1: Forms and input tags in HTML | Sigma Web Development Course - Tutorial #7</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/tLBlhp0SA_0?cc_load_policy=1&amp;rel=0" title="Video: Forms and input tags in HTML | Sigma Web Development Course - Tutorial #7 (CodeWithHarry)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>CodeWithHarry</strong> · 14:53 · 1,248,881 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=tLBlhp0SA_0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A beginner-friendly walkthrough of HTML forms and input tags from CodeWithHarry's Sigma Web Development series. Based on its title and placement early in the course, it is likely to cover building a form element, the common input types, and the attributes that control submission such as action and method, with hands-on code examples.</p>
+<h4>Why this video</h4>
+<p>It gives you a clear, example-driven foundation for the form element and its submission attributes, which is the starting point for every other subtopic here.</p>
+</section>
+<section class="item" id="p4-sec3">
+<h3>Video 2: Uploading Files to the Web with HTML | Learn Web Dev with Austin Gil</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/s2TTck1sj4s?cc_load_policy=1&amp;rel=0" title="Video: Uploading Files to the Web with HTML | Learn Web Dev with Austin Gil (Akamai DevRel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Akamai DevRel</strong> · 4:55 · 27,380 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=s2TTck1sj4s" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Austin Gil walks through what it takes to upload a file using plain HTML, describing three main steps. Expect coverage of the file input type together with the form attributes required for uploads — notably setting the method to POST and the enctype to multipart/form-data so the binary data is encoded correctly.</p>
+<h4>Why this video</h4>
+<p>This is the clearest practical demonstration of the enctype subtopic, showing exactly why the default encoding fails for files and what to use instead.</p>
+</section>
+<section class="item" id="p4-sec4">
+<h3>Video 3: Detecting HTML vs. JavaScript form submissions | Learn Web Dev with Austin Gil</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/E9unSMVzpHM?cc_load_policy=1&amp;rel=0" title="Video: Detecting HTML vs. JavaScript form submissions | Learn Web Dev with Austin Gil (Akamai DevRel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Akamai DevRel</strong> · 4:49 · 301 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=E9unSMVzpHM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video asks how a server can tell whether an incoming HTTP request came from a standard HTML form submission or from JavaScript. It is likely to inspect the request headers and content type produced by each path, highlighting how the browser's native submission behavior differs from a scripted fetch.</p>
+<h4>Why this video</h4>
+<p>It reinforces how the browser triggers submission and what encoding it applies by default, connecting the action/method/enctype attributes to the actual HTTP request your server sees.</p>
+</section>
+<section class="item" id="p4-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>These videos support MO2 most directly: the CodeWithHarry tutorial establishes the action and method attributes and lets you observe the difference between a query string and a request body, while the Akamai DevRel videos extend that into encoding choices, showing why multipart/form-data is required for file uploads and how browser-generated requests differ from JavaScript-generated ones. The form-building walkthrough also reinforces MO1 by modeling well-structured markup with appropriate input types, and the discussion of how submission is triggered prepares you for the validation work in MO3 and MO4, where you will hook into the submit event before data ever leaves the page.</p>
+</section>
+<section class="item" id="p4-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part5">
+<h2>Built-in HTML5 Validation Attributes</h2>
+<section class="item" id="p5-sec1">
+<h3>Introduction</h3>
+<p>HTML5 gives you a surprising amount of validation power before you write a single line of JavaScript. By adding attributes directly to your input elements — required, minlength, maxlength, pattern, min, max, and the input type itself — you tell the browser what counts as acceptable data, and the browser enforces it at submission time with built-in error messages. This is called constraint validation, and it is the foundation layer that any custom JavaScript validation you write later should build on, not replace.</p>
+<p>In this course, built-in validation matters for two reasons. First, it is the cheapest possible way to protect data integrity and guide users: a single required or type="email" attribute catches a large share of common mistakes. Second, it is accessible by default — browsers surface these constraints to assistive technology and handle focus management for you, which is harder to get right by hand. Remember, though, that client-side validation is a usability feature, never a security boundary; server-side validation is still mandatory.</p>
+<p>As you watch the videos below, pay attention to a few things: which attributes apply to which input types (minlength and maxlength work on text-like fields, while min and max work on numbers and dates), how pattern uses a regular expression that must match the entire value, and how title supplies the hint text that browsers show when a pattern fails. Also notice the difference between placeholder (a disposable example inside the field) and a real label — placeholder is a hint, not a substitute for labeling.</p>
+</section>
+<section class="item" id="p5-sec2">
+<h3>Video 1: HTML5 Form Validation With the “pattern” Attribute</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/KsjHNPkSbAo?cc_load_policy=1&amp;rel=0" title="Video: HTML5 Form Validation With the “pattern” Attribute (Envato Tuts+)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Envato Tuts+</strong> · 5:32 · 13,355 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=KsjHNPkSbAo" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A focused, short tutorial on the pattern attribute: how to attach a regular expression to a text input so the browser rejects values that do not match the required format. Based on the title and description, it should walk through writing patterns for common cases and customizing how validation behaves on a form. Expect discussion of how pattern interacts with the field's value and the message shown when the pattern fails.</p>
+<h4>Why this video</h4>
+<p>Pattern is the most conceptually difficult subtopic here, and this video isolates it rather than burying it in a general forms overview. Envato Tuts+ is an established production channel with concise, well-edited tutorials, which makes this a good targeted companion to the broader videos.</p>
+</section>
+<section class="item" id="p5-sec3">
+<h3>Video 2: HTML Form Validation | HTML Tutorial for Beginners | HTML Full Course</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/2BsNgnzFUTg?cc_load_policy=1&amp;rel=0" title="Video: HTML Form Validation | HTML Tutorial for Beginners | HTML Full Course (formulaC Coder)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>formulaC Coder</strong> · 13:06 · 363 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=2BsNgnzFUTg" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A beginner-oriented tutorial devoted specifically to HTML form validation, covering the built-in attributes you use to constrain input without scripting. Given its length and framing as part of a full HTML course, it likely demonstrates required, length limits, type-based checks, and format constraints across a sample form. The video closes with interview-style questions that let you self-check your recall of the attributes.</p>
+<h4>Why this video</h4>
+<p>It is the closest match to the topic as a whole, treating validation as the main subject rather than a side note, and the end-of-video questions give you a quick way to test whether the attribute rules actually stuck.</p>
+</section>
+<section class="item" id="p5-sec4">
+<h3>Video 3: Forms and input tags in HTML | Sigma Web Development Course - Tutorial #7</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/tLBlhp0SA_0?cc_load_policy=1&amp;rel=0" title="Video: Forms and input tags in HTML | Sigma Web Development Course - Tutorial #7 (CodeWithHarry)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>CodeWithHarry</strong> · 14:53 · 1,248,881 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=tLBlhp0SA_0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A widely watched walkthrough of HTML forms and input tags: the form element, the range of input types, and the attributes that configure them. As a general forms lesson it establishes the markup context — fields, types, and attributes like placeholder — that validation attributes are attached to. It is the broadest of the three videos and the best starting point if forms are still new to you.</p>
+<h4>Why this video</h4>
+<p>CodeWithHarry's tutorial is clear and extremely well-reviewed by learners, and it grounds the semantic type constraints and placeholder subtopics in the overall structure of a form, so the validation-specific videos make more sense afterward.</p>
+</section>
+<section class="item" id="p5-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos target MO3 most directly: the beginner validation tutorial surveys required, length, and type-based constraints, while the pattern-focused video goes deep on format enforcement with regular expressions and title-based hints. The CodeWithHarry forms overview supports MO1 by reviewing input types and form markup, which is the structure validation attributes are applied to, and it also helps you distinguish placeholder hints from proper labels. None of these videos covers GET versus POST in depth (MO2) or the JavaScript Constraint Validation API and feedback strategies (MO4, MO5) — those outcomes are addressed in other resources for this module, and the built-in attributes you learn here are the layer that your later JavaScript work will extend.</p>
+</section>
+<section class="item" id="p5-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part6">
+<h2>Custom JavaScript Form Validation</h2>
+<section class="item" id="p6-sec1">
+<h3>Introduction</h3>
+<p>HTML5 validation attributes like required, pattern, and min cover many common cases, but real applications often need more: passwords that must match, fields that are required only when another option is selected, usernames checked against a format your business defines, or error messages worded for your users rather than the browser's defaults. Custom JavaScript validation fills that gap. Using the Constraint Validation API (properties and methods such as validity, checkValidity(), and setCustomValidity()) together with event listeners, you can intercept form submission, run your own validation functions, and decide exactly what the user sees and when.</p>
+<p>In this module you are building on the semantic, accessible forms from earlier topics, so the goal is not just "stop bad data" but "tell the user clearly what went wrong." That means inline error messages placed near the field they describe, markup that screen readers can announce (labels, aria-describedby, aria-invalid, live regions), and a feedback strategy that balances on-submit checking with real-time input and blur events so users are not scolded mid-typing. Finally, you will see why it pays to organize this logic into a reusable validation module instead of copy-pasting the same if-statements for every field.</p>
+<p>The three videos below walk through practical implementations. As you watch, pay attention to the HTML structure that makes inline errors possible (where the error container sits relative to the input), which events the author listens for, how error text is added and cleared, and where the demonstrated approach could be improved for accessibility or reuse. Treat the code as a starting point you will refactor, not a final answer.</p>
+</section>
+<section class="item" id="p6-sec2">
+<h3>Video 1: How to display JavaScript form error message in html form</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/nNIr0lF7KnU?cc_load_policy=1&amp;rel=0" title="Video: How to display JavaScript form error message in html form (Digital Fox)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Digital Fox</strong> · 12:10 · 31,448 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=nNIr0lF7KnU" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This tutorial focuses on structuring an HTML form so that an error message can be displayed directly beneath each input field, then using JavaScript to populate and clear those messages. Expect to see the markup pattern (input plus a dedicated error element), the script that checks each field, and how the message is shown when validation fails. Downloadable source code is referenced in the description so you can follow along.</p>
+<h4>Why this video</h4>
+<p>It targets the inline error message subtopic head-on, and because it starts from the HTML structure it shows why markup decisions determine how easily you can attach per-field feedback.</p>
+</section>
+<section class="item" id="p6-sec3">
+<h3>Video 2: JavaScript Validation in HTML Registration Form | HTML Structure  #javascript</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/R-AL6z8Fg4k?cc_load_policy=1&amp;rel=0" title="Video: JavaScript Validation in HTML Registration Form | HTML Structure  #javascript (Step by Step)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Step by Step</strong> · 10:54 · 1,246 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=R-AL6z8Fg4k" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Part of a short series, this video sets up the HTML structure of a registration form as the foundation for JavaScript validation. It is likely to cover the form fields, labels, and containers you need in place before any validation script is written, giving you the scaffolding used in the follow-up video.</p>
+<h4>Why this video</h4>
+<p>It reinforces the connection between well-formed markup and maintainable validation code, which is exactly the groundwork needed before writing custom validation functions or a reusable module.</p>
+</section>
+<section class="item" id="p6-sec4">
+<h3>Video 3: JavaScript Validation in HTML Registration Form | Email Validation #javascript</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/VoV75J35XPM?cc_load_policy=1&amp;rel=0" title="Video: JavaScript Validation in HTML Registration Form | Email Validation #javascript (Step by Step)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Step by Step</strong> · 6:42 · 1,013 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=VoV75J35XPM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>The follow-up installment applies JavaScript validation to the registration form, concentrating on email validation. Expect a demonstration of reading the field value, testing it against a pattern or rule, and reporting the result back to the user on the page.</p>
+<h4>Why this video</h4>
+<p>Email checking is a classic case where you decide between a browser default message and your own logic, making it a compact example of writing a custom validation function and wiring it to form events.</p>
+</section>
+<section class="item" id="p6-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>These videos sit squarely on MO4: each one demonstrates intercepting a form with JavaScript, running custom checks, and rendering inline error messages rather than relying solely on browser defaults. The Step by Step pair also reinforces MO1 by showing that accessible, well-structured markup is a prerequisite for per-field error reporting, while the Digital Fox video gives you a concrete pattern to evaluate against the usability and accessibility trade-offs discussed in MO5 — compare its on-submit messaging to real-time input and blur feedback, and consider what ARIA attributes you would add. Together they complement, rather than replace, the HTML5 attribute work in MO3: use built-in constraints first, then layer custom logic where the attributes cannot express the rule.</p>
+</section>
+<section class="item" id="p6-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part7">
+<h2>Validation Feedback and User Experience</h2>
+<section class="item" id="p7-sec1">
+<h3>Introduction</h3>
+<p>A form that rejects input without explaining why is a dead end for the user. Validation feedback is the layer of messaging and visual cues that tells someone what went wrong, where it went wrong, and how to fix it. In this topic you will look at inline error messages placed next to the field they describe, visual indicators of field state (valid, invalid, required, focused), and the trade-offs between validating as the user types versus waiting until submit.</p>
+<p>You will also work with the HTML5 Constraint Validation API, which gives you programmatic access to validity states and lets you replace the browser's default bubble messages with your own styled, well-placed text. Because error text that is only visible is not enough, the topic extends into accessible error announcements using ARIA attributes such as aria-invalid, aria-describedby, and live regions, plus summary error lists at the top of long or complex forms. Finally, you will consider when placeholder text helps and when it quietly hurts, and how persistent helper text is usually the safer choice.</p>
+<p>The three videos below come from Pope Tech, a producer focused on web accessibility testing. They approach the topic from the evaluation side: how to check whether a form actually communicates its errors to all users, what ARIA is really for, and how an automated tool reports form problems. While watching, pay attention to the checks being performed and ask yourself how you would build a form that passes them the first time, and note any guidance about labels, error identification, and ARIA misuse that you can apply to your own validation code.</p>
+</section>
+<section class="item" id="p7-sec2">
+<h3>Video 1: Test a form for accessibility checklist and demo</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/4Sei-7XUscA?cc_load_policy=1&amp;rel=0" title="Video: Test a form for accessibility checklist and demo (Pope Tech)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Pope Tech</strong> · 6:07 · 2,706 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=4Sei-7XUscA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A walkthrough of what makes an HTML form accessible, paired with a demonstration of how to test one against a checklist. Expect coverage of items such as labeling, keyboard operation, required field indication, and whether errors are identified and described in a way assistive technology can reach.</p>
+<h4>Why this video</h4>
+<p>It gives you a concrete evaluation checklist you can run against your own forms, which directly supports the inline error message, field state, and accessible announcement subtopics.</p>
+</section>
+<section class="item" id="p7-sec3">
+<h3>Video 2: What ARIA is and its impact on accessibility</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/BDPMUq__gIM?cc_load_policy=1&amp;rel=0" title="Video: What ARIA is and its impact on accessibility (Pope Tech)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Pope Tech</strong> · 5:21 · 2,449 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=BDPMUq__gIM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>An introduction to ARIA: what the specification is for, the first rule of ARIA (do not use ARIA when native HTML will do), and examples of how incorrect ARIA degrades the experience for assistive technology users. It frames ARIA as a supplement to semantic markup rather than a replacement for it.</p>
+<h4>Why this video</h4>
+<p>Accessible error announcements depend on correct ARIA usage, and this video sets the ground rules so you apply attributes like aria-invalid and aria-describedby intentionally instead of by habit.</p>
+</section>
+<section class="item" id="p7-sec4">
+<h3>Video 3: How to test your form for accessibility issues with the WAVE extension</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/03U9qYLIyi0?cc_load_policy=1&amp;rel=0" title="Video: How to test your form for accessibility issues with the WAVE extension (Pope Tech)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Pope Tech</strong> · 5:34 · 830 views · 11mo ago · captions — <a href="https://www.youtube.com/watch?v=03U9qYLIyi0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A practical demonstration of testing a form with the WAVE browser extension, reviewing the kinds of results WAVE returns for form elements and how to interpret and fix them. The video reflects the updated version of the tool and connects each reported issue back to a remedy in markup.</p>
+<h4>Why this video</h4>
+<p>It turns accessibility feedback into something you can check immediately in the browser, giving you a fast feedback loop while building and validating the forms assigned in this module.</p>
+</section>
+<section class="item" id="p7-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>These videos reinforce the accessibility half of the module's outcomes. The form accessibility checklist and WAVE testing demonstrations help you verify that the labels, fieldsets, and semantic structure required by MO1 are actually present and announced, and that error identification works for the inline messages you build with the Constraint Validation API in MO4. The ARIA video supplies the conceptual grounding needed to choose appropriate attributes for error announcements rather than over-applying them. Together they give you the evaluation criteria called for in MO5, so you can weigh real-time versus on-submit feedback, ARIA live announcements, and summary error lists against measurable usability and accessibility outcomes instead of personal preference.</p>
+</section>
+<section class="item" id="p7-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

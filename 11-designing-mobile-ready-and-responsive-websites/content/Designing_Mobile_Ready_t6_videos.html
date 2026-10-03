@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Viewport Configuration and Screen Sizes</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 11 - Designing Mobile-Ready and Responsive Websites</a></div>
+<h1>Viewport Configuration and Screen Sizes</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: CSS Media Queries | Sigma Web Development Course - Tutorial #31</a>
+<a href="#sec3">Video 2: Design across breakpoints</a>
+<a href="#sec4">Video 3: Intro to responsive design</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Every browser renders a page inside a viewport — the visible area available for your content. On desktop machines that area is usually close to the window size, but on phones and tablets browsers historically pretended to be much wider so that older desktop-only sites would still fit. The viewport meta tag is how you tell a mobile browser to stop pretending: it sets the layout width to the device width and establishes the initial zoom level. Without it, even carefully written responsive CSS will appear shrunken and unreadable on a phone.</p>
+<p>Once the viewport is configured correctly, the next question is where your layout should change. CSS breakpoints are the specific viewport widths at which you introduce new rules through media queries — stacking columns, resizing type, hiding or revealing navigation. Breakpoints are best chosen by watching where your own content starts to break rather than by memorizing a list of device widths, since the range of real screen sizes is continuous and constantly shifting. You will also decide on a direction: mobile-first, which starts with a simple small-screen layout and adds complexity using min-width queries, or desktop-first, which starts wide and strips down using max-width queries.</p>
+<p>As you watch the videos below, pay attention to three things: the exact syntax of a media query and where it sits in your stylesheet, how the order of rules determines which styles win when several queries match, and how the presenters decide that a layout needs a breakpoint at all. Afterward, practice testing your own pages by resizing the browser window and using your browser&#39;s device emulation tools at several widths, not just one or two.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: CSS Media Queries | Sigma Web Development Course - Tutorial #31</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/eHye3PxH4jU?cc_load_policy=1&amp;rel=0" title="Video: CSS Media Queries | Sigma Web Development Course - Tutorial #31 (CodeWithHarry)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>CodeWithHarry</strong> · 11:37 · 541,554 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=eHye3PxH4jU" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A hands-on tutorial from CodeWithHarry&#39;s Sigma web development series covering CSS media queries. Expect the practical syntax — the @media rule, min-width and max-width conditions, combining conditions, and writing rules that take effect only at particular viewport ranges — demonstrated in a live stylesheet.</p>
+<h3>Why this video</h3>
+<p>This is the code-level piece of the topic: it shows exactly how to write the media queries that implement your chosen breakpoints, which is the skill you will be assessed on.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Design across breakpoints</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/dXKqEBcSs5M?cc_load_policy=1&amp;rel=0" title="Video: Design across breakpoints (Webflow)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Webflow</strong> · 8:13 · 4,348 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=dXKqEBcSs5M" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This Webflow video focuses specifically on designing across breakpoints — how a single design is adjusted at different viewport widths so it looks and works well on each device class. It should illustrate the workflow of moving between screen sizes and deciding what needs to change at each one, including how changes at one breakpoint relate to the others.</p>
+<h3>Why this video</h3>
+<p>It directly addresses the breakpoint strategy subtopics, including the question of which direction changes cascade, and gives a visual, design-oriented view that complements the code-focused tutorial.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Intro to responsive design</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/Qm-UXN12ZL0?cc_load_policy=1&amp;rel=0" title="Video: Intro to responsive design (Webflow)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Webflow</strong> · 3:35 · 6,305 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=Qm-UXN12ZL0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A brief conceptual overview from Webflow introducing responsive design: the idea that a layout should adapt automatically whether someone is on a phone, tablet, or large display, without forcing the user to zoom or scroll sideways. Expect a high-level framing of why fixed-width layouts fail on modern devices and what adapting across screen sizes means in practice.</p>
+<h3>Why this video</h3>
+<p>At under four minutes it sets up the vocabulary and motivation for viewport and breakpoint work before you touch code, which is useful context for the device-screen-sizes subtopic.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos cover the media query pillar of responsive design named in MO1 and give you the syntax you need for MO4, where min-width queries and a correctly configured viewport meta tag are combined into a mobile-first stylesheet. The Webflow breakpoint video supports MO5 by making the consequences of breakpoint direction and ordering visible, so you can reason about maintainability and content prioritization rather than guessing. The introductory responsive design video frames the fluid, continuous-scaling mindset behind MO2 and MO3, reminding you that breakpoints are adjustments to an already flexible layout, not a substitute for one.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

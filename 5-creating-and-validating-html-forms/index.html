@@ -1,390 +1,179 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Module 5 – Creating and Validating HTML Forms | COP4813</title>
-  <style>
-    /* ── Reset & Base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #f4f6f9;
-      color: #2c3340;
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    /* ── Page Shell ── */
-    .page-wrapper {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2rem 1.25rem 4rem;
-    }
-
-    /* ── Header Banner ── */
-    .module-header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
-      color: #ffffff;
-      border-radius: 10px;
-      padding: 2.5rem 2rem 2rem;
-      margin-bottom: 2.25rem;
-      box-shadow: 0 4px 18px rgba(37, 99, 168, 0.22);
-    }
-
-    .module-header .course-label {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      background: rgba(255,255,255,0.18);
-      color: #ddeeff;
-      border-radius: 4px;
-      padding: 0.2rem 0.65rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .module-header h1 {
-      font-size: clamp(1.45rem, 3vw, 2rem);
-      font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: 0.85rem;
-    }
-
-    .module-header p {
-      font-size: 0.97rem;
-      color: #cce0f5;
-      max-width: 72ch;
-    }
-
-    /* ── Section heading ── */
-    .section-heading {
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #5a6478;
-      margin-bottom: 1rem;
-      padding-bottom: 0.4rem;
-      border-bottom: 2px solid #dde3ed;
-    }
-
-    /* ── Card Grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-      gap: 1.25rem;
-    }
-
-    /* ── Card ── */
-    .card {
-      background: #ffffff;
-      border: 1px solid #dde3ed;
-      border-radius: 8px;
-      padding: 1.35rem 1.4rem 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.055);
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
-    }
-
-    .card:hover {
-      box-shadow: 0 6px 20px rgba(37, 99, 168, 0.13);
-      transform: translateY(-2px);
-    }
-
-    /* ── Card Top Row: badges ── */
-    .card-meta {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-
-    .badge {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      border-radius: 4px;
-      padding: 0.18rem 0.55rem;
-      white-space: nowrap;
-    }
-
-    .badge-type {
-      background: #e8f0fb;
-      color: #1c4f9c;
-      border: 1px solid #c4d6f5;
-    }
-
-    .badge-filetype {
-      background: #eef6ee;
-      color: #2a6e2a;
-      border: 1px solid #b8ddb8;
-    }
-
-    /* ── Card Title Row ── */
-    .card-title-row {
-      display: flex;
-      align-items: baseline;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-    }
-
-    .card-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #1a2b44;
-      line-height: 1.3;
-    }
-
-    .card-title a {
-      color: #1a5cb8;
-      text-decoration: none;
-    }
-
-    .card-title a:hover,
-    .card-title a:focus {
-      text-decoration: underline;
-      color: #0e3f85;
-    }
-
-    .source-link {
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: #6b7a99;
-      text-decoration: none;
-      border: 1px solid #c4cde0;
-      border-radius: 4px;
-      padding: 0.15rem 0.45rem;
-      white-space: nowrap;
-      transition: background 0.15s, color 0.15s;
-    }
-
-    .source-link:hover,
-    .source-link:focus {
-      background: #f0f3fa;
-      color: #1a3a6c;
-      border-color: #9aabd0;
-    }
-
-    /* ── Card Description ── */
-    .card-description {
-      font-size: 0.875rem;
-      color: #4a5568;
-      line-height: 1.55;
-      flex-grow: 1;
-    }
-
-    /* ── Footer ── */
-    .page-footer {
-      margin-top: 3rem;
-      text-align: center;
-      font-size: 0.8rem;
-      color: #8a93a8;
-    }
-
-    /* ── Responsive tweaks ── */
-    @media (max-width: 480px) {
-      .module-header { padding: 1.75rem 1.25rem 1.5rem; }
-      .card { padding: 1.1rem 1.1rem 1rem; }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5 - Creating and Validating HTML Forms — COP4813</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ COP4813</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-  <div class="page-wrapper">
-
-    <!-- ── Header ── -->
-    <header class="module-header" role="banner">
-      <span class="course-label">COP4813</span>
-      <h1>Module 5 – Creating and Validating HTML Forms</h1>
-      <p>
-        This module covers the full lifecycle of HTML form development: structuring forms with semantic elements,
-        choosing the right input types, making forms accessible with labels and fieldsets, controlling form
-        submission, and enforcing data quality through both built-in HTML5 validation attributes and custom
-        JavaScript logic. Use the artifacts below to navigate readings and resources for each topic.
-      </p>
-    </header>
-
-    <!-- ── Artifact Grid ── -->
-    <main>
-      <h2 class="section-heading">Module Artifacts</h2>
-      <div class="card-grid" role="list">
-
-        <!-- Card 1 -->
-        <article class="card" role="listitem">
-          <div class="card-meta">
-            <span class="badge badge-type">Module Topics</span>
-            <span class="badge badge-filetype">.json</span>
-          </div>
-          <div class="card-title-row">
-            <span class="card-title">
-              <a href="content/module_topics.html">Module Topics</a>
-            </span>
-            <a class="source-link" href="source/hierarchy.json">source file</a>
-          </div>
-          <p class="card-description">
-            Outlines the full scope of the module by listing all topics covered—including HTML form structure,
-            input types, accessibility with labels and fieldsets, and form submission—serving as a navigation
-            guide for learners and a planning reference for instructors.
-          </p>
-        </article>
-
-        <!-- Card 2 -->
-        <article class="card" role="listitem">
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <div class="card-title-row">
-            <span class="card-title">
-              <a href="content/Creating_and_Validating_interactive_topics_t1.html">Introduction to HTML Forms</a>
-            </span>
-          </div>
-          <p class="card-description">
-            A foundational reading that explains what HTML forms are, why they matter, and how the core form
-            element structures user input and data submission, intended for learners to read before studying
-            specific form components.
-          </p>
-        </article>
-
-        <!-- Card 3 -->
-        <article class="card" role="listitem">
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <div class="card-title-row">
-            <span class="card-title">
-              <a href="content/Creating_and_Validating_interactive_topics_t2.html">Form Input Types and Elements</a>
-            </span>
-          </div>
-          <p class="card-description">
-            A reading that surveys the full range of HTML input types and form elements (text, email, checkbox,
-            select, etc.), helping learners understand which element to choose based on the kind of data being
-            collected.
-          </p>
-        </article>
-
-        <!-- Card 4 -->
-        <article class="card" role="listitem">
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <div class="card-title-row">
-            <span class="card-title">
-              <a href="content/Creating_and_Validating_interactive_topics_t3.html">Labels, Fieldsets, and Form Accessibility</a>
-            </span>
-          </div>
-          <p class="card-description">
-            A reading covering how to use label elements, fieldsets, and legends to make forms accessible to all
-            users, including those using assistive technologies, so learners can build inclusive form interfaces.
-          </p>
-        </article>
-
-        <!-- Card 5 -->
-        <article class="card" role="listitem">
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <div class="card-title-row">
-            <span class="card-title">
-              <a href="content/Creating_and_Validating_interactive_topics_t4.html">Form Submission and Action Attributes</a>
-            </span>
-          </div>
-          <p class="card-description">
-            A reading explaining the action, method, and enctype attributes on the form element that control
-            where and how submitted data is sent, helping learners understand the mechanics of form submission.
-          </p>
-        </article>
-
-        <!-- Card 6 -->
-        <article class="card" role="listitem">
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <div class="card-title-row">
-            <span class="card-title">
-              <a href="content/Creating_and_Validating_interactive_topics_t5.html">Built-in HTML5 Validation Attributes</a>
-            </span>
-          </div>
-          <p class="card-description">
-            A reading that introduces HTML5's built-in validation attributes (required, pattern, min, max,
-            minlength, etc.) and explains how to enforce input rules directly in markup without JavaScript.
-          </p>
-        </article>
-
-        <!-- Card 7 -->
-        <article class="card" role="listitem">
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <div class="card-title-row">
-            <span class="card-title">
-              <a href="content/Creating_and_Validating_interactive_topics_t6.html">Custom JavaScript Form Validation</a>
-            </span>
-          </div>
-          <p class="card-description">
-            A reading that goes beyond HTML5 built-in validation to cover writing custom JavaScript validation
-            logic, including cross-field comparisons and dynamic error handling for real-world form requirements.
-          </p>
-        </article>
-
-        <!-- Card 8 -->
-        <article class="card" role="listitem">
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <div class="card-title-row">
-            <span class="card-title">
-              <a href="content/Creating_and_Validating_interactive_topics_t7.html">Validation Feedback and User Experience</a>
-            </span>
-          </div>
-          <p class="card-description">
-            A reading focused on best practices for presenting validation error messages and feedback in ways
-            that are clear, timely, and user-friendly, helping learners design forms that guide users to
-            successful submission.
-          </p>
-        </article>
-
-        <!-- Card 9 -->
-        <article class="card" role="listitem">
-          <div class="card-meta">
-            <span class="badge badge-type">Text Content</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <div class="card-title-row">
-            <span class="card-title">
-              <a href="content/Creating_and_Validating_interactive.html">Validation Feedback and User Experience</a>
-            </span>
-          </div>
-          <p class="card-description">
-            A reading focused on best practices for presenting validation error messages and feedback in ways
-            that are clear, timely, and user-friendly, helping learners design forms that guide users to
-            successful submission.
-          </p>
-        </article>
-
-      </div>
-    </main>
-
-    <!-- ── Footer ── -->
-    <footer class="page-footer" role="contentinfo">
-      <p>COP4813 &mdash; Module 5: Creating and Validating HTML Forms</p>
-    </footer>
-
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">COP4813</a><span class="sep" aria-hidden="true">›</span><span class="current">5 - Creating and Validating HTML Forms</span>
+  </nav>
+      <div class="hero-label">Module 5</div>
+      <h1>Creating and Validating HTML Forms</h1>
+      <p class="hero-desc">Students learn to build HTML forms using input types, labels, and fieldsets, then implement both built-in HTML5 validation attributes and custom JavaScript validation logic.</p>
+    </div>
+  </header>
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 7 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">Introduction to HTML Forms</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">Form Input Types and Elements</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">Labels, Fieldsets, and Form Accessibility</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">Form Submission and Action Attributes</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Built-in HTML5 Validation Attributes</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-6"><span class="topic-num" aria-hidden="true">6</span><span class="topic-text"><span class="topic-title">Custom JavaScript Form Validation</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-7"><span class="topic-num" aria-hidden="true">7</span><span class="topic-text"><span class="topic-title">Validation Feedback and User Experience</span><span class="topic-meta">7 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">16 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Creating_and_Validating_interactive_topics_t1.html">Introduction to HTML Forms</a></div>
+    <p class="content-desc">A foundational reading that explains what HTML forms are, why they matter, and how the core form element structures user input and data submission, intended for learners to read before studying specific form components.</p>
   </div>
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Creating_and_Validating_interactive_topics_t2.html">Form Input Types and Elements</a></div>
+    <p class="content-desc">A reading that surveys the full range of HTML input types and form elements (text, email, checkbox, select, etc.), helping learners understand which element to choose based on the kind of data being collected.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Creating_and_Validating_interactive_topics_t3.html">Labels, Fieldsets, and Form Accessibility</a></div>
+    <p class="content-desc">A reading covering how to use label elements, fieldsets, and legends to make forms accessible to all users, including those using assistive technologies, so learners can build inclusive form interfaces.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Creating_and_Validating_interactive_topics_t4.html">Form Submission and Action Attributes</a></div>
+    <p class="content-desc">A reading explaining the action, method, and enctype attributes on the form element that control where and how submitted data is sent, helping learners understand the mechanics of form submission.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Creating_and_Validating_interactive_topics_t5.html">Built-in HTML5 Validation Attributes</a></div>
+    <p class="content-desc">A reading that introduces HTML5&#39;s built-in validation attributes (required, pattern, min, max, minlength, etc.) and explains how to enforce input rules directly in markup without JavaScript.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Creating_and_Validating_interactive_topics_t6.html">Custom JavaScript Form Validation</a></div>
+    <p class="content-desc">A reading that goes beyond HTML5 built-in validation to cover writing custom JavaScript validation logic, including cross-field comparisons and dynamic error handling for real-world form requirements.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Creating_and_Validating_interactive_topics_t7.html">Validation Feedback and User Experience</a></div>
+    <p class="content-desc">A reading focused on best practices for presenting validation error messages and feedback in ways that are clear, timely, and user-friendly, helping learners design forms that guide users to successful submission.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Creating_and_Validating_interactive.html">Validation Feedback and User Experience</a></div>
+    <p class="content-desc">A reading focused on best practices for presenting validation error messages and feedback in ways that are clear, timely, and user-friendly, helping learners design forms that guide users to successful submission.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Creating_and_Validating_t1_videos.html">Introduction to HTML Forms — Videos</a></div>
+    <p class="content-desc">A foundational reading that explains what an HTML form is, how the &lt;form&gt; container groups controls like text boxes, checkboxes, radio buttons, and drop-down lists, and how the action and method attributes determine what happens on submission — used as the module&#39;s starting point before learners build their own forms.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Creating_and_Validating_t2_videos.html">Form Input Types and Elements — Videos</a></div>
+    <p class="content-desc">A lesson surveying the core form elements (form, input, select, option, textarea, button, and label) with emphasis on how the input element&#39;s type attribute changes its behavior, giving learners a reference for choosing the right control for each kind of data.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Creating_and_Validating_t3_videos.html">Labels, Fieldsets, and Form Accessibility — Videos</a></div>
+    <p class="content-desc">A reading on form accessibility that shows how to associate label elements with controls explicitly or implicitly, and how fieldset and legend group related inputs so screen readers announce them correctly — learners apply these techniques to make their forms usable for everyone.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Creating_and_Validating_t4_videos.html">Form Submission and Action Attributes — Videos</a></div>
+    <p class="content-desc">A lesson on how collected data actually reaches a server, covering the action, method (GET vs. POST), and enctype attributes and how they work together, so learners can correctly configure where and how their form submits.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Creating_and_Validating_t5_videos.html">Built-in HTML5 Validation Attributes — Videos</a></div>
+    <p class="content-desc">A reading on browser-native validation using attributes such as required, minlength, maxlength, pattern, min, and max along with input types, showing learners how to enforce acceptable data and trigger built-in error messages without writing JavaScript.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Creating_and_Validating_t6_videos.html">Custom JavaScript Form Validation — Videos</a></div>
+    <p class="content-desc">A lesson on writing custom JavaScript validation for cases HTML5 attributes cannot handle — matching passwords, conditionally required fields, business-specific formats, and custom error wording — used by learners to extend validation beyond browser defaults.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Creating_and_Validating_t7_videos.html">Validation Feedback and User Experience — Videos</a></div>
+    <p class="content-desc">A reading on validation user experience covering inline error messages placed beside the offending field, visual state indicators for valid and invalid input, and timing of feedback, so learners can design forms that clearly tell users what went wrong and how to fix it.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Creating_and_Validating_videos_merged.html">5 - Creating and Validating HTML Forms — 7 topics (merged)</a></div>
+    <p class="content-desc">The consolidated module document that compiles all seven topic readings — forms basics, input types, labels and accessibility, submission attributes, HTML5 validation, custom JavaScript validation, and validation feedback — into a single continuous text for review or printing.</p>
+  </div>
+</li>
+</ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../4-introduction-to-the-document-object-model-dom/index.html">← 4 - Introduction to the Document Object Model (DOM)</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../6-external-libraries-jquery-bootstrap-and-plotting-tools/index.html">6 - External Libraries: jQuery, Bootstrap, and Plotting Tools →</a>
+</nav>
+  </main>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
 </html>

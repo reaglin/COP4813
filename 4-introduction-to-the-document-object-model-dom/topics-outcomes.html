@@ -18,13 +18,13 @@ li{margin:5px 0}
 .el-body{color:#555}
 .prefix{color:#555;font-style:italic;margin:6px 0 14px}
 .mo{border:1px solid #e2e2e2;border-radius:6px;padding:12px 16px;margin:12px 0}
-.mo .code{font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.mo .code{font-size:.8rem;color:#595959;text-transform:uppercase;letter-spacing:.04em}
 .mo .statement{font-weight:600;margin:4px 0 8px}
 .meta span{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin:0 6px 0 0;font-size:.85rem}
 .meta .map{background:#eaf6ec;color:#137333}
 .co{margin:7px 0}
 .co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
-.empty{color:#888}
+.empty{color:#595959}
 </style>
 </head>
 <body>
@@ -33,7 +33,7 @@ li{margin:5px 0}
 <div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
 
 <h2 id="topics">Module Topics</h2>
-<h3>What is the DOM?</h3>
+<h3 id="topic-1">What is the DOM?</h3>
 <div class="summary">Introduces the Document Object Model as a concept, explaining what it is and why it exists as a bridge between HTML documents and JavaScript programming.</div>
 <ul>
 <li><strong>Defining the DOM</strong> <span class="el-body">— The Document Object Model (DOM) is a programming interface that represents an HTML document as a structured, programmable object.</span></li>
@@ -42,7 +42,7 @@ li{margin:5px 0}
 <li><strong>The DOM as a Tree Structure</strong> <span class="el-body">— The DOM organizes the objects created from an HTML document into a hierarchical tree, reflecting the nested nature of HTML markup.</span></li>
 <li><strong>The DOM as an Interface Between HTML and JavaScript</strong> <span class="el-body">— The DOM acts as the critical interface — or bridge — that allows JavaScript code to interact with the content and structure of an HTML document.</span></li>
 </ul>
-<h3>How Browsers Parse HTML into the DOM</h3>
+<h3 id="topic-2">How Browsers Parse HTML into the DOM</h3>
 <div class="summary">Explains the process browsers use to read HTML markup and construct the DOM tree, including how the parsing sequence affects script execution and page rendering.</div>
 <ul>
 <li><strong>What Happens When a Browser Receives HTML</strong> <span class="el-body">— When a browser receives an HTML file from a server, it begins reading the raw markup text and converting it into a structured, in-memory representation called the DOM.</span></li>
@@ -53,7 +53,7 @@ li{margin:5px 0}
 <li><strong>The DOMContentLoaded Event and Parse Completion</strong> <span class="el-body">— Once the browser has finished parsing the HTML and constructing the DOM tree, it fires the DOMContentLoaded event on the document object, signaling that the DOM is ready to be accessed.</span></li>
 <li><strong>Parsing Order and Its Impact on Page Rendering</strong> <span class="el-body">— Because the browser parses HTML top to bottom, the order in which elements and resources appear in the markup directly influences how quickly content becomes visible to the user.</span></li>
 </ul>
-<h3>The DOM Tree Structure</h3>
+<h3 id="topic-3">The DOM Tree Structure</h3>
 <div class="summary">Describes the hierarchical node-based structure of the DOM, covering the relationships between document, element, text, and attribute nodes.</div>
 <ul>
 <li><strong>What Is the DOM Tree?</strong> <span class="el-body">— The DOM (Document Object Model) represents an HTML document as a hierarchical, tree-shaped structure that browsers construct when they parse HTML.</span></li>
@@ -64,7 +64,7 @@ li{margin:5px 0}
 <li><strong>Parent, Child, and Sibling Relationships</strong> <span class="el-body">— The DOM tree is defined by the relationships between nodes: every node (except the document root) has exactly one parent, may have multiple children, and may have sibling nodes at the same level.</span></li>
 <li><strong>How Browsers Build the DOM Tree from HTML</strong> <span class="el-body">— Browsers parse HTML source code top-to-bottom and incrementally construct the DOM tree, translating each tag and piece of text into the appropriate node type.</span></li>
 </ul>
-<h3>Selecting DOM Elements</h3>
+<h3 id="topic-4">Selecting DOM Elements</h3>
 <div class="summary">Covers the core vanilla JavaScript methods used to query and retrieve elements from the DOM, such as getElementById, querySelector, and querySelectorAll.</div>
 <ul>
 <li><strong>What Is DOM Selection?</strong> <span class="el-body">— DOM selection is the process of using JavaScript to locate and retrieve specific HTML elements from the DOM tree so they can be read or manipulated programmatically.</span></li>
@@ -74,7 +74,7 @@ li{margin:5px 0}
 <li><strong>Scoped Selection with Element References</strong> <span class="el-body">— Selection methods can be called on any Element object, not just on &#39;document&#39;, allowing you to search only within a specific part of the DOM tree.</span></li>
 <li><strong>Reading and Verifying Selection Results</strong> <span class="el-body">— After selecting an element, developers should verify the result before operating on it to prevent null-reference errors that crash scripts.</span></li>
 </ul>
-<h3>Manipulating DOM Elements</h3>
+<h3 id="topic-5">Manipulating DOM Elements</h3>
 <div class="summary">Explains how to read and modify element properties, attributes, styles, and text content using JavaScript once elements have been selected.</div>
 <ul>
 <li><strong>Reading and Writing Text Content</strong> <span class="el-body">— JavaScript provides properties to read and update the visible text inside a DOM element once it has been selected.</span></li>
@@ -84,7 +84,7 @@ li{margin:5px 0}
 <li><strong>Reading Computed Styles</strong> <span class="el-body">— To determine the actual rendered style of an element—including styles inherited from stylesheets—use the getComputedStyle method.</span></li>
 <li><strong>Getting and Setting Element Properties</strong> <span class="el-body">— Beyond attributes, DOM elements expose a range of JavaScript properties that directly reflect characteristics of the element object itself.</span></li>
 </ul>
-<h3>Adding and Removing DOM Nodes</h3>
+<h3 id="topic-6">Adding and Removing DOM Nodes</h3>
 <div class="summary">Demonstrates how to dynamically create new elements, insert them into the DOM tree, and remove existing nodes using JavaScript methods.</div>
 <ul>
 <li><strong>Creating New Elements with createElement()</strong> <span class="el-body">— JavaScript provides the document.createElement() method to dynamically generate new HTML elements in memory before they are added to the page.</span></li>
@@ -125,6 +125,6 @@ li{margin:5px 0}
 <h3>Course Outcomes (reference)</h3>
 <p class="empty">No course outcomes have been defined.</p>
 
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
 </body>
 </html>

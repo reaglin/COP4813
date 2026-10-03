@@ -1,0 +1,242 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>9 - Implementing Drag and Drop Interactions</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+<style>section.merged-part{border-top:2px solid rgba(128,128,128,.3);margin-top:2rem;padding-top:.5rem}nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}nav.toc a{display:block;text-decoration:none;padding:.12rem 0}</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 9 - Implementing Drag and Drop Interactions</a></div>
+<h1>9 - Implementing Drag and Drop Interactions</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#part1">Introduction to HTML5 Drag and Drop</a>
+<a href="#part2">Making Elements Draggable</a>
+<a href="#part3">Handling the dragstart Event</a>
+<a href="#part4">Handling the drop Event</a>
+<a href="#part5">Building an Interactive UI Component</a>
+</nav>
+<section class="merged-part" id="part1">
+<h2>Introduction to HTML5 Drag and Drop</h2>
+<section class="item" id="p1-sec1">
+<h3>Introduction</h3>
+<p>Drag and drop is one of the few interaction patterns that users already understand before they ever see your interface: grab something, move it, let go. HTML5 includes a native Drag and Drop API that lets you build this behavior without an external library. The API is built from a small set of pieces — the draggable attribute that marks an element as movable, a sequence of events fired on the source and on the potential drop target, and the DataTransfer object that carries data (and dragged files) from the source to the target.</p>
+<p>In this course the API matters because it sits at the intersection of DOM events, data handling, and user experience. Sortable lists, Kanban boards, file upload zones, image galleries, and shopping-cart builders are all common use cases you may be asked to build. The API is supported broadly in modern desktop browsers, but behavior differs across browsers and is weak on touch devices, so understanding compatibility limits is part of learning the topic.</p>
+<p>As you watch the videos below, pay attention to three things: which element each event listener is attached to (the dragged item versus the drop zone), where and why preventDefault() is called, and how data moves through dataTransfer. Notice also the distinction between dragging elements already on the page and dragging files in from the operating system — both use the same API but handle data differently.</p>
+</section>
+<section class="item" id="p1-sec2">
+<h3>Video 1: JavaScript - Drag &amp; Drop Files &amp; Elements</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/lSCLnWoa6Tw?cc_load_policy=1&amp;rel=0" title="Video: JavaScript - Drag &amp; Drop Files &amp; Elements (Azul Coding)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Azul Coding</strong> · 9:26 · 9,339 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=lSCLnWoa6Tw" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This tutorial walks through drag-and-drop in JavaScript for both files dropped into the browser and HTML elements moved around the page, and it also demonstrates using a plugin to extend drag-and-drop behavior. Expect to see draggable elements set up, drop zones defined, and the event handlers that connect them. The file-dropping portion shows how dragged content is read once it is released on a target.</p>
+<h4>Why this video</h4>
+<p>It covers the two most common use cases — elements and files — in a single compact walkthrough, which maps directly to the use-case and draggable-element subtopics and gives a sense of when a library might be used instead of the raw API.</p>
+</section>
+<section class="item" id="p1-sec3">
+<h3>Video 2: JavaScript (Fall 2024) Module 11-2: Drag and Drop - Detecting the Dragstart Event</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/7EuP-rE-__c?cc_load_policy=1&amp;rel=0" title="Video: JavaScript (Fall 2024) Module 11-2: Drag and Drop - Detecting the Dragstart Event (Bill Moseley, Ph.D. - Computer Science Educator)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Bill Moseley, Ph.D. - Computer Science Educator</strong> · 5:15 · 57 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=7EuP-rE-__c" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Part of a structured beginner JavaScript course, this lesson focuses narrowly on the dragstart event: how it fires, how to detect it, and how to attach a listener to a draggable element. Because it isolates a single event, it is a good way to see where the drag lifecycle actually begins before other events are layered on.</p>
+<h4>Why this video</h4>
+<p>The instructor is a computer science educator producing a sequenced course, so the explanation is paced for beginners and fits precisely the core-events subtopic by examining the first event in the drag lifecycle.</p>
+</section>
+<section class="item" id="p1-sec4">
+<h3>Video 3: How to Drag and Drop images using JavaScript | JavaScript  Tutorial</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/B4Lqgc9UXHE?cc_load_policy=1&amp;rel=0" title="Video: How to Drag and Drop images using JavaScript | JavaScript  Tutorial (Digital Fox)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Digital Fox</strong> · 14:37 · 2,051 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=B4Lqgc9UXHE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A longer, project-style tutorial that builds a drag-and-drop zone for image files, letting users drag images from their computer into the browser and see an instant preview. It should cover setting up the drop target, handling the drag events on that target, and retrieving the dropped files for display.</p>
+<h4>Why this video</h4>
+<p>The file-drop scenario is where the DataTransfer object does its most visible work, making this a practical illustration of how data moves from source to target and a realistic example of a common drag-and-drop use case.</p>
+</section>
+<section class="item" id="p1-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos build the foundation the module outcomes depend on. The dragstart-focused lesson and the two applied tutorials introduce the core events, the draggable attribute, and the DataTransfer object (MO1), and show those event listeners being written and wired to real elements (MO2). Watching element-dragging and file-dragging side by side helps you see why each event exists and how the drop target must accept the drag before data can be transferred (MO3). The image-preview and element-reordering examples serve as models for the larger interactive component you will construct (MO4). None of the videos address accessibility directly, so treat that gap as your own evaluation exercise: as you watch, note where a keyboard alternative or ARIA attribute would be needed (MO5).</p>
+</section>
+<section class="item" id="p1-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part2">
+<h2>Making Elements Draggable</h2>
+<section class="item" id="p2-sec1">
+<h3>Introduction</h3>
+<p>Drag and drop feels natural to users, but browsers do not grant it automatically. In HTML5, an element becomes a drag source only when you mark it with the draggable attribute and then attach JavaScript that responds when the drag begins. This topic focuses on that first half of the interaction: preparing the source element, recognizing which element the user grabbed, wiring up a dragstart listener, and placing information into the dataTransfer object so a drop target can later retrieve it.</p>
+<p>This matters in COP4813 because every later piece of the module depends on a correctly configured source. If the draggable attribute is missing, if dragstart never fires, or if nothing is stored in dataTransfer, the dragover and drop handlers you write afterward will have nothing meaningful to work with. Getting the source right also sets up the visual feedback users rely on — the class changes, opacity shifts, and drag images that signal "this item is moving."</p>
+<p>As you watch the videos below, pay close attention to three things: where the draggable attribute is declared (markup versus JavaScript), how the developer identifies the element being dragged inside the event handler (event.target, a stored reference, or an id), and what exactly gets passed to dataTransfer.setData. Also notice what the videos do not cover — keyboard access and ARIA announcements for assistive technology — since native drag and drop is mouse-oriented by default and accessibility must be added deliberately by you.</p>
+</section>
+<section class="item" id="p2-sec2">
+<h3>Video 1: JavaScript - Drag &amp; Drop Files &amp; Elements</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/lSCLnWoa6Tw?cc_load_policy=1&amp;rel=0" title="Video: JavaScript - Drag &amp; Drop Files &amp; Elements (Azul Coding)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Azul Coding</strong> · 9:26 · 9,339 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=lSCLnWoa6Tw" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A general walkthrough of drag and drop in JavaScript that covers both dragging HTML elements and dragging files into a page. Based on its title and description, it should demonstrate marking elements as draggable, handling the drag events, and it also mentions using a plugin as an alternative approach. The file-drop portion gives useful context for how the same event model serves more than one use case.</p>
+<h4>Why this video</h4>
+<p>At just over nine minutes it gives a broad but concrete orientation to the API, which helps you see where the draggable attribute and dragstart fit within the whole interaction lifecycle before narrowing in on details.</p>
+</section>
+<section class="item" id="p2-sec3">
+<h3>Video 2: Drag And Drop Containers With Html Drag And Drop API</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/sNvwEkgV2SM?cc_load_policy=1&amp;rel=0" title="Video: Drag And Drop Containers With Html Drag And Drop API (Web Dev With Ron)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Web Dev With Ron</strong> · 5:24 · 646 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=sNvwEkgV2SM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short, focused demonstration of moving items between containers using the native HTML Drag and Drop API. Expect to see draggable elements defined in markup, event listeners attached to the source items, and container elements set up to receive them. The container-to-container framing shows why identifying the drag source element clearly is necessary.</p>
+<h4>Why this video</h4>
+<p>Its brevity and its use of the native API rather than a library keep the focus on the standard attributes and events this topic covers, making it a clean reinforcement of drag source setup.</p>
+</section>
+<section class="item" id="p2-sec4">
+<h3>Video 3: Draggable Element Using HTML CSS JavaScript | ProgrammingTT</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/4-5KDvnKWd0?cc_load_policy=1&amp;rel=0" title="Video: Draggable Element Using HTML CSS JavaScript | ProgrammingTT (Code to Concept)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Code to Concept</strong> · 10:33 · 998 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=4-5KDvnKWd0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A step-by-step build of a draggable element using HTML, CSS, and JavaScript, with source code referenced in the description. It should walk through the markup, the styling that provides visual feedback while an item is in motion, and the JavaScript event handling that drives the behavior. The longer runtime allows for a slower, more explanatory pace.</p>
+<h4>Why this video</h4>
+<p>The combined HTML, CSS, and JavaScript treatment directly supports the visual feedback subtopic, showing how styling and event handlers work together rather than treating the attribute in isolation.</p>
+</section>
+<section class="item" id="p2-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos build the foundation for MO1 and MO2 by showing the draggable attribute, the dragstart event, and dataTransfer in working code you can replicate. The container-based example previews the source-to-target relationship that MO3 asks you to reason about, and the styled draggable build contributes the visual-feedback techniques you will need for the polished component in MO4. None of the three addresses keyboard operation or ARIA attributes, so treat that gap as your prompt for MO5: as you watch, note where a keyboard-only user would be blocked and what you would add to make these examples usable with assistive technology.</p>
+</section>
+<section class="item" id="p2-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part3">
+<h2>Handling the dragstart Event</h2>
+<section class="item" id="p3-sec1">
+<h3>Introduction</h3>
+<p>Every drag-and-drop interaction begins with a single moment: the user presses the mouse on a draggable element and starts to move it. That moment fires the dragstart event on the source element, and it is your one reliable opportunity to say what is being dragged, what data travels with it, and how the browser should visually represent the operation. If dragstart is not handled correctly, everything that follows — dragover, drop, and your DOM updates — has nothing meaningful to work with.</p>
+<p>In this topic you will attach a dragstart listener (either in JavaScript with addEventListener or through the HTML draggable attribute plus an inline handler), then work with the event's dataTransfer property. The DataTransfer object is the small clipboard that rides along with the drag: you call setData() with a format string such as "text/plain" and a payload (often an element's id), set effectAllowed to describe whether the operation is a copy, move, or link, and optionally call setDragImage() to replace the default ghost image the browser generates.</p>
+<p>As you watch the videos, pay attention to three things: where the listener is attached (the draggable source, not the drop target), exactly what value is passed to setData() and how that same value is later read back during the drop, and how the presenter makes the drag visually obvious — for example by adding a CSS class on dragstart and removing it later. Noticing those patterns now will make the dragover and drop topics much easier.</p>
+</section>
+<section class="item" id="p3-sec2">
+<h3>Video 1: JavaScript (Fall 2024) Module 11-2: Drag and Drop - Detecting the Dragstart Event</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/7EuP-rE-__c?cc_load_policy=1&amp;rel=0" title="Video: JavaScript (Fall 2024) Module 11-2: Drag and Drop - Detecting the Dragstart Event (Bill Moseley, Ph.D. - Computer Science Educator)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Bill Moseley, Ph.D. - Computer Science Educator</strong> · 5:15 · 57 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=7EuP-rE-__c" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short, focused lesson from a semester-length JavaScript course that isolates the dragstart event and shows how to detect when a drag operation begins. Given its placement in a drag-and-drop module, it most likely walks through marking an element as draggable, wiring up a dragstart handler, and confirming the event fires before moving on to the rest of the API.</p>
+<h4>Why this video</h4>
+<p>It is the tightest match to this topic: a single five-minute segment devoted to dragstart alone, produced by a computer science instructor for a beginner course, so the pacing and vocabulary fit a classroom setting.</p>
+</section>
+<section class="item" id="p3-sec3">
+<h3>Video 2: JavaScript - Drag &amp; Drop Files &amp; Elements</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/lSCLnWoa6Tw?cc_load_policy=1&amp;rel=0" title="Video: JavaScript - Drag &amp; Drop Files &amp; Elements (Azul Coding)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Azul Coding</strong> · 9:26 · 9,339 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=lSCLnWoa6Tw" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A practical walkthrough of drag-and-drop in JavaScript that covers both dragging HTML elements and dropping files from the desktop into a page. The length suggests it moves from marking elements draggable and handling the drag events through to reading the transferred data, and it also mentions using a plugin for added functionality.</p>
+<h4>Why this video</h4>
+<p>It places dragstart in the context of a complete, working feature, which helps you see why storing data on the DataTransfer object at drag time matters for the drop handler later.</p>
+</section>
+<section class="item" id="p3-sec4">
+<h3>Video 3: Dragstart dragend dragover and drop events in JS</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/UY84bdtEVq4?cc_load_policy=1&amp;rel=0" title="Video: Dragstart dragend dragover and drop events in JS (JAVASCRIPT NA SRPSKOM)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>JAVASCRIPT NA SRPSKOM</strong> · 12:40 · 73 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=UY84bdtEVq4" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Reviewed a second time, this video is useful for focusing narrowly on the opening segment where the dragstart listener is attached and data is stored before the rest of the lifecycle is introduced.</p>
+<h4>Why this video</h4>
+<p>Rewatching just the dragstart portion reinforces the attach-listener-then-setData pattern that you will reuse in every drag-and-drop exercise.</p>
+</section>
+<section class="item" id="p3-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos build the foundation for MO1 and MO2: they name the draggable attribute, the dragstart event, and the dataTransfer methods you must recognize, and they demonstrate attaching the listener in JavaScript so you can reproduce it in your own code. The tutorials that show dragstart beside dragover and drop support MO3 by making clear that the source element's job is to publish data while the target's job is to accept it, and the file-and-element walkthrough models the kind of complete interaction you will extend into a sortable list or Kanban board for MO4. None of the videos address accessibility, so the keyboard and ARIA work required by MO5 will come from the module readings and your own evaluation of these implementations.</p>
+</section>
+<section class="item" id="p3-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part4">
+<h2>Handling the drop Event</h2>
+<section class="item" id="p4-sec1">
+<h3>Introduction</h3>
+<p>The drop event is where a drag-and-drop interaction finally pays off. It fires on the drop target when the user releases the mouse button over an element that has been designated a valid target, and it is your opportunity to read the data that was stashed during dragstart and act on it. Because browsers have default behaviors for dropped content (such as opening a dragged link or file), your drop handler almost always begins with event.preventDefault() before doing anything else.</p>
+<p>In this topic you will work through the full sequence: attaching a drop listener to the target, suppressing default browser behavior, calling event.dataTransfer.getData() with the same format string you used in setData(), using the retrieved value (typically an element id) to locate the dragged element with document.getElementById(), and then updating the DOM — usually with appendChild() or insertBefore() — so the element visually moves into its new container. Finally, you clean up any visual feedback, such as highlight classes or opacity changes added during dragover and dragstart, so the interface returns to a neutral state.</p>
+<p>The heart of all of this is DOM manipulation: showing, hiding, moving, and restyling elements with JavaScript. The video below focuses on that underlying skill. As you watch, pay attention to how elements are selected, how classes and styles are toggled, and how those same techniques would let you update a drop target and remove leftover highlighting after a successful drop.</p>
+</section>
+<section class="item" id="p4-sec2">
+<h3>Video 1: JavaScript #29 - Show and hide DOM element</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/jXlWW6ppq1g?cc_load_policy=1&amp;rel=0" title="Video: JavaScript #29 - Show and hide DOM element (Code with Bibek)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Code with Bibek</strong> · 5:49 · 950 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=jXlWW6ppq1g" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short, project-oriented JavaScript tutorial that demonstrates how to show and hide a DOM element from code. Based on its title and description, it likely covers selecting an element, attaching an event handler, and toggling its visibility by changing a style property or a CSS class. The example is small enough to follow line by line and then adapt to your own pages.</p>
+<h4>Why this video</h4>
+<p>The DOM-update techniques shown here — selecting elements and changing their appearance in response to an event — are exactly what a drop handler does when it moves an item into a target and clears highlight styling afterward, so it supports the "Updating the DOM After a Successful Drop" and "Cleaning Up Visual Feedback" subtopics.</p>
+</section>
+<section class="item" id="p4-sec3">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>The video reinforces the DOM-manipulation foundation that the drop event depends on: once getData() returns the identifier of the dragged element, everything that follows is ordinary JavaScript element selection and styling. That practice supports MO2 and MO3, where your drop listener must call preventDefault(), retrieve transferred data, and visibly complete the interaction, and it feeds directly into MO4, where the same show, hide, move, and restyle operations are combined to build a sortable list or Kanban-style board. Use the module readings and API reference alongside it for the drag-and-drop event names, attributes, and DataTransfer methods in MO1, and for the usability and accessibility review called for in MO5.</p>
+</section>
+<section class="item" id="p4-sec4">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part5">
+<h2>Building an Interactive UI Component</h2>
+<section class="item" id="p5-sec1">
+<h3>Introduction</h3>
+<p>Up to this point you have examined the HTML5 Drag and Drop API one event at a time. In this topic you put the pieces together and build a complete interactive component — typically a sortable list or a Kanban-style board — where items can be picked up, dragged across containers, and dropped into a new position. The work begins before any code: planning what the component must do, deciding which elements are draggable, which are drop targets, and what data each dragged item carries.</p>
+<p>From there you build the markup (draggable="true", container and item structure, data attributes for identifiers), wire up dragstart to stash an identifier on the dataTransfer object, use dragover with preventDefault() to declare a valid drop zone, and finish in drop by moving or reordering the DOM nodes. Just as important is what happens behind the visible interface: the underlying data model — the array or object that represents your list or board — must stay in sync with the DOM, or the component will look correct but behave incorrectly on save, refresh, or re-render. Finally, because pointer-based dragging excludes keyboard and screen-reader users, you add keyboard alternatives, ARIA attributes, and clear visual affordances.</p>
+<p>The three videos below approach the same problem from different angles: native browser API, a framework component library, and a reusable framework-level abstraction. While watching, track three things — where state is stored, how each event handler contributes to the interaction lifecycle, and what the implementation does (or fails to do) for users who are not using a mouse. Being able to compare a hand-written implementation to a library-provided one is useful even if your project uses only vanilla JavaScript.</p>
+</section>
+<section class="item" id="p5-sec2">
+<h3>Video 1: JavaScript - Drag &amp; Drop Files &amp; Elements</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/lSCLnWoa6Tw?cc_load_policy=1&amp;rel=0" title="Video: JavaScript - Drag &amp; Drop Files &amp; Elements (Azul Coding)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Azul Coding</strong> · 9:26 · 9,339 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=lSCLnWoa6Tw" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A compact walkthrough of drag-and-drop in plain JavaScript that, based on its title and description, covers both dragging HTML elements around the page and dragging files into the browser, and also mentions using a plugin for added functionality. Expect to see the markup setup, the core event listeners, and the handler logic that moves an element to a new container.</p>
+<h4>Why this video</h4>
+<p>This is the closest match to the hand-coded, framework-free approach used in this course, so it maps directly onto the HTML structure, dragstart, dragover, and drop subtopics without hiding the API behind a library.</p>
+</section>
+<section class="item" id="p5-sec3">
+<h3>Video 2: #Angular Material CDK — Drag and Drop between Lists [Mid-level, 2021]</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/O489gFEoj-o?cc_load_policy=1&amp;rel=0" title="Video: #Angular Material CDK — Drag and Drop between Lists [Mid-level, 2021] (Decoded Frontend)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Decoded Frontend</strong> · 19:20 · 37,039 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=O489gFEoj-o" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A mid-level tutorial from Decoded Frontend on the Angular Material CDK drag-and-drop module, focused specifically on transferring items between multiple lists. It is likely to show connected drop lists, reordering within a list, moving items across lists, and the events the CDK exposes when a drop occurs.</p>
+<h4>Why this video</h4>
+<p>The multi-list scenario is exactly the Kanban-style pattern this topic targets, and because CDK drop handlers require you to update the backing arrays yourself, it illustrates the state-and-data-model subtopic very clearly.</p>
+</section>
+<section class="item" id="p5-sec4">
+<h3>Video 3: Svelte makes Drag And Drop API easy!</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/lTDKhj83tec?cc_load_policy=1&amp;rel=0" title="Video: Svelte makes Drag And Drop API easy! (Antonio Sarcevic)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Antonio Sarcevic</strong> · 15:08 · 27,106 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=lTDKhj83tec" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video builds a minimal draggable element and drop zone in Svelte using the browser's native Drag and Drop API, packaged as reusable Svelte actions. Expect attention to how the native events are attached and cleaned up, and how the same behavior can be applied to many elements without repeating code.</p>
+<h4>Why this video</h4>
+<p>It demonstrates the native API being wrapped into a reusable abstraction, which reinforces the planning subtopic and shows how to keep drag logic separate from component markup and state.</p>
+</section>
+<section class="item" id="p5-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos reinforce the module outcomes at the point where they come together in a real build. The vanilla JavaScript walkthrough and the Svelte action video both work directly with the native events and the DataTransfer object, supporting MO1, MO2, and MO3 by showing which handler does what and why preventDefault() on dragover matters. The Angular CDK video and the multi-list reordering pattern it demonstrates support MO4, since a working sortable or Kanban component requires that the DOM and the underlying data arrays update in step. None of the videos is a dedicated accessibility lesson, so for MO5 you should watch each implementation critically and note where keyboard operation, focus handling, and ARIA attributes would need to be added before the component could be considered complete.</p>
+</section>
+<section class="item" id="p5-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

@@ -1,405 +1,162 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Module 3 – Styling Web Pages with CSS | COP4813</title>
-  <style>
-    /* ── Reset & Base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f4f6f9;
-      color: #2c3e50;
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    /* ── Header / Hero ── */
-    header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #2e6da4 100%);
-      color: #fff;
-      padding: 2.5rem 2rem 2rem;
-      border-bottom: 4px solid #f0a500;
-    }
-
-    header .inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    header .course-label {
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #a8cfef;
-      margin-bottom: 0.4rem;
-    }
-
-    header h1 {
-      font-size: clamp(1.5rem, 3.5vw, 2.4rem);
-      font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: 0.85rem;
-    }
-
-    header h1 span.module-num {
-      display: inline-block;
-      background: #f0a500;
-      color: #1a3a5c;
-      font-size: 0.7em;
-      font-weight: 800;
-      padding: 0.1em 0.55em;
-      border-radius: 4px;
-      vertical-align: middle;
-      margin-right: 0.5rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    header p.intro {
-      max-width: 72ch;
-      font-size: 1rem;
-      color: #d6e8f7;
-      line-height: 1.7;
-    }
-
-    /* ── Main Layout ── */
-    main {
-      max-width: 1100px;
-      margin: 2.5rem auto;
-      padding: 0 1.25rem 3rem;
-    }
-
-    /* ── Section heading ── */
-    .section-heading {
-      font-size: 1.05rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: #1a3a5c;
-      border-left: 4px solid #f0a500;
-      padding-left: 0.75rem;
-      margin-bottom: 1.5rem;
-    }
-
-    /* ── Card Grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-      gap: 1.25rem;
-    }
-
-    /* ── Card ── */
-    .card {
-      background: #fff;
-      border: 1px solid #dde3eb;
-      border-radius: 8px;
-      padding: 1.35rem 1.4rem 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
-    }
-
-    .card:hover {
-      box-shadow: 0 6px 18px rgba(30,80,140,0.12);
-      transform: translateY(-2px);
-    }
-
-    /* ── Card header row ── */
-    .card-header {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 0.5rem 0.75rem;
-    }
-
-    .card-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #1a3a5c;
-      line-height: 1.3;
-    }
-
-    .card-title a {
-      color: #1a5fa8;
-      text-decoration: none;
-      border-bottom: 2px solid transparent;
-      transition: border-color 0.15s;
-    }
-
-    .card-title a:hover,
-    .card-title a:focus {
-      border-bottom-color: #f0a500;
-      outline: none;
-    }
-
-    .source-link {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #fff;
-      background: #5a7fa8;
-      padding: 0.2em 0.55em;
-      border-radius: 3px;
-      text-decoration: none;
-      white-space: nowrap;
-      transition: background 0.15s;
-      align-self: center;
-    }
-
-    .source-link:hover,
-    .source-link:focus {
-      background: #1a3a5c;
-      outline: none;
-    }
-
-    /* ── Badges row ── */
-    .card-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      align-items: center;
-    }
-
-    .badge {
-      display: inline-block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      padding: 0.22em 0.6em;
-      border-radius: 3px;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .badge-type {
-      background: #e8f0fb;
-      color: #1a5fa8;
-      border: 1px solid #c3d5ef;
-    }
-
-    .badge-filetype {
-      background: #fdf3df;
-      color: #8a5b00;
-      border: 1px solid #f0d898;
-    }
-
-    /* ── Description ── */
-    .card-description {
-      font-size: 0.88rem;
-      color: #4a5568;
-      line-height: 1.65;
-      flex: 1;
-    }
-
-    /* ── Footer ── */
-    footer {
-      text-align: center;
-      font-size: 0.78rem;
-      color: #8a96a8;
-      padding: 1.5rem 1rem 2rem;
-      border-top: 1px solid #dde3eb;
-    }
-
-    /* ── Focus visible global ── */
-    :focus-visible {
-      outline: 3px solid #f0a500;
-      outline-offset: 2px;
-    }
-
-    /* ── Responsive tweaks ── */
-    @media (max-width: 480px) {
-      header { padding: 1.75rem 1rem 1.5rem; }
-      .card { padding: 1.1rem 1.1rem 1rem; }
-      .card-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3 -Styling Web Pages with CSS — COP4813</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ COP4813</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-
-  <!-- ═══════════════════════ HEADER ═══════════════════════ -->
-  <header>
-    <div class="inner">
-      <p class="course-label">COP4813 &mdash; Web Application Programming</p>
-      <h1>
-        <span class="module-num">Module 3</span>
-        Styling Web Pages with CSS
-      </h1>
-      <p class="intro">
-        This module introduces Cascading Style Sheets (CSS) as the language that controls the visual
-        presentation of web pages. You will explore CSS syntax, selectors, the box model, typography,
-        color, and modern layout techniques — including Flexbox and Grid — building the skills needed
-        to craft polished, well-structured web interfaces.
-      </p>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">COP4813</a><span class="sep" aria-hidden="true">›</span><span class="current">3 -Styling Web Pages with CSS</span>
+  </nav>
+      <div class="hero-label">Module 3</div>
+      <h1>Styling Web Pages with CSS</h1>
+      <p class="hero-desc">Students learn Cascading Style Sheets fundamentals including selectors, the box model, typography, colors, and layout techniques to visually design the websites built in the previous lesson.</p>
     </div>
   </header>
-
-  <!-- ═══════════════════════ MAIN ═══════════════════════ -->
-  <main>
-    <h2 class="section-heading">Module Artifacts</h2>
-
-    <div class="card-grid">
-
-      <!-- Card 1 — Module Topics -->
-      <article class="card">
-        <div class="card-header">
-          <span class="card-title">
-            <a href="content/module_topics.html">Module Topics</a>
-          </span>
-          <a class="source-link" href="source/hierarchy.json">source file</a>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Module Topics</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <p class="card-description">
-          A structured outline of the module's five main topic areas — CSS basics, selectors, the box
-          model, typography and colors, and layout techniques including Flexbox — that learners use to
-          preview what will be covered and instructors use to verify curricular scope.
-        </p>
-      </article>
-
-      <!-- Card 2 — Introduction to CSS -->
-      <article class="card">
-        <div class="card-header">
-          <span class="card-title">
-            <a href="content/Styling_Web_Pages_interactive_topics_t1.html">Introduction to CSS</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          This reading introduces CSS as a stylesheet language, explains how it separates visual
-          presentation from HTML structure, and covers how to apply styles using inline, internal, and
-          external methods, serving as a learner's first conceptual foundation for the module.
-        </p>
-      </article>
-
-      <!-- Card 3 — CSS Selectors -->
-      <article class="card">
-        <div class="card-header">
-          <span class="card-title">
-            <a href="content/Styling_Web_Pages_interactive_topics_t2.html">CSS Selectors</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          This reading explains CSS selectors — including type, class, ID, attribute, and pseudo-class
-          selectors — and how specificity determines which rules win when multiple rules conflict,
-          helping learners precisely target HTML elements for styling.
-        </p>
-      </article>
-
-      <!-- Card 4 — The Box Model -->
-      <article class="card">
-        <div class="card-header">
-          <span class="card-title">
-            <a href="content/Styling_Web_Pages_interactive_topics_t3.html">The Box Model</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          This reading covers the CSS Box Model, explaining how every HTML element is rendered as a
-          rectangular box composed of content, padding, border, and margin, so learners can accurately
-          control spacing, sizing, and layout behaviour.
-        </p>
-      </article>
-
-      <!-- Card 5 — Typography and Colors -->
-      <article class="card">
-        <div class="card-header">
-          <span class="card-title">
-            <a href="content/Styling_Web_Pages_interactive_topics_t4.html">Typography and Colors</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          This reading covers CSS typography properties (font family, size, weight, line height,
-          spacing) and color tools (named colors, hex, RGB, HSL, and background colors), enabling
-          learners to style text and establish a visual hierarchy on web pages.
-        </p>
-      </article>
-
-      <!-- Card 6 — CSS Layout Techniques -->
-      <article class="card">
-        <div class="card-header">
-          <span class="card-title">
-            <a href="content/Styling_Web_Pages_interactive_topics_t5.html">CSS Layout Techniques</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          This reading covers CSS layout techniques including normal flow, the display property,
-          Flexbox, and CSS Grid, teaching learners how to arrange and align page elements beyond the
-          browser's default document flow.
-        </p>
-      </article>
-
-      <!-- Card 7 — Styling a Complete Web Page (Topic Detail) -->
-      <article class="card">
-        <div class="card-header">
-          <span class="card-title">
-            <a href="content/Styling_Web_Pages_interactive_topics_t6.html">Styling a Complete Web Page</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          This reading guides learners through combining selectors, the box model, typography, color,
-          and pseudo-classes into a cohesive stylesheet for a complete, multi-section web page, serving
-          as an integrative capstone lesson for the module.
-        </p>
-      </article>
-
-      <!-- Card 8 — Styling a Complete Web Page (Text Content) -->
-      <article class="card">
-        <div class="card-header">
-          <span class="card-title">
-            <a href="content/Styling_Web_Pages_interactive.html">Styling a Complete Web Page</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          This reading guides learners through combining selectors, the box model, typography, color,
-          and pseudo-classes into a cohesive stylesheet for a complete, multi-section web page, serving
-          as an integrative capstone lesson for the module.
-        </p>
-      </article>
-
-    </div><!-- /.card-grid -->
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 6 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">Introduction to CSS</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">CSS Selectors</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">The Box Model</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">Typography and Colors</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">CSS Layout Techniques</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-6"><span class="topic-num" aria-hidden="true">6</span><span class="topic-text"><span class="topic-title">Styling a Complete Web Page</span><span class="topic-meta">7 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">14 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Styling_Web_Pages_interactive_topics_t1.html">Introduction to CSS</a></div>
+    <p class="content-desc">This reading introduces CSS as a stylesheet language, explains how it separates visual presentation from HTML structure, and covers how to apply styles using inline, internal, and external methods, serving as a learner&#39;s first conceptual foundation for the module.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Styling_Web_Pages_interactive_topics_t2.html">CSS Selectors</a></div>
+    <p class="content-desc">This reading explains CSS selectors — including type, class, ID, attribute, and pseudo-class selectors — and how specificity determines which rules win when multiple rules conflict, helping learners precisely target HTML elements for styling.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Styling_Web_Pages_interactive_topics_t3.html">The Box Model</a></div>
+    <p class="content-desc">This reading covers the CSS Box Model, explaining how every HTML element is rendered as a rectangular box composed of content, padding, border, and margin, so learners can accurately control spacing, sizing, and layout behaviour.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Styling_Web_Pages_interactive_topics_t4.html">Typography and Colors</a></div>
+    <p class="content-desc">This reading covers CSS typography properties (font family, size, weight, line height, spacing) and color tools (named colors, hex, RGB, HSL, and background colors), enabling learners to style text and establish a visual hierarchy on web pages.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Styling_Web_Pages_interactive_topics_t5.html">CSS Layout Techniques</a></div>
+    <p class="content-desc">This reading covers CSS layout techniques including normal flow, the display property, Flexbox, and CSS Grid, teaching learners how to arrange and align page elements beyond the browser&#39;s default document flow.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Styling_Web_Pages_interactive_topics_t6.html">Styling a Complete Web Page</a></div>
+    <p class="content-desc">This reading guides learners through combining selectors, the box model, typography, color, and pseudo-classes into a cohesive stylesheet for a complete, multi-section web page, serving as an integrative capstone lesson for the module.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Styling_Web_Pages_interactive.html">Styling a Complete Web Page</a></div>
+    <p class="content-desc">This reading guides learners through combining selectors, the box model, typography, color, and pseudo-classes into a cohesive stylesheet for a complete, multi-section web page, serving as an integrative capstone lesson for the module.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Styling_Web_Pages_t1_videos.html">Introduction to CSS — Videos</a></div>
+    <p class="content-desc">A reading that introduces CSS as the presentation language layered on top of HTML, covering rule syntax (selectors, properties, values), how styles are attached to a page, and how browsers apply them, serving as the opening lesson of the module.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Styling_Web_Pages_t2_videos.html">CSS Selectors — Videos</a></div>
+    <p class="content-desc">A lesson explaining CSS selectors — element/type, class, and ID selectors plus ways of combining them — so learners can accurately target the elements they want to style.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Styling_Web_Pages_t3_videos.html">The Box Model — Videos</a></div>
+    <p class="content-desc">A reading on the CSS box model that breaks down content, padding, border, and margin and shows how these layers determine an element&#39;s size and spacing on the page.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Styling_Web_Pages_t4_videos.html">Typography and Colors — Videos</a></div>
+    <p class="content-desc">A lesson on typography and color properties, including font-family, font-size, font-weight, line-height, text-align, and color value formats, with attention to readability and contrast.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Styling_Web_Pages_t5_videos.html">CSS Layout Techniques — Videos</a></div>
+    <p class="content-desc">A reading on CSS layout that moves from normal document flow and block/inline behavior to positioning and modern tools such as Flexbox for arranging elements on a page.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Styling_Web_Pages_t6_videos.html">Styling a Complete Web Page — Videos</a></div>
+    <p class="content-desc">A capstone-style lesson that combines selectors, the cascade, typography, color, the box model, and Flexbox to style an entire page with a single external stylesheet.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Styling_Web_Pages_videos_merged.html">3 -Styling Web Pages with CSS — 6 topics (merged)</a></div>
+    <p class="content-desc">The combined full-module document that compiles all six CSS topics into one continuous reading for review or printing.</p>
+  </div>
+</li>
+</ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../2-building-a-full-website-with-html-images-and-links/index.html">← 2 -Building a Full Website with HTML, Images, and Links</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../4-introduction-to-the-document-object-model-dom/index.html">4 - Introduction to the Document Object Model (DOM) →</a>
+</nav>
   </main>
-
-  <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
-  <footer>
-    <p>COP4813 &mdash; Web Application Programming &nbsp;|&nbsp; Module 3: Styling Web Pages with CSS</p>
-  </footer>
-
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
 </html>

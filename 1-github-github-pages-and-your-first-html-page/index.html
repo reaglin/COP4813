@@ -1,353 +1,146 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Module 1 – GitHub, GitHub Pages, and Your First HTML Page | COP4813</title>
-  <style>
-    /* ── Reset & base ───────────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: #f4f6f9;
-      color: #1e2533;
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    /* ── Header / hero ──────────────────────────────────────────── */
-    header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #24527a 60%, #2d6a9f 100%);
-      color: #fff;
-      padding: 3rem 1.5rem 2.5rem;
-      text-align: center;
-    }
-
-    .course-label {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 999px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 0.3rem 1rem;
-      margin-bottom: 1rem;
-      color: #cde4f7;
-    }
-
-    header h1 {
-      font-size: clamp(1.5rem, 4vw, 2.4rem);
-      font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: 1rem;
-      letter-spacing: -0.01em;
-    }
-
-    header p {
-      max-width: 640px;
-      margin: 0 auto;
-      font-size: 1rem;
-      color: #c8dff2;
-      line-height: 1.7;
-    }
-
-    /* ── Main content area ──────────────────────────────────────── */
-    main {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 2.5rem 1.25rem 4rem;
-    }
-
-    .section-title {
-      font-size: 1rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: #5a6a82;
-      margin-bottom: 1.25rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .section-title::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: #d6dde8;
-    }
-
-    /* ── Card grid ──────────────────────────────────────────────── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.25rem;
-    }
-
-    .card {
-      background: #fff;
-      border: 1px solid #dde3ed;
-      border-radius: 10px;
-      padding: 1.4rem 1.5rem 1.35rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.65rem;
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
-      position: relative;
-    }
-
-    .card:hover {
-      box-shadow: 0 6px 22px rgba(36, 82, 122, 0.12);
-      transform: translateY(-2px);
-    }
-
-    /* ── Card top row: type badge + file type pill ──────────────── */
-    .card-meta {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-
-    .badge-type {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      padding: 0.22rem 0.65rem;
-      border-radius: 999px;
-      background: #e8f0fb;
-      color: #24527a;
-      border: 1px solid #c5d8f0;
-    }
-
-    .badge-filetype {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      padding: 0.22rem 0.6rem;
-      border-radius: 999px;
-      background: #f0f3f8;
-      color: #5a6a82;
-      border: 1px solid #d6dde8;
-      font-family: 'Courier New', monospace;
-    }
-
-    /* ── Card title row ─────────────────────────────────────────── */
-    .card-title-row {
-      display: flex;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-    }
-
-    .card-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #1a3a5c;
-      line-height: 1.3;
-    }
-
-    .card-title a {
-      color: #1a5fa8;
-      text-decoration: none;
-      border-bottom: 2px solid transparent;
-      transition: border-color 0.15s ease, color 0.15s ease;
-    }
-
-    .card-title a:hover {
-      color: #0d3f78;
-      border-bottom-color: #0d3f78;
-    }
-
-    .source-link {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #5a8abf;
-      text-decoration: none;
-      white-space: nowrap;
-      padding: 0.15rem 0.55rem;
-      border: 1px solid #b5cfea;
-      border-radius: 4px;
-      background: #f0f6fc;
-      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-      line-height: 1.5;
-    }
-
-    .source-link:hover {
-      background: #daeaf8;
-      color: #1a4f82;
-      border-color: #8ab4d8;
-    }
-
-    /* ── Card description ───────────────────────────────────────── */
-    .card-description {
-      font-size: 0.88rem;
-      color: #4a5568;
-      line-height: 1.65;
-      flex: 1;
-    }
-
-    /* ── Footer ─────────────────────────────────────────────────── */
-    footer {
-      text-align: center;
-      padding: 1.5rem 1rem;
-      font-size: 0.8rem;
-      color: #8a96a8;
-      border-top: 1px solid #dde3ed;
-      background: #fff;
-    }
-
-    /* ── Responsive tweaks ──────────────────────────────────────── */
-    @media (max-width: 480px) {
-      header { padding: 2.2rem 1rem 2rem; }
-      main { padding: 1.75rem 1rem 3rem; }
-      .card { padding: 1.2rem 1.2rem 1.15rem; }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1 -GitHub, GitHub Pages, and Your First HTML Page — COP4813</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ COP4813</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-
-  <header>
-    <div class="course-label">COP4813</div>
-    <h1>Module 1 &mdash; GitHub, GitHub Pages, and Your First HTML Page</h1>
-    <p>
-      Get started with version control and the web. This module walks you through
-      setting up a GitHub account, creating your first repository, publishing a live
-      site with GitHub Pages, and writing a complete HTML document from scratch.
-    </p>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">COP4813</a><span class="sep" aria-hidden="true">›</span><span class="current">1 -GitHub, GitHub Pages, and Your First HTML Page</span>
+  </nav>
+      <div class="hero-label">Module 1</div>
+      <h1>GitHub, GitHub Pages, and Your First HTML Page</h1>
+      <p class="hero-desc">Students set up a GitHub account and repository, deploy a GitHub Pages site, and write a basic &#39;Hello, World&#39; HTML document to establish the development workflow used throughout the course.</p>
+    </div>
   </header>
-
-  <main>
-    <div class="section-title">Module Artifacts</div>
-
-    <div class="card-grid">
-
-      <!-- Card 1: Module Topics -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge-type">Module Topics</span>
-          <span class="badge-filetype">.json</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/module_topics.html">Module Topics</a>
-          </span>
-          <a class="source-link" href="source/hierarchy.json">source file</a>
-        </div>
-        <p class="card-description">
-          A structured outline of the module's learning topics &mdash; covering GitHub
-          fundamentals, repository creation, GitHub Pages deployment, and writing a first
-          HTML document &mdash; used by instructors to organize content sequence and by
-          learners to preview what concepts and skills the module will teach.
-        </p>
-      </div>
-
-      <!-- Card 2: Github Pages -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge-type">Text Content</span>
-          <span class="badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/_interactive.html">Github Pages</a>
-          </span>
-        </div>
-        <p class="card-description">
-          This text-based lesson introduces learners to the fundamental structure of an
-          HTML document &mdash; including key elements like the doctype declaration, head,
-          and body &mdash; guiding them step-by-step through writing their first complete
-          HTML file and understanding how a browser renders it into a visible web page.
-        </p>
-      </div>
-
-      <!-- Card 3: Introduction to GitHub -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge-type">Topic Detail</span>
-          <span class="badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/GitHub_GitHub_Pages_interactive_topics_t1.html">Introduction to GitHub</a>
-          </span>
-        </div>
-        <p class="card-description">
-          An interactive reading introducing GitHub and its underlying technology, Git,
-          explaining version control concepts and why GitHub is a widely used platform for
-          storing, managing, and sharing code, intended for learners with no prior experience.
-        </p>
-      </div>
-
-      <!-- Card 4: Creating Your First Repository -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge-type">Topic Detail</span>
-          <span class="badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/GitHub_GitHub_Pages_interactive_topics_t2.html">Creating Your First Repository</a>
-          </span>
-        </div>
-        <p class="card-description">
-          An interactive reading that walks learners through creating their first GitHub
-          repository, explaining what a repository is, what each setup option means, and
-          why creating a repo is the required first step for any project.
-        </p>
-      </div>
-
-      <!-- Card 5: Deploying with GitHub Pages -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge-type">Topic Detail</span>
-          <span class="badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/GitHub_GitHub_Pages_interactive_topics_t3.html">Deploying with GitHub Pages</a>
-          </span>
-        </div>
-        <p class="card-description">
-          An interactive reading on GitHub Pages that explains what the free static-site
-          hosting service is, how it works, and how learners can use it to publish their
-          HTML, CSS, and JavaScript files to the web without renting a server or using FTP.
-        </p>
-      </div>
-
-      <!-- Card 6: Writing Your First HTML Document -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge-type">Topic Detail</span>
-          <span class="badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/GitHub_GitHub_Pages_interactive_topics_t4.html">Writing Your First HTML Document</a>
-          </span>
-        </div>
-        <p class="card-description">
-          This text-based lesson introduces learners to the structure and syntax of an HTML
-          document &mdash; explaining how browsers interpret plain text HTML files &mdash; and
-          guides them through building their first complete HTML page, serving as the primary
-          reading material for the foundational web development topic in the module.
-        </p>
-      </div>
-
-    </div><!-- /.card-grid -->
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 6 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">Introduction to GitHub</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">Creating Your First Repository</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">Deploying with GitHub Pages</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">Writing Your First HTML Document</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Publishing and Verifying Your Live Page</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-6"><span class="topic-num" aria-hidden="true">6</span><span class="topic-text"><span class="topic-title">Understanding the Development Workflow</span><span class="topic-meta">5 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">12 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/_interactive.html">Github Pages</a></div>
+    <p class="content-desc">This text-based lesson introduces learners to the fundamental structure of an HTML document—including key elements like the doctype declaration, head, and body—guiding them step-by-step through writing their first complete HTML file and understanding how a browser renders it into a visible web page.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/GitHub_GitHub_Pages_interactive_topics_t1.html">Introduction to GitHub</a></div>
+    <p class="content-desc">An interactive reading introducing GitHub and its underlying technology, Git, explaining version control concepts and why GitHub is a widely used platform for storing, managing, and sharing code, intended for learners with no prior experience.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/GitHub_GitHub_Pages_interactive_topics_t2.html">Creating Your First Repository</a></div>
+    <p class="content-desc">An interactive reading that walks learners through creating their first GitHub repository, explaining what a repository is, what each setup option means, and why creating a repo is the required first step for any project.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/GitHub_GitHub_Pages_interactive_topics_t3.html">Deploying with GitHub Pages</a></div>
+    <p class="content-desc">An interactive reading on GitHub Pages that explains what the free static-site hosting service is, how it works, and how learners can use it to publish their HTML, CSS, and JavaScript files to the web without renting a server or using FTP.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/GitHub_GitHub_Pages_interactive_topics_t4.html">Writing Your First HTML Document</a></div>
+    <p class="content-desc">This text-based lesson introduces learners to the structure and syntax of an HTML document—explaining how browsers interpret plain text HTML files—and guides them through building their first complete HTML page, serving as the primary reading material for the foundational web development topic in the module.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/GitHub_GitHub_Pages_t1_videos.html">Introduction to GitHub — Videos</a></div>
+    <p class="content-desc">A reading that introduces GitHub as a Git-based platform for storing, sharing, and collaborating on code, covering repositories, the web interface, issue tracking, and social features so learners understand where their course work will live.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/GitHub_GitHub_Pages_t2_videos.html">Creating Your First Repository — Videos</a></div>
+    <p class="content-desc">A step-by-step tutorial defining what a GitHub repository is (files, change history, and visibility settings) and walking learners through creating and configuring their own repo to store the HTML work they will produce in this course.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/GitHub_GitHub_Pages_t3_videos.html">Deploying with GitHub Pages — Videos</a></div>
+    <p class="content-desc">A reading explaining how GitHub Pages provides free static hosting for a repository&#39;s HTML, CSS, and image files, which learners use to enable Pages and publish a site to a public URL without servers or FTP.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/GitHub_GitHub_Pages_t4_videos.html">Writing Your First HTML Document — Videos</a></div>
+    <p class="content-desc">A hands-on reading on HTML as a markup language, guiding learners through the basic document skeleton and tags to author and display their first complete HTML file in a browser.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/GitHub_GitHub_Pages_t5_videos.html">Publishing and Verifying Your Live Page — Videos</a></div>
+    <p class="content-desc">A step-by-step reading on the final stages of the local-to-live pipeline — staging, committing with a message, and pushing to GitHub — plus how to verify that the published page appears correctly at its live address.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/GitHub_GitHub_Pages_t6_videos.html">Understanding the Development Workflow — Videos</a></div>
+    <p class="content-desc">A conceptual reading that maps the three-stage local-to-live pipeline (editing locally, committing and pushing, and GitHub Pages publication) so learners can reason about where a change is at any moment and troubleshoot accordingly.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/GitHub_GitHub_Pages_videos_merged.html">1 -GitHub, GitHub Pages, and Your First HTML Page — 5 topics (merged)</a></div>
+    <p class="content-desc">The main module reading that introduces GitHub and the underlying Git version control system, its hosting, web interface, issue tracking, and social features, and connects these tools to publishing a first HTML page through GitHub Pages.</p>
+  </div>
+</li>
+</ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <span></span>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../2-building-a-full-website-with-html-images-and-links/index.html">2 -Building a Full Website with HTML, Images, and Links →</a>
+</nav>
   </main>
-
-  <footer>
-    COP4813 &mdash; Module 1 &nbsp;|&nbsp; GitHub, GitHub Pages, and Your First HTML Page
-  </footer>
-
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
 </html>

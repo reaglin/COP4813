@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>External Links and Web Resources</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 2 -Building a Full Website with HTML, Images, and Links</a></div>
+<h1>External Links and Web Resources</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: HTML - Links - W3Schools.com</a>
+<a href="#sec3">Video 2: HTML Links 101: Build Powerful, SEO-Friendly Hyperlinks</a>
+<a href="#sec4">Video 3: Week 05 External and Internal Links</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Linking outward is what makes your site part of the web rather than an island. When you point to a page on another site, you need an absolute URL — the full address including the scheme (https://), the domain, and any path — because a relative path would only ever be resolved against your own site&#39;s folders. This topic covers how to write those links with the anchor element and how to choose attributes that affect where the page opens and how safely.</p>
+<p>Two attributes matter most here. The target attribute (commonly target=&quot;_blank&quot;) controls whether the destination replaces the current page or opens in a new tab, and historically a new tab could give the destination limited scripting access back to your page, which is why rel=&quot;noopener noreferrer&quot; is the standard companion. The rel attribute also describes the relationship between your page and the destination more broadly, with values such as nofollow, external, and license. Alongside the technical details, there is a user-experience obligation: link text should tell people where they are going, and users should not be surprised by a tab opening unexpectedly.</p>
+<p>As you watch, focus on three things: the exact anatomy of the anchor tag (href, text content, closing tag), how the videos distinguish absolute from relative URLs, and any mention of target or rel. Note that short beginner tutorials often stop before the security discussion — treat the module readings as the authority on rel=&quot;noopener noreferrer&quot; and use the videos to build fluency with the markup itself.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: HTML - Links - W3Schools.com</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/HA6bByKdAQM?cc_load_policy=1&amp;rel=0" title="Video: HTML - Links - W3Schools.com (w3schools.com)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>w3schools.com</strong> · 3:27 · 276,152 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=HA6bByKdAQM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A concise official W3Schools tutorial introducing the HTML link, explaining what a hyperlink is and how the anchor element and its href attribute work. Given its length and beginner framing, it most likely demonstrates basic link syntax and may touch on link targets and absolute versus relative addresses. It serves as a quick reference-style overview rather than a deep dive.</p>
+<h3>Why this video</h3>
+<p>It comes from W3Schools, the reference many students already use for HTML syntax, so the terminology matches the documentation you will consult while coding. At under four minutes it is an efficient way to confirm the core anchor syntax before moving on to external-linking specifics.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: HTML Links 101: Build Powerful, SEO-Friendly Hyperlinks</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/sZKot68S0SA?cc_load_policy=1&amp;rel=0" title="Video: HTML Links 101: Build Powerful, SEO-Friendly Hyperlinks (williamsk)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>williamsk</strong> · 12:56 · 239 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=sZKot68S0SA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A longer walkthrough of HTML links and anchor tags that, per its description, covers clickable sections with smooth scrolling and styling links to look like buttons, with an emphasis on building SEO-friendly hyperlinks. The SEO angle suggests attention to descriptive link text and link attributes that search engines interpret, which overlaps with the rel attribute and communicating destinations to users. Expect practical demonstrations rather than formal specification reading.</p>
+<h3>Why this video</h3>
+<p>The focus on SEO-friendly, well-written hyperlinks reinforces the user-communication and rel-attribute subtopics, which pure syntax tutorials often skip. Its longer runtime allows more worked examples of writing link text that tells readers where a link goes.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Week 05 External and Internal Links</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/plEDEcpXHRg?cc_load_policy=1&amp;rel=0" title="Video: Week 05 External and Internal Links (Temple Chestnut)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Temple Chestnut</strong> · 16:26 · 390 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=plEDEcpXHRg" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A classroom-style lecture organized by a published table of contents: an introduction, the anchor element, external links, and internal links within the same directory. The explicit split between external and internal linking means you should see absolute URLs for off-site destinations contrasted directly with relative paths used inside your own project. The pacing is instructional, with time to explain why each form is used.</p>
+<h3>Why this video</h3>
+<p>It is the only video here that structures the material as external versus internal linking, which is exactly the distinction this topic rests on. Because it was produced for a course, the explanations are aimed at students building their own multi-page sites, matching the work you are doing in this module.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>These videos target MO3 most directly: together they establish the anchor element&#39;s syntax, the difference between absolute URLs for external destinations and relative paths for internal ones, and the attributes that shape how a link behaves and how it is described to users and search engines. The internal-link coverage in the course lecture also feeds MO4, since a consistent navigation menu is built from the same anchor element, and clear link text supports the accessibility expectations in MO1 and MO5. Use the module readings to fill the gap on target=&quot;_blank&quot; security and rel=&quot;noopener noreferrer&quot;, then apply all of it when you test every internal and external link in your finished site for MO5.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

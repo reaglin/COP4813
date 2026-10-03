@@ -1,0 +1,251 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>10 - Animation Techniques in the Browser</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+<style>section.merged-part{border-top:2px solid rgba(128,128,128,.3);margin-top:2rem;padding-top:.5rem}nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}nav.toc a{display:block;text-decoration:none;padding:.12rem 0}</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 10 - Animation Techniques in the Browser</a></div>
+<h1>10 - Animation Techniques in the Browser</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#part1">Introduction to Browser Animation</a>
+<a href="#part2">CSS Transitions</a>
+<a href="#part3">CSS Keyframe Animations</a>
+<a href="#part4">JavaScript-Driven Animation with requestAnimationFrame</a>
+<a href="#part5">Animation Performance and Best Practices</a>
+</nav>
+<section class="merged-part" id="part1">
+<h2>Introduction to Browser Animation</h2>
+<section class="item" id="p1-sec1">
+<h3>Introduction</h3>
+<p>Animation in the browser is the controlled change of visual properties over time: an element fades in, a menu slides open, a chart bar grows, a loading spinner rotates. Behind every one of these effects is the browser's rendering pipeline, which recalculates styles, lays out elements, paints pixels, and composites layers — ideally fast enough to produce a new frame roughly every 16.7 milliseconds (60 frames per second). Understanding that pipeline is what separates animation that feels polished from animation that stutters.</p>
+<p>Animation matters in this course because it is a user experience tool, not decoration. Motion communicates state changes, directs attention, confirms that an action registered, and makes transitions between views feel continuous rather than abrupt. Used carelessly, it does the opposite: it distracts, delays interaction, and drains battery on mobile devices.</p>
+<p>There are two primary approaches you will work with. CSS-based animation (transitions and @keyframes) is declarative — you describe the start and end states and let the browser handle the frames, often on the compositor thread for free performance. JavaScript-driven animation (typically using requestAnimationFrame) is imperative — you compute values frame by frame, which costs more but buys you control over physics, user input, and dynamic conditions. As you watch these videos, pay attention to three things: which properties are being animated, who is deciding the value of each frame, and what the speaker says about when to pick one approach over the other.</p>
+</section>
+<section class="item" id="p1-sec2">
+<h3>Video 1: Learn CSS Animations in 9 Minutes</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/z2LQYsZhsFw?cc_load_policy=1&amp;rel=0" title="Video: Learn CSS Animations in 9 Minutes (Coding2GO)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Coding2GO</strong> · 8:41 · 271,799 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=z2LQYsZhsFw" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A fast crash course on CSS animations that, based on its title and description, walks through the animation properties one at a time — things like duration, timing function, delay, iteration count, direction, and fill mode — and then applies them in a small loading animation project. The @keyframes rule and how it defines intermediate states should be central to the walkthrough. Expect a compressed, demo-driven format rather than deep theory.</p>
+<h4>Why this video</h4>
+<p>It gives you a concrete, property-by-property grounding in the CSS side of animation, which is the foundation for the rest of the module and directly supports the subtopic on CSS-based animation.</p>
+</section>
+<section class="item" id="p1-sec3">
+<h3>Video 2: CSS Animations &amp; Transitions - What You Need To Know in 6 Minutes</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/9A6XzkhkuGY?cc_load_policy=1&amp;rel=0" title="Video: CSS Animations &amp; Transitions - What You Need To Know in 6 Minutes (Academind)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Academind</strong> · 6:39 · 8,789 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=9A6XzkhkuGY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Academind's short overview focuses on the distinction between CSS transitions and CSS animations — when a simple state-to-state transition is enough versus when you need a multi-step keyframe animation. The description signals that transitions versus animations is a key point of the video. It is a quick conceptual framing rather than an exhaustive syntax reference.</p>
+<h4>Why this video</h4>
+<p>Academind is a well-established web development channel, and this video cleanly separates two CSS mechanisms that students frequently confuse, reinforcing the CSS-based animation overview subtopic.</p>
+</section>
+<section class="item" id="p1-sec4">
+<h3>Video 3: What's the difference between CSS animations and JavaScript animations? ft Bruno Simon | Prismic</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/dcuig9z5Muo?cc_load_policy=1&amp;rel=0" title="Video: What's the difference between CSS animations and JavaScript animations? ft Bruno Simon | Prismic (Prismic)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Prismic</strong> · 4:13 · 3,813 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=dcuig9z5Muo" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short interview-format video featuring Bruno Simon, known for creative web experiences, discussing how CSS animations differ from JavaScript animations. The timestamps show that nearly the entire four minutes is devoted to the comparison itself. Expect practitioner perspective on trade-offs and when each approach is the right tool.</p>
+<h4>Why this video</h4>
+<p>It speaks directly to the central subtopic of this page — the two primary approaches — and frames the choice as a practical engineering decision rather than a matter of preference.</p>
+</section>
+<section class="item" id="p1-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos build the conceptual base the module outcomes depend on. The Coding2GO and Academind videos supply the vocabulary and sub-properties needed for MO2 (duration, timing function, delay, iteration count, direction, fill mode) and clarify the transition-versus-keyframe distinction that MO1 asks you to make. The Prismic interview addresses the other half of MO1 by contrasting CSS with JavaScript-driven animation and the use cases each serves, setting up the requestAnimationFrame work in MO3. None of these short videos covers the rendering pipeline, composited properties, layout thrashing, or DevTools profiling in depth, so MO4 and MO5 will be developed through the module readings and hands-on profiling activities that follow.</p>
+</section>
+<section class="item" id="p1-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part2">
+<h2>CSS Transitions</h2>
+<section class="item" id="p2-sec1">
+<h3>Introduction</h3>
+<p>CSS transitions are the simplest way to make a web page feel alive. Instead of a property snapping instantly from one value to another when a state changes — for example on :hover, :focus, or when a class is added by JavaScript — a transition tells the browser to interpolate between the old and new values over a span of time. The result is motion that communicates change to the user without writing a single line of animation code.</p>
+<p>In this module you will work with the four sub-properties that control that motion: transition-property (which properties are allowed to animate), transition-duration (how long the change takes), transition-timing-function (the acceleration curve, such as ease, linear, ease-in-out, or a custom cubic-bezier), and transition-delay (how long to wait before starting). You will also use the transition shorthand to combine them, and you will learn that not every CSS property is transitionable or cheap to animate — properties like transform and opacity are handled by the compositor, while animating width, height, or top forces the browser to redo layout and paint work on every frame.</p>
+<p>As you watch the videos below, pay attention to three things: the exact syntax and ordering of values in the shorthand, where the transition declaration is placed (on the base state, not only on the hover state, so it applies in both directions), and any remarks about which properties are safe to animate. Keep a scratch HTML file open and reproduce each example yourself — transitions are far easier to understand by tweaking a duration or timing function and watching the difference than by reading about them.</p>
+</section>
+<section class="item" id="p2-sec2">
+<h3>Video 1: CSS Transition Property | Sigma Web Development Course - Tutorial #45</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/pHI4PBFM0wY?cc_load_policy=1&amp;rel=0" title="Video: CSS Transition Property | Sigma Web Development Course - Tutorial #45 (CodeWithHarry)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>CodeWithHarry</strong> · 13:33 · 352,552 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=pHI4PBFM0wY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A detailed tutorial lesson from CodeWithHarry's Sigma Web Development course that walks through the CSS transition property from the ground up. Based on its length and title, it should demonstrate the individual sub-properties — transition-property, transition-duration, transition-timing-function, and transition-delay — and then show how they are combined in the shorthand, with live code examples typically triggered by hover states.</p>
+<h4>Why this video</h4>
+<p>This is the most complete single walkthrough of the topic in the list and maps directly onto nearly every subtopic, making it a good primary video; CodeWithHarry is a well-established web development instructor who codes along in the browser so you can follow the syntax step by step.</p>
+</section>
+<section class="item" id="p2-sec3">
+<h3>Video 2: CSS Animations &amp; Transitions - What You Need To Know in 6 Minutes</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/9A6XzkhkuGY?cc_load_policy=1&amp;rel=0" title="Video: CSS Animations &amp; Transitions - What You Need To Know in 6 Minutes (Academind)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Academind</strong> · 6:39 · 8,789 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=9A6XzkhkuGY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A fast, condensed overview from Academind that contrasts CSS transitions with CSS keyframe animations and explains when each is the right tool. The description points to a comparison of transitions versus animations, so expect a summary of the core syntax rather than a line-by-line beginner tutorial.</p>
+<h4>Why this video</h4>
+<p>At under seven minutes it is an efficient review or preview, and its transitions-versus-animations framing is exactly the distinction this module asks you to make before you move on to @keyframes.</p>
+</section>
+<section class="item" id="p2-sec4">
+<h3>Video 3: Animate to "height: auto;" &amp; "display: none;" Using CSS Transitions</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/1VsMKz4Zweg?cc_load_policy=1&amp;rel=0" title="Video: Animate to &quot;height: auto;&quot; &amp; &quot;display: none;&quot; Using CSS Transitions (CSS Weekly)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>CSS Weekly</strong> · 10:14 · 16,552 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=1VsMKz4Zweg" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A focused, practical video from CSS Weekly on two classic transition problems: animating from height: 0 to height: auto, and transitioning elements that use display: none. It covers modern CSS approaches to these cases instead of the older hacks and workarounds developers have traditionally relied on.</p>
+<h4>Why this video</h4>
+<p>It shows you what transitions can and cannot interpolate by default — a real limitation you will hit in your own projects — and the discussion of layout-affecting properties like height connects directly to the performance considerations subtopic.</p>
+</section>
+<section class="item" id="p2-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos build the transition half of the module's learning outcomes. The CodeWithHarry tutorial gives you hands-on practice with duration, timing function, and delay so you can construct working transitions (MO2), while the Academind video draws the line between transition-based and keyframe-based CSS animation that MO1 asks you to articulate. The CSS Weekly video on height: auto and display: none exposes the limits of property interpolation and the cost of animating layout-affecting properties, which supports the performance analysis in MO4 and the property-selection best practices in MO5. The requestAnimationFrame material in MO3 is covered elsewhere in the module; use these videos to make sure you can reach for a CSS transition first whenever the browser can do the work for you.</p>
+</section>
+<section class="item" id="p2-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part3">
+<h2>CSS Keyframe Animations</h2>
+<section class="item" id="p3-sec1">
+<h3>Introduction</h3>
+<p>CSS keyframe animations let you describe a sequence of style changes over time without writing any JavaScript. You define the sequence once with the @keyframes rule — naming it and listing the states the element should pass through at 0%, 50%, 100%, or using the from and to shorthands — and then attach that named sequence to an element with the animation property. Unlike a transition, which only runs when a value changes, a keyframe animation can run on page load, repeat indefinitely, and move through many intermediate steps.</p>
+<p>In this course the keyframe animation is your main declarative animation tool, and the real learning is in the sub-properties that control how the sequence plays: animation-duration and animation-delay for timing, animation-timing-function for easing (including steps() for frame-by-frame effects), animation-iteration-count for repetition, animation-direction for normal, reverse, and alternate playback, animation-fill-mode for what styles apply before the animation starts and after it ends, and animation-play-state for pausing and resuming.</p>
+<p>As you watch, pay attention to three things. First, the exact syntax of a @keyframes block and how percentages map to points in the timeline. Second, how each sub-property changes the visible result — try predicting the outcome before the instructor shows it. Third, which CSS properties are being animated: properties like transform and opacity are cheap for the browser to animate, and that choice connects directly to the performance material later in this module.</p>
+</section>
+<section class="item" id="p3-sec2">
+<h3>Video 1: CSS Animations | Sigma Web Development Course - Tutorial #46</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/cDLVIoXW-OQ?cc_load_policy=1&amp;rel=0" title="Video: CSS Animations | Sigma Web Development Course - Tutorial #46 (CodeWithHarry)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>CodeWithHarry</strong> · 17:57 · 363,873 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=cDLVIoXW-OQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A tutorial-style walkthrough of CSS animations from the Sigma Web Development Course, covering how to write a @keyframes rule and then apply it to elements using the animation shorthand and its individual sub-properties. At roughly eighteen minutes it has room to demonstrate duration, delay, iteration count, direction, fill mode, and timing functions with worked examples in the browser. Expect live code edits where a change in a property is immediately reflected in the rendered result.</p>
+<h4>Why this video</h4>
+<p>CodeWithHarry is a widely followed web development channel, and this is the longest and most systematic of the three videos, so it is the best fit for covering the full list of animation sub-properties in this topic rather than just the basics.</p>
+</section>
+<section class="item" id="p3-sec3">
+<h3>Video 2: Learn CSS Animations in 9 Minutes</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/z2LQYsZhsFw?cc_load_policy=1&amp;rel=0" title="Video: Learn CSS Animations in 9 Minutes (Coding2GO)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Coding2GO</strong> · 8:41 · 271,799 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=z2LQYsZhsFw" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A fast-paced crash course that, according to its description, explains every animation property and ends with a small loading-animation project. In under nine minutes it moves through defining keyframes and setting duration, timing function, delay, iteration count, direction, fill mode, and play state. The loading spinner example shows how infinite iteration and a linear timing function combine in a practical component.</p>
+<h4>Why this video</h4>
+<p>It is an efficient review or preview of the same property set covered in the longer tutorial, and the loading-animation project gives you a concrete, reusable case where repetition and timing functions matter.</p>
+</section>
+<section class="item" id="p3-sec4">
+<h3>Video 3: CSS Keyframes Animation in React</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/R4gdC2jPqVM?cc_load_policy=1&amp;rel=0" title="Video: CSS Keyframes Animation in React (DesignCode)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>DesignCode</strong> · 12:35 · 8,932 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=R4gdC2jPqVM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A DesignCode tutorial that applies CSS keyframes inside a React project using styled-components, opening with an explanation of what CSS keyframes are before moving into the React-specific setup. It demonstrates how a keyframes definition is declared in JavaScript-backed styling and then referenced from a styled component's animation property. The animation concepts themselves — the keyframe steps and the animation sub-properties — are the same ones used in plain CSS.</p>
+<h4>Why this video</h4>
+<p>It extends the topic beyond a static stylesheet into a component-based workflow, which is useful for a web applications course, and it reinforces that @keyframes syntax carries over unchanged into modern front-end tooling.</p>
+</section>
+<section class="item" id="p3-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos target MO2 most directly: each one builds a @keyframes rule and then applies animation sub-properties such as duration, timing function, delay, iteration count, direction, and fill mode to an element. The CodeWithHarry and Coding2GO videos give you both a detailed and a condensed pass over the same property set, which helps you move from recognizing the syntax to choosing property values deliberately, while the DesignCode video shows the same technique inside a React component. By making clear what CSS alone can express declaratively, they also establish the baseline you need for MO1, where you decide when a keyframe animation suffices and when a requestAnimationFrame loop is the better tool, and they surface the property choices (transform, opacity) that the performance outcomes MO4 and MO5 build on.</p>
+</section>
+<section class="item" id="p3-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part4">
+<h2>JavaScript-Driven Animation with requestAnimationFrame</h2>
+<section class="item" id="p4-sec1">
+<h3>Introduction</h3>
+<p>CSS transitions and keyframe animations are excellent for declarative, predictable motion, but some animations need to be computed frame by frame — physics, collisions, values that depend on user input, or drawing on a canvas. That is where requestAnimationFrame (often shortened to rAF) comes in. It asks the browser to call a function just before the next repaint, so your updates land in step with the browser's own rendering cycle instead of fighting it.</p>
+<p>The core pattern is simple and worth memorizing: write a function that updates state and applies it to the DOM or canvas, then call requestAnimationFrame again from inside that function to schedule the next frame. The callback receives a high-resolution timestamp, which you use to compute elapsed time (delta time) so motion stays consistent regardless of the device's frame rate. Saving the ID returned by requestAnimationFrame lets you stop the loop later with cancelAnimationFrame — a detail many beginners skip and then wonder why animations keep running in the background.</p>
+<p>As you watch these videos, pay attention to four things: where the loop re-schedules itself, how time is handled, which properties are being changed each frame, and how the speaker contrasts rAF with setInterval or setTimeout. The timer-based approach can drift, fire while the tab is hidden, and produce frames the browser never paints; rAF avoids all three. Try pausing each video and rebuilding the loop yourself before watching the finished result.</p>
+</section>
+<section class="item" id="p4-sec2">
+<h3>Video 1: Javascript Animation using requestAnimationFrame</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/phP9xakjy00?cc_load_policy=1&amp;rel=0" title="Video: Javascript Animation using requestAnimationFrame (Mario Eraso)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Mario Eraso</strong> · 9:39 · 442 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=phP9xakjy00" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A focused walkthrough of animation fundamentals applied in plain JavaScript, using requestAnimationFrame to drive the motion of an example element. Expect to see the basic loop structure — an update function that recalculates position and then re-schedules itself for the next frame — along with how the changing values are written back to the page each tick.</p>
+<h4>Why this video</h4>
+<p>This is the most direct match for the core subtopics: what requestAnimationFrame is and how to build and run a basic animation loop, demonstrated at a pace short enough to follow along in your own editor.</p>
+</section>
+<section class="item" id="p4-sec3">
+<h3>Video 2: [Hype #6] The “FPS” Template — Frames Per Second &amp; JavaScript's requestAnimationFrame vs setInterval</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/eJJ-22f8YRI?cc_load_policy=1&amp;rel=0" title="Video: [Hype #6] The “FPS” Template — Frames Per Second &amp; JavaScript's requestAnimationFrame vs setInterval (Photics TV)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Photics TV</strong> · 12:08 · 1,249 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=eJJ-22f8YRI" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Built around a frames-per-second display template, this video makes frame timing visible and then compares requestAnimationFrame with setInterval head to head. Because it measures FPS on screen, it naturally touches on the timestamp and elapsed-time calculations that underlie smooth, frame-rate-independent motion.</p>
+<h4>Why this video</h4>
+<p>It addresses the performance-advantages and synchronization subtopics explicitly, and seeing an actual FPS counter react to each technique is far more convincing than reading a description of the difference.</p>
+</section>
+<section class="item" id="p4-sec4">
+<h3>Video 3: 2.1: Variables in p5.js (mouseX, mouseY) - p5.js Tutorial</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/7A5tKW9HGoM?cc_load_policy=1&amp;rel=0" title="Video: 2.1: Variables in p5.js (mouseX, mouseY) - p5.js Tutorial (The Coding Train)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>The Coding Train</strong> · 10:41 · 131,689 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=7A5tKW9HGoM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>From The Coding Train, this p5.js tutorial introduces variables alongside the setup() and draw() functions, using mouseX and mouseY as live, changing values. The draw() function is p5's wrapper around a requestAnimationFrame loop, so this is a gentle look at the same idea: state that changes every frame and is redrawn to a canvas.</p>
+<h4>Why this video</h4>
+<p>It is a clear, well-produced introduction to the mental model of a per-frame draw loop and canvas updates, which helps before you write the raw requestAnimationFrame version yourself — just remember p5 is hiding the rAF call for you.</p>
+</section>
+<section class="item" id="p4-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos target MO3 most directly: the first demonstrates constructing a requestAnimationFrame loop and updating element properties each frame, the second surfaces timestamp and frame-rate reasoning through an on-screen FPS counter, and the third builds intuition for per-frame canvas drawing and changing state. The rAF-versus-setInterval comparison supports MO1 and MO5 by showing concretely why a rendering-synchronized loop produces smoother results than timer-based animation, and it provides a frame-rate reference point you will use again in MO4 when profiling animations in Chrome DevTools. Note that cancelAnimationFrame and loop cancellation are only lightly implied here, so plan to practice stopping and restarting a loop in the module exercises.</p>
+</section>
+<section class="item" id="p4-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part5">
+<h2>Animation Performance and Best Practices</h2>
+<section class="item" id="p5-sec1">
+<h3>Introduction</h3>
+<p>Animation on the web looks simple from the outside — an element slides, fades, or spins — but underneath, the browser is doing a surprising amount of work on every single frame. To hit a smooth 60 frames per second, the browser has roughly 16 milliseconds to recalculate styles, lay out the page, paint pixels, and composite layers onto the screen. When your animation forces the browser to redo expensive stages of that pipeline too often, frames get dropped and the motion feels janky.</p>
+<p>This topic focuses on the performance side of animation: understanding the rendering pipeline (style, layout, paint, composite), knowing which properties the GPU can animate cheaply (transform and opacity) versus which trigger layout or paint, avoiding layout thrashing caused by interleaved DOM reads and writes, deciding when CSS animation is the better tool and when a JavaScript requestAnimationFrame loop is needed, and using Chrome DevTools to measure rather than guess.</p>
+<p>The two videos below approach this from different angles. The first builds background intuition about how a browser gets from a URL to rendered pixels, which is the context the rendering pipeline sits inside. The second is a practical refresher on CSS animation syntax and properties — useful because so many performance recommendations boil down to "let CSS and the compositor do the work when you can." As you watch, keep asking: which properties are being animated here, and which stages of the pipeline would they trigger?</p>
+</section>
+<section class="item" id="p5-sec2">
+<h3>Video 1: What happens when you type a URL into your browser?</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/AlkDbnbv7dk?cc_load_policy=1&amp;rel=0" title="Video: What happens when you type a URL into your browser? (ByteByteGo)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>ByteByteGo</strong> · 5:20 · 475,106 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=AlkDbnbv7dk" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short, animated explainer from ByteByteGo that walks through what happens after you type a URL and press Enter: DNS resolution, establishing a connection, the HTTP request and response, and the browser receiving and rendering the returned HTML. It is a high-level systems overview rather than a CSS tutorial, ending with the browser parsing the response and displaying the page.</p>
+<h4>Why this video</h4>
+<p>It gives you the end-to-end context in which the rendering pipeline operates, so that when we zoom in on style, layout, paint, and composite you understand where those steps sit in the browser's overall work. ByteByteGo is a well-known systems-design channel with clear, accurate visual explanations.</p>
+</section>
+<section class="item" id="p5-sec3">
+<h3>Video 2: Learn CSS Animations in 9 Minutes</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/z2LQYsZhsFw?cc_load_policy=1&amp;rel=0" title="Video: Learn CSS Animations in 9 Minutes (Coding2GO)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Coding2GO</strong> · 8:41 · 271,799 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=z2LQYsZhsFw" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A fast-paced crash course covering CSS animation properties — animation-name and @keyframes, duration, timing function, delay, iteration count, direction, and fill mode — demonstrated through a small loading-animation project. Expect concrete code examples showing how each sub-property changes the resulting motion.</p>
+<h4>Why this video</h4>
+<p>Fluency with CSS animation syntax is a prerequisite for the performance decisions in this topic: you cannot compare CSS versus JavaScript approaches or choose composited properties until you know what CSS can express. The project-based format makes the properties concrete rather than abstract.</p>
+</section>
+<section class="item" id="p5-sec4">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos support the module outcomes from two directions. The CSS animation crash course directly reinforces MO2 by demonstrating transition and @keyframes sub-properties such as duration, timing function, delay, iteration count, direction, and fill mode, and it gives you the CSS vocabulary needed to make the CSS-versus-JavaScript judgment calls in MO1 and MO5. The browser pipeline explainer supports MO4 by framing where rendering fits in the browser's overall work, which is the mental model you need before analyzing pipeline stages, identifying composited properties, and profiling in Chrome DevTools. Neither video substitutes for the hands-on requestAnimationFrame work in MO3 or the DevTools profiling exercises — those come from the module readings and labs — so treat these as background and syntax grounding rather than complete coverage.</p>
+</section>
+<section class="item" id="p5-sec5">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

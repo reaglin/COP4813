@@ -1,5 +1,10 @@
 ﻿[
   {
+    "title": "11 - Designing Mobile-Ready and Responsive Websites (module page)",
+    "href": "index.html",
+    "type": "Module page"
+  },
+  {
     "title": "11 - Designing Mobile-Ready and Responsive Websites \u2014 Topics \u0026 Learning Outcomes",
     "href": "topics-outcomes.html",
     "type": "Page"
@@ -45,8 +50,38 @@
     "type": "Content"
   },
   {
-    "title": "11 - Designing Mobile-Ready and Responsive Websites \u2014 Module Topics",
-    "href": "content/module_topics.html",
+    "title": "Introduction to Responsive Web Design",
+    "href": "content/Designing_Mobile_Ready_t1_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Fluid Grids and Flexible Layouts",
+    "href": "content/Designing_Mobile_Ready_t2_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Flexible Images and Media",
+    "href": "content/Designing_Mobile_Ready_t3_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "CSS Media Queries",
+    "href": "content/Designing_Mobile_Ready_t4_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Mobile-First Design Philosophy",
+    "href": "content/Designing_Mobile_Ready_t5_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "Viewport Configuration and Screen Sizes",
+    "href": "content/Designing_Mobile_Ready_t6_videos.html",
+    "type": "Content"
+  },
+  {
+    "title": "11 - Designing Mobile-Ready and Responsive Websites",
+    "href": "content/Designing_Mobile_Ready_videos_merged.html",
     "type": "Content"
   }
 ]

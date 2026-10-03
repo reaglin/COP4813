@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jQuery Events and Dynamic Interactivity</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 6 - External Libraries: jQuery, Bootstrap, and Plotting Tools</a></div>
+<h1>jQuery Events and Dynamic Interactivity</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: jQuery Crash Course Lesson #3 - Different Events &amp; Syntax</a>
+<a href="#sec3">Video 2: Changing One Thing vs Changing Multiple Things in DOM | jQuery Tutorial</a>
+<a href="#sec4">Video 3: JQuery Event | Draggable Element | Tutorial</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>A web page becomes an application the moment it responds to what the user does. jQuery&#39;s event system is the bridge between user actions — clicking a button, submitting a form, typing in a text field, dragging an element — and the DOM manipulation code you already know how to write. In this topic you will focus on .on(), jQuery&#39;s general-purpose method for binding handlers, along with the shorthand forms such as .click(), .submit(), and .keyup() that many tutorials still use.</p>
+<p>Two ideas deserve special attention. The first is the event object that jQuery passes into every handler: it carries information about what happened (which element, which key, where the pointer was) and gives you methods such as preventDefault() and stopPropagation() to control default browser behavior and bubbling. The second is event delegation — binding a handler to a stable parent element and letting it catch events from children that may not exist yet. Delegation is what makes interactivity work on rows, list items, or cards you generate dynamically after page load.</p>
+<p>As you watch the videos below, pay attention to three things: which event is being bound and with what syntax, what selector the handler uses to find the element it changes, and whether the code updates a single element or loops over many. Those same three questions will guide you when you write your own handlers for assignments in this course.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: jQuery Crash Course Lesson #3 - Different Events &amp; Syntax</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/z571qLMDt04?cc_load_policy=1&amp;rel=0" title="Video: jQuery Crash Course Lesson #3 - Different Events &amp; Syntax (Web Dev With Ron)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Web Dev With Ron</strong> · 8:07 · 68 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=z571qLMDt04" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>The third lesson in a short jQuery crash course, this video surveys the different events jQuery exposes and the syntax used to attach handlers to them. Based on its title and series position, expect coverage of common events such as click, hover, and keyboard or form events, along with the shorthand versus .on() ways of writing the same binding. It is a fast, example-driven tour rather than a deep dive into any one event.</p>
+<h3>Why this video</h3>
+<p>It directly addresses the binding-syntax and event-variety subtopics, giving you a compact reference for which event names exist and how the handler syntax is written.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Changing One Thing vs Changing Multiple Things in DOM | jQuery Tutorial</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/Ckjcrwi8ZlY?cc_load_policy=1&amp;rel=0" title="Video: Changing One Thing vs Changing Multiple Things in DOM | jQuery Tutorial (WebStylePress)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>WebStylePress</strong> · 4:48 · 110 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=Ckjcrwi8ZlY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>WebStylePress contrasts two situations that beginners often confuse: changing a single DOM element versus changing many elements at once. The description notes that these require different approaches, so expect discussion of how a jQuery selector may match one node or a whole collection, and how your code must account for that difference. This is the manipulation half of the event-plus-manipulation pattern you write inside every handler.</p>
+<h3>Why this video</h3>
+<p>Event handlers are only useful if the DOM code inside them targets the right elements, and this video sharpens exactly that judgment — a prerequisite for the common interaction patterns in this topic.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: JQuery Event | Draggable Element | Tutorial</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/k7nGnm_HO5w?cc_load_policy=1&amp;rel=0" title="Video: JQuery Event | Draggable Element | Tutorial (Code Next)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Code Next</strong> · 7:17 · 956 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=k7nGnm_HO5w" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>Reviewing this example a second time is worthwhile for the comparison it draws between the plug-in approach and hand-written event code. Watching how the manual version is assembled clarifies what a library like jQuery UI is doing on your behalf.</p>
+<h3>Why this video</h3>
+<p>It supports the module&#39;s broader theme of using external libraries deliberately, rather than treating them as magic.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>These videos concentrate on MO2: writing jQuery event handlers for click, form, keyboard, and pointer interactions that select and manipulate DOM elements dynamically. The crash-course lesson supplies the binding syntax and the range of available events, the WebStylePress video builds the selector judgment needed to change one element versus many inside a handler, and the draggable-element tutorial demonstrates a complete interaction pattern that relies on the event object and on sequencing multiple handlers. Together they prepare you to write the interactive behaviors required in the module project; the remaining outcomes on CDN loading, Bootstrap layout, Chart.js, and dependency conflicts are addressed by other resources in this module.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

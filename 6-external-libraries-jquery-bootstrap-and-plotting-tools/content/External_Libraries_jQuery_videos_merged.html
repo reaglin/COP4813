@@ -1,0 +1,350 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>6 - External Libraries: jQuery, Bootstrap, and Plotting Tools</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+<style>section.merged-part{border-top:2px solid rgba(128,128,128,.3);margin-top:2rem;padding-top:.5rem}nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}nav.toc a{display:block;text-decoration:none;padding:.12rem 0}</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 6 - External Libraries: jQuery, Bootstrap, and Plotting Tools</a></div>
+<h1>6 - External Libraries: jQuery, Bootstrap, and Plotting Tools</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#part1">Introduction to External Libraries and CDN Integration</a>
+<a href="#part2">jQuery Fundamentals and DOM Manipulation</a>
+<a href="#part3">jQuery Events and Dynamic Interactivity</a>
+<a href="#part4">Bootstrap Layout and the Responsive Grid System</a>
+<a href="#part5">Bootstrap UI Components and Styling</a>
+<a href="#part6">Data Visualization with Chart.js</a>
+<a href="#part7">Combining Libraries in a Complete Web Project</a>
+</nav>
+<section class="merged-part" id="part1">
+<h2>Introduction to External Libraries and CDN Integration</h2>
+<section class="item" id="p1-sec1">
+<h3>Introduction</h3>
+<p>Almost no modern web project is built entirely from scratch. Instead, developers pull in third-party external libraries — pre-written, tested bundles of JavaScript and CSS such as jQuery, Bootstrap, and Chart.js — so they can focus on their own application logic rather than reinventing common functionality. This topic introduces what those libraries are, where they live, and the two ways you can bring them into a page: downloading the files and hosting them yourself, or linking to a copy hosted on a Content Delivery Network (CDN).</p>
+<p>A CDN is a geographically distributed network of servers that stores copies of files close to the people requesting them. For this course, the practical payoff is simple: a single script tag or link tag pointing at a CDN URL gives your page a fully working library with no downloads, no file management, and often faster load times. You will also need to understand the details that make CDN links reliable in production — pinning a specific version number so your site does not break when the library updates, and using integrity (Subresource Integrity) attributes so the browser can verify the file has not been tampered with.</p>
+<p>As you watch, pay attention to two things. First, in the CDN videos, focus on the mechanics — edge servers, caching, origin servers, and latency — because that explains why a CDN link usually outperforms a file sitting on your own server. Second, in the jQuery video, notice how the library is introduced and loaded; that is the exact pattern you will repeat for Bootstrap's CSS link tag and Chart.js's script tag, and load order will matter once libraries depend on one another.</p>
+</section>
+<section class="item" id="p1-sec2">
+<h3>Video 1: What Is A CDN? How Does It Work?</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/RI9np1LWzqw?cc_load_policy=1&amp;rel=0" title="Video: What Is A CDN? How Does It Work? (ByteByteGo)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>ByteByteGo</strong> · 4:24 · 381,287 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=RI9np1LWzqw" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A concise, animated explainer from ByteByteGo covering what a Content Delivery Network is and how it works, including the role of edge servers, caching, and the origin server. Based on its title and framing within ByteByteGo's system design content, it likely walks through the request path from a user to the nearest edge location and why that reduces latency.</p>
+<h4>Why this video</h4>
+<p>It gives you the conceptual foundation behind the CDN subtopics in under five minutes, from a channel known for clear, accurate system-design explanations — ideal context for understanding why a CDN link beats local hosting.</p>
+</section>
+<section class="item" id="p1-sec3">
+<h3>Video 2: What Is jQuery? A Look At the Web’s Most-Used JavaScript Library</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/aN8V-Ah2y4Q?cc_load_policy=1&amp;rel=0" title="Video: What Is jQuery? A Look At the Web’s Most-Used JavaScript Library (Kinsta)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Kinsta</strong> · 12:54 · 38,139 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=aN8V-Ah2y4Q" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Kinsta's guide introduces jQuery as the web's most widely used JavaScript library, covering what it is, what problems it solves, and how it fits into a typical web page. As a thorough overview it is likely to touch on including the library in a project and demonstrate basic usage patterns that the rest of this module builds on.</p>
+<h4>Why this video</h4>
+<p>It puts a concrete face on the abstract idea of a "third-party external library," and it previews jQuery specifically — the first library you will load via CDN in this module.</p>
+</section>
+<section class="item" id="p1-sec4">
+<h3>Video 3: CDN - Content Delivery Network - Explained</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/nhhfSBm6v4A?cc_load_policy=1&amp;rel=0" title="Video: CDN - Content Delivery Network - Explained (PowerCert Animated Videos)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>PowerCert Animated Videos</strong> · 6:20 · 65,830 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=nhhfSBm6v4A" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>PowerCert's animated explainer defines a CDN and focuses on its main purpose: making websites load faster by serving content from servers physically closer to the visitor. Expect a visual walkthrough of distributed server locations, caching of static assets, and the performance and reliability benefits that result.</p>
+<h4>Why this video</h4>
+<p>It reinforces the CDN concept with a different visual approach and a slightly slower pace, directly supporting the "Benefits of Using a CDN Over Local File Hosting" subtopic for students who want the idea explained twice.</p>
+</section>
+<section class="item" id="p1-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos build the conceptual groundwork for MO1: before you can correctly load jQuery, Bootstrap, and Chart.js via script and link tags in the right order, you need to understand what an external library is and why CDN-hosted copies are the standard delivery mechanism. The two CDN explainers cover distribution, caching, and performance so that CDN URLs are not just strings you copy, and the jQuery overview previews the specific library behind MO2's event handling and DOM manipulation work. Understanding versioned CDN links and dependency loading also sets up MO5, where you will reason about combining multiple libraries without conflicts; the hands-on syntax for MO3 and MO4 is developed in the later topics of this module.</p>
+</section>
+<section class="item" id="p1-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part2">
+<h2>jQuery Fundamentals and DOM Manipulation</h2>
+<section class="item" id="p2-sec1">
+<h3>Introduction</h3>
+<p>jQuery is a JavaScript library built to make common browser tasks shorter and more consistent: finding elements on a page, changing their content or attributes, responding to user events, and adjusting styles or visibility. Although modern JavaScript now includes many of the features that originally made jQuery popular, you will still encounter it constantly in existing codebases, in tutorials, and as a dependency of other libraries — including older versions of Bootstrap. Knowing jQuery syntax means you can read and maintain that code as well as write it quickly yourself.</p>
+<p>In this course, jQuery is your entry point into working with external libraries. You will practice loading it from a CDN with a script tag, placing that tag in the right position relative to your own scripts, and then using the $ function to select elements with CSS-style selectors. From there, the same patterns carry over to Bootstrap and Chart.js later in the module: include the library, learn its core API, then use it to drive page behavior.</p>
+<p>As you watch the videos below, pay attention to three things. First, where the script tags go and what happens if the order is wrong. Second, the shape of a jQuery statement — selector, then method, then arguments — and how methods chain together. Third, the get-versus-set pattern: calling a method with no argument reads a value, while calling it with an argument writes one. Try typing the examples into a small HTML file yourself rather than only watching.</p>
+</section>
+<section class="item" id="p2-sec2">
+<h3>Video 1: jQuery Crash Course Lesson #1 - Intro &amp; Setup</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/HM6hIAyCcO4?cc_load_policy=1&amp;rel=0" title="Video: jQuery Crash Course Lesson #1 - Intro &amp; Setup (Web Dev With Ron)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Web Dev With Ron</strong> · 4:40 · 156 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=HM6hIAyCcO4" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>The opening lesson of a short jQuery crash course, covering what jQuery is and how to get it into a page before writing any code. Expect an introduction to the library's purpose and a walkthrough of setup, which typically means adding the jQuery script tag from a CDN (or a downloaded file) and confirming it loaded correctly.</p>
+<h4>Why this video</h4>
+<p>It maps directly to the first two subtopics — what jQuery is and why use it, and including jQuery via CDN — and at under five minutes it gives you the setup step you need before anything else in this topic will run.</p>
+</section>
+<section class="item" id="p2-sec3">
+<h3>Video 2: jQuery Crash Course Lesson #2 - Syntax</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/16M1EmhUKjg?cc_load_policy=1&amp;rel=0" title="Video: jQuery Crash Course Lesson #2 - Syntax (Web Dev With Ron)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Web Dev With Ron</strong> · 6:27 · 60 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=16M1EmhUKjg" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This lesson focuses on jQuery syntax, with timestamps indicating sections on the basic syntax pattern, jQuery selectors, and a further topic introduced near the end. You should see how the $ function wraps a selector string and how CSS-style selectors are used to target elements by tag, class, and id.</p>
+<h4>Why this video</h4>
+<p>Core syntax and element selection are the foundation of everything else in jQuery, and the chaptered structure lets you jump straight to the selector material when you are reviewing.</p>
+</section>
+<section class="item" id="p2-sec4">
+<h3>Video 3: jQuery Crash Course Lesson #6 - Html Get &amp; Set Methods</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/qzMnP_TPTGg?cc_load_policy=1&amp;rel=0" title="Video: jQuery Crash Course Lesson #6 - Html Get &amp; Set Methods (Web Dev With Ron)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Web Dev With Ron</strong> · 10:50 · 46 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=qzMnP_TPTGg" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>The sixth lesson in the same series, dealing with HTML get and set methods — the jQuery methods used to read and write element content. Expect demonstrations of how the same method behaves differently depending on whether you pass it an argument, and likely coverage of related content and attribute methods.</p>
+<h4>Why this video</h4>
+<p>It directly addresses the modifying content and attributes subtopic and makes the get/set convention explicit, which is a pattern that recurs across many jQuery methods you will use later.</p>
+</section>
+<section class="item" id="p2-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these three videos build the jQuery foundation the module depends on. The setup lesson supports MO1 by showing how a library is loaded into a page via a script tag, the same mechanism you will reuse for Bootstrap and Chart.js and the same reason load order matters when combining libraries (MO5). The syntax and selector lesson, plus the get and set methods lesson, supply the selection and manipulation half of MO2 — you will need both before you can attach meaningful click, submit, and keyboard handlers. Event handling, CSS and visibility methods, and DOM traversal are treated more fully in the course readings and lecture examples, so use these videos to get comfortable with the $ function and selectors first, then extend those same patterns to events and styling in your module assignment.</p>
+</section>
+<section class="item" id="p2-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part3">
+<h2>jQuery Events and Dynamic Interactivity</h2>
+<section class="item" id="p3-sec1">
+<h3>Introduction</h3>
+<p>A web page becomes an application the moment it responds to what the user does. jQuery's event system is the bridge between user actions — clicking a button, submitting a form, typing in a text field, dragging an element — and the DOM manipulation code you already know how to write. In this topic you will focus on .on(), jQuery's general-purpose method for binding handlers, along with the shorthand forms such as .click(), .submit(), and .keyup() that many tutorials still use.</p>
+<p>Two ideas deserve special attention. The first is the event object that jQuery passes into every handler: it carries information about what happened (which element, which key, where the pointer was) and gives you methods such as preventDefault() and stopPropagation() to control default browser behavior and bubbling. The second is event delegation — binding a handler to a stable parent element and letting it catch events from children that may not exist yet. Delegation is what makes interactivity work on rows, list items, or cards you generate dynamically after page load.</p>
+<p>As you watch the videos below, pay attention to three things: which event is being bound and with what syntax, what selector the handler uses to find the element it changes, and whether the code updates a single element or loops over many. Those same three questions will guide you when you write your own handlers for assignments in this course.</p>
+</section>
+<section class="item" id="p3-sec2">
+<h3>Video 1: jQuery Crash Course Lesson #3 - Different Events &amp; Syntax</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/z571qLMDt04?cc_load_policy=1&amp;rel=0" title="Video: jQuery Crash Course Lesson #3 - Different Events &amp; Syntax (Web Dev With Ron)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Web Dev With Ron</strong> · 8:07 · 68 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=z571qLMDt04" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>The third lesson in a short jQuery crash course, this video surveys the different events jQuery exposes and the syntax used to attach handlers to them. Based on its title and series position, expect coverage of common events such as click, hover, and keyboard or form events, along with the shorthand versus .on() ways of writing the same binding. It is a fast, example-driven tour rather than a deep dive into any one event.</p>
+<h4>Why this video</h4>
+<p>It directly addresses the binding-syntax and event-variety subtopics, giving you a compact reference for which event names exist and how the handler syntax is written.</p>
+</section>
+<section class="item" id="p3-sec3">
+<h3>Video 2: Changing One Thing vs Changing Multiple Things in DOM | jQuery Tutorial</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/Ckjcrwi8ZlY?cc_load_policy=1&amp;rel=0" title="Video: Changing One Thing vs Changing Multiple Things in DOM | jQuery Tutorial (WebStylePress)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>WebStylePress</strong> · 4:48 · 110 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=Ckjcrwi8ZlY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>WebStylePress contrasts two situations that beginners often confuse: changing a single DOM element versus changing many elements at once. The description notes that these require different approaches, so expect discussion of how a jQuery selector may match one node or a whole collection, and how your code must account for that difference. This is the manipulation half of the event-plus-manipulation pattern you write inside every handler.</p>
+<h4>Why this video</h4>
+<p>Event handlers are only useful if the DOM code inside them targets the right elements, and this video sharpens exactly that judgment — a prerequisite for the common interaction patterns in this topic.</p>
+</section>
+<section class="item" id="p3-sec4">
+<h3>Video 3: JQuery Event | Draggable Element | Tutorial</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/k7nGnm_HO5w?cc_load_policy=1&amp;rel=0" title="Video: JQuery Event | Draggable Element | Tutorial (Code Next)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Code Next</strong> · 7:17 · 956 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=k7nGnm_HO5w" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Reviewing this example a second time is worthwhile for the comparison it draws between the plug-in approach and hand-written event code. Watching how the manual version is assembled clarifies what a library like jQuery UI is doing on your behalf.</p>
+<h4>Why this video</h4>
+<p>It supports the module's broader theme of using external libraries deliberately, rather than treating them as magic.</p>
+</section>
+<section class="item" id="p3-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>These videos concentrate on MO2: writing jQuery event handlers for click, form, keyboard, and pointer interactions that select and manipulate DOM elements dynamically. The crash-course lesson supplies the binding syntax and the range of available events, the WebStylePress video builds the selector judgment needed to change one element versus many inside a handler, and the draggable-element tutorial demonstrates a complete interaction pattern that relies on the event object and on sequencing multiple handlers. Together they prepare you to write the interactive behaviors required in the module project; the remaining outcomes on CDN loading, Bootstrap layout, Chart.js, and dependency conflicts are addressed by other resources in this module.</p>
+</section>
+<section class="item" id="p3-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part4">
+<h2>Bootstrap Layout and the Responsive Grid System</h2>
+<section class="item" id="p4-sec1">
+<h3>Introduction</h3>
+<p>Bootstrap's grid system is the part of the framework you will use most often. It gives you a predictable way to divide a page into rows and columns so that content rearranges itself as the browser window — or the device — gets narrower or wider. The grid is built on a 12-column model: inside a row, you assign each column a number of the 12 available units, and Bootstrap handles the widths, the spacing, and the wrapping for you.</p>
+<p>Two ideas make the grid work. The first is mobile-first design: classes without a breakpoint apply at every size, and breakpoint classes such as col-sm, col-md, col-lg, and col-xl only take effect from that screen width upward. The second is structure: a container wraps your layout, rows live inside containers, and columns live inside rows. Getting that nesting right is what prevents the strange gutters and overflow problems beginners run into.</p>
+<p>As you watch these videos, pay attention to three things. Watch how the presenter resizes the browser to demonstrate a breakpoint taking effect — that is the fastest way to build intuition about tiers. Note the difference between a fixed-width container and container-fluid. And notice how column classes stack: giving one element both col-12 and col-md-6 means full width on phones and half width from medium screens up. Also look for offset and order utilities, and for examples where a row is placed inside a column to create nested grids.</p>
+</section>
+<section class="item" id="p4-sec2">
+<h3>Video 1: Bootstrap 5 Crash Course Tutorial #7 - Grid Layout</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/RCff34Xd5TA?cc_load_policy=1&amp;rel=0" title="Video: Bootstrap 5 Crash Course Tutorial #7 - Grid Layout (KenBroTech)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>KenBroTech</strong> · 17:35 · 648 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=RCff34Xd5TA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A focused lesson from a Bootstrap 5 crash course series that walks through the grid layout from the ground up. Based on its title and length, it should cover the container-row-column structure, how the 12 columns are divided among elements, and how breakpoint-specific column classes change the layout at different screen widths. Expect live coding and browser resizing to demonstrate the results.</p>
+<h4>Why this video</h4>
+<p>At roughly seventeen minutes it is the longest and most complete treatment of the grid here, and being part of a structured Bootstrap 5 series it introduces the concepts in a sensible order rather than as isolated tips.</p>
+</section>
+<section class="item" id="p4-sec3">
+<h3>Video 2: Bootstrap 5 - The container class and breakpoints</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/DYP-BFX8COY?cc_load_policy=1&amp;rel=0" title="Video: Bootstrap 5 - The container class and breakpoints (Emprinnos)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Emprinnos</strong> · 4:45 · 4,834 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=DYP-BFX8COY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short, targeted video on the container class and breakpoints in Bootstrap 5. It should explain what a container does as the outermost layout wrapper, how fixed containers differ from responsive and fluid variants, and what the breakpoint tiers (sm, md, lg, xl, xxl) correspond to in pixel widths.</p>
+<h4>Why this video</h4>
+<p>It directly addresses two subtopics — containers as the foundation of layout, and breakpoint classes and screen size tiers — in under five minutes, making it an efficient reference to rewatch when you are unsure which container or tier to use.</p>
+</section>
+<section class="item" id="p4-sec4">
+<h3>Video 3: Bootstrap #6: Responsive grid system with row and col in sm, md, lg screen size</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/08qtTrW66XQ?cc_load_policy=1&amp;rel=0" title="Video: Bootstrap #6: Responsive grid system with row and col in sm, md, lg screen size (Happy Full Stack Life)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Happy Full Stack Life</strong> · 10:01 · 244 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=08qtTrW66XQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video concentrates on building a responsive grid using row and col classes across the sm, md, and lg screen sizes. It should show how assigning different column widths at different tiers causes content to reflow, and demonstrate the resulting behavior as the viewport changes.</p>
+<h4>Why this video</h4>
+<p>It reinforces the mobile-first idea by example, showing the same markup behaving differently at each tier, which is the single concept students most often need to see more than once.</p>
+</section>
+<section class="item" id="p4-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>These three videos together support MO3 by covering the mechanics of Bootstrap's 12-column grid and breakpoint classes needed to build responsive, mobile-first layouts. The crash-course lesson supplies the overall container-row-column structure, the container-and-breakpoints video clarifies the wrapper and the screen-size tiers, and the row-and-col video demonstrates how the same markup adapts across sm, md, and lg widths. Note that this topic covers layout only — navbars, modals, and cards, along with the CDN loading practices in MO1, are addressed elsewhere in the module, and you should be able to apply the grid inside a page that already has Bootstrap's CSS linked correctly.</p>
+</section>
+<section class="item" id="p4-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part5">
+<h2>Bootstrap UI Components and Styling</h2>
+<section class="item" id="p5-sec1">
+<h3>Introduction</h3>
+<p>Bootstrap is a CSS framework that ships with pre-built, tested UI components — navigation bars, buttons, modal dialogs, cards — plus a large library of small utility classes for spacing, color, text alignment, display, and flexbox behavior. Instead of writing custom CSS for every element, you add class names to your HTML and Bootstrap supplies consistent, responsive styling. This is why Bootstrap remains one of the fastest ways to make a web application look professional without a dedicated designer.</p>
+<p>In this course, Bootstrap sits alongside jQuery and Chart.js as the presentation layer of your projects. A navbar gives your pages structure and navigation; cards organize repeated content such as records returned from a server; modals let you collect input or confirm an action without leaving the page; and utility classes let you fine-tune spacing and alignment so that components do not run together. Because Bootstrap's grid and components are mobile-first, the same markup adapts from a phone to a desktop display.</p>
+<p>As you watch the videos below, pay attention to the naming patterns rather than memorizing individual classes. Bootstrap class names follow a predictable structure — a property abbreviation, an optional side or breakpoint, and a size or color value — so once you understand the pattern you can read and write most utility classes from memory. Also notice which components depend on Bootstrap's JavaScript bundle (modals and collapsible navbars do) versus those that are purely CSS (buttons and cards), since that affects how you load the library via CDN.</p>
+</section>
+<section class="item" id="p5-sec2">
+<h3>Video 1: Bootstrap 5 Crash Course Tutorial #11 - Utility Classes</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/CiPkfsy2vnY?cc_load_policy=1&amp;rel=0" title="Video: Bootstrap 5 Crash Course Tutorial #11 - Utility Classes (KenBroTech)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>KenBroTech</strong> · 19:45 · 699 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=CiPkfsy2vnY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video surveys the broader Bootstrap 5 utility class system beyond spacing, likely covering helpers for text and background color, text alignment, borders, display, sizing, and flexbox positioning. It shows how combining several utility classes on one element can produce a finished layout without custom CSS.</p>
+<h4>Why this video</h4>
+<p>It rounds out the Bootstrap Utility Classes subtopic and gives you the vocabulary needed to customize and align the ready-made components you build, from the same instructor and series as the other two videos for consistent terminology.</p>
+</section>
+<section class="item" id="p5-sec3">
+<h3>Video 2: Bootstrap 5 Crash Course Tutorial #4 - Links and Buttons</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/3w2u8aEYDs4?cc_load_policy=1&amp;rel=0" title="Video: Bootstrap 5 Crash Course Tutorial #4 - Links and Buttons (KenBroTech)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>KenBroTech</strong> · 12:40 · 1,513 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=3w2u8aEYDs4" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video covers Bootstrap 5 links and buttons, including the button classes and the color variants such as primary, secondary, success, and danger. It should also demonstrate related options like outline buttons, button sizing, and the disabled or active states, and show how styling can be applied to anchor tags as well as button elements.</p>
+<h4>Why this video</h4>
+<p>Buttons are the single most reused Bootstrap component and the starting point for the framework's color and sizing conventions, so this video directly addresses the Bootstrap Button Styles subtopic and establishes naming patterns you will reuse in navbars, modals, and cards.</p>
+</section>
+<section class="item" id="p5-sec4">
+<h3>Video 3: Bootstrap 5 Crash Course Tutorial #5 - Margins and Paddings</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/ZKZmVIfP7vU?cc_load_policy=1&amp;rel=0" title="Video: Bootstrap 5 Crash Course Tutorial #5 - Margins and Paddings (KenBroTech)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>KenBroTech</strong> · 16:01 · 1,729 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=ZKZmVIfP7vU" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This lesson focuses on Bootstrap's margin and padding utilities — the m- and p- class families with their side indicators (t, b, s, e, x, y) and size scale. Expect demonstrations of how these classes replace hand-written CSS spacing rules and how auto margins can be used to position elements.</p>
+<h4>Why this video</h4>
+<p>Spacing utilities are the most frequently used part of the utility system and are essential for making navbars, cards, and grid columns sit correctly on the page, which supports both the utility classes and component integration subtopics.</p>
+</section>
+<section class="item" id="p5-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>These three videos concentrate on the styling and component layer described in MO3. The buttons lesson introduces Bootstrap's component class conventions and color system, while the spacing and general utility videos give you the tools to arrange and refine components — including navbars, modals, and cards — inside a responsive grid. Because all three come from the same Bootstrap 5 crash course, the class naming and syntax carry over consistently, which also reinforces MO1 when you load the Bootstrap CSS and JavaScript bundle by CDN in the correct order. Note that these videos do not cover navbars, modals, or cards directly, so plan to supplement them with the official Bootstrap 5 documentation and the module's assigned readings for those specific components.</p>
+</section>
+<section class="item" id="p5-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part6">
+<h2>Data Visualization with Chart.js</h2>
+<section class="item" id="p6-sec1">
+<h3>Introduction</h3>
+<p>Chart.js is a free, open-source JavaScript library that renders charts onto an HTML canvas element. Instead of hand-drawing graphics or generating images on the server, you include the library (most simply through a CDN script tag), place a canvas in your page, and then write a JavaScript configuration object that tells Chart.js the chart type, the labels and datasets, and any display options. The same basic pattern produces bar, line, and pie charts — only the type value and the shape of the data change.</p>
+<p>This topic matters in COP4813 because the data your applications collect is far more useful when users can see it. Chart.js pairs naturally with the other libraries in this module: Bootstrap can make a chart container responsive, jQuery or plain JavaScript can fetch data and update a chart in response to user events, and all three libraries must be loaded in a sensible order for the page to work.</p>
+<p>As you watch the videos below, pay attention to four recurring pieces: the script tag that loads Chart.js, the canvas element and its id, the call that creates a new Chart object bound to that canvas, and the structure of the data and options objects. Notice also where the chart's numbers come from — hard-coded arrays, a JSON file, or a server-side query — because the configuration code stays largely the same no matter the source.</p>
+</section>
+<section class="item" id="p6-sec2">
+<h3>Video 1: Create Dynamic Charts with JSON, JavaScript, and Chart.js</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/XPOSEf40SkQ?cc_load_policy=1&amp;rel=0" title="Video: Create Dynamic Charts with JSON, JavaScript, and Chart.js (Digital Fox)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Digital Fox</strong> · 9:50 · 28,380 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=XPOSEf40SkQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This tutorial walks through fetching data from a JSON file with JavaScript and feeding it into Chart.js to produce an interactive chart. Based on the title and description, it should cover loading the library, targeting a canvas element, and mapping the retrieved JSON values into the labels and datasets of a chart configuration. Expect to see the full path from raw data to a rendered, dynamic visualization.</p>
+<h4>Why this video</h4>
+<p>It connects Chart.js configuration to real data rather than fixed sample values, which is exactly the workflow you will need for a data-driven page, and it covers the canvas, CDN, and data-configuration subtopics in one short walkthrough.</p>
+</section>
+<section class="item" id="p6-sec3">
+<h3>Video 2: Responsive Sales &amp; Analytics Charts | Line, Bar, Multi-Line &amp; Pie Chart with Chart.js | HTML CSS JS</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/W1R0WsYw-KE?cc_load_policy=1&amp;rel=0" title="Video: Responsive Sales &amp; Analytics Charts | Line, Bar, Multi-Line &amp; Pie Chart with Chart.js | HTML CSS JS (Asicoder Projects)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Asicoder Projects</strong> · 6:08 · 106 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=W1R0WsYw-KE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This short project video builds a set of responsive analytics charts — line, bar, multi-line, and pie — using HTML, CSS, JavaScript, and Chart.js. It is likely to show how the chart type and dataset structure differ between each chart variety while the surrounding setup stays the same. It also demonstrates styling and layout choices that keep the charts readable on smaller screens.</p>
+<h4>Why this video</h4>
+<p>It is the most direct match for the bar, line, and pie subtopics, letting you compare several chart types side by side, and its responsive framing ties neatly back to the Bootstrap material in this module.</p>
+</section>
+<section class="item" id="p6-sec4">
+<h3>Video 3: How to Display MySQL Database Data in Chart.js Using PHP and JavaScript</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/herKZzGfEZY?cc_load_policy=1&amp;rel=0" title="Video: How to Display MySQL Database Data in Chart.js Using PHP and JavaScript (Digital Fox)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Digital Fox</strong> · 5:55 · 11,284 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=herKZzGfEZY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This tutorial demonstrates pulling records from a MySQL table with PHP and passing them to Chart.js so the chart updates from live database content. It should cover the server-side query, returning the data in a format JavaScript can consume, and then building the chart configuration from those values. The result is a chart that reflects whatever is currently stored in the database.</p>
+<h4>Why this video</h4>
+<p>It extends the same Chart.js patterns to a server-backed data source, which is a common requirement in internet programming projects, and it reinforces that the chart configuration object is independent of where the data originates.</p>
+</section>
+<section class="item" id="p6-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos support MO4 most directly: each one shows the canvas element, the Chart.js constructor, and the data and options objects needed to render bar, line, and pie charts, with the Asicoder project covering several chart types in a single build. The Digital Fox tutorials add practice supplying that configuration from JSON and from a PHP/MySQL back end, so you see how dynamic data flows into a chart. All three begin by loading Chart.js in the page, which reinforces the CDN integration and script load-order habits described in MO1, and the responsive chart layouts touch on the Bootstrap-style sizing concerns raised in MO3 and MO5.</p>
+</section>
+<section class="item" id="p6-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part7">
+<h2>Combining Libraries in a Complete Web Project</h2>
+<section class="item" id="p7-sec1">
+<h3>Introduction</h3>
+<p>Up to this point in the module you have practiced each external library on its own: jQuery for DOM manipulation and events, Bootstrap for responsive layout and components, and Chart.js for data visualization. This topic brings them together. A realistic web page rarely uses just one library — it uses a layout framework, a DOM/AJAX helper, and a charting tool all on the same page, each loaded from a CDN or a local file, each with its own dependencies and its own expectations about when it runs.</p>
+<p>The practical issues are mostly about order and structure. Scripts must load so that dependencies arrive before the code that uses them (jQuery before jQuery plugins, Bootstrap's JavaScript bundle after its dependencies, Chart.js before any chart-rendering code), initialization code should run after the DOM is ready, and the project folder itself should be organized so that CSS, JavaScript, vendor files, and markup stay separate and predictable. You also need to watch for conflicts: two libraries claiming the same global name, duplicate versions of jQuery, or a plugin written for an older version than the one you loaded.</p>
+<p>The videos below are walkthroughs of working projects rather than isolated feature demos. As you watch, pay attention to the head and footer of each page: which libraries are included, in what sequence, and from where. Notice how a jQuery event (a button click, a date selection, a form submit) triggers a request for data, and how that returned data is then handed to both a table and a chart. The third video steps back to the bigger picture of how front-end code fits with a backend and a database, which is the context in which these multi-library pages usually live.</p>
+</section>
+<section class="item" id="p7-sec2">
+<h3>Video 1: Date Range Filter in DataTables, Chart.js using Date Range Picker with PHP MySQL Ajax</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/o7eL8kZlOX0?cc_load_policy=1&amp;rel=0" title="Video: Date Range Filter in DataTables, Chart.js using Date Range Picker with PHP MySQL Ajax (Webslesson)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Webslesson</strong> · 16:50 · 21,235 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=o7eL8kZlOX0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This tutorial builds a date-range filter that drives both a DataTables table and a Chart.js chart, using a jQuery Date Range Picker widget with a PHP/MySQL backend and Ajax. Based on the title and description, it likely shows the full include list for jQuery, the picker plugin, DataTables and Chart.js, then wires a change event on the picker to an Ajax call that returns filtered data and refreshes both the table and the chart. Expect to see chart data being replaced and re-rendered rather than the page being reloaded.</p>
+<h4>Why this video</h4>
+<p>It is one of the few short tutorials that genuinely combines jQuery, a jQuery plugin, a styled table, and Chart.js on a single page, which is exactly the integration scenario this topic describes. Webslesson is a long-running channel focused on practical PHP and jQuery builds, so the walkthrough is code-first and shows the actual script tags and load order.</p>
+</section>
+<section class="item" id="p7-sec3">
+<h3>Video 2: School Fees Management System in PHP &amp; MySQL - Load User Data in jQuery Datatables - 5</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/iZcoGLeDjR8?cc_load_policy=1&amp;rel=0" title="Video: School Fees Management System in PHP &amp; MySQL - Load User Data in jQuery Datatables - 5 (Webslesson)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Webslesson</strong> · 17:46 · 2,233 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=iZcoGLeDjR8" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Part of a longer School Fees Management System series, this episode focuses on fetching user records from MySQL and loading them into a jQuery DataTables grid. From the title and description it should cover the server-side query, the Ajax request, and the jQuery initialization code that binds returned data to the table in a Bootstrap-styled page. It is a slice of a larger multi-page project rather than a standalone demo.</p>
+<h4>Why this video</h4>
+<p>Watching one episode of a larger build shows how library includes and initialization code are organized across a real project structure, which supports the planning and dependency-management subtopics. It also reinforces the jQuery side of the stack — selectors, document-ready initialization, and Ajax-driven DOM updates.</p>
+</section>
+<section class="item" id="p7-sec4">
+<h3>Video 3: Backend web development - a complete overview</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/XBu54nfzxAQ?cc_load_policy=1&amp;rel=0" title="Video: Backend web development - a complete overview (SuperSimpleDev)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>SuperSimpleDev</strong> · 12:58 · 2,933,135 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=XBu54nfzxAQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A high-level overview of backend web development: what a server does, common backend languages and frameworks, databases, APIs, and how the browser front end talks to all of it. It is conceptual rather than a coding walkthrough, with diagrams and plain explanations of the request-response cycle.</p>
+<h4>Why this video</h4>
+<p>It supplies the context that makes the other two videos readable — why pages fetch data over Ajax, where the data in a chart actually comes from, and how front-end libraries sit on top of a backend. SuperSimpleDev is a widely viewed, carefully explained channel, making this a good orientation piece before studying project-level integration.</p>
+</section>
+<section class="item" id="p7-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos reinforce the module outcomes in an applied setting. The first two show real pages that include jQuery, Bootstrap styling, plugins, and Chart.js from CDNs in a working sequence, which supports MO1 on correct include syntax and load order, and MO5 on managing several dependencies without conflicts. The jQuery event handling and Ajax-driven DOM updates in both Webslesson tutorials map to MO2, the Bootstrap-based page layouts around the tables and charts touch MO3, and the date-filtered chart that re-renders with new data addresses MO4. The backend overview rounds this out by explaining where the chart data originates, helping you reason about project structure and the division of work between browser and server.</p>
+</section>
+<section class="item" id="p7-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fetching JSON Data with the Fetch API</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 8 - Introduction to JSON and Using It in the Browser</a></div>
+<h1>Fetching JSON Data with the Fetch API</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Fetch API | JavaScript Tutorial in Hindi #66</a>
+<a href="#sec3">Video 2: Display JSON Data in HTML Table Using JavaScript</a>
+<a href="#sec4">Video 3: Error Handling: try and catch | JavaScript Tutorial in Hindi #60</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Most modern web applications do not ship all of their data inside the HTML page. Instead, the page loads first and then asks a server for data — usually formatted as JSON — and builds part of the interface from what comes back. The Fetch API is the standard, promise-based way to make that request from JavaScript in the browser. You call fetch() with a URL, receive a Response object, convert its body to a JavaScript object with .json(), and then do something useful with the result.</p>
+<p>This topic ties together the earlier parts of the module. Knowing JSON syntax and the difference between a JSON string and a JavaScript object matters precisely because fetch() hands you text that must be parsed before you can loop over it or read its properties. You also need to think about what happens when things go wrong: a server may be unreachable, a URL may be wrong, or a response may come back with a 404 or 500 status. Fetch does not reject on HTTP error statuses, so checking response.ok and wrapping await calls in try/catch are habits worth forming now.</p>
+<p>As you watch, pay attention to three things: the shape of a basic fetch chain (fetch, then .json(), then use the data), how the same logic reads when rewritten with async/await, and how the parsed data is iterated and inserted into the DOM. Try typing the examples yourself against a public test API rather than only watching — the timing and ordering of asynchronous code is much easier to understand once you have seen it run.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Fetch API | JavaScript Tutorial in Hindi #66</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/Atq7VjVbaA8?cc_load_policy=1&amp;rel=0" title="Video: Fetch API | JavaScript Tutorial in Hindi #66 (CodeWithHarry)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>CodeWithHarry</strong> · 12:31 · 510,699 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=Atq7VjVbaA8" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A tutorial walkthrough of the Fetch API in JavaScript, covering how to make a request and work with the promise-based response. Based on the title and series, it should demonstrate the fetch() call, chaining .then() handlers, and converting the response body into usable JavaScript data. A linked Replit is provided so you can run and modify the same code as the instructor.</p>
+<h3>Why this video</h3>
+<p>This is the core introductory video for the topic, covering the Fetch API basics and promise handling that the remaining subtopics build on, from a well-established JavaScript tutorial series with a runnable code environment.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Display JSON Data in HTML Table Using JavaScript</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/eS-FVnhjvEQ?cc_load_policy=1&amp;rel=0" title="Video: Display JSON Data in HTML Table Using JavaScript (Digital Fox)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Digital Fox</strong> · 4:27 · 112,873 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=eS-FVnhjvEQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short, focused demonstration of fetching data from a JSON file and rendering it as an HTML table with JavaScript. Per its description, it uses the fetch method to load the data and then builds table rows dynamically from the parsed result. Expect to see iteration over a JSON array and DOM insertion in a compact, end-to-end example.</p>
+<h3>Why this video</h3>
+<p>It directly addresses the &quot;displaying fetched JSON data in the browser&quot; subtopic, showing the practical payoff of fetching: turning parsed JSON into visible page content.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Error Handling: try and catch | JavaScript Tutorial in Hindi #60</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/WRNBQCl_cPU?cc_load_policy=1&amp;rel=0" title="Video: Error Handling: try and catch | JavaScript Tutorial in Hindi #60 (CodeWithHarry)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>CodeWithHarry</strong> · 12:15 · 187,289 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=WRNBQCl_cPU" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>An explanation of JavaScript error handling using try and catch blocks. It should cover how exceptions are thrown and caught, what the catch block receives, and how to keep a script running instead of failing silently or crashing. A companion Replit link is provided for hands-on practice.</p>
+<h3>Why this video</h3>
+<p>try/catch is the standard way to handle failures around await fetch(), so this video supplies the error-handling foundation needed for the &quot;handling errors in fetch requests&quot; subtopic.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos support MO3 and MO5 most directly: the Fetch API tutorial shows how to request and parse JSON from an external source, the try/catch video supplies the error-handling pattern needed to deal with network and HTTP failures gracefully, and the JSON-to-table demonstration shows how to iterate a JSON array and render it into the DOM. They also reinforce MO2, since every fetch example must convert a JSON response body into a native JavaScript object before the data can be used. Note that the videos focus on the modern promise-based approach; for MO4 you will need the module readings on XMLHttpRequest to make the comparison, and MO1&#39;s syntax rules come from the earlier JSON topics in this module.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>
